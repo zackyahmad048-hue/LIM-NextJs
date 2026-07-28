@@ -1,0 +1,73 @@
+"use client";
+
+import Image from "next/image";
+import { motion } from "motion/react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ShaderBackground } from "@/components/motion/shader-background";
+import LoginForm from "@/modules/authentication/presentation/login-form";
+
+export default function LoginPage() {
+  return (
+    <main className="relative flex min-h-screen min-w-full flex-col items-center justify-center px-4 py-10">
+      <div className="absolute inset-0">
+        <ShaderBackground
+          variant="mesh-gradient"
+          colors={["#0c0a09", "#1c1917", "#f97316", "#0c0a09"]}
+          speed={0.1}
+        />
+      </div>
+
+      <div className="relative z-10 w-full max-w-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.7,
+            type: "spring",
+            stiffness: 80,
+            damping: 20,
+          }}
+        >
+          <Card className="border-border bg-card/80 shadow-lg backdrop-blur-sm">
+            <CardContent className="p-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="mb-4 text-center"
+              >
+                <Image
+                  src="/images/orangelim.png"
+                  alt="Logo Lembaga Ittihadul Muballighin"
+                  width={52}
+                  height={52}
+                  priority
+                  className="mx-auto"
+                />
+
+                <h1 className="mt-3 text-2xl font-semibold tracking-tight text-card-foreground">
+                  Admin Gateway
+                </h1>
+
+                <p className="mt-1.5 text-xs text-muted-foreground">
+                  Lembaga Ittihadul Muballighin
+                </p>
+              </motion.div>
+
+              <LoginForm />
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-20 text-center text-sm text-muted-foreground"
+        >
+          © 2026 Sekretariat Lembaga Ittihadul Muballighin
+        </motion.p>
+      </div>
+    </main>
+  );
+}

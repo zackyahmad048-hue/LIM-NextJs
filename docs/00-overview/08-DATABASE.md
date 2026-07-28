@@ -1,0 +1,346 @@
+# DATABASE
+
+**Project:** LIM Digital Platform
+
+**Version:** 1.0
+
+**Status:** Approved
+
+**Document Type:** Database Specification
+
+---
+
+# Purpose
+
+Dokumen ini mendefinisikan standar database yang digunakan oleh LIM Digital Platform.
+
+Dokumen ini menjadi acuan dalam perancangan schema, relasi antar domain, migrasi, serta pengelolaan data.
+
+Detail tabel dan ERD dibahas pada dokumentasi `06-database`.
+
+---
+
+# Database Engine
+
+Platform menggunakan:
+
+* PostgreSQL
+
+ORM yang digunakan:
+
+* Prisma ORM
+
+---
+
+# Database Principles
+
+Seluruh database mengikuti prinsip berikut:
+
+* Single Source of Truth
+* Normalisasi data
+* Referential Integrity
+* Soft Delete
+* UUID sebagai Primary Key
+* Audit Ready
+* Migration Based
+
+---
+
+# Naming Convention
+
+## Table
+
+Menggunakan bentuk tunggal.
+
+Contoh:
+
+```text id="db01"
+user
+
+role
+
+permission
+
+program
+
+certificate
+```
+
+---
+
+## Column
+
+Menggunakan `camelCase`.
+
+Contoh:
+
+```text id="db02"
+createdAt
+
+updatedAt
+
+deletedAt
+
+publishedAt
+```
+
+---
+
+## Primary Key
+
+Seluruh tabel menggunakan:
+
+```text id="db03"
+id
+```
+
+Tipe:
+
+* UUID
+
+---
+
+## Foreign Key
+
+Penamaan mengikuti format:
+
+```text id="db04"
+userId
+
+roleId
+
+programId
+
+certificateId
+```
+
+---
+
+# Common Columns
+
+Seluruh tabel minimal memiliki:
+
+```text id="db05"
+id
+
+createdAt
+
+updatedAt
+```
+
+Jika diperlukan:
+
+```text id="db06"
+deletedAt
+
+createdBy
+
+updatedBy
+
+deletedBy
+```
+
+---
+
+# Soft Delete
+
+Penghapusan data menggunakan:
+
+```text id="db07"
+deletedAt
+```
+
+Data yang memiliki nilai `deletedAt` dianggap tidak aktif.
+
+---
+
+# Audit
+
+Perubahan penting dicatat melalui Audit Log.
+
+Audit Log menyimpan:
+
+* User
+* Modul
+* Aktivitas
+* Waktu
+* Ringkasan perubahan
+
+---
+
+# Domain Structure
+
+Database dibagi berdasarkan domain bisnis.
+
+* Authentication
+* Authorization
+* CMS
+* Organization
+* Program
+* Secretariat
+* Letter
+* Certificate
+* Knowledge
+* Falak
+* Media
+* Notification
+* Settings
+
+Masing-masing domain memiliki tabel sendiri dan hanya berinteraksi melalui relasi yang jelas.
+
+---
+
+# Relationship Rules
+
+Setiap relasi harus:
+
+* Memiliki Foreign Key.
+* Menggunakan constraint database.
+* Tidak membuat relasi melingkar yang tidak diperlukan.
+
+---
+
+# Data Integrity
+
+Database wajib menjaga:
+
+* Tidak ada data yatim (orphan data).
+* Foreign key selalu valid.
+* Nilai unik menggunakan Unique Constraint.
+* Data wajib mengikuti Business Rules.
+
+---
+
+# Indexing
+
+Index digunakan pada:
+
+* Primary Key
+* Foreign Key
+* Slug
+* Email
+* Nomor Surat
+* Nomor Sertifikat
+* Kolom yang sering digunakan untuk pencarian
+
+---
+
+# Migration
+
+Perubahan schema hanya dilakukan melalui Prisma Migration.
+
+Langkah perubahan:
+
+```text id="db08"
+Update Schema
+
+↓
+
+Generate Migration
+
+↓
+
+Review
+
+↓
+
+Deploy
+```
+
+Perubahan langsung pada database produksi tidak diperbolehkan.
+
+---
+
+# Seed
+
+Seeder digunakan untuk data awal.
+
+Contoh:
+
+* Role
+* Permission
+* Administrator
+* Settings
+* Master Data
+
+Seeder harus dapat dijalankan berulang tanpa menghasilkan data ganda.
+
+---
+
+# Backup
+
+Database wajib memiliki mekanisme:
+
+* Backup Harian
+* Backup Mingguan
+* Backup Bulanan
+
+Proses restore harus diuji secara berkala.
+
+---
+
+# Security
+
+Database harus:
+
+* Menggunakan koneksi terenkripsi.
+* Menyimpan secret melalui Environment Variables.
+* Tidak dapat diakses langsung oleh aplikasi selain melalui Prisma.
+
+---
+
+# Performance
+
+Standar minimum:
+
+* Query menggunakan index bila diperlukan.
+* Menghindari N+1 Query.
+* Pagination untuk data besar.
+* Optimasi relasi menggunakan Prisma.
+
+---
+
+# Future Scalability
+
+Database dirancang agar mendukung:
+
+* Multi Organization
+* Multi Language
+* Object Storage
+* Analytics
+* Background Jobs
+* Mobile Application
+* Public API
+
+Tanpa mengubah fondasi utama schema.
+
+---
+
+# Related Documentation
+
+Dokumen ini berkaitan dengan:
+
+* Business Rules
+* Architecture
+* Data Dictionary
+* ERD
+* API Documentation
+
+---
+
+# Governance
+
+Seluruh perubahan database harus:
+
+* Didokumentasikan.
+* Menggunakan Migration.
+* Ditinjau dampaknya terhadap domain lain.
+* Disetujui sebelum diterapkan.
+
+---
+
+# Closing
+
+Database merupakan fondasi seluruh LIM Digital Platform.
+
+Perubahan schema harus dilakukan secara terencana agar menjaga konsistensi data, performa, keamanan, dan kemudahan pengembangan dalam jangka panjang.
