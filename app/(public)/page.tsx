@@ -5,6 +5,7 @@ import { getHeroConfig } from "@/modules/cms/queries/hero.query";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const heroConfig = await getHeroConfig();
@@ -12,7 +13,7 @@ export default async function Home() {
   return (
     <>
       <HeroClient hero={heroConfig} />
-      <Suspense fallback={<Skeleton className="h-[600px] w-full rounded-none" />}>
+      <Suspense fallback={<Skeleton className="h-150 w-full rounded-none" />}>
         <About />
       </Suspense>
     </>
