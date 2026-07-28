@@ -3,28 +3,23 @@
   "description": "workspace check",
   "version": "0.1.0",
   "private": true,
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "postinstall": "prisma generate",
-
-  "start": "next start",
-  "lint": "eslint .",
-  "lint:fix": "eslint . --fix",
-  "typecheck": "tsc --noEmit",
-
-  "format": "prettier --write .",
-  "format:check": "prettier --check .",
-
-  "check": "npm run lint && npm run typecheck",
-
-  "prisma:generate": "prisma generate",
-  "prisma:migrate": "prisma migrate dev",
-  "prisma:studio": "prisma studio",
-  "db:push": "prisma db push",
-  "db:seed": "tsx prisma/seed.ts"
-},
-
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postinstall": "prisma generate",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run typecheck",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "@better-auth/prisma-adapter": "^1.6.23",
@@ -32,7 +27,7 @@
     "@lmstudio/sdk": "^1.5.0",
     "@paper-design/shaders-react": "^0.0.77",
     "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
+    "@prisma/client": "^7.9.1",
     "@shadcn/react": "^0.2.0",
     "@tanstack/react-table": "^8.21.3",
     "@tsparticles/react": "^4.3.2",
@@ -78,16 +73,17 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "prettier": "^3.9.5",
-    "prisma": "^7.8.0",
+    "prisma": "^7.9.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
   "allowScripts": {
     "@paper-design/shaders-react@0.3.3": true,
     "better-sqlite3@12.11.1": true,
-    "@prisma/engines@7.8.0": true,
-    "prisma@7.8.0": true,
     "sharp@0.34.5": true,
-    "unrs-resolver@1.12.2": true
+    "unrs-resolver@1.12.2": true,
+    "@prisma/engines@7.9.1": true,
+    "@tsparticles/engine@4.3.2": true,
+    "prisma@7.9.1": true
   }
 }
