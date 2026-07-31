@@ -301,13 +301,7 @@ Arah kiblat berdasarkan lokasi.
 
 ## Imsakiyah
 
-Jadwal imsak dan waktu ibadah selama Ramadan. Data diimpor dari Google Sheet ke PostgreSQL.
-
-- Tabel: `imsakiyah`
-- Impor: `npm run import:imsakiyah` (replace isi tabel) atau tombol "Import dari Google Sheets" di `/admin/falak/imsakiyah`. Koreksi data bergeser: `npm run repair:imsakiyah`.
-- Kolom utama: `gregorianDate`, `dayName`, `javaneseDay`, `ramadanDay`, `hijriDate`, `hijriMonth`, `hijriYear`, `province`, `city`, `latitude`, `longitude`, `elevation`, `googleMapsLink`, `imsak`, `subuh`, `terbit`, `dhuha`, `dzuhur`, `ashar`, `maghrib`, `isya`, `moonPhase`, `eclipseData`, `eclipseTime`, `hilalAltitude`.
-- Waktu shalat disimpan sebagai teks (`HH:MM`) untuk mempertahankan format sumber.
-- Akses: halaman publik `/falak/imsakiyah`, admin `/admin/falak/imsakiyah`, API `GET /api/v1/falak/imsakiyah?year=YYYY`.
+Jadwal imsak dan waktu ibadah selama Ramadan.
 
 ---
 

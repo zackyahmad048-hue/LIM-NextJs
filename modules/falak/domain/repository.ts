@@ -5,7 +5,6 @@ import type {
   FalakHisab as PrismaFalakHisab,
   FalakRukyat as PrismaFalakRukyat,
   FalakEclipse as PrismaFalakEclipse,
-  Imsakiyah as PrismaImsakiyah,
   PrayerMethod,
   ObservationStatus,
   RukyatResult,
@@ -115,10 +114,4 @@ export interface FalakEclipseRepository {
     visibility?: string;
     details?: unknown;
   }): Promise<PrismaFalakEclipse>;
-}
-
-export interface ImsakiyahRepository {
-  findAll(): Promise<PrismaImsakiyah[]>;
-  findByYear(year: number): Promise<PrismaImsakiyah[]>;
-  count(): Promise<number>;
 }

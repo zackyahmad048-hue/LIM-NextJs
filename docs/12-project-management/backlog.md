@@ -165,7 +165,7 @@ Dokumen ini berisi daftar backlog fitur LIM Digital Platform yang diurutkan berd
 | FL-003 | Qibla | High | 6h | - |
 | FL-004 | Astronomy | Medium | 8h | - |
 | FL-005 | Hilal | Medium | 6h | - |
-| FL-006 | Imsakiyah | Medium | 6h | Selesai — model `Imsakiyah`, impor dari Google Sheets (`import:imsakiyah` / tombol admin), halaman publik `/falak/imsakiyah`, admin, & API |
+| FL-006 | Imsakiyah | Medium | 6h | - |
 | FL-007 | Eclipse | Low | 4h | - |
 
 ---

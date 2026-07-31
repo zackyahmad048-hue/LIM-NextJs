@@ -6,7 +6,6 @@ import {
   falakHisabRepository,
   falakRukyatRepository,
   falakEclipseRepository,
-  imsakiyahRepository,
 } from "../infrastructure/repository";
 import { calculatePrayerTimes, calculateQibla as calcQibla } from "./engine/prayer-times";
 import { gregorianToHijri } from "./engine/hijri";
@@ -94,18 +93,6 @@ const getCachedEclipsePaginated = unstable_cache(
   async (page: number, limit: number, type: EclipseType | null) =>
     falakEclipseRepository.findPaginated({ page, limit, type: type ?? undefined }),
   ["falak", "eclipse-paginated"],
-  PUBLIC_CACHE_OPTIONS
-);
-
-const getCachedImsakiyahAll = unstable_cache(
-  async () => imsakiyahRepository.findAll(),
-  ["falak", "imsakiyah-all"],
-  PUBLIC_CACHE_OPTIONS
-);
-
-const getCachedImsakiyahByYear = unstable_cache(
-  async (year: number) => imsakiyahRepository.findByYear(year),
-  ["falak", "imsakiyah"],
   PUBLIC_CACHE_OPTIONS
 );
 
@@ -201,18 +188,6 @@ export class FalakService {
     details?: unknown;
   }) {
     return falakEclipseRepository.create(data);
-  }
-
-  async getImsakiyah() {
-    return getCachedImsakiyahAll();
-  }
-
-  async getImsakiyahByYear(year: number) {
-    return getCachedImsakiyahByYear(year);
-  }
-
-  async getImsakiyahCount() {
-    return imsakiyahRepository.count();
   }
 }
 

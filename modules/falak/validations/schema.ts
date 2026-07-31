@@ -48,14 +48,9 @@ export const eclipseInputSchema = z.object({
   details: z.record(z.string(), z.unknown()).optional(),
 });
 
-export const imsakiyahQuerySchema = z.object({
-  year: z.coerce.number().int().min(1900).max(2100).optional(),
-});
-
 export type PrayerTimeQuery = z.infer<typeof prayerTimeQuerySchema>;
 export type QiblaQuery = z.infer<typeof qiblaQuerySchema>;
 export type HijriQuery = z.infer<typeof hijriQuerySchema>;
 export type HisabInput = z.infer<typeof hisabInputSchema>;
 export type RukyatInput = z.infer<typeof rukyatInputSchema>;
 export type EclipseInput = z.infer<typeof eclipseInputSchema>;
-export type ImsakiyahQuery = z.infer<typeof imsakiyahQuerySchema>;

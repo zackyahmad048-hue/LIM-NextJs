@@ -110,11 +110,6 @@ const rawNav: (NavigationItem | false | undefined)[] = [
         icon: Eclipse,
         href: "/admin/falak/eclipse",
       },
-      {
-        title: "Imsakiyah",
-        icon: Moon,
-        href: "/admin/falak/imsakiyah",
-      },
     ],
   },
 

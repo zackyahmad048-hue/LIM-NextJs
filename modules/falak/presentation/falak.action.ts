@@ -1,19 +1,9 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { requireSession } from "@/modules/shared/infrastructure/require-session";
 import { falakService } from "@/modules/falak/application/service";
-import { importImsakiyahFromSheet } from "@/modules/falak/application/import-imsakiyah";
-import type { ImsakiyahImportResult } from "@/modules/falak/application/import-imsakiyah";
 import { hisabInputSchema, rukyatInputSchema, eclipseInputSchema } from "@/modules/falak/validations/schema";
-
-export async function importImsakiyah(): Promise<ImsakiyahImportResult> {
-  await requireSession();
-  const result = await importImsakiyahFromSheet();
-  revalidatePath("/admin/falak/imsakiyah");
-  revalidateTag("falak", "max");
-  return result;
-}
 
 export async function createHisab(input: {
   calculationDate: Date;

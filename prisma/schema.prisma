@@ -419,41 +419,6 @@ model FalakEclipse {
   @@map("falak_eclipse")
 }
 
-model Imsakiyah {
-  id             String   @id @default(cuid())
-  no             Int
-  gregorianDate  DateTime
-  dayName        String
-  javaneseDay    String
-  ramadanDay     Int
-  hijriDate      Int
-  hijriMonth     String
-  hijriYear      String
-  province       String
-  city           String
-  latitude       Float
-  longitude      Float
-  elevation      Float?
-  googleMapsLink String?
-  imsak          String
-  subuh          String
-  terbit         String
-  dhuha          String
-  dzuhur         String
-  ashar          String
-  maghrib        String
-  isya           String
-  moonPhase      String?
-  eclipseData    String?
-  eclipseTime    String?
-  hilalAltitude  String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@index([gregorianDate])
-  @@map("imsakiyah")
-}
-
 model Program {
   id                String        @id @default(cuid())
   code              String        @unique

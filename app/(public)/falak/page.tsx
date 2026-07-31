@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clock, Compass, Calendar, Calculator, Moon } from "lucide-react";
+import { Clock, Compass, Calendar, Calculator } from "lucide-react";
 import SectionHeading from "@/components/shared/section-heading";
 
 const features = [
@@ -27,12 +27,6 @@ const features = [
     icon: Calculator,
     href: "/falak/hisab-rukyat",
   },
-  {
-    title: "Jadwal Imsakiyah",
-    description: "Jadwal imsakiyah Ramadan beserta fase bulan dan hisab hilal.",
-    icon: Moon,
-    href: "/falak/imsakiyah",
-  },
 ];
 
 export default function FalakPage() {
@@ -44,7 +38,7 @@ export default function FalakPage() {
         description="Akses layanan falak: jadwal shalat, arah kiblat, kalender Hijriah, dan data hisab rukyat."
       />
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((feature) => {
           const Icon = feature.icon;
           return (
