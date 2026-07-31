@@ -21,6 +21,7 @@ import {
   ClipboardList,
   UserPlus,
   Mail,
+  Moon,
 } from "lucide-react";
 
 import type { NavigationItem } from "@/types/navigation";
@@ -108,6 +109,11 @@ const rawNav: (NavigationItem | false | undefined)[] = [
         title: "Eclipse",
         icon: Eclipse,
         href: "/admin/falak/eclipse",
+      },
+      {
+        title: "Imsakiyah",
+        icon: Moon,
+        href: "/admin/falak/imsakiyah",
       },
     ],
   },

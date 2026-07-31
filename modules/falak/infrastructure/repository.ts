@@ -15,6 +15,7 @@ import type {
   FalakHisabRepository,
   FalakRukyatRepository,
   FalakEclipseRepository,
+  ImsakiyahRepository,
 } from "../domain/repository";
 import type { PrayerMethod, ObservationStatus, EclipseType, HijriMethod } from "../domain/types";
 
@@ -279,6 +280,25 @@ export class PrismaFalakEclipseRepository extends BaseRepository implements Fala
   }
 }
 
+export class PrismaImsakiyahRepository extends BaseRepository implements ImsakiyahRepository {
+  async findAll() {
+    return this.db.imsakiyah.findMany({ orderBy: { gregorianDate: "asc" } });
+  }
+
+  async findByYear(year: number) {
+    const start = new Date(Date.UTC(year, 0, 1));
+    const end = new Date(Date.UTC(year, 11, 31, 23, 59, 59, 999));
+    return this.db.imsakiyah.findMany({
+      where: { gregorianDate: { gte: start, lte: end } },
+      orderBy: { gregorianDate: "asc" },
+    });
+  }
+
+  async count() {
+    return this.db.imsakiyah.count();
+  }
+}
+
 export const prismaFalakPrayerTimeRepository = new PrismaFalakPrayerTimeRepository();
 export const prismaFalakQiblaRepository = new PrismaFalakQiblaRepository();
 export const prismaFalakHijriCalendarRepository = new PrismaFalakHijriCalendarRepository();
@@ -289,6 +309,11 @@ export const prismaFalakEclipseRepository = new PrismaFalakEclipseRepository();
 export const falakHisabRepository = prismaFalakHisabRepository;
 
 const useSheets = process.env.DATA_SOURCE === "sheets";
+
+// Imsakiyah selalu berbasis PostgreSQL — datanya diisi lewat import dari
+// Google Sheets (npm run import:imsakiyah / aksi admin), bukan dibaca langsung
+// dari sheet.
+export const imsakiyahRepository: ImsakiyahRepository = new PrismaImsakiyahRepository();
 
 export const falakPrayerTimeRepository: FalakPrayerTimeRepository = useSheets
   ? new SheetsFalakPrayerTimeRepository()

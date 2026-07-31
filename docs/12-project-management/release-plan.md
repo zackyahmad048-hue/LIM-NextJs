@@ -217,6 +217,7 @@ Development -> Staging -> Production
 - [ ] Prayer time akurat.
 - [ ] Kalender Hijri berfungsi.
 - [ ] Arah kiblat akurat.
+- [x] Jadwal Imsakiyah tersaji (impor dari Google Sheets, halaman publik & admin).
 
 **Rollback Plan:**
 - Revert ke v0.7.0.

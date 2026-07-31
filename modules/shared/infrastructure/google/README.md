@@ -29,6 +29,7 @@ Aturan:
   - `sheets` → semua pendataan sekretariat & falak dibaca/ditulis ke Google Sheets.
   - `postgres` (default bila tidak diisi) → fallback ke Prisma/PostgreSQL.
 - Hisab falak selalu di PostgreSQL (tidak ikut switch).
+- **Imsakiyah** selalu di PostgreSQL — datanya diisi lewat impor dari Google Sheet (`npm run import:imsakiyah`, atau tombol di `/admin/falak/imsakiyah`), bukan dibaca langsung dari sheet.
 - Data publik falak di-cache server (`unstable_cache`, tag `falak`, revalidate 3600s).
 
 ## Setup
@@ -68,11 +69,20 @@ GOOGLE_DOC_TEMPLATE_SURAT_KELUAR_ID="<id template doc surat keluar>"
 GOOGLE_DOC_TEMPLATE_DOK_ADMIN_ID="<id template doc dokumen administrasi>"
 ```
 
+Alias lama (tetap didukung, khusus untuk setup & impor Imsakiyah):
+
+```env
+GOOGLE_CLIENT_EMAIL="nama@project.iam.gserviceaccount.com"
+GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+GOOGLE_SHEET_ID="<id spreadsheet imsakiyah>"
+```
+
 Catatan:
 
 - ID spreadsheet/doc = bagian dari URL (`https://docs.google.com/spreadsheets/d/<ID>/...`).
 - Private key: salin dari file JSON service account; pastikan `\n` tersimpan literal `\n` (bukan newline asli).
 - Tanpa kredensial, aplikasi tetap berjalan memakai PostgreSQL (`DATA_SOURCE` kosong → postgres).
+- Imsakiyah: `GOOGLE_SHEET_ID` (atau `GOOGLE_SPREADSHEET_FALAK_ID`) menunjuk ke sheet jadwal imsakiyah; impor lewat `npm run import:imsakiyah` atau aksi admin.
 
 ## Format Nilai di Sheets
 

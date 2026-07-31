@@ -32,6 +32,7 @@ async function main() {
 
     let shifted = 0;
     let geofixed = 0;
+    let elevationFixed = 0;
 
     for (const row of rows) {
       const needsShift = TIME_RE.test(row.moonPhase ?? "");
@@ -61,6 +62,14 @@ async function main() {
         });
         geofixed++;
       }
+
+      if (row.elevation !== null && (row.elevation < -500 || row.elevation > 10000)) {
+        await prisma.imsakiyah.update({
+          where: { id: row.id },
+          data: { elevation: null },
+        });
+        elevationFixed++;
+      }
     }
 
     const sample = await prisma.imsakiyah.findMany({
@@ -83,7 +92,7 @@ async function main() {
         eclipseTime: true,
       },
     });
-    console.log(`Selesai: ${shifted} baris di-shift, ${geofixed} baris diperbaiki koordinatnya.`);
+    console.log(`Selesai: ${shifted} baris di-shift, ${geofixed} baris diperbaiki koordinatnya, ${elevationFixed} baris elevasi di-null-kan.`);
     console.log(JSON.stringify(sample, null, 2));
   } finally {
     await prisma.$disconnect();
