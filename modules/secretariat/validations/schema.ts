@@ -9,10 +9,13 @@ export const dispositionStatusEnum = z.enum(["PENDING", "IN_PROGRESS", "COMPLETE
 export const administrativeDocumentStatusEnum = z.enum(["DRAFT", "SUBMITTED", "APPROVED", "REJECTED", "ARCHIVED"]);
 
 export const documentTypeEnum = z.enum([
-  "SURAT_KETERANGAN",
-  "SURAT_TUGAS",
-  "SURAT_KEPUTUSAN",
-  "SURAT_UNDANGAN",
+  "UNDANGAN",
+  "PERMOHONAN",
+  "PEMBERITAHUAN",
+  "INSTRUKSI",
+  "KETERANGAN",
+  "KEPUTUSAN",
+  "TERIMA_KASIH",
   "LAINNYA",
 ]);
 
@@ -52,20 +55,18 @@ export const updateIncomingMailSchema = createIncomingMailBase.partial().refine(
 export const createOutgoingMailBase = z.object({
   registrationNumber: z
     .string()
-    .min(1, "Nomor registrasi wajib diisi.")
-    .max(50, "Nomor registrasi maksimal 50 karakter."),
-  recipient: z
-    .string()
-    .min(1, "Penerima wajib diisi.")
-    .max(255, "Nama penerima maksimal 255 karakter."),
+    .min(1, "Nomor surat wajib diisi.")
+    .max(50, "Nomor surat maksimal 50 karakter."),
+  mailDate: z.string().min(1, "Tanggal surat wajib diisi."),
   subject: z
     .string()
-    .min(1, "Perihal wajib diisi.")
-    .max(500, "Perihal maksimal 500 karakter."),
+    .min(1, "Perihal surat wajib diisi.")
+    .max(500, "Perihal surat maksimal 500 karakter."),
+  content: z.string().max(10000, "Isi surat maksimal 10000 karakter.").optional().or(z.literal("")),
+  documentType: documentTypeEnum.optional().or(z.literal("")),
+  recipient: z.string().max(255, "Nama penerima maksimal 255 karakter.").optional().or(z.literal("")),
   senderName: z.string().max(255, "Nama pengirim maksimal 255 karakter.").optional().or(z.literal("")),
-  mailDate: z.string().min(1, "Tanggal surat wajib diisi."),
   documentNumber: z.string().max(50, "Nomor dokumen maksimal 50 karakter.").optional().or(z.literal("")),
-  documentType: documentTypeEnum.optional(),
   attachmentUrl: z.string().optional().or(z.literal("")),
 });
 

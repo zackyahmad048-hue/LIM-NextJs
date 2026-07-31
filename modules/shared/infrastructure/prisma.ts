@@ -1,11 +1,14 @@
 import "dotenv/config";
-
-import { PrismaPg } from "@prisma/adapter-pg";
+import { neonConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaClient } from "@/generated/client";
+import ws from "ws";
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
-});
+neonConfig.webSocketConstructor = ws;
+neonConfig.poolQuerySeconds = 30;
+
+const connectionString = process.env.DATABASE_URL!;
+const adapter = new PrismaNeon({ connectionString });
 
 declare global {
   var prisma: PrismaClient | undefined;

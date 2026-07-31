@@ -1,7 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { secretariatService } from "../application/service";
+import type { DocumentType } from "@/generated/client";
 import {
   createIncomingMailSchema,
   updateIncomingMailSchema,
@@ -95,19 +97,22 @@ export async function createOutgoingMail(formData: FormData) {
   try {
     await secretariatService.createOutgoingMail({
       registrationNumber: parsed.data.registrationNumber,
-      recipient: parsed.data.recipient,
+      recipient: parsed.data.recipient || null,
       subject: parsed.data.subject,
       senderName: parsed.data.senderName || null,
       mailDate: new Date(parsed.data.mailDate),
       documentNumber: parsed.data.documentNumber || null,
-      documentType: parsed.data.documentType ?? null,
+      documentType: (parsed.data.documentType || null) as DocumentType | null,
+      content: parsed.data.content || null,
       attachmentUrl: parsed.data.attachmentUrl || null,
     });
-    revalidatePath("/admin/secretariat/outgoing-mails");
+    revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch (e) {
     if (e instanceof DuplicateNumberError) return;
+    console.error("[createOutgoingMail]", e);
     return;
   }
+  redirect("/admin/secretariat/outgoing-mail/list");
 }
 
 export async function updateOutgoingMail(id: string, formData: FormData) {
@@ -120,14 +125,15 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
     if (parsed.data.registrationNumber) data.registrationNumber = parsed.data.registrationNumber;
     if (parsed.data.recipient) data.recipient = parsed.data.recipient;
     if (parsed.data.subject) data.subject = parsed.data.subject;
+    if (parsed.data.content !== undefined) data.content = parsed.data.content || null;
     if (parsed.data.senderName !== undefined) data.senderName = parsed.data.senderName || null;
     if (parsed.data.mailDate) data.mailDate = new Date(parsed.data.mailDate);
     if (parsed.data.documentNumber !== undefined) data.documentNumber = parsed.data.documentNumber || null;
-    if (parsed.data.documentType !== undefined) data.documentType = parsed.data.documentType ?? null;
+    if (parsed.data.documentType !== undefined) data.documentType = (parsed.data.documentType || null) as DocumentType | null;
     if (parsed.data.attachmentUrl !== undefined) data.attachmentUrl = parsed.data.attachmentUrl || null;
 
     await secretariatService.updateOutgoingMail(id, data);
-    revalidatePath("/admin/secretariat/outgoing-mails");
+    revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch (e) {
     if (e instanceof SecretariatError) return;
     return;
@@ -137,7 +143,7 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
 export async function deleteOutgoingMail(id: string) {
   try {
     await secretariatService.deleteOutgoingMail(id);
-    revalidatePath("/admin/secretariat/outgoing-mails");
+    revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch {
     return;
   }
@@ -146,7 +152,7 @@ export async function deleteOutgoingMail(id: string) {
 export async function transitionOutgoingMailStatus(id: string, status: string) {
   try {
     await secretariatService.transitionOutgoingMailStatus(id, status as any);
-    revalidatePath("/admin/secretariat/outgoing-mails");
+    revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch {
     return;
   }

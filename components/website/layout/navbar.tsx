@@ -84,7 +84,7 @@ export default function Navbar() {
             </button>
 
             {profilOpen && (
-              <div className="absolute left-0 top-full z-50 mt-0.5 w-56 rounded-lg border border-orange-100 bg-white p-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-900">
+              <div className="absolute left-0 top-full z-50 mt-0.5 w-56 rounded-lg border border-orange-100 bg-white/85 p-1.5 shadow-lg backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/85">
                 {profilChildren.map((item) => (
                   <Link
                     key={item.href}
@@ -111,7 +111,7 @@ export default function Navbar() {
                   </button>
 
                   {bidangOpen && (
-                    <div className="absolute left-full top-0 z-50 ml-0.5 w-56 rounded-lg border border-orange-100 bg-white p-1.5 shadow-lg dark:border-slate-700 dark:bg-slate-900">
+                    <div className="absolute left-full top-0 z-50 ml-0.5 w-56 rounded-lg border border-orange-100 bg-white/85 p-1.5 shadow-lg backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/85">
                       {bidangItems.map((item) => (
                         <Link
                           key={item.href}
@@ -167,7 +167,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-orange-100 bg-white dark:border-slate-800 dark:bg-slate-950 lg:hidden">
+        <div className="border-t border-orange-100 bg-white/85 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/85 lg:hidden">
           <nav className="flex flex-col p-3">
             {menus.slice(0, 1).map((menu) => (
               <Link

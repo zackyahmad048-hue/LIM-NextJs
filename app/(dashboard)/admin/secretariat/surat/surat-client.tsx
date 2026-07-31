@@ -185,10 +185,10 @@ export function SuratPageClient({
           label: "Penerima",
           render: (item: SuratKeluar) => (
             <div className="max-w-[200px]">
-              <p className="truncate text-sm font-medium">{item.recipient}</p>
+              <p className="truncate text-sm font-medium">{item.recipient || "-"}</p>
               {item.senderName && (
                 <p className="truncate text-xs text-muted-foreground">
-                  Oleh: {item.senderName}
+                  {item.senderName}
                 </p>
               )}
             </div>

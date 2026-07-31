@@ -21,7 +21,7 @@ export default function RootLayout({
       className="h-full font-sans antialiased"
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors">
+      <body className="min-h-full flex flex-col bg-background/55 text-foreground transition-colors">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
           <Toaster richColors position="top-right" closeButton />

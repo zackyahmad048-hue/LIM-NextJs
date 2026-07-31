@@ -11,7 +11,7 @@ export function Sidebar() {
 
   return (
     <aside
-      className={`sticky top-0 flex h-screen flex-col border-r bg-background transition-all duration-300 ${
+      className={`sticky top-0 flex h-screen flex-col border-r border-border/60 bg-background/50 backdrop-blur-2xl transition-all duration-300 ${
         collapsed ? "w-16" : "w-56"
       }`}
     >

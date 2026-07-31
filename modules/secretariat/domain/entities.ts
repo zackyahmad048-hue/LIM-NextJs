@@ -26,13 +26,14 @@ export interface IncomingMailEntity {
 export interface OutgoingMailEntity {
   id: string;
   registrationNumber: string;
-  recipient: string;
+  recipient: string | null;
   subject: string;
   senderName: string | null;
   mailDate: Date;
   status: OutgoingMailStatus;
   documentNumber: string | null;
   documentType: DocumentType | null;
+  content: string | null;
   approvedById: string | null;
   approvedAt: Date | null;
   attachmentUrl: string | null;

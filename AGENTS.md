@@ -6,65 +6,69 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Project Overview
 
-Indonesian organizational website with admin CMS. Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Prisma (PostgreSQL on Neon) + Better Auth.
+Indonesian organizational platform ("LIM Digital Platform"): public website + admin CMS. Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Prisma 7 (PostgreSQL on Neon, driver adapters) + Better Auth. UI copy and route slugs are in Indonesian (e.g. `/profil`, `/artikel`, `/falak`).
 
 ## Commands
 
 ```bash
-npm run dev          # Start dev server (localhost:3000)
-npm run check        # lint + typecheck (run before commits)
+npm run dev          # Dev server (localhost:3000)
+npm run check        # lint + typecheck — the verification gate (no test suite exists)
+npm run build        # prisma generate && next build (deploy regenerates the client)
 npm run format       # Prettier write
 npm run format:check # Prettier check only
 
-# Prisma (run after schema changes)
 npm run prisma:generate  # Regenerate client → ../generated/client
 npm run prisma:migrate   # Create & apply migration
 npm run db:push          # Push schema without migration
 npm run db:seed          # Run tsx prisma/seed.ts
+npm run prisma:studio    # DB browser
 ```
 
 ## Architecture
 
 ```
-app/                    # Next.js App Router pages
-  (auth)/               # Auth routes (login, register)
-  (dashboard)/admin/    # Admin CMS (protected by session check)
-  (public)/             # Public website pages
-  api/auth/             # Better Auth API catch-all route
-modules/                # Domain modules (DDD-style)
-  authentication/       # Login, register, session, Better Auth config
-  authorization/        # Roles & permissions
-  cms/                  # Posts, categories, media, hero content
-  dashboard/            # Dashboard queries
-  media/                # Media repository
-  settings/             # Settings repository
-  shared/               # Prisma client, base entities, utilities
-components/
-  ui/                   # shadcn/ui primitives (radix-maia style)
-  admin/                # Admin layout, sidebar, data-table, nav
-  website/              # Public site components (hero, navbar, footer)
-  motion/               # Animation components (motion library)
-config/                 # App config, navigation, roles, permissions
-actions/                # Server actions (create-admin)
-prisma/                 # schema.prisma, migrations, seed.ts
-generated/client/       # Auto-generated Prisma client (do not edit)
+app/                       # App Router
+  (public)/                # Website (Indonesian routes)
+  (dashboard)/admin/       # Admin CMS; layout redirects to /admin/login if no session
+  (auth)/admin/            # admin/login, admin/setup (bootstrap admin)
+  api/auth/                # Better Auth catch-all route
+  api/v1/falak/            # Public REST routes (prayer-times, qibla, hijri-calendar, rukyat, hisab, eclipse)
+modules/                   # DDD modules — each has an index.ts barrel exporting its public API
+  authentication/  authorization/  cms/  dashboard/  falak/
+  media/  program/  secretariat/  settings/  shared/
+  # domain/          entities + repository interfaces
+  # infrastructure/  Prisma repository impls
+  # application/     services (business rules)
+  # presentation/    server actions (*.action.ts)
+  # queries/         read-model queries (delegate to repositories)
+  # validations/     zod schemas
+components/                # ui/ (shadcn primitives), admin/, website/, motion/
+config/                    # app, site, navigation, roles, permissions, hero, feature
+actions/                   # create-admin.ts
+prisma/                    # schema.prisma, migrations, seed.ts
+generated/client/          # Auto-generated Prisma client (gitignored)
+docs/                      # Master docs (Indonesian); docs/README.md is the map
 ```
 
 ## Key Conventions
 
-- **Import alias**: `@/*` → project root (e.g., `@/modules/...`, `@/components/...`)
-- **Prisma client**: Import from `@/generated/client` (custom output path in schema)
-- **Module structure**: Each module has `domain/`, `infrastructure/`, `application/`, `presentation/` layers
-- **shadcn/ui**: Uses `radix-maia` style, components in `components/ui/`, configured in `components.json`
-- **Auth**: Better Auth with Prisma adapter, session checked in admin layout via `getSession()`
-- **Database**: PostgreSQL (Neon). `.env` contains `DATABASE_URL` — never commit secrets
-- **Dark mode**: Tailwind `class` strategy, toggled via `next-themes`
-- **UI**: Prefer Server Components. Use `"use client"` only when needed (interactivity, hooks)
+- **Import alias**: `@/*` → project root
+- **Prisma client**: Prisma 7 (`provider = "prisma-client"`) emits to `../generated` — import from `@/generated/client`
+- **Single PrismaClient**: instantiated in `modules/shared/infrastructure/prisma.ts` with the `PrismaNeon` driver adapter. The schema has NO `url` — adapters supply the connection. Never create another `PrismaClient`.
+- **Data access**: Prisma is only touched in `infrastructure/` repositories; `presentation/*.action.ts` → `application/` services + `queries/`, which delegate to repositories. Business rules live in services.
+- **Auth**: Better Auth (`modules/authentication/infrastructure/better-auth.ts`); check sessions with `getSession()` from `session.helper.ts`. `requireSession()` throws `"UNAUTHORIZED"` if missing.
+- **shadcn/ui**: `radix-maia` style (components.json), Tailwind v4 via PostCSS plugin
+- **UI**: Server Components by default; `"use client"` only for interactivity
+- **Dark mode**: Tailwind `class` strategy via `next-themes`
+- **Docs-first**: `docs/` is the approved source of truth (architecture, business rules, DB). Read the relevant spec before major feature work; keep docs in Indonesian.
 
 ## Gotchas
 
-- Prisma generates to `../generated/client` (not default location) — always import from `@/generated/client`
-- Admin routes redirect to `/admin/login` if no session — test auth flows carefully
-- `tailwind.config.ts` and `postcss.config.mjs` both exist — Tailwind v4 uses PostCSS plugin
+- `generated/` is gitignored — run `npm run prisma:generate` (or `npm install`, which postinstalls it) after a fresh clone or schema change
+- `build` runs `prisma generate` first; Vercel deploys depend on it
+- `.env.example` is stale: it shows a SQLite `file:...` URL, but the schema is PostgreSQL/Neon. Set a real Neon `DATABASE_URL` in `.env`
+- Neon driver needs `ws` — `neonConfig.webSocketConstructor = ws` is already wired in `prisma.ts`
+- `tailwind.config.ts` AND `postcss.config.mjs` both exist (Tailwind v4 uses the PostCSS plugin)
+- No `.prettierrc` (Prettier defaults); no test framework configured; husky/commitlint/lint-staged installed but unconfigured (no hooks)
 - ESLint ignores `.next/`, `out/`, `build/`, `next-env.d.ts`
-- No `.prettierrc` — Prettier uses defaults
+- `docs/` describes 14 domains, but only the modules above are implemented — organization, knowledge, certificate, notification are spec/roadmap-only (letter lives in `modules/secretariat`)

@@ -28,7 +28,7 @@ export default function LoginPage() {
             damping: 20,
           }}
         >
-          <Card className="border-border bg-card/80 shadow-lg backdrop-blur-sm">
+          <Card className="border-border bg-card/70 shadow-xl backdrop-blur-xl">
             <CardContent className="p-6">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

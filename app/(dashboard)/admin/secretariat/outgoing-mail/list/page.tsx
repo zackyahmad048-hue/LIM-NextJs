@@ -68,9 +68,9 @@ export default async function OutgoingMailListPage({
             label: "Penerima",
             render: (item) => (
               <div className="max-w-[200px]">
-                <p className="truncate text-sm font-medium">{item.recipient}</p>
+                <p className="truncate text-sm font-medium">{item.recipient || "-"}</p>
                 {item.senderName && (
-                  <p className="truncate text-xs text-muted-foreground">Oleh: {item.senderName}</p>
+                  <p className="truncate text-xs text-muted-foreground">{item.senderName}</p>
                 )}
               </div>
             ),
