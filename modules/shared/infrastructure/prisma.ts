@@ -5,7 +5,6 @@ import { PrismaClient } from "@/generated/client";
 import ws from "ws";
 
 neonConfig.webSocketConstructor = ws;
-neonConfig.poolQuerySeconds = 30;
 
 const connectionString = process.env.DATABASE_URL!;
 const adapter = new PrismaNeon({ connectionString });
