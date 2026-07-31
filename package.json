@@ -18,7 +18,10 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "setup:google": "node scripts/setup-google.mjs",
+    "import:imsakiyah": "tsx scripts/import-imsakiyah.ts",
+    "repair:imsakiyah": "tsx scripts/repair-imsakiyah.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -81,6 +84,7 @@
     "prettier": "^3.9.5",
     "prisma": "^7.9.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   },
   "allowScripts": {
