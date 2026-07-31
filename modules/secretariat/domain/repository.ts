@@ -113,4 +113,8 @@ export interface SecretariatRepository {
     pendingDispositions: number;
     totalAdministrativeDocuments: number;
   }>;
+
+  countIncomingMailsByStatus(): Promise<{ received: number; processed: number; archived: number }>;
+
+  countOutgoingMailsByStatus(): Promise<{ draft: number; approved: number; sent: number; archived: number }>;
 }

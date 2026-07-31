@@ -21,7 +21,7 @@ export default async function SuratPage({
       initialTab={tab}
       masukItems={masuk.items}
       masukTotal={masuk.total}
-      keluarItems={keluar.items}
+      keluarItems={keluar.items.map((item) => ({ ...item, recipient: item.recipient ?? "" }))}
       keluarTotal={keluar.total}
       search={search}
     />

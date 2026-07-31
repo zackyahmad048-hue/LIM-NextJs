@@ -44,6 +44,13 @@ export default async function CetakOutgoingMailPage({
           {mail.registrationNumber} &middot; {statusLabels[mail.status] ?? mail.status}
         </p>
         <div className="flex gap-2">
+          {mail.googleDocUrl && (
+            <Button asChild size="sm" variant="outline">
+              <a href={mail.googleDocUrl} target="_blank" rel="noopener noreferrer">
+                Buka di Google Docs
+              </a>
+            </Button>
+          )}
           <Button size="sm" onClick={() => window.print()}>
             <Printer className="size-3.5" />
             Cetak / PDF

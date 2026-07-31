@@ -557,6 +557,8 @@ model OutgoingMail {
   approvedById       String?
   approvedAt         DateTime?
   attachmentUrl      String?
+  googleDocId        String?
+  googleDocUrl       String?
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   deletedAt          DateTime?
@@ -598,6 +600,8 @@ model AdministrativeDocument {
   submittedAt      DateTime?
   approvedById     String?
   approvedAt       DateTime?
+  googleDocId      String?
+  googleDocUrl     String?
   createdAt        DateTime                    @default(now())
   updatedAt        DateTime                    @updatedAt
   deletedAt        DateTime?

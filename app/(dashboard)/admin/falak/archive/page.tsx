@@ -3,7 +3,8 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getRukyatByStatus } from "@/modules/falak/queries/rukyat.query";
+import { falakHisabRepository } from "@/modules/falak/infrastructure/repository";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {
@@ -14,17 +15,11 @@ function formatDate(date: Date) {
 }
 
 export default async function FalakArchivePage() {
-  const [archivedRukyat, archivedHisab] = await Promise.all([
-    prisma.falakRukyat.findMany({
-      where: { status: "ARCHIVED" },
-      orderBy: { observationDate: "desc" },
-      take: 50,
-    }),
-    prisma.falakHisab.findMany({
-      orderBy: { calculationDate: "desc" },
-      take: 50,
-    }),
+  const [archivedRukyat, hisabResult] = await Promise.all([
+    getRukyatByStatus("ARCHIVED"),
+    falakHisabRepository.findPaginated({ page: 1, limit: 50 }),
   ]);
+  const archivedHisab = hisabResult.items;
 
   return (
     <PageContainer>

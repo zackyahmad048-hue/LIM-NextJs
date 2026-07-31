@@ -15,6 +15,8 @@ import type {
 export interface FalakPrayerTimeRepository {
   findToday(latitude: number, longitude: number, method: PrayerMethod): Promise<PrismaFalakPrayerTime | null>;
   findByDateRange(latitude: number, longitude: number, method: PrayerMethod, start: Date, end: Date): Promise<PrismaFalakPrayerTime[]>;
+  findRecent(latitude: number, longitude: number, method: PrayerMethod, take?: number): Promise<PrismaFalakPrayerTime[]>;
+  findAllByCoordinate(latitude: number, longitude: number, method: PrayerMethod): Promise<PrismaFalakPrayerTime[]>;
   create(data: {
     locationName: string;
     latitude: number;
@@ -42,6 +44,7 @@ export interface FalakQiblaRepository {
 
 export interface FalakHijriCalendarRepository {
   findByGregorian(date: Date, method: HijriMethod): Promise<PrismaFalakHijriCalendar | null>;
+  findByHijri(year: number, month: number, method: HijriMethod): Promise<PrismaFalakHijriCalendar[]>;
   create(data: {
     gregorianDate: Date;
     hijriYear: number;
@@ -78,6 +81,8 @@ export interface FalakRukyatRepository {
     search?: string;
     status?: ObservationStatus;
   }): Promise<{ items: PrismaFalakRukyat[]; total: number }>;
+  findByStatus(status: ObservationStatus, take?: number): Promise<PrismaFalakRukyat[]>;
+  findAll(take?: number): Promise<PrismaFalakRukyat[]>;
   create(data: {
     observationDate: Date;
     locationName: string;
@@ -96,6 +101,8 @@ export interface FalakRukyatRepository {
 
 export interface FalakEclipseRepository {
   findUpcoming(): Promise<PrismaFalakEclipse[]>;
+  findPast(take?: number): Promise<PrismaFalakEclipse[]>;
+  findById(id: string): Promise<PrismaFalakEclipse | null>;
   findPaginated(params: {
     page: number;
     limit: number;

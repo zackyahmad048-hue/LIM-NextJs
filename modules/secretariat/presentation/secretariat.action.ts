@@ -158,6 +158,15 @@ export async function transitionOutgoingMailStatus(id: string, status: string) {
   }
 }
 
+export async function generateOutgoingMailDocument(id: string) {
+  try {
+    await secretariatService.generateOutgoingMailDocument(id);
+  } catch (e) {
+    console.error("[generateOutgoingMailDocument]", e);
+  }
+  revalidatePath("/admin/secretariat/outgoing-mail/list");
+}
+
 export async function createDisposition(formData: FormData) {
   const raw = Object.fromEntries(formData);
   const parsed = createDispositionSchema.safeParse(raw);
@@ -275,4 +284,13 @@ export async function transitionAdministrativeDocumentStatus(id: string, status:
   } catch {
     return;
   }
+}
+
+export async function generateAdministrativeDocument(id: string) {
+  try {
+    await secretariatService.generateAdministrativeDocument(id);
+  } catch (e) {
+    console.error("[generateAdministrativeDocument]", e);
+  }
+  revalidatePath("/admin/secretariat/document/list");
 }

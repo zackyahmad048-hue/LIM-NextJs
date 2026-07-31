@@ -1,6 +1,13 @@
 import { Prisma } from "@/generated/client";
 
 import { BaseRepository } from "@/modules/shared/infrastructure/base.repository";
+import {
+  SheetsFalakEclipseRepository,
+  SheetsFalakHijriCalendarRepository,
+  SheetsFalakPrayerTimeRepository,
+  SheetsFalakQiblaRepository,
+  SheetsFalakRukyatRepository,
+} from "./repository.sheets";
 import type {
   FalakPrayerTimeRepository,
   FalakQiblaRepository,
@@ -38,6 +45,21 @@ export class PrismaFalakPrayerTimeRepository extends BaseRepository implements F
     });
   }
 
+  async findRecent(latitude: number, longitude: number, method: PrayerMethod, take = 7) {
+    return this.db.falakPrayerTime.findMany({
+      where: { latitude, longitude, calculationMethod: method },
+      orderBy: { prayerDate: "desc" },
+      take,
+    });
+  }
+
+  async findAllByCoordinate(latitude: number, longitude: number, method: PrayerMethod) {
+    return this.db.falakPrayerTime.findMany({
+      where: { latitude, longitude, calculationMethod: method },
+      orderBy: { prayerDate: "desc" },
+    });
+  }
+
   async create(data: {
     locationName: string;
     latitude: number;
@@ -72,6 +94,13 @@ export class PrismaFalakHijriCalendarRepository extends BaseRepository implement
   async findByGregorian(date: Date, method: HijriMethod) {
     return this.db.falakHijriCalendar.findFirst({
       where: { gregorianDate: date, method },
+    });
+  }
+
+  async findByHijri(year: number, month: number, method: HijriMethod) {
+    return this.db.falakHijriCalendar.findMany({
+      where: { hijriYear: year, hijriMonth: month, method },
+      orderBy: { hijriDay: "asc" },
     });
   }
 
@@ -154,6 +183,21 @@ export class PrismaFalakRukyatRepository extends BaseRepository implements Falak
     return { items, total };
   }
 
+  async findByStatus(status: ObservationStatus, take = 50) {
+    return this.db.falakRukyat.findMany({
+      where: { status },
+      orderBy: { observationDate: "desc" },
+      take,
+    });
+  }
+
+  async findAll(take = 50) {
+    return this.db.falakRukyat.findMany({
+      orderBy: { observationDate: "desc" },
+      take,
+    });
+  }
+
   async create(data: {
     observationDate: Date;
     locationName: string;
@@ -193,6 +237,18 @@ export class PrismaFalakEclipseRepository extends BaseRepository implements Fala
     });
   }
 
+  async findPast(take = 10) {
+    return this.db.falakEclipse.findMany({
+      where: { eclipseDate: { lt: new Date() } },
+      orderBy: { eclipseDate: "desc" },
+      take,
+    });
+  }
+
+  async findById(id: string) {
+    return this.db.falakEclipse.findUnique({ where: { id } });
+  }
+
   async findPaginated({ page, limit, type }: { page: number; limit: number; type?: EclipseType }) {
     const where: Prisma.FalakEclipseWhereInput = {};
 
@@ -223,9 +279,29 @@ export class PrismaFalakEclipseRepository extends BaseRepository implements Fala
   }
 }
 
-export const falakPrayerTimeRepository = new PrismaFalakPrayerTimeRepository();
-export const falakQiblaRepository = new PrismaFalakQiblaRepository();
-export const falakHijriCalendarRepository = new PrismaFalakHijriCalendarRepository();
-export const falakHisabRepository = new PrismaFalakHisabRepository();
-export const falakRukyatRepository = new PrismaFalakRukyatRepository();
-export const falakEclipseRepository = new PrismaFalakEclipseRepository();
+export const prismaFalakPrayerTimeRepository = new PrismaFalakPrayerTimeRepository();
+export const prismaFalakQiblaRepository = new PrismaFalakQiblaRepository();
+export const prismaFalakHijriCalendarRepository = new PrismaFalakHijriCalendarRepository();
+export const prismaFalakHisabRepository = new PrismaFalakHisabRepository();
+export const prismaFalakRukyatRepository = new PrismaFalakRukyatRepository();
+export const prismaFalakEclipseRepository = new PrismaFalakEclipseRepository();
+
+export const falakHisabRepository = prismaFalakHisabRepository;
+
+const useSheets = process.env.DATA_SOURCE === "sheets";
+
+export const falakPrayerTimeRepository: FalakPrayerTimeRepository = useSheets
+  ? new SheetsFalakPrayerTimeRepository()
+  : prismaFalakPrayerTimeRepository;
+export const falakQiblaRepository: FalakQiblaRepository = useSheets
+  ? new SheetsFalakQiblaRepository()
+  : prismaFalakQiblaRepository;
+export const falakHijriCalendarRepository: FalakHijriCalendarRepository = useSheets
+  ? new SheetsFalakHijriCalendarRepository()
+  : prismaFalakHijriCalendarRepository;
+export const falakRukyatRepository: FalakRukyatRepository = useSheets
+  ? new SheetsFalakRukyatRepository()
+  : prismaFalakRukyatRepository;
+export const falakEclipseRepository: FalakEclipseRepository = useSheets
+  ? new SheetsFalakEclipseRepository()
+  : prismaFalakEclipseRepository;

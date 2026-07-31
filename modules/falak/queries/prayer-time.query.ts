@@ -1,19 +1,8 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
 import type { PrayerMethod } from "@/generated/client";
+import { falakPrayerTimeRepository } from "../infrastructure/repository";
 
 export async function getTodayPrayerTimes(latitude: number, longitude: number, method: PrayerMethod) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  return prisma.falakPrayerTime.findFirst({
-    where: {
-      latitude,
-      longitude,
-      calculationMethod: method,
-      prayerDate: today,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  return falakPrayerTimeRepository.findToday(latitude, longitude, method);
 }
 
 export async function getPrayerTimesForDateRange(
@@ -23,36 +12,13 @@ export async function getPrayerTimesForDateRange(
   startDate: Date,
   endDate: Date
 ) {
-  return prisma.falakPrayerTime.findMany({
-    where: {
-      latitude,
-      longitude,
-      calculationMethod: method,
-      prayerDate: { gte: startDate, lte: endDate },
-    },
-    orderBy: { prayerDate: "asc" },
-  });
+  return falakPrayerTimeRepository.findByDateRange(latitude, longitude, method, startDate, endDate);
 }
 
 export async function getRecentPrayerTimes(latitude: number, longitude: number, method: PrayerMethod, take = 7) {
-  return prisma.falakPrayerTime.findMany({
-    where: {
-      latitude,
-      longitude,
-      calculationMethod: method,
-    },
-    orderBy: { prayerDate: "desc" },
-    take,
-  });
+  return falakPrayerTimeRepository.findRecent(latitude, longitude, method, take);
 }
 
 export async function getAllPrayerTimes(latitude: number, longitude: number, method: PrayerMethod) {
-  return prisma.falakPrayerTime.findMany({
-    where: {
-      latitude,
-      longitude,
-      calculationMethod: method,
-    },
-    orderBy: { prayerDate: "desc" },
-  });
+  return falakPrayerTimeRepository.findAllByCoordinate(latitude, longitude, method);
 }

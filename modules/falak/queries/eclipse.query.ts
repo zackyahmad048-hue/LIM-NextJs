@@ -1,26 +1,13 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { falakEclipseRepository } from "../infrastructure/repository";
 
 export async function getUpcomingEclipses() {
-  const now = new Date();
-  return prisma.falakEclipse.findMany({
-    where: {
-      eclipseDate: { gte: now },
-    },
-    orderBy: { eclipseDate: "asc" },
-  });
+  return falakEclipseRepository.findUpcoming();
 }
 
 export async function getPastEclipses(take = 10) {
-  const now = new Date();
-  return prisma.falakEclipse.findMany({
-    where: {
-      eclipseDate: { lt: now },
-    },
-    orderBy: { eclipseDate: "desc" },
-    take,
-  });
+  return falakEclipseRepository.findPast(take);
 }
 
 export async function getEclipseById(id: string) {
-  return prisma.falakEclipse.findUnique({ where: { id } });
+  return falakEclipseRepository.findById(id);
 }

@@ -15,8 +15,9 @@ import type {
   DocumentArchiveEntity,
 } from "../domain/entities";
 import type { SecretariatRepository } from "../domain/repository";
+import { SheetsSecretariatRepository } from "./repository.sheets";
 
-export const secretariatRepository: SecretariatRepository = {
+export const prismaSecretariatRepository: SecretariatRepository = {
   // Incoming Mail
   async findManyIncomingMails({ search, status, page, limit }) {
     const where: Record<string, unknown> = { deletedAt: null };
@@ -246,4 +247,31 @@ export const secretariatRepository: SecretariatRepository = {
 
     return { totalIncomingMails, totalOutgoingMails, pendingDispositions, totalAdministrativeDocuments };
   },
+
+  async countIncomingMailsByStatus() {
+    const [received, processed, archived] = await Promise.all([
+      prisma.incomingMail.count({ where: { status: "RECEIVED", deletedAt: null } }),
+      prisma.incomingMail.count({ where: { status: "PROCESSED", deletedAt: null } }),
+      prisma.incomingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
+    ]);
+
+    return { received, processed, archived };
+  },
+
+  async countOutgoingMailsByStatus() {
+    const [draft, approved, sent, archived] = await Promise.all([
+      prisma.outgoingMail.count({ where: { status: "DRAFT", deletedAt: null } }),
+      prisma.outgoingMail.count({ where: { status: "APPROVED", deletedAt: null } }),
+      prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
+      prisma.outgoingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
+    ]);
+
+    return { draft, approved, sent, archived };
+  },
 };
+
+const useSheets = process.env.DATA_SOURCE === "sheets";
+
+export const secretariatRepository: SecretariatRepository = useSheets
+  ? new SheetsSecretariatRepository()
+  : prismaSecretariatRepository;

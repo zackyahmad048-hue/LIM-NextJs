@@ -37,6 +37,8 @@ export interface OutgoingMailEntity {
   approvedById: string | null;
   approvedAt: Date | null;
   attachmentUrl: string | null;
+  googleDocId: string | null;
+  googleDocUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -67,6 +69,8 @@ export interface AdministrativeDocumentEntity {
   submittedAt: Date | null;
   approvedById: string | null;
   approvedAt: Date | null;
+  googleDocId: string | null;
+  googleDocUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

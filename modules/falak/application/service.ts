@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import {
   falakPrayerTimeRepository,
   falakQiblaRepository,
@@ -11,24 +12,22 @@ import { gregorianToHijri } from "./engine/hijri";
 import type { Coordinate } from "../domain/types";
 import type { PrayerMethod, ObservationStatus, RukyatResult, EclipseType, HijriMethod } from "@/generated/client";
 
-export class FalakService {
-  async getPrayerTimes(coordinate: Coordinate, date: Date, method: PrayerMethod) {
-    const today = new Date(date);
+const PUBLIC_CACHE_OPTIONS = { revalidate: 3600, tags: ["falak"] as string[] };
+
+const getCachedPrayerTimes = unstable_cache(
+  async (latitude: number, longitude: number, method: PrayerMethod, dateISO: string) => {
+    const today = new Date(dateISO);
     today.setHours(0, 0, 0, 0);
 
-    let cached = await falakPrayerTimeRepository.findToday(
-      coordinate.latitude,
-      coordinate.longitude,
-      method
-    );
+    let cached = await falakPrayerTimeRepository.findToday(latitude, longitude, method);
 
     if (!cached || cached.prayerDate.getTime() !== today.getTime()) {
-      const times = calculatePrayerTimes(coordinate, today, method);
+      const times = calculatePrayerTimes({ latitude, longitude }, today, method);
 
       cached = await falakPrayerTimeRepository.create({
-        locationName: `${coordinate.latitude}, ${coordinate.longitude}`,
-        latitude: coordinate.latitude,
-        longitude: coordinate.longitude,
+        locationName: `${latitude}, ${longitude}`,
+        latitude,
+        longitude,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         calculationMethod: method,
         prayerDate: today,
@@ -42,26 +41,31 @@ export class FalakService {
     }
 
     return cached;
-  }
+  },
+  ["falak", "prayer-times"],
+  PUBLIC_CACHE_OPTIONS
+);
 
-  async calculateQibla(coordinate: Coordinate) {
-    const direction = calcQibla(coordinate);
+const getCachedQibla = unstable_cache(
+  async (latitude: number, longitude: number) => {
+    const direction = calcQibla({ latitude, longitude });
 
-    const existing = await falakQiblaRepository.findByCoordinate(
-      coordinate.latitude,
-      coordinate.longitude
-    );
-
+    const existing = await falakQiblaRepository.findByCoordinate(latitude, longitude);
     if (existing) return existing;
 
     return falakQiblaRepository.create({
-      latitude: coordinate.latitude,
-      longitude: coordinate.longitude,
+      latitude,
+      longitude,
       direction,
     });
-  }
+  },
+  ["falak", "qibla"],
+  PUBLIC_CACHE_OPTIONS
+);
 
-  async convertToHijri(date: Date, method: HijriMethod) {
+const getCachedHijri = unstable_cache(
+  async (dateISO: string, method: HijriMethod) => {
+    const date = new Date(dateISO);
     const hijri = gregorianToHijri(date);
 
     const existing = await falakHijriCalendarRepository.findByGregorian(date, method);
@@ -74,6 +78,39 @@ export class FalakService {
       hijriDay: hijri.day,
       method,
     });
+  },
+  ["falak", "hijri"],
+  PUBLIC_CACHE_OPTIONS
+);
+
+const getCachedUpcomingEclipses = unstable_cache(
+  async () => falakEclipseRepository.findUpcoming(),
+  ["falak", "eclipse-upcoming"],
+  PUBLIC_CACHE_OPTIONS
+);
+
+const getCachedEclipsePaginated = unstable_cache(
+  async (page: number, limit: number, type: EclipseType | null) =>
+    falakEclipseRepository.findPaginated({ page, limit, type: type ?? undefined }),
+  ["falak", "eclipse-paginated"],
+  PUBLIC_CACHE_OPTIONS
+);
+
+export class FalakService {
+  async getPrayerTimes(coordinate: Coordinate, date: Date, method: PrayerMethod) {
+    const target = new Date(date);
+    target.setHours(0, 0, 0, 0);
+    return getCachedPrayerTimes(coordinate.latitude, coordinate.longitude, method, target.toISOString());
+  }
+
+  async calculateQibla(coordinate: Coordinate) {
+    return getCachedQibla(coordinate.latitude, coordinate.longitude);
+  }
+
+  async convertToHijri(date: Date, method: HijriMethod) {
+    const target = new Date(date);
+    target.setHours(0, 0, 0, 0);
+    return getCachedHijri(target.toISOString(), method);
   }
 
   async saveHisab(data: {
@@ -137,11 +174,11 @@ export class FalakService {
   }
 
   async getUpcomingEclipses() {
-    return falakEclipseRepository.findUpcoming();
+    return getCachedUpcomingEclipses();
   }
 
   async getEclipsePaginated(page: number, limit: number, type?: EclipseType) {
-    return falakEclipseRepository.findPaginated({ page, limit, type });
+    return getCachedEclipsePaginated(page, limit, type ?? null);
   }
 
   async createEclipse(data: {

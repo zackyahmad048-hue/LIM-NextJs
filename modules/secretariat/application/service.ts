@@ -6,11 +6,21 @@ import type {
 } from "@/generated/client";
 import type { SecretariatRepository } from "../domain/repository";
 import { secretariatRepository as repo } from "../infrastructure/repository";
+import { googleConfig } from "@/modules/shared/infrastructure/google/config";
+import { createDocumentFromTemplate } from "@/modules/shared/infrastructure/google/google-doc";
 import {
   EntityNotFoundError,
   DuplicateNumberError,
   InvalidStatusTransitionError,
 } from "../domain/secretariat.errors";
+
+function formatTanggal(date: Date): string {
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+}
 
 const VALID_INCOMING_MAIL_TRANSITIONS: Record<IncomingMailStatus, IncomingMailStatus[]> = {
   RECEIVED: ["PROCESSED"],
@@ -112,10 +122,17 @@ export const secretariatService = {
     return mail;
   },
 
-  async createOutgoingMail(data: Omit<Parameters<SecretariatRepository["createOutgoingMail"]>[0], "status" | "approvedById" | "approvedAt">) {
+  async createOutgoingMail(data: Omit<Parameters<SecretariatRepository["createOutgoingMail"]>[0], "status" | "approvedById" | "approvedAt" | "googleDocId" | "googleDocUrl">) {
     const existing = await repo.findOutgoingMailByNumber(data.registrationNumber);
     if (existing) throw new DuplicateNumberError(data.registrationNumber);
-    return repo.createOutgoingMail({ ...data, status: "DRAFT", approvedById: null, approvedAt: null });
+    return repo.createOutgoingMail({
+      ...data,
+      status: "DRAFT",
+      approvedById: null,
+      approvedAt: null,
+      googleDocId: null,
+      googleDocUrl: null,
+    });
   },
 
   async updateOutgoingMail(id: string, data: Parameters<SecretariatRepository["updateOutgoingMail"]>[1]) {
@@ -150,6 +167,31 @@ export const secretariatService = {
     }
 
     return repo.updateOutgoingMail(id, updateData);
+  },
+
+  async generateOutgoingMailDocument(id: string) {
+    const mail = await repo.findOutgoingMailById(id);
+    if (!mail) throw new EntityNotFoundError("Surat Keluar", id);
+
+    const templateId = googleConfig.templateSuratKeluarId;
+    if (!templateId) {
+      throw new Error("GOOGLE_DOC_TEMPLATE_SURAT_KELUAR_ID belum dikonfigurasi.");
+    }
+
+    const doc = await createDocumentFromTemplate(
+      templateId,
+      {
+        nomorSurat: mail.documentNumber || mail.registrationNumber,
+        tanggalSurat: formatTanggal(mail.mailDate),
+        perihal: mail.subject,
+        penerima: mail.recipient || "",
+        isi: mail.content || "",
+        pengirim: mail.senderName || "",
+      },
+      `Surat Keluar - ${mail.registrationNumber}`
+    );
+
+    return repo.updateOutgoingMail(id, { googleDocId: doc.id, googleDocUrl: doc.url });
   },
 
   // Disposition
@@ -215,7 +257,7 @@ export const secretariatService = {
     return doc;
   },
 
-  async createAdministrativeDocument(data: Omit<Parameters<SecretariatRepository["createAdministrativeDocument"]>[0], "status" | "submittedById" | "submittedAt" | "approvedById" | "approvedAt">) {
+  async createAdministrativeDocument(data: Omit<Parameters<SecretariatRepository["createAdministrativeDocument"]>[0], "status" | "submittedById" | "submittedAt" | "approvedById" | "approvedAt" | "googleDocId" | "googleDocUrl">) {
     const existing = await repo.findAdministrativeDocumentByNumber(data.documentNumber);
     if (existing) throw new DuplicateNumberError(data.documentNumber);
     return repo.createAdministrativeDocument({
@@ -225,6 +267,8 @@ export const secretariatService = {
       submittedAt: null,
       approvedById: null,
       approvedAt: null,
+      googleDocId: null,
+      googleDocUrl: null,
     });
   },
 
@@ -262,6 +306,32 @@ export const secretariatService = {
     }
 
     return repo.updateAdministrativeDocument(id, updateData);
+  },
+
+  async generateAdministrativeDocument(id: string) {
+    const doc = await repo.findAdministrativeDocumentById(id);
+    if (!doc) throw new EntityNotFoundError("Dokumen Administrasi", id);
+
+    const templateId = googleConfig.templateDokAdminId;
+    if (!templateId) {
+      throw new Error("GOOGLE_DOC_TEMPLATE_DOK_ADMIN_ID belum dikonfigurasi.");
+    }
+
+    const generated = await createDocumentFromTemplate(
+      templateId,
+      {
+        nomorDokumen: doc.documentNumber,
+        judul: doc.title,
+        isi: doc.content || "",
+        deskripsi: doc.description || "",
+      },
+      `Dokumen - ${doc.documentNumber}`
+    );
+
+    return repo.updateAdministrativeDocument(id, {
+      googleDocId: generated.id,
+      googleDocUrl: generated.url,
+    });
   },
 
   // Agenda Book (read-only)
