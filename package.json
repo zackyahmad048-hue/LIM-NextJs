@@ -19,7 +19,8 @@
     "prisma:studio": "prisma studio",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "setup:google": "node scripts/setup-google.mjs"
+    "setup:google": "node scripts/setup-google.mjs",
+    "gen:cities": "node scripts/gen-cities.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

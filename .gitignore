@@ -39,6 +39,7 @@ yarn-error.log*
 
 # generated
 generated/
+scripts/.cache/
 
 # vercel
 .vercel

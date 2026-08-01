@@ -205,7 +205,7 @@ export function PrayerTimeTable() {
                   <Input
                     placeholder="Cari nama kota atau provinsi di Seluruh Indonesia..."
                     value={citySearch}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => setCitySearch(e.target.value)}
                     className="pl-9"
                   />
                 </div>
