@@ -12,11 +12,13 @@ import type { NavigationItem } from "@/types/navigation";
 interface SidebarItemProps {
   item: NavigationItem;
   collapsed?: boolean;
+  onNavigate?: () => void;
 }
 
 export function SidebarItem({
   item,
   collapsed = false,
+  onNavigate,
 }: SidebarItemProps) {
   const pathname = usePathname();
 
@@ -61,6 +63,7 @@ export function SidebarItem({
             <Link
               key={child.href}
               href={child.href!}
+              onClick={onNavigate}
               className={cn(
                 "ml-7 flex h-8 items-center rounded-md px-2.5 text-xs transition-colors",
                 pathname === child.href
@@ -78,6 +81,7 @@ export function SidebarItem({
   return (
     <Link
       href={item.href!}
+      onClick={onNavigate}
       className={cn(
         "flex h-9 items-center rounded-md text-sm transition-colors",
         collapsed

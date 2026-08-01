@@ -8,11 +8,18 @@ import {
   type ReactNode,
 } from "react";
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 interface SidebarContextValue {
   collapsed: boolean;
   toggle: () => void;
   open: () => void;
   close: () => void;
+  isMobile: boolean;
+  mobileOpen: boolean;
+  openMobile: () => void;
+  closeMobile: () => void;
+  toggleMobile: () => void;
 }
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);
@@ -22,7 +29,9 @@ export function SidebarProvider({
 }: {
   children: ReactNode;
 }) {
+  const isMobile = useIsMobile();
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const value = useMemo(
     () => ({
@@ -30,8 +39,13 @@ export function SidebarProvider({
       toggle: () => setCollapsed((prev) => !prev),
       open: () => setCollapsed(false),
       close: () => setCollapsed(true),
+      isMobile,
+      mobileOpen,
+      openMobile: () => setMobileOpen(true),
+      closeMobile: () => setMobileOpen(false),
+      toggleMobile: () => setMobileOpen((prev) => !prev),
     }),
-    [collapsed]
+    [collapsed, isMobile, mobileOpen]
   );
 
   return (

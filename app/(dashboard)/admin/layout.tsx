@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { Sidebar } from "@/components/admin/layout/sidebar";
+import { MobileSidebar } from "@/components/admin/layout/mobile-sidebar";
 import { Header } from "@/components/admin/layout/header";
 import { SidebarProvider } from "@/components/admin/providers/sidebar-provider";
 
@@ -23,11 +24,12 @@ export default async function DashboardLayout({
     <SidebarProvider>
       <div className="flex min-h-screen bg-transparent">
         <Sidebar />
+        <MobileSidebar />
 
-        <div className="flex flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col">
           <Header />
 
-          <main className="flex-1 overflow-auto">
+          <main className="flex-1 overflow-x-hidden">
             {children}
           </main>
         </div>

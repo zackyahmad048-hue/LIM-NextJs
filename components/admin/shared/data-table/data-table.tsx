@@ -65,9 +65,9 @@ export function DataTable<TData, TValue>({
         onChange={setGlobalFilter}
       />
 
-      <div className="overflow-hidden rounded-xl border">
+      <div className="overflow-x-auto rounded-xl border">
 
-        <table className="w-full">
+        <table className="w-full min-w-[640px]">
 
           <thead className="bg-muted">
 

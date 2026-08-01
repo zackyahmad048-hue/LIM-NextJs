@@ -47,7 +47,7 @@ export function DashboardClient() {
   const enabled = modules.filter(Boolean) as ModuleCard[];
 
   return (
-    <div className="flex flex-col gap-4 bg-muted/20 p-4 lg:p-5">
+    <div className="flex flex-col gap-4">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -55,7 +55,7 @@ export function DashboardClient() {
         </p>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {enabled.map((mod) => {
           const Icon = mod.icon;
           return (

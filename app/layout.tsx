@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "next-themes";
 
@@ -7,7 +7,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Lembaga Ittihadul Muballighin",
   description: "Platform Manajemen Organisasi Lembaga Ittihadul Muballighin",
-  
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
