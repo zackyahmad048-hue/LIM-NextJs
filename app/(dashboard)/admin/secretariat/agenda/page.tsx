@@ -50,7 +50,7 @@ export default async function AgendaPage({
             key: "title",
             label: "Judul",
             render: (item) => (
-              <div className="max-w-[250px]">
+              <div className="max-w-62.5">
                 <p className="truncate text-sm font-medium">{item.title}</p>
                 {item.description && (
                   <p className="truncate text-xs text-muted-foreground">{item.description}</p>
@@ -72,7 +72,7 @@ export default async function AgendaPage({
             key: "participants",
             label: "Peserta",
             render: (item) => (
-              <div className="max-w-[200px]">
+              <div className="max-w-50">
                 {item.participants ? (
                   <div className="flex items-center gap-1.5">
                     <Users className="size-3.5 text-muted-foreground shrink-0" />

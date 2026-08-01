@@ -71,7 +71,7 @@ export default async function ProgramListPage({
             key: "name",
             label: "Nama Program",
             render: (item) => (
-              <div className="max-w-[250px]">
+              <div className="max-w-62.5">
                 <p className="truncate text-sm font-medium">{item.name}</p>
                 {item.personInCharge && (
                   <p className="truncate text-xs text-muted-foreground">PIC: {item.personInCharge.name}</p>
