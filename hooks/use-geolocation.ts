@@ -106,7 +106,7 @@ export function useGeolocation() {
   }, []);
 
   useEffect(() => {
-    requestGPSLocation();
+    requestGPSLocation(); // eslint-disable-line react-hooks/set-state-in-effect
   }, [requestGPSLocation]);
 
   return {

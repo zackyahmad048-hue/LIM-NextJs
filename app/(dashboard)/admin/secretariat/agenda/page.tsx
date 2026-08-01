@@ -1,10 +1,8 @@
-import { BookOpen, Calendar, MapPin, Users } from "lucide-react";
+import { Calendar, MapPin, Users } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
-import { SectionCard } from "@/components/admin/shared/section-card";
 
 import { getAgendaBooks } from "@/modules/secretariat/queries/secretariat.query";
 

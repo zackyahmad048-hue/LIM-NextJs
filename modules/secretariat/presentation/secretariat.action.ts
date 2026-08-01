@@ -13,12 +13,9 @@ import {
   updateDispositionSchema,
   createAdministrativeDocumentSchema,
   updateAdministrativeDocumentSchema,
-  createAgendaBookSchema,
-  createDocumentArchiveSchema,
 } from "../validations/schema";
 import {
   SecretariatError,
-  EntityNotFoundError,
   DuplicateNumberError,
 } from "../domain/secretariat.errors";
 

@@ -21,7 +21,6 @@ import {
   ClipboardList,
   UserPlus,
   Mail,
-  Moon,
 } from "lucide-react";
 
 import type { NavigationItem } from "@/types/navigation";

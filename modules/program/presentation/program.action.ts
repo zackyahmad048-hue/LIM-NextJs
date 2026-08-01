@@ -13,8 +13,6 @@ import {
 import {
   ProgramError,
   ProgramCodeExistsError,
-  ProgramNotFoundError,
-  ParticipantAlreadyRegisteredError,
 } from "../domain/program.errors";
 
 export async function createProgram(formData: FormData) {

@@ -76,7 +76,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/ws": "^8.18.1",
-    "eslint": "^9",
+    "eslint": "^9.39.5",
     "eslint-config-next": "16.2.9",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
@@ -93,6 +93,7 @@
     "unrs-resolver@1.12.2": true,
     "@prisma/engines@7.9.1": true,
     "@tsparticles/engine@4.3.2": true,
-    "prisma@7.9.1": true
+    "prisma@7.9.1": true,
+    "eslint@9.39.5": true
   }
 }

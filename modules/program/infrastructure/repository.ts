@@ -1,5 +1,4 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
-import type { ProgramStatus, RegistrationStatus } from "@/generated/client";
 import type {
   ProgramEntity,
   ProgramScheduleEntity,

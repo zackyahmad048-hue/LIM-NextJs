@@ -67,7 +67,6 @@ export function SuratPageClient({
   masukTotal,
   keluarItems,
   keluarTotal,
-  search,
 }: SuratPageClientProps) {
   const [tab, setTab] = useState<"masuk" | "keluar">(initialTab);
   const router = useRouter();

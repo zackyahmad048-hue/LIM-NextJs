@@ -1,6 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import {
   calculatePrayerTimes,
@@ -8,35 +26,57 @@ import {
   PrayerTimes,
   PrayerTimesNumeric,
 } from "@/lib/astroCalc";
-import { INDONESIA_CITIES, City } from "@/lib/cities";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { INDONESIA_CITIES } from "@/lib/cities";
 import {
   Clock,
-  Sun,
-  Moon,
-  Sunset,
-  Sunrise,
-  MapPin,
-  Navigation,
-  Sparkles,
   Info,
+  MapPin,
+  Moon,
+  Navigation,
   Search,
   ShieldCheck,
+  Sparkles,
+  Sun,
+  Sunrise,
+  Sunset,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const PRAYER_CARDS: Array<{ key: keyof PrayerTimes; label: string; icon: React.ReactNode }> = [
-  { key: "fajr", label: "Subuh", icon: <Sunrise className="h-5 w-5 text-sky-400" /> },
-  { key: "sunrise", label: "Terbit", icon: <Sun className="h-5 w-5 text-amber-400" /> },
-  { key: "dhuhr", label: "Dzuhur", icon: <Sun className="h-5 w-5 text-amber-500" /> },
-  { key: "asr", label: "Ashar", icon: <Sun className="h-5 w-5 text-emerald-500" /> },
-  { key: "maghrib", label: "Maghrib", icon: <Sunset className="h-5 w-5 text-rose-500" /> },
-  { key: "isha", label: "Isya", icon: <Moon className="h-5 w-5 text-indigo-400" /> },
+const PRAYER_CARDS: Array<{
+  key: keyof PrayerTimes;
+  label: string;
+  icon: React.ReactNode;
+}> = [
+  {
+    key: "fajr",
+    label: "Subuh",
+    icon: <Sunrise className="h-5 w-5 text-sky-400" />,
+  },
+  {
+    key: "sunrise",
+    label: "Terbit",
+    icon: <Sun className="h-5 w-5 text-amber-400" />,
+  },
+  {
+    key: "dhuhr",
+    label: "Dzuhur",
+    icon: <Sun className="h-5 w-5 text-amber-500" />,
+  },
+  {
+    key: "asr",
+    label: "Ashar",
+    icon: <Sun className="h-5 w-5 text-emerald-500" />,
+  },
+  {
+    key: "maghrib",
+    label: "Maghrib",
+    icon: <Sunset className="h-5 w-5 text-rose-500" />,
+  },
+  {
+    key: "isha",
+    label: "Isya",
+    icon: <Moon className="h-5 w-5 text-indigo-400" />,
+  },
 ];
 
 export function PrayerTimeTable() {
@@ -51,7 +91,7 @@ export function PrayerTimeTable() {
 
   // Mode Toggle: false = Waktu Standar (WIB/WITA/WIT), true = Waktu Istiwa Hakiki
   const [isIstiwaMode, setIsIstiwaMode] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const [citySearch, setCitySearch] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -61,7 +101,6 @@ export function PrayerTimeTable() {
   const [customName, setCustomName] = useState("");
 
   useEffect(() => {
-    setCurrentTime(new Date());
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -79,7 +118,12 @@ export function PrayerTimeTable() {
 
   // Calculate prayer schedule with 3 minutes Ihtiyath (waktu hati-hati)
   const ihtiyathMinutes = 3;
-  const calculation = calculatePrayerTimes(currentTime, location, isIstiwaMode, ihtiyathMinutes);
+  const calculation = calculatePrayerTimes(
+    currentTime,
+    location,
+    isIstiwaMode,
+    ihtiyathMinutes,
+  );
   const prayerTimesFormatted: PrayerTimes = calculation.timesFormatted;
   const prayerTimesNumeric: PrayerTimesNumeric = calculation.timesNumeric;
 
@@ -95,7 +139,9 @@ export function PrayerTimeTable() {
 
   // Current active hour decimal representation
   const currentDecHours =
-    currentTime.getHours() + currentTime.getMinutes() / 60 + currentTime.getSeconds() / 3600;
+    currentTime.getHours() +
+    currentTime.getMinutes() / 60 +
+    currentTime.getSeconds() / 3600;
 
   let activeHourDec = currentDecHours;
   if (isIstiwaMode) {
@@ -122,13 +168,15 @@ export function PrayerTimeTable() {
 
   const countdownH = Math.floor(diffHours);
   const countdownM = Math.floor((diffHours - countdownH) * 60);
-  const countdownS = Math.floor(((diffHours - countdownH) * 60 - countdownM) * 60);
+  const countdownS = Math.floor(
+    ((diffHours - countdownH) * 60 - countdownM) * 60,
+  );
   const countdownStr = `${pad(countdownH)}j ${pad(countdownM)}m ${pad(countdownS)}s`;
 
   const filteredCities = INDONESIA_CITIES.filter(
     (c) =>
       c.name.toLowerCase().includes(citySearch.toLowerCase()) ||
-      c.province.toLowerCase().includes(citySearch.toLowerCase())
+      c.province.toLowerCase().includes(citySearch.toLowerCase()),
   );
 
   const handleApplyCustomCoord = (e: React.FormEvent) => {
@@ -147,7 +195,9 @@ export function PrayerTimeTable() {
       }
 
       selectCity({
-        name: customName || `Koordinat Custom (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`,
+        name:
+          customName ||
+          `Koordinat Custom (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`,
         province: "Custom",
         latitude: lat,
         longitude: lon,
@@ -166,7 +216,10 @@ export function PrayerTimeTable() {
           <MapPin className="h-5 w-5 text-emerald-500" />
           <span className="font-semibold text-foreground">{locationName}</span>
           {isGPS ? (
-            <Badge variant="default" className="bg-emerald-600 text-white hover:bg-emerald-700">
+            <Badge
+              variant="default"
+              className="bg-emerald-600 text-white hover:bg-emerald-700"
+            >
               GPS Device
             </Badge>
           ) : (
@@ -174,14 +227,22 @@ export function PrayerTimeTable() {
               Manual / Kota Pilihan
             </Badge>
           )}
-          <Badge variant="secondary" className="gap-1 border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
+          <Badge
+            variant="secondary"
+            className="gap-1 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+          >
             <ShieldCheck className="h-3 w-3" />
             Ihtiyat +3 Menit
           </Badge>
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={requestGPSLocation} className="gap-1.5">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={requestGPSLocation}
+            className="gap-1.5"
+          >
             <Navigation className="h-4 w-4 text-emerald-500" />
             Lacak GPS Device
           </Button>
@@ -219,12 +280,18 @@ export function PrayerTimeTable() {
                         setIsDialogOpen(false);
                       }}
                       className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-accent ${
-                        city.name === locationName ? "bg-accent font-semibold" : ""
+                        city.name === locationName
+                          ? "bg-accent font-semibold"
+                          : ""
                       }`}
                     >
                       <div>
-                        <div className="font-medium text-foreground">{city.name}</div>
-                        <div className="text-xs text-muted-foreground">{city.province}</div>
+                        <div className="font-medium text-foreground">
+                          {city.name}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {city.province}
+                        </div>
                       </div>
                       <Badge variant="secondary" className="text-xs">
                         {city.timezoneName} (+{city.timezone})
@@ -233,14 +300,17 @@ export function PrayerTimeTable() {
                   ))}
                   {filteredCities.length === 0 && (
                     <div className="py-4 text-center text-sm text-muted-foreground">
-                      Kota tidak ditemukan dalam daftar. Gunakan form koordinat di bawah ini.
+                      Kota tidak ditemukan dalam daftar. Gunakan form koordinat
+                      di bawah ini.
                     </div>
                   )}
                 </div>
 
                 {/* Custom Coordinate Form */}
                 <div className="rounded-lg border border-border bg-muted/30 p-3 space-y-3">
-                  <div className="text-xs font-semibold text-foreground">Input Koordinat Manual (Kustom)</div>
+                  <div className="text-xs font-semibold text-foreground">
+                    Input Koordinat Manual (Kustom)
+                  </div>
                   <form onSubmit={handleApplyCustomCoord} className="space-y-2">
                     <Input
                       placeholder="Nama Lokasi (misal: Pesantren Al-Falah)"
@@ -250,7 +320,9 @@ export function PrayerTimeTable() {
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <Label className="text-[10px] text-muted-foreground">Latitude (Lintang)</Label>
+                        <Label className="text-[10px] text-muted-foreground">
+                          Latitude (Lintang)
+                        </Label>
                         <Input
                           placeholder="-6.2088"
                           value={customLat}
@@ -259,7 +331,9 @@ export function PrayerTimeTable() {
                         />
                       </div>
                       <div>
-                        <Label className="text-[10px] text-muted-foreground">Longitude (Bujur)</Label>
+                        <Label className="text-[10px] text-muted-foreground">
+                          Longitude (Bujur)
+                        </Label>
                         <Input
                           placeholder="106.8456"
                           value={customLon}
@@ -268,7 +342,11 @@ export function PrayerTimeTable() {
                         />
                       </div>
                     </div>
-                    <Button type="submit" size="sm" className="w-full text-xs h-8 bg-emerald-600 hover:bg-emerald-700 text-white">
+                    <Button
+                      type="submit"
+                      size="sm"
+                      className="w-full text-xs h-8 bg-emerald-600 hover:bg-emerald-700 text-white"
+                    >
                       Terapkan Koordinat Custom
                     </Button>
                   </form>
@@ -286,12 +364,14 @@ export function PrayerTimeTable() {
       )}
 
       {/* Hero Live Clock & Istiwa Toggle Switch */}
-      <Card className="relative overflow-hidden border-emerald-500/20 bg-gradient-to-br from-card via-card to-emerald-950/20 shadow-md">
+      <Card className="relative overflow-hidden border-emerald-500/20 bg-linear-to-br from-card via-card to-emerald-950/20 shadow-md">
         <CardHeader className="pb-2 text-center">
           <div className="mx-auto mb-3 flex items-center justify-center gap-3 rounded-full border border-border bg-background/80 px-4 py-1.5 backdrop-blur-md">
             <span
               className={`text-xs sm:text-sm font-medium transition-colors ${
-                !isIstiwaMode ? "font-bold text-sky-500 dark:text-sky-400" : "text-muted-foreground"
+                !isIstiwaMode
+                  ? "font-bold text-sky-500 dark:text-sky-400"
+                  : "text-muted-foreground"
               }`}
             >
               Waktu Standar ({location.timezoneName || "WIB"})
@@ -305,7 +385,9 @@ export function PrayerTimeTable() {
 
             <span
               className={`text-xs sm:text-sm font-medium transition-colors ${
-                isIstiwaMode ? "font-bold text-amber-500 dark:text-amber-400" : "text-muted-foreground"
+                isIstiwaMode
+                  ? "font-bold text-amber-500 dark:text-amber-400"
+                  : "text-muted-foreground"
               }`}
             >
               Waktu Istiwa (Hakiki)
@@ -318,9 +400,17 @@ export function PrayerTimeTable() {
               : `${standardClockStr} ${location.timezoneName || "WIB"}`}
           </CardTitle>
           <CardDescription className="pt-2 text-sm">
-            WIB/WITA/WIT: <strong className="text-foreground">{standardClockStr}</strong> | Jam Istiwa:{" "}
-            <strong className="text-foreground">{istiwaClockInfo.istiwaTimeStr}</strong> | Selisih:{" "}
-            <Badge variant="outline" className="border-amber-500/40 text-amber-500">
+            WIB/WITA/WIT:{" "}
+            <strong className="text-foreground">{standardClockStr}</strong> |
+            Jam Istiwa:{" "}
+            <strong className="text-foreground">
+              {istiwaClockInfo.istiwaTimeStr}
+            </strong>{" "}
+            | Selisih:{" "}
+            <Badge
+              variant="outline"
+              className="border-amber-500/40 text-amber-500"
+            >
               {istiwaClockInfo.deltaStr}
             </Badge>
           </CardDescription>
@@ -341,10 +431,16 @@ export function PrayerTimeTable() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-            Jadwal Shalat ({isIstiwaMode ? "Waktu Istiwa" : location.timezoneName || "Waktu Standar"})
+            Jadwal Shalat (
+            {isIstiwaMode
+              ? "Waktu Istiwa"
+              : location.timezoneName || "Waktu Standar"}
+            )
           </h3>
           <span className="text-xs text-muted-foreground">
-            {isIstiwaMode ? "Mode Istiwa (12:00 = Solar Noon)" : `Mode Standar (${location.timezoneName})`}
+            {isIstiwaMode
+              ? "Mode Istiwa (12:00 = Solar Noon)"
+              : `Mode Standar (${location.timezoneName})`}
           </span>
         </div>
 
@@ -362,14 +458,20 @@ export function PrayerTimeTable() {
               >
                 <CardContent className="flex flex-col items-center justify-center p-4 text-center">
                   <div className="mb-2 rounded-full bg-muted p-2">{p.icon}</div>
-                  <div className="text-xs font-medium text-muted-foreground">{p.label}</div>
+                  <div className="text-xs font-medium text-muted-foreground">
+                    {p.label}
+                  </div>
                   <div className="mt-1 font-mono text-xl font-bold text-foreground">
                     {prayerTimesFormatted[p.key]}
                   </div>
                   <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wider">
-                    <span>{isIstiwaMode ? "Istiwa" : location.timezoneName || "WIB"}</span>
+                    <span>
+                      {isIstiwaMode ? "Istiwa" : location.timezoneName || "WIB"}
+                    </span>
                     <span>•</span>
-                    <span className="text-emerald-500 font-semibold">+3m Ihtiyat</span>
+                    <span className="text-emerald-500 font-semibold">
+                      +3m Ihtiyat
+                    </span>
                   </div>
                 </CardContent>
               </Card>
@@ -393,21 +495,31 @@ export function PrayerTimeTable() {
               Waktu Ihtiyat (Hati-Hati)
             </h4>
             <p className="mt-1">
-              Tambahan waktu pengaman sebesar <strong>+3 menit</strong> diterapkan pada waktu shalat (Subuh, Dzuhur, Ashar, Maghrib, Isya) sesuai kaidah hisab Kemenag RI & Fiqih Falak.
+              Tambahan waktu pengaman sebesar <strong>+3 menit</strong>{" "}
+              diterapkan pada waktu shalat (Subuh, Dzuhur, Ashar, Maghrib, Isya)
+              sesuai kaidah hisab Kemenag RI & Fiqih Falak.
             </p>
           </div>
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-foreground">Kulminasi Matahari (Transit)</h4>
+            <h4 className="font-semibold text-foreground">
+              Kulminasi Matahari (Transit)
+            </h4>
             <p className="mt-1">
-              Jam 12:00:00 Istiwa tepat terjadi saat Matahari melintasi titik meridian lokal (Transit Solar Noon).
+              Jam 12:00:00 Istiwa tepat terjadi saat Matahari melintasi titik
+              meridian lokal (Transit Solar Noon).
             </p>
           </div>
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-foreground">Selisih Bujur & EQT</h4>
+            <h4 className="font-semibold text-foreground">
+              Selisih Bujur & EQT
+            </h4>
             <p className="mt-1">
               Selisih saat ini adalah sekitar{" "}
-              <strong className="text-foreground">{calculation.deltaMinutes.toFixed(1)} menit</strong> dibanding{" "}
-              {location.timezoneName || "WIB"} akibat posisi bujur & perataan waktu.
+              <strong className="text-foreground">
+                {calculation.deltaMinutes.toFixed(1)} menit
+              </strong>{" "}
+              dibanding {location.timezoneName || "WIB"} akibat posisi bujur &
+              perataan waktu.
             </p>
           </div>
         </CardContent>

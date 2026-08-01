@@ -98,6 +98,7 @@ export default async function CetakOutgoingMailPage({
         {/* QR Code */}
         <div className="mt-10 flex flex-col items-end border-t pt-4">
           <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(validationUrl)}`}
               alt="QR Code Validasi"

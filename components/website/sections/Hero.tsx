@@ -10,7 +10,7 @@ import { EASE_OUT } from "@/lib/ease";
 
 export default function Hero({ hero }: { hero: HeroConfig }) {
   return (
-    <section className="relative h-155 overflow-hidden sm:h-145 lg:h-[650px]">
+    <section className="relative h-155 overflow-hidden sm:h-145 lg:h-162.5">
       <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-slate-900 to-slate-800" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_60%)]" />

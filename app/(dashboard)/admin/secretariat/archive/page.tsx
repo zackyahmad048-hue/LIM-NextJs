@@ -1,6 +1,3 @@
-import { Archive, FolderOpen } from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";

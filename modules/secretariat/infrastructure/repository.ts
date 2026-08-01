@@ -1,12 +1,5 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import type {
-  IncomingMailStatus,
-  OutgoingMailStatus,
-  DispositionStatus,
-  AdministrativeDocumentStatus,
-  DocumentType,
-} from "@/generated/client";
-import type {
   IncomingMailEntity,
   OutgoingMailEntity,
   DispositionEntity,

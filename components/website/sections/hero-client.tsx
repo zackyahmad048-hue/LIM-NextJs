@@ -16,7 +16,7 @@ const Hero = dynamic<HeroProps>(
 
 function HeroSkeleton() {
   return (
-    <div className="h-155 sm:h-145 lg:h-[650px] bg-slate-950">
+    <div className="h-155 sm:h-145 lg:h-162.5 bg-slate-950">
       <div className="mx-auto flex h-full max-w-6xl flex-col justify-center gap-4 px-4 sm:px-6">
         <Skeleton className="h-6 w-32 rounded-full" />
         <Skeleton className="mt-3 h-12 w-3/4" />

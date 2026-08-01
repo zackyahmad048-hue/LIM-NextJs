@@ -1,4 +1,4 @@
-import type { ProgramStatus, RegistrationStatus, CommitteeStatus, AttendanceStatus } from "@/generated/client";
+import type { ProgramStatus, RegistrationStatus } from "@/generated/client";
 import type {
   ProgramEntity,
   ProgramScheduleEntity,

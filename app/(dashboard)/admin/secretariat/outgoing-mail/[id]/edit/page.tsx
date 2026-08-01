@@ -162,7 +162,7 @@ export default async function EditOutgoingMailPage({
 
           <div className="flex flex-col items-center gap-3 sm:flex-row">
             <div className="flex size-32 items-center justify-center rounded-lg border bg-white p-2">
-              {/* Server-side QR rendered as img via QR code API */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(validationUrl)}`}
                 alt="QR Code Validasi"

@@ -2,7 +2,6 @@ import type { ProgramStatus } from "@/generated/client";
 import type { ProgramRepository } from "../domain/repository";
 import { programRepository as repo } from "../infrastructure/repository";
 import {
-  ProgramError,
   ProgramCodeExistsError,
   ProgramNotFoundError,
   ParticipantAlreadyRegisteredError,

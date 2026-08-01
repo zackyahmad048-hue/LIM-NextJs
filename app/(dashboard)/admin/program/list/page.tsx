@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { getPrograms } from "@/modules/program/queries/program.query";
-import { deleteProgram, transitionProgramStatus } from "@/modules/program/presentation/program.action";
+import { deleteProgram } from "@/modules/program/presentation/program.action";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {
