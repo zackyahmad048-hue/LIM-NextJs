@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
 
       <div className="overflow-x-auto rounded-xl border">
 
-        <table className="w-full min-w-[640px]">
+        <table className="w-full min-w-160">
 
           <thead className="bg-muted">
 
