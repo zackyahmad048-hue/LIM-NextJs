@@ -16,15 +16,19 @@ export function QiblaCompass() {
     setLoading(true);
     setError("");
     try {
-      const coords = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 });
-      });
+      const coords = await new Promise<GeolocationPosition>(
+        (resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            timeout: 5000,
+          });
+        },
+      );
 
       const { latitude, longitude } = coords.coords;
       setLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
 
       const res = await fetch(
-        `/api/v1/falak/qibla?latitude=${latitude}&longitude=${longitude}`
+        `/api/v1/falak/qibla?latitude=${latitude}&longitude=${longitude}`,
       );
       const json = await res.json();
 
@@ -34,7 +38,9 @@ export function QiblaCompass() {
         setError("Gagal menghitung arah kiblat.");
       }
     } catch {
-      setError("Tidak dapat mengakses lokasi. Izinkan akses lokasi di browser.");
+      setError(
+        "Tidak dapat mengakses lokasi. Izinkan akses lokasi di browser.",
+      );
     }
     setLoading(false);
   }
@@ -63,7 +69,20 @@ export function QiblaCompass() {
                 transition={{ type: "spring", stiffness: 50, damping: 15 }}
               >
                 <div className="flex flex-col items-center">
-                  <span className="text-4xl">🕋</span>
+                  <svg
+                    viewBox="0 0 32 32"
+                    className="h-10 w-10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 8h16v16H8z" />
+                    <path d="M8 8l4-4h16l-4 4z" opacity=".5" />
+                    <path d="M24 4l4 4v16l-4-4z" opacity=".5" />
+                    <path d="M8 14h16" strokeWidth="2" />
+                  </svg>
                   <span className="mt-1 text-xs font-medium text-primary">
                     {direction.toFixed(1)}°
                   </span>
@@ -84,7 +103,8 @@ export function QiblaCompass() {
               <Compass className="h-12 w-12 text-muted-foreground/40" />
             </div>
             <p className="text-center text-sm text-muted-foreground">
-              Klik tombol di bawah untuk menentukan arah kiblat dari lokasi Anda.
+              Klik tombol di bawah untuk menentukan arah kiblat dari lokasi
+              Anda.
             </p>
           </>
         )}
@@ -94,7 +114,11 @@ export function QiblaCompass() {
         )}
 
         <Button onClick={calculateQibla} disabled={loading}>
-          {loading ? "Menghitung..." : direction !== null ? "Hitung Ulang" : "Tentukan Arah Kiblat"}
+          {loading
+            ? "Menghitung..."
+            : direction !== null
+              ? "Hitung Ulang"
+              : "Tentukan Arah Kiblat"}
         </Button>
       </CardContent>
     </Card>

@@ -179,27 +179,27 @@ program_schedule.programId
 
 ## Program
 
-* code wajib unik.
-* name wajib diisi.
-* startDate ≤ endDate.
+- code wajib unik.
+- name wajib diisi.
+- startDate ≤ endDate.
 
 ---
 
 ## Participant
 
-* Satu User hanya boleh terdaftar satu kali pada Program yang sama.
+- Satu User hanya boleh terdaftar satu kali pada Program yang sama.
 
 ---
 
 ## Schedule
 
-* endTime harus lebih besar dari startTime.
+- endTime harus lebih besar dari startTime.
 
 ---
 
 ## Attendance
 
-* Attendance hanya dapat dibuat apabila Participant valid.
+- Attendance hanya dapat dibuat apabila Participant valid.
 
 ---
 
@@ -207,11 +207,11 @@ program_schedule.programId
 
 Menggunakan Soft Delete:
 
-* program
-* participant
-* committee
-* program_schedule
-* program_documentation
+- program
+- participant
+- committee
+- program_schedule
+- program_documentation
 
 Attendance tidak menggunakan Soft Delete.
 
@@ -271,12 +271,12 @@ Excused
 
 # Database Rules
 
-* Program menjadi entitas utama.
-* Peserta tidak boleh ganda pada Program yang sama.
-* Jadwal minimal satu.
-* Dokumentasi menggunakan Domain Media.
-* Sertifikat menggunakan data Program.
-* Seluruh akses database melalui Repository.
+- Program menjadi entitas utama.
+- Peserta tidak boleh ganda pada Program yang sama.
+- Jadwal minimal satu.
+- Dokumentasi menggunakan Domain Media.
+- Sertifikat menggunakan data Program.
+- Seluruh akses database melalui Repository.
 
 ---
 
@@ -302,14 +302,14 @@ program_task
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -317,8 +317,8 @@ program_task
 
 Database Program dianggap selesai apabila:
 
-* Struktur database mendukung seluruh siklus Program.
-* Relasi antar tabel konsisten.
-* Tidak terdapat peserta ganda.
-* Seluruh Foreign Key valid.
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh siklus Program.
+- Relasi antar tabel konsisten.
+- Tidak terdapat peserta ganda.
+- Seluruh Foreign Key valid.
+- Seluruh akses database menggunakan Repository Pattern.

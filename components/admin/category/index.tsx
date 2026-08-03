@@ -27,8 +27,7 @@ interface Props {
 
 export function CategoryModule({ data }: Props) {
   const [open, setOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoryWithCount>();
+  const [selectedCategory, setSelectedCategory] = useState<CategoryWithCount>();
 
   function handleCreate() {
     setSelectedCategory(undefined);

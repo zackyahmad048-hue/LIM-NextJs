@@ -1,4 +1,7 @@
-import { BaseEntity, type BaseEntityProps } from "@/modules/shared/domain/base.entity";
+import {
+  BaseEntity,
+  type BaseEntityProps,
+} from "@/modules/shared/domain/base.entity";
 
 export interface UserProps extends BaseEntityProps {
   name: string;

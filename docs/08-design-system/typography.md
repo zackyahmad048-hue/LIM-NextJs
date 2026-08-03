@@ -24,11 +24,11 @@ Typography memastikan seluruh aplikasi memiliki hierarki visual yang jelas, muda
 
 Typography bertujuan untuk:
 
-* Meningkatkan keterbacaan.
-* Menjaga konsistensi visual.
-* Mempermudah implementasi Frontend.
-* Mendukung Accessibility.
-* Menjadi bagian dari Design Token.
+- Meningkatkan keterbacaan.
+- Menjaga konsistensi visual.
+- Mempermudah implementasi Frontend.
+- Mendukung Accessibility.
+- Menjadi bagian dari Design Token.
 
 ---
 
@@ -36,11 +36,11 @@ Typography bertujuan untuk:
 
 Seluruh tipografi harus:
 
-* Mudah dibaca.
-* Konsisten.
-* Responsif.
-* Mendukung berbagai bahasa.
-* Memiliki hierarki yang jelas.
+- Mudah dibaca.
+- Konsisten.
+- Responsif.
+- Mendukung berbagai bahasa.
+- Memiliki hierarki yang jelas.
 
 ---
 
@@ -62,10 +62,10 @@ Monospace
 
 Digunakan untuk:
 
-* Source Code
-* API Key
-* Identifier
-* Log
+- Source Code
+- API Key
+- Identifier
+- Log
 
 ---
 
@@ -105,9 +105,9 @@ Digunakan untuk:
 
 Gunakan Line Height yang:
 
-* Nyaman dibaca.
-* Konsisten.
-* Menyesuaikan ukuran teks.
+- Nyaman dibaca.
+- Konsisten.
+- Menyesuaikan ukuran teks.
 
 Heading menggunakan line height lebih rapat dibanding Body Text.
 
@@ -117,9 +117,9 @@ Heading menggunakan line height lebih rapat dibanding Body Text.
 
 Digunakan untuk:
 
-* Heading
-* Button
-* Caption
+- Heading
+- Button
+- Caption
 
 Body Text menggunakan Letter Spacing standar.
 
@@ -135,16 +135,16 @@ Left Align
 
 Center hanya digunakan untuk:
 
-* Hero Section
-* Empty State
-* Loading
-* Landing Page
+- Hero Section
+- Empty State
+- Loading
+- Landing Page
 
 Right Align digunakan untuk:
 
-* Numeric Data
-* Currency
-* Statistik
+- Numeric Data
+- Currency
+- Statistik
 
 ---
 
@@ -154,12 +154,12 @@ Menggunakan Color Token.
 
 Kategori:
 
-* Primary Text
-* Secondary Text
-* Disabled Text
-* Error Text
-* Success Text
-* Link Text
+- Primary Text
+- Secondary Text
+- Disabled Text
+- Error Text
+- Success Text
+- Link Text
 
 Hardcoded color tidak diperbolehkan.
 
@@ -169,9 +169,9 @@ Hardcoded color tidak diperbolehkan.
 
 Ukuran teks harus menyesuaikan:
 
-* Mobile
-* Tablet
-* Desktop
+- Mobile
+- Tablet
+- Desktop
 
 Heading dapat berubah ukuran sesuai Breakpoint.
 
@@ -183,9 +183,9 @@ Heading dapat berubah ukuran sesuai Breakpoint.
 
 Digunakan untuk:
 
-* Judul Halaman
-* Judul Section
-* Judul Card
+- Judul Halaman
+- Judul Section
+- Judul Card
 
 ---
 
@@ -193,9 +193,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Konten utama.
-* Penjelasan.
-* Artikel.
+- Konten utama.
+- Penjelasan.
+- Artikel.
 
 ---
 
@@ -203,9 +203,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Timestamp
-* Metadata
-* Informasi tambahan
+- Timestamp
+- Metadata
+- Informasi tambahan
 
 ---
 
@@ -213,9 +213,9 @@ Digunakan untuk:
 
 Digunakan pada:
 
-* Form
-* Badge
-* Status
+- Form
+- Badge
+- Status
 
 ---
 
@@ -231,37 +231,37 @@ Button tidak menggunakan variasi ukuran font yang berbeda-beda.
 
 Typography wajib:
 
-* Mudah dibaca.
-* Tidak menggunakan ukuran terlalu kecil.
-* Memiliki kontras yang cukup.
-* Mendukung Zoom Browser.
-* Mendukung Screen Reader.
+- Mudah dibaca.
+- Tidak menggunakan ukuran terlalu kecil.
+- Memiliki kontras yang cukup.
+- Mendukung Zoom Browser.
+- Mendukung Screen Reader.
 
 ---
 
 # Best Practices
 
-* Maksimal dua keluarga font.
-* Hindari terlalu banyak variasi ukuran.
-* Gunakan Heading secara berurutan.
-* Jangan menggunakan Bold secara berlebihan.
-* Gunakan Design Token untuk seluruh Typography.
+- Maksimal dua keluarga font.
+- Hindari terlalu banyak variasi ukuran.
+- Gunakan Heading secara berurutan.
+- Jangan menggunakan Bold secara berlebihan.
+- Gunakan Design Token untuk seluruh Typography.
 
 ---
 
 # Related Documents
 
-* README.md
-* colors.md
-* theme.md
-* accessibility.md
+- README.md
+- colors.md
+- theme.md
+- accessibility.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh teks menggunakan Typography Scale.
-* Font konsisten di seluruh aplikasi.
-* Responsive pada seluruh perangkat.
-* Memenuhi standar Accessibility.
-* Typography menjadi acuan resmi implementasi UI LIM Digital Platform.
+- Seluruh teks menggunakan Typography Scale.
+- Font konsisten di seluruh aplikasi.
+- Responsive pada seluruh perangkat.
+- Memenuhi standar Accessibility.
+- Typography menjadi acuan resmi implementasi UI LIM Digital Platform.

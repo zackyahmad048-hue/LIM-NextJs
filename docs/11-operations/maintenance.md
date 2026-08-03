@@ -26,11 +26,11 @@ Maintenance dilakukan secara terencana untuk meminimalkan gangguan terhadap laya
 
 Maintenance bertujuan untuk:
 
-* Menjaga stabilitas sistem.
-* Mencegah gangguan operasional.
-* Memperbarui komponen perangkat lunak.
-* Meningkatkan keamanan.
-* Mengoptimalkan performa.
+- Menjaga stabilitas sistem.
+- Mencegah gangguan operasional.
+- Memperbarui komponen perangkat lunak.
+- Meningkatkan keamanan.
+- Mengoptimalkan performa.
 
 ---
 
@@ -42,11 +42,11 @@ Dilakukan secara berkala untuk mencegah masalah.
 
 Contoh:
 
-* Update dependency.
-* Database maintenance.
-* Log cleanup.
-* Cache cleanup.
-* Security patch.
+- Update dependency.
+- Database maintenance.
+- Log cleanup.
+- Cache cleanup.
+- Security patch.
 
 ---
 
@@ -56,9 +56,9 @@ Dilakukan ketika ditemukan masalah.
 
 Contoh:
 
-* Bug Fix.
-* Configuration Fix.
-* Service Recovery.
+- Bug Fix.
+- Configuration Fix.
+- Service Recovery.
 
 ---
 
@@ -68,10 +68,10 @@ Dilakukan untuk menyesuaikan sistem dengan perubahan.
 
 Contoh:
 
-* Perubahan regulasi.
-* Upgrade Operating System.
-* Upgrade Database.
-* Upgrade Framework.
+- Perubahan regulasi.
+- Upgrade Operating System.
+- Upgrade Database.
+- Upgrade Framework.
 
 ---
 
@@ -81,10 +81,10 @@ Dilakukan untuk meningkatkan kualitas sistem.
 
 Contoh:
 
-* Performance Optimization.
-* UI Improvement.
-* Query Optimization.
-* Infrastructure Optimization.
+- Performance Optimization.
+- UI Improvement.
+- Query Optimization.
+- Infrastructure Optimization.
 
 ---
 
@@ -109,10 +109,10 @@ Maintenance dilakukan pada waktu dengan aktivitas pengguna paling rendah.
 
 Karakteristik:
 
-* Terjadwal.
-* Diumumkan sebelumnya.
-* Memiliki estimasi durasi.
-* Memiliki prosedur Rollback.
+- Terjadwal.
+- Diumumkan sebelumnya.
+- Memiliki estimasi durasi.
+- Memiliki prosedur Rollback.
 
 ---
 
@@ -120,12 +120,12 @@ Karakteristik:
 
 Sebelum maintenance:
 
-* Backup berhasil.
-* Monitoring aktif.
-* Tim terkait diberi informasi.
-* Maintenance Window disetujui.
-* Rollback Plan tersedia.
-* Change Request disetujui.
+- Backup berhasil.
+- Monitoring aktif.
+- Tim terkait diberi informasi.
+- Maintenance Window disetujui.
+- Rollback Plan tersedia.
+- Change Request disetujui.
 
 ---
 
@@ -165,14 +165,14 @@ Maintenance Completed
 
 Pastikan:
 
-* Application berjalan normal.
-* Database tersedia.
-* Redis normal.
-* Queue berjalan.
-* Upload dan Download berhasil.
-* Login berhasil.
-* Dashboard dapat diakses.
-* Monitoring normal.
+- Application berjalan normal.
+- Database tersedia.
+- Redis normal.
+- Queue berjalan.
+- Upload dan Download berhasil.
+- Login berhasil.
+- Dashboard dapat diakses.
+- Monitoring normal.
 
 ---
 
@@ -180,16 +180,16 @@ Pastikan:
 
 Rollback dilakukan apabila:
 
-* Deployment gagal.
-* Data tidak konsisten.
-* Performance menurun drastis.
-* Terjadi gangguan layanan.
+- Deployment gagal.
+- Data tidak konsisten.
+- Performance menurun drastis.
+- Terjadi gangguan layanan.
 
 Rollback harus:
 
-* Cepat.
-* Terdokumentasi.
-* Diverifikasi setelah selesai.
+- Cepat.
+- Terdokumentasi.
+- Diverifikasi setelah selesai.
 
 ---
 
@@ -197,14 +197,14 @@ Rollback harus:
 
 Selama Maintenance:
 
-* Informasikan status kepada stakeholder.
-* Perbarui progres secara berkala.
-* Umumkan apabila durasi berubah.
+- Informasikan status kepada stakeholder.
+- Perbarui progres secara berkala.
+- Umumkan apabila durasi berubah.
 
 Setelah selesai:
 
-* Umumkan bahwa sistem kembali normal.
-* Dokumentasikan hasil maintenance.
+- Umumkan bahwa sistem kembali normal.
+- Dokumentasikan hasil maintenance.
 
 ---
 
@@ -212,14 +212,14 @@ Setelah selesai:
 
 Setiap Maintenance mencatat:
 
-* Maintenance ID
-* Tanggal
-* Operator
-* Jenis Maintenance
-* Perubahan
-* Hasil
-* Kendala
-* Status
+- Maintenance ID
+- Tanggal
+- Operator
+- Jenis Maintenance
+- Perubahan
+- Hasil
+- Kendala
+- Status
 
 ---
 
@@ -227,38 +227,38 @@ Setiap Maintenance mencatat:
 
 Risiko yang perlu diperhatikan:
 
-* Downtime lebih lama dari rencana.
-* Kegagalan Deployment.
-* Kehilangaan data.
-* Konfigurasi tidak konsisten.
-* Rollback gagal.
+- Downtime lebih lama dari rencana.
+- Kegagalan Deployment.
+- Kehilangaan data.
+- Konfigurasi tidak konsisten.
+- Rollback gagal.
 
 ---
 
 # Best Practices
 
-* Selalu lakukan Backup sebelum Maintenance.
-* Gunakan Change Management untuk perubahan besar.
-* Lakukan Maintenance pada Maintenance Window.
-* Uji perubahan di Staging sebelum Production.
-* Verifikasi seluruh layanan setelah Maintenance.
+- Selalu lakukan Backup sebelum Maintenance.
+- Gunakan Change Management untuk perubahan besar.
+- Lakukan Maintenance pada Maintenance Window.
+- Uji perubahan di Staging sebelum Production.
+- Verifikasi seluruh layanan setelah Maintenance.
 
 ---
 
 # Related Documents
 
-* README.md
-* runbook.md
-* incident-response.md
-* backup-recovery.md
-* release-management.md
+- README.md
+- runbook.md
+- incident-response.md
+- backup-recovery.md
+- release-management.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh aktivitas Maintenance memiliki prosedur standar.
-* Maintenance Window terdokumentasi.
-* Rollback Plan tersedia.
-* Seluruh hasil Maintenance dicatat.
-* Maintenance menjadi acuan resmi pemeliharaan LIM Digital Platform.
+- Seluruh aktivitas Maintenance memiliki prosedur standar.
+- Maintenance Window terdokumentasi.
+- Rollback Plan tersedia.
+- Seluruh hasil Maintenance dicatat.
+- Maintenance menjadi acuan resmi pemeliharaan LIM Digital Platform.

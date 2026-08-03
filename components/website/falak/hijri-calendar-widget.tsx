@@ -5,14 +5,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
 
 const HIJRI_MONTHS = [
-  "Muharram", "Shafar", "Rabiul Awal", "Rabiul Akhir",
-  "Jumadil Awal", "Jumadil Akhir", "Rajab", "Sya'ban",
-  "Ramadhan", "Syawal", "Zulqaidah", "Zulhijjah",
+  "Muharram",
+  "Shafar",
+  "Rabiul Awal",
+  "Rabiul Akhir",
+  "Jumadil Awal",
+  "Jumadil Akhir",
+  "Rajab",
+  "Sya'ban",
+  "Ramadhan",
+  "Syawal",
+  "Zulqaidah",
+  "Zulhijjah",
 ];
 
 export function HijriCalendarWidget() {
@@ -32,7 +47,7 @@ export function HijriCalendarWidget() {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/v1/falak/hijri-calendar?date=${date}&method=${method}`
+        `/api/v1/falak/hijri-calendar?date=${date}&method=${method}`,
       );
       const json = await res.json();
       if (json.success && json.data) {
@@ -91,7 +106,8 @@ export function HijriCalendarWidget() {
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 text-center">
             <p className="text-sm text-muted-foreground">Tanggal Hijriah</p>
             <p className="mt-2 text-3xl font-bold text-primary">
-              {result.hijriDay} {HIJRI_MONTHS[result.hijriMonth - 1]} {result.hijriYear} H
+              {result.hijriDay} {HIJRI_MONTHS[result.hijriMonth - 1]}{" "}
+              {result.hijriYear} H
             </p>
             <Badge variant="outline" className="mt-3">
               {method === "HISAB" ? "Perhitungan Hisab" : `Observasi ${method}`}

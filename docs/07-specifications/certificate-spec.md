@@ -26,13 +26,13 @@ Domain ini terintegrasi dengan Program, Organization, Media, Notification, dan D
 
 Certificate harus mampu:
 
-* Mengelola Template Sertifikat.
-* Menghasilkan Nomor Sertifikat.
-* Menerbitkan Sertifikat Digital.
-* Memverifikasi Keaslian Sertifikat.
-* Mengelola QR Code.
-* Mengelola Revocation.
-* Mengelola Riwayat Sertifikat.
+- Mengelola Template Sertifikat.
+- Menghasilkan Nomor Sertifikat.
+- Menerbitkan Sertifikat Digital.
+- Memverifikasi Keaslian Sertifikat.
+- Mengelola QR Code.
+- Mengelola Revocation.
+- Mengelola Riwayat Sertifikat.
 
 ---
 
@@ -54,10 +54,10 @@ Certificate harus mampu:
 
 Mengelola:
 
-* Generate Certificate
-* Generate PDF
-* Generate QR Code
-* Digital Signature (Future)
+- Generate Certificate
+- Generate PDF
+- Generate QR Code
+- Digital Signature (Future)
 
 ---
 
@@ -65,11 +65,11 @@ Mengelola:
 
 Template mendukung:
 
-* Background
-* Logo
-* Signature
-* Dynamic Placeholder
-* QR Code
+- Background
+- Logo
+- Signature
+- Dynamic Placeholder
+- QR Code
 
 ---
 
@@ -77,10 +77,10 @@ Template mendukung:
 
 Sistem menyediakan:
 
-* Certificate Lookup
-* QR Verification
-* Certificate Status
-* Verification Page
+- Certificate Lookup
+- QR Verification
+- Certificate Status
+- Verification Page
 
 ---
 
@@ -88,8 +88,8 @@ Sistem menyediakan:
 
 Administrator dapat:
 
-* Revoke Certificate
-* Restore Certificate (sesuai kebijakan)
+- Revoke Certificate
+- Restore Certificate (sesuai kebijakan)
 
 ---
 
@@ -97,9 +97,9 @@ Administrator dapat:
 
 Peserta dapat:
 
-* Download PDF
-* View Certificate
-* Verify Certificate
+- Download PDF
+- View Certificate
+- Verify Certificate
 
 ---
 
@@ -107,29 +107,29 @@ Peserta dapat:
 
 Certificate harus:
 
-* Response < 500 ms.
-* PDF Generation < 2 detik.
-* Audit Enabled.
-* Highly Available.
+- Response < 500 ms.
+- PDF Generation < 2 detik.
+- Audit Enabled.
+- Highly Available.
 
 ---
 
 # Preconditions
 
-* Program telah selesai.
-* Peserta memenuhi syarat.
-* Administrator memiliki Permission.
+- Program telah selesai.
+- Peserta memenuhi syarat.
+- Administrator memiliki Permission.
 
 ---
 
 # Postconditions
 
-* Sertifikat diterbitkan.
-* PDF dibuat.
-* QR Code dibuat.
-* Notification dikirim.
-* Audit Log dibuat.
-* Domain Event diterbitkan.
+- Sertifikat diterbitkan.
+- PDF dibuat.
+- QR Code dibuat.
+- Notification dikirim.
+- Audit Log dibuat.
+- Domain Event diterbitkan.
 
 ---
 
@@ -195,11 +195,11 @@ Issue Certificate
 
 # Exception Flow
 
-* Peserta tidak memenuhi syarat.
-* Sertifikat sudah diterbitkan.
-* Template tidak ditemukan.
-* PDF gagal dibuat.
-* Storage tidak tersedia.
+- Peserta tidak memenuhi syarat.
+- Sertifikat sudah diterbitkan.
+- Template tidak ditemukan.
+- PDF gagal dibuat.
+- Storage tidak tersedia.
 
 ---
 
@@ -271,19 +271,19 @@ Archived
 
 Entity:
 
-* Certificate
-* CertificateTemplate
-* CertificateVerification
+- Certificate
+- CertificateTemplate
+- CertificateVerification
 
 Aggregate:
 
-* Certificate
+- Certificate
 
 Value Object:
 
-* CertificateNumber
-* QRCode
-* CertificateStatus
+- CertificateNumber
+- QRCode
+- CertificateStatus
 
 ---
 
@@ -329,10 +329,10 @@ certificate_verifications
 
 | Action   | Admin | Operator | Participant | Public |
 | -------- | :---: | :------: | :---------: | :----: |
-| Generate |   ✅   |     ✅    |      ❌      |    ❌   |
-| Download |   ✅   |     ✅    |      ✅      |    ❌   |
-| Verify   |   ✅   |     ✅    |      ✅      |    ✅   |
-| Revoke   |   ✅   |     ❌    |      ❌      |    ❌   |
+| Generate |  ✅   |    ✅    |     ❌      |   ❌   |
+| Download |  ✅   |    ✅    |     ✅      |   ❌   |
+| Verify   |  ✅   |    ✅    |     ✅      |   ✅   |
+| Revoke   |  ✅   |    ❌    |     ❌      |   ❌   |
 
 ---
 
@@ -377,40 +377,40 @@ CertificateRevoked
 
 # Acceptance Test
 
-* Sertifikat berhasil dibuat.
-* Nomor sertifikat unik.
-* PDF berhasil dihasilkan.
-* QR Code dapat diverifikasi.
-* Sertifikat dapat diunduh.
-* Revocation berjalan.
-* Notification terkirim.
-* Audit Log tercatat.
+- Sertifikat berhasil dibuat.
+- Nomor sertifikat unik.
+- PDF berhasil dihasilkan.
+- QR Code dapat diverifikasi.
+- Sertifikat dapat diunduh.
+- Revocation berjalan.
+- Notification terkirim.
+- Audit Log tercatat.
 
 ---
 
 # Performance Requirement
 
-* Generate Certificate < 2 detik.
-* Verify Certificate < 300 ms.
-* Download Certificate < 1 detik.
+- Generate Certificate < 2 detik.
+- Verify Certificate < 300 ms.
+- Download Certificate < 1 detik.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Nomor sertifikat tidak dapat diubah.
-* QR Code menggunakan URL verifikasi yang aman.
-* File PDF disimpan pada Object Storage.
-* Audit Log aktif.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- Nomor sertifikat tidak dapat diubah.
+- QR Code menggunakan URL verifikasi yang aman.
+- File PDF disimpan pada Object Storage.
+- Audit Log aktif.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Business Rules Certificate berjalan sesuai spesifikasi.
-* Nomor sertifikat unik dan dapat diverifikasi.
-* PDF dan QR Code dihasilkan secara otomatis.
-* Notification dan Domain Event berjalan sesuai desain.
-* Specification siap digunakan sebagai dasar implementasi Certificate Domain.
+- Seluruh Business Rules Certificate berjalan sesuai spesifikasi.
+- Nomor sertifikat unik dan dapat diverifikasi.
+- PDF dan QR Code dihasilkan secara otomatis.
+- Notification dan Domain Event berjalan sesuai desain.
+- Specification siap digunakan sebagai dasar implementasi Certificate Domain.

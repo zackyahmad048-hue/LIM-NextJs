@@ -10,10 +10,7 @@ import {
   registerParticipantSchema,
   addDocumentationSchema,
 } from "../validations/schema";
-import {
-  ProgramError,
-  ProgramCodeExistsError,
-} from "../domain/program.errors";
+import { ProgramError, ProgramCodeExistsError } from "../domain/program.errors";
 
 export async function createProgram(formData: FormData) {
   const raw = Object.fromEntries(formData);
@@ -27,8 +24,12 @@ export async function createProgram(formData: FormData) {
       type: parsed.data.type,
       description: parsed.data.description || null,
       personInChargeId: parsed.data.personInChargeId,
-      registrationOpen: parsed.data.registrationOpen ? new Date(parsed.data.registrationOpen) : null,
-      registrationClose: parsed.data.registrationClose ? new Date(parsed.data.registrationClose) : null,
+      registrationOpen: parsed.data.registrationOpen
+        ? new Date(parsed.data.registrationOpen)
+        : null,
+      registrationClose: parsed.data.registrationClose
+        ? new Date(parsed.data.registrationClose)
+        : null,
       startDate: new Date(parsed.data.startDate),
       endDate: new Date(parsed.data.endDate),
     };
@@ -50,10 +51,14 @@ export async function updateProgram(id: string, formData: FormData) {
     if (parsed.data.code) data.code = parsed.data.code;
     if (parsed.data.name) data.name = parsed.data.name;
     if (parsed.data.type) data.type = parsed.data.type;
-    if (parsed.data.description !== undefined) data.description = parsed.data.description || null;
-    if (parsed.data.personInChargeId) data.personInChargeId = parsed.data.personInChargeId;
-    if (parsed.data.registrationOpen) data.registrationOpen = new Date(parsed.data.registrationOpen);
-    if (parsed.data.registrationClose) data.registrationClose = new Date(parsed.data.registrationClose);
+    if (parsed.data.description !== undefined)
+      data.description = parsed.data.description || null;
+    if (parsed.data.personInChargeId)
+      data.personInChargeId = parsed.data.personInChargeId;
+    if (parsed.data.registrationOpen)
+      data.registrationOpen = new Date(parsed.data.registrationOpen);
+    if (parsed.data.registrationClose)
+      data.registrationClose = new Date(parsed.data.registrationClose);
     if (parsed.data.startDate) data.startDate = new Date(parsed.data.startDate);
     if (parsed.data.endDate) data.endDate = new Date(parsed.data.endDate);
 
@@ -133,7 +138,10 @@ export async function removeCommittee(id: string, programId: string) {
   }
 }
 
-export async function registerParticipant(programId: string, formData: FormData) {
+export async function registerParticipant(
+  programId: string,
+  formData: FormData,
+) {
   const raw = Object.fromEntries(formData);
   const parsed = registerParticipantSchema.safeParse(raw);
   if (!parsed.success) return;
@@ -146,9 +154,15 @@ export async function registerParticipant(programId: string, formData: FormData)
   }
 }
 
-export async function updateParticipantStatus(id: string, programId: string, status: string) {
+export async function updateParticipantStatus(
+  id: string,
+  programId: string,
+  status: string,
+) {
   try {
-    await programService.updateParticipant(id, { registrationStatus: status as any });
+    await programService.updateParticipant(id, {
+      registrationStatus: status as any,
+    });
     revalidatePath(`/admin/program/${programId}/participants`);
   } catch {
     return;
@@ -164,7 +178,10 @@ export async function removeParticipant(id: string, programId: string) {
   }
 }
 
-export async function checkInAttendance(participantId: string, programId: string) {
+export async function checkInAttendance(
+  participantId: string,
+  programId: string,
+) {
   try {
     await programService.checkIn(participantId, programId);
     revalidatePath(`/admin/program/${programId}/attendance`);
@@ -173,7 +190,10 @@ export async function checkInAttendance(participantId: string, programId: string
   }
 }
 
-export async function checkOutAttendance(participantId: string, programId: string) {
+export async function checkOutAttendance(
+  participantId: string,
+  programId: string,
+) {
   try {
     await programService.checkOut(participantId, programId);
     revalidatePath(`/admin/program/${programId}/attendance`);

@@ -26,14 +26,14 @@ Domain adalah sekumpulan fitur yang mengelola satu proses bisnis tertentu.
 
 Setiap domain memiliki:
 
-* Business Rules
-* Database
-* API
-* User Interface
-* Permission
-* Workflow
-* Validation
-* Audit
+- Business Rules
+- Database
+- API
+- User Interface
+- Permission
+- Workflow
+- Validation
+- Audit
 
 Domain dirancang agar dapat dikembangkan secara independen tanpa mengganggu domain lain.
 
@@ -43,12 +43,12 @@ Domain dirancang agar dapat dikembangkan secara independen tanpa mengganggu doma
 
 Seluruh domain mengikuti prinsip berikut:
 
-* Single Responsibility
-* Low Coupling
-* High Cohesion
-* Reusable
-* Scalable
-* Maintainable
+- Single Responsibility
+- Low Coupling
+- High Cohesion
+- Reusable
+- Scalable
+- Maintainable
 
 ---
 
@@ -79,13 +79,13 @@ LIM Digital Platform terdiri dari domain berikut.
 
 Hubungan antar domain mengikuti prinsip berikut:
 
-* Authentication menjadi dasar autentikasi pengguna.
-* Authorization menentukan hak akses.
-* Domain lain tidak mengelola data pengguna secara langsung.
-* Program dapat menggunakan Organization, Letter, Certificate, dan Notification.
-* Secretariat dapat menggunakan Program, Letter, dan Certificate.
-* Falak dapat digunakan oleh Website dan Mobile.
-* Media dapat digunakan oleh seluruh domain.
+- Authentication menjadi dasar autentikasi pengguna.
+- Authorization menentukan hak akses.
+- Domain lain tidak mengelola data pengguna secara langsung.
+- Program dapat menggunakan Organization, Letter, Certificate, dan Notification.
+- Secretariat dapat menggunakan Program, Letter, dan Certificate.
+- Falak dapat digunakan oleh Website dan Mobile.
+- Media dapat digunakan oleh seluruh domain.
 
 ---
 
@@ -119,13 +119,13 @@ Dokumen tambahan dapat dibuat sesuai kebutuhan domain.
 
 Seluruh domain harus:
 
-* Mengikuti Blueprint.
-* Mengikuti Business Rules.
-* Menggunakan Repository Pattern.
-* Menggunakan Service Layer.
-* Memiliki dokumentasi.
-* Memiliki validasi.
-* Memiliki permission yang jelas.
+- Mengikuti Blueprint.
+- Mengikuti Business Rules.
+- Menggunakan Repository Pattern.
+- Menggunakan Service Layer.
+- Memiliki dokumentasi.
+- Memiliki validasi.
+- Memiliki permission yang jelas.
 
 ---
 

@@ -1,10 +1,18 @@
-import SectionHeading from "@/components/shared/section-heading";
+import type { Metadata } from "next";
+import PageHeader from "@/components/website/page-header";
+
+export const metadata: Metadata = {
+  title: "Pengurus Pusat | LIM Digital Platform",
+  description:
+    "Para pimpinan Lembaga Ittihadul Muballighin yang memegang amanah organisasi.",
+};
 
 const pengurus = [
   {
     nama: "KH. Ahmad Fauzi",
     jabatan: "Ketua Umum",
-    deskripsi: "Memimpin LIM dengan visi dakwah profesional dan berakhlakul karimah.",
+    deskripsi:
+      "Memimpin LIM dengan visi dakwah profesional dan berakhlakul karimah.",
   },
   {
     nama: "KH. Muhammad Rizal",
@@ -45,40 +53,35 @@ const pengurus = [
 
 export default function PengurusPusatPage() {
   return (
-    <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          badge="Profil"
-          title="Pengurus Pusat"
-          description="Para pimpinan Lembaga Ittihadul Muballighin yang memegang amanah dalam menjalankan roda organisasi."
-        />
+    <>
+      <PageHeader
+        title="Pengurus Pusat"
+        description="Para pimpinan Lembaga Ittihadul Muballighin yang memegang amanah dalam menjalankan roda organisasi."
+      />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pengurus.map((orang) => (
             <div
               key={orang.nama}
-              className="group rounded-xl border border-border bg-card p-5 transition hover:border-orange-200 hover:shadow-md dark:hover:border-slate-600"
+              className="group rounded-2xl border border-primary/15 bg-card p-5 transition-colors hover:border-primary/40"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-sm font-bold text-orange-600 dark:bg-orange-500/20 dark:text-orange-400">
-                {orang.nama
-                  .split(" ")
-                  .slice(-1)[0]
-                  .slice(0, 2)
-                  .toUpperCase()}
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 font-sans text-sm text-primary">
+                {orang.nama.split(" ").slice(-1)[0].slice(0, 2).toUpperCase()}
               </div>
-              <h3 className="mt-4 text-sm font-bold text-card-foreground">
+              <h3 className="mt-4 font-display text-sm font-semibold text-foreground">
                 {orang.nama}
               </h3>
-              <p className="mt-1 text-xs font-medium text-orange-500 dark:text-orange-400">
+              <p className="mt-1 font-sans text-[10px] uppercase tracking-[0.18em] text-primary">
                 {orang.jabatan}
               </p>
-              <p className="mt-2 text-xs leading-6 text-muted-foreground">
+              <p className="mt-2.5 text-xs leading-6 text-muted-foreground">
                 {orang.deskripsi}
               </p>
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

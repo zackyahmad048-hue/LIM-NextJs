@@ -1,7 +1,12 @@
 "use client";
 // beui.dev/components/motion/text-animation
 
-import { motion, type Transition, useInView, useReducedMotion } from "motion/react";
+import {
+  motion,
+  type Transition,
+  useInView,
+  useReducedMotion,
+} from "motion/react";
 import { useMemo, useRef, type ElementType, type ReactNode } from "react";
 import { EASE_OUT } from "@/lib/ease";
 import { cn } from "@/lib/utils";
@@ -37,7 +42,11 @@ interface LineData {
   units: UnitData[];
 }
 
-function buildLines(text: string | string[], split: SplitMode, baseDelay: number): LineData[] {
+function buildLines(
+  text: string | string[],
+  split: SplitMode,
+  baseDelay: number,
+): LineData[] {
   const lines = Array.isArray(text) ? text : [text];
   const lineCounts = new Map<string, number>();
   let globalUnitIndex = 0;
@@ -49,7 +58,7 @@ function buildLines(text: string | string[], split: SplitMode, baseDelay: number
     const lineKey = `${line}-${lineCount}`;
     const unitCounts = new Map<string, number>();
 
-      const unitData: UnitData[] = units.map((unit, i) => {
+    const unitData: UnitData[] = units.map((unit, i) => {
       const unitCount = unitCounts.get(unit) ?? 0;
       unitCounts.set(unit, unitCount + 1);
       const d = baseDelay + globalUnitIndex;
@@ -80,7 +89,10 @@ export function TextReveal({
   const reduce = useReducedMotion();
   const shouldAnimate = whileInView ? inView : true;
 
-  const lines = useMemo(() => buildLines(text, split, delay), [text, split, delay]);
+  const lines = useMemo(
+    () => buildLines(text, split, delay),
+    [text, split, delay],
+  );
   const s = { ...DEFAULT_SPRING, ...spring };
 
   return (
@@ -100,7 +112,11 @@ export function TextReveal({
               ? { opacity: { duration: 0.25, ease: EASE_OUT, delay: d * 0.3 } }
               : {
                   y: { type: "spring" as const, ...s, delay: d * stagger },
-                  opacity: { duration: 0.7, ease: EASE_OUT, delay: d * stagger },
+                  opacity: {
+                    duration: 0.7,
+                    ease: EASE_OUT,
+                    delay: d * stagger,
+                  },
                   filter: { duration: 0.9, ease: EASE_OUT, delay: d * stagger },
                 };
             return (

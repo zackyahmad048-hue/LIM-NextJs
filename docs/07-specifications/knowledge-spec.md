@@ -26,13 +26,13 @@ Domain ini berbeda dengan CMS karena berfokus pada **knowledge management** dan 
 
 Knowledge harus mampu:
 
-* Mengelola Artikel.
-* Mengelola Kategori.
-* Mengelola Tag.
-* Mengelola Lampiran.
-* Mendukung Versioning.
-* Mendukung Full Text Search.
-* Mengelola Workflow Publikasi.
+- Mengelola Artikel.
+- Mengelola Kategori.
+- Mengelola Tag.
+- Mengelola Lampiran.
+- Mendukung Versioning.
+- Mendukung Full Text Search.
+- Mengelola Workflow Publikasi.
 
 ---
 
@@ -54,10 +54,10 @@ Knowledge harus mampu:
 
 Mengelola:
 
-* Create Article
-* Update Article
-* Delete Article
-* Archive Article
+- Create Article
+- Update Article
+- Delete Article
+- Archive Article
 
 ---
 
@@ -65,9 +65,9 @@ Mengelola:
 
 Mengelola:
 
-* Category
-* Sub Category
-* Topic
+- Category
+- Sub Category
+- Topic
 
 ---
 
@@ -75,9 +75,9 @@ Mengelola:
 
 Mendukung:
 
-* Multiple Tags
-* Search by Tag
-* Recommendation
+- Multiple Tags
+- Search by Tag
+- Recommendation
 
 ---
 
@@ -85,9 +85,9 @@ Mendukung:
 
 Mendukung:
 
-* Version History
-* Compare Version
-* Restore Version
+- Version History
+- Compare Version
+- Restore Version
 
 ---
 
@@ -117,11 +117,11 @@ Archived
 
 Mendukung:
 
-* Full Text Search
-* Filter
-* Category Search
-* Tag Search
-* Author Search
+- Full Text Search
+- Filter
+- Category Search
+- Tag Search
+- Author Search
 
 ---
 
@@ -129,29 +129,29 @@ Mendukung:
 
 Knowledge harus:
 
-* Response < 500 ms.
-* Full Text Search.
-* Highly Available.
-* Audit Enabled.
-* Versioning Enabled.
+- Response < 500 ms.
+- Full Text Search.
+- Highly Available.
+- Audit Enabled.
+- Versioning Enabled.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Permission sesuai.
-* Artikel memenuhi validasi.
+- User telah Login.
+- Permission sesuai.
+- Artikel memenuhi validasi.
 
 ---
 
 # Postconditions
 
-* Artikel tersimpan.
-* Search Index diperbarui.
-* Audit Log dibuat.
-* Notification dikirim (jika diperlukan).
-* Domain Event diterbitkan.
+- Artikel tersimpan.
+- Search Index diperbarui.
+- Audit Log dibuat.
+- Notification dikirim (jika diperlukan).
+- Domain Event diterbitkan.
 
 ---
 
@@ -217,11 +217,11 @@ Publish
 
 # Exception Flow
 
-* Artikel tidak ditemukan.
-* Slug sudah digunakan.
-* Kategori tidak ditemukan.
-* Permission ditolak.
-* Search Index gagal diperbarui.
+- Artikel tidak ditemukan.
+- Slug sudah digunakan.
+- Kategori tidak ditemukan.
+- Permission ditolak.
+- Search Index gagal diperbarui.
 
 ---
 
@@ -281,20 +281,20 @@ Archived
 
 Entity:
 
-* KnowledgeArticle
-* KnowledgeCategory
-* KnowledgeTag
-* KnowledgeVersion
+- KnowledgeArticle
+- KnowledgeCategory
+- KnowledgeTag
+- KnowledgeVersion
 
 Aggregate:
 
-* Knowledge
+- Knowledge
 
 Value Object:
 
-* Slug
-* PublicationStatus
-* ArticleVersion
+- Slug
+- PublicationStatus
+- ArticleVersion
 
 ---
 
@@ -343,13 +343,13 @@ knowledge_versions
 
 # Permission Matrix
 
-| Action         | Admin | Manager | Editor |   Author  | User |
+| Action         | Admin | Manager | Editor |  Author   | User |
 | -------------- | :---: | :-----: | :----: | :-------: | :--: |
-| View Published |   ✅   |    ✅    |    ✅   |     ✅     |   ✅  |
-| Create         |   ✅   |    ✅    |    ✅   |     ✅     |   ❌  |
-| Update         |   ✅   |    ✅    |    ✅   | Own Draft |   ❌  |
-| Publish        |   ✅   |    ✅    |    ✅   |     ❌     |   ❌  |
-| Archive        |   ✅   |    ✅    |    ❌   |     ❌     |   ❌  |
+| View Published |  ✅   |   ✅    |   ✅   |    ✅     |  ✅  |
+| Create         |  ✅   |   ✅    |   ✅   |    ✅     |  ❌  |
+| Update         |  ✅   |   ✅    |   ✅   | Own Draft |  ❌  |
+| Publish        |  ✅   |   ✅    |   ✅   |    ❌     |  ❌  |
+| Archive        |  ✅   |   ✅    |   ❌   |    ❌     |  ❌  |
 
 ---
 
@@ -393,39 +393,39 @@ KnowledgeVersionCreated
 
 # Acceptance Test
 
-* Artikel berhasil dibuat.
-* Draft berhasil disimpan.
-* Artikel berhasil dipublikasikan.
-* Versioning berjalan.
-* Search menghasilkan artikel yang sesuai.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Artikel berhasil dibuat.
+- Draft berhasil disimpan.
+- Artikel berhasil dipublikasikan.
+- Versioning berjalan.
+- Search menghasilkan artikel yang sesuai.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Create Article < 500 ms.
-* Search Article < 300 ms.
-* Publish Article < 500 ms.
-* Reindex < 5 detik.
+- Create Article < 500 ms.
+- Search Article < 300 ms.
+- Publish Article < 500 ms.
+- Reindex < 5 detik.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Audit Log aktif.
-* Konten disanitasi sebelum dipublikasikan.
-* Version History tidak dapat diubah.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- Audit Log aktif.
+- Konten disanitasi sebelum dipublikasikan.
+- Version History tidak dapat diubah.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Business Rules Knowledge berjalan sesuai spesifikasi.
-* Workflow Draft–Review–Published berjalan sesuai desain.
-* Full Text Search dan Versioning berfungsi.
-* Domain Event dan Audit Log aktif.
-* Specification siap digunakan sebagai dasar implementasi Knowledge Domain.
+- Seluruh Business Rules Knowledge berjalan sesuai spesifikasi.
+- Workflow Draft–Review–Published berjalan sesuai desain.
+- Full Text Search dan Versioning berfungsi.
+- Domain Event dan Audit Log aktif.
+- Specification siap digunakan sebagai dasar implementasi Knowledge Domain.

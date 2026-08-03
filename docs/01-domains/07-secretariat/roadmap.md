@@ -18,13 +18,13 @@ Menjadi pusat administrasi digital organisasi.
 
 # Version 1.0
 
-* Incoming Mail
-* Outgoing Mail
-* Disposition
-* Administrative Document
-* Agenda Book
-* Archive
-* Audit Log
+- Incoming Mail
+- Outgoing Mail
+- Disposition
+- Administrative Document
+- Agenda Book
+- Archive
+- Audit Log
 
 ✅ Initial Release
 
@@ -32,59 +32,59 @@ Menjadi pusat administrasi digital organisasi.
 
 # Version 1.1
 
-* QR Document
-* Digital Signature
-* Approval Workflow
-* Email Integration
-* WhatsApp Notification
+- QR Document
+- Digital Signature
+- Approval Workflow
+- Email Integration
+- WhatsApp Notification
 
 ---
 
 # Version 1.2
 
-* Template Surat
-* Auto Numbering
-* Document Versioning
-* OCR Document
+- Template Surat
+- Auto Numbering
+- Document Versioning
+- OCR Document
 
 ---
 
 # Version 2.0
 
-* Paperless Office
-* E-Office
-* Digital Archive
-* Smart Search
-* Workflow Automation
+- Paperless Office
+- E-Office
+- Digital Archive
+- Smart Search
+- Workflow Automation
 
 ---
 
 # Version 3.0
 
-* AI Document Classification
-* AI Disposition Suggestion
-* AI Document Search
-* AI Archive Assistant
+- AI Document Classification
+- AI Disposition Suggestion
+- AI Document Search
+- AI Archive Assistant
 
 ---
 
 # Dependencies
 
-* Organization
-* Letter
-* Notification
-* Media
-* Knowledge
+- Organization
+- Letter
+- Notification
+- Media
+- Knowledge
 
 ---
 
 # Success Indicators
 
-* Administrasi terdigitalisasi.
-* Arsip mudah dicari.
-* Disposisi terdokumentasi.
-* Nomor surat otomatis.
-* Integrasi dengan Domain Letter.
+- Administrasi terdigitalisasi.
+- Arsip mudah dicari.
+- Disposisi terdokumentasi.
+- Nomor surat otomatis.
+- Integrasi dengan Domain Letter.
 
 ---
 

@@ -1,5 +1,8 @@
 import { SuratPageClient } from "./surat-client";
-import { getIncomingMails, getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getIncomingMails,
+  getOutgoingMails,
+} from "@/modules/secretariat/queries/secretariat.query";
 
 export default async function SuratPage({
   searchParams,
@@ -7,7 +10,8 @@ export default async function SuratPage({
   searchParams: Promise<{ tab?: string; search?: string; page?: string }>;
 }) {
   const params = await searchParams;
-  const tab = (params.tab === "keluar" ? "keluar" : "masuk") as "masuk" | "keluar";
+  const tab = (params.tab === "keluar" ? "keluar" : "masuk") as
+    "masuk" | "keluar";
   const search = params.search ?? "";
   const page = params.page ? Number(params.page) : 1;
 
@@ -21,7 +25,10 @@ export default async function SuratPage({
       initialTab={tab}
       masukItems={masuk.items}
       masukTotal={masuk.total}
-      keluarItems={keluar.items.map((item) => ({ ...item, recipient: item.recipient ?? "" }))}
+      keluarItems={keluar.items.map((item) => ({
+        ...item,
+        recipient: item.recipient ?? "",
+      }))}
       keluarTotal={keluar.total}
       search={search}
     />

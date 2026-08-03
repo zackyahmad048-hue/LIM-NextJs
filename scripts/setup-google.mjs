@@ -19,7 +19,8 @@ import { google } from "googleapis";
 process.loadEnvFile();
 
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-const SERVICE_ACCOUNT_PRIVATE_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+const SERVICE_ACCOUNT_PRIVATE_KEY =
+  process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
 const ORGANIZATION_EMAILS = (process.env.GOOGLE_ORGANIZATION_EMAILS ?? "")
   .split(",")
   .map((email) => email.trim())
@@ -27,7 +28,7 @@ const ORGANIZATION_EMAILS = (process.env.GOOGLE_ORGANIZATION_EMAILS ?? "")
 
 if (!SERVICE_ACCOUNT_EMAIL || !SERVICE_ACCOUNT_PRIVATE_KEY) {
   console.error(
-    "[setup-google] GOOGLE_SERVICE_ACCOUNT_EMAIL dan/atau GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY belum diisi di .env."
+    "[setup-google] GOOGLE_SERVICE_ACCOUNT_EMAIL dan/atau GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY belum diisi di .env.",
   );
   process.exit(1);
 }
@@ -47,20 +48,167 @@ const docs = google.docs({ version: "v1", auth });
 const drive = google.drive({ version: "v3", auth });
 
 const PENDATAAN_TABS = [
-  ["SuratMasuk", ["id", "registrationNumber", "sender", "subject", "senderAddress", "receivedDate", "status", "classification", "category", "notes", "attachmentUrl", "createdAt", "updatedAt", "deletedAt"]],
-  ["SuratKeluar", ["id", "registrationNumber", "recipient", "subject", "senderName", "mailDate", "status", "documentNumber", "documentType", "content", "approvedById", "approvedAt", "attachmentUrl", "googleDocId", "googleDocUrl", "createdAt", "updatedAt", "deletedAt"]],
-  ["Disposisi", ["id", "incomingMailId", "assignedToId", "instruction", "priority", "status", "dueDate", "notes", "createdAt", "updatedAt", "deletedAt"]],
-  ["DokumenAdministrasi", ["id", "documentNumber", "documentType", "title", "description", "content", "status", "submittedById", "submittedAt", "approvedById", "approvedAt", "googleDocId", "googleDocUrl", "createdAt", "updatedAt", "deletedAt"]],
-  ["ArsipDokumen", ["id", "archiveNumber", "title", "documentType", "category", "retentionYear", "archivedAt", "createdAt"]],
-  ["Agenda", ["id", "date", "title", "description", "location", "participants", "notes", "createdAt"]],
+  [
+    "SuratMasuk",
+    [
+      "id",
+      "registrationNumber",
+      "sender",
+      "subject",
+      "senderAddress",
+      "receivedDate",
+      "status",
+      "classification",
+      "category",
+      "notes",
+      "attachmentUrl",
+      "createdAt",
+      "updatedAt",
+      "deletedAt",
+    ],
+  ],
+  [
+    "SuratKeluar",
+    [
+      "id",
+      "registrationNumber",
+      "recipient",
+      "subject",
+      "senderName",
+      "mailDate",
+      "status",
+      "documentNumber",
+      "documentType",
+      "content",
+      "approvedById",
+      "approvedAt",
+      "attachmentUrl",
+      "googleDocId",
+      "googleDocUrl",
+      "createdAt",
+      "updatedAt",
+      "deletedAt",
+    ],
+  ],
+  [
+    "Disposisi",
+    [
+      "id",
+      "incomingMailId",
+      "assignedToId",
+      "instruction",
+      "priority",
+      "status",
+      "dueDate",
+      "notes",
+      "createdAt",
+      "updatedAt",
+      "deletedAt",
+    ],
+  ],
+  [
+    "DokumenAdministrasi",
+    [
+      "id",
+      "documentNumber",
+      "documentType",
+      "title",
+      "description",
+      "content",
+      "status",
+      "submittedById",
+      "submittedAt",
+      "approvedById",
+      "approvedAt",
+      "googleDocId",
+      "googleDocUrl",
+      "createdAt",
+      "updatedAt",
+      "deletedAt",
+    ],
+  ],
+  [
+    "ArsipDokumen",
+    [
+      "id",
+      "archiveNumber",
+      "title",
+      "documentType",
+      "category",
+      "retentionYear",
+      "archivedAt",
+      "createdAt",
+    ],
+  ],
+  [
+    "Agenda",
+    [
+      "id",
+      "date",
+      "title",
+      "description",
+      "location",
+      "participants",
+      "notes",
+      "createdAt",
+    ],
+  ],
 ];
 
 const FALAK_TABS = [
-  ["PrayerTime", ["id", "locationName", "latitude", "longitude", "timezone", "calculationMethod", "prayerDate", "fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha", "createdAt"]],
+  [
+    "PrayerTime",
+    [
+      "id",
+      "locationName",
+      "latitude",
+      "longitude",
+      "timezone",
+      "calculationMethod",
+      "prayerDate",
+      "fajr",
+      "sunrise",
+      "dhuhr",
+      "asr",
+      "maghrib",
+      "isha",
+      "createdAt",
+    ],
+  ],
   ["Qibla", ["id", "latitude", "longitude", "direction", "createdAt"]],
-  ["HijriCalendar", ["id", "gregorianDate", "hijriYear", "hijriMonth", "hijriDay", "method", "createdAt"]],
-  ["Rukyat", ["id", "observationDate", "locationName", "latitude", "longitude", "observerId", "weather", "result", "notes", "status", "createdAt", "deletedAt"]],
-  ["Eclipse", ["id", "eclipseType", "eclipseDate", "visibility", "details", "createdAt"]],
+  [
+    "HijriCalendar",
+    [
+      "id",
+      "gregorianDate",
+      "hijriYear",
+      "hijriMonth",
+      "hijriDay",
+      "method",
+      "createdAt",
+    ],
+  ],
+  [
+    "Rukyat",
+    [
+      "id",
+      "observationDate",
+      "locationName",
+      "latitude",
+      "longitude",
+      "observerId",
+      "weather",
+      "result",
+      "notes",
+      "status",
+      "createdAt",
+      "deletedAt",
+    ],
+  ],
+  [
+    "Eclipse",
+    ["id", "eclipseType", "eclipseDate", "visibility", "details", "createdAt"],
+  ],
 ];
 
 function paragraph(text, { bold = false, alignment = "START" } = {}) {
@@ -75,7 +223,12 @@ function paragraph(text, { bold = false, alignment = "START" } = {}) {
 }
 
 function blank() {
-  return { paragraph: { elements: [{ textRun: { content: "\n", textStyle: {} } }], paragraphStyle: {} } };
+  return {
+    paragraph: {
+      elements: [{ textRun: { content: "\n", textStyle: {} } }],
+      paragraphStyle: {},
+    },
+  };
 }
 
 function metaLine(label, value) {
@@ -93,7 +246,10 @@ function metaLine(label, value) {
 const SURAT_KELUAR_BODY = [
   paragraph("{{namaOrganisasi}}", { bold: true, alignment: "CENTER" }),
   paragraph("Alamat | Telepon | Email", { alignment: "CENTER" }),
-  paragraph("________________________________________________________________", { alignment: "CENTER" }),
+  paragraph(
+    "________________________________________________________________",
+    { alignment: "CENTER" },
+  ),
   blank(),
   metaLine("Nomor", "{{nomorSurat}}"),
   metaLine("Tanggal", "{{tanggalSurat}}"),
@@ -131,7 +287,10 @@ async function createSpreadsheet(title, tabs) {
     requestBody: {
       properties: { title },
       sheets: tabs.map(([tab]) => ({
-        properties: { title: tab, gridProperties: { rowCount: 1000, columnCount: 20 } },
+        properties: {
+          title: tab,
+          gridProperties: { rowCount: 1000, columnCount: 20 },
+        },
       })),
     },
   });
@@ -153,7 +312,7 @@ async function createSpreadsheet(title, tabs) {
 function elementLength(el) {
   return (el.paragraph?.elements ?? []).reduce(
     (sum, e) => sum + (e.textRun?.content ?? "").length,
-    0
+    0,
   );
 }
 
@@ -187,19 +346,36 @@ async function share(fileId, title) {
 }
 
 async function main() {
-  console.log("Membuat resource Google sebagai service account:", SERVICE_ACCOUNT_EMAIL);
-  console.log("Share ke organisasi:", ORGANIZATION_EMAILS.length > 0 ? ORGANIZATION_EMAILS.join(", ") : "(tidak ada, lewati share)");
+  console.log(
+    "Membuat resource Google sebagai service account:",
+    SERVICE_ACCOUNT_EMAIL,
+  );
+  console.log(
+    "Share ke organisasi:",
+    ORGANIZATION_EMAILS.length > 0
+      ? ORGANIZATION_EMAILS.join(", ")
+      : "(tidak ada, lewati share)",
+  );
 
-  const pendataanId = await createSpreadsheet("LIM - Pendataan Sekretariat", PENDATAAN_TABS);
+  const pendataanId = await createSpreadsheet(
+    "LIM - Pendataan Sekretariat",
+    PENDATAAN_TABS,
+  );
   await share(pendataanId, "LIM - Pendataan Sekretariat");
 
   const falakId = await createSpreadsheet("LIM - Data Falak", FALAK_TABS);
   await share(falakId, "LIM - Data Falak");
 
-  const suratKeluarTemplateId = await createTemplateDoc("TEMPLATE - Surat Keluar", SURAT_KELUAR_BODY);
+  const suratKeluarTemplateId = await createTemplateDoc(
+    "TEMPLATE - Surat Keluar",
+    SURAT_KELUAR_BODY,
+  );
   await share(suratKeluarTemplateId, "TEMPLATE - Surat Keluar");
 
-  const dokAdminTemplateId = await createTemplateDoc("TEMPLATE - Dokumen Administrasi", DOKUMEN_ADMIN_BODY);
+  const dokAdminTemplateId = await createTemplateDoc(
+    "TEMPLATE - Dokumen Administrasi",
+    DOKUMEN_ADMIN_BODY,
+  );
   await share(dokAdminTemplateId, "TEMPLATE - Dokumen Administrasi");
 
   console.log("\n=== SELESAI. Salin ke .env ===");
@@ -212,6 +388,9 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error("[setup-google] Gagal:", error instanceof Error ? error.message : error);
+  console.error(
+    "[setup-google] Gagal:",
+    error instanceof Error ? error.message : error,
+  );
   process.exit(1);
 });

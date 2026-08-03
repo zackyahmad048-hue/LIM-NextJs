@@ -1,6 +1,18 @@
-import type { PrayerMethod, ObservationStatus, RukyatResult, EclipseType, HijriMethod } from "@/generated/client";
+import type {
+  PrayerMethod,
+  ObservationStatus,
+  RukyatResult,
+  EclipseType,
+  HijriMethod,
+} from "@/generated/client";
 
-export type { PrayerMethod, ObservationStatus, RukyatResult, EclipseType, HijriMethod };
+export type {
+  PrayerMethod,
+  ObservationStatus,
+  RukyatResult,
+  EclipseType,
+  HijriMethod,
+};
 
 export interface Coordinate {
   latitude: number;

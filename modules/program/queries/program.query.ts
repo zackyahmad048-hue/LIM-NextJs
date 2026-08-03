@@ -1,8 +1,17 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 
-export async function getPrograms(params: { search?: string; status?: string; page?: number; limit?: number }) {
+export async function getPrograms(params: {
+  search?: string;
+  status?: string;
+  page?: number;
+  limit?: number;
+}) {
   const where: Record<string, unknown> = { deletedAt: null };
-  if (params.search) where.OR = [{ name: { contains: params.search } }, { code: { contains: params.search } }];
+  if (params.search)
+    where.OR = [
+      { name: { contains: params.search } },
+      { code: { contains: params.search } },
+    ];
   if (params.status) where.status = params.status;
 
   const [items, total] = await Promise.all([
@@ -27,20 +36,43 @@ export async function getProgramById(id: string) {
 }
 
 export async function getProgramStats() {
-  const [total, draft, published, registrationOpen, registrationClosed, onGoing, completed, cancelled, archived] =
-    await Promise.all([
-      prisma.program.count({ where: { deletedAt: null } }),
-      prisma.program.count({ where: { status: "DRAFT", deletedAt: null } }),
-      prisma.program.count({ where: { status: "PUBLISHED", deletedAt: null } }),
-      prisma.program.count({ where: { status: "REGISTRATION_OPEN", deletedAt: null } }),
-      prisma.program.count({ where: { status: "REGISTRATION_CLOSED", deletedAt: null } }),
-      prisma.program.count({ where: { status: "ON_GOING", deletedAt: null } }),
-      prisma.program.count({ where: { status: "COMPLETED", deletedAt: null } }),
-      prisma.program.count({ where: { status: "CANCELLED", deletedAt: null } }),
-      prisma.program.count({ where: { status: "ARCHIVED", deletedAt: null } }),
-    ]);
+  const [
+    total,
+    draft,
+    published,
+    registrationOpen,
+    registrationClosed,
+    onGoing,
+    completed,
+    cancelled,
+    archived,
+  ] = await Promise.all([
+    prisma.program.count({ where: { deletedAt: null } }),
+    prisma.program.count({ where: { status: "DRAFT", deletedAt: null } }),
+    prisma.program.count({ where: { status: "PUBLISHED", deletedAt: null } }),
+    prisma.program.count({
+      where: { status: "REGISTRATION_OPEN", deletedAt: null },
+    }),
+    prisma.program.count({
+      where: { status: "REGISTRATION_CLOSED", deletedAt: null },
+    }),
+    prisma.program.count({ where: { status: "ON_GOING", deletedAt: null } }),
+    prisma.program.count({ where: { status: "COMPLETED", deletedAt: null } }),
+    prisma.program.count({ where: { status: "CANCELLED", deletedAt: null } }),
+    prisma.program.count({ where: { status: "ARCHIVED", deletedAt: null } }),
+  ]);
 
-  return { total, draft, published, registrationOpen, registrationClosed, onGoing, completed, cancelled, archived };
+  return {
+    total,
+    draft,
+    published,
+    registrationOpen,
+    registrationClosed,
+    onGoing,
+    completed,
+    cancelled,
+    archived,
+  };
 }
 
 export async function getSchedules(programId: string) {
@@ -53,7 +85,9 @@ export async function getSchedules(programId: string) {
 export async function getCommittees(programId: string) {
   return prisma.programCommittee.findMany({
     where: { programId, deletedAt: null },
-    include: { user: { select: { id: true, name: true, email: true, image: true } } },
+    include: {
+      user: { select: { id: true, name: true, email: true, image: true } },
+    },
     orderBy: { role: "asc" },
   }) as unknown as any[];
 }
@@ -61,7 +95,9 @@ export async function getCommittees(programId: string) {
 export async function getParticipants(programId: string) {
   return prisma.participant.findMany({
     where: { programId, deletedAt: null },
-    include: { user: { select: { id: true, name: true, email: true, image: true } } },
+    include: {
+      user: { select: { id: true, name: true, email: true, image: true } },
+    },
     orderBy: { registrationDate: "desc" },
   }) as unknown as any[];
 }

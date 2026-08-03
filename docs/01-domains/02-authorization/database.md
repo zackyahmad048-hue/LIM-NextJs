@@ -20,57 +20,55 @@ Dokumen ini mendefinisikan database schema untuk domain Authorization.
 
 ### role
 
-| Field | Type | Constraint | Keterangan |
-|-------|------|------------|------------|
-| id | UUID | PK | Primary key |
-| name | VARCHAR | UNIQUE, NOT NULL | Nama role |
-| description | VARCHAR | NULL | Deskripsi role |
-| isSystem | BOOLEAN | DEFAULT false | Role sistem (tidak dapat dihapus) |
-| createdAt | TIMESTAMP | DEFAULT now() | Waktu pembuatan |
-| updatedAt | TIMESTAMP | | Waktu update terakhir |
+| Field       | Type      | Constraint       | Keterangan                        |
+| ----------- | --------- | ---------------- | --------------------------------- |
+| id          | UUID      | PK               | Primary key                       |
+| name        | VARCHAR   | UNIQUE, NOT NULL | Nama role                         |
+| description | VARCHAR   | NULL             | Deskripsi role                    |
+| isSystem    | BOOLEAN   | DEFAULT false    | Role sistem (tidak dapat dihapus) |
+| createdAt   | TIMESTAMP | DEFAULT now()    | Waktu pembuatan                   |
+| updatedAt   | TIMESTAMP |                  | Waktu update terakhir             |
 
 ### permission
 
-| Field | Type | Constraint | Keterangan |
-|-------|------|------------|------------|
-| id | UUID | PK | Primary key |
-| name | VARCHAR | UNIQUE, NOT NULL | Nama permission (misal: `cms:create`) |
-| description | VARCHAR | NULL | Deskripsi permission |
-| domain | VARCHAR | NOT NULL | Domain (misal: `cms`) |
-| action | VARCHAR | NOT NULL | Action (misal: `create`) |
+| Field       | Type    | Constraint       | Keterangan                            |
+| ----------- | ------- | ---------------- | ------------------------------------- |
+| id          | UUID    | PK               | Primary key                           |
+| name        | VARCHAR | UNIQUE, NOT NULL | Nama permission (misal: `cms:create`) |
+| description | VARCHAR | NULL             | Deskripsi permission                  |
+| domain      | VARCHAR | NOT NULL         | Domain (misal: `cms`)                 |
+| action      | VARCHAR | NOT NULL         | Action (misal: `create`)              |
 
 ### user_role
 
-| Field | Type | Constraint | Keterangan |
-|-------|------|------------|------------|
-| id | UUID | PK | Primary key |
-| userId | UUID | FK -> user.id | User |
-| roleId | UUID | FK -> role.id | Role |
+| Field  | Type | Constraint    | Keterangan  |
+| ------ | ---- | ------------- | ----------- |
+| id     | UUID | PK            | Primary key |
+| userId | UUID | FK -> user.id | User        |
+| roleId | UUID | FK -> role.id | Role        |
 
 ### role_permission
 
-| Field | Type | Constraint | Keterangan |
-|-------|------|------------|------------|
-| id | UUID | PK | Primary key |
-| roleId | UUID | FK -> role.id | Role |
-| permissionId | UUID | FK -> permission.id | Permission |
+| Field        | Type | Constraint          | Keterangan  |
+| ------------ | ---- | ------------------- | ----------- |
+| id           | UUID | PK                  | Primary key |
+| roleId       | UUID | FK -> role.id       | Role        |
+| permissionId | UUID | FK -> permission.id | Permission  |
 
 ---
 
 # Relations
 
-``
-role 1--* user_role
+`role 1--* user_role
 role 1--* role_permission
 permission 1--* role_permission
-user 1--* user_role
-``
+user 1--* user_role`
 
 ---
 
 # Default Permissions
 
-``text
+`text
 dashboard:view
 cms:create
 cms:read
@@ -106,7 +104,7 @@ roles:update
 roles:delete
 settings:read
 settings:update
-``
+`
 
 ---
 

@@ -402,24 +402,24 @@ Retry
 
 # Workflow Rules
 
-* Program selalu dimulai dari status **Draft**.
-* Pendaftaran hanya tersedia saat **Registration Open**.
-* Absensi hanya tersedia saat **On Going**.
-* Sertifikat hanya dapat diterbitkan setelah **Completed**.
-* Seluruh perubahan status dicatat pada Audit Log.
+- Program selalu dimulai dari status **Draft**.
+- Pendaftaran hanya tersedia saat **Registration Open**.
+- Absensi hanya tersedia saat **On Going**.
+- Sertifikat hanya dapat diterbitkan setelah **Completed**.
+- Seluruh perubahan status dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -427,8 +427,8 @@ Retry
 
 Workflow Program dianggap selesai apabila:
 
-* Siklus hidup Program berjalan sesuai status.
-* Pendaftaran mengikuti jadwal.
-* Absensi hanya dilakukan saat Program berlangsung.
-* Sertifikat hanya diterbitkan setelah Program selesai.
-* Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.
+- Siklus hidup Program berjalan sesuai status.
+- Pendaftaran mengikuti jadwal.
+- Absensi hanya dilakukan saat Program berlangsung.
+- Sertifikat hanya diterbitkan setelah Program selesai.
+- Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

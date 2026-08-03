@@ -30,9 +30,9 @@ API Certificate digunakan untuk mengelola template sertifikat, penerbitan, penom
 
 Seluruh endpoint Admin memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 Endpoint verifikasi sertifikat dapat diakses secara publik.
 
@@ -42,12 +42,12 @@ Endpoint verifikasi sertifikat dapat diakses secara publik.
 
 Domain Certificate terdiri dari:
 
-* Certificate
-* Template
-* Signature
-* Distribution
-* Verification
-* Archive
+- Certificate
+- Template
+- Signature
+- Distribution
+- Verification
+- Archive
 
 ---
 
@@ -285,14 +285,14 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan Authentication.
-* Seluruh endpoint memerlukan Permission.
-* Sertifikat hanya dapat dibuat dari Program berstatus **Completed**.
-* Nomor sertifikat dibuat otomatis.
-* QR Code dibuat sebelum Publish.
-* Endpoint Verify bersifat Public.
-* Delete menggunakan Soft Delete.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan Authentication.
+- Seluruh endpoint memerlukan Permission.
+- Sertifikat hanya dapat dibuat dari Program berstatus **Completed**.
+- Nomor sertifikat dibuat otomatis.
+- QR Code dibuat sebelum Publish.
+- Endpoint Verify bersifat Public.
+- Delete menggunakan Soft Delete.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -300,10 +300,10 @@ Response gagal
 
 API Certificate wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -311,24 +311,24 @@ API Certificate wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -336,7 +336,7 @@ Seluruh endpoint mendukung:
 
 API Certificate dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* QR Verification dapat diakses publik.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- QR Verification dapat diakses publik.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

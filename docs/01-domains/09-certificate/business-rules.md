@@ -20,10 +20,10 @@ Domain Certificate bertanggung jawab atas proses penerbitan, penomoran, penandat
 
 # General Rules
 
-* Seluruh sertifikat dibuat melalui Domain Certificate.
-* Setiap sertifikat memiliki nomor yang unik.
-* Seluruh aktivitas dicatat pada Audit Log.
-* Sertifikat hanya diterbitkan kepada peserta yang memenuhi syarat.
+- Seluruh sertifikat dibuat melalui Domain Certificate.
+- Setiap sertifikat memiliki nomor yang unik.
+- Seluruh aktivitas dicatat pada Audit Log.
+- Sertifikat hanya diterbitkan kepada peserta yang memenuhi syarat.
 
 ---
 
@@ -31,12 +31,12 @@ Domain Certificate bertanggung jawab atas proses penerbitan, penomoran, penandat
 
 Jenis sertifikat meliputi:
 
-* Sertifikat Peserta
-* Sertifikat Panitia
-* Sertifikat Pemateri
-* Sertifikat Narasumber
-* Sertifikat Penghargaan
-* Sertifikat Apresiasi
+- Sertifikat Peserta
+- Sertifikat Panitia
+- Sertifikat Pemateri
+- Sertifikat Narasumber
+- Sertifikat Penghargaan
+- Sertifikat Apresiasi
 
 Jenis sertifikat dapat ditambah melalui pengaturan sistem.
 
@@ -68,10 +68,10 @@ Archived
 
 Sertifikat hanya dapat diterbitkan apabila:
 
-* Program berstatus **Completed**.
-* Peserta terdaftar pada Program.
-* Peserta memenuhi persyaratan organisasi.
-* Template sertifikat tersedia.
+- Program berstatus **Completed**.
+- Peserta terdaftar pada Program.
+- Peserta memenuhi persyaratan organisasi.
+- Template sertifikat tersedia.
 
 ---
 
@@ -79,9 +79,9 @@ Sertifikat hanya dapat diterbitkan apabila:
 
 Nomor sertifikat:
 
-* Dibuat otomatis.
-* Harus unik.
-* Tidak dapat diubah setelah diterbitkan.
+- Dibuat otomatis.
+- Harus unik.
+- Tidak dapat diubah setelah diterbitkan.
 
 ---
 
@@ -89,9 +89,9 @@ Nomor sertifikat:
 
 Setiap sertifikat memiliki:
 
-* QR Code unik.
-* Verification Code unik.
-* Halaman verifikasi publik.
+- QR Code unik.
+- Verification Code unik.
+- Halaman verifikasi publik.
 
 QR Code digunakan untuk memastikan keaslian sertifikat.
 
@@ -101,14 +101,14 @@ QR Code digunakan untuk memastikan keaslian sertifikat.
 
 Sertifikat hanya dapat ditandatangani apabila:
 
-* Status = Generated.
-* Nomor sertifikat telah tersedia.
-* Penandatangan memiliki hak.
+- Status = Generated.
+- Nomor sertifikat telah tersedia.
+- Penandatangan memiliki hak.
 
 Mendukung:
 
-* Digital Signature.
-* Manual Signature.
+- Digital Signature.
+- Manual Signature.
 
 ---
 
@@ -116,9 +116,9 @@ Mendukung:
 
 Sertifikat dapat didistribusikan melalui:
 
-* Download PDF.
-* Email.
-* WhatsApp (Opsional).
+- Download PDF.
+- Email.
+- WhatsApp (Opsional).
 
 Riwayat distribusi harus tersimpan.
 
@@ -130,9 +130,9 @@ Sertifikat yang telah diterbitkan dapat diarsipkan.
 
 Sertifikat arsip:
 
-* Read Only.
-* Tetap dapat diverifikasi.
-* Tidak dapat diubah.
+- Read Only.
+- Tetap dapat diverifikasi.
+- Tidak dapat diubah.
 
 ---
 
@@ -140,9 +140,9 @@ Sertifikat arsip:
 
 Sertifikat dapat dicabut apabila:
 
-* Terjadi kesalahan data.
-* Sertifikat diterbitkan tidak sah.
-* Diputuskan oleh Administrator.
+- Terjadi kesalahan data.
+- Sertifikat diterbitkan tidak sah.
+- Diputuskan oleh Administrator.
 
 Status berubah menjadi **Revoked** namun riwayat tetap disimpan.
 
@@ -160,23 +160,23 @@ Sertifikat yang telah diterbitkan tidak dapat dihapus.
 
 Aktivitas berikut wajib dicatat:
 
-* Create Certificate
-* Generate Certificate
-* Generate Number
-* Sign Certificate
-* Publish Certificate
-* Download Certificate
-* Revoke Certificate
-* Archive Certificate
+- Create Certificate
+- Generate Certificate
+- Generate Number
+- Sign Certificate
+- Publish Certificate
+- Download Certificate
+- Revoke Certificate
+- Archive Certificate
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* QR Verification bersifat publik.
-* Sertifikat tidak dapat dimodifikasi setelah Published.
+- Authentication wajib.
+- Permission wajib.
+- QR Verification bersifat publik.
+- Sertifikat tidak dapat dimodifikasi setelah Published.
 
 ---
 
@@ -184,21 +184,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Nomor sertifikat selalu unik.
-* Sertifikat hanya diterbitkan kepada peserta yang memenuhi syarat.
-* QR Verification selalu tersedia.
-* Sertifikat yang dicabut tetap memiliki riwayat.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Nomor sertifikat selalu unik.
+- Sertifikat hanya diterbitkan kepada peserta yang memenuhi syarat.
+- QR Verification selalu tersedia.
+- Sertifikat yang dicabut tetap memiliki riwayat.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

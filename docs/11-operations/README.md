@@ -22,11 +22,11 @@ Dokumen ini menjadi acuan bagi DevOps Engineer, System Administrator, Site Relia
 
 Folder ini bertujuan untuk:
 
-* Menstandarkan operasional sistem.
-* Menjamin ketersediaan layanan.
-* Mempercepat penanganan insiden.
-* Mendukung Business Continuity.
-* Menjadi panduan operasional Production.
+- Menstandarkan operasional sistem.
+- Menjamin ketersediaan layanan.
+- Mempercepat penanganan insiden.
+- Mendukung Business Continuity.
+- Menjadi panduan operasional Production.
 
 ---
 
@@ -34,12 +34,12 @@ Folder ini bertujuan untuk:
 
 Folder ini mencakup:
 
-* Daily Operations
-* Incident Management
-* Preventive Maintenance
-* Backup & Recovery
-* Release Management
-* Operational Checklist
+- Daily Operations
+- Incident Management
+- Preventive Maintenance
+- Backup & Recovery
+- Release Management
+- Operational Checklist
 
 ---
 
@@ -69,12 +69,12 @@ operational-checklist.md
 
 Seluruh aktivitas operasional mengikuti prinsip:
 
-* Availability First
-* Security First
-* Automation
-* Observability
-* Reliability
-* Continuous Improvement
+- Availability First
+- Security First
+- Automation
+- Observability
+- Reliability
+- Continuous Improvement
 
 ---
 
@@ -82,14 +82,14 @@ Seluruh aktivitas operasional mengikuti prinsip:
 
 Aktivitas operasional meliputi:
 
-* Monitoring
-* Backup
-* Deployment
-* Incident Handling
-* Capacity Review
-* Security Review
-* Log Review
-* Performance Review
+- Monitoring
+- Backup
+- Deployment
+- Incident Handling
+- Capacity Review
+- Security Review
+- Log Review
+- Performance Review
 
 ---
 
@@ -109,10 +109,10 @@ Aktivitas operasional meliputi:
 
 Operasional berlaku untuk:
 
-* Development
-* Testing
-* Staging
-* Production
+- Development
+- Testing
+- Staging
+- Production
 
 Production memiliki prosedur operasional yang paling ketat.
 
@@ -122,20 +122,20 @@ Production memiliki prosedur operasional yang paling ketat.
 
 Setiap aktivitas operasional wajib memiliki:
 
-* Waktu Pelaksanaan
-* Pelaksana
-* Hasil
-* Status
-* Catatan
-* Tindak Lanjut (jika ada)
+- Waktu Pelaksanaan
+- Pelaksana
+- Hasil
+- Status
+- Catatan
+- Tindak Lanjut (jika ada)
 
 ---
 
 # Related Documents
 
-* `09-infrastructure/`
-* `10-testing/`
-* `04-deployment/`
+- `09-infrastructure/`
+- `10-testing/`
+- `04-deployment/`
 
 ---
 
@@ -147,7 +147,7 @@ Setiap aktivitas operasional wajib memiliki:
 
 # Acceptance Criteria
 
-* Seluruh prosedur operasional terdokumentasi.
-* Tersedia panduan penanganan insiden.
-* Backup dan Release memiliki prosedur resmi.
-* Folder Operations menjadi referensi utama operasional LIM Digital Platform.
+- Seluruh prosedur operasional terdokumentasi.
+- Tersedia panduan penanganan insiden.
+- Backup dan Release memiliki prosedur resmi.
+- Folder Operations menjadi referensi utama operasional LIM Digital Platform.

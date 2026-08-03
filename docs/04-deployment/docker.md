@@ -22,11 +22,11 @@ Docker digunakan untuk memastikan lingkungan pengembangan, pengujian, dan deploy
 
 Penggunaan Docker bertujuan untuk:
 
-* Menyamakan environment.
-* Mempermudah deployment.
-* Mengurangi masalah dependency.
-* Mendukung CI/CD.
-* Memudahkan scaling.
+- Menyamakan environment.
+- Mempermudah deployment.
+- Mengurangi masalah dependency.
+- Mendukung CI/CD.
+- Memudahkan scaling.
 
 ---
 
@@ -223,11 +223,11 @@ Gunakan **Multi-stage Build** untuk mengurangi ukuran image Production.
 
 # Security Rules
 
-* Jalankan container menggunakan non-root user.
-* Gunakan image resmi atau image yang telah diverifikasi.
-* Hindari menyimpan secret di Dockerfile.
-* Scan image terhadap kerentanan sebelum deployment.
-* Perbarui base image secara berkala.
+- Jalankan container menggunakan non-root user.
+- Gunakan image resmi atau image yang telah diverifikasi.
+- Hindari menyimpan secret di Dockerfile.
+- Scan image terhadap kerentanan sebelum deployment.
+- Perbarui base image secara berkala.
 
 ---
 
@@ -235,8 +235,8 @@ Gunakan **Multi-stage Build** untuk mengurangi ukuran image Production.
 
 Seluruh container mengirim log ke:
 
-* Standard Output (stdout)
-* Standard Error (stderr)
+- Standard Output (stdout)
+- Standard Error (stderr)
 
 Log kemudian dikumpulkan oleh sistem monitoring.
 
@@ -244,11 +244,11 @@ Log kemudian dikumpulkan oleh sistem monitoring.
 
 # Best Practices
 
-* Gunakan satu proses utama per container.
-* Gunakan image sekecil mungkin (misalnya Alpine jika sesuai).
-* Gunakan tag versi yang spesifik, hindari `latest`.
-* Bersihkan dependency yang tidak diperlukan saat build.
-* Pisahkan konfigurasi Development dan Production.
+- Gunakan satu proses utama per container.
+- Gunakan image sekecil mungkin (misalnya Alpine jika sesuai).
+- Gunakan tag versi yang spesifik, hindari `latest`.
+- Bersihkan dependency yang tidak diperlukan saat build.
+- Pisahkan konfigurasi Development dan Production.
 
 ---
 
@@ -282,20 +282,20 @@ Untuk kebutuhan skala besar, arsitektur dapat dimigrasikan ke Kubernetes tanpa p
 
 # Related Documents
 
-* README.md
-* environment.md
-* ci-cd.md
-* server.md
-* backup.md
-* monitoring.md
-* security.md
+- README.md
+- environment.md
+- ci-cd.md
+- server.md
+- backup.md
+- monitoring.md
+- security.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh service berjalan dalam container.
-* Konfigurasi dipisahkan berdasarkan environment.
-* Image Production menggunakan Multi-stage Build.
-* Container memiliki Health Check.
-* Docker menjadi standar deployment LIM Digital Platform.
+- Seluruh service berjalan dalam container.
+- Konfigurasi dipisahkan berdasarkan environment.
+- Image Production menggunakan Multi-stage Build.
+- Container memiliki Health Check.
+- Docker menjadi standar deployment LIM Digital Platform.

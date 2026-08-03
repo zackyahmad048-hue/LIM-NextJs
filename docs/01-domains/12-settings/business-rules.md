@@ -20,10 +20,10 @@ Domain Settings menjadi pusat konfigurasi global yang mengendalikan perilaku sel
 
 # General Rules
 
-* Seluruh konfigurasi sistem dikelola melalui Domain Settings.
-* Setiap konfigurasi memiliki Key yang unik.
-* Perubahan konfigurasi dicatat pada Audit Log.
-* Perubahan konfigurasi hanya dapat dilakukan oleh pengguna yang memiliki permission.
+- Seluruh konfigurasi sistem dikelola melalui Domain Settings.
+- Setiap konfigurasi memiliki Key yang unik.
+- Perubahan konfigurasi dicatat pada Audit Log.
+- Perubahan konfigurasi hanya dapat dilakukan oleh pengguna yang memiliki permission.
 
 ---
 
@@ -31,14 +31,14 @@ Domain Settings menjadi pusat konfigurasi global yang mengendalikan perilaku sel
 
 Kategori konfigurasi meliputi:
 
-* Application
-* Organization
-* Security
-* Notification
-* Storage
-* Integration
-* Feature Flag
-* System
+- Application
+- Organization
+- Security
+- Notification
+- Storage
+- Integration
+- Feature Flag
+- System
 
 Kategori dapat ditambahkan sesuai kebutuhan.
 
@@ -48,12 +48,12 @@ Kategori dapat ditambahkan sesuai kebutuhan.
 
 Setiap konfigurasi wajib memiliki:
 
-* Key
-* Value
-* Category
-* Data Type
-* Description
-* Status
+- Key
+- Value
+- Category
+- Data Type
+- Description
+- Status
 
 Key bersifat unik dan tidak boleh duplikat.
 
@@ -63,14 +63,14 @@ Key bersifat unik dan tidak boleh duplikat.
 
 Konfigurasi organisasi meliputi:
 
-* Nama Organisasi
-* Logo
-* Alamat
-* Email
-* Nomor Telepon
-* Website
-* Zona Waktu
-* Bahasa Default
+- Nama Organisasi
+- Logo
+- Alamat
+- Email
+- Nomor Telepon
+- Website
+- Zona Waktu
+- Bahasa Default
 
 Perubahan berlaku secara global.
 
@@ -80,11 +80,11 @@ Perubahan berlaku secara global.
 
 Konfigurasi keamanan meliputi:
 
-* Password Policy
-* Session Timeout
-* Login Attempt Limit
-* MFA Configuration
-* JWT Expiration
+- Password Policy
+- Session Timeout
+- Login Attempt Limit
+- MFA Configuration
+- JWT Expiration
 
 Perubahan keamanan dapat mengharuskan pengguna login ulang.
 
@@ -94,12 +94,12 @@ Perubahan keamanan dapat mengharuskan pengguna login ulang.
 
 Konfigurasi notifikasi meliputi:
 
-* Default Channel
-* Retry Count
-* Queue Delay
-* SMTP Configuration
-* WhatsApp Gateway
-* Push Provider
+- Default Channel
+- Retry Count
+- Queue Delay
+- SMTP Configuration
+- WhatsApp Gateway
+- Push Provider
 
 ---
 
@@ -107,11 +107,11 @@ Konfigurasi notifikasi meliputi:
 
 Konfigurasi storage meliputi:
 
-* Storage Provider
-* Bucket Name
-* Upload Limit
-* Allowed MIME Types
-* CDN Configuration
+- Storage Provider
+- Bucket Name
+- Upload Limit
+- Allowed MIME Types
+- CDN Configuration
 
 ---
 
@@ -119,12 +119,12 @@ Konfigurasi storage meliputi:
 
 Konfigurasi integrasi meliputi:
 
-* Google OAuth
-* SMTP
-* WhatsApp API
-* Firebase
-* reCAPTCHA
-* Webhook
+- Google OAuth
+- SMTP
+- WhatsApp API
+- Firebase
+- reCAPTCHA
+- Webhook
 
 Credential disimpan secara terenkripsi.
 
@@ -134,10 +134,10 @@ Credential disimpan secara terenkripsi.
 
 Feature Flag digunakan untuk:
 
-* Mengaktifkan fitur.
-* Menonaktifkan fitur.
-* Beta Testing.
-* Rollout Bertahap.
+- Mengaktifkan fitur.
+- Menonaktifkan fitur.
+- Beta Testing.
+- Rollout Bertahap.
 
 Perubahan Feature Flag berlaku tanpa restart aplikasi apabila didukung.
 
@@ -155,24 +155,24 @@ Konfigurasi hanya dapat dinonaktifkan atau diperbarui.
 
 Aktivitas berikut wajib dicatat:
 
-* Create Configuration
-* Update Configuration
-* Enable Feature
-* Disable Feature
-* Update Security Setting
-* Update Storage Setting
-* Update Integration
-* Restore Configuration
+- Create Configuration
+- Update Configuration
+- Enable Feature
+- Disable Feature
+- Update Security Setting
+- Update Storage Setting
+- Update Integration
+- Restore Configuration
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* Credential terenkripsi.
-* Nilai sensitif tidak ditampilkan pada UI.
-* Audit Log wajib aktif.
+- Authentication wajib.
+- Permission wajib.
+- Credential terenkripsi.
+- Nilai sensitif tidak ditampilkan pada UI.
+- Audit Log wajib aktif.
 
 ---
 
@@ -180,21 +180,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Seluruh konfigurasi memiliki Key unik.
-* Perubahan langsung diterapkan sesuai kategori.
-* Credential disimpan dengan aman.
-* Feature Flag dapat dikendalikan.
-* Seluruh perubahan tercatat pada Audit Log.
+- Seluruh konfigurasi memiliki Key unik.
+- Perubahan langsung diterapkan sesuai kategori.
+- Credential disimpan dengan aman.
+- Feature Flag dapat dikendalikan.
+- Seluruh perubahan tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

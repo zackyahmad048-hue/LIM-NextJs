@@ -50,15 +50,21 @@ export async function updateIncomingMail(id: string, formData: FormData) {
 
   try {
     const data: Record<string, unknown> = {};
-    if (parsed.data.registrationNumber) data.registrationNumber = parsed.data.registrationNumber;
+    if (parsed.data.registrationNumber)
+      data.registrationNumber = parsed.data.registrationNumber;
     if (parsed.data.sender) data.sender = parsed.data.sender;
     if (parsed.data.subject) data.subject = parsed.data.subject;
-    if (parsed.data.senderAddress !== undefined) data.senderAddress = parsed.data.senderAddress || null;
-    if (parsed.data.receivedDate) data.receivedDate = new Date(parsed.data.receivedDate);
-    if (parsed.data.classification !== undefined) data.classification = parsed.data.classification || null;
-    if (parsed.data.category !== undefined) data.category = parsed.data.category || null;
+    if (parsed.data.senderAddress !== undefined)
+      data.senderAddress = parsed.data.senderAddress || null;
+    if (parsed.data.receivedDate)
+      data.receivedDate = new Date(parsed.data.receivedDate);
+    if (parsed.data.classification !== undefined)
+      data.classification = parsed.data.classification || null;
+    if (parsed.data.category !== undefined)
+      data.category = parsed.data.category || null;
     if (parsed.data.notes !== undefined) data.notes = parsed.data.notes || null;
-    if (parsed.data.attachmentUrl !== undefined) data.attachmentUrl = parsed.data.attachmentUrl || null;
+    if (parsed.data.attachmentUrl !== undefined)
+      data.attachmentUrl = parsed.data.attachmentUrl || null;
 
     await secretariatService.updateIncomingMail(id, data);
     revalidatePath("/admin/secretariat/incoming-mails");
@@ -119,15 +125,22 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
 
   try {
     const data: Record<string, unknown> = {};
-    if (parsed.data.registrationNumber) data.registrationNumber = parsed.data.registrationNumber;
+    if (parsed.data.registrationNumber)
+      data.registrationNumber = parsed.data.registrationNumber;
     if (parsed.data.recipient) data.recipient = parsed.data.recipient;
     if (parsed.data.subject) data.subject = parsed.data.subject;
-    if (parsed.data.content !== undefined) data.content = parsed.data.content || null;
-    if (parsed.data.senderName !== undefined) data.senderName = parsed.data.senderName || null;
+    if (parsed.data.content !== undefined)
+      data.content = parsed.data.content || null;
+    if (parsed.data.senderName !== undefined)
+      data.senderName = parsed.data.senderName || null;
     if (parsed.data.mailDate) data.mailDate = new Date(parsed.data.mailDate);
-    if (parsed.data.documentNumber !== undefined) data.documentNumber = parsed.data.documentNumber || null;
-    if (parsed.data.documentType !== undefined) data.documentType = (parsed.data.documentType || null) as DocumentType | null;
-    if (parsed.data.attachmentUrl !== undefined) data.attachmentUrl = parsed.data.attachmentUrl || null;
+    if (parsed.data.documentNumber !== undefined)
+      data.documentNumber = parsed.data.documentNumber || null;
+    if (parsed.data.documentType !== undefined)
+      data.documentType = (parsed.data.documentType ||
+        null) as DocumentType | null;
+    if (parsed.data.attachmentUrl !== undefined)
+      data.attachmentUrl = parsed.data.attachmentUrl || null;
 
     await secretariatService.updateOutgoingMail(id, data);
     revalidatePath("/admin/secretariat/outgoing-mail/list");
@@ -191,11 +204,13 @@ export async function updateDisposition(id: string, formData: FormData) {
 
   try {
     const data: Record<string, unknown> = {};
-    if (parsed.data.incomingMailId) data.incomingMailId = parsed.data.incomingMailId;
+    if (parsed.data.incomingMailId)
+      data.incomingMailId = parsed.data.incomingMailId;
     if (parsed.data.assignedToId) data.assignedToId = parsed.data.assignedToId;
     if (parsed.data.instruction) data.instruction = parsed.data.instruction;
     if (parsed.data.priority) data.priority = parsed.data.priority;
-    if (parsed.data.dueDate !== undefined) data.dueDate = parsed.data.dueDate ? new Date(parsed.data.dueDate) : null;
+    if (parsed.data.dueDate !== undefined)
+      data.dueDate = parsed.data.dueDate ? new Date(parsed.data.dueDate) : null;
     if (parsed.data.notes !== undefined) data.notes = parsed.data.notes || null;
 
     await secretariatService.updateDisposition(id, data);
@@ -244,18 +259,24 @@ export async function createAdministrativeDocument(formData: FormData) {
   }
 }
 
-export async function updateAdministrativeDocument(id: string, formData: FormData) {
+export async function updateAdministrativeDocument(
+  id: string,
+  formData: FormData,
+) {
   const raw = Object.fromEntries(formData);
   const parsed = updateAdministrativeDocumentSchema.safeParse(raw);
   if (!parsed.success) return;
 
   try {
     const data: Record<string, unknown> = {};
-    if (parsed.data.documentNumber) data.documentNumber = parsed.data.documentNumber;
+    if (parsed.data.documentNumber)
+      data.documentNumber = parsed.data.documentNumber;
     if (parsed.data.documentType) data.documentType = parsed.data.documentType;
     if (parsed.data.title) data.title = parsed.data.title;
-    if (parsed.data.description !== undefined) data.description = parsed.data.description || null;
-    if (parsed.data.content !== undefined) data.content = parsed.data.content || null;
+    if (parsed.data.description !== undefined)
+      data.description = parsed.data.description || null;
+    if (parsed.data.content !== undefined)
+      data.content = parsed.data.content || null;
 
     await secretariatService.updateAdministrativeDocument(id, data);
     revalidatePath("/admin/secretariat/administrative-documents");
@@ -274,9 +295,15 @@ export async function deleteAdministrativeDocument(id: string) {
   }
 }
 
-export async function transitionAdministrativeDocumentStatus(id: string, status: string) {
+export async function transitionAdministrativeDocumentStatus(
+  id: string,
+  status: string,
+) {
   try {
-    await secretariatService.transitionAdministrativeDocumentStatus(id, status as any);
+    await secretariatService.transitionAdministrativeDocumentStatus(
+      id,
+      status as any,
+    );
     revalidatePath("/admin/secretariat/administrative-documents");
   } catch {
     return;

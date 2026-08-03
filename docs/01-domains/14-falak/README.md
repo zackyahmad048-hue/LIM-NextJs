@@ -24,13 +24,13 @@ Falak merupakan domain inti (Core Domain) yang mendukung pelayanan keagamaan ber
 
 Domain Falak bertujuan untuk:
 
-* Mengelola data astronomi.
-* Menghitung waktu salat.
-* Menghitung arah kiblat.
-* Mengelola kalender Hijriah.
-* Mengelola data hisab dan rukyat.
-* Menyediakan API perhitungan falak.
-* Menyediakan layanan observasi astronomi.
+- Mengelola data astronomi.
+- Menghitung waktu salat.
+- Menghitung arah kiblat.
+- Mengelola kalender Hijriah.
+- Mengelola data hisab dan rukyat.
+- Menyediakan API perhitungan falak.
+- Menyediakan layanan observasi astronomi.
 
 ---
 
@@ -38,14 +38,14 @@ Domain Falak bertujuan untuk:
 
 Domain Falak mencakup:
 
-* Prayer Time
-* Qibla Direction
-* Hijri Calendar
-* Hisab
-* Rukyat
-* Moon & Sun Position
-* Eclipse Information
-* Astronomy Calculation
+- Prayer Time
+- Qibla Direction
+- Hijri Calendar
+- Hisab
+- Rukyat
+- Moon & Sun Position
+- Eclipse Information
+- Astronomy Calculation
 
 ---
 
@@ -53,11 +53,11 @@ Domain Falak mencakup:
 
 Domain Falak digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Operator Falak
-* Observer
-* Pengguna Umum
+- Super Administrator
+- Administrator
+- Operator Falak
+- Observer
+- Pengguna Umum
 
 Beberapa layanan (misalnya jadwal salat dan arah kiblat) dapat diakses publik.
 
@@ -67,13 +67,13 @@ Beberapa layanan (misalnya jadwal salat dan arah kiblat) dapat diakses publik.
 
 Domain Falak bertanggung jawab untuk:
 
-* Menghitung waktu salat.
-* Menghitung arah kiblat.
-* Mengelola kalender Hijriah.
-* Mengelola data observasi rukyat.
-* Menyimpan hasil hisab.
-* Menyediakan data astronomi.
-* Menyediakan layanan perhitungan falak.
+- Menghitung waktu salat.
+- Menghitung arah kiblat.
+- Mengelola kalender Hijriah.
+- Mengelola data observasi rukyat.
+- Menyimpan hasil hisab.
+- Menyediakan data astronomi.
+- Menyediakan layanan perhitungan falak.
 
 ---
 
@@ -81,46 +81,46 @@ Domain Falak bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
-* Organization
-* Settings
-* Notification
-* Knowledge
+- Authentication
+- Authorization
+- Organization
+- Settings
+- Notification
+- Knowledge
 
 Digunakan oleh:
 
-* Dashboard
-* Program
-* CMS
-* Mobile Application
-* Public Portal
+- Dashboard
+- Program
+- CMS
+- Mobile Application
+- Public Portal
 
 ---
 
 # Features
 
-* Prayer Time Calculation
-* Qibla Direction
-* Hijri Calendar
-* Hisab Calculator
-* Rukyat Observation
-* Sun & Moon Position
-* Eclipse Prediction
-* Astronomy Reports
+- Prayer Time Calculation
+- Qibla Direction
+- Hijri Calendar
+- Hisab Calculator
+- Rukyat Observation
+- Sun & Moon Position
+- Eclipse Prediction
+- Astronomy Reports
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

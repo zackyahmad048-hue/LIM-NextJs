@@ -10,9 +10,14 @@ export async function GET(request: NextRequest) {
 
     const result = await falakService.getHisabPaginated(page, limit, search);
 
-    return NextResponse.json({ success: true, message: "Success", data: result });
+    return NextResponse.json({
+      success: true,
+      message: "Success",
+      data: result,
+    });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Terjadi kesalahan.";
+    const message =
+      error instanceof Error ? error.message : "Terjadi kesalahan.";
     return NextResponse.json({ success: false, message }, { status: 500 });
   }
 }

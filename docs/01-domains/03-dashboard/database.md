@@ -24,10 +24,10 @@ Dashboard menggunakan pendekatan **Read Only**.
 
 Dashboard:
 
-* Tidak membuat data.
-* Tidak memperbarui data.
-* Tidak menghapus data.
-* Tidak memiliki tabel khusus.
+- Tidak membuat data.
+- Tidak memperbarui data.
+- Tidak menghapus data.
+- Tidak memiliki tabel khusus.
 
 Seluruh data diperoleh melalui Service Layer.
 
@@ -58,11 +58,11 @@ Dashboard tidak menjadi pemilik data pada tabel tersebut.
 
 Dashboard hanya menggunakan data untuk:
 
-* Statistik
-* Ringkasan
-* Aktivitas terbaru
-* Quick Access
-* Informasi sistem
+- Statistik
+- Ringkasan
+- Aktivitas terbaru
+- Quick Access
+- Informasi sistem
 
 Dashboard tidak boleh mengubah isi tabel sumber.
 
@@ -86,11 +86,11 @@ WHERE deletedAt IS NULL
 
 Contoh lainnya:
 
-* Total Program
-* Total Surat
-* Total Sertifikat
-* Total Berita
-* Total Media
+- Total Program
+- Total Surat
+- Total Sertifikat
+- Total Berita
+- Total Media
 
 ---
 
@@ -122,9 +122,9 @@ post
 
 Filter:
 
-* Status = Published
-* Tanggal publikasi aktif
-* deletedAt IS NULL
+- Status = Published
+- Tanggal publikasi aktif
+- deletedAt IS NULL
 
 ---
 
@@ -132,8 +132,8 @@ Filter:
 
 Quick Access berasal dari:
 
-* Role
-* Permission
+- Role
+- Permission
 
 Dashboard menentukan menu yang ditampilkan berdasarkan permission pengguna.
 
@@ -157,9 +157,9 @@ Data yang telah dihapus tidak ikut dihitung.
 
 Dashboard wajib:
 
-* Mengakses database melalui Repository.
-* Menggunakan Service Layer.
-* Tidak menjalankan query langsung dari UI.
+- Mengakses database melalui Repository.
+- Menggunakan Service Layer.
+- Tidak menjalankan query langsung dari UI.
 
 ---
 
@@ -167,10 +167,10 @@ Dashboard wajib:
 
 Query Dashboard harus:
 
-* Menggunakan index.
-* Menghindari N+1 Query.
-* Menggunakan agregasi bila memungkinkan.
-* Membatasi jumlah data yang ditampilkan.
+- Menggunakan index.
+- Menghindari N+1 Query.
+- Menggunakan agregasi bila memungkinkan.
+- Membatasi jumlah data yang ditampilkan.
 
 ---
 
@@ -178,10 +178,10 @@ Query Dashboard harus:
 
 Apabila diperlukan di masa depan, Dashboard dapat memiliki tabel sendiri untuk:
 
-* Dashboard Preference
-* Favorite Widget
-* User Layout
-* Widget Configuration
+- Dashboard Preference
+- Favorite Widget
+- User Layout
+- Widget Configuration
 
 Versi 1.0 belum memerlukan tabel tersebut.
 
@@ -217,14 +217,14 @@ audit_log
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -232,8 +232,8 @@ audit_log
 
 Database Dashboard dianggap sesuai apabila:
 
-* Tidak memiliki tabel sendiri pada versi 1.0.
-* Seluruh data berasal dari domain resmi.
-* Dashboard hanya melakukan operasi baca (Read Only).
-* Statistik menggunakan data aktif.
-* Seluruh akses database melalui Repository dan Service Layer.
+- Tidak memiliki tabel sendiri pada versi 1.0.
+- Seluruh data berasal dari domain resmi.
+- Dashboard hanya melakukan operasi baca (Read Only).
+- Statistik menggunakan data aktif.
+- Seluruh akses database melalui Repository dan Service Layer.

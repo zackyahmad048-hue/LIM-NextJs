@@ -7,16 +7,10 @@ interface PageContainerProps {
   className?: string;
 }
 
-export function PageContainer({
-  children,
-  className,
-}: PageContainerProps) {
+export function PageContainer({ children, className }: PageContainerProps) {
   return (
     <div
-      className={cn(
-        "flex flex-col gap-4 bg-muted/20 p-4 lg:p-5",
-        className
-      )}
+      className={cn("flex flex-col gap-4 bg-muted/20 p-4 lg:p-5", className)}
     >
       {children}
     </div>

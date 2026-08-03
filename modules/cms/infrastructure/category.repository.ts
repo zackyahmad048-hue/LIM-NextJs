@@ -3,7 +3,10 @@ import { Prisma } from "@/generated/client";
 import { BaseRepository } from "@/modules/shared/infrastructure/base.repository";
 import type { CategoryRepository } from "../domain/category.repository";
 
-export class PrismaCategoryRepository extends BaseRepository implements CategoryRepository {
+export class PrismaCategoryRepository
+  extends BaseRepository
+  implements CategoryRepository
+{
   async findMany(search?: string) {
     return this.db.category.findMany({
       where: {
@@ -64,7 +67,7 @@ export class PrismaCategoryRepository extends BaseRepository implements Category
 
   async update(
     id: string,
-    data: { name?: string; slug?: string; description?: string }
+    data: { name?: string; slug?: string; description?: string },
   ) {
     try {
       return await this.db.category.update({ where: { id }, data });

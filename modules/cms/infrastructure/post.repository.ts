@@ -3,7 +3,10 @@ import { Prisma } from "@/generated/client";
 import { BaseRepository } from "@/modules/shared/infrastructure/base.repository";
 import type { PostRepository } from "../domain/post.repository";
 
-export class PrismaPostRepository extends BaseRepository implements PostRepository {
+export class PrismaPostRepository
+  extends BaseRepository
+  implements PostRepository
+{
   async countAll(): Promise<number> {
     return this.db.post.count();
   }
@@ -17,6 +20,26 @@ export class PrismaPostRepository extends BaseRepository implements PostReposito
       include: { author: true, category: true },
       orderBy: { updatedAt: "desc" },
       take: limit,
+    });
+  }
+
+  async findPublishedByCategorySlug(categorySlug: string, limit = 6) {
+    return this.db.post.findMany({
+      where: {
+        published: true,
+        publishedAt: { not: null },
+        category: { slug: categorySlug },
+      },
+      include: { author: true, category: true },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    });
+  }
+
+  async findPublishedBySlug(slug: string) {
+    return this.db.post.findFirst({
+      where: { slug, published: true, publishedAt: { not: null } },
+      include: { author: true, category: true },
     });
   }
 
@@ -102,7 +125,7 @@ export class PrismaPostRepository extends BaseRepository implements PostReposito
       content?: string;
       thumbnail?: string;
       categoryId?: string;
-    }
+    },
   ) {
     return this.db.post.update({ where: { id }, data });
   }

@@ -320,24 +320,24 @@ Retry
 
 # Workflow Rules
 
-* Seluruh surat memperoleh nomor agenda atau nomor surat secara otomatis.
-* Disposisi hanya dapat dibuat dari Surat Masuk.
-* Arsip bersifat Read Only.
-* Penghapusan menggunakan Soft Delete.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh surat memperoleh nomor agenda atau nomor surat secara otomatis.
+- Disposisi hanya dapat dibuat dari Surat Masuk.
+- Arsip bersifat Read Only.
+- Penghapusan menggunakan Soft Delete.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -345,8 +345,8 @@ Retry
 
 Workflow Secretariat dianggap selesai apabila:
 
-* Surat masuk mengikuti alur penerimaan.
-* Surat keluar mengikuti proses persetujuan.
-* Disposisi berjalan sesuai alur.
-* Arsip bersifat Read Only.
-* Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.
+- Surat masuk mengikuti alur penerimaan.
+- Surat keluar mengikuti proses persetujuan.
+- Disposisi berjalan sesuai alur.
+- Arsip bersifat Read Only.
+- Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

@@ -24,11 +24,11 @@ Color System memastikan seluruh antarmuka menggunakan palet warna yang konsisten
 
 Color System bertujuan untuk:
 
-* Menjaga konsistensi visual.
-* Meningkatkan keterbacaan.
-* Mempermudah implementasi Theme.
-* Mendukung Accessibility.
-* Menjadi dasar Design Token.
+- Menjaga konsistensi visual.
+- Meningkatkan keterbacaan.
+- Mempermudah implementasi Theme.
+- Mendukung Accessibility.
+- Menjadi dasar Design Token.
 
 ---
 
@@ -36,11 +36,11 @@ Color System bertujuan untuk:
 
 Seluruh warna harus:
 
-* Konsisten.
-* Memiliki kontras yang memadai.
-* Mudah dibedakan.
-* Mendukung Light dan Dark Theme.
-* Tidak digunakan sebagai satu-satunya indikator informasi.
+- Konsisten.
+- Memiliki kontras yang memadai.
+- Mudah dibedakan.
+- Mendukung Light dan Dark Theme.
+- Tidak digunakan sebagai satu-satunya indikator informasi.
 
 ---
 
@@ -48,11 +48,11 @@ Seluruh warna harus:
 
 Digunakan untuk:
 
-* Brand
-* Primary Button
-* Active Navigation
-* Link
-* Highlight
+- Brand
+- Primary Button
+- Active Navigation
+- Link
+- Highlight
 
 | Token       | Usage               |
 | ----------- | ------------------- |
@@ -73,10 +73,10 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Secondary Button
-* Badge
-* Card Accent
-* Supporting Elements
+- Secondary Button
+- Badge
+- Card Accent
+- Supporting Elements
 
 | Token                        | Usage               |
 | ---------------------------- | ------------------- |
@@ -88,11 +88,11 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Background
-* Border
-* Divider
-* Typography
-* Surface
+- Background
+- Border
+- Divider
+- Typography
+- Surface
 
 | Token       | Usage           |
 | ----------- | --------------- |
@@ -115,9 +115,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Success Message
-* Completed Status
-* Success Badge
+- Success Message
+- Completed Status
+- Success Badge
 
 ---
 
@@ -125,9 +125,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Warning
-* Pending
-* Reminder
+- Warning
+- Pending
+- Reminder
 
 ---
 
@@ -135,9 +135,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Validation Error
-* Failed Status
-* Delete Action
+- Validation Error
+- Failed Status
+- Delete Action
 
 ---
 
@@ -145,9 +145,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Information
-* Tips
-* General Notification
+- Information
+- Tips
+- General Notification
 
 ---
 
@@ -169,11 +169,11 @@ Digunakan untuk:
 
 Jenis Background:
 
-* App Background
-* Surface Background
-* Card Background
-* Modal Background
-* Sidebar Background
+- App Background
+- Surface Background
+- Card Background
+- Modal Background
+- Sidebar Background
 
 Background harus memiliki kontras yang cukup dengan teks.
 
@@ -183,12 +183,12 @@ Background harus memiliki kontras yang cukup dengan teks.
 
 Kategori teks:
 
-* Primary Text
-* Secondary Text
-* Disabled Text
-* Link
-* Error Text
-* Success Text
+- Primary Text
+- Secondary Text
+- Disabled Text
+- Link
+- Error Text
+- Success Text
 
 ---
 
@@ -196,11 +196,11 @@ Kategori teks:
 
 Digunakan untuk:
 
-* Input
-* Table
-* Card
-* Divider
-* Modal
+- Input
+- Table
+- Card
+- Divider
+- Modal
 
 Border tidak boleh lebih dominan daripada konten utama.
 
@@ -232,9 +232,9 @@ Implementasi Frontend harus menggunakan Design Token, bukan nilai warna secara l
 
 Seluruh kombinasi warna wajib:
 
-* Memenuhi WCAG 2.1 Level AA.
-* Memiliki rasio kontras yang memadai.
-* Tetap terbaca pada Light dan Dark Theme.
+- Memenuhi WCAG 2.1 Level AA.
+- Memiliki rasio kontras yang memadai.
+- Tetap terbaca pada Light dan Dark Theme.
 
 Warna tidak boleh menjadi satu-satunya cara menyampaikan informasi.
 
@@ -242,27 +242,27 @@ Warna tidak boleh menjadi satu-satunya cara menyampaikan informasi.
 
 # Best Practices
 
-* Hindari penggunaan terlalu banyak warna utama.
-* Gunakan warna semantik sesuai maknanya.
-* Jangan menggunakan warna hardcoded pada komponen.
-* Gunakan Design Token di seluruh aplikasi.
-* Pertahankan konsistensi antar platform.
+- Hindari penggunaan terlalu banyak warna utama.
+- Gunakan warna semantik sesuai maknanya.
+- Jangan menggunakan warna hardcoded pada komponen.
+- Gunakan Design Token di seluruh aplikasi.
+- Pertahankan konsistensi antar platform.
 
 ---
 
 # Related Documents
 
-* README.md
-* typography.md
-* theme.md
-* accessibility.md
+- README.md
+- typography.md
+- theme.md
+- accessibility.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh warna menggunakan Design Token.
-* Warna semantik digunakan secara konsisten.
-* Mendukung Light dan Dark Theme.
-* Memenuhi standar Accessibility.
-* Color System menjadi acuan resmi penggunaan warna pada LIM Digital Platform.
+- Seluruh warna menggunakan Design Token.
+- Warna semantik digunakan secara konsisten.
+- Mendukung Light dan Dark Theme.
+- Memenuhi standar Accessibility.
+- Color System menjadi acuan resmi penggunaan warna pada LIM Digital Platform.

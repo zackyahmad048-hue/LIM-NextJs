@@ -37,13 +37,13 @@ Knowledge
 
 Menampilkan:
 
-* Total Knowledge
-* Draft
-* Review
-* Published
-* Archived
-* Recent Articles
-* Most Viewed Articles
+- Total Knowledge
+- Draft
+- Review
+- Published
+- Archived
+- Recent Articles
+- Most Viewed Articles
 
 ---
 
@@ -51,28 +51,28 @@ Menampilkan:
 
 Kolom:
 
-* Title
-* Category
-* Type
-* Author
-* Status
-* Published At
+- Title
+- Category
+- Type
+- Author
+- Status
+- Published At
 
 Action:
 
-* View
-* Edit
-* Submit Review
-* Publish
-* Archive
-* Delete
+- View
+- Edit
+- Submit Review
+- Publish
+- Archive
+- Delete
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
+- Search
+- Filter
+- Sorting
+- Pagination
 
 ---
 
@@ -98,18 +98,18 @@ Status
 
 Action:
 
-* Save Draft
-* Submit Review
-* Publish
-* Preview
+- Save Draft
+- Submit Review
+- Publish
+- Preview
 
 Editor mendukung:
 
-* Rich Text Editor
-* Markdown
-* Image Upload
-* Attachment
-* Auto Save
+- Rich Text Editor
+- Markdown
+- Image Upload
+- Attachment
+- Auto Save
 
 ---
 
@@ -117,15 +117,15 @@ Editor mendukung:
 
 Kolom:
 
-* Name
-* Parent Category
-* Total Articles
+- Name
+- Parent Category
+- Total Articles
 
 Action:
 
-* Create
-* Edit
-* Delete
+- Create
+- Edit
+- Delete
 
 ---
 
@@ -133,14 +133,14 @@ Action:
 
 Kolom:
 
-* Name
-* Total Articles
+- Name
+- Total Articles
 
 Action:
 
-* Create
-* Edit
-* Delete
+- Create
+- Edit
+- Delete
 
 ---
 
@@ -148,16 +148,16 @@ Action:
 
 Kolom:
 
-* Article
-* Reviewer
-* Status
-* Submitted At
+- Article
+- Reviewer
+- Status
+- Submitted At
 
 Action:
 
-* Approve
-* Reject
-* View Detail
+- Approve
+- Reject
+- View Detail
 
 ---
 
@@ -167,14 +167,14 @@ Read Only.
 
 Kolom:
 
-* Article
-* Archived At
-* Archived By
+- Article
+- Archived At
+- Archived By
 
 Action:
 
-* View
-* Restore
+- View
+- Restore
 
 ---
 
@@ -182,54 +182,54 @@ Action:
 
 Mendukung pencarian berdasarkan:
 
-* Title
-* Content
-* Category
-* Tag
-* Author
-* Content Type
+- Title
+- Content
+- Category
+- Tag
+- Author
+- Content Type
 
 ---
 
 # Components
 
-* Data Table
-* Rich Text Editor
-* Markdown Editor
-* Search Box
-* Filter Panel
-* Tag Input
-* File Upload
-* Modal
-* Dialog
-* Toast
-* Pagination
-* Badge
+- Data Table
+- Rich Text Editor
+- Markdown Editor
+- Search Box
+- Filter Panel
+- Tag Input
+- File Upload
+- Modal
+- Dialog
+- Toast
+- Pagination
+- Badge
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Saving State
-* Review State
-* Error State
+- Empty State
+- Loading State
+- Saving State
+- Review State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile
+- Desktop
+- Tablet
+- Mobile
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Editor mendukung Rich Text dan Markdown.
-* Pencarian berjalan cepat.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Editor mendukung Rich Text dan Markdown.
+- Pencarian berjalan cepat.
+- Seluruh aksi mengikuti Permission.

@@ -39,12 +39,12 @@ Settings
 
 Menampilkan:
 
-* Total Configurations
-* Active Configurations
-* Feature Flags
-* Integrations
-* Last Updated
-* Recent Changes
+- Total Configurations
+- Active Configurations
+- Feature Flags
+- Integrations
+- Last Updated
+- Recent Changes
 
 ---
 
@@ -52,17 +52,17 @@ Menampilkan:
 
 Field:
 
-* Application Name
-* Application Version
-* Time Zone
-* Default Language
-* Date Format
-* Time Format
+- Application Name
+- Application Version
+- Time Zone
+- Default Language
+- Date Format
+- Time Format
 
 Action:
 
-* Save
-* Reset
+- Save
+- Reset
 
 ---
 
@@ -70,17 +70,17 @@ Action:
 
 Field:
 
-* Organization Name
-* Logo
-* Address
-* Email
-* Phone Number
-* Website
+- Organization Name
+- Logo
+- Address
+- Email
+- Phone Number
+- Website
 
 Action:
 
-* Save
-* Upload Logo
+- Save
+- Upload Logo
 
 ---
 
@@ -88,16 +88,16 @@ Action:
 
 Field:
 
-* Password Policy
-* Session Timeout
-* Login Attempt Limit
-* JWT Expiration
-* Multi-Factor Authentication
+- Password Policy
+- Session Timeout
+- Login Attempt Limit
+- JWT Expiration
+- Multi-Factor Authentication
 
 Action:
 
-* Save
-* Test Configuration
+- Save
+- Test Configuration
 
 ---
 
@@ -105,16 +105,16 @@ Action:
 
 Field:
 
-* SMTP Configuration
-* Email Sender
-* WhatsApp Gateway
-* Push Notification
-* Retry Count
+- SMTP Configuration
+- Email Sender
+- WhatsApp Gateway
+- Push Notification
+- Retry Count
 
 Action:
 
-* Save
-* Send Test Notification
+- Save
+- Send Test Notification
 
 ---
 
@@ -122,16 +122,16 @@ Action:
 
 Field:
 
-* Storage Provider
-* Bucket Name
-* Upload Limit
-* Allowed MIME Types
-* CDN Configuration
+- Storage Provider
+- Bucket Name
+- Upload Limit
+- Allowed MIME Types
+- CDN Configuration
 
 Action:
 
-* Save
-* Test Connection
+- Save
+- Test Connection
 
 ---
 
@@ -139,17 +139,17 @@ Action:
 
 Kolom:
 
-* Provider
-* Status
-* Last Test
-* Updated At
+- Provider
+- Status
+- Last Test
+- Updated At
 
 Action:
 
-* Configure
-* Test Connection
-* Enable
-* Disable
+- Configure
+- Test Connection
+- Enable
+- Disable
 
 ---
 
@@ -157,14 +157,14 @@ Action:
 
 Kolom:
 
-* Feature
-* Status
-* Description
+- Feature
+- Status
+- Description
 
 Action:
 
-* Enable
-* Disable
+- Enable
+- Disable
 
 ---
 
@@ -172,55 +172,55 @@ Action:
 
 Kolom:
 
-* Configuration
-* Action
-* Updated By
-* Updated At
+- Configuration
+- Action
+- Updated By
+- Updated At
 
 Action:
 
-* View Detail
+- View Detail
 
 ---
 
 # Components
 
-* Data Table
-* Configuration Form
-* Toggle Switch
-* JSON Editor
-* Code Editor
-* File Upload
-* Search
-* Filter
-* Badge
-* Modal
-* Dialog
-* Toast
+- Data Table
+- Configuration Form
+- Toggle Switch
+- JSON Editor
+- Code Editor
+- File Upload
+- Search
+- Filter
+- Badge
+- Modal
+- Dialog
+- Toast
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Saving State
-* Error State
+- Empty State
+- Loading State
+- Saving State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile (View Only)
+- Desktop
+- Tablet
+- Mobile (View Only)
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Mengikuti Design System.
-* Konfigurasi sensitif disembunyikan.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Mengikuti Design System.
+- Konfigurasi sensitif disembunyikan.
+- Seluruh aksi mengikuti Permission.

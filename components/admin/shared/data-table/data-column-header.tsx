@@ -18,15 +18,11 @@ export function DataColumnHeader<TData, TValue>({
     <Button
       variant="ghost"
       className="px-0 hover:bg-transparent"
-      onClick={() =>
-        column.toggleSorting(column.getIsSorted() === "asc")
-      }
+      onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
       {title}
 
-      {column.getIsSorted() === "asc" && (
-        <ArrowUp className="ml-2 h-4 w-4" />
-      )}
+      {column.getIsSorted() === "asc" && <ArrowUp className="ml-2 h-4 w-4" />}
 
       {column.getIsSorted() === "desc" && (
         <ArrowDown className="ml-2 h-4 w-4" />

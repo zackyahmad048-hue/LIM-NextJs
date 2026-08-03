@@ -18,9 +18,18 @@ export async function updateHeroConfig(formData: FormData) {
   await requireSession();
 
   const statCards = [
-    { value: readValue(formData, "stat1Value"), label: readValue(formData, "stat1Label") },
-    { value: readValue(formData, "stat2Value"), label: readValue(formData, "stat2Label") },
-    { value: readValue(formData, "stat3Value"), label: readValue(formData, "stat3Label") },
+    {
+      value: readValue(formData, "stat1Value"),
+      label: readValue(formData, "stat1Label"),
+    },
+    {
+      value: readValue(formData, "stat2Value"),
+      label: readValue(formData, "stat2Label"),
+    },
+    {
+      value: readValue(formData, "stat3Value"),
+      label: readValue(formData, "stat3Label"),
+    },
   ].filter((s) => s.value || s.label);
 
   const config: HeroConfig = {

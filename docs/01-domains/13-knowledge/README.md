@@ -24,13 +24,13 @@ Knowledge merupakan **Shared Domain** yang mendukung pembelajaran, dokumentasi, 
 
 Domain Knowledge bertujuan untuk:
 
-* Mengelola Knowledge Base organisasi.
-* Mengelola artikel dan dokumentasi.
-* Mengelola SOP dan panduan kerja.
-* Mengelola FAQ.
-* Mengelola kategori dan tag.
-* Menyediakan pencarian pengetahuan.
-* Mendukung berbagi pengetahuan antar pengguna.
+- Mengelola Knowledge Base organisasi.
+- Mengelola artikel dan dokumentasi.
+- Mengelola SOP dan panduan kerja.
+- Mengelola FAQ.
+- Mengelola kategori dan tag.
+- Menyediakan pencarian pengetahuan.
+- Mendukung berbagi pengetahuan antar pengguna.
 
 ---
 
@@ -38,14 +38,14 @@ Domain Knowledge bertujuan untuk:
 
 Domain Knowledge mencakup:
 
-* Knowledge Base
-* Articles
-* Documentation
-* SOP Management
-* FAQ Management
-* Categories
-* Tags
-* Search & Archive
+- Knowledge Base
+- Articles
+- Documentation
+- SOP Management
+- FAQ Management
+- Categories
+- Tags
+- Search & Archive
 
 ---
 
@@ -53,11 +53,11 @@ Domain Knowledge mencakup:
 
 Domain Knowledge digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Editor
-* Contributor
-* Seluruh Pengguna
+- Super Administrator
+- Administrator
+- Editor
+- Contributor
+- Seluruh Pengguna
 
 Hak akses terhadap artikel mengikuti Role dan Permission masing-masing.
 
@@ -67,14 +67,14 @@ Hak akses terhadap artikel mengikuti Role dan Permission masing-masing.
 
 Domain Knowledge bertanggung jawab untuk:
 
-* Mengelola artikel.
-* Mengelola dokumentasi.
-* Mengelola SOP.
-* Mengelola FAQ.
-* Mengelola kategori.
-* Mengelola tag.
-* Menyediakan layanan pencarian.
-* Menyimpan arsip pengetahuan.
+- Mengelola artikel.
+- Mengelola dokumentasi.
+- Mengelola SOP.
+- Mengelola FAQ.
+- Mengelola kategori.
+- Mengelola tag.
+- Menyediakan layanan pencarian.
+- Menyimpan arsip pengetahuan.
 
 ---
 
@@ -82,48 +82,48 @@ Domain Knowledge bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
-* Organization
-* Media
-* Notification
+- Authentication
+- Authorization
+- Organization
+- Media
+- Notification
 
 Digunakan oleh:
 
-* Dashboard
-* CMS
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Falak
+- Dashboard
+- CMS
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Falak
 
 ---
 
 # Features
 
-* Knowledge Base
-* Article Management
-* Documentation Management
-* SOP Management
-* FAQ Management
-* Category Management
-* Tag Management
-* Full Text Search
-* Archive
+- Knowledge Base
+- Article Management
+- Documentation Management
+- SOP Management
+- FAQ Management
+- Category Management
+- Tag Management
+- Full Text Search
+- Archive
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

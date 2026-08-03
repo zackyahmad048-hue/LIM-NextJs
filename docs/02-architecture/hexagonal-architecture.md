@@ -22,14 +22,14 @@ Hexagonal Architecture memastikan Domain Layer tidak bergantung pada teknologi e
 
 LIM Digital Platform mengadopsi Hexagonal Architecture untuk menjaga agar Business Rules tetap independen terhadap:
 
-* Database
-* Framework
-* HTTP
-* Queue
-* Storage
-* Email
-* Notification
-* External API
+- Database
+- Framework
+- HTTP
+- Queue
+- Storage
+- Email
+- Notification
+- External API
 
 Seluruh komunikasi dengan dunia luar dilakukan melalui **Ports**.
 
@@ -66,11 +66,11 @@ Seluruh komunikasi dengan dunia luar dilakukan melalui **Ports**.
 
 Berisi:
 
-* Entity
-* Aggregate
-* Value Object
-* Domain Service
-* Business Rules
+- Entity
+- Aggregate
+- Value Object
+- Domain Service
+- Business Rules
 
 Domain tidak mengetahui Adapter maupun Framework.
 
@@ -122,11 +122,11 @@ Input Adapter menerjemahkan request dari luar menjadi pemanggilan Use Case.
 
 Contoh:
 
-* REST Controller
-* GraphQL Resolver
-* CLI
-* Scheduler
-* Background Worker
+- REST Controller
+- GraphQL Resolver
+- CLI
+- Scheduler
+- Background Worker
 
 ---
 
@@ -136,11 +136,11 @@ Output Adapter mengimplementasikan Output Port.
 
 Contoh:
 
-* PostgreSQL Repository
-* S3 Storage
-* SMTP Mailer
-* WhatsApp Gateway
-* Firebase Notification
+- PostgreSQL Repository
+- S3 Storage
+- SMTP Mailer
+- WhatsApp Gateway
+- Firebase Notification
 
 ---
 
@@ -282,21 +282,21 @@ S3StorageAdapter
 
 # Benefits
 
-* Mudah mengganti database.
-* Mudah mengganti provider email.
-* Mudah mengganti storage.
-* Mudah membuat Mock untuk Unit Test.
-* Domain tetap bersih.
+- Mudah mengganti database.
+- Mudah mengganti provider email.
+- Mudah mengganti storage.
+- Mudah membuat Mock untuk Unit Test.
+- Domain tetap bersih.
 
 ---
 
 # Design Principles
 
-* Ports First
-* Dependency Inversion
-* Technology Independence
-* Testability
-* Replaceable Adapters
+- Ports First
+- Dependency Inversion
+- Technology Independence
+- Testability
+- Replaceable Adapters
 
 ---
 
@@ -306,12 +306,12 @@ Seluruh integrasi eksternal wajib melalui Output Port.
 
 Contoh:
 
-* SMTP
-* Firebase
-* WhatsApp Gateway
-* Object Storage
-* Payment Gateway (Future)
-* GIS Service
+- SMTP
+- Firebase
+- WhatsApp Gateway
+- Object Storage
+- Payment Gateway (Future)
+- GIS Service
 
 Tidak diperbolehkan memanggil SDK eksternal langsung dari Domain.
 
@@ -319,23 +319,23 @@ Tidak diperbolehkan memanggil SDK eksternal langsung dari Domain.
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* system-context.md
-* domain-map.md
-* bounded-context.md
-* clean-architecture.md
-* cqrs.md
-* event-driven.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- system-context.md
+- domain-map.md
+- bounded-context.md
+- clean-architecture.md
+- cqrs.md
+- event-driven.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh integrasi menggunakan Port & Adapter.
-* Domain independen dari teknologi eksternal.
-* Adapter dapat diganti tanpa mengubah Business Rules.
-* Dependency mengikuti prinsip Hexagonal Architecture.
-* Seluruh modul menerapkan pola Ports & Adapters.
+- Seluruh integrasi menggunakan Port & Adapter.
+- Domain independen dari teknologi eksternal.
+- Adapter dapat diganti tanpa mengubah Business Rules.
+- Dependency mengikuti prinsip Hexagonal Architecture.
+- Seluruh modul menerapkan pola Ports & Adapters.

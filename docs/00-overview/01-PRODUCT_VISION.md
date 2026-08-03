@@ -26,11 +26,11 @@ Mewujudkan ekosistem digital organisasi yang terintegrasi untuk mendukung dakwah
 
 Platform dikembangkan untuk:
 
-* Meningkatkan kualitas pelayanan organisasi.
-* Mendukung digitalisasi administrasi.
-* Mempermudah publik mengakses informasi organisasi.
-* Menyediakan layanan ibadah berbasis teknologi.
-* Menjadi fondasi pengembangan layanan digital organisasi di masa depan.
+- Meningkatkan kualitas pelayanan organisasi.
+- Mendukung digitalisasi administrasi.
+- Mempermudah publik mengakses informasi organisasi.
+- Menyediakan layanan ibadah berbasis teknologi.
+- Menjadi fondasi pengembangan layanan digital organisasi di masa depan.
 
 ---
 
@@ -96,15 +96,15 @@ Seluruh fitur publik dirancang agar siap digunakan pada Android maupun iOS.
 
 Platform ini bertujuan untuk menyediakan:
 
-* Portal informasi organisasi.
-* Sistem administrasi internal.
-* Pengelolaan program organisasi.
-* Manajemen surat dan dokumen.
-* Sertifikat digital.
-* Layanan Falak.
-* Aplikasi mobile.
-* REST API.
-* Fondasi pengembangan digital jangka panjang.
+- Portal informasi organisasi.
+- Sistem administrasi internal.
+- Pengelolaan program organisasi.
+- Manajemen surat dan dokumen.
+- Sertifikat digital.
+- Layanan Falak.
+- Aplikasi mobile.
+- REST API.
+- Fondasi pengembangan digital jangka panjang.
 
 ---
 
@@ -114,12 +114,12 @@ Platform ini bertujuan untuk menyediakan:
 
 Mengakses:
 
-* Berita
-* Artikel
-* Agenda
-* Profil organisasi
-* Verifikasi sertifikat
-* Verifikasi surat
+- Berita
+- Artikel
+- Agenda
+- Profil organisasi
+- Verifikasi sertifikat
+- Verifikasi surat
 
 ---
 
@@ -185,18 +185,18 @@ Layanan inti platform.
 
 Platform dikembangkan berdasarkan domain berikut.
 
-* Authentication
-* Authorization
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Falak
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Falak
+- Media
+- Notification
+- Settings
 
 ---
 
@@ -204,11 +204,11 @@ Platform dikembangkan berdasarkan domain berikut.
 
 Platform memiliki layanan inti.
 
-* Falak Service
-* Certificate Service
-* Notification Service
-* Media Service
-* QR Verification Service
+- Falak Service
+- Certificate Service
+- Notification Service
+- Media Service
+- QR Verification Service
 
 ---
 
@@ -216,14 +216,14 @@ Platform memiliki layanan inti.
 
 Aplikasi mobile menyediakan layanan berikut.
 
-* Jadwal Sholat
-* Al-Qur'an
-* Doa Harian
-* Istighotsah
-* Arah Kiblat
-* Berita
-* Agenda
-* Sertifikat Saya (untuk peserta yang memenuhi syarat)
+- Jadwal Sholat
+- Al-Qur'an
+- Doa Harian
+- Istighotsah
+- Arah Kiblat
+- Berita
+- Agenda
+- Sertifikat Saya (untuk peserta yang memenuhi syarat)
 
 ---
 
@@ -231,11 +231,11 @@ Aplikasi mobile menyediakan layanan berikut.
 
 Versi pertama platform **tidak berfokus** pada:
 
-* Marketplace
-* Pembayaran daring
-* Media sosial internal
-* Sistem pesan instan
-* ERP keuangan
+- Marketplace
+- Pembayaran daring
+- Media sosial internal
+- Sistem pesan instan
+- ERP keuangan
 
 Fitur tersebut dapat dipertimbangkan pada roadmap jangka panjang apabila benar-benar dibutuhkan.
 
@@ -245,12 +245,12 @@ Fitur tersebut dapat dipertimbangkan pada roadmap jangka panjang apabila benar-b
 
 Platform dianggap berhasil apabila:
 
-* Administrasi organisasi terdigitalisasi dengan baik.
-* Data tidak lagi terduplikasi.
-* Website, Admin, dan Mobile menggunakan sumber data yang sama.
-* Layanan Falak dapat digunakan dengan baik.
-* Sertifikat digital dapat diverifikasi secara publik.
-* Dokumentasi proyek tetap terjaga.
+- Administrasi organisasi terdigitalisasi dengan baik.
+- Data tidak lagi terduplikasi.
+- Website, Admin, dan Mobile menggunakan sumber data yang sama.
+- Layanan Falak dapat digunakan dengan baik.
+- Sertifikat digital dapat diverifikasi secara publik.
+- Dokumentasi proyek tetap terjaga.
 
 ---
 
@@ -266,14 +266,14 @@ Platform dirancang agar mampu berkembang melalui penambahan modul dan layanan ba
 
 Seluruh pengembangan harus mengikuti prinsip berikut.
 
-* Documentation First
-* Architecture First
-* Domain Driven
-* Service Oriented
-* Mobile Ready
-* Privacy by Default
-* Security First
-* Long Term Maintainability
+- Documentation First
+- Architecture First
+- Domain Driven
+- Service Oriented
+- Mobile Ready
+- Privacy by Default
+- Security First
+- Long Term Maintainability
 
 ---
 

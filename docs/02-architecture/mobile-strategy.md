@@ -36,11 +36,11 @@ Jika ada perubahan breaking/schema, buat `v2` tanpa menghapus `v1`.
 
 # Versioning Rules
 
-* Format: `/api/v{major}/`
-* Minor changes (field tambahan) tidak memerlukan versi baru.
-* Breaking changes (field dihapus, type berubah) wajib versi baru.
-* Versi lama tetap aktif minimal 6 bulan setelah versi baru dirilis.
-* Deprecation notice dikirimkan melalui response header.
+- Format: `/api/v{major}/`
+- Minor changes (field tambahan) tidak memerlukan versi baru.
+- Breaking changes (field dihapus, type berubah) wajib versi baru.
+- Versi lama tetap aktif minimal 6 bulan setelah versi baru dirilis.
+- Deprecation notice dikirimkan melalui response header.
 
 ---
 
@@ -62,13 +62,13 @@ Mobile Device
 
 ## Event Types
 
-| Event | Description | Target |
-|-------|-------------|--------|
-| HilalSightedEvent | Hilal terlihat | Seluruh user di wilayah |
-| ProgramPublishedEvent | Program baru dipublikasikan | Seluruh user |
-| CertificateIssuedEvent | Sertifikat diterbitkan | Peserta program |
-| LetterApprovedEvent | Surat disetujui | Pemohon |
-| ScheduleUpdatedEvent | Jadwal sholat berubah | Seluruh user di wilayah |
+| Event                  | Description                 | Target                  |
+| ---------------------- | --------------------------- | ----------------------- |
+| HilalSightedEvent      | Hilal terlihat              | Seluruh user di wilayah |
+| ProgramPublishedEvent  | Program baru dipublikasikan | Seluruh user            |
+| CertificateIssuedEvent | Sertifikat diterbitkan      | Peserta program         |
+| LetterApprovedEvent    | Surat disetujui             | Pemohon                 |
+| ScheduleUpdatedEvent   | Jadwal sholat berubah       | Seluruh user di wilayah |
 
 ---
 
@@ -92,9 +92,9 @@ REST API (Backend)
 
 Aplikasi mobile harus mendukung mode offline untuk fitur tertentu:
 
-* Jadwal sholat (cache lokal).
-* Lokasi musholla (cache lokal).
-* Dokumen sertifikat (download untuk akses offline).
+- Jadwal sholat (cache lokal).
+- Lokasi musholla (cache lokal).
+- Dokumen sertifikat (download untuk akses offline).
 
 ---
 
@@ -122,26 +122,26 @@ Sync when online
 
 # Security
 
-* Token autentikasi disimpan di secure storage (Keychain / Keystore).
-* Certificate pinning untuk mencegah MITM attacks.
-* Token refresh otomatis saat expired.
-* Logout membersihkan seluruh local data.
+- Token autentikasi disimpan di secure storage (Keychain / Keystore).
+- Certificate pinning untuk mencegah MITM attacks.
+- Token refresh otomatis saat expired.
+- Logout membersihkan seluruh local data.
 
 ---
 
 # Related Documents
 
-* `README.md` - Architecture overview.
-* `architecture-overview.md` - High level architecture.
-* `frontend.md` - Frontend architecture.
-* `dependency-rules.md` - Dependency rules.
+- `README.md` - Architecture overview.
+- `architecture-overview.md` - High level architecture.
+- `frontend.md` - Frontend architecture.
+- `dependency-rules.md` - Dependency rules.
 
 ---
 
 # Acceptance Criteria
 
-* API versioning terimplementasi pada seluruh endpoint.
-* Push notification berfungsi untuk seluruh event types.
-* Offline support tersedia untuk fitur yang diizinkan.
-* Security best practices terimplementasi.
-* Backward compatibility terjaga antar versi aplikasi.
+- API versioning terimplementasi pada seluruh endpoint.
+- Push notification berfungsi untuk seluruh event types.
+- Offline support tersedia untuk fitur yang diizinkan.
+- Security best practices terimplementasi.
+- Backward compatibility terjaga antar versi aplikasi.

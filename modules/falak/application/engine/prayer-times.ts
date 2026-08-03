@@ -29,7 +29,7 @@ function resolveCalculationMethod(method: PrayerMethod) {
 export function calculatePrayerTimes(
   coordinate: Coordinate,
   date: Date,
-  method: PrayerMethod
+  method: PrayerMethod,
 ): PrayerTimeResult {
   const coords = new Coordinates(coordinate.latitude, coordinate.longitude);
   const params = resolveCalculationMethod(method);
@@ -50,7 +50,7 @@ export function calculatePrayerTimesForMonth(
   coordinate: Coordinate,
   year: number,
   month: number,
-  method: PrayerMethod
+  method: PrayerMethod,
 ): PrayerTimeResult[] {
   const daysInMonth = new Date(year, month, 0).getDate();
   const results: PrayerTimeResult[] = [];

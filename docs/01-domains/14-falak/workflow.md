@@ -300,24 +300,24 @@ Retry
 
 # Workflow Rules
 
-* Seluruh perhitungan menggunakan parameter yang tervalidasi.
-* Observasi harus melalui proses verifikasi.
-* Data yang telah dikonfirmasi menjadi Read Only.
-* Perhitungan dapat direproduksi menggunakan parameter yang sama.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh perhitungan menggunakan parameter yang tervalidasi.
+- Observasi harus melalui proses verifikasi.
+- Data yang telah dikonfirmasi menjadi Read Only.
+- Perhitungan dapat direproduksi menggunakan parameter yang sama.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -325,8 +325,8 @@ Retry
 
 Workflow Falak dianggap selesai apabila:
 
-* Seluruh proses mengikuti lifecycle yang ditentukan.
-* Perhitungan konsisten dan dapat diverifikasi.
-* Observasi tervalidasi sebelum dikonfirmasi.
-* Arsip bersifat Read Only.
-* Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.
+- Seluruh proses mengikuti lifecycle yang ditentukan.
+- Perhitungan konsisten dan dapat diverifikasi.
+- Observasi tervalidasi sebelum dikonfirmasi.
+- Arsip bersifat Read Only.
+- Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

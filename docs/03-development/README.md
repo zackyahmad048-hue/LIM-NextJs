@@ -22,12 +22,12 @@ Dokumen ini menjadi acuan resmi bagi seluruh Developer, QA Engineer, DevOps Engi
 
 Folder Development bertujuan untuk:
 
-* Menetapkan standar pengembangan.
-* Menjaga kualitas kode.
-* Menyeragamkan gaya penulisan kode.
-* Mempermudah proses review.
-* Mengurangi Technical Debt.
-* Mendukung Continuous Integration.
+- Menetapkan standar pengembangan.
+- Menjaga kualitas kode.
+- Menyeragamkan gaya penulisan kode.
+- Mempermudah proses review.
+- Mengurangi Technical Debt.
+- Mendukung Continuous Integration.
 
 ---
 
@@ -35,14 +35,14 @@ Folder Development bertujuan untuk:
 
 Folder ini mencakup:
 
-* Coding Standards
-* Naming Conventions
-* Git Workflow
-* Branching Strategy
-* Commit Convention
-* Testing Strategy
-* Code Review
-* Development Workflow
+- Coding Standards
+- Naming Conventions
+- Git Workflow
+- Branching Strategy
+- Commit Convention
+- Testing Strategy
+- Code Review
+- Development Workflow
 
 ---
 
@@ -76,15 +76,15 @@ development-workflow.md
 
 Seluruh pengembangan mengikuti prinsip:
 
-* Clean Code
-* SOLID
-* DRY
-* KISS
-* YAGNI
-* Domain Driven Design
-* Clean Architecture
-* Hexagonal Architecture
-* Test Driven Development (Recommended)
+- Clean Code
+- SOLID
+- DRY
+- KISS
+- YAGNI
+- Domain Driven Design
+- Clean Architecture
+- Hexagonal Architecture
+- Test Driven Development (Recommended)
 
 ---
 
@@ -120,23 +120,23 @@ Deployment
 
 Seluruh kode harus memenuhi:
 
-* Readable
-* Testable
-* Maintainable
-* Consistent
-* Secure
-* Well Documented
+- Readable
+- Testable
+- Maintainable
+- Consistent
+- Secure
+- Well Documented
 
 ---
 
 # Required Practices
 
-* Pull Request wajib.
-* Code Review wajib.
-* Unit Test untuk Business Logic.
-* Linter wajib lolos.
-* Formatter wajib dijalankan.
-* CI Pipeline harus berhasil sebelum merge.
+- Pull Request wajib.
+- Code Review wajib.
+- Unit Test untuk Business Logic.
+- Linter wajib lolos.
+- Formatter wajib dijalankan.
+- CI Pipeline harus berhasil sebelum merge.
 
 ---
 
@@ -144,14 +144,14 @@ Seluruh kode harus memenuhi:
 
 Direkomendasikan menggunakan:
 
-* Git
-* Docker
-* VS Code / IntelliJ IDEA
-* ESLint / Biome
-* Prettier
-* Husky
-* Commitlint
-* GitHub Actions
+- Git
+- Docker
+- VS Code / IntelliJ IDEA
+- ESLint / Biome
+- Prettier
+- Husky
+- Commitlint
+- GitHub Actions
 
 ---
 
@@ -159,18 +159,18 @@ Direkomendasikan menggunakan:
 
 Seluruh perubahan besar harus disertai:
 
-* Update dokumentasi.
-* Update API (jika berubah).
-* Update ADR (jika mengubah keputusan arsitektur).
+- Update dokumentasi.
+- Update API (jika berubah).
+- Update ADR (jika mengubah keputusan arsitektur).
 
 ---
 
 # Related Documents
 
-* 02-architecture/
-* 04-deployment/
-* 05-decisions/
-* 06-references/
+- 02-architecture/
+- 04-deployment/
+- 05-decisions/
+- 06-references/
 
 ---
 
@@ -182,8 +182,8 @@ Seluruh perubahan besar harus disertai:
 
 # Acceptance Criteria
 
-* Seluruh developer mengikuti standar yang sama.
-* Workflow pengembangan terdokumentasi.
-* Code Quality terjaga.
-* Dokumentasi selalu diperbarui.
-* Menjadi pedoman resmi proses development.
+- Seluruh developer mengikuti standar yang sama.
+- Workflow pengembangan terdokumentasi.
+- Code Quality terjaga.
+- Dokumentasi selalu diperbarui.
+- Menjadi pedoman resmi proses development.

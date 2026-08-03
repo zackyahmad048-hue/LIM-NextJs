@@ -50,10 +50,10 @@ Infrastructure
 
 Aturan:
 
-* Presentation boleh bergantung pada Application.
-* Application boleh bergantung pada Domain.
-* Infrastructure mengimplementasikan Domain Interface.
-* Domain tidak bergantung pada layer lain.
+- Presentation boleh bergantung pada Application.
+- Application boleh bergantung pada Domain.
+- Infrastructure mengimplementasikan Domain Interface.
+- Domain tidak bergantung pada layer lain.
 
 ---
 
@@ -73,9 +73,9 @@ Supporting Domain
 
 Aturan:
 
-* Shared Domain dapat digunakan seluruh domain.
-* Core Domain tidak saling mengakses database.
-* Supporting Domain mengonsumsi layanan Core Domain.
+- Shared Domain dapat digunakan seluruh domain.
+- Core Domain tidak saling mengakses database.
+- Supporting Domain mengonsumsi layanan Core Domain.
 
 ---
 
@@ -83,14 +83,14 @@ Aturan:
 
 | Source         | Target         | Allowed |
 | -------------- | -------------- | :-----: |
-| Presentation   | Application    |    ✅    |
-| Application    | Domain         |    ✅    |
-| Infrastructure | Domain         |    ✅    |
-| Domain         | Shared Kernel  |    ✅    |
-| Domain         | Infrastructure |    ❌    |
-| Domain         | Presentation   |    ❌    |
-| Domain         | Database       |    ❌    |
-| Domain         | Framework      |    ❌    |
+| Presentation   | Application    |   ✅    |
+| Application    | Domain         |   ✅    |
+| Infrastructure | Domain         |   ✅    |
+| Domain         | Shared Kernel  |   ✅    |
+| Domain         | Infrastructure |   ❌    |
+| Domain         | Presentation   |   ❌    |
+| Domain         | Database       |   ❌    |
+| Domain         | Framework      |   ❌    |
 
 ---
 
@@ -98,17 +98,17 @@ Aturan:
 
 Komunikasi antar domain hanya melalui:
 
-* Application Service
-* Public Interface
-* REST API
-* Domain Event
+- Application Service
+- Public Interface
+- REST API
+- Domain Event
 
 Tidak diperbolehkan:
 
-* Mengakses Entity domain lain.
-* Mengakses Repository domain lain.
-* Mengakses tabel database domain lain.
-* Mengubah data domain lain secara langsung.
+- Mengakses Entity domain lain.
+- Mengakses Repository domain lain.
+- Mengakses tabel database domain lain.
+- Mengubah data domain lain secara langsung.
 
 ---
 
@@ -128,8 +128,8 @@ Infrastructure Layer
 
 Repository hanya boleh digunakan oleh:
 
-* Application Layer
-* Domain Service (melalui Interface)
+- Application Layer
+- Domain Service (melalui Interface)
 
 ---
 
@@ -137,19 +137,19 @@ Repository hanya boleh digunakan oleh:
 
 Shared Kernel hanya boleh berisi:
 
-* Base Entity
-* Base Value Object
-* Result Pattern
-* Pagination
-* Error Model
-* Common Utilities
+- Base Entity
+- Base Value Object
+- Result Pattern
+- Pagination
+- Error Model
+- Common Utilities
 
 Tidak boleh berisi:
 
-* Business Rules
-* Domain Entity
-* Domain Service
-* Repository Implementation
+- Business Rules
+- Domain Entity
+- Domain Service
+- Repository Implementation
 
 ---
 
@@ -221,9 +221,9 @@ Program
 
 Gunakan:
 
-* Domain Event
-* Application Service
-* Public Interface
+- Domain Event
+- Application Service
+- Public Interface
 
 ---
 
@@ -231,9 +231,9 @@ Gunakan:
 
 Setiap module harus dapat:
 
-* Dikembangkan secara independen.
-* Diuji secara independen.
-* Dipindahkan menjadi service tersendiri tanpa mengubah Business Rules.
+- Dikembangkan secara independen.
+- Diuji secara independen.
+- Dipindahkan menjadi service tersendiri tanpa mengubah Business Rules.
 
 ---
 
@@ -259,34 +259,34 @@ Setiap module harus dapat:
 
 # Design Principles
 
-* Dependency Inversion Principle
-* Separation of Concerns
-* High Cohesion
-* Low Coupling
-* Explicit Dependency
-* Single Responsibility Principle
+- Dependency Inversion Principle
+- Separation of Concerns
+- High Cohesion
+- Low Coupling
+- Explicit Dependency
+- Single Responsibility Principle
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* system-context.md
-* domain-map.md
-* bounded-context.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* cqrs.md
-* event-driven.md
-* folder-structure.md
+- README.md
+- architecture-overview.md
+- system-context.md
+- domain-map.md
+- bounded-context.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- cqrs.md
+- event-driven.md
+- folder-structure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh dependency mengikuti Clean Architecture.
-* Tidak terdapat Circular Dependency.
-* Domain tetap independen dari teknologi.
-* Komunikasi lintas domain menggunakan Public Interface.
-* Dependency Rules menjadi standar wajib dalam seluruh implementasi LIM Digital Platform.
+- Seluruh dependency mengikuti Clean Architecture.
+- Tidak terdapat Circular Dependency.
+- Domain tetap independen dari teknologi.
+- Komunikasi lintas domain menggunakan Public Interface.
+- Dependency Rules menjadi standar wajib dalam seluruh implementasi LIM Digital Platform.

@@ -16,10 +16,10 @@ Dokumen ini mendefinisikan standar REST API untuk Domain CMS.
 
 API CMS digunakan oleh:
 
-* Admin Portal
-* Website
-* Mobile Application
-* Internal Services
+- Admin Portal
+- Website
+- Mobile Application
+- Internal Services
 
 Seluruh endpoint mengikuti standar API LIM Digital Platform.
 
@@ -37,9 +37,9 @@ Seluruh endpoint mengikuti standar API LIM Digital Platform.
 
 Endpoint Admin wajib:
 
-* Authentication
-* Authorization
-* Permission Check
+- Authentication
+- Authorization
+- Permission Check
 
 Endpoint Public tidak memerlukan autentikasi.
 
@@ -49,11 +49,11 @@ Endpoint Public tidak memerlukan autentikasi.
 
 CMS terdiri dari beberapa kelompok endpoint:
 
-* Posts
-* Pages
-* Categories
-* Tags
-* Public Content
+- Posts
+- Pages
+- Categories
+- Tags
+- Public Content
 
 ---
 
@@ -315,11 +315,11 @@ Response gagal:
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan autentikasi.
-* Endpoint Public hanya menampilkan konten **Published**.
-* Slug digunakan sebagai identifier pada endpoint publik.
-* Endpoint Delete menggunakan Soft Delete.
-* Seluruh operasi Create, Update, Delete dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan autentikasi.
+- Endpoint Public hanya menampilkan konten **Published**.
+- Slug digunakan sebagai identifier pada endpoint publik.
+- Endpoint Delete menggunakan Soft Delete.
+- Seluruh operasi Create, Update, Delete dicatat pada Audit Log.
 
 ---
 
@@ -327,10 +327,10 @@ Response gagal:
 
 API CMS wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -338,24 +338,24 @@ API CMS wajib:
 
 Endpoint harus:
 
-* Mendukung Pagination.
-* Mendukung Filtering.
-* Mendukung Sorting.
-* Menggunakan Index Database.
-* Menghindari N+1 Query.
+- Mendukung Pagination.
+- Mendukung Filtering.
+- Mendukung Sorting.
+- Menggunakan Index Database.
+- Menghindari N+1 Query.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -363,7 +363,7 @@ Endpoint harus:
 
 API CMS dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* Public API hanya menampilkan konten Published.
-* Response mengikuti standar proyek.
-* Seluruh endpoint mengikuti Business Rules dan Security Policy.
+- Seluruh endpoint CRUD tersedia.
+- Public API hanya menampilkan konten Published.
+- Response mengikuti standar proyek.
+- Seluruh endpoint mengikuti Business Rules dan Security Policy.

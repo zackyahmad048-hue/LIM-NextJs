@@ -14,22 +14,22 @@
 
 LIM Digital Platform mengelola data penting seperti:
 
-* User
-* Organization
-* Program
-* Letter
-* Certificate
-* Knowledge
-* Falak
-* Settings
+- User
+- Organization
+- Program
+- Letter
+- Certificate
+- Knowledge
+- Falak
+- Settings
 
 Perubahan terhadap data tersebut harus dapat ditelusuri untuk:
 
-* Investigasi insiden.
-* Kepatuhan (Compliance).
-* Keamanan.
-* Debugging.
-* Akuntabilitas pengguna.
+- Investigasi insiden.
+- Kepatuhan (Compliance).
+- Keamanan.
+- Debugging.
+- Akuntabilitas pengguna.
 
 Tanpa Audit Log, perubahan data sulit dilacak dan penyebab suatu masalah menjadi sulit diidentifikasi.
 
@@ -49,11 +49,11 @@ Audit Log bersifat **append-only**, sehingga catatan yang telah dibuat tidak bol
 
 Audit Log dipilih karena:
 
-* Mendukung keamanan sistem.
-* Memenuhi kebutuhan audit internal.
-* Memudahkan investigasi.
-* Meningkatkan akuntabilitas pengguna.
-* Menjadi dasar analisis aktivitas sistem.
+- Mendukung keamanan sistem.
+- Memenuhi kebutuhan audit internal.
+- Memudahkan investigasi.
+- Meningkatkan akuntabilitas pengguna.
+- Menjadi dasar analisis aktivitas sistem.
 
 ---
 
@@ -63,43 +63,43 @@ Audit wajib mencatat aktivitas berikut:
 
 ## Authentication
 
-* Login
-* Logout
-* Login Failed
-* Password Changed
-* Password Reset
+- Login
+- Logout
+- Login Failed
+- Password Changed
+- Password Reset
 
 ---
 
 ## Authorization
 
-* Role Created
-* Role Updated
-* Permission Changed
-* User Role Assigned
+- Role Created
+- Role Updated
+- Permission Changed
+- User Role Assigned
 
 ---
 
 ## Business Data
 
-* Create
-* Update
-* Delete
-* Archive
-* Restore
-* Approve
-* Reject
-* Publish
+- Create
+- Update
+- Delete
+- Archive
+- Restore
+- Approve
+- Reject
+- Publish
 
 ---
 
 ## System Activity
 
-* Deployment
-* Configuration Change
-* Backup
-* Restore
-* Security Event
+- Deployment
+- Configuration Change
+- Backup
+- Restore
+- Security Event
 
 ---
 
@@ -165,10 +165,10 @@ Audit Log disimpan pada database khusus atau tabel terpisah.
 
 Karakteristik:
 
-* Append Only.
-* Tidak dapat diedit.
-* Tidak dapat dihapus oleh pengguna biasa.
-* Mendukung pencarian dan filtering.
+- Append Only.
+- Tidak dapat diedit.
+- Tidak dapat dihapus oleh pengguna biasa.
+- Mendukung pencarian dan filtering.
 
 ---
 
@@ -188,11 +188,11 @@ Retensi dapat disesuaikan dengan kebutuhan organisasi dan regulasi yang berlaku.
 
 Audit Log wajib:
 
-* Dilindungi dengan RBAC.
-* Tidak boleh dimodifikasi.
-* Tidak boleh menyimpan Password atau Secret.
-* Memiliki Backup berkala.
-* Menggunakan Timestamp yang konsisten.
+- Dilindungi dengan RBAC.
+- Tidak boleh dimodifikasi.
+- Tidak boleh menyimpan Password atau Secret.
+- Memiliki Backup berkala.
+- Menggunakan Timestamp yang konsisten.
 
 ---
 
@@ -202,12 +202,12 @@ Audit Log wajib:
 
 Kelebihan:
 
-* Mudah diterapkan.
+- Mudah diterapkan.
 
 Kekurangan:
 
-* Tidak mencatat aktivitas bisnis secara lengkap.
-* Sulit digunakan untuk audit.
+- Tidak mencatat aktivitas bisnis secara lengkap.
+- Sulit digunakan untuk audit.
 
 ---
 
@@ -215,13 +215,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Otomatis.
+- Otomatis.
 
 Kekurangan:
 
-* Sulit dipelihara.
-* Tidak mengetahui konteks bisnis.
-* Bergantung pada database tertentu.
+- Sulit dipelihara.
+- Tidak mengetahui konteks bisnis.
+- Bergantung pada database tertentu.
 
 ---
 
@@ -229,15 +229,15 @@ Kekurangan:
 
 Kelebihan:
 
-* Konsisten.
-* Independen.
-* Mudah dikembangkan.
-* Mendukung Clean Architecture.
+- Konsisten.
+- Independen.
+- Mudah dikembangkan.
+- Mendukung Clean Architecture.
 
 Kekurangan:
 
-* Menambah komponen aplikasi.
-* Membutuhkan penyimpanan tambahan.
+- Menambah komponen aplikasi.
+- Membutuhkan penyimpanan tambahan.
 
 ---
 
@@ -245,32 +245,32 @@ Kekurangan:
 
 Keuntungan:
 
-* Seluruh aktivitas penting dapat ditelusuri.
-* Mendukung Compliance.
-* Mempermudah Incident Investigation.
-* Meningkatkan transparansi sistem.
+- Seluruh aktivitas penting dapat ditelusuri.
+- Mendukung Compliance.
+- Mempermudah Incident Investigation.
+- Meningkatkan transparansi sistem.
 
 Konsekuensi:
 
-* Membutuhkan ruang penyimpanan tambahan.
-* Perlu kebijakan retensi.
-* Monitoring Audit Log menjadi bagian operasional sistem.
+- Membutuhkan ruang penyimpanan tambahan.
+- Perlu kebijakan retensi.
+- Monitoring Audit Log menjadi bagian operasional sistem.
 
 ---
 
 # Related Decisions
 
-* ADR-004 Role-Based Access Control
-* ADR-005 Event Driven Architecture
-* ADR-009 Validation Strategy
+- ADR-004 Role-Based Access Control
+- ADR-005 Event Driven Architecture
+- ADR-009 Validation Strategy
 
 ---
 
 # References
 
-* OWASP Logging Cheat Sheet
-* NIST SP 800-92 Guide to Computer Security Log Management
-* Architecture Documentation (`01-domains/*/audit-log.md`)
+- OWASP Logging Cheat Sheet
+- NIST SP 800-92 Guide to Computer Security Log Management
+- Architecture Documentation (`01-domains/*/audit-log.md`)
 
 ---
 
@@ -282,8 +282,8 @@ Konsekuensi:
 
 # Acceptance Criteria
 
-* Seluruh aktivitas penting tercatat pada Audit Log.
-* Audit Log bersifat append-only.
-* Audit Log tidak menyimpan data sensitif.
-* Audit Log dapat ditelusuri berdasarkan pengguna, waktu, modul, dan aksi.
-* Audit Log menjadi standar pencatatan aktivitas pada LIM Digital Platform.
+- Seluruh aktivitas penting tercatat pada Audit Log.
+- Audit Log bersifat append-only.
+- Audit Log tidak menyimpan data sensitif.
+- Audit Log dapat ditelusuri berdasarkan pengguna, waktu, modul, dan aksi.
+- Audit Log menjadi standar pencatatan aktivitas pada LIM Digital Platform.

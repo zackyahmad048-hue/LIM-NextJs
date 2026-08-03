@@ -22,13 +22,13 @@ Domain ini berfokus pada **dokumen surat**, sedangkan Domain Secretariat berfoku
 
 Domain Letter bertujuan untuk:
 
-* Mengelola surat resmi organisasi.
-* Menghasilkan nomor surat otomatis.
-* Mengelola template surat.
-* Mengelola proses persetujuan surat.
-* Mengelola penandatangan surat.
-* Mengelola distribusi surat.
-* Menyediakan arsip surat digital.
+- Mengelola surat resmi organisasi.
+- Menghasilkan nomor surat otomatis.
+- Mengelola template surat.
+- Mengelola proses persetujuan surat.
+- Mengelola penandatangan surat.
+- Mengelola distribusi surat.
+- Menyediakan arsip surat digital.
 
 ---
 
@@ -36,13 +36,13 @@ Domain Letter bertujuan untuk:
 
 Domain Letter mencakup:
 
-* Letter Draft
-* Letter Template
-* Letter Numbering
-* Letter Approval
-* Digital Signature
-* Letter Distribution
-* Letter Archive
+- Letter Draft
+- Letter Template
+- Letter Numbering
+- Letter Approval
+- Digital Signature
+- Letter Distribution
+- Letter Archive
 
 ---
 
@@ -50,11 +50,11 @@ Domain Letter mencakup:
 
 Domain Letter digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Sekretaris
-* Operator Surat
-* Penandatangan
+- Super Administrator
+- Administrator
+- Sekretaris
+- Operator Surat
+- Penandatangan
 
 Penerima surat hanya dapat melihat surat yang ditujukan kepadanya apabila tersedia melalui sistem.
 
@@ -64,13 +64,13 @@ Penerima surat hanya dapat melihat surat yang ditujukan kepadanya apabila tersed
 
 Domain Letter bertanggung jawab untuk:
 
-* Membuat surat.
-* Mengelola template.
-* Menghasilkan nomor surat.
-* Mengelola persetujuan.
-* Mengelola penandatanganan.
-* Mengelola distribusi.
-* Menyimpan arsip surat.
+- Membuat surat.
+- Mengelola template.
+- Menghasilkan nomor surat.
+- Mengelola persetujuan.
+- Mengelola penandatanganan.
+- Mengelola distribusi.
+- Menyimpan arsip surat.
 
 ---
 
@@ -78,43 +78,43 @@ Domain Letter bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
-* Organization
-* Secretariat
-* Media
-* Notification
+- Authentication
+- Authorization
+- Organization
+- Secretariat
+- Media
+- Notification
 
 Digunakan oleh:
 
-* Dashboard
-* Certificate
-* Knowledge
+- Dashboard
+- Certificate
+- Knowledge
 
 ---
 
 # Features
 
-* Letter Draft Management
-* Letter Template
-* Auto Numbering
-* Approval Workflow
-* Digital Signature
-* Distribution Tracking
-* Letter Archive
+- Letter Draft Management
+- Letter Template
+- Auto Numbering
+- Approval Workflow
+- Digital Signature
+- Distribution Tracking
+- Letter Archive
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

@@ -356,24 +356,24 @@ Retry
 
 # Workflow Rules
 
-* Seluruh konfigurasi divalidasi sebelum disimpan.
-* Key konfigurasi tidak boleh duplikat.
-* Credential dienkripsi sebelum disimpan.
-* Feature Flag dapat diterapkan tanpa restart apabila didukung.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh konfigurasi divalidasi sebelum disimpan.
+- Key konfigurasi tidak boleh duplikat.
+- Credential dienkripsi sebelum disimpan.
+- Feature Flag dapat diterapkan tanpa restart apabila didukung.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -381,8 +381,8 @@ Retry
 
 Workflow Settings dianggap selesai apabila:
 
-* Seluruh konfigurasi mengikuti lifecycle yang ditentukan.
-* Konfigurasi diterapkan sesuai kategori.
-* Credential tersimpan dalam bentuk terenkripsi.
-* Feature Flag dapat diaktifkan/dinonaktifkan.
-* Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.
+- Seluruh konfigurasi mengikuti lifecycle yang ditentukan.
+- Konfigurasi diterapkan sesuai kategori.
+- Credential tersimpan dalam bentuk terenkripsi.
+- Feature Flag dapat diaktifkan/dinonaktifkan.
+- Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

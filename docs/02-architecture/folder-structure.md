@@ -16,10 +16,10 @@ Dokumen ini mendefinisikan struktur folder standar pada LIM Digital Platform.
 
 Struktur folder dirancang agar konsisten dengan prinsip:
 
-* Domain Driven Design (DDD)
-* Clean Architecture
-* Hexagonal Architecture
-* Modular Monolith
+- Domain Driven Design (DDD)
+- Clean Architecture
+- Hexagonal Architecture
+- Modular Monolith
 
 Setiap domain memiliki struktur yang sama sehingga memudahkan pengembangan dan pemeliharaan.
 
@@ -45,7 +45,7 @@ project-root/
 
 # Domain Module Structure (`modules/`)
 
-Setiap modul di bawah `modules/` memisahkan *concern* ke dalam 4 layer Clean/Hexagonal Architecture:
+Setiap modul di bawah `modules/` memisahkan _concern_ ke dalam 4 layer Clean/Hexagonal Architecture:
 
 ```text id="fs02"
 modules/<domain>/
@@ -122,11 +122,11 @@ ports/
 
 Berisi:
 
-* Use Case
-* CQRS
-* DTO
-* Input Port
-* Output Port
+- Use Case
+- CQRS
+- DTO
+- Input Port
+- Output Port
 
 ---
 
@@ -200,9 +200,9 @@ routes/
 
 Berisi:
 
-* REST Controller
-* HTTP Request
-* HTTP Response
+- REST Controller
+- HTTP Request
+- HTTP Response
 
 ---
 
@@ -340,30 +340,30 @@ UPPER_SNAKE_CASE
 
 # Folder Rules
 
-* Setiap Domain memiliki struktur yang sama.
-* Tidak ada akses langsung antar Domain.
-* Shared hanya berisi reusable component.
-* Infrastructure tidak boleh diakses langsung oleh Presentation.
-* Seluruh Business Rules berada pada Domain Layer.
+- Setiap Domain memiliki struktur yang sama.
+- Tidak ada akses langsung antar Domain.
+- Shared hanya berisi reusable component.
+- Infrastructure tidak boleh diakses langsung oleh Presentation.
+- Seluruh Business Rules berada pada Domain Layer.
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* cqrs.md
-* event-driven.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- cqrs.md
+- event-driven.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Struktur folder konsisten.
-* Seluruh domain menggunakan struktur yang sama.
-* Layer mengikuti Clean Architecture.
-* Shared Layer tidak berisi Business Rules.
-* Struktur siap dikembangkan menjadi Modular Monolith maupun Microservices.
+- Struktur folder konsisten.
+- Seluruh domain menggunakan struktur yang sama.
+- Layer mengikuti Clean Architecture.
+- Shared Layer tidak berisi Business Rules.
+- Struktur siap dikembangkan menjadi Modular Monolith maupun Microservices.

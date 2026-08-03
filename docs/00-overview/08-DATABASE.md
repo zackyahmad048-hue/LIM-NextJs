@@ -24,11 +24,11 @@ Detail tabel dan ERD dibahas pada dokumentasi `06-database`.
 
 Platform menggunakan:
 
-* PostgreSQL
+- PostgreSQL
 
 ORM yang digunakan:
 
-* Prisma ORM
+- Prisma ORM
 
 ---
 
@@ -36,13 +36,13 @@ ORM yang digunakan:
 
 Seluruh database mengikuti prinsip berikut:
 
-* Single Source of Truth
-* Normalisasi data
-* Referential Integrity
-* Soft Delete
-* UUID sebagai Primary Key
-* Audit Ready
-* Migration Based
+- Single Source of Truth
+- Normalisasi data
+- Referential Integrity
+- Soft Delete
+- UUID sebagai Primary Key
+- Audit Ready
+- Migration Based
 
 ---
 
@@ -96,7 +96,7 @@ id
 
 Tipe:
 
-* UUID
+- UUID
 
 ---
 
@@ -160,11 +160,11 @@ Perubahan penting dicatat melalui Audit Log.
 
 Audit Log menyimpan:
 
-* User
-* Modul
-* Aktivitas
-* Waktu
-* Ringkasan perubahan
+- User
+- Modul
+- Aktivitas
+- Waktu
+- Ringkasan perubahan
 
 ---
 
@@ -172,19 +172,19 @@ Audit Log menyimpan:
 
 Database dibagi berdasarkan domain bisnis.
 
-* Authentication
-* Authorization
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Knowledge
-* Falak
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Knowledge
+- Falak
+- Media
+- Notification
+- Settings
 
 Masing-masing domain memiliki tabel sendiri dan hanya berinteraksi melalui relasi yang jelas.
 
@@ -194,9 +194,9 @@ Masing-masing domain memiliki tabel sendiri dan hanya berinteraksi melalui relas
 
 Setiap relasi harus:
 
-* Memiliki Foreign Key.
-* Menggunakan constraint database.
-* Tidak membuat relasi melingkar yang tidak diperlukan.
+- Memiliki Foreign Key.
+- Menggunakan constraint database.
+- Tidak membuat relasi melingkar yang tidak diperlukan.
 
 ---
 
@@ -204,10 +204,10 @@ Setiap relasi harus:
 
 Database wajib menjaga:
 
-* Tidak ada data yatim (orphan data).
-* Foreign key selalu valid.
-* Nilai unik menggunakan Unique Constraint.
-* Data wajib mengikuti Business Rules.
+- Tidak ada data yatim (orphan data).
+- Foreign key selalu valid.
+- Nilai unik menggunakan Unique Constraint.
+- Data wajib mengikuti Business Rules.
 
 ---
 
@@ -215,13 +215,13 @@ Database wajib menjaga:
 
 Index digunakan pada:
 
-* Primary Key
-* Foreign Key
-* Slug
-* Email
-* Nomor Surat
-* Nomor Sertifikat
-* Kolom yang sering digunakan untuk pencarian
+- Primary Key
+- Foreign Key
+- Slug
+- Email
+- Nomor Surat
+- Nomor Sertifikat
+- Kolom yang sering digunakan untuk pencarian
 
 ---
 
@@ -257,11 +257,11 @@ Seeder digunakan untuk data awal.
 
 Contoh:
 
-* Role
-* Permission
-* Administrator
-* Settings
-* Master Data
+- Role
+- Permission
+- Administrator
+- Settings
+- Master Data
 
 Seeder harus dapat dijalankan berulang tanpa menghasilkan data ganda.
 
@@ -271,9 +271,9 @@ Seeder harus dapat dijalankan berulang tanpa menghasilkan data ganda.
 
 Database wajib memiliki mekanisme:
 
-* Backup Harian
-* Backup Mingguan
-* Backup Bulanan
+- Backup Harian
+- Backup Mingguan
+- Backup Bulanan
 
 Proses restore harus diuji secara berkala.
 
@@ -283,9 +283,9 @@ Proses restore harus diuji secara berkala.
 
 Database harus:
 
-* Menggunakan koneksi terenkripsi.
-* Menyimpan secret melalui Environment Variables.
-* Tidak dapat diakses langsung oleh aplikasi selain melalui Prisma.
+- Menggunakan koneksi terenkripsi.
+- Menyimpan secret melalui Environment Variables.
+- Tidak dapat diakses langsung oleh aplikasi selain melalui Prisma.
 
 ---
 
@@ -293,10 +293,10 @@ Database harus:
 
 Standar minimum:
 
-* Query menggunakan index bila diperlukan.
-* Menghindari N+1 Query.
-* Pagination untuk data besar.
-* Optimasi relasi menggunakan Prisma.
+- Query menggunakan index bila diperlukan.
+- Menghindari N+1 Query.
+- Pagination untuk data besar.
+- Optimasi relasi menggunakan Prisma.
 
 ---
 
@@ -304,13 +304,13 @@ Standar minimum:
 
 Database dirancang agar mendukung:
 
-* Multi Organization
-* Multi Language
-* Object Storage
-* Analytics
-* Background Jobs
-* Mobile Application
-* Public API
+- Multi Organization
+- Multi Language
+- Object Storage
+- Analytics
+- Background Jobs
+- Mobile Application
+- Public API
 
 Tanpa mengubah fondasi utama schema.
 
@@ -320,11 +320,11 @@ Tanpa mengubah fondasi utama schema.
 
 Dokumen ini berkaitan dengan:
 
-* Business Rules
-* Architecture
-* Data Dictionary
-* ERD
-* API Documentation
+- Business Rules
+- Architecture
+- Data Dictionary
+- ERD
+- API Documentation
 
 ---
 
@@ -332,10 +332,10 @@ Dokumen ini berkaitan dengan:
 
 Seluruh perubahan database harus:
 
-* Didokumentasikan.
-* Menggunakan Migration.
-* Ditinjau dampaknya terhadap domain lain.
-* Disetujui sebelum diterapkan.
+- Didokumentasikan.
+- Menggunakan Migration.
+- Ditinjau dampaknya terhadap domain lain.
+- Disetujui sebelum diterapkan.
 
 ---
 

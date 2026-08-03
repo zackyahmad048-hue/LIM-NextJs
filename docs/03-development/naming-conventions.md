@@ -22,11 +22,11 @@ Tujuan utamanya adalah menjaga konsistensi, meningkatkan keterbacaan kode, serta
 
 Nama harus:
 
-* Jelas.
-* Bermakna.
-* Konsisten.
-* Tidak ambigu.
-* Mudah dicari.
+- Jelas.
+- Bermakna.
+- Konsisten.
+- Tidak ambigu.
+- Mudah dicari.
 
 Hindari singkatan yang tidak umum.
 
@@ -438,29 +438,29 @@ should_reject_invalid_login
 
 # Naming Rules
 
-* Hindari singkatan yang tidak umum.
-* Gunakan istilah bisnis (Ubiquitous Language).
-* Hindari nama generik seperti `Data`, `Info`, `Helper`, `Manager`.
-* Nama harus menggambarkan tanggung jawab.
+- Hindari singkatan yang tidak umum.
+- Gunakan istilah bisnis (Ubiquitous Language).
+- Hindari nama generik seperti `Data`, `Info`, `Helper`, `Manager`.
+- Nama harus menggambarkan tanggung jawab.
 
 ---
 
 # Related Documents
 
-* README.md
-* coding-standards.md
-* git-workflow.md
-* testing-strategy.md
-* branching-strategy.md
-* commit-convention.md
-* code-review.md
+- README.md
+- coding-standards.md
+- git-workflow.md
+- testing-strategy.md
+- branching-strategy.md
+- commit-convention.md
+- code-review.md
 
 ---
 
 # Acceptance Criteria
 
-* Penamaan konsisten di seluruh proyek.
-* Menggunakan Ubiquitous Language.
-* Mudah dipahami oleh seluruh developer.
-* Tidak menggunakan nama ambigu.
-* Naming Convention menjadi standar resmi proyek.
+- Penamaan konsisten di seluruh proyek.
+- Menggunakan Ubiquitous Language.
+- Mudah dipahami oleh seluruh developer.
+- Tidak menggunakan nama ambigu.
+- Naming Convention menjadi standar resmi proyek.

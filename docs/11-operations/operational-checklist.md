@@ -24,11 +24,11 @@ Checklist ini menjadi referensi utama bagi DevOps Engineer, System Administrator
 
 Operational Checklist bertujuan untuk:
 
-* Menstandarkan pemeriksaan operasional.
-* Mengurangi Human Error.
-* Memastikan kesiapan sistem.
-* Mempermudah proses audit operasional.
-* Mendukung High Availability.
+- Menstandarkan pemeriksaan operasional.
+- Mengurangi Human Error.
+- Memastikan kesiapan sistem.
+- Mempermudah proses audit operasional.
+- Mendukung High Availability.
 
 ---
 
@@ -38,16 +38,16 @@ Periksa setiap hari:
 
 | Item                   | Status |
 | ---------------------- | :----: |
-| Server Online          |    ☐   |
-| Reverse Proxy Healthy  |    ☐   |
-| Backend API Healthy    |    ☐   |
-| Frontend Healthy       |    ☐   |
-| Worker Healthy         |    ☐   |
-| Scheduler Healthy      |    ☐   |
-| PostgreSQL Healthy     |    ☐   |
-| Redis Healthy          |    ☐   |
-| Object Storage Healthy |    ☐   |
-| Monitoring Healthy     |    ☐   |
+| Server Online          |   ☐    |
+| Reverse Proxy Healthy  |   ☐    |
+| Backend API Healthy    |   ☐    |
+| Frontend Healthy       |   ☐    |
+| Worker Healthy         |   ☐    |
+| Scheduler Healthy      |   ☐    |
+| PostgreSQL Healthy     |   ☐    |
+| Redis Healthy          |   ☐    |
+| Object Storage Healthy |   ☐    |
+| Monitoring Healthy     |   ☐    |
 
 ---
 
@@ -55,14 +55,14 @@ Periksa setiap hari:
 
 Pastikan:
 
-* Login berhasil.
-* Dashboard dapat diakses.
-* API merespons normal.
-* Upload File berhasil.
-* Download File berhasil.
-* Notification terkirim.
-* Queue diproses.
-* Search berjalan.
+- Login berhasil.
+- Dashboard dapat diakses.
+- API merespons normal.
+- Upload File berhasil.
+- Download File berhasil.
+- Notification terkirim.
+- Queue diproses.
+- Search berjalan.
 
 ---
 
@@ -70,12 +70,12 @@ Pastikan:
 
 Periksa:
 
-* Database aktif.
-* Backup berhasil.
-* Tidak ada Slow Query kritis.
-* Storage mencukupi.
-* Connection normal.
-* Replication normal (jika digunakan).
+- Database aktif.
+- Backup berhasil.
+- Tidak ada Slow Query kritis.
+- Storage mencukupi.
+- Connection normal.
+- Replication normal (jika digunakan).
 
 ---
 
@@ -83,12 +83,12 @@ Periksa:
 
 Periksa:
 
-* CPU Usage normal.
-* Memory Usage normal.
-* Disk Usage aman.
-* Network normal.
-* SSL Certificate masih berlaku.
-* Firewall aktif.
+- CPU Usage normal.
+- Memory Usage normal.
+- Disk Usage aman.
+- Network normal.
+- SSL Certificate masih berlaku.
+- Firewall aktif.
 
 ---
 
@@ -96,11 +96,11 @@ Periksa:
 
 Pastikan:
 
-* Tidak ada Login mencurigakan.
-* Secret tersimpan aman.
-* Audit Log aktif.
-* Tidak ada Vulnerability kritis.
-* Dependency terbaru telah ditinjau.
+- Tidak ada Login mencurigakan.
+- Secret tersimpan aman.
+- Audit Log aktif.
+- Tidak ada Vulnerability kritis.
+- Dependency terbaru telah ditinjau.
 
 ---
 
@@ -108,11 +108,11 @@ Pastikan:
 
 Verifikasi:
 
-* Backup Database berhasil.
-* Backup Storage berhasil.
-* Backup Configuration berhasil.
-* Backup tersimpan pada lokasi yang benar.
-* Backup Log tersedia.
+- Backup Database berhasil.
+- Backup Storage berhasil.
+- Backup Configuration berhasil.
+- Backup tersimpan pada lokasi yang benar.
+- Backup Log tersedia.
 
 ---
 
@@ -120,13 +120,13 @@ Verifikasi:
 
 Sebelum Release:
 
-* Build berhasil.
-* CI/CD berhasil.
-* UAT selesai.
-* Backup tersedia.
-* Rollback Plan tersedia.
-* Release Notes selesai.
-* Persetujuan Release lengkap.
+- Build berhasil.
+- CI/CD berhasil.
+- UAT selesai.
+- Backup tersedia.
+- Rollback Plan tersedia.
+- Release Notes selesai.
+- Persetujuan Release lengkap.
 
 ---
 
@@ -134,13 +134,13 @@ Sebelum Release:
 
 Setelah Deployment:
 
-* Health Check berhasil.
-* Login berhasil.
-* API normal.
-* Dashboard normal.
-* Monitoring normal.
-* Error Rate normal.
-* Queue normal.
+- Health Check berhasil.
+- Login berhasil.
+- API normal.
+- Dashboard normal.
+- Monitoring normal.
+- Error Rate normal.
+- Queue normal.
 
 ---
 
@@ -148,12 +148,12 @@ Setelah Deployment:
 
 Saat terjadi insiden:
 
-* Severity ditentukan.
-* Owner ditugaskan.
-* Stakeholder diberi informasi.
-* Mitigasi dilakukan.
-* Recovery diverifikasi.
-* Incident Report dibuat.
+- Severity ditentukan.
+- Owner ditugaskan.
+- Stakeholder diberi informasi.
+- Mitigasi dilakukan.
+- Recovery diverifikasi.
+- Incident Report dibuat.
 
 ---
 
@@ -161,18 +161,18 @@ Saat terjadi insiden:
 
 Sebelum Maintenance:
 
-* Backup selesai.
-* Maintenance Window aktif.
-* Tim diberi informasi.
-* Monitoring aktif.
-* Rollback Plan siap.
+- Backup selesai.
+- Maintenance Window aktif.
+- Tim diberi informasi.
+- Monitoring aktif.
+- Rollback Plan siap.
 
 Setelah Maintenance:
 
-* Seluruh Service normal.
-* Monitoring normal.
-* Dokumentasi diperbarui.
-* Maintenance ditutup.
+- Seluruh Service normal.
+- Monitoring normal.
+- Dokumentasi diperbarui.
+- Maintenance ditutup.
 
 ---
 
@@ -180,12 +180,12 @@ Setelah Maintenance:
 
 Pastikan:
 
-* Runbook terbaru.
-* SOP terbaru.
-* Architecture Diagram terbaru.
-* Release Notes terdokumentasi.
-* Incident Report terdokumentasi.
-* Backup Report tersedia.
+- Runbook terbaru.
+- SOP terbaru.
+- Architecture Diagram terbaru.
+- Release Notes terdokumentasi.
+- Incident Report terdokumentasi.
+- Backup Report tersedia.
 
 ---
 
@@ -206,28 +206,28 @@ Parameter yang dipantau:
 
 # Best Practices
 
-* Gunakan Checklist pada setiap aktivitas operasional.
-* Jangan melewati item pemeriksaan.
-* Dokumentasikan setiap penyimpangan.
-* Perbarui Checklist jika terdapat perubahan prosedur.
-* Lakukan Review Checklist secara berkala.
+- Gunakan Checklist pada setiap aktivitas operasional.
+- Jangan melewati item pemeriksaan.
+- Dokumentasikan setiap penyimpangan.
+- Perbarui Checklist jika terdapat perubahan prosedur.
+- Lakukan Review Checklist secara berkala.
 
 ---
 
 # Related Documents
 
-* README.md
-* runbook.md
-* incident-response.md
-* maintenance.md
-* backup-recovery.md
-* release-management.md
+- README.md
+- runbook.md
+- incident-response.md
+- maintenance.md
+- backup-recovery.md
+- release-management.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh aktivitas operasional memiliki Checklist.
-* Pemeriksaan dilakukan secara konsisten.
-* KPI operasional dapat dipantau.
-* Checklist menjadi standar operasional harian LIM Digital Platform.
+- Seluruh aktivitas operasional memiliki Checklist.
+- Pemeriksaan dilakukan secara konsisten.
+- KPI operasional dapat dipantau.
+- Checklist menjadi standar operasional harian LIM Digital Platform.

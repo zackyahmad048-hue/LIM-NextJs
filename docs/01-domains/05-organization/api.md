@@ -46,13 +46,13 @@ Hak akses mengikuti Role Based Access Control (RBAC).
 
 Domain Organization terdiri dari:
 
-* Organization
-* Region
-* Branch
-* Department
-* Position
-* Management
-* Management Period
+- Organization
+- Region
+- Branch
+- Department
+- Position
+- Management
+- Management Period
 
 ---
 
@@ -440,12 +440,12 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan Authentication.
-* Seluruh endpoint memerlukan Permission sesuai aksi.
-* Endpoint Public hanya menampilkan data yang berstatus Active.
-* Delete menggunakan Soft Delete.
-* Aktivasi periode otomatis menonaktifkan periode aktif sebelumnya.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan Authentication.
+- Seluruh endpoint memerlukan Permission sesuai aksi.
+- Endpoint Public hanya menampilkan data yang berstatus Active.
+- Delete menggunakan Soft Delete.
+- Aktivasi periode otomatis menonaktifkan periode aktif sebelumnya.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -453,11 +453,11 @@ Response gagal
 
 API Organization wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
-* Menolak akses tanpa hak.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
+- Menolak akses tanpa hak.
 
 ---
 
@@ -465,24 +465,24 @@ API Organization wajib:
 
 Seluruh endpoint harus mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -490,7 +490,7 @@ Seluruh endpoint harus mendukung:
 
 API Organization dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* Endpoint Public hanya menampilkan data aktif.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Endpoint Public hanya menampilkan data aktif.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

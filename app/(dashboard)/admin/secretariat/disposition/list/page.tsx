@@ -18,14 +18,26 @@ function formatDate(date: Date | string) {
   }).format(new Date(date));
 }
 
-const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const statusLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   PENDING: { label: "Menunggu", variant: "outline" },
   IN_PROGRESS: { label: "Dikerjakan", variant: "default" },
   COMPLETED: { label: "Selesai", variant: "secondary" },
   CANCELLED: { label: "Dibatalkan", variant: "destructive" },
 };
 
-const priorityLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const priorityLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   LOW: { label: "Rendah", variant: "outline" },
   MEDIUM: { label: "Sedang", variant: "default" },
   HIGH: { label: "Tinggi", variant: "destructive" },
@@ -66,8 +78,12 @@ export default async function DispositionListPage({
             label: "Surat Masuk",
             render: (item) => (
               <div className="max-w-[200px]">
-                <p className="truncate text-sm font-medium">{item.incomingMail?.registrationNumber ?? "-"}</p>
-                <p className="truncate text-xs text-muted-foreground">{item.incomingMail?.subject ?? ""}</p>
+                <p className="truncate text-sm font-medium">
+                  {item.incomingMail?.registrationNumber ?? "-"}
+                </p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {item.incomingMail?.subject ?? ""}
+                </p>
               </div>
             ),
           },
@@ -82,23 +98,39 @@ export default async function DispositionListPage({
             key: "priority",
             label: "Prioritas",
             render: (item) => {
-              const p = priorityLabels[item.priority] ?? { label: item.priority, variant: "outline" as const };
-              return <Badge variant={p.variant} className="h-5 px-2 text-[11px]">{p.label}</Badge>;
+              const p = priorityLabels[item.priority] ?? {
+                label: item.priority,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={p.variant} className="h-5 px-2 text-[11px]">
+                  {p.label}
+                </Badge>
+              );
             },
           },
           {
             key: "dueDate",
             label: "Batas Waktu",
             render: (item) => (
-              <span className="text-xs">{item.dueDate ? formatDate(item.dueDate) : "-"}</span>
+              <span className="text-xs">
+                {item.dueDate ? formatDate(item.dueDate) : "-"}
+              </span>
             ),
           },
           {
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = statusLabels[item.status] ?? { label: item.status, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = statusLabels[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -113,7 +145,11 @@ export default async function DispositionListPage({
                   </Link>
                 </Button>
                 <form action={deleteDisposition.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

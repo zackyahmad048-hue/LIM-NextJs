@@ -16,11 +16,11 @@ LIM Digital Platform memproses berbagai jenis data dari pengguna, sistem interna
 
 Apabila validasi dilakukan secara tidak konsisten, maka dapat menyebabkan:
 
-* Data tidak valid tersimpan.
-* Business Rules dilanggar.
-* Celah keamanan.
-* Perilaku sistem yang tidak konsisten.
-* Sulit melakukan debugging.
+- Data tidak valid tersimpan.
+- Business Rules dilanggar.
+- Celah keamanan.
+- Perilaku sistem yang tidak konsisten.
+- Sulit melakukan debugging.
 
 Diperlukan strategi validasi yang seragam untuk seluruh aplikasi.
 
@@ -60,11 +60,11 @@ Tidak ada satu lapisan pun yang menjadi satu-satunya mekanisme validasi.
 
 Pendekatan ini dipilih karena:
 
-* Mencegah data tidak valid masuk ke sistem.
-* Menjaga integritas Business Rules.
-* Mengurangi risiko keamanan.
-* Memberikan pengalaman pengguna yang lebih baik.
-* Mendukung prinsip Defense in Depth.
+- Mencegah data tidak valid masuk ke sistem.
+- Menjaga integritas Business Rules.
+- Mengurangi risiko keamanan.
+- Memberikan pengalaman pengguna yang lebih baik.
+- Mendukung prinsip Defense in Depth.
 
 ---
 
@@ -74,10 +74,10 @@ Pendekatan ini dipilih karena:
 
 Digunakan untuk:
 
-* Required Field
-* Format
-* Panjang Input
-* User Experience
+- Required Field
+- Format
+- Panjang Input
+- User Experience
 
 Client Validation **tidak dapat dipercaya** sebagai satu-satunya validasi.
 
@@ -87,19 +87,19 @@ Client Validation **tidak dapat dipercaya** sebagai satu-satunya validasi.
 
 Dilakukan pada:
 
-* Request Body
-* Query Parameter
-* Path Parameter
-* Header
+- Request Body
+- Query Parameter
+- Path Parameter
+- Header
 
 Meliputi:
 
-* Required Field
-* Data Type
-* Format
-* Range
-* Enum
-* Pagination
+- Required Field
+- Data Type
+- Format
+- Range
+- Enum
+- Pagination
 
 ---
 
@@ -107,16 +107,16 @@ Meliputi:
 
 Application Layer memvalidasi:
 
-* Authorization
-* Permission
-* Workflow
-* Business Preconditions
+- Authorization
+- Permission
+- Workflow
+- Business Preconditions
 
 Contoh:
 
-* User memiliki Role yang sesuai.
-* Resource masih aktif.
-* Status memungkinkan aksi tertentu.
+- User memiliki Role yang sesuai.
+- Resource masih aktif.
+- Status memungkinkan aksi tertentu.
 
 ---
 
@@ -126,10 +126,10 @@ Merupakan validasi utama.
 
 Domain bertanggung jawab terhadap:
 
-* Business Rules.
-* Entity Invariant.
-* Aggregate Consistency.
-* Value Object Validation.
+- Business Rules.
+- Entity Invariant.
+- Aggregate Consistency.
+- Value Object Validation.
 
 Business Rules **tidak boleh** hanya bergantung pada API Validation.
 
@@ -139,11 +139,11 @@ Business Rules **tidak boleh** hanya bergantung pada API Validation.
 
 Menggunakan:
 
-* Primary Key
-* Foreign Key
-* Unique Constraint
-* Check Constraint
-* Not Null Constraint
+- Primary Key
+- Foreign Key
+- Unique Constraint
+- Check Constraint
+- Not Null Constraint
 
 Database menjadi lapisan pertahanan terakhir terhadap integritas data.
 
@@ -179,13 +179,13 @@ Validation Error menggunakan HTTP Status:
 
 Kelebihan:
 
-* Cepat.
-* Responsif.
+- Cepat.
+- Responsif.
 
 Kekurangan:
 
-* Mudah dilewati.
-* Tidak aman.
+- Mudah dilewati.
+- Tidak aman.
 
 ---
 
@@ -193,13 +193,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Menjaga integritas data.
+- Menjaga integritas data.
 
 Kekurangan:
 
-* Terlambat.
-* Pesan error kurang informatif.
-* Tidak melindungi Business Rules.
+- Terlambat.
+- Pesan error kurang informatif.
+- Tidak melindungi Business Rules.
 
 ---
 
@@ -207,14 +207,14 @@ Kekurangan:
 
 Kelebihan:
 
-* Aman.
-* Konsisten.
-* Mudah dipelihara.
-* Mendukung Clean Architecture.
+- Aman.
+- Konsisten.
+- Mudah dipelihara.
+- Mendukung Clean Architecture.
 
 Kekurangan:
 
-* Membutuhkan implementasi pada beberapa layer.
+- Membutuhkan implementasi pada beberapa layer.
 
 ---
 
@@ -222,16 +222,16 @@ Kekurangan:
 
 Keuntungan:
 
-* Integritas data terjaga.
-* Business Rules terlindungi.
-* Error lebih mudah dipahami.
-* Risiko bug berkurang.
+- Integritas data terjaga.
+- Business Rules terlindungi.
+- Error lebih mudah dipahami.
+- Risiko bug berkurang.
 
 Konsekuensi:
 
-* Validasi dapat terjadi di beberapa lapisan.
-* Membutuhkan konsistensi implementasi.
-* Dokumentasi validasi harus selalu diperbarui.
+- Validasi dapat terjadi di beberapa lapisan.
+- Membutuhkan konsistensi implementasi.
+- Dokumentasi validasi harus selalu diperbarui.
 
 ---
 
@@ -239,31 +239,31 @@ Konsekuensi:
 
 Validasi wajib dilakukan untuk:
 
-* Input API
-* Permission
-* Workflow
-* Business Rules
-* File Upload
-* Authentication
-* Authorization
-* Domain Entity
+- Input API
+- Permission
+- Workflow
+- Business Rules
+- File Upload
+- Authentication
+- Authorization
+- Domain Entity
 
 ---
 
 # Related Decisions
 
-* ADR-001 Domain Driven Design
-* ADR-002 Clean Architecture
-* ADR-004 Role-Based Access Control
-* ADR-008 API Standard
+- ADR-001 Domain Driven Design
+- ADR-002 Clean Architecture
+- ADR-004 Role-Based Access Control
+- ADR-008 API Standard
 
 ---
 
 # References
 
-* OWASP Input Validation Cheat Sheet
-* Clean Architecture — Robert C. Martin
-* Architecture Documentation (`02-architecture/clean-architecture.md`)
+- OWASP Input Validation Cheat Sheet
+- Clean Architecture — Robert C. Martin
+- Architecture Documentation (`02-architecture/clean-architecture.md`)
 
 ---
 
@@ -275,8 +275,8 @@ Validasi wajib dilakukan untuk:
 
 # Acceptance Criteria
 
-* Seluruh input divalidasi pada layer yang sesuai.
-* Business Rules divalidasi di Domain Layer.
-* Validation Error menggunakan format standar.
-* Database Constraint melindungi integritas data.
-* Validation Strategy menjadi standar implementasi LIM Digital Platform.
+- Seluruh input divalidasi pada layer yang sesuai.
+- Business Rules divalidasi di Domain Layer.
+- Validation Error menggunakan format standar.
+- Database Constraint melindungi integritas data.
+- Validation Strategy menjadi standar implementasi LIM Digital Platform.

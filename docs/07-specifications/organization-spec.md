@@ -26,12 +26,12 @@ Domain ini menjadi referensi utama bagi Program, Secretariat, Letter, Certificat
 
 Organization harus mampu:
 
-* Mengelola profil organisasi.
-* Mengelola struktur organisasi.
-* Mengelola unit kerja.
-* Mengelola jabatan.
-* Mengelola anggota organisasi.
-* Menyediakan data organisasi untuk domain lain.
+- Mengelola profil organisasi.
+- Mengelola struktur organisasi.
+- Mengelola unit kerja.
+- Mengelola jabatan.
+- Mengelola anggota organisasi.
+- Menyediakan data organisasi untuk domain lain.
 
 ---
 
@@ -53,10 +53,10 @@ Organization harus mampu:
 
 Administrator dapat:
 
-* Create Organization
-* Update Organization
-* View Organization
-* Archive Organization
+- Create Organization
+- Update Organization
+- View Organization
+- Archive Organization
 
 ---
 
@@ -64,10 +64,10 @@ Administrator dapat:
 
 Mengelola:
 
-* Division
-* Department
-* Unit
-* Branch
+- Division
+- Department
+- Unit
+- Branch
 
 ---
 
@@ -75,10 +75,10 @@ Mengelola:
 
 Mengelola:
 
-* Position
-* Job Title
-* Leadership
-* Organizational Hierarchy
+- Position
+- Job Title
+- Leadership
+- Organizational Hierarchy
 
 ---
 
@@ -86,9 +86,9 @@ Mengelola:
 
 Administrator dapat:
 
-* Assign Member
-* Remove Member
-* Change Position
+- Assign Member
+- Remove Member
+- Change Position
 
 ---
 
@@ -96,9 +96,9 @@ Administrator dapat:
 
 Status organisasi:
 
-* Active
-* Inactive
-* Archived
+- Active
+- Inactive
+- Archived
 
 ---
 
@@ -106,17 +106,17 @@ Status organisasi:
 
 Organization harus:
 
-* Response < 300 ms
-* Mendukung Pagination
-* Audit Enabled
-* Highly Available
+- Response < 300 ms
+- Mendukung Pagination
+- Audit Enabled
+- Highly Available
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Memiliki Permission yang sesuai.
+- User telah Login.
+- Memiliki Permission yang sesuai.
 
 ---
 
@@ -124,9 +124,9 @@ Organization harus:
 
 Perubahan data organisasi:
 
-* Audit Log dibuat.
-* Cache diperbarui.
-* Domain Event diterbitkan.
+- Audit Log dibuat.
+- Cache diperbarui.
+- Domain Event diterbitkan.
 
 ---
 
@@ -188,11 +188,11 @@ Return Error
 
 # Exception Flow
 
-* Organization tidak ditemukan.
-* Nama organisasi sudah digunakan.
-* Parent Organization tidak valid.
-* User tidak memiliki Permission.
-* Data tidak valid.
+- Organization tidak ditemukan.
+- Nama organisasi sudah digunakan.
+- Parent Organization tidak valid.
+- User tidak memiliki Permission.
+- Data tidak valid.
 
 ---
 
@@ -248,21 +248,21 @@ Archived
 
 Entity:
 
-* Organization
-* Division
-* Department
-* Position
-* Member
+- Organization
+- Division
+- Department
+- Position
+- Member
 
 Aggregate:
 
-* Organization
+- Organization
 
 Value Object:
 
-* OrganizationName
-* OrganizationCode
-* Address
+- OrganizationName
+- OrganizationCode
+- Address
 
 ---
 
@@ -310,10 +310,10 @@ organization_members
 
 | Action | Admin | Operator | User |
 | ------ | :---: | :------: | :--: |
-| View   |   ✅   |     ✅    |   ✅  |
-| Create |   ✅   |     ❌    |   ❌  |
-| Update |   ✅   |     ✅    |   ❌  |
-| Delete |   ✅   |     ❌    |   ❌  |
+| View   |  ✅   |    ✅    |  ✅  |
+| Create |  ✅   |    ❌    |  ❌  |
+| Update |  ✅   |    ✅    |  ❌  |
+| Delete |  ✅   |    ❌    |  ❌  |
 
 ---
 
@@ -357,38 +357,38 @@ PositionChanged
 
 # Acceptance Test
 
-* Organisasi berhasil dibuat.
-* Organisasi berhasil diperbarui.
-* Struktur organisasi berhasil dibuat.
-* Member berhasil ditambahkan.
-* Permission divalidasi.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Organisasi berhasil dibuat.
+- Organisasi berhasil diperbarui.
+- Struktur organisasi berhasil dibuat.
+- Member berhasil ditambahkan.
+- Permission divalidasi.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Create Organization < 500 ms.
-* Search Organization < 300 ms.
-* List Organization mendukung Pagination.
+- Create Organization < 500 ms.
+- Search Organization < 300 ms.
+- List Organization mendukung Pagination.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Audit Log aktif.
-* Input tervalidasi.
-* Soft Delete digunakan.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- Audit Log aktif.
+- Input tervalidasi.
+- Soft Delete digunakan.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Business Rules Organization berjalan sesuai spesifikasi.
-* API mengikuti API Standard.
-* Domain Event diterbitkan untuk setiap perubahan penting.
-* Audit Log mencatat seluruh aktivitas.
-* Specification siap digunakan sebagai dasar implementasi Organization Domain.
+- Seluruh Business Rules Organization berjalan sesuai spesifikasi.
+- API mengikuti API Standard.
+- Domain Event diterbitkan untuk setiap perubahan penting.
+- Audit Log mencatat seluruh aktivitas.
+- Specification siap digunakan sebagai dasar implementasi Organization Domain.

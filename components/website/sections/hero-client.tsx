@@ -11,25 +11,27 @@ const Hero = dynamic<HeroProps>(
   {
     ssr: false,
     loading: () => <HeroSkeleton />,
-  }
+  },
 );
 
 function HeroSkeleton() {
   return (
-    <div className="h-155 sm:h-145 lg:h-162.5 bg-slate-950">
-      <div className="mx-auto flex h-full max-w-6xl flex-col justify-center gap-4 px-4 sm:px-6">
-        <Skeleton className="h-6 w-32 rounded-full" />
-        <Skeleton className="mt-3 h-12 w-3/4" />
-        <Skeleton className="mt-2 h-8 w-1/2" />
-        <Skeleton className="mt-4 h-16 w-2/3" />
-        <div className="mt-6 flex gap-3">
-          <Skeleton className="h-10 w-36 rounded-full" />
-          <Skeleton className="h-10 w-36 rounded-full" />
+    <div className="bg-background">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:py-20">
+        <div className="flex flex-col justify-center gap-4">
+          <Skeleton className="h-12 w-3/4 rounded-md" />
+          <Skeleton className="mt-2 h-6 w-1/2 rounded-md" />
+          <Skeleton className="h-6 w-2/3 rounded-md" />
+          <div className="mt-6 flex gap-3">
+            <Skeleton className="h-10 w-32 rounded-md" />
+            <Skeleton className="h-10 w-32 rounded-md" />
+          </div>
+          <div className="mt-8 max-w-md">
+            <Skeleton className="h-28 w-full rounded-md" />
+          </div>
         </div>
-        <div className="mt-10 grid max-w-2xl grid-cols-3 gap-3">
-          <Skeleton className="h-20 rounded-xl" />
-          <Skeleton className="h-20 rounded-xl" />
-          <Skeleton className="h-20 rounded-xl" />
+        <div className="hidden lg:block">
+          <Skeleton className="h-80 rounded-md" />
         </div>
       </div>
     </div>

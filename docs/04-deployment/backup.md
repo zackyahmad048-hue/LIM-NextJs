@@ -22,11 +22,11 @@ Tujuannya adalah memastikan data dapat dipulihkan apabila terjadi kegagalan sist
 
 Backup bertujuan untuk:
 
-* Mencegah kehilangan data.
-* Mendukung Disaster Recovery.
-* Memenuhi kebutuhan audit.
-* Memastikan kontinuitas layanan.
-* Mempercepat proses pemulihan.
+- Mencegah kehilangan data.
+- Mendukung Disaster Recovery.
+- Memenuhi kebutuhan audit.
+- Memastikan kontinuitas layanan.
+- Mempercepat proses pemulihan.
 
 ---
 
@@ -34,14 +34,14 @@ Backup bertujuan untuk:
 
 Data yang wajib dibackup:
 
-* PostgreSQL Database
-* Uploaded Files
-* Object Storage Metadata
-* Environment Configuration
-* Application Configuration
-* Docker Compose Configuration
-* Audit Log
-* Deployment Script
+- PostgreSQL Database
+- Uploaded Files
+- Object Storage Metadata
+- Environment Configuration
+- Application Configuration
+- Docker Compose Configuration
+- Audit Log
+- Deployment Script
 
 ---
 
@@ -143,9 +143,9 @@ Minimal terdapat dua salinan backup pada lokasi yang berbeda.
 
 Seluruh backup wajib:
 
-* Dienkripsi.
-* Memiliki checksum.
-* Diverifikasi secara berkala.
+- Dienkripsi.
+- Memiliki checksum.
+- Diverifikasi secara berkala.
 
 Backup tidak boleh disimpan dalam bentuk plaintext.
 
@@ -230,10 +230,10 @@ Backup harus diuji secara berkala.
 
 Checklist:
 
-* File dapat dibaca.
-* Database dapat dipulihkan.
-* Checksum valid.
-* Restore berhasil.
+- File dapat dibaca.
+- Database dapat dipulihkan.
+- Checksum valid.
+- Restore berhasil.
 
 ---
 
@@ -248,10 +248,10 @@ Checklist:
 
 # Security Rules
 
-* Backup hanya dapat diakses Administrator.
-* Backup dienkripsi saat penyimpanan dan transfer.
-* Akses dicatat pada Audit Log.
-* Backup Production dipisahkan dari Development.
+- Backup hanya dapat diakses Administrator.
+- Backup dienkripsi saat penyimpanan dan transfer.
+- Akses dicatat pada Audit Log.
+- Backup Production dipisahkan dari Development.
 
 ---
 
@@ -259,11 +259,11 @@ Checklist:
 
 Sistem memantau:
 
-* Status Backup
-* Backup Size
-* Backup Duration
-* Restore Success Rate
-* Backup Failure
+- Status Backup
+- Backup Size
+- Backup Duration
+- Restore Success Rate
+- Backup Failure
 
 Notifikasi dikirim apabila proses backup gagal.
 
@@ -271,30 +271,30 @@ Notifikasi dikirim apabila proses backup gagal.
 
 # Best Practices
 
-* Lakukan backup otomatis.
-* Uji proses restore secara berkala.
-* Simpan salinan di lokasi berbeda.
-* Dokumentasikan seluruh prosedur recovery.
-* Pantau kapasitas media penyimpanan backup.
+- Lakukan backup otomatis.
+- Uji proses restore secara berkala.
+- Simpan salinan di lokasi berbeda.
+- Dokumentasikan seluruh prosedur recovery.
+- Pantau kapasitas media penyimpanan backup.
 
 ---
 
 # Related Documents
 
-* README.md
-* environment.md
-* docker.md
-* ci-cd.md
-* server.md
-* monitoring.md
-* security.md
+- README.md
+- environment.md
+- docker.md
+- ci-cd.md
+- server.md
+- monitoring.md
+- security.md
 
 ---
 
 # Acceptance Criteria
 
-* Backup berjalan otomatis.
-* Backup terenkripsi.
-* Restore berhasil diuji.
-* Target RPO dan RTO terpenuhi.
-* Backup & Recovery menjadi standar operasional LIM Digital Platform.
+- Backup berjalan otomatis.
+- Backup terenkripsi.
+- Restore berhasil diuji.
+- Target RPO dan RTO terpenuhi.
+- Backup & Recovery menjadi standar operasional LIM Digital Platform.

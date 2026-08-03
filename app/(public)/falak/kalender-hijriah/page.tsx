@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageHeader from "@/components/website/page-header";
 import { HijriCalendarWidget } from "@/components/website/falak/hijri-calendar-widget";
 
 export const metadata: Metadata = {
@@ -8,15 +9,15 @@ export const metadata: Metadata = {
 
 export default function KalenderHijriahPage() {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-foreground">Kalender Hijriah</h1>
-        <p className="mt-2 text-muted-foreground">
-          Konversi tanggal antara Masehi dan Hijriah.
-        </p>
-      </div>
+    <>
+      <PageHeader
+        title="Kalender Hijriah"
+        description="Konversi tanggal antara Masehi dan Hijriah, serta telusuri kalender Hijriah sepanjang tahun."
+      />
 
-      <HijriCalendarWidget />
-    </section>
+      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <HijriCalendarWidget />
+      </section>
+    </>
   );
 }

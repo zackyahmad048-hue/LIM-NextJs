@@ -20,8 +20,8 @@ Theme mengatur tampilan visual aplikasi secara konsisten melalui penggunaan Desi
 
 LIM Digital Platform mendukung:
 
-* Light Theme
-* Dark Theme
+- Light Theme
+- Dark Theme
 
 Dengan kemungkinan penambahan tema khusus organisasi pada masa mendatang.
 
@@ -31,11 +31,11 @@ Dengan kemungkinan penambahan tema khusus organisasi pada masa mendatang.
 
 Theme bertujuan untuk:
 
-* Menjaga konsistensi visual.
-* Mendukung Light dan Dark Mode.
-* Mempermudah implementasi Frontend.
-* Meningkatkan kenyamanan pengguna.
-* Mendukung Branding organisasi.
+- Menjaga konsistensi visual.
+- Mendukung Light dan Dark Mode.
+- Mempermudah implementasi Frontend.
+- Meningkatkan kenyamanan pengguna.
+- Mendukung Branding organisasi.
 
 ---
 
@@ -43,11 +43,11 @@ Theme bertujuan untuk:
 
 Seluruh Theme harus:
 
-* Konsisten.
-* Mudah dibaca.
-* Mendukung Accessibility.
-* Menggunakan Design Token.
-* Tidak menggunakan Hardcoded Color.
+- Konsisten.
+- Mudah dibaca.
+- Mendukung Accessibility.
+- Menggunakan Design Token.
+- Tidak menggunakan Hardcoded Color.
 
 ---
 
@@ -57,9 +57,9 @@ Seluruh Theme harus:
 
 Karakteristik:
 
-* Background terang.
-* Kontras tinggi.
-* Cocok untuk penggunaan umum.
+- Background terang.
+- Kontras tinggi.
+- Cocok untuk penggunaan umum.
 
 ---
 
@@ -67,9 +67,9 @@ Karakteristik:
 
 Karakteristik:
 
-* Background gelap.
-* Mengurangi kelelahan mata pada kondisi minim cahaya.
-* Tetap memenuhi standar kontras.
+- Background gelap.
+- Mengurangi kelelahan mata pada kondisi minim cahaya.
+- Tetap memenuhi standar kontras.
 
 ---
 
@@ -79,15 +79,15 @@ Seluruh komponen menggunakan Theme Token.
 
 Kategori Token:
 
-* Background
-* Surface
-* Primary
-* Secondary
-* Border
-* Text
-* Icon
-* Shadow
-* Status Color
+- Background
+- Surface
+- Primary
+- Secondary
+- Border
+- Text
+- Icon
+- Shadow
+- Status Color
 
 Contoh:
 
@@ -113,9 +113,9 @@ surface-modal
 
 Pengguna dapat:
 
-* Menggunakan Light Theme.
-* Menggunakan Dark Theme.
-* Mengikuti Theme Sistem (Auto).
+- Menggunakan Light Theme.
+- Menggunakan Dark Theme.
+- Mengikuti Theme Sistem (Auto).
 
 Perubahan Theme harus diterapkan tanpa memuat ulang aplikasi.
 
@@ -125,16 +125,16 @@ Perubahan Theme harus diterapkan tanpa memuat ulang aplikasi.
 
 Theme diterapkan pada:
 
-* Dashboard
-* Sidebar
-* Header
-* Forms
-* Buttons
-* Cards
-* Tables
-* Charts
-* Modals
-* Notifications
+- Dashboard
+- Sidebar
+- Header
+- Forms
+- Buttons
+- Cards
+- Tables
+- Charts
+- Modals
+- Notifications
 
 Tidak boleh ada komponen yang mengabaikan Theme aktif.
 
@@ -144,11 +144,11 @@ Tidak boleh ada komponen yang mengabaikan Theme aktif.
 
 Theme mendukung identitas visual organisasi melalui:
 
-* Logo
-* Primary Color
-* Favicon
-* Login Background
-* Splash Screen (Mobile)
+- Logo
+- Primary Color
+- Favicon
+- Login Background
+- Splash Screen (Mobile)
 
 Perubahan branding tidak mengubah struktur komponen.
 
@@ -158,9 +158,9 @@ Perubahan branding tidak mengubah struktur komponen.
 
 Theme harus tampil konsisten pada:
 
-* Desktop
-* Tablet
-* Mobile
+- Desktop
+- Tablet
+- Mobile
 
 Tidak boleh terjadi perubahan kontras yang mengurangi keterbacaan.
 
@@ -170,37 +170,37 @@ Tidak boleh terjadi perubahan kontras yang mengurangi keterbacaan.
 
 Seluruh Theme wajib:
 
-* Memenuhi WCAG 2.1 Level AA.
-* Memiliki rasio kontras yang memadai.
-* Tetap jelas pada Focus State.
-* Tidak bergantung pada warna saja untuk menyampaikan informasi.
+- Memenuhi WCAG 2.1 Level AA.
+- Memiliki rasio kontras yang memadai.
+- Tetap jelas pada Focus State.
+- Tidak bergantung pada warna saja untuk menyampaikan informasi.
 
 ---
 
 # Best Practices
 
-* Gunakan Design Token untuk seluruh properti visual.
-* Hindari warna langsung (Hardcoded).
-* Uji seluruh komponen pada Light dan Dark Theme.
-* Pastikan ilustrasi dan ikon tetap terlihat jelas.
-* Pertahankan konsistensi antar platform.
+- Gunakan Design Token untuk seluruh properti visual.
+- Hindari warna langsung (Hardcoded).
+- Uji seluruh komponen pada Light dan Dark Theme.
+- Pastikan ilustrasi dan ikon tetap terlihat jelas.
+- Pertahankan konsistensi antar platform.
 
 ---
 
 # Related Documents
 
-* README.md
-* colors.md
-* typography.md
-* components.md
-* accessibility.md
+- README.md
+- colors.md
+- typography.md
+- components.md
+- accessibility.md
 
 ---
 
 # Acceptance Criteria
 
-* Mendukung Light dan Dark Theme.
-* Seluruh komponen mengikuti Theme aktif.
-* Theme menggunakan Design Token.
-* Memenuhi standar Accessibility.
-* Theme menjadi acuan resmi implementasi tampilan LIM Digital Platform.
+- Mendukung Light dan Dark Theme.
+- Seluruh komponen mengikuti Theme aktif.
+- Theme menggunakan Design Token.
+- Memenuhi standar Accessibility.
+- Theme menjadi acuan resmi implementasi tampilan LIM Digital Platform.

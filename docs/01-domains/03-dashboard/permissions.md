@@ -74,9 +74,9 @@ Statistik hanya ditampilkan apabila pengguna memiliki permission terhadap modul 
 
 Contoh:
 
-* Total Program → membutuhkan `program.view`
-* Total Surat → membutuhkan `letter.view`
-* Total Sertifikat → membutuhkan `certificate.view`
+- Total Program → membutuhkan `program.view`
+- Total Surat → membutuhkan `letter.view`
+- Total Sertifikat → membutuhkan `certificate.view`
 
 ---
 
@@ -100,10 +100,10 @@ Hak untuk melihat informasi sistem.
 
 Contoh:
 
-* Versi aplikasi
-* Status database
-* Environment
-* Build Version
+- Versi aplikasi
+- Status database
+- Environment
+- Build Version
 
 Permission ini hanya diberikan kepada Super Administrator atau Administrator yang berwenang.
 
@@ -111,12 +111,12 @@ Permission ini hanya diberikan kepada Super Administrator atau Administrator yan
 
 # Permission Matrix
 
-| Role                | View |     Statistics    |     Activities    | Announcement |       System      |
+| Role                | View |    Statistics     |    Activities     | Announcement |      System       |
 | ------------------- | :--: | :---------------: | :---------------: | :----------: | :---------------: |
-| Super Administrator |   ✅  |         ✅         |         ✅         |       ✅      |         ✅         |
-| Administrator       |   ✅  |         ✅         |         ✅         |       ✅      | Sesuai Permission |
-| Operator            |   ✅  |         ✅         |         ✅         |       ✅      |         ❌         |
-| User                |   ✅  | Sesuai Permission | Sesuai Permission |       ✅      |         ❌         |
+| Super Administrator |  ✅  |        ✅         |        ✅         |      ✅      |        ✅         |
+| Administrator       |  ✅  |        ✅         |        ✅         |      ✅      | Sesuai Permission |
+| Operator            |  ✅  |        ✅         |        ✅         |      ✅      |        ❌         |
+| User                |  ✅  | Sesuai Permission | Sesuai Permission |      ✅      |        ❌         |
 
 ---
 
@@ -126,9 +126,9 @@ Setiap widget memiliki permission masing-masing.
 
 Apabila permission tidak dimiliki:
 
-* Widget tidak ditampilkan.
-* Tidak menampilkan pesan error.
-* Layout Dashboard tetap normal.
+- Widget tidak ditampilkan.
+- Tidak menampilkan pesan error.
+- Layout Dashboard tetap normal.
 
 ---
 
@@ -136,9 +136,9 @@ Apabila permission tidak dimiliki:
 
 Dashboard tidak boleh:
 
-* Menampilkan widget tanpa permission.
-* Menampilkan statistik dari modul yang tidak dapat diakses.
-* Menampilkan informasi sistem kepada pengguna yang tidak berwenang.
+- Menampilkan widget tanpa permission.
+- Menampilkan statistik dari modul yang tidak dapat diakses.
+- Menampilkan informasi sistem kepada pengguna yang tidak berwenang.
 
 ---
 
@@ -160,14 +160,14 @@ dashboard.manage
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -175,7 +175,7 @@ dashboard.manage
 
 Permission Dashboard dianggap benar apabila:
 
-* Hak akses diperiksa sebelum Dashboard dimuat.
-* Widget mengikuti Permission pengguna.
-* Informasi sistem hanya dapat diakses oleh pengguna yang berwenang.
-* Tidak ada data yang ditampilkan tanpa hak akses yang sesuai.
+- Hak akses diperiksa sebelum Dashboard dimuat.
+- Widget mengikuti Permission pengguna.
+- Informasi sistem hanya dapat diakses oleh pengguna yang berwenang.
+- Tidak ada data yang ditampilkan tanpa hak akses yang sesuai.

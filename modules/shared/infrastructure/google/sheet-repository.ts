@@ -12,11 +12,16 @@ export abstract class SheetsBaseRepository {
     await appendRow(this.schema, data);
   }
 
-  protected async updateRow(id: string, data: Record<string, string>): Promise<void> {
+  protected async updateRow(
+    id: string,
+    data: Record<string, string>,
+  ): Promise<void> {
     await updateRowById(this.schema, id, data);
   }
 
-  protected async findRowById(id: string): Promise<Record<string, string> | null> {
+  protected async findRowById(
+    id: string,
+  ): Promise<Record<string, string> | null> {
     const rows = await this.readAll();
     return rows.find((row) => row.id === id) ?? null;
   }

@@ -8,14 +8,24 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
-import { getProgramById, getParticipants, getUsers } from "@/modules/program/queries/program.query";
+import {
+  getProgramById,
+  getParticipants,
+  getUsers,
+} from "@/modules/program/queries/program.query";
 import {
   registerParticipant,
   updateParticipantStatus,
   removeParticipant,
 } from "@/modules/program/presentation/program.action";
 
-const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const statusLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   PENDING: { label: "Pending", variant: "outline" },
   APPROVED: { label: "Diterima", variant: "default" },
   REJECTED: { label: "Ditolak", variant: "destructive" },
@@ -43,14 +53,23 @@ export default async function ParticipantsPage({
         description={`${participants.length} peserta terdaftar.`}
       />
 
-      <form action={registerParticipant.bind(null, program.id)} className="max-w-sm space-y-3 rounded-lg border bg-background p-4">
+      <form
+        action={registerParticipant.bind(null, program.id)}
+        className="max-w-sm space-y-3 rounded-lg border bg-background p-4"
+      >
         <h3 className="text-sm font-semibold">Tambah Peserta</h3>
         <div className="space-y-1.5">
           <label className="text-xs font-medium">Pilih User</label>
-          <select name="userId" required className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm">
+          <select
+            name="userId"
+            required
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+          >
             <option value="">Pilih user</option>
             {users.map((u) => (
-              <option key={u.id} value={u.id}>{u.name} ({u.email})</option>
+              <option key={u.id} value={u.id}>
+                {u.name} ({u.email})
+              </option>
             ))}
           </select>
         </div>
@@ -75,7 +94,9 @@ export default async function ParticipantsPage({
                 </Avatar>
                 <div>
                   <p className="text-sm font-medium">{item.user.name}</p>
-                  <p className="text-xs text-muted-foreground">{item.user.email}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {item.user.email}
+                  </p>
                 </div>
               </div>
             ),
@@ -85,7 +106,11 @@ export default async function ParticipantsPage({
             label: "Tanggal Daftar",
             render: (item) => (
               <span className="text-xs">
-                {new Intl.DateTimeFormat("id-ID", { day: "2-digit", month: "short", year: "numeric" }).format(item.registrationDate)}
+                {new Intl.DateTimeFormat("id-ID", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                }).format(item.registrationDate)}
               </span>
             ),
           },
@@ -93,8 +118,15 @@ export default async function ParticipantsPage({
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = statusLabels[item.registrationStatus] ?? { label: item.registrationStatus, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = statusLabels[item.registrationStatus] ?? {
+                label: item.registrationStatus,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -105,20 +137,40 @@ export default async function ParticipantsPage({
               <div className="flex justify-end gap-1">
                 {item.registrationStatus === "PENDING" && (
                   <>
-                    <form action={updateParticipantStatus.bind(null, item.id, program.id, "APPROVED")}>
+                    <form
+                      action={updateParticipantStatus.bind(
+                        null,
+                        item.id,
+                        program.id,
+                        "APPROVED",
+                      )}
+                    >
                       <Button variant="ghost" size="sm" title="Terima">
-                        <CheckCircle className="size-3.5 text-green-600" />
+                        <CheckCircle className="size-3.5 text-amber-600" />
                       </Button>
                     </form>
-                    <form action={updateParticipantStatus.bind(null, item.id, program.id, "REJECTED")}>
+                    <form
+                      action={updateParticipantStatus.bind(
+                        null,
+                        item.id,
+                        program.id,
+                        "REJECTED",
+                      )}
+                    >
                       <Button variant="ghost" size="sm" title="Tolak">
                         <XCircle className="size-3.5 text-destructive" />
                       </Button>
                     </form>
                   </>
                 )}
-                <form action={removeParticipant.bind(null, item.id, program.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                <form
+                  action={removeParticipant.bind(null, item.id, program.id)}
+                >
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

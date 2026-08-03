@@ -22,11 +22,11 @@ Seluruh data yang diterima oleh CMS wajib melalui proses validasi sebelum dipros
 
 Seluruh validasi mengikuti prinsip:
 
-* Validate Before Process
-* Server-side Validation First
-* Client Validation for User Experience
-* Fail Fast
-* Consistent Error Messages
+- Validate Before Process
+- Server-side Validation First
+- Client Validation for User Experience
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -34,8 +34,8 @@ Seluruh validasi mengikuti prinsip:
 
 Standar validasi menggunakan:
 
-* Zod (Server Validation)
-* React Hook Form (Client Validation)
+- Zod (Server Validation)
+- React Hook Form (Client Validation)
 
 Client Validation tidak menggantikan Server Validation.
 
@@ -47,9 +47,9 @@ Client Validation tidak menggantikan Server Validation.
 
 Aturan:
 
-* Wajib diisi.
-* Minimum 5 karakter.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Minimum 5 karakter.
+- Maksimum 255 karakter.
 
 ---
 
@@ -57,11 +57,11 @@ Aturan:
 
 Aturan:
 
-* Wajib diisi.
-* Unik.
-* Huruf kecil.
-* Menggunakan tanda hubung (-).
-* Tidak mengandung karakter khusus.
+- Wajib diisi.
+- Unik.
+- Huruf kecil.
+- Menggunakan tanda hubung (-).
+- Tidak mengandung karakter khusus.
 
 Contoh:
 
@@ -75,8 +75,8 @@ safari-ramadan-2027
 
 Aturan:
 
-* Opsional.
-* Maksimum 500 karakter.
+- Opsional.
+- Maksimum 500 karakter.
 
 ---
 
@@ -84,8 +84,8 @@ Aturan:
 
 Aturan:
 
-* Wajib diisi.
-* Tidak boleh kosong.
+- Wajib diisi.
+- Tidak boleh kosong.
 
 ---
 
@@ -93,8 +93,8 @@ Aturan:
 
 Aturan:
 
-* Wajib dipilih.
-* Harus mengacu pada Category yang masih aktif.
+- Wajib dipilih.
+- Harus mengacu pada Category yang masih aktif.
 
 ---
 
@@ -102,8 +102,8 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Tidak boleh duplikat.
+- Opsional.
+- Tidak boleh duplikat.
 
 ---
 
@@ -139,22 +139,22 @@ false
 
 ## Title
 
-* Wajib.
-* Maksimum 255 karakter.
+- Wajib.
+- Maksimum 255 karakter.
 
 ---
 
 ## Slug
 
-* Wajib.
-* Unik.
-* Mengikuti standar slug proyek.
+- Wajib.
+- Unik.
+- Mengikuti standar slug proyek.
 
 ---
 
 ## Content
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
@@ -162,16 +162,16 @@ false
 
 ## Name
 
-* Wajib.
-* Maksimum 100 karakter.
-* Harus unik.
+- Wajib.
+- Maksimum 100 karakter.
+- Harus unik.
 
 ---
 
 ## Slug
 
-* Wajib.
-* Unik.
+- Wajib.
+- Unik.
 
 ---
 
@@ -179,9 +179,9 @@ false
 
 ## Name
 
-* Wajib.
-* Maksimum 50 karakter.
-* Harus unik.
+- Wajib.
+- Maksimum 50 karakter.
+- Harus unik.
 
 ---
 
@@ -195,7 +195,7 @@ search
 
 Aturan:
 
-* Maksimum 100 karakter.
+- Maksimum 100 karakter.
 
 ---
 
@@ -203,12 +203,12 @@ Aturan:
 
 ## page
 
-* Minimum: 1
+- Minimum: 1
 
 ## limit
 
-* Minimum: 1
-* Maksimum: 100
+- Minimum: 1
+- Maksimum: 100
 
 ---
 
@@ -216,11 +216,11 @@ Aturan:
 
 Konten hanya dapat dipublikasikan apabila:
 
-* Title tersedia.
-* Slug valid.
-* Content tersedia.
-* Category tersedia (untuk Post).
-* Tidak melanggar Business Rules.
+- Title tersedia.
+- Slug valid.
+- Content tersedia.
+- Category tersedia (untuk Post).
+- Tidak melanggar Business Rules.
 
 ---
 
@@ -228,7 +228,7 @@ Konten hanya dapat dipublikasikan apabila:
 
 Category tidak dapat dihapus apabila:
 
-* Masih digunakan oleh Post.
+- Masih digunakan oleh Post.
 
 Tag dapat dihapus apabila tidak digunakan.
 
@@ -293,14 +293,14 @@ Return Validation Error
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -308,8 +308,8 @@ Return Validation Error
 
 Validation CMS dianggap selesai apabila:
 
-* Seluruh input tervalidasi.
-* Slug selalu unik.
-* Data tidak valid ditolak.
-* Pesan validasi konsisten.
-* Seluruh validasi dilakukan sebelum Business Rules dijalankan.
+- Seluruh input tervalidasi.
+- Slug selalu unik.
+- Data tidak valid ditolak.
+- Pesan validasi konsisten.
+- Seluruh validasi dilakukan sebelum Business Rules dijalankan.

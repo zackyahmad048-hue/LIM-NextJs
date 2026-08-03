@@ -26,13 +26,13 @@ Domain ini menjadi pusat pengelolaan siklus hidup program mulai dari perencanaan
 
 Program harus mampu:
 
-* Mengelola Program.
-* Mengelola Kategori Program.
-* Mengelola Jadwal.
-* Mengelola Peserta.
-* Mengelola Registrasi.
-* Mengelola Status Program.
-* Mengelola Evaluasi Program.
+- Mengelola Program.
+- Mengelola Kategori Program.
+- Mengelola Jadwal.
+- Mengelola Peserta.
+- Mengelola Registrasi.
+- Mengelola Status Program.
+- Mengelola Evaluasi Program.
 
 ---
 
@@ -54,11 +54,11 @@ Program harus mampu:
 
 Administrator dapat:
 
-* Create Program
-* Update Program
-* Delete Program
-* Publish Program
-* Archive Program
+- Create Program
+- Update Program
+- Delete Program
+- Publish Program
+- Archive Program
 
 ---
 
@@ -66,12 +66,12 @@ Administrator dapat:
 
 Mengelola:
 
-* Seminar
-* Workshop
-* Training
-* Webinar
-* Social Activity
-* Internal Meeting
+- Seminar
+- Workshop
+- Training
+- Webinar
+- Social Activity
+- Internal Meeting
 
 ---
 
@@ -79,11 +79,11 @@ Mengelola:
 
 Mengelola:
 
-* Date
-* Time
-* Venue
-* Online Meeting
-* Registration Period
+- Date
+- Time
+- Venue
+- Online Meeting
+- Registration Period
 
 ---
 
@@ -91,10 +91,10 @@ Mengelola:
 
 Mengelola:
 
-* Registration
-* Attendance
-* Participant Status
-* Certificate Eligibility
+- Registration
+- Attendance
+- Participant Status
+- Certificate Eligibility
 
 ---
 
@@ -102,9 +102,9 @@ Mengelola:
 
 Setelah program selesai:
 
-* Feedback
-* Evaluation Score
-* Completion Report
+- Feedback
+- Evaluation Score
+- Completion Report
 
 ---
 
@@ -112,27 +112,27 @@ Setelah program selesai:
 
 Program harus:
 
-* Response < 500 ms.
-* Mendukung Pagination.
-* Audit Enabled.
-* Highly Available.
+- Response < 500 ms.
+- Mendukung Pagination.
+- Audit Enabled.
+- Highly Available.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Memiliki Permission.
-* Data Program valid.
+- User telah Login.
+- Memiliki Permission.
+- Data Program valid.
 
 ---
 
 # Postconditions
 
-* Program tersimpan.
-* Audit Log dibuat.
-* Domain Event diterbitkan.
-* Notification dikirim (jika diperlukan).
+- Program tersimpan.
+- Audit Log dibuat.
+- Domain Event diterbitkan.
+- Notification dikirim (jika diperlukan).
 
 ---
 
@@ -194,11 +194,11 @@ Publish
 
 # Exception Flow
 
-* Program tidak ditemukan.
-* Nama Program sudah digunakan.
-* Jadwal bentrok.
-* Registrasi ditutup.
-* Permission ditolak.
+- Program tidak ditemukan.
+- Nama Program sudah digunakan.
+- Jadwal bentrok.
+- Registrasi ditutup.
+- Permission ditolak.
 
 ---
 
@@ -270,22 +270,22 @@ Archived
 
 Entity:
 
-* Program
-* ProgramCategory
-* Schedule
-* Participant
-* Registration
+- Program
+- ProgramCategory
+- Schedule
+- Participant
+- Registration
 
 Aggregate:
 
-* Program
+- Program
 
 Value Object:
 
-* ProgramCode
-* ProgramStatus
-* Venue
-* RegistrationPeriod
+- ProgramCode
+- ProgramStatus
+- Venue
+- RegistrationPeriod
 
 ---
 
@@ -338,11 +338,11 @@ program_participants
 
 | Action   | Admin | Operator | Participant | Public |
 | -------- | :---: | :------: | :---------: | :----: |
-| View     |   ✅   |     ✅    |      ✅      |    ✅   |
-| Create   |   ✅   |     ✅    |      ❌      |    ❌   |
-| Update   |   ✅   |     ✅    |      ❌      |    ❌   |
-| Publish  |   ✅   |     ❌    |      ❌      |    ❌   |
-| Register |   ❌   |     ❌    |      ✅      |    ❌   |
+| View     |  ✅   |    ✅    |     ✅      |   ✅   |
+| Create   |  ✅   |    ✅    |     ❌      |   ❌   |
+| Update   |  ✅   |    ✅    |     ❌      |   ❌   |
+| Publish  |  ✅   |    ❌    |     ❌      |   ❌   |
+| Register |  ❌   |    ❌    |     ✅      |   ❌   |
 
 ---
 
@@ -391,41 +391,41 @@ ProgramCompleted
 
 # Acceptance Test
 
-* Program berhasil dibuat.
-* Program berhasil dipublikasikan.
-* Peserta berhasil mendaftar.
-* Registrasi ditutup sesuai jadwal.
-* Kapasitas peserta divalidasi.
-* Notification terkirim.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Program berhasil dibuat.
+- Program berhasil dipublikasikan.
+- Peserta berhasil mendaftar.
+- Registrasi ditutup sesuai jadwal.
+- Kapasitas peserta divalidasi.
+- Notification terkirim.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Create Program < 500 ms.
-* Search Program < 300 ms.
-* Registration < 500 ms.
-* Dashboard Statistics < 300 ms.
+- Create Program < 500 ms.
+- Search Program < 300 ms.
+- Registration < 500 ms.
+- Dashboard Statistics < 300 ms.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Audit Log aktif.
-* Input tervalidasi.
-* Soft Delete digunakan.
-* Seluruh endpoint menggunakan HTTPS.
-* Registrasi hanya dapat dilakukan oleh pengguna yang telah login.
+- RBAC diterapkan.
+- Audit Log aktif.
+- Input tervalidasi.
+- Soft Delete digunakan.
+- Seluruh endpoint menggunakan HTTPS.
+- Registrasi hanya dapat dilakukan oleh pengguna yang telah login.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Business Rules Program berjalan sesuai spesifikasi.
-* Siklus hidup Program mengikuti State Diagram.
-* Registrasi peserta tervalidasi.
-* Notification dan Domain Event berjalan sesuai desain.
-* Specification siap digunakan sebagai dasar implementasi Program Domain.
+- Seluruh Business Rules Program berjalan sesuai spesifikasi.
+- Siklus hidup Program mengikuti State Diagram.
+- Registrasi peserta tervalidasi.
+- Notification dan Domain Event berjalan sesuai desain.
+- Specification siap digunakan sebagai dasar implementasi Program Domain.

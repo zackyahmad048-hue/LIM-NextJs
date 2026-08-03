@@ -22,12 +22,12 @@ Dokumen ini menjadi acuan dalam merancang Website, Admin Portal, dan Mobile Appl
 
 Seluruh antarmuka mengikuti prinsip berikut:
 
-* Simplicity First
-* Consistency
-* Clarity
-* Accessibility
-* Efficiency
-* User Focused
+- Simplicity First
+- Consistency
+- Clarity
+- Accessibility
+- Efficiency
+- User Focused
 
 ---
 
@@ -35,11 +35,11 @@ Seluruh antarmuka mengikuti prinsip berikut:
 
 Sebelum merancang fitur, selalu jawab pertanyaan berikut:
 
-* Siapa pengguna?
-* Apa tujuan pengguna?
-* Informasi apa yang dibutuhkan?
-* Apa tindakan utama yang ingin dilakukan?
-* Bagaimana menyelesaikan tugas tersebut dengan langkah sesingkat mungkin?
+- Siapa pengguna?
+- Apa tujuan pengguna?
+- Informasi apa yang dibutuhkan?
+- Apa tindakan utama yang ingin dilakukan?
+- Bagaimana menyelesaikan tugas tersebut dengan langkah sesingkat mungkin?
 
 ---
 
@@ -47,10 +47,10 @@ Sebelum merancang fitur, selalu jawab pertanyaan berikut:
 
 Navigasi harus:
 
-* Konsisten.
-* Mudah dipahami.
-* Tidak berubah antar halaman tanpa alasan.
-* Maksimal tiga tingkat kedalaman.
+- Konsisten.
+- Mudah dipahami.
+- Tidak berubah antar halaman tanpa alasan.
+- Maksimal tiga tingkat kedalaman.
 
 Pengguna harus selalu mengetahui posisi mereka di dalam aplikasi.
 
@@ -73,10 +73,10 @@ Informasi yang paling penting harus tampil terlebih dahulu.
 
 Form harus:
 
-* Memiliki label yang jelas.
-* Menampilkan validasi secara langsung jika memungkinkan.
-* Menampilkan pesan kesalahan di dekat field.
-* Mempertahankan data ketika validasi gagal.
+- Memiliki label yang jelas.
+- Menampilkan validasi secara langsung jika memungkinkan.
+- Menampilkan pesan kesalahan di dekat field.
+- Mempertahankan data ketika validasi gagal.
 
 Field wajib harus ditandai secara konsisten.
 
@@ -86,10 +86,10 @@ Field wajib harus ditandai secara konsisten.
 
 Apabila data berjumlah banyak, sediakan:
 
-* Search
-* Filter
-* Sorting
-* Pagination
+- Search
+- Filter
+- Sorting
+- Pagination
 
 Pengguna tidak boleh dipaksa mencari data secara manual.
 
@@ -99,11 +99,11 @@ Pengguna tidak boleh dipaksa mencari data secara manual.
 
 Table harus mendukung:
 
-* Search
-* Sort
-* Filter
-* Pagination
-* Responsive Layout
+- Search
+- Sort
+- Filter
+- Pagination
+- Responsive Layout
 
 Data penting harus mudah ditemukan.
 
@@ -115,11 +115,11 @@ Setiap aksi pengguna harus memberikan umpan balik.
 
 Contoh:
 
-* Data berhasil disimpan.
-* Data diperbarui.
-* Data dihapus.
-* Upload berhasil.
-* Terjadi kesalahan.
+- Data berhasil disimpan.
+- Data diperbarui.
+- Data dihapus.
+- Upload berhasil.
+- Terjadi kesalahan.
 
 Gunakan Toast atau Alert sesuai konteks.
 
@@ -129,9 +129,9 @@ Gunakan Toast atau Alert sesuai konteks.
 
 Saat proses berlangsung:
 
-* Tampilkan Loading Indicator.
-* Nonaktifkan aksi yang sedang diproses.
-* Hindari halaman kosong tanpa informasi.
+- Tampilkan Loading Indicator.
+- Nonaktifkan aksi yang sedang diproses.
+- Hindari halaman kosong tanpa informasi.
 
 ---
 
@@ -141,9 +141,9 @@ Apabila tidak ada data:
 
 Tampilkan:
 
-* Penjelasan singkat.
-* Ilustrasi (opsional).
-* Tombol untuk membuat data baru apabila relevan.
+- Penjelasan singkat.
+- Ilustrasi (opsional).
+- Tombol untuk membuat data baru apabila relevan.
 
 ---
 
@@ -151,9 +151,9 @@ Tampilkan:
 
 Pesan kesalahan harus:
 
-* Mudah dipahami.
-* Menjelaskan penyebab secara umum.
-* Memberikan solusi jika memungkinkan.
+- Mudah dipahami.
+- Menjelaskan penyebab secara umum.
+- Memberikan solusi jika memungkinkan.
 
 Hindari istilah teknis yang tidak dipahami pengguna.
 
@@ -165,11 +165,11 @@ Konfirmasi hanya digunakan untuk aksi yang berdampak besar.
 
 Contoh:
 
-* Hapus Data
-* Publish
-* Restore
-* Logout
-* Reset
+- Hapus Data
+- Publish
+- Restore
+- Logout
+- Reset
 
 Aksi sederhana tidak memerlukan dialog konfirmasi.
 
@@ -179,10 +179,10 @@ Aksi sederhana tidak memerlukan dialog konfirmasi.
 
 Pada Mobile:
 
-* Navigasi mudah dijangkau dengan satu tangan.
-* Tombol memiliki area sentuh yang cukup.
-* Hindari tabel yang sulit dibaca.
-* Prioritaskan konten utama.
+- Navigasi mudah dijangkau dengan satu tangan.
+- Tombol memiliki area sentuh yang cukup.
+- Hindari tabel yang sulit dibaca.
+- Prioritaskan konten utama.
 
 ---
 
@@ -192,11 +192,11 @@ Admin Portal dirancang untuk produktivitas.
 
 Prioritas:
 
-* Cepat.
-* Efisien.
-* Informasi padat.
-* Mudah mencari data.
-* Sedikit klik untuk menyelesaikan pekerjaan.
+- Cepat.
+- Efisien.
+- Informasi padat.
+- Mudah mencari data.
+- Sedikit klik untuk menyelesaikan pekerjaan.
 
 ---
 
@@ -204,10 +204,10 @@ Prioritas:
 
 Website publik mengutamakan:
 
-* Kecepatan akses.
-* Kemudahan membaca.
-* Kemudahan menemukan informasi.
-* Tampilan profesional.
+- Kecepatan akses.
+- Kemudahan membaca.
+- Kemudahan menemukan informasi.
+- Tampilan profesional.
 
 ---
 
@@ -215,10 +215,10 @@ Website publik mengutamakan:
 
 Antarmuka harus:
 
-* Dapat digunakan dengan keyboard.
-* Memiliki kontras warna yang baik.
-* Memiliki label yang jelas.
-* Menghindari penggunaan warna sebagai satu-satunya indikator.
+- Dapat digunakan dengan keyboard.
+- Memiliki kontras warna yang baik.
+- Memiliki label yang jelas.
+- Menghindari penggunaan warna sebagai satu-satunya indikator.
 
 ---
 
@@ -226,9 +226,9 @@ Antarmuka harus:
 
 Seluruh halaman harus nyaman digunakan pada:
 
-* Mobile
-* Tablet
-* Desktop
+- Mobile
+- Tablet
+- Desktop
 
 Tidak boleh ada fitur yang hanya dapat digunakan pada ukuran layar tertentu tanpa alasan bisnis.
 
@@ -238,10 +238,10 @@ Tidak boleh ada fitur yang hanya dapat digunakan pada ukuran layar tertentu tanp
 
 Pengalaman pengguna harus tetap baik dengan:
 
-* Loading cepat.
-* Navigasi responsif.
-* Animasi seperlunya.
-* Tidak menunggu proses yang tidak diperlukan.
+- Loading cepat.
+- Navigasi responsif.
+- Animasi seperlunya.
+- Tidak menunggu proses yang tidak diperlukan.
 
 ---
 
@@ -249,9 +249,9 @@ Pengalaman pengguna harus tetap baik dengan:
 
 Komponen yang sama harus:
 
-* Memiliki posisi yang sama.
-* Memiliki perilaku yang sama.
-* Memiliki istilah yang sama.
+- Memiliki posisi yang sama.
+- Memiliki perilaku yang sama.
+- Memiliki istilah yang sama.
 
 Konsistensi lebih penting daripada variasi desain.
 
@@ -261,10 +261,10 @@ Konsistensi lebih penting daripada variasi desain.
 
 Gunakan bahasa yang:
 
-* Sederhana.
-* Jelas.
-* Singkat.
-* Konsisten.
+- Sederhana.
+- Jelas.
+- Singkat.
+- Konsisten.
 
 Contoh:
 
@@ -278,10 +278,10 @@ Contoh:
 
 Platform harus membangun kepercayaan pengguna dengan:
 
-* Menampilkan informasi yang benar.
-* Memberikan feedback yang jelas.
-* Tidak menghilangkan data tanpa konfirmasi.
-* Menjaga privasi pengguna.
+- Menampilkan informasi yang benar.
+- Memberikan feedback yang jelas.
+- Tidak menghilangkan data tanpa konfirmasi.
+- Menjaga privasi pengguna.
 
 ---
 
@@ -289,11 +289,11 @@ Platform harus membangun kepercayaan pengguna dengan:
 
 Setiap fitur baru dievaluasi berdasarkan:
 
-* Mudah dipelajari.
-* Mudah digunakan.
-* Cepat diselesaikan.
-* Meminimalkan kesalahan.
-* Memberikan pengalaman yang konsisten.
+- Mudah dipelajari.
+- Mudah digunakan.
+- Cepat diselesaikan.
+- Meminimalkan kesalahan.
+- Memberikan pengalaman yang konsisten.
 
 ---
 

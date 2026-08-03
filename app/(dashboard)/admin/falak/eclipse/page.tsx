@@ -1,8 +1,4 @@
-import Link from "next/link";
-import { Plus } from "lucide-react";
-
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
@@ -26,14 +22,6 @@ export default async function EclipsePage() {
       <PageHeader
         title="Data Eclipse"
         description="Kelola data gerhana matahari dan bulan."
-        actions={
-          <Button asChild size="sm">
-            <Link href="/admin/falak/eclipse/new">
-              <Plus className="size-4" />
-              Tambah Eclipse
-            </Link>
-          </Button>
-        }
       />
 
       <AdminTable
@@ -44,7 +32,9 @@ export default async function EclipsePage() {
             key: "jenis",
             label: "Jenis",
             render: (item) => (
-              <Badge variant={item.eclipseType === "SOLAR" ? "default" : "secondary"}>
+              <Badge
+                variant={item.eclipseType === "SOLAR" ? "default" : "secondary"}
+              >
                 {item.eclipseType === "SOLAR" ? "Matahari" : "Bulan"}
               </Badge>
             ),
@@ -52,12 +42,16 @@ export default async function EclipsePage() {
           {
             key: "tanggal",
             label: "Tanggal",
-            render: (item) => <span className="text-xs">{formatDate(item.eclipseDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatDate(item.eclipseDate)}</span>
+            ),
           },
           {
             key: "visibilitas",
             label: "Visibilitas",
-            render: (item) => <span className="text-xs">{item.visibility || "-"}</span>,
+            render: (item) => (
+              <span className="text-xs">{item.visibility || "-"}</span>
+            ),
           },
           {
             key: "keterangan",

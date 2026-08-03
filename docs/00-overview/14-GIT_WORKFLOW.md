@@ -24,12 +24,12 @@ Seluruh kontributor wajib mengikuti workflow ini.
 
 Pengelolaan source code mengikuti prinsip berikut:
 
-* One Feature, One Branch
-* Small and Focused Changes
-* Pull Request Required
-* Review Before Merge
-* Always Deployable
-* Traceable History
+- One Feature, One Branch
+- Small and Focused Changes
+- Pull Request Required
+- Review Before Merge
+- Always Deployable
+- Traceable History
 
 ---
 
@@ -73,10 +73,10 @@ main
 
 Aturan:
 
-* Selalu stabil.
-* Selalu siap dirilis.
-* Tidak boleh direct push.
-* Perubahan hanya melalui Pull Request.
+- Selalu stabil.
+- Selalu siap dirilis.
+- Tidak boleh direct push.
+- Perubahan hanya melalui Pull Request.
 
 ---
 
@@ -194,14 +194,14 @@ refactor(user): simplify repository
 
 Jenis commit yang digunakan:
 
-* feat
-* fix
-* docs
-* refactor
-* perf
-* test
-* chore
-* ci
+- feat
+- fix
+- docs
+- refactor
+- perf
+- test
+- chore
+- ci
 
 ---
 
@@ -211,10 +211,10 @@ Setiap perubahan wajib melalui Pull Request.
 
 Pull Request harus:
 
-* Fokus pada satu tujuan.
-* Memiliki deskripsi yang jelas.
-* Menjelaskan perubahan yang dilakukan.
-* Menyebutkan Issue apabila ada.
+- Fokus pada satu tujuan.
+- Memiliki deskripsi yang jelas.
+- Menjelaskan perubahan yang dilakukan.
+- Menyebutkan Issue apabila ada.
 
 ---
 
@@ -222,12 +222,12 @@ Pull Request harus:
 
 Sebelum Pull Request dibuat, pastikan:
 
-* Build berhasil.
-* TypeScript tanpa error.
-* Lint tanpa error.
-* Dokumentasi diperbarui jika diperlukan.
-* Tidak ada `console.log()`.
-* Business Rules dipatuhi.
+- Build berhasil.
+- TypeScript tanpa error.
+- Lint tanpa error.
+- Dokumentasi diperbarui jika diperlukan.
+- Tidak ada `console.log()`.
+- Business Rules dipatuhi.
 
 ---
 
@@ -237,12 +237,12 @@ Setiap Pull Request wajib direview.
 
 Review minimal mencakup:
 
-* Architecture
-* Business Rules
-* Security
-* Code Quality
-* Performance
-* Documentation
+- Architecture
+- Business Rules
+- Security
+- Code Quality
+- Performance
+- Documentation
 
 ---
 
@@ -256,9 +256,9 @@ Squash and Merge
 
 Tujuan:
 
-* Histori repository lebih bersih.
-* Satu fitur menjadi satu commit utama.
-* Mudah melakukan rollback.
+- Histori repository lebih bersih.
+- Satu fitur menjadi satu commit utama.
+- Mudah melakukan rollback.
 
 ---
 
@@ -274,10 +274,10 @@ develop
 
 Aturan:
 
-* Tidak boleh force push.
-* Tidak boleh direct push.
-* Wajib Pull Request.
-* Wajib Review.
+- Tidak boleh force push.
+- Tidak boleh direct push.
+- Wajib Pull Request.
+- Wajib Review.
 
 ---
 
@@ -335,12 +335,12 @@ Contoh:
 
 File berikut tidak boleh masuk repository:
 
-* `.env`
-* `node_modules`
-* Build Output
-* Cache
-* Log File
-* Temporary File
+- `.env`
+- `node_modules`
+- Build Output
+- Cache
+- Log File
+- Temporary File
 
 Gunakan `.gitignore` yang sesuai dengan teknologi proyek.
 

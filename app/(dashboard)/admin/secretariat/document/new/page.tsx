@@ -26,7 +26,10 @@ export default function NewDocumentPage() {
         description="Lengkapi informasi dokumen administrasi."
       />
 
-      <form action={createAdministrativeDocument} className="max-w-2xl space-y-3">
+      <form
+        action={createAdministrativeDocument}
+        className="max-w-2xl space-y-3"
+      >
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Dokumen</h2>
@@ -37,12 +40,22 @@ export default function NewDocumentPage() {
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="documentNumber" className="text-xs">Nomor Dokumen</Label>
-              <Input id="documentNumber" name="documentNumber" required placeholder="DOC-2027-001" className="rounded-md text-xs" />
+              <Label htmlFor="documentNumber" className="text-xs">
+                Nomor Dokumen
+              </Label>
+              <Input
+                id="documentNumber"
+                name="documentNumber"
+                required
+                placeholder="DOC-2027-001"
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="documentType" className="text-xs">Jenis Dokumen</Label>
+              <Label htmlFor="documentType" className="text-xs">
+                Jenis Dokumen
+              </Label>
               <select
                 id="documentType"
                 name="documentType"
@@ -51,24 +64,48 @@ export default function NewDocumentPage() {
               >
                 <option value="">Pilih jenis</option>
                 {documentTypes.map((t) => (
-                  <option key={t.value} value={t.value}>{t.label}</option>
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="title" className="text-xs">Judul</Label>
-              <Input id="title" name="title" required placeholder="Judul dokumen" className="rounded-md text-xs" />
+              <Label htmlFor="title" className="text-xs">
+                Judul
+              </Label>
+              <Input
+                id="title"
+                name="title"
+                required
+                placeholder="Judul dokumen"
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="description" className="text-xs">Deskripsi</Label>
-              <Textarea id="description" name="description" className="min-h-20 rounded-md text-xs" placeholder="Deskripsi dokumen (opsional)" />
+              <Label htmlFor="description" className="text-xs">
+                Deskripsi
+              </Label>
+              <Textarea
+                id="description"
+                name="description"
+                className="min-h-20 rounded-md text-xs"
+                placeholder="Deskripsi dokumen (opsional)"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="content" className="text-xs">Konten</Label>
-              <Textarea id="content" name="content" className="min-h-32 rounded-md text-xs" placeholder="Konten dokumen (opsional)" />
+              <Label htmlFor="content" className="text-xs">
+                Konten
+              </Label>
+              <Textarea
+                id="content"
+                name="content"
+                className="min-h-32 rounded-md text-xs"
+                placeholder="Konten dokumen (opsional)"
+              />
             </div>
           </div>
         </SectionCard>

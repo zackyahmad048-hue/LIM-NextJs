@@ -2,7 +2,10 @@ import { BaseRepository } from "@/modules/shared/infrastructure/base.repository"
 import type { RoleRepository } from "../domain/role.repository";
 import { Role } from "../domain/role.entity";
 
-export class PrismaRoleRepository extends BaseRepository implements RoleRepository {
+export class PrismaRoleRepository
+  extends BaseRepository
+  implements RoleRepository
+{
   async findAll(): Promise<Role[]> {
     const roles = await this.db.role.findMany({
       orderBy: { name: "asc" },
@@ -16,7 +19,7 @@ export class PrismaRoleRepository extends BaseRepository implements RoleReposito
         description: role.description,
         createdAt: role.createdAt,
         updatedAt: role.updatedAt,
-      })
+      }),
     );
   }
 
@@ -67,7 +70,7 @@ export class PrismaRoleRepository extends BaseRepository implements RoleReposito
 
   async update(
     id: string,
-    data: Partial<{ name: string; slug: string; description: string }>
+    data: Partial<{ name: string; slug: string; description: string }>,
   ): Promise<Role> {
     const role = await this.db.role.update({ where: { id }, data });
 

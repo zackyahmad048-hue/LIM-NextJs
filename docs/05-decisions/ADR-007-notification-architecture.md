@@ -14,22 +14,22 @@
 
 LIM Digital Platform mengirim berbagai jenis notifikasi, seperti:
 
-* Login Alert
-* Program Update
-* Letter Approval
-* Certificate Issued
-* Knowledge Published
-* Prayer Time Reminder
-* System Announcement
+- Login Alert
+- Program Update
+- Letter Approval
+- Certificate Issued
+- Knowledge Published
+- Prayer Time Reminder
+- System Announcement
 
 Notifikasi perlu dikirim melalui berbagai kanal (Email, Push Notification, WhatsApp, dan lainnya).
 
 Apabila setiap Domain mengimplementasikan pengiriman notifikasi sendiri, akan terjadi:
 
-* Duplikasi kode.
-* Tight Coupling.
-* Sulit menambah channel baru.
-* Sulit melakukan monitoring dan retry.
+- Duplikasi kode.
+- Tight Coupling.
+- Sulit menambah channel baru.
+- Sulit melakukan monitoring dan retry.
 
 Diperlukan arsitektur notifikasi yang terpusat dan mudah dikembangkan.
 
@@ -41,11 +41,11 @@ LIM Digital Platform menggunakan **Notification Domain** sebagai layanan terpusa
 
 Seluruh Domain hanya menerbitkan **Domain Event**, sedangkan Notification Domain bertanggung jawab:
 
-* Menentukan Channel.
-* Menyusun Payload.
-* Mengirim Notifikasi.
-* Retry jika gagal.
-* Mencatat Audit.
+- Menentukan Channel.
+- Menyusun Payload.
+- Mengirim Notifikasi.
+- Retry jika gagal.
+- Mencatat Audit.
 
 ---
 
@@ -53,11 +53,11 @@ Seluruh Domain hanya menerbitkan **Domain Event**, sedangkan Notification Domain
 
 Pendekatan ini dipilih karena:
 
-* Loose Coupling.
-* Reusable.
-* Mudah menambah channel baru.
-* Mendukung asynchronous processing.
-* Mendukung monitoring delivery.
+- Loose Coupling.
+- Reusable.
+- Mudah menambah channel baru.
+- Mendukung asynchronous processing.
+- Mendukung monitoring delivery.
 
 ---
 
@@ -173,16 +173,16 @@ Template dipisahkan dari Business Logic.
 
 Template dapat berupa:
 
-* HTML Email
-* Plain Text
-* Push Payload
-* WhatsApp Template
+- HTML Email
+- Plain Text
+- Push Payload
+- WhatsApp Template
 
 Template mendukung:
 
-* Placeholder
-* Localization
-* Versioning
+- Placeholder
+- Localization
+- Versioning
 
 ---
 
@@ -248,12 +248,12 @@ SMTP
 
 Kelebihan:
 
-* Mudah.
+- Mudah.
 
 Kekurangan:
 
-* Tight Coupling.
-* Sulit menambah channel.
+- Tight Coupling.
+- Sulit menambah channel.
 
 ---
 
@@ -261,13 +261,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Cepat.
+- Cepat.
 
 Kekurangan:
 
-* Vendor Lock-in.
-* Biaya tambahan.
-* Kontrol terbatas.
+- Vendor Lock-in.
+- Biaya tambahan.
+- Kontrol terbatas.
 
 ---
 
@@ -275,13 +275,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Modular.
-* Fleksibel.
-* Mudah dikembangkan.
+- Modular.
+- Fleksibel.
+- Mudah dikembangkan.
 
 Kekurangan:
 
-* Menambah satu Domain baru yang harus dipelihara.
+- Menambah satu Domain baru yang harus dipelihara.
 
 ---
 
@@ -289,33 +289,33 @@ Kekurangan:
 
 Keuntungan:
 
-* Pengiriman notifikasi terpusat.
-* Mendukung Multi Channel.
-* Monitoring lebih mudah.
-* Retry terstandarisasi.
-* Mudah menambah provider baru.
+- Pengiriman notifikasi terpusat.
+- Mendukung Multi Channel.
+- Monitoring lebih mudah.
+- Retry terstandarisasi.
+- Mudah menambah provider baru.
 
 Konsekuensi:
 
-* Memerlukan Queue.
-* Membutuhkan Template Management.
-* Monitoring Delivery menjadi bagian penting operasional.
+- Memerlukan Queue.
+- Membutuhkan Template Management.
+- Monitoring Delivery menjadi bagian penting operasional.
 
 ---
 
 # Related Decisions
 
-* ADR-005 Event Driven Architecture
-* ADR-006 Storage Strategy
-* ADR-010 Audit Log
+- ADR-005 Event Driven Architecture
+- ADR-006 Storage Strategy
+- ADR-010 Audit Log
 
 ---
 
 # References
 
-* Enterprise Integration Patterns
-* Architecture Documentation (`01-domains/notification/`)
-* Architecture Documentation (`02-architecture/event-driven.md`)
+- Enterprise Integration Patterns
+- Architecture Documentation (`01-domains/notification/`)
+- Architecture Documentation (`02-architecture/event-driven.md`)
 
 ---
 
@@ -327,8 +327,8 @@ Konsekuensi:
 
 # Acceptance Criteria
 
-* Seluruh notifikasi dikirim melalui Notification Domain.
-* Domain tidak mengirim notifikasi secara langsung.
-* Seluruh Channel menggunakan Adapter.
-* Retry dan Delivery Status terdokumentasi.
-* Notification Architecture menjadi standar pengiriman notifikasi LIM Digital Platform.
+- Seluruh notifikasi dikirim melalui Notification Domain.
+- Domain tidak mengirim notifikasi secara langsung.
+- Seluruh Channel menggunakan Adapter.
+- Retry dan Delivery Status terdokumentasi.
+- Notification Architecture menjadi standar pengiriman notifikasi LIM Digital Platform.

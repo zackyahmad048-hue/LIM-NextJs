@@ -26,11 +26,11 @@ Runbook bertujuan mengurangi ketergantungan pada individu dan memastikan setiap 
 
 Runbook bertujuan untuk:
 
-* Menstandarkan aktivitas operasional.
-* Mempercepat penanganan masalah.
-* Mengurangi Human Error.
-* Mendukung High Availability.
-* Mempermudah proses onboarding tim operasional.
+- Menstandarkan aktivitas operasional.
+- Mempercepat penanganan masalah.
+- Mengurangi Human Error.
+- Mendukung High Availability.
+- Mempermudah proses onboarding tim operasional.
 
 ---
 
@@ -38,11 +38,11 @@ Runbook bertujuan untuk:
 
 Aktivitas operasional dibagi menjadi:
 
-* Daily
-* Weekly
-* Monthly
-* Quarterly
-* Annual
+- Daily
+- Weekly
+- Monthly
+- Quarterly
+- Annual
 
 ---
 
@@ -50,13 +50,13 @@ Aktivitas operasional dibagi menjadi:
 
 Dilakukan setiap hari:
 
-* Memeriksa Status Server.
-* Memeriksa Health Check seluruh Service.
-* Memeriksa Monitoring Dashboard.
-* Memeriksa Error Log.
-* Memeriksa Queue Processing.
-* Memeriksa Backup Harian.
-* Memeriksa Kapasitas Storage.
+- Memeriksa Status Server.
+- Memeriksa Health Check seluruh Service.
+- Memeriksa Monitoring Dashboard.
+- Memeriksa Error Log.
+- Memeriksa Queue Processing.
+- Memeriksa Backup Harian.
+- Memeriksa Kapasitas Storage.
 
 ---
 
@@ -64,11 +64,11 @@ Dilakukan setiap hari:
 
 Dilakukan setiap minggu:
 
-* Review Resource Usage.
-* Review Slow Query Database.
-* Review Security Log.
-* Membersihkan Temporary File.
-* Memverifikasi Backup.
+- Review Resource Usage.
+- Review Slow Query Database.
+- Review Security Log.
+- Membersihkan Temporary File.
+- Memverifikasi Backup.
 
 ---
 
@@ -76,11 +76,11 @@ Dilakukan setiap minggu:
 
 Dilakukan setiap bulan:
 
-* Update Dependency.
-* Review Performance.
-* Capacity Planning.
-* Audit User Access.
-* Review SSL Certificate.
+- Update Dependency.
+- Review Performance.
+- Capacity Planning.
+- Audit User Access.
+- Review SSL Certificate.
 
 ---
 
@@ -88,11 +88,11 @@ Dilakukan setiap bulan:
 
 Dilakukan setiap tiga bulan:
 
-* Disaster Recovery Drill.
-* Restore Test dari Backup.
-* Security Review.
-* Vulnerability Assessment.
-* Review Infrastruktur.
+- Disaster Recovery Drill.
+- Restore Test dari Backup.
+- Security Review.
+- Vulnerability Assessment.
+- Review Infrastruktur.
 
 ---
 
@@ -100,11 +100,11 @@ Dilakukan setiap tiga bulan:
 
 Dilakukan setiap tahun:
 
-* Audit Infrastruktur.
-* Audit Keamanan.
-* Review Dokumentasi.
-* Review SOP Operasional.
-* Evaluasi Kapasitas Infrastruktur.
+- Audit Infrastruktur.
+- Audit Keamanan.
+- Review Dokumentasi.
+- Review SOP Operasional.
+- Evaluasi Kapasitas Infrastruktur.
 
 ---
 
@@ -162,14 +162,14 @@ Setiap layanan diperiksa:
 
 Sebelum sistem dinyatakan normal:
 
-* Login berhasil.
-* Dashboard dapat diakses.
-* API merespons.
-* Database normal.
-* Redis normal.
-* Queue berjalan.
-* Upload File berhasil.
-* Notification terkirim.
+- Login berhasil.
+- Dashboard dapat diakses.
+- API merespons.
+- Database normal.
+- Redis normal.
+- Queue berjalan.
+- Upload File berhasil.
+- Notification terkirim.
 
 ---
 
@@ -179,25 +179,25 @@ Jika masalah tidak dapat diselesaikan:
 
 Level 1:
 
-* Technical Support
+- Technical Support
 
 ↓
 
 Level 2:
 
-* DevOps Engineer
+- DevOps Engineer
 
 ↓
 
 Level 3:
 
-* Technical Lead
+- Technical Lead
 
 ↓
 
 Level 4:
 
-* Project Owner
+- Project Owner
 
 ---
 
@@ -205,38 +205,38 @@ Level 4:
 
 Setiap aktivitas dicatat:
 
-* Waktu
-* Operator
-* Aktivitas
-* Hasil
-* Kendala
-* Tindak Lanjut
+- Waktu
+- Operator
+- Aktivitas
+- Hasil
+- Kendala
+- Tindak Lanjut
 
 ---
 
 # Best Practices
 
-* Ikuti Runbook secara berurutan.
-* Jangan melewati langkah verifikasi.
-* Catat seluruh aktivitas operasional.
-* Dokumentasikan penyimpangan dan solusi.
-* Perbarui Runbook ketika prosedur berubah.
+- Ikuti Runbook secara berurutan.
+- Jangan melewati langkah verifikasi.
+- Catat seluruh aktivitas operasional.
+- Dokumentasikan penyimpangan dan solusi.
+- Perbarui Runbook ketika prosedur berubah.
 
 ---
 
 # Related Documents
 
-* README.md
-* incident-response.md
-* maintenance.md
-* backup-recovery.md
+- README.md
+- incident-response.md
+- maintenance.md
+- backup-recovery.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh aktivitas operasional memiliki prosedur yang jelas.
-* Startup dan Shutdown terdokumentasi.
-* Checklist operasional tersedia.
-* Prosedur eskalasi terdokumentasi.
-* Runbook menjadi panduan resmi operasional LIM Digital Platform.
+- Seluruh aktivitas operasional memiliki prosedur yang jelas.
+- Startup dan Shutdown terdokumentasi.
+- Checklist operasional tersedia.
+- Prosedur eskalasi terdokumentasi.
+- Runbook menjadi panduan resmi operasional LIM Digital Platform.

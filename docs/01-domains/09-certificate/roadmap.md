@@ -18,14 +18,14 @@ Menjadi sistem penerbitan sertifikat digital yang aman, terverifikasi, dan terin
 
 # Version 1.0
 
-* Certificate Management
-* Template Management
-* Auto Numbering
-* QR Verification
-* Digital Signature
-* Distribution
-* Archive
-* Audit Log
+- Certificate Management
+- Template Management
+- Auto Numbering
+- QR Verification
+- Digital Signature
+- Distribution
+- Archive
+- Audit Log
 
 ✅ Initial Release
 
@@ -33,61 +33,61 @@ Menjadi sistem penerbitan sertifikat digital yang aman, terverifikasi, dan terin
 
 # Version 1.1
 
-* Bulk Generation
-* Email Delivery
-* WhatsApp Delivery
-* QR Scanner
-* Public Verification Page
+- Bulk Generation
+- Email Delivery
+- WhatsApp Delivery
+- QR Scanner
+- Public Verification Page
 
 ---
 
 # Version 1.2
 
-* Batch Printing
-* Certificate Versioning
-* Multiple Signers
-* Certificate Expiration
-* Certificate Statistics
+- Batch Printing
+- Certificate Versioning
+- Multiple Signers
+- Certificate Expiration
+- Certificate Statistics
 
 ---
 
 # Version 2.0
 
-* Blockchain Verification
-* Public Certificate Portal
-* Smart Search
-* Digital Badge
-* Open Verification API
+- Blockchain Verification
+- Public Certificate Portal
+- Smart Search
+- Digital Badge
+- Open Verification API
 
 ---
 
 # Version 3.0
 
-* AI Certificate Generator
-* AI Template Designer
-* AI Fraud Detection
-* AI Verification Assistant
-* AI Analytics
+- AI Certificate Generator
+- AI Template Designer
+- AI Fraud Detection
+- AI Verification Assistant
+- AI Analytics
 
 ---
 
 # Dependencies
 
-* Program
-* Organization
-* Letter
-* Media
-* Notification
+- Program
+- Organization
+- Letter
+- Media
+- Notification
 
 ---
 
 # Success Indicators
 
-* Sertifikat diterbitkan otomatis.
-* Verifikasi QR berjalan.
-* Distribusi terdokumentasi.
-* Nomor sertifikat unik.
-* Sertifikat mudah diverifikasi.
+- Sertifikat diterbitkan otomatis.
+- Verifikasi QR berjalan.
+- Distribusi terdokumentasi.
+- Nomor sertifikat unik.
+- Sertifikat mudah diverifikasi.
 
 ---
 

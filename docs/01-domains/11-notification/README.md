@@ -24,12 +24,12 @@ Notification merupakan **Shared Domain** yang digunakan oleh seluruh modul dalam
 
 Domain Notification bertujuan untuk:
 
-* Mengelola pengiriman notifikasi.
-* Mengelola template notifikasi.
-* Mengelola antrean (queue) pengiriman.
-* Mengelola status pengiriman.
-* Mengelola preferensi notifikasi pengguna.
-* Mendukung pengiriman multi-channel.
+- Mengelola pengiriman notifikasi.
+- Mengelola template notifikasi.
+- Mengelola antrean (queue) pengiriman.
+- Mengelola status pengiriman.
+- Mengelola preferensi notifikasi pengguna.
+- Mendukung pengiriman multi-channel.
 
 ---
 
@@ -37,14 +37,14 @@ Domain Notification bertujuan untuk:
 
 Domain Notification mencakup:
 
-* In-App Notification
-* Email Notification
-* WhatsApp Notification
-* Push Notification
-* SMS Notification
-* Notification Template
-* Notification Queue
-* Notification History
+- In-App Notification
+- Email Notification
+- WhatsApp Notification
+- Push Notification
+- SMS Notification
+- Notification Template
+- Notification Queue
+- Notification History
 
 ---
 
@@ -52,10 +52,10 @@ Domain Notification mencakup:
 
 Domain Notification digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Seluruh Domain Internal
-* End User
+- Super Administrator
+- Administrator
+- Seluruh Domain Internal
+- End User
 
 Pengguna menerima notifikasi sesuai hak akses dan preferensi masing-masing.
 
@@ -65,12 +65,12 @@ Pengguna menerima notifikasi sesuai hak akses dan preferensi masing-masing.
 
 Domain Notification bertanggung jawab untuk:
 
-* Mengirim notifikasi.
-* Mengelola template pesan.
-* Mengelola antrean pengiriman.
-* Mencatat riwayat pengiriman.
-* Mengelola status notifikasi.
-* Mengelola preferensi pengguna.
+- Mengirim notifikasi.
+- Mengelola template pesan.
+- Mengelola antrean pengiriman.
+- Mencatat riwayat pengiriman.
+- Mengelola status notifikasi.
+- Mengelola preferensi pengguna.
 
 ---
 
@@ -78,47 +78,47 @@ Domain Notification bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
-* Organization
-* Media
+- Authentication
+- Authorization
+- Organization
+- Media
 
 Digunakan oleh:
 
-* CMS
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Knowledge
-* Settings
-* Falak
+- CMS
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Knowledge
+- Settings
+- Falak
 
 ---
 
 # Features
 
-* In-App Notification
-* Email Notification
-* WhatsApp Notification
-* Push Notification
-* SMS Notification
-* Notification Template
-* Notification Queue
-* Delivery History
+- In-App Notification
+- Email Notification
+- WhatsApp Notification
+- Push Notification
+- SMS Notification
+- Notification Template
+- Notification Queue
+- Delivery History
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

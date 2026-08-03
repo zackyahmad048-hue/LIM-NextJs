@@ -20,10 +20,10 @@ Security Testing bertujuan memastikan aplikasi, API, infrastruktur, dan data ter
 
 Pengujian mengacu pada:
 
-* OWASP Top 10
-* OWASP ASVS
-* OWASP API Security Top 10
-* Secure Coding Guidelines
+- OWASP Top 10
+- OWASP ASVS
+- OWASP API Security Top 10
+- Secure Coding Guidelines
 
 ---
 
@@ -31,11 +31,11 @@ Pengujian mengacu pada:
 
 Security Testing bertujuan untuk:
 
-* Mengidentifikasi kerentanan keamanan.
-* Memastikan implementasi Authentication dan Authorization.
-* Melindungi data pengguna.
-* Mengurangi risiko serangan siber.
-* Memenuhi standar keamanan aplikasi.
+- Mengidentifikasi kerentanan keamanan.
+- Memastikan implementasi Authentication dan Authorization.
+- Melindungi data pengguna.
+- Mengurangi risiko serangan siber.
+- Memenuhi standar keamanan aplikasi.
 
 ---
 
@@ -43,15 +43,15 @@ Security Testing bertujuan untuk:
 
 Pengujian meliputi:
 
-* Authentication
-* Authorization
-* REST API
-* Database
-* File Upload
-* Session Management
-* Infrastructure
-* Configuration
-* Third-Party Integration
+- Authentication
+- Authorization
+- REST API
+- Database
+- File Upload
+- Session Management
+- Infrastructure
+- Configuration
+- Third-Party Integration
 
 ---
 
@@ -59,13 +59,13 @@ Pengujian meliputi:
 
 Pengujian mencakup:
 
-* Login
-* Logout
-* Password Policy
-* Session Timeout
-* Refresh Token
-* Password Reset
-* Brute Force Protection
+- Login
+- Logout
+- Password Policy
+- Session Timeout
+- Refresh Token
+- Password Reset
+- Brute Force Protection
 
 ---
 
@@ -73,10 +73,10 @@ Pengujian mencakup:
 
 Memastikan:
 
-* RBAC berjalan benar.
-* User hanya mengakses data yang diizinkan.
-* Privilege Escalation tidak dimungkinkan.
-* Horizontal dan Vertical Access Control diterapkan.
+- RBAC berjalan benar.
+- User hanya mengakses data yang diizinkan.
+- Privilege Escalation tidak dimungkinkan.
+- Horizontal dan Vertical Access Control diterapkan.
 
 ---
 
@@ -84,12 +84,12 @@ Memastikan:
 
 Pengujian API meliputi:
 
-* Authentication Required
-* Authorization Validation
-* Input Validation
-* Rate Limiting
-* Error Handling
-* Secure Headers
+- Authentication Required
+- Authorization Validation
+- Input Validation
+- Rate Limiting
+- Error Handling
+- Secure Headers
 
 ---
 
@@ -97,12 +97,12 @@ Pengujian API meliputi:
 
 Seluruh input diuji terhadap:
 
-* SQL Injection
-* Cross-Site Scripting (XSS)
-* Command Injection
-* Path Traversal
-* LDAP Injection
-* XML Injection (jika digunakan)
+- SQL Injection
+- Cross-Site Scripting (XSS)
+- Command Injection
+- Path Traversal
+- LDAP Injection
+- XML Injection (jika digunakan)
 
 ---
 
@@ -110,11 +110,11 @@ Seluruh input diuji terhadap:
 
 Pengujian meliputi:
 
-* MIME Type Validation
-* File Size Limit
-* Extension Validation
-* Malware Detection (bila tersedia)
-* Executable File Blocking
+- MIME Type Validation
+- File Size Limit
+- Extension Validation
+- Malware Detection (bila tersedia)
+- Executable File Blocking
 
 ---
 
@@ -122,11 +122,11 @@ Pengujian meliputi:
 
 Pengujian meliputi:
 
-* Secure Session ID
-* Session Expiration
-* Session Revocation
-* Cookie Security
-* CSRF Protection (jika menggunakan Cookie Authentication)
+- Secure Session ID
+- Session Expiration
+- Session Revocation
+- Cookie Security
+- CSRF Protection (jika menggunakan Cookie Authentication)
 
 ---
 
@@ -134,11 +134,11 @@ Pengujian meliputi:
 
 Memastikan:
 
-* Password di-hash menggunakan algoritma yang aman.
-* Secret tidak tersimpan di Source Code.
-* Data sensitif tidak muncul pada Log.
-* Backup terenkripsi.
-* Seluruh komunikasi menggunakan HTTPS/TLS.
+- Password di-hash menggunakan algoritma yang aman.
+- Secret tidak tersimpan di Source Code.
+- Data sensitif tidak muncul pada Log.
+- Backup terenkripsi.
+- Seluruh komunikasi menggunakan HTTPS/TLS.
 
 ---
 
@@ -146,12 +146,12 @@ Memastikan:
 
 Pengujian meliputi:
 
-* Firewall Configuration
-* Network Isolation
-* Open Port Review
-* TLS Configuration
-* Secret Management
-* Backup Security
+- Firewall Configuration
+- Network Isolation
+- Open Port Review
+- TLS Configuration
+- Secret Management
+- Backup Security
 
 ---
 
@@ -159,16 +159,16 @@ Pengujian meliputi:
 
 Pengujian minimal mencakup:
 
-* Broken Access Control
-* Cryptographic Failures
-* Injection
-* Insecure Design
-* Security Misconfiguration
-* Vulnerable Components
-* Authentication Failures
-* Software & Data Integrity Failures
-* Logging & Monitoring Failures
-* Server-Side Request Forgery (SSRF)
+- Broken Access Control
+- Cryptographic Failures
+- Injection
+- Insecure Design
+- Security Misconfiguration
+- Vulnerable Components
+- Authentication Failures
+- Software & Data Integrity Failures
+- Logging & Monitoring Failures
+- Server-Side Request Forgery (SSRF)
 
 ---
 
@@ -176,13 +176,13 @@ Pengujian minimal mencakup:
 
 Parameter yang dipantau:
 
-* Critical Vulnerability
-* High Vulnerability
-* Medium Vulnerability
-* Low Vulnerability
-* Failed Login Attempts
-* Suspicious Activity
-* Security Alerts
+- Critical Vulnerability
+- High Vulnerability
+- Medium Vulnerability
+- Low Vulnerability
+- Failed Login Attempts
+- Suspicious Activity
+- Security Alerts
 
 ---
 
@@ -190,13 +190,13 @@ Parameter yang dipantau:
 
 Laporan Security Testing minimal berisi:
 
-* Scope Pengujian
-* Metode Pengujian
-* Daftar Temuan
-* Tingkat Risiko
-* Bukti Temuan
-* Rekomendasi Perbaikan
-* Status Penyelesaian
+- Scope Pengujian
+- Metode Pengujian
+- Daftar Temuan
+- Tingkat Risiko
+- Bukti Temuan
+- Rekomendasi Perbaikan
+- Status Penyelesaian
 
 ---
 
@@ -204,38 +204,38 @@ Laporan Security Testing minimal berisi:
 
 Security Testing dinyatakan selesai apabila:
 
-* Tidak ada Critical Vulnerability.
-* Tidak ada High Vulnerability yang belum ditangani.
-* Seluruh temuan terdokumentasi.
-* Risiko yang tersisa telah disetujui oleh Technical Lead.
+- Tidak ada Critical Vulnerability.
+- Tidak ada High Vulnerability yang belum ditangani.
+- Seluruh temuan terdokumentasi.
+- Risiko yang tersisa telah disetujui oleh Technical Lead.
 
 ---
 
 # Best Practices
 
-* Lakukan Security Testing pada setiap Release Candidate.
-* Terapkan Security Scan otomatis pada CI/CD.
-* Perbarui dependency secara berkala.
-* Gunakan prinsip Least Privilege.
-* Lakukan Penetration Test secara berkala untuk Production.
-* Dokumentasikan seluruh temuan dan tindak lanjut.
+- Lakukan Security Testing pada setiap Release Candidate.
+- Terapkan Security Scan otomatis pada CI/CD.
+- Perbarui dependency secara berkala.
+- Gunakan prinsip Least Privilege.
+- Lakukan Penetration Test secara berkala untuk Production.
+- Dokumentasikan seluruh temuan dan tindak lanjut.
 
 ---
 
 # Related Documents
 
-* README.md
-* test-plan.md
-* performance-testing.md
-* 03-development/security-guidelines.md
-* 09-infrastructure/
+- README.md
+- test-plan.md
+- performance-testing.md
+- 03-development/security-guidelines.md
+- 09-infrastructure/
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh modul telah melalui Security Testing.
-* Tidak ada Critical maupun High Vulnerability sebelum Production.
-* Seluruh temuan terdokumentasi dan ditindaklanjuti.
-* Standar OWASP diterapkan.
-* Security Testing menjadi acuan resmi pengujian keamanan LIM Digital Platform.
+- Seluruh modul telah melalui Security Testing.
+- Tidak ada Critical maupun High Vulnerability sebelum Production.
+- Seluruh temuan terdokumentasi dan ditindaklanjuti.
+- Standar OWASP diterapkan.
+- Security Testing menjadi acuan resmi pengujian keamanan LIM Digital Platform.

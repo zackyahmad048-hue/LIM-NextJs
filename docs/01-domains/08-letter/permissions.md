@@ -102,16 +102,16 @@ letter.sign
 
 | Permission | Super Admin | Admin | Secretary | Operator |
 | ---------- | :---------: | :---: | :-------: | :------: |
-| View       |      ✅      |   ✅   |     ✅     |     ✅    |
-| Create     |      ✅      |   ✅   |     ✅     |     ✅    |
-| Update     |      ✅      |   ✅   |     ✅     |     ✅    |
-| Delete     |      ✅      |   ❌   |     ❌     |     ❌    |
-| Submit     |      ✅      |   ✅   |     ✅     |     ✅    |
-| Approve    |      ✅      |   ✅   |     ✅     |     ❌    |
-| Sign       |      ✅      |   ✅   |     ✅     |     ❌    |
-| Send       |      ✅      |   ✅   |     ✅     |     ✅    |
-| Archive    |      ✅      |   ✅   |     ✅     |     ❌    |
-| Restore    |      ✅      |   ✅   |     ✅     |     ❌    |
+| View       |     ✅      |  ✅   |    ✅     |    ✅    |
+| Create     |     ✅      |  ✅   |    ✅     |    ✅    |
+| Update     |     ✅      |  ✅   |    ✅     |    ✅    |
+| Delete     |     ✅      |  ❌   |    ❌     |    ❌    |
+| Submit     |     ✅      |  ✅   |    ✅     |    ✅    |
+| Approve    |     ✅      |  ✅   |    ✅     |    ❌    |
+| Sign       |     ✅      |  ✅   |    ✅     |    ❌    |
+| Send       |     ✅      |  ✅   |    ✅     |    ✅    |
+| Archive    |     ✅      |  ✅   |    ✅     |    ❌    |
+| Restore    |     ✅      |  ✅   |    ✅     |    ❌    |
 
 ---
 
@@ -143,19 +143,19 @@ letter.view
 
 # Business Rules
 
-* Authentication wajib dilakukan.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403.
-* Tombol aksi mengikuti permission pengguna.
-* Approval dan Signature hanya dapat dilakukan oleh Role yang berwenang.
+- Authentication wajib dilakukan.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403.
+- Tombol aksi mengikuti permission pengguna.
+- Approval dan Signature hanya dapat dilakukan oleh Role yang berwenang.
 
 ---
 
 # Security Rules
 
-* Pemeriksaan permission dilakukan pada Service Layer.
-* Permission tidak boleh dilewati.
-* Seluruh perubahan dicatat pada Audit Log.
+- Pemeriksaan permission dilakukan pada Service Layer.
+- Permission tidak boleh dilewati.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -177,21 +177,21 @@ letter.verify
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role.
-* Aksi tanpa permission ditolak.
-* Mengikuti standar RBAC.
+- Seluruh fitur memiliki permission.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role.
+- Aksi tanpa permission ditolak.
+- Mengikuti standar RBAC.

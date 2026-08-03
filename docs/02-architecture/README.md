@@ -24,12 +24,12 @@ Dokumen ini menjadi acuan utama bagi Software Architect, Backend Developer, Fron
 
 Folder Architecture bertujuan untuk:
 
-* Menjelaskan arsitektur sistem secara menyeluruh.
-* Menetapkan standar implementasi arsitektur.
-* Menjaga konsistensi antar domain.
-* Mengurangi technical debt.
-* Memudahkan onboarding developer baru.
-* Menjadi referensi utama dalam pengembangan aplikasi.
+- Menjelaskan arsitektur sistem secara menyeluruh.
+- Menetapkan standar implementasi arsitektur.
+- Menjaga konsistensi antar domain.
+- Mengurangi technical debt.
+- Memudahkan onboarding developer baru.
+- Menjadi referensi utama dalam pengembangan aplikasi.
 
 ---
 
@@ -37,15 +37,15 @@ Folder Architecture bertujuan untuk:
 
 Folder ini mencakup:
 
-* System Architecture
-* Domain Architecture
-* Context Mapping
-* Clean Architecture
-* Hexagonal Architecture
-* Event Driven Architecture
-* CQRS
-* Dependency Rules
-* Folder Structure
+- System Architecture
+- Domain Architecture
+- Context Mapping
+- Clean Architecture
+- Hexagonal Architecture
+- Event Driven Architecture
+- CQRS
+- Dependency Rules
+- Folder Structure
 
 ---
 
@@ -89,28 +89,28 @@ data-privacy.md
 
 LIM Digital Platform dibangun menggunakan prinsip:
 
-* Domain Driven Design (DDD)
-* Clean Architecture
-* Hexagonal Architecture
-* SOLID Principles
-* Repository Pattern
-* CQRS (Selective)
-* Event Driven Architecture
-* RESTful API
-* RBAC Security
-* Audit Logging
+- Domain Driven Design (DDD)
+- Clean Architecture
+- Hexagonal Architecture
+- SOLID Principles
+- Repository Pattern
+- CQRS (Selective)
+- Event Driven Architecture
+- RESTful API
+- RBAC Security
+- Audit Logging
 
 ---
 
 # Architecture Goals
 
-* Modular
-* Maintainable
-* Testable
-* Scalable
-* Secure
-* Extensible
-* Observable
+- Modular
+- Maintainable
+- Testable
+- Scalable
+- Secure
+- Extensible
+- Observable
 
 ---
 
@@ -138,11 +138,11 @@ Infrastructure
 
 Seluruh domain menggunakan layanan bersama:
 
-* Authentication
-* Authorization
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- Media
+- Notification
+- Settings
 
 ---
 
@@ -150,20 +150,20 @@ Seluruh domain menggunakan layanan bersama:
 
 Domain inti sistem:
 
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Falak
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Falak
 
 ---
 
 # Supporting Domains
 
-* CMS
-* Dashboard
-* Knowledge
+- CMS
+- Dashboard
+- Knowledge
 
 ---
 
@@ -190,12 +190,12 @@ Dokumen pada folder ini dibaca dengan urutan:
 
 # Related Documents
 
-* 00-overview/
-* 01-domains/
-* 03-development/
-* 04-deployment/
-* 05-decisions/
-* 06-references/
+- 00-overview/
+- 01-domains/
+- 03-development/
+- 04-deployment/
+- 05-decisions/
+- 06-references/
 
 ---
 
@@ -207,7 +207,7 @@ Dokumen pada folder ini dibaca dengan urutan:
 
 # Acceptance Criteria
 
-* Seluruh prinsip arsitektur terdokumentasi.
-* Hubungan antar domain dijelaskan.
-* Dependency antar layer jelas.
-* Menjadi acuan implementasi seluruh developer.
+- Seluruh prinsip arsitektur terdokumentasi.
+- Hubungan antar domain dijelaskan.
+- Dependency antar layer jelas.
+- Menjadi acuan implementasi seluruh developer.

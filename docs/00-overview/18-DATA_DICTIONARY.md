@@ -24,10 +24,10 @@ Dokumen ini bukan spesifikasi tabel database, melainkan kamus data proyek.
 
 Seluruh istilah harus:
 
-* Memiliki satu arti yang jelas.
-* Digunakan secara konsisten.
-* Tidak memiliki nama berbeda untuk objek yang sama.
-* Mengikuti bahasa domain organisasi.
+- Memiliki satu arti yang jelas.
+- Digunakan secara konsisten.
+- Tidak memiliki nama berbeda untuk objek yang sama.
+- Mengikuti bahasa domain organisasi.
 
 ---
 
@@ -99,9 +99,9 @@ Kelompok hak akses.
 
 Contoh:
 
-* Super Admin
-* Admin
-* Editor
+- Super Admin
+- Admin
+- Editor
 
 ---
 
@@ -111,9 +111,9 @@ Hak akses spesifik terhadap suatu aksi.
 
 Contoh:
 
-* user.create
-* user.update
-* post.publish
+- user.create
+- user.update
+- post.publish
 
 ---
 
@@ -157,9 +157,9 @@ Kegiatan resmi organisasi.
 
 Contoh:
 
-* Safari Ramadan
-* Wajib Khidmah
-* Pelatihan
+- Safari Ramadan
+- Wajib Khidmah
+- Pelatihan
 
 ---
 
@@ -233,9 +233,9 @@ File digital.
 
 Contoh:
 
-* Gambar
-* Dokumen
-* Video
+- Gambar
+- Dokumen
+- Video
 
 ---
 
@@ -426,9 +426,9 @@ Data yang dapat diakses oleh publik.
 
 Contoh:
 
-* Berita
-* Agenda
-* Profil Organisasi
+- Berita
+- Agenda
+- Profil Organisasi
 
 ---
 
@@ -438,9 +438,9 @@ Data yang hanya dapat diakses oleh pengguna internal.
 
 Contoh:
 
-* Program
-* Surat
-* Arsip
+- Program
+- Surat
+- Arsip
 
 ---
 
@@ -450,10 +450,10 @@ Data dengan akses terbatas.
 
 Contoh:
 
-* Data Pengguna
-* Hak Akses
-* Audit Log
-* Konfigurasi Sistem
+- Data Pengguna
+- Hak Akses
+- Audit Log
+- Konfigurasi Sistem
 
 ---
 
@@ -461,11 +461,11 @@ Contoh:
 
 Dokumen ini berkaitan dengan:
 
-* Business Rules
-* Database
-* API
-* Architecture
-* Security
+- Business Rules
+- Database
+- API
+- Architecture
+- Security
 
 ---
 

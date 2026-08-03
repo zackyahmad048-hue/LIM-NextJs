@@ -26,11 +26,11 @@ Docker digunakan sebagai platform container utama, dengan dukungan orkestrasi me
 
 Container Platform bertujuan untuk:
 
-* Menyeragamkan lingkungan Development.
-* Mempermudah Deployment.
-* Mendukung Horizontal Scaling.
-* Mengisolasi setiap layanan.
-* Mempermudah proses CI/CD.
+- Menyeragamkan lingkungan Development.
+- Mempermudah Deployment.
+- Mendukung Horizontal Scaling.
+- Mengisolasi setiap layanan.
+- Mempermudah proses CI/CD.
 
 ---
 
@@ -38,11 +38,11 @@ Container Platform bertujuan untuk:
 
 Container Platform terdiri dari:
 
-* Docker
-* Docker Compose
-* Container Registry
-* Kubernetes (Roadmap Production)
-* GitHub Actions CI/CD
+- Docker
+- Docker Compose
+- Container Registry
+- Kubernetes (Roadmap Production)
+- GitHub Actions CI/CD
 
 ---
 
@@ -92,8 +92,8 @@ Monitoring Stack
 
 Menjalankan:
 
-* Web Application
-* Static Assets
+- Web Application
+- Static Assets
 
 ---
 
@@ -101,9 +101,9 @@ Menjalankan:
 
 Menjalankan:
 
-* REST API
-* Authentication
-* Business Logic
+- REST API
+- Authentication
+- Business Logic
 
 ---
 
@@ -111,10 +111,10 @@ Menjalankan:
 
 Menjalankan:
 
-* Notification
-* Queue Processing
-* PDF Generation
-* Background Job
+- Notification
+- Queue Processing
+- PDF Generation
+- Background Job
 
 ---
 
@@ -122,10 +122,10 @@ Menjalankan:
 
 Menjalankan:
 
-* Cron Job
-* Reminder
-* Cleanup
-* Scheduled Task
+- Cron Job
+- Reminder
+- Cleanup
+- Scheduled Task
 
 ---
 
@@ -141,10 +141,10 @@ Persistent Volume wajib digunakan.
 
 Digunakan untuk:
 
-* Cache
-* Queue
-* Session
-* Rate Limiting
+- Cache
+- Queue
+- Session
+- Rate Limiting
 
 ---
 
@@ -154,8 +154,8 @@ Seluruh container berada pada Internal Network.
 
 Akses langsung hanya diberikan kepada:
 
-* Reverse Proxy
-* Monitoring
+- Reverse Proxy
+- Monitoring
 
 Database dan Redis tidak boleh diekspos ke Internet.
 
@@ -165,10 +165,10 @@ Database dan Redis tidak boleh diekspos ke Internet.
 
 Persistent Volume digunakan untuk:
 
-* PostgreSQL
-* Redis (opsional sesuai konfigurasi)
-* Uploaded Files
-* Logs
+- PostgreSQL
+- Redis (opsional sesuai konfigurasi)
+- Uploaded Files
+- Logs
 
 Container aplikasi bersifat stateless.
 
@@ -202,10 +202,10 @@ Secret tidak boleh disimpan di dalam Image.
 
 Seluruh Image harus:
 
-* Menggunakan Base Image resmi.
-* Memiliki Version Tag.
-* Dipindai terhadap Vulnerability.
-* Dibangun melalui CI/CD Pipeline.
+- Menggunakan Base Image resmi.
+- Memiliki Version Tag.
+- Dipindai terhadap Vulnerability.
+- Dibangun melalui CI/CD Pipeline.
 
 Contoh:
 
@@ -223,16 +223,16 @@ lim-web:1.0.0
 
 Development:
 
-* Docker Compose
+- Docker Compose
 
 Testing:
 
-* Docker Compose / Kubernetes
+- Docker Compose / Kubernetes
 
 Production:
 
-* Kubernetes (Recommended)
-* Docker Compose (Small Deployment)
+- Kubernetes (Recommended)
+- Docker Compose (Small Deployment)
 
 ---
 
@@ -240,14 +240,14 @@ Production:
 
 Service yang dapat di-scale:
 
-* API
-* Worker
-* Frontend
+- API
+- Worker
+- Frontend
 
 Service yang tidak di-scale sembarangan:
 
-* Scheduler
-* Database
+- Scheduler
+- Database
 
 ---
 
@@ -255,9 +255,9 @@ Service yang tidak di-scale sembarangan:
 
 Setiap container wajib menyediakan:
 
-* Liveness Probe
-* Readiness Probe
-* Startup Probe
+- Liveness Probe
+- Readiness Probe
+- Startup Probe
 
 Container yang gagal Health Check harus direstart secara otomatis.
 
@@ -267,8 +267,8 @@ Container yang gagal Health Check harus direstart secara otomatis.
 
 Seluruh container mengirim log ke:
 
-* STDOUT
-* Centralized Logging
+- STDOUT
+- Centralized Logging
 
 Log tidak disimpan permanen di dalam container.
 
@@ -278,12 +278,12 @@ Log tidak disimpan permanen di dalam container.
 
 Container wajib:
 
-* Menjalankan Non-Root User.
-* Menggunakan Read-Only Filesystem bila memungkinkan.
-* Tidak menyimpan Secret di Image.
-* Menggunakan Image resmi dan terbaru.
-* Memiliki Vulnerability Scanning.
-* Menggunakan Network Isolation.
+- Menjalankan Non-Root User.
+- Menggunakan Read-Only Filesystem bila memungkinkan.
+- Tidak menyimpan Secret di Image.
+- Menggunakan Image resmi dan terbaru.
+- Memiliki Vulnerability Scanning.
+- Menggunakan Network Isolation.
 
 ---
 
@@ -291,40 +291,40 @@ Container wajib:
 
 Monitoring dilakukan terhadap:
 
-* CPU Usage
-* Memory Usage
-* Container Restart
-* Health Status
-* Network Traffic
-* Disk Usage
+- CPU Usage
+- Memory Usage
+- Container Restart
+- Health Status
+- Network Traffic
+- Disk Usage
 
 ---
 
 # Best Practices
 
-* Satu container untuk satu layanan utama.
-* Gunakan Multi-Stage Build untuk Image Production.
-* Hindari menyimpan data penting di dalam container.
-* Gunakan Version Tag yang konsisten.
-* Build Image melalui CI/CD Pipeline.
-* Terapkan prinsip Immutable Container.
+- Satu container untuk satu layanan utama.
+- Gunakan Multi-Stage Build untuk Image Production.
+- Hindari menyimpan data penting di dalam container.
+- Gunakan Version Tag yang konsisten.
+- Build Image melalui CI/CD Pipeline.
+- Terapkan prinsip Immutable Container.
 
 ---
 
 # Related Documents
 
-* README.md
-* server-architecture.md
-* database-infrastructure.md
-* cache-infrastructure.md
-* monitoring-infrastructure.md
+- README.md
+- server-architecture.md
+- database-infrastructure.md
+- cache-infrastructure.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh layanan berjalan dalam container.
-* Environment konsisten pada seluruh Deployment.
-* Container bersifat Stateless.
-* Monitoring dan Health Check aktif.
-* Container Platform menjadi acuan resmi implementasi container LIM Digital Platform.
+- Seluruh layanan berjalan dalam container.
+- Environment konsisten pada seluruh Deployment.
+- Container bersifat Stateless.
+- Monitoring dan Health Check aktif.
+- Container Platform menjadi acuan resmi implementasi container LIM Digital Platform.

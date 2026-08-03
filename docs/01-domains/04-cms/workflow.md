@@ -274,11 +274,11 @@ Return Result
 
 Pencarian dapat menggunakan:
 
-* Judul
-* Slug
-* Category
-* Tag
-* Status
+- Judul
+- Slug
+- Category
+- Tag
+- Status
 
 ---
 
@@ -358,14 +358,14 @@ Error harus ditampilkan dengan pesan yang mudah dipahami.
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -373,8 +373,8 @@ Error harus ditampilkan dengan pesan yang mudah dipahami.
 
 Workflow CMS dianggap selesai apabila:
 
-* Konten mengikuti siklus Draft → Published → Archived.
-* Slug selalu unik.
-* Seluruh aksi melalui validasi dan Permission Check.
-* Soft Delete digunakan untuk penghapusan.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Konten mengikuti siklus Draft → Published → Archived.
+- Slug selalu unik.
+- Seluruh aksi melalui validasi dan Permission Check.
+- Soft Delete digunakan untuk penghapusan.
+- Seluruh aktivitas tercatat pada Audit Log.

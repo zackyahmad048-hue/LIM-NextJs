@@ -22,9 +22,9 @@ Dashboard tidak menerima input bisnis dari pengguna sehingga validasi hanya dite
 
 Dashboard hanya menerima request yang telah:
 
-* Terautentikasi.
-* Memiliki Session yang valid.
-* Memiliki Permission yang sesuai.
+- Terautentikasi.
+- Memiliki Session yang valid.
+- Memiliki Permission yang sesuai.
 
 ---
 
@@ -38,9 +38,9 @@ Number
 
 Aturan:
 
-* Minimum: 1
-* Maximum: 100
-* Default: 10
+- Minimum: 1
+- Maximum: 100
+- Default: 10
 
 ---
 
@@ -52,8 +52,8 @@ Number
 
 Aturan:
 
-* Minimum: 1
-* Default: 1
+- Minimum: 1
+- Default: 1
 
 ---
 
@@ -61,10 +61,10 @@ Aturan:
 
 Nilai yang diperbolehkan:
 
-* today
-* week
-* month
-* year
+- today
+- week
+- month
+- year
 
 ---
 
@@ -80,9 +80,9 @@ Maksimal 100 karakter.
 
 Dashboard wajib memvalidasi:
 
-* Session aktif.
-* User aktif.
-* Role aktif.
+- Session aktif.
+- User aktif.
+- Role aktif.
 
 ---
 
@@ -96,9 +96,9 @@ Dashboard wajib memvalidasi Permission sebelum mengambil data.
 
 Dashboard hanya menampilkan:
 
-* Data aktif.
-* Data yang belum dihapus.
-* Data yang boleh diakses pengguna.
+- Data aktif.
+- Data yang belum dihapus.
+- Data yang boleh diakses pengguna.
 
 ---
 
@@ -106,24 +106,24 @@ Dashboard hanya menampilkan:
 
 Apabila validasi gagal:
 
-* 401 Unauthorized
-* 403 Forbidden
-* 422 Validation Error
+- 401 Unauthorized
+- 403 Forbidden
+- 422 Validation Error
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* permissions.md
-* api.md
+- README.md
+- business-rules.md
+- permissions.md
+- api.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh request tervalidasi.
-* Parameter tidak valid ditolak.
-* Session wajib aktif.
-* Permission wajib diperiksa.
+- Seluruh request tervalidasi.
+- Parameter tidak valid ditolak.
+- Session wajib aktif.
+- Permission wajib diperiksa.

@@ -32,22 +32,21 @@ Semua aplikasi menggunakan domain, service, dan database yang sama.
 
 Platform mengikuti prinsip berikut.
 
-* Documentation First
-* Architecture First
-* Domain Driven Design
-* Clean Architecture
-* Service Oriented
-* Repository Pattern
-* API Ready
-* Mobile Ready
-* Security First
-* Privacy by Default
-* Organization First
+- Documentation First
+- Architecture First
+- Domain Driven Design
+- Clean Architecture
+- Service Oriented
+- Repository Pattern
+- API Ready
+- Mobile Ready
+- Security First
+- Privacy by Default
+- Organization First
 
 ---
 
 # High Level Architecture
-
 
                   PostgreSQL
                        │
@@ -59,13 +58,15 @@ Platform mengikuti prinsip berikut.
                        │
         ┌──────────────┼──────────────┐
         │              │              │
- Server Actions     REST API     Background Jobs
-        │              │
-        ├───────┬──────┘
-        │       │
-   Admin     Website
-               │
-        Android / iOS
+
+Server Actions REST API Background Jobs
+│ │
+├───────┬──────┘
+│ │
+Admin Website
+│
+Android / iOS
+
 ```
 
 Seluruh aplikasi menggunakan business rules yang sama.
@@ -140,18 +141,17 @@ Settings
 
 Setiap domain memiliki:
 
-* Validation
-* Service
-* Repository
-* API
-* Documentation
+- Validation
+- Service
+- Repository
+- API
+- Documentation
 
 ---
 
 # Layer Architecture
 
 Setiap request mengikuti alur berikut.
-
 
 Presentation
 
@@ -174,6 +174,7 @@ Prisma
 ↓
 
 Database
+
 ```
 
 Layer tidak boleh dilewati.
@@ -334,7 +335,6 @@ Presentation
 
 # Authentication Flow
 
-
 User
 
 ↓
@@ -352,6 +352,7 @@ Authorization
 ↓
 
 Application
+
 ```
 
 ---
@@ -390,7 +391,6 @@ Database
 
 Android dan iOS menggunakan REST API yang sama.
 
-
 Android
 
 ↓
@@ -412,6 +412,7 @@ Database
 ↓
 
 iOS
+
 ```
 
 ---
@@ -476,3 +477,4 @@ Perubahan arsitektur hanya dapat dilakukan apabila:
 Arsitektur ini menjadi fondasi resmi LIM Digital Platform.
 
 Seluruh aplikasi—Website, Admin Portal, Mobile, REST API, dan Core Services—dibangun di atas arsitektur yang sama agar platform tetap konsisten, aman, mudah dipelihara, dan mampu berkembang mengikuti kebutuhan organisasi dalam jangka panjang.
+```

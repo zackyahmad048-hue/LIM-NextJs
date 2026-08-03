@@ -23,6 +23,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 **URL:** `/admin/login`
 
 **Layout:**
+
 - Centered card on dark background
 - App logo + name
 - Email input
@@ -31,6 +32,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 - Forgot password link
 
 **Components:**
+
 - `Input` (email)
 - `Input` (password, type=password)
 - `Button` (submit)
@@ -43,12 +45,14 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 **URL:** `/admin/forgot-password`
 
 **Layout:**
+
 - Centered card
 - Email input
 - Submit button
 - Back to login link
 
 **Components:**
+
 - `Input` (email)
 - `Button` (submit)
 - `Link` (back to login)
@@ -60,12 +64,14 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 **URL:** `/admin/reset-password?token=...`
 
 **Layout:**
+
 - Centered card
 - New password input
 - Confirm password input
 - Submit button
 
 **Components:**
+
 - `Input` (password)
 - `Input` (confirm password)
 - `Button` (submit)
@@ -77,6 +83,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 **URL:** `/admin/change-password` (authenticated)
 
 **Layout:**
+
 - Card in dashboard
 - Current password input
 - New password input
@@ -84,6 +91,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 - Submit button
 
 **Components:**
+
 - `Input` (current password)
 - `Input` (new password)
 - `Input` (confirm password)

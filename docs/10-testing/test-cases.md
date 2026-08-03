@@ -26,11 +26,11 @@ Seluruh Test Case harus dapat dijalankan berulang (repeatable), terdokumentasi, 
 
 Test Case bertujuan untuk:
 
-* Memverifikasi setiap fitur.
-* Menjamin implementasi sesuai spesifikasi.
-* Mempermudah Regression Testing.
-* Menjadi referensi QA dan Developer.
-* Mendukung otomatisasi pengujian.
+- Memverifikasi setiap fitur.
+- Menjamin implementasi sesuai spesifikasi.
+- Mempermudah Regression Testing.
+- Menjadi referensi QA dan Developer.
+- Mendukung otomatisasi pengujian.
 
 ---
 
@@ -38,17 +38,17 @@ Test Case bertujuan untuk:
 
 Setiap Test Case minimal memiliki:
 
-* Test Case ID
-* Module
-* Feature
-* Preconditions
-* Test Steps
-* Test Data
-* Expected Result
-* Actual Result
-* Status
-* Tester
-* Execution Date
+- Test Case ID
+- Module
+- Feature
+- Preconditions
+- Test Steps
+- Test Data
+- Expected Result
+- Actual Result
+- Status
+- Tester
+- Execution Date
 
 ---
 
@@ -60,12 +60,12 @@ Memastikan fitur bekerja sesuai kebutuhan.
 
 Contoh:
 
-* Login
-* Logout
-* CRUD Data
-* Search
-* Filter
-* Export
+- Login
+- Logout
+- CRUD Data
+- Search
+- Filter
+- Export
 
 ---
 
@@ -75,11 +75,11 @@ Menguji validasi input.
 
 Contoh:
 
-* Required Field
-* Format Email
-* Panjang Password
-* File Upload
-* Duplicate Data
+- Required Field
+- Format Email
+- Panjang Password
+- File Upload
+- Duplicate Data
 
 ---
 
@@ -89,9 +89,9 @@ Memastikan RBAC berjalan.
 
 Contoh:
 
-* Guest tidak dapat mengakses Dashboard.
-* User tidak dapat menghapus Role.
-* Admin dapat mengelola Program.
+- Guest tidak dapat mengakses Dashboard.
+- User tidak dapat menghapus Role.
+- Admin dapat mengelola Program.
 
 ---
 
@@ -99,11 +99,11 @@ Contoh:
 
 Memastikan:
 
-* Status Code
-* Response Body
-* Validation
-* Authentication
-* Authorization
+- Status Code
+- Response Body
+- Validation
+- Authentication
+- Authorization
 
 sesuai spesifikasi API.
 
@@ -113,11 +113,11 @@ sesuai spesifikasi API.
 
 Memastikan:
 
-* Layout
-* Responsiveness
-* Navigation
-* Theme
-* Accessibility
+- Layout
+- Responsiveness
+- Navigation
+- Theme
+- Accessibility
 
 berjalan sesuai Design System.
 
@@ -152,8 +152,8 @@ berjalan sesuai Design System.
 
 ### Preconditions
 
-* User aktif.
-* Email telah diverifikasi.
+- User aktif.
+- Email telah diverifikasi.
 
 ### Steps
 
@@ -164,10 +164,10 @@ berjalan sesuai Design System.
 
 ### Expected Result
 
-* Login berhasil.
-* Dashboard ditampilkan.
-* Session dibuat.
-* JWT diterbitkan.
+- Login berhasil.
+- Dashboard ditampilkan.
+- Session dibuat.
+- JWT diterbitkan.
 
 ---
 
@@ -175,12 +175,12 @@ berjalan sesuai Design System.
 
 Contoh:
 
-* Password salah.
-* Email tidak ditemukan.
-* Akun dinonaktifkan.
-* Session kedaluwarsa.
-* File melebihi batas ukuran.
-* Input tidak valid.
+- Password salah.
+- Email tidak ditemukan.
+- Akun dinonaktifkan.
+- Session kedaluwarsa.
+- File melebihi batas ukuran.
+- Input tidak valid.
 
 ---
 
@@ -188,12 +188,12 @@ Contoh:
 
 Contoh:
 
-* Input kosong.
-* Input maksimum.
-* Input minimum.
-* Karakter Unicode.
-* Karakter khusus.
-* Request berulang (Duplicate Submit).
+- Input kosong.
+- Input maksimum.
+- Input minimum.
+- Karakter Unicode.
+- Karakter khusus.
+- Request berulang (Duplicate Submit).
 
 ---
 
@@ -201,11 +201,11 @@ Contoh:
 
 Regression dilakukan pada:
 
-* Bug yang telah diperbaiki.
-* Fitur yang berubah.
-* API yang diperbarui.
-* Database Migration.
-* Release Candidate.
+- Bug yang telah diperbaiki.
+- Fitur yang berubah.
+- API yang diperbarui.
+- Database Migration.
+- Release Candidate.
 
 ---
 
@@ -213,13 +213,13 @@ Regression dilakukan pada:
 
 Test Case yang direkomendasikan untuk otomatisasi:
 
-* Authentication
-* Authorization
-* CRUD
-* API
-* Notification
-* Program Registration
-* Certificate Generation
+- Authentication
+- Authorization
+- CRUD
+- API
+- Notification
+- Program Registration
+- Certificate Generation
 
 ---
 
@@ -227,10 +227,10 @@ Test Case yang direkomendasikan untuk otomatisasi:
 
 Setiap Test Case harus memiliki keterkaitan dengan:
 
-* Functional Requirement
-* Technical Specification
-* Acceptance Criteria
-* Bug Report
+- Functional Requirement
+- Technical Specification
+- Acceptance Criteria
+- Bug Report
 
 ---
 
@@ -238,12 +238,12 @@ Setiap Test Case harus memiliki keterkaitan dengan:
 
 Status Test Case:
 
-* Not Started
-* In Progress
-* Passed
-* Failed
-* Blocked
-* Skipped
+- Not Started
+- In Progress
+- Passed
+- Failed
+- Blocked
+- Skipped
 
 ---
 
@@ -251,39 +251,39 @@ Status Test Case:
 
 Hasil pengujian minimal memuat:
 
-* Total Test Case
-* Passed
-* Failed
-* Blocked
-* Pass Rate
-* Daftar Bug
+- Total Test Case
+- Passed
+- Failed
+- Blocked
+- Pass Rate
+- Daftar Bug
 
 ---
 
 # Best Practices
 
-* Satu Test Case menguji satu skenario utama.
-* Gunakan Test Data yang realistis.
-* Hindari ketergantungan antar Test Case.
-* Beri ID yang konsisten.
-* Perbarui Test Case ketika Requirement berubah.
+- Satu Test Case menguji satu skenario utama.
+- Gunakan Test Data yang realistis.
+- Hindari ketergantungan antar Test Case.
+- Beri ID yang konsisten.
+- Perbarui Test Case ketika Requirement berubah.
 
 ---
 
 # Related Documents
 
-* README.md
-* test-plan.md
-* uat.md
-* performance-testing.md
-* security-testing.md
+- README.md
+- test-plan.md
+- uat.md
+- performance-testing.md
+- security-testing.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki Test Case.
-* Test Case dapat dijalankan berulang.
-* Test Case memiliki Expected Result yang jelas.
-* Traceability terhadap spesifikasi tersedia.
-* Test Cases menjadi acuan resmi pengujian LIM Digital Platform.
+- Seluruh fitur memiliki Test Case.
+- Test Case dapat dijalankan berulang.
+- Test Case memiliki Expected Result yang jelas.
+- Traceability terhadap spesifikasi tersedia.
+- Test Cases menjadi acuan resmi pengujian LIM Digital Platform.

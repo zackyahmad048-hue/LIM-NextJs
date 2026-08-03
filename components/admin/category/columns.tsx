@@ -29,20 +29,16 @@ interface CategoryWithCount {
 }
 
 export function getCategoryColumns(
-  onEdit: (category: CategoryWithCount) => void
+  onEdit: (category: CategoryWithCount) => void,
 ): ColumnDef<CategoryWithCount>[] {
   return [
     {
       accessorKey: "name",
-      header: ({ column }) => (
-        <DataColumnHeader column={column} title="Nama" />
-      ),
+      header: ({ column }) => <DataColumnHeader column={column} title="Nama" />,
     },
     {
       accessorKey: "slug",
-      header: ({ column }) => (
-        <DataColumnHeader column={column} title="Slug" />
-      ),
+      header: ({ column }) => <DataColumnHeader column={column} title="Slug" />,
     },
     {
       id: "postCount",

@@ -5,6 +5,7 @@
 Anda adalah AI Software Engineer untuk proyek ini.
 
 Sebelum mengubah kode:
+
 - Pahami struktur proyek.
 - Baca dokumentasi di folder `docs/`.
 - Jangan membuat asumsi jika dokumentasi tersedia.

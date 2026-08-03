@@ -113,13 +113,13 @@ cms.category.delete
 
 | Permission | Super Admin | Admin | Editor |
 | ---------- | :---------: | :---: | :----: |
-| View       |      ✅      |   ✅   |    ✅   |
-| Create     |      ✅      |   ✅   |    ✅   |
-| Update     |      ✅      |   ✅   |    ✅   |
-| Delete     |      ✅      |   ✅   |    ❌   |
-| Publish    |      ✅      |   ✅   |    ✅   |
-| Archive    |      ✅      |   ✅   |    ✅   |
-| Restore    |      ✅      |   ✅   |    ❌   |
+| View       |     ✅      |  ✅   |   ✅   |
+| Create     |     ✅      |  ✅   |   ✅   |
+| Update     |     ✅      |  ✅   |   ✅   |
+| Delete     |     ✅      |  ✅   |   ❌   |
+| Publish    |     ✅      |  ✅   |   ✅   |
+| Archive    |     ✅      |  ✅   |   ✅   |
+| Restore    |     ✅      |  ✅   |   ❌   |
 
 Hak akses dapat disesuaikan berdasarkan kebutuhan organisasi.
 
@@ -127,10 +127,10 @@ Hak akses dapat disesuaikan berdasarkan kebutuhan organisasi.
 
 # Permission Rules
 
-* Pengguna harus login sebelum Permission diperiksa.
-* Permission diperiksa pada setiap request.
-* Menu CMS hanya ditampilkan apabila pengguna memiliki `cms.*.view`.
-* Tombol aksi (Create, Update, Delete, Publish) hanya ditampilkan apabila pengguna memiliki permission terkait.
+- Pengguna harus login sebelum Permission diperiksa.
+- Permission diperiksa pada setiap request.
+- Menu CMS hanya ditampilkan apabila pengguna memiliki `cms.*.view`.
+- Tombol aksi (Create, Update, Delete, Publish) hanya ditampilkan apabila pengguna memiliki permission terkait.
 
 ---
 
@@ -138,22 +138,22 @@ Hak akses dapat disesuaikan berdasarkan kebutuhan organisasi.
 
 CMS wajib:
 
-* Menolak request tanpa permission.
-* Mengembalikan HTTP 403 apabila akses ditolak.
-* Mencatat perubahan penting ke Audit Log.
+- Menolak request tanpa permission.
+- Mengembalikan HTTP 403 apabila akses ditolak.
+- Mencatat perubahan penting ke Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -161,7 +161,7 @@ CMS wajib:
 
 Permission CMS dianggap selesai apabila:
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada API dan UI.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak oleh sistem.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada API dan UI.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak oleh sistem.

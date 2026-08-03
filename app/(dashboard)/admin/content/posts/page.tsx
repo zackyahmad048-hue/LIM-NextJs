@@ -32,7 +32,11 @@ function getPostStatus(post: { published: boolean; publishedAt: Date | null }) {
 
 function StatusBadge({ status }: { status: string }) {
   const variant =
-    status === "Published" ? "default" : status === "Archived" ? "secondary" : "outline";
+    status === "Published"
+      ? "default"
+      : status === "Archived"
+        ? "secondary"
+        : "outline";
 
   return (
     <Badge variant={variant} className="h-5 px-2 text-[11px]">
@@ -69,14 +73,18 @@ export default async function PostsPage() {
             render: (post) => (
               <div className="max-w-[320px]">
                 <p className="truncate text-sm font-medium">{post.title}</p>
-                <p className="truncate text-xs text-muted-foreground">/{post.slug}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  /{post.slug}
+                </p>
               </div>
             ),
           },
           {
             key: "kategori",
             label: "Kategori",
-            render: (post) => <span className="text-xs">{post.category.name}</span>,
+            render: (post) => (
+              <span className="text-xs">{post.category.name}</span>
+            ),
           },
           {
             key: "status",
@@ -86,7 +94,9 @@ export default async function PostsPage() {
           {
             key: "author",
             label: "Author",
-            render: (post) => <span className="text-xs">{post.author.name}</span>,
+            render: (post) => (
+              <span className="text-xs">{post.author.name}</span>
+            ),
           },
           {
             key: "aksi",
@@ -123,7 +133,11 @@ export default async function PostsPage() {
                     </form>
                   )}
                   <form action={deletePost.bind(null, post.id)}>
-                    <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-destructive hover:text-destructive"
+                    >
                       <Trash2 className="size-3.5" />
                     </Button>
                   </form>
@@ -146,7 +160,10 @@ export default async function PostsPage() {
         emptyMessage={
           <>
             Belum ada berita.{" "}
-            <Link href="/admin/content/posts/new" className="text-primary underline">
+            <Link
+              href="/admin/content/posts/new"
+              className="text-primary underline"
+            >
               Tulis berita pertama
             </Link>
           </>

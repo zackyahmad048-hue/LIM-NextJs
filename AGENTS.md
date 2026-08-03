@@ -1,4 +1,5 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
@@ -72,3 +73,17 @@ docs/                      # Master docs (Indonesian); docs/README.md is the map
 - No `.prettierrc` (Prettier defaults); no test framework configured; husky/commitlint/lint-staged installed but unconfigured (no hooks)
 - ESLint ignores `.next/`, `out/`, `build/`, `next-env.d.ts`
 - `docs/` describes 14 domains, but only the modules above are implemented — organization, knowledge, certificate, notification are spec/roadmap-only (letter lives in `modules/secretariat`)
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs live as GitHub issues on this repo (via the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical triage labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context. Read `CONTEXT.md` (root) and ADRs in `docs/05-decisions/` before exploring. See `docs/agents/domain.md`.

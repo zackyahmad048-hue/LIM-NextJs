@@ -2,7 +2,10 @@ import { BaseRepository } from "@/modules/shared/infrastructure/base.repository"
 import type { UserRepository } from "../domain/user.repository";
 import { User } from "../domain/user.entity";
 
-export class PrismaUserRepository extends BaseRepository implements UserRepository {
+export class PrismaUserRepository
+  extends BaseRepository
+  implements UserRepository
+{
   async findByEmail(email: string): Promise<User | null> {
     const user = await this.db.user.findUnique({ where: { email } });
     if (!user) return null;

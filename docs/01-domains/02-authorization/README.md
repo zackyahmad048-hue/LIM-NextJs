@@ -26,20 +26,20 @@ Domain ini tidak menangani proses Login maupun Session. Hal tersebut menjadi tan
 
 Domain Authorization mencakup:
 
-* Role Management
-* Permission Management
-* Role Assignment
-* Permission Checking
-* Access Control
-* Menu Authorization
+- Role Management
+- Permission Management
+- Role Assignment
+- Permission Checking
+- Access Control
+- Menu Authorization
 
 Tidak mencakup:
 
-* Login
-* Logout
-* Session
-* Password
-* Email Verification
+- Login
+- Logout
+- Session
+- Password
+- Email Verification
 
 ---
 
@@ -47,10 +47,10 @@ Tidak mencakup:
 
 Tujuan domain ini adalah:
 
-* Mengatur hak akses pengguna.
-* Mencegah akses yang tidak sah.
-* Menyediakan sistem RBAC yang konsisten.
-* Mendukung pengembangan modul baru tanpa mengubah mekanisme otorisasi.
+- Mengatur hak akses pengguna.
+- Mencegah akses yang tidak sah.
+- Menyediakan sistem RBAC yang konsisten.
+- Mendukung pengembangan modul baru tanpa mengubah mekanisme otorisasi.
 
 ---
 
@@ -62,10 +62,10 @@ Memiliki akses penuh terhadap seluruh sistem.
 
 Hak:
 
-* Mengelola Role.
-* Mengelola Permission.
-* Menetapkan Role kepada User.
-* Mengakses seluruh modul.
+- Mengelola Role.
+- Mengelola Permission.
+- Menetapkan Role kepada User.
+- Mengakses seluruh modul.
 
 ---
 
@@ -99,10 +99,10 @@ Sekumpulan Permission.
 
 Contoh:
 
-* Super Admin
-* Admin
-* Editor
-* Operator
+- Super Admin
+- Admin
+- Editor
+- Operator
 
 ---
 
@@ -208,10 +208,10 @@ Domain tertentu dapat menambahkan aksi lain bila diperlukan.
 
 Role harus:
 
-* Memiliki nama unik.
-* Memiliki daftar Permission.
-* Dapat dinonaktifkan.
-* Tidak boleh dihapus apabila masih digunakan oleh User.
+- Memiliki nama unik.
+- Memiliki daftar Permission.
+- Dapat dinonaktifkan.
+- Tidak boleh dihapus apabila masih digunakan oleh User.
 
 ---
 
@@ -219,9 +219,9 @@ Role harus:
 
 Permission:
 
-* Bersifat unik.
-* Dikelompokkan berdasarkan domain.
-* Digunakan kembali oleh seluruh aplikasi.
+- Bersifat unik.
+- Dikelompokkan berdasarkan domain.
+- Digunakan kembali oleh seluruh aplikasi.
 
 Permission tidak dibuat secara dinamis oleh pengguna.
 
@@ -281,11 +281,11 @@ Menu yang tidak memiliki hak akses tidak ditampilkan.
 
 # Business Rules
 
-* User harus login sebelum dilakukan Permission Check.
-* Permission diperiksa pada setiap aksi yang memerlukan otorisasi.
-* Role tanpa Permission tidak memberikan akses.
-* Super Administrator memiliki akses penuh.
-* Permission menjadi dasar seluruh kontrol akses.
+- User harus login sebelum dilakukan Permission Check.
+- Permission diperiksa pada setiap aksi yang memerlukan otorisasi.
+- Role tanpa Permission tidak memberikan akses.
+- Super Administrator memiliki akses penuh.
+- Permission menjadi dasar seluruh kontrol akses.
 
 ---
 
@@ -293,8 +293,8 @@ Menu yang tidak memiliki hak akses tidak ditampilkan.
 
 Domain ini bergantung pada:
 
-* Authentication
-* User Repository
+- Authentication
+- User Repository
 
 ---
 
@@ -302,18 +302,18 @@ Domain ini bergantung pada:
 
 Authorization digunakan oleh seluruh domain:
 
-* Dashboard
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Knowledge
-* Falak
-* Media
-* Notification
-* Settings
+- Dashboard
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Knowledge
+- Falak
+- Media
+- Notification
+- Settings
 
 ---
 
@@ -321,10 +321,10 @@ Authorization digunakan oleh seluruh domain:
 
 Entitas utama:
 
-* Role
-* Permission
-* UserRole
-* RolePermission
+- Role
+- Permission
+- UserRole
+- RolePermission
 
 Detail dijelaskan pada `database.md`.
 
@@ -356,9 +356,9 @@ POST   /users/{id}/roles
 
 Authorization wajib:
 
-* Memeriksa Permission sebelum menjalankan Business Rules.
-* Menolak akses tanpa Permission yang sesuai.
-* Mencatat perubahan Role dan Permission pada Audit Log.
+- Memeriksa Permission sebelum menjalankan Business Rules.
+- Menolak akses tanpa Permission yang sesuai.
+- Mencatat perubahan Role dan Permission pada Audit Log.
 
 ---
 
@@ -366,12 +366,12 @@ Authorization wajib:
 
 Aktivitas berikut dicatat:
 
-* Create Role
-* Update Role
-* Delete Role
-* Assign Role
-* Remove Role
-* Update Permission
+- Create Role
+- Update Role
+- Delete Role
+- Assign Role
+- Remove Role
+- Update Permission
 
 ---
 
@@ -379,12 +379,12 @@ Aktivitas berikut dicatat:
 
 Domain Authorization dianggap selesai apabila:
 
-* Role dapat dikelola.
-* Permission dapat dikelola.
-* User dapat diberikan Role.
-* Permission diperiksa pada setiap aksi.
-* Menu mengikuti Permission pengguna.
-* Audit Log tercatat.
+- Role dapat dikelola.
+- Permission dapat dikelola.
+- User dapat diberikan Role.
+- Permission diperiksa pada setiap aksi.
+- Menu mengikuti Permission pengguna.
+- Audit Log tercatat.
 
 ---
 
@@ -392,11 +392,11 @@ Domain Authorization dianggap selesai apabila:
 
 Pengembangan berikutnya dapat mencakup:
 
-* Dynamic Permission Groups
-* Temporary Role Assignment
-* Organization-based Role
-* Permission Cache
-* Policy Based Authorization
+- Dynamic Permission Groups
+- Temporary Role Assignment
+- Organization-based Role
+- Permission Cache
+- Policy Based Authorization
 
 ---
 

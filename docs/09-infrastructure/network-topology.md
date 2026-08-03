@@ -18,11 +18,11 @@ Dokumen ini mendefinisikan arsitektur jaringan (Network Topology) yang digunakan
 
 Topologi jaringan dirancang untuk memberikan:
 
-* Keamanan
-* Skalabilitas
-* Ketersediaan tinggi (High Availability)
-* Performa
-* Kemudahan operasional
+- Keamanan
+- Skalabilitas
+- Ketersediaan tinggi (High Availability)
+- Performa
+- Kemudahan operasional
 
 ---
 
@@ -30,11 +30,11 @@ Topologi jaringan dirancang untuk memberikan:
 
 Network Topology bertujuan untuk:
 
-* Mengisolasi layanan berdasarkan fungsi.
-* Melindungi layanan internal.
-* Mengurangi attack surface.
-* Mendukung deployment cloud maupun on-premise.
-* Mempermudah monitoring dan troubleshooting.
+- Mengisolasi layanan berdasarkan fungsi.
+- Melindungi layanan internal.
+- Mengurangi attack surface.
+- Mendukung deployment cloud maupun on-premise.
+- Mempermudah monitoring dan troubleshooting.
 
 ---
 
@@ -96,9 +96,9 @@ Jaringan dibagi menjadi beberapa segmen.
 
 Berisi layanan yang dapat diakses publik:
 
-* Reverse Proxy
-* Load Balancer
-* Frontend
+- Reverse Proxy
+- Load Balancer
+- Frontend
 
 ---
 
@@ -106,10 +106,10 @@ Berisi layanan yang dapat diakses publik:
 
 Berisi:
 
-* Backend API
-* Worker
-* Scheduler
-* Internal API
+- Backend API
+- Worker
+- Scheduler
+- Internal API
 
 Tidak dapat diakses langsung dari Internet.
 
@@ -119,9 +119,9 @@ Tidak dapat diakses langsung dari Internet.
 
 Berisi:
 
-* PostgreSQL
-* Redis
-* Object Storage
+- PostgreSQL
+- Redis
+- Object Storage
 
 Hanya dapat diakses oleh Application Network.
 
@@ -131,11 +131,11 @@ Hanya dapat diakses oleh Application Network.
 
 Digunakan untuk:
 
-* Monitoring
-* Logging
-* Backup
-* Deployment
-* Administration
+- Monitoring
+- Logging
+- Backup
+- Deployment
+- Administration
 
 Akses dibatasi hanya untuk Administrator.
 
@@ -173,14 +173,14 @@ Response
 
 | Source        | Destination    | Allowed |
 | ------------- | -------------- | ------- |
-| Internet      | Reverse Proxy  | ✅       |
-| Reverse Proxy | Backend API    | ✅       |
-| Backend API   | PostgreSQL     | ✅       |
-| Backend API   | Redis          | ✅       |
-| Backend API   | Object Storage | ✅       |
-| Internet      | PostgreSQL     | ❌       |
-| Internet      | Redis          | ❌       |
-| Internet      | Monitoring     | ❌       |
+| Internet      | Reverse Proxy  | ✅      |
+| Reverse Proxy | Backend API    | ✅      |
+| Backend API   | PostgreSQL     | ✅      |
+| Backend API   | Redis          | ✅      |
+| Backend API   | Object Storage | ✅      |
+| Internet      | PostgreSQL     | ❌      |
+| Internet      | Redis          | ❌      |
+| Internet      | Monitoring     | ❌      |
 
 ---
 
@@ -188,10 +188,10 @@ Response
 
 Firewall wajib:
 
-* Menutup seluruh port yang tidak digunakan.
-* Mengizinkan hanya port layanan yang diperlukan.
-* Membatasi akses administratif.
-* Mendukung IP Allowlist untuk layanan internal.
+- Menutup seluruh port yang tidak digunakan.
+- Mengizinkan hanya port layanan yang diperlukan.
+- Membatasi akses administratif.
+- Mendukung IP Allowlist untuk layanan internal.
 
 ---
 
@@ -199,10 +199,10 @@ Firewall wajib:
 
 DNS digunakan untuk:
 
-* Website
-* API
-* Admin Portal
-* Monitoring (Internal)
+- Website
+- API
+- Admin Portal
+- Monitoring (Internal)
 
 Contoh:
 
@@ -220,9 +220,9 @@ admin.example.com
 
 Seluruh komunikasi publik wajib menggunakan:
 
-* HTTPS
-* TLS 1.2 atau lebih baru
-* Sertifikat yang valid
+- HTTPS
+- TLS 1.2 atau lebih baru
+- Sertifikat yang valid
 
 HTTP harus diarahkan (redirect) ke HTTPS.
 
@@ -232,10 +232,10 @@ HTTP harus diarahkan (redirect) ke HTTPS.
 
 Load Balancer mendukung:
 
-* Round Robin
-* Health Check
-* Session Persistence (jika diperlukan)
-* Automatic Failover
+- Round Robin
+- Health Check
+- Session Persistence (jika diperlukan)
+- Automatic Failover
 
 ---
 
@@ -243,12 +243,12 @@ Load Balancer mendukung:
 
 Network wajib menerapkan:
 
-* Firewall
-* HTTPS
-* Network Isolation
-* Rate Limiting
-* DDoS Protection (jika tersedia)
-* Secret Management
+- Firewall
+- HTTPS
+- Network Isolation
+- Rate Limiting
+- DDoS Protection (jika tersedia)
+- Secret Management
 
 ---
 
@@ -256,11 +256,11 @@ Network wajib menerapkan:
 
 Jaringan dipantau menggunakan:
 
-* Latency
-* Packet Loss
-* Availability
-* Traffic
-* Error Rate
+- Latency
+- Packet Loss
+- Availability
+- Traffic
+- Error Rate
 
 Alert dikirim ketika melewati ambang batas yang ditentukan.
 
@@ -268,27 +268,27 @@ Alert dikirim ketika melewati ambang batas yang ditentukan.
 
 # Best Practices
 
-* Jangan membuka akses langsung ke Database.
-* Pisahkan jaringan publik dan internal.
-* Gunakan Reverse Proxy sebagai titik masuk tunggal.
-* Terapkan prinsip Least Privilege pada akses jaringan.
-* Dokumentasikan setiap perubahan konfigurasi jaringan.
+- Jangan membuka akses langsung ke Database.
+- Pisahkan jaringan publik dan internal.
+- Gunakan Reverse Proxy sebagai titik masuk tunggal.
+- Terapkan prinsip Least Privilege pada akses jaringan.
+- Dokumentasikan setiap perubahan konfigurasi jaringan.
 
 ---
 
 # Related Documents
 
-* README.md
-* server-architecture.md
-* container-platform.md
-* monitoring-infrastructure.md
+- README.md
+- server-architecture.md
+- container-platform.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Jaringan tersegmentasi dengan jelas.
-* Database dan layanan internal tidak dapat diakses langsung dari Internet.
-* Seluruh komunikasi publik menggunakan HTTPS.
-* Firewall dan Network Isolation diterapkan.
-* Network Topology menjadi acuan resmi implementasi jaringan LIM Digital Platform.
+- Jaringan tersegmentasi dengan jelas.
+- Database dan layanan internal tidak dapat diakses langsung dari Internet.
+- Seluruh komunikasi publik menggunakan HTTPS.
+- Firewall dan Network Isolation diterapkan.
+- Network Topology menjadi acuan resmi implementasi jaringan LIM Digital Platform.

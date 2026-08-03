@@ -20,10 +20,10 @@ Domain Program menjadi pusat pengelolaan seluruh kegiatan organisasi mulai dari 
 
 # General Rules
 
-* Seluruh kegiatan organisasi harus terdaftar sebagai Program.
-* Setiap Program memiliki identitas yang unik.
-* Setiap Program dapat memiliki satu atau lebih agenda kegiatan.
-* Seluruh aktivitas Program dicatat pada Audit Log.
+- Seluruh kegiatan organisasi harus terdaftar sebagai Program.
+- Setiap Program memiliki identitas yang unik.
+- Setiap Program dapat memiliki satu atau lebih agenda kegiatan.
+- Seluruh aktivitas Program dicatat pada Audit Log.
 
 ---
 
@@ -31,13 +31,13 @@ Domain Program menjadi pusat pengelolaan seluruh kegiatan organisasi mulai dari 
 
 Setiap Program wajib memiliki:
 
-* Nama Program
-* Kode Program
-* Jenis Program
-* Penanggung Jawab
-* Tanggal Mulai
-* Tanggal Selesai
-* Status
+- Nama Program
+- Kode Program
+- Jenis Program
+- Penanggung Jawab
+- Tanggal Mulai
+- Tanggal Selesai
+- Status
 
 ---
 
@@ -95,56 +95,56 @@ Archived
 
 ## Draft
 
-* Belum dapat diakses peserta.
-* Masih dapat diubah.
+- Belum dapat diakses peserta.
+- Masih dapat diubah.
 
 ---
 
 ## Published
 
-* Dapat dilihat pengguna.
-* Belum tentu menerima pendaftaran.
+- Dapat dilihat pengguna.
+- Belum tentu menerima pendaftaran.
 
 ---
 
 ## Registration Open
 
-* Peserta dapat mendaftar.
+- Peserta dapat mendaftar.
 
 ---
 
 ## Registration Closed
 
-* Pendaftaran ditutup.
-* Data peserta tetap dapat dikelola.
+- Pendaftaran ditutup.
+- Data peserta tetap dapat dikelola.
 
 ---
 
 ## On Going
 
-* Program sedang berlangsung.
-* Absensi dapat dilakukan.
+- Program sedang berlangsung.
+- Absensi dapat dilakukan.
 
 ---
 
 ## Completed
 
-* Program selesai.
-* Sertifikat dapat diterbitkan.
+- Program selesai.
+- Sertifikat dapat diterbitkan.
 
 ---
 
 ## Cancelled
 
-* Program dibatalkan.
-* Tidak dapat menerima peserta.
+- Program dibatalkan.
+- Tidak dapat menerima peserta.
 
 ---
 
 ## Archived
 
-* Program menjadi arsip.
-* Tidak tampil pada daftar aktif.
+- Program menjadi arsip.
+- Tidak tampil pada daftar aktif.
 
 ---
 
@@ -154,10 +154,10 @@ Setiap Program minimal memiliki satu jadwal.
 
 Jadwal terdiri dari:
 
-* Tanggal
-* Waktu Mulai
-* Waktu Selesai
-* Lokasi
+- Tanggal
+- Waktu Mulai
+- Waktu Selesai
+- Lokasi
 
 ---
 
@@ -165,9 +165,9 @@ Jadwal terdiri dari:
 
 Peserta:
 
-* Dapat mendaftar sendiri.
-* Dapat ditambahkan Administrator.
-* Tidak boleh terdaftar dua kali pada Program yang sama.
+- Dapat mendaftar sendiri.
+- Dapat ditambahkan Administrator.
+- Tidak boleh terdaftar dua kali pada Program yang sama.
 
 ---
 
@@ -175,9 +175,9 @@ Peserta:
 
 Panitia:
 
-* Ditentukan oleh Administrator.
-* Dapat memiliki lebih dari satu anggota.
-* Memiliki tugas sesuai perannya.
+- Ditentukan oleh Administrator.
+- Dapat memiliki lebih dari satu anggota.
+- Memiliki tugas sesuai perannya.
 
 ---
 
@@ -185,8 +185,8 @@ Panitia:
 
 Absensi hanya dapat dilakukan apabila:
 
-* Program berstatus **On Going**.
-* Peserta telah terdaftar.
+- Program berstatus **On Going**.
+- Peserta telah terdaftar.
 
 ---
 
@@ -194,9 +194,9 @@ Absensi hanya dapat dilakukan apabila:
 
 Dokumentasi Program meliputi:
 
-* Foto
-* Video
-* Dokumen
+- Foto
+- Video
+- Dokumen
 
 Seluruh file menggunakan Domain Media.
 
@@ -206,9 +206,9 @@ Seluruh file menggunakan Domain Media.
 
 Sertifikat hanya dapat diterbitkan apabila:
 
-* Program berstatus **Completed**.
-* Peserta memenuhi syarat.
-* Template sertifikat tersedia.
+- Program berstatus **Completed**.
+- Peserta memenuhi syarat.
+- Template sertifikat tersedia.
 
 ---
 
@@ -218,9 +218,9 @@ Program menggunakan Soft Delete.
 
 Program tidak dapat dihapus apabila:
 
-* Memiliki peserta.
-* Memiliki sertifikat.
-* Memiliki surat terkait.
+- Memiliki peserta.
+- Memiliki sertifikat.
+- Memiliki surat terkait.
 
 ---
 
@@ -228,22 +228,22 @@ Program tidak dapat dihapus apabila:
 
 Aktivitas berikut wajib dicatat:
 
-* Create Program
-* Update Program
-* Publish Program
-* Open Registration
-* Close Registration
-* Complete Program
-* Cancel Program
-* Delete Program
+- Create Program
+- Update Program
+- Publish Program
+- Open Registration
+- Close Registration
+- Complete Program
+- Cancel Program
+- Delete Program
 
 ---
 
 # Security Rules
 
-* Seluruh perubahan memerlukan Authentication.
-* Seluruh aksi memerlukan Permission.
-* Peserta hanya dapat mengakses data Program yang menjadi haknya.
+- Seluruh perubahan memerlukan Authentication.
+- Seluruh aksi memerlukan Permission.
+- Peserta hanya dapat mengakses data Program yang menjadi haknya.
 
 ---
 
@@ -251,20 +251,20 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Program mengikuti siklus status yang ditentukan.
-* Peserta tidak dapat mendaftar ganda.
-* Sertifikat hanya diterbitkan setelah Program selesai.
-* Seluruh perubahan tercatat pada Audit Log.
+- Program mengikuti siklus status yang ditentukan.
+- Peserta tidak dapat mendaftar ganda.
+- Sertifikat hanya diterbitkan setelah Program selesai.
+- Seluruh perubahan tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

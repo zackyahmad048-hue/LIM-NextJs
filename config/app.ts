@@ -1,8 +1,7 @@
 export const APP = {
   name: "LIM CMS",
 
-  description:
-    "Platform Manajemen Organisasi",
+  description: "Platform Manajemen Organisasi",
 
   version: "0.1.0",
 

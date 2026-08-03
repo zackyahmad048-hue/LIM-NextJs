@@ -22,11 +22,11 @@ Dokumen ini melengkapi standar API dengan menyediakan ringkasan endpoint, strukt
 
 Seluruh layanan menggunakan:
 
-* REST API
-* JSON
-* HTTPS
-* UTF-8 Encoding
-* OpenAPI 3.x Documentation
+- REST API
+- JSON
+- HTTPS
+- UTF-8 Encoding
+- OpenAPI 3.x Documentation
 
 Base URL:
 
@@ -256,9 +256,9 @@ Idempotency-Key
 
 Contoh penggunaan:
 
-* Payment (Future)
-* File Upload
-* Retry Request
+- Payment (Future)
+- File Upload
+- Retry Request
 
 ---
 
@@ -296,39 +296,39 @@ Dokumentasi harus selalu sinkron dengan implementasi.
 
 Seluruh endpoint wajib menerapkan:
 
-* HTTPS
-* JWT Authentication
-* RBAC Authorization
-* Input Validation
-* Rate Limiting
-* Audit Log
+- HTTPS
+- JWT Authentication
+- RBAC Authorization
+- Input Validation
+- Rate Limiting
+- Audit Log
 
 ---
 
 # Best Practices
 
-* Gunakan Resource Name berbentuk jamak (plural).
-* Hindari endpoint berbasis kata kerja.
-* Gunakan HTTP Status Code yang sesuai.
-* Gunakan Response yang konsisten.
-* Hindari Breaking Change tanpa Versioning.
+- Gunakan Resource Name berbentuk jamak (plural).
+- Hindari endpoint berbasis kata kerja.
+- Gunakan HTTP Status Code yang sesuai.
+- Gunakan Response yang konsisten.
+- Hindari Breaking Change tanpa Versioning.
 
 ---
 
 # Related Documents
 
-* README.md
-* glossary.md
-* coding-reference.md
-* database-reference.md
-* external-references.md
+- README.md
+- glossary.md
+- coding-reference.md
+- database-reference.md
+- external-references.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh API mengikuti standar REST.
-* Response konsisten.
-* Versioning diterapkan.
-* Dokumentasi OpenAPI tersedia.
-* API Reference menjadi referensi resmi seluruh layanan LIM Digital Platform.
+- Seluruh API mengikuti standar REST.
+- Response konsisten.
+- Versioning diterapkan.
+- Dokumentasi OpenAPI tersedia.
+- API Reference menjadi referensi resmi seluruh layanan LIM Digital Platform.

@@ -36,13 +36,13 @@ Letter
 
 Menampilkan:
 
-* Total Letter
-* Draft
-* Waiting Approval
-* Signed
-* Sent
-* Archived
-* Recent Activity
+- Total Letter
+- Draft
+- Waiting Approval
+- Signed
+- Sent
+- Archived
+- Recent Activity
 
 ---
 
@@ -50,29 +50,29 @@ Menampilkan:
 
 Kolom:
 
-* Letter Number
-* Subject
-* Recipient
-* Signer
-* Status
-* Issued Date
+- Letter Number
+- Subject
+- Recipient
+- Signer
+- Status
+- Issued Date
 
 Action:
 
-* Detail
-* Edit
-* Submit
-* Approve
-* Sign
-* Send
-* Archive
+- Detail
+- Edit
+- Submit
+- Approve
+- Sign
+- Send
+- Archive
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
+- Search
+- Filter
+- Sorting
+- Pagination
 
 ---
 
@@ -98,8 +98,8 @@ Signer
 
 Action:
 
-* Save Draft
-* Submit
+- Save Draft
+- Submit
 
 ---
 
@@ -107,15 +107,15 @@ Action:
 
 Kolom:
 
-* Code
-* Name
-* Status
+- Code
+- Name
+- Status
 
 Action:
 
-* Create
-* Edit
-* Delete
+- Create
+- Edit
+- Delete
 
 ---
 
@@ -123,15 +123,15 @@ Action:
 
 Kolom:
 
-* Letter
-* Reviewer
-* Status
-* Reviewed At
+- Letter
+- Reviewer
+- Status
+- Reviewed At
 
 Action:
 
-* Approve
-* Reject
+- Approve
+- Reject
 
 ---
 
@@ -139,16 +139,16 @@ Action:
 
 Kolom:
 
-* Letter
-* Method
-* Recipient
-* Sent At
-* Status
+- Letter
+- Method
+- Recipient
+- Sent At
+- Status
 
 Action:
 
-* Send
-* Resend
+- Send
+- Resend
 
 ---
 
@@ -158,53 +158,53 @@ Read Only.
 
 Kolom:
 
-* Letter Number
-* Subject
-* Archived At
-* Archived By
+- Letter Number
+- Subject
+- Archived At
+- Archived By
 
 Action:
 
-* View
-* Restore
+- View
+- Restore
 
 ---
 
 # Components
 
-* Data Table
-* Rich Text Editor
-* Search
-* Filter
-* Pagination
-* Select
-* File Upload
-* Badge
-* Modal
-* Dialog
-* Toast
+- Data Table
+- Rich Text Editor
+- Search
+- Filter
+- Pagination
+- Select
+- File Upload
+- Badge
+- Modal
+- Dialog
+- Toast
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Error State
+- Empty State
+- Loading State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile (View Only)
+- Desktop
+- Tablet
+- Mobile (View Only)
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Mengikuti Design System.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Mengikuti Design System.
+- Seluruh aksi mengikuti Permission.

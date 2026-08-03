@@ -1,4 +1,9 @@
-import type { ProgramStatus, RegistrationStatus, CommitteeStatus, AttendanceStatus } from "@/generated/client";
+import type {
+  ProgramStatus,
+  RegistrationStatus,
+  CommitteeStatus,
+  AttendanceStatus,
+} from "@/generated/client";
 
 export interface ProgramEntity {
   id: string;

@@ -24,11 +24,11 @@ Seluruh implementasi harus mengikuti aturan dalam dokumen ini.
 
 Platform mengikuti prinsip berikut:
 
-* Satu Data, Banyak Layanan.
-* Data harus konsisten.
-* Data tidak boleh diduplikasi.
-* Data privat tidak dipublikasikan tanpa izin.
-* Seluruh aktivitas penting dapat diaudit.
+- Satu Data, Banyak Layanan.
+- Data harus konsisten.
+- Data tidak boleh diduplikasi.
+- Data privat tidak dipublikasikan tanpa izin.
+- Seluruh aktivitas penting dapat diaudit.
 
 ---
 
@@ -38,10 +38,10 @@ Setiap data memiliki satu sumber utama (Single Source of Truth).
 
 Contoh:
 
-* Data Pengguna berasal dari domain Authentication.
-* Data Program berasal dari domain Program.
-* Data Organisasi berasal dari domain Organization.
-* Data Sertifikat berasal dari domain Certificate.
+- Data Pengguna berasal dari domain Authentication.
+- Data Program berasal dari domain Program.
+- Data Organisasi berasal dari domain Organization.
+- Data Sertifikat berasal dari domain Certificate.
 
 Domain lain hanya menggunakan referensi terhadap data tersebut.
 
@@ -55,9 +55,9 @@ Penghapusan dilakukan menggunakan mekanisme Soft Delete dengan mengisi nilai `de
 
 Data yang telah dihapus:
 
-* Tidak tampil pada aplikasi.
-* Tidak dapat digunakan dalam proses bisnis.
-* Masih tersedia untuk kebutuhan audit apabila diperlukan.
+- Tidak tampil pada aplikasi.
+- Tidak dapat digunakan dalam proses bisnis.
+- Masih tersedia untuk kebutuhan audit apabila diperlukan.
 
 Hard Delete hanya diperbolehkan untuk kebutuhan administrasi sistem dan harus dicatat pada Audit Log.
 
@@ -67,24 +67,24 @@ Hard Delete hanya diperbolehkan untuk kebutuhan administrasi sistem dan harus di
 
 Aktivitas berikut wajib dicatat:
 
-* Login
-* Logout
-* Create
-* Update
-* Delete
-* Restore
-* Publish
-* Unpublish
-* Approval
-* Role & Permission Changes
+- Login
+- Logout
+- Create
+- Update
+- Delete
+- Restore
+- Publish
+- Unpublish
+- Approval
+- Role & Permission Changes
 
 Audit Log minimal menyimpan:
 
-* Pengguna
-* Waktu
-* Modul
-* Aktivitas
-* Data yang berubah
+- Pengguna
+- Waktu
+- Modul
+- Aktivitas
+- Data yang berubah
 
 ---
 
@@ -102,11 +102,11 @@ Seluruh validasi menggunakan Zod.
 
 Slug harus:
 
-* Unik.
-* Menggunakan huruf kecil.
-* Menggunakan tanda hubung (-).
-* Tidak mengandung karakter khusus.
-* Tidak boleh berubah otomatis setelah data dibuat, kecuali diperbarui secara sadar oleh pengguna.
+- Unik.
+- Menggunakan huruf kecil.
+- Menggunakan tanda hubung (-).
+- Tidak mengandung karakter khusus.
+- Tidak boleh berubah otomatis setelah data dibuat, kecuali diperbarui secara sadar oleh pengguna.
 
 ---
 
@@ -136,11 +136,11 @@ Struktur organisasi mengikuti hierarki resmi organisasi.
 
 Data organisasi menjadi referensi bagi:
 
-* Program
-* Pengurus
-* Surat
-* Sertifikat
-* Laporan
+- Program
+- Pengurus
+- Surat
+- Sertifikat
+- Laporan
 
 ---
 
@@ -150,21 +150,21 @@ Seluruh kegiatan organisasi dikelola melalui domain Program.
 
 Contoh:
 
-* Safari Ramadan
-* Wajib Khidmah
-* Pelatihan
-* Seminar
-* Kajian
+- Safari Ramadan
+- Wajib Khidmah
+- Pelatihan
+- Seminar
+- Kajian
 
 Setiap Program memiliki:
 
-* Peserta
-* Lokasi
-* Jadwal
-* Penanggung Jawab
-* Dokumen
-* Laporan
-* Sertifikat (jika diperlukan)
+- Peserta
+- Lokasi
+- Jadwal
+- Penanggung Jawab
+- Dokumen
+- Laporan
+- Sertifikat (jika diperlukan)
 
 ---
 
@@ -180,11 +180,11 @@ Data Secretariat bersifat privat dan tidak dipublikasikan kecuali ditentukan lai
 
 Setiap surat memiliki:
 
-* Nomor Surat
-* Tanggal
-* Status
-* Penandatangan
-* QR Verification (jika digunakan)
+- Nomor Surat
+- Tanggal
+- Status
+- Penandatangan
+- QR Verification (jika digunakan)
 
 Nomor surat tidak boleh duplikat.
 
@@ -204,11 +204,11 @@ Konten publik dikelola melalui CMS.
 
 Konten yang dipublikasikan harus memiliki:
 
-* Judul
-* Slug
-* Penulis
-* Status
-* Tanggal Publikasi
+- Judul
+- Slug
+- Penulis
+- Status
+- Tanggal Publikasi
 
 ---
 
@@ -276,9 +276,9 @@ Seluruh error penting dicatat pada sistem logging.
 
 Perubahan Business Rules harus:
 
-* Didokumentasikan.
-* Ditinjau dampaknya terhadap domain lain.
-* Disetujui sebelum diimplementasikan.
+- Didokumentasikan.
+- Ditinjau dampaknya terhadap domain lain.
+- Disetujui sebelum diimplementasikan.
 
 ---
 

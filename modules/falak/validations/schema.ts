@@ -2,14 +2,26 @@ import { z } from "zod";
 
 export const coordinateSchema = z.object({
   latitude: z.number().min(-90).max(90, "Latitude harus antara -90 dan 90."),
-  longitude: z.number().min(-180).max(180, "Longitude harus antara -180 dan 180."),
+  longitude: z
+    .number()
+    .min(-180)
+    .max(180, "Longitude harus antara -180 dan 180."),
 });
 
 export const prayerTimeQuerySchema = z.object({
   latitude: z.coerce.number().min(-90).max(90),
   longitude: z.coerce.number().min(-180).max(180),
   date: z.coerce.date().optional(),
-  method: z.enum(["KEMENAG", "MUHAMMADIYAH", "UMMAH_AL_QURA", "EGYPTIAN", "ISNA", "MWL"]).default("KEMENAG"),
+  method: z
+    .enum([
+      "KEMENAG",
+      "MUHAMMADIYAH",
+      "UMMAH_AL_QURA",
+      "EGYPTIAN",
+      "ISNA",
+      "MWL",
+    ])
+    .default("KEMENAG"),
 });
 
 export const qiblaQuerySchema = z.object({
@@ -19,7 +31,9 @@ export const qiblaQuerySchema = z.object({
 
 export const hijriQuerySchema = z.object({
   date: z.coerce.date().optional(),
-  method: z.enum(["HISAB", "RUKYAT", "IMKANUR_RUKYAT", "WUJUDUL_HILAL"]).default("HISAB"),
+  method: z
+    .enum(["HISAB", "RUKYAT", "IMKANUR_RUKYAT", "WUJUDUL_HILAL"])
+    .default("HISAB"),
 });
 
 export const hisabInputSchema = z.object({

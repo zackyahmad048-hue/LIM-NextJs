@@ -28,15 +28,15 @@ Authorization dibahas pada dokumen terpisah.
 
 Authentication harus mampu:
 
-* Login
-* Logout
-* Refresh Token
-* Forgot Password
-* Reset Password
-* Change Password
-* Verify Email
-* Verify Session
-* Revoke Session
+- Login
+- Logout
+- Refresh Token
+- Forgot Password
+- Reset Password
+- Change Password
+- Verify Email
+- Verify Session
+- Revoke Session
 
 ---
 
@@ -57,14 +57,14 @@ Authentication harus mampu:
 
 User dapat login menggunakan:
 
-* Email
-* Password
+- Email
+- Password
 
 Output:
 
-* Access Token
-* Refresh Token
-* Session
+- Access Token
+- Refresh Token
+- Session
 
 ---
 
@@ -108,11 +108,11 @@ Memastikan Token masih valid.
 
 Authentication harus:
 
-* Response < 500 ms
-* Secure
-* Stateless
-* Audit Enabled
-* Highly Available
+- Response < 500 ms
+- Secure
+- Stateless
+- Audit Enabled
+- Highly Available
 
 ---
 
@@ -120,9 +120,9 @@ Authentication harus:
 
 Login:
 
-* User aktif.
-* Email terverifikasi.
-* Password benar.
+- User aktif.
+- Email terverifikasi.
+- Password benar.
 
 ---
 
@@ -130,10 +130,10 @@ Login:
 
 Login berhasil:
 
-* Session dibuat.
-* JWT dibuat.
-* Audit Log dibuat.
-* Last Login diperbarui.
+- Session dibuat.
+- JWT dibuat.
+- Audit Log dibuat.
+- Last Login diperbarui.
 
 ---
 
@@ -193,12 +193,12 @@ Return Error
 
 # Exception Flow
 
-* User tidak ditemukan.
-* User nonaktif.
-* Email belum diverifikasi.
-* Password salah.
-* Session kadaluarsa.
-* Refresh Token tidak valid.
+- User tidak ditemukan.
+- User nonaktif.
+- Email belum diverifikasi.
+- Password salah.
+- Session kadaluarsa.
+- Refresh Token tidak valid.
 
 ---
 
@@ -262,18 +262,18 @@ Logged Out
 
 Entity:
 
-* User
-* Session
+- User
+- Session
 
 Value Object:
 
-* Email
-* Password
-* JWT Token
+- Email
+- Password
+- JWT Token
 
 Aggregate:
 
-* Authentication
+- Authentication
 
 ---
 
@@ -328,10 +328,10 @@ Refresh
 
 | Endpoint | Guest | User | Admin |
 | -------- | :---: | :--: | :---: |
-| Login    |   ✅   |   ❌  |   ❌   |
-| Logout   |   ❌   |   ✅  |   ✅   |
-| Refresh  |   ❌   |   ✅  |   ✅   |
-| Me       |   ❌   |   ✅  |   ✅   |
+| Login    |  ✅   |  ❌  |  ❌   |
+| Logout   |  ❌   |  ✅  |  ✅   |
+| Refresh  |  ❌   |  ✅  |  ✅   |
+| Me       |  ❌   |  ✅  |  ✅   |
 
 ---
 
@@ -362,40 +362,40 @@ Refresh
 
 # Acceptance Test
 
-* Login berhasil.
-* Login gagal.
-* Refresh berhasil.
-* Refresh gagal.
-* Logout berhasil.
-* Password berhasil diganti.
-* Session kadaluarsa.
-* Audit Log tercatat.
+- Login berhasil.
+- Login gagal.
+- Refresh berhasil.
+- Refresh gagal.
+- Logout berhasil.
+- Password berhasil diganti.
+- Session kadaluarsa.
+- Audit Log tercatat.
 
 ---
 
 # Performance Requirement
 
-* Login < 500 ms.
-* Refresh Token < 300 ms.
-* JWT Generation < 100 ms.
+- Login < 500 ms.
+- Refresh Token < 300 ms.
+- JWT Generation < 100 ms.
 
 ---
 
 # Security Requirement
 
-* Password menggunakan Argon2/Bcrypt.
-* JWT ditandatangani secara aman.
-* Refresh Token dapat dicabut.
-* Rate Limiting diterapkan.
-* Audit Log wajib aktif.
-* Seluruh komunikasi menggunakan HTTPS.
+- Password menggunakan Argon2/Bcrypt.
+- JWT ditandatangani secara aman.
+- Refresh Token dapat dicabut.
+- Rate Limiting diterapkan.
+- Audit Log wajib aktif.
+- Seluruh komunikasi menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Authentication berjalan sesuai Business Rules.
-* JWT dan Session tervalidasi.
-* Seluruh API mengikuti API Standard.
-* Error dan Audit Log konsisten.
-* Specification siap digunakan sebagai dasar implementasi.
+- Authentication berjalan sesuai Business Rules.
+- JWT dan Session tervalidasi.
+- Seluruh API mengikuti API Standard.
+- Error dan Audit Log konsisten.
+- Specification siap digunakan sebagai dasar implementasi.

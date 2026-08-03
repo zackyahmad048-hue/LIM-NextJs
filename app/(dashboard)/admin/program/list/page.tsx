@@ -18,7 +18,13 @@ function formatDate(date: Date) {
   }).format(date);
 }
 
-const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const statusLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   DRAFT: { label: "Draft", variant: "outline" },
   PUBLISHED: { label: "Published", variant: "default" },
   REGISTRATION_OPEN: { label: "Registrasi Dibuka", variant: "default" },
@@ -64,7 +70,9 @@ export default async function ProgramListPage({
             key: "code",
             label: "Kode",
             render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">{item.code}</span>
+              <span className="text-xs font-mono text-muted-foreground">
+                {item.code}
+              </span>
             ),
           },
           {
@@ -74,7 +82,9 @@ export default async function ProgramListPage({
               <div className="max-w-62.5">
                 <p className="truncate text-sm font-medium">{item.name}</p>
                 {item.personInCharge && (
-                  <p className="truncate text-xs text-muted-foreground">PIC: {item.personInCharge.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    PIC: {item.personInCharge.name}
+                  </p>
                 )}
               </div>
             ),
@@ -87,19 +97,30 @@ export default async function ProgramListPage({
           {
             key: "startDate",
             label: "Mulai",
-            render: (item) => <span className="text-xs">{formatDate(item.startDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatDate(item.startDate)}</span>
+            ),
           },
           {
             key: "endDate",
             label: "Selesai",
-            render: (item) => <span className="text-xs">{formatDate(item.endDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatDate(item.endDate)}</span>
+            ),
           },
           {
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = statusLabels[item.status] ?? { label: item.status, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = statusLabels[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -119,7 +140,11 @@ export default async function ProgramListPage({
                   </Link>
                 </Button>
                 <form action={deleteProgram.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

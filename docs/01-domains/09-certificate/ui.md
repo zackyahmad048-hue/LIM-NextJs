@@ -36,12 +36,12 @@ Certificate
 
 Menampilkan:
 
-* Total Certificate
-* Generated
-* Published
-* Downloaded
-* Revoked
-* Recent Activity
+- Total Certificate
+- Generated
+- Published
+- Downloaded
+- Revoked
+- Recent Activity
 
 ---
 
@@ -49,29 +49,29 @@ Menampilkan:
 
 Kolom:
 
-* Certificate Number
-* Participant
-* Program
-* Issue Date
-* Status
+- Certificate Number
+- Participant
+- Program
+- Issue Date
+- Status
 
 Action:
 
-* Detail
-* Generate
-* Sign
-* Publish
-* Send
-* Revoke
-* Archive
+- Detail
+- Generate
+- Sign
+- Publish
+- Send
+- Revoke
+- Archive
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
-* Bulk Generate
+- Search
+- Filter
+- Sorting
+- Pagination
+- Bulk Generate
 
 ---
 
@@ -95,9 +95,9 @@ Signer
 
 Action:
 
-* Save Draft
-* Generate
-* Publish
+- Save Draft
+- Generate
+- Publish
 
 ---
 
@@ -105,15 +105,15 @@ Action:
 
 Kolom:
 
-* Code
-* Template Name
-* Status
+- Code
+- Template Name
+- Status
 
 Action:
 
-* Create
-* Edit
-* Delete
+- Create
+- Edit
+- Delete
 
 ---
 
@@ -121,16 +121,16 @@ Action:
 
 Kolom:
 
-* Certificate
-* Recipient
-* Method
-* Sent At
-* Status
+- Certificate
+- Recipient
+- Method
+- Sent At
+- Status
 
 Action:
 
-* Send
-* Resend
+- Send
+- Resend
 
 ---
 
@@ -138,15 +138,15 @@ Action:
 
 Kolom:
 
-* Certificate Number
-* Verification Code
-* Verification Status
-* Verified At
+- Certificate Number
+- Verification Code
+- Verification Status
+- Verified At
 
 Action:
 
-* Verify
-* Copy Verification Link
+- Verify
+- Copy Verification Link
 
 ---
 
@@ -156,55 +156,55 @@ Read Only.
 
 Kolom:
 
-* Certificate Number
-* Participant
-* Archived At
-* Archived By
+- Certificate Number
+- Participant
+- Archived At
+- Archived By
 
 Action:
 
-* View
-* Restore
+- View
+- Restore
 
 ---
 
 # Components
 
-* Data Table
-* Search
-* Filter
-* Pagination
-* Select
-* Date Picker
-* Badge
-* QR Code Preview
-* PDF Preview
-* Modal
-* Dialog
-* Toast
+- Data Table
+- Search
+- Filter
+- Pagination
+- Select
+- Date Picker
+- Badge
+- QR Code Preview
+- PDF Preview
+- Modal
+- Dialog
+- Toast
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Error State
+- Empty State
+- Loading State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile (View, Download, Verify)
+- Desktop
+- Tablet
+- Mobile (View, Download, Verify)
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Mengikuti Design System.
-* QR Code dapat dipreview.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Mengikuti Design System.
+- QR Code dapat dipreview.
+- Seluruh aksi mengikuti Permission.

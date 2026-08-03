@@ -20,10 +20,10 @@ Domain Falak menjadi pusat layanan astronomi Islam yang menyediakan perhitungan,
 
 # General Rules
 
-* Seluruh perhitungan menggunakan algoritma yang telah divalidasi.
-* Parameter perhitungan mengikuti konfigurasi organisasi.
-* Seluruh hasil perhitungan dapat direproduksi menggunakan parameter yang sama.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh perhitungan menggunakan algoritma yang telah divalidasi.
+- Parameter perhitungan mengikuti konfigurasi organisasi.
+- Seluruh hasil perhitungan dapat direproduksi menggunakan parameter yang sama.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -31,11 +31,11 @@ Domain Falak menjadi pusat layanan astronomi Islam yang menyediakan perhitungan,
 
 Jadwal salat dihitung berdasarkan:
 
-* Lokasi
-* Tanggal
-* Metode Perhitungan
-* Zona Waktu
-* Elevasi
+- Lokasi
+- Tanggal
+- Metode Perhitungan
+- Zona Waktu
+- Elevasi
 
 Perubahan metode perhitungan memengaruhi hasil jadwal salat.
 
@@ -45,9 +45,9 @@ Perubahan metode perhitungan memengaruhi hasil jadwal salat.
 
 Arah kiblat dihitung berdasarkan:
 
-* Koordinat lokasi.
-* Koordinat Ka'bah.
-* Model geodesi yang digunakan.
+- Koordinat lokasi.
+- Koordinat Ka'bah.
+- Model geodesi yang digunakan.
 
 Hasil ditampilkan dalam satuan derajat.
 
@@ -57,10 +57,10 @@ Hasil ditampilkan dalam satuan derajat.
 
 Kalender Hijriah dapat menggunakan:
 
-* Hisab
-* Rukyat
-* Imkanur Rukyat
-* Wujudul Hilal
+- Hisab
+- Rukyat
+- Imkanur Rukyat
+- Wujudul Hilal
 
 Metode ditentukan melalui konfigurasi sistem.
 
@@ -70,13 +70,13 @@ Metode ditentukan melalui konfigurasi sistem.
 
 Perhitungan hisab meliputi:
 
-* Ijtimak
-* Tinggi Hilal
-* Elongasi
-* Umur Bulan
-* Azimut
-* Posisi Matahari
-* Posisi Bulan
+- Ijtimak
+- Tinggi Hilal
+- Elongasi
+- Umur Bulan
+- Azimut
+- Posisi Matahari
+- Posisi Bulan
 
 ---
 
@@ -84,11 +84,11 @@ Perhitungan hisab meliputi:
 
 Data rukyat meliputi:
 
-* Lokasi Observasi
-* Observer
-* Cuaca
-* Hasil Observasi
-* Dokumentasi
+- Lokasi Observasi
+- Observer
+- Cuaca
+- Hasil Observasi
+- Dokumentasi
 
 Data observasi tidak boleh diubah setelah dikonfirmasi.
 
@@ -98,8 +98,8 @@ Data observasi tidak boleh diubah setelah dikonfirmasi.
 
 Sistem dapat menghitung:
 
-* Gerhana Matahari
-* Gerhana Bulan
+- Gerhana Matahari
+- Gerhana Bulan
 
 Berdasarkan parameter astronomi yang tersedia.
 
@@ -109,9 +109,9 @@ Berdasarkan parameter astronomi yang tersedia.
 
 Seluruh hasil perhitungan harus:
 
-* Konsisten.
-* Dapat diverifikasi.
-* Menggunakan satuan standar internasional.
+- Konsisten.
+- Dapat diverifikasi.
+- Menggunakan satuan standar internasional.
 
 ---
 
@@ -121,8 +121,8 @@ Data observasi dapat diarsipkan.
 
 Data arsip:
 
-* Read Only.
-* Tetap dapat dijadikan referensi.
+- Read Only.
+- Tetap dapat dijadikan referensi.
 
 ---
 
@@ -132,9 +132,9 @@ Menggunakan Soft Delete.
 
 Data tidak dapat dihapus apabila:
 
-* Menjadi referensi laporan.
-* Digunakan sebagai data historis.
-* Digunakan pada kalender resmi.
+- Menjadi referensi laporan.
+- Digunakan sebagai data historis.
+- Digunakan pada kalender resmi.
 
 ---
 
@@ -142,22 +142,22 @@ Data tidak dapat dihapus apabila:
 
 Aktivitas berikut wajib dicatat:
 
-* Calculate Prayer Time
-* Calculate Qibla
-* Generate Hijri Calendar
-* Save Hisab
-* Save Rukyat
-* Archive Observation
-* Delete Data
+- Calculate Prayer Time
+- Calculate Qibla
+- Generate Hijri Calendar
+- Save Hisab
+- Save Rukyat
+- Archive Observation
+- Delete Data
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* Parameter perhitungan tidak boleh dimanipulasi tanpa hak akses.
-* Audit Log wajib aktif.
+- Authentication wajib.
+- Permission wajib.
+- Parameter perhitungan tidak boleh dimanipulasi tanpa hak akses.
+- Audit Log wajib aktif.
 
 ---
 
@@ -165,21 +165,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Seluruh perhitungan konsisten.
-* Kalender Hijriah mengikuti metode yang dipilih.
-* Data observasi bersifat permanen setelah dikonfirmasi.
-* Arsip bersifat Read Only.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Seluruh perhitungan konsisten.
+- Kalender Hijriah mengikuti metode yang dipilih.
+- Data observasi bersifat permanen setelah dikonfirmasi.
+- Arsip bersifat Read Only.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

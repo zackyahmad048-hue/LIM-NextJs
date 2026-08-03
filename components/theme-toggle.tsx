@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useTheme } from 'next-themes';
-import { useSyncExternalStore } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
+import { Sun, Moon } from "lucide-react";
 
 function noop() {
   return () => {};
@@ -24,14 +24,14 @@ export function ThemeToggle() {
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-lg bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-yellow-400 hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors"
-      aria-label="Toggle theme"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary transition hover:border-primary/60 hover:bg-primary/20"
+      aria-label="Ganti tema"
     >
-      {theme === 'dark' ? (
-        <Sun className="w-5 h-5" />
+      {theme === "dark" ? (
+        <Sun className="h-4 w-4" />
       ) : (
-        <Moon className="w-5 h-5" />
+        <Moon className="h-4 w-4" />
       )}
     </button>
   );

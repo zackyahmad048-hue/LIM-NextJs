@@ -147,9 +147,9 @@ Response berhasil:
 
 ```json
 {
-    "success": true,
-    "message": "Success",
-    "data": {}
+  "success": true,
+  "message": "Success",
+  "data": {}
 }
 ```
 
@@ -157,8 +157,8 @@ Response gagal:
 
 ```json
 {
-    "success": false,
-    "message": "Unauthorized"
+  "success": false,
+  "message": "Unauthorized"
 }
 ```
 
@@ -177,10 +177,10 @@ Response gagal:
 
 # Business Rules
 
-* Dashboard hanya menyediakan operasi Read.
-* Tidak ada endpoint Create, Update, Delete.
-* Seluruh data berasal dari Service Layer.
-* Seluruh endpoint mengikuti Permission pengguna.
+- Dashboard hanya menyediakan operasi Read.
+- Tidak ada endpoint Create, Update, Delete.
+- Seluruh data berasal dari Service Layer.
+- Seluruh endpoint mengikuti Permission pengguna.
 
 ---
 
@@ -188,10 +188,10 @@ Response gagal:
 
 Endpoint harus:
 
-* Menggunakan query yang efisien.
-* Menghindari N+1 Query.
-* Membatasi jumlah data.
-* Mendukung caching apabila diperlukan.
+- Menggunakan query yang efisien.
+- Menghindari N+1 Query.
+- Membatasi jumlah data.
+- Mendukung caching apabila diperlukan.
 
 ---
 
@@ -199,23 +199,23 @@ Endpoint harus:
 
 Seluruh endpoint wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Tidak mengembalikan informasi sensitif.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Tidak mengembalikan informasi sensitif.
+- Menggunakan HTTPS pada Production.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -223,7 +223,7 @@ Seluruh endpoint wajib:
 
 API Dashboard dianggap selesai apabila:
 
-* Seluruh endpoint dapat diakses oleh pengguna yang berwenang.
-* Response konsisten.
-* Tidak ada operasi penulisan data.
-* Seluruh endpoint mengikuti Business Rules dan Architecture proyek.
+- Seluruh endpoint dapat diakses oleh pengguna yang berwenang.
+- Response konsisten.
+- Tidak ada operasi penulisan data.
+- Seluruh endpoint mengikuti Business Rules dan Architecture proyek.

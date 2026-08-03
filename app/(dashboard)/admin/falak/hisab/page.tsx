@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Plus, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
@@ -26,14 +25,6 @@ export default async function HisabPage() {
       <PageHeader
         title="Data Hisab"
         description="Kelola data perhitungan hisab."
-        actions={
-          <Button asChild size="sm">
-            <Link href="/admin/falak/hisab/new">
-              <Plus className="size-4" />
-              Tambah Hisab
-            </Link>
-          </Button>
-        }
       />
 
       <AdminTable
@@ -43,7 +34,9 @@ export default async function HisabPage() {
           {
             key: "lokasi",
             label: "Lokasi",
-            render: (item) => <span className="text-sm font-medium">{item.locationName}</span>,
+            render: (item) => (
+              <span className="text-sm font-medium">{item.locationName}</span>
+            ),
           },
           {
             key: "koordinat",
@@ -57,7 +50,11 @@ export default async function HisabPage() {
           {
             key: "tanggal",
             label: "Tanggal",
-            render: (item) => <span className="text-xs">{formatDate(item.calculationDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">
+                {formatDate(item.calculationDate)}
+              </span>
+            ),
           },
           {
             key: "aksi",
@@ -66,7 +63,11 @@ export default async function HisabPage() {
             render: (item) => (
               <div className="flex justify-end gap-1">
                 <form action={deleteHisab.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

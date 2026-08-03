@@ -73,14 +73,14 @@ Seluruh halaman wajib memenuhi standar berikut:
 
 # Responsive Breakpoints
 
-| Breakpoint | Device |
-|------------|--------|
-| Default | Mobile |
-| sm | Small Mobile |
-| md | Tablet |
-| lg | Laptop |
-| xl | Desktop |
-| 2xl | Large Desktop |
+| Breakpoint | Device        |
+| ---------- | ------------- |
+| Default    | Mobile        |
+| sm         | Small Mobile  |
+| md         | Tablet        |
+| lg         | Laptop        |
+| xl         | Desktop       |
+| 2xl        | Large Desktop |
 
 Implementasi selalu dimulai dari **Mobile First**.
 
@@ -109,13 +109,13 @@ Seluruh warna menggunakan Design Tokens.
 Contoh:
 
 ```tsx
-bg-background
+bg - background;
 
-text-foreground
+text - foreground;
 
-border-border
+border - border;
 
-text-muted-foreground
+text - muted - foreground;
 ```
 
 Hindari penggunaan warna secara langsung.
@@ -123,11 +123,11 @@ Hindari penggunaan warna secara langsung.
 Contoh yang tidak disarankan:
 
 ```tsx
-bg-white
+bg - white;
 
-text-black
+text - black;
 
-border-gray-300
+border - gray - 300;
 ```
 
 ---

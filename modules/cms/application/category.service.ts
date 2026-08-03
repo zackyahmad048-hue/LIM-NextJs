@@ -15,7 +15,7 @@ export class CategoryService {
 
   async update(
     id: string,
-    data: { name: string; slug: string; description?: string }
+    data: { name: string; slug: string; description?: string },
   ) {
     const category = await categoryRepository.findActiveById(id);
     const [nameDuplicate, slugDuplicate] = await Promise.all([

@@ -1,37 +1,45 @@
-import SectionHeading from "@/components/shared/section-heading";
+import type { Metadata } from "next";
+import PageHeader from "@/components/website/page-header";
+import PostCard from "@/components/website/cards/post-card";
+import { getPaginatedPosts } from "@/modules/cms";
 
-export default function ArtikelPage() {
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  title: "Artikel & Kajian | LIM Digital Platform",
+  description:
+    "Artikel keislaman, kajian, dan tulisan inspiratif dari para muballigh.",
+};
+
+export default async function ArtikelPage() {
+  const { posts } = await getPaginatedPosts({
+    status: "published",
+    page: 1,
+    limit: 12,
+  });
+
   return (
-    <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          badge="Artikel"
-          title="Artikel & Kajian"
-          description="Artikel keislaman, kajian, dan tulisan inspiratif dari para muballigh."
-        />
+    <>
+      <PageHeader
+        title="Artikel & Kajian"
+        description="Artikel keislaman, kajian, dan tulisan inspiratif dari para muballigh."
+      />
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className="flex gap-4 rounded-xl border border-border bg-card p-4 transition hover:shadow-md"
-            >
-              <div className="h-20 w-20 shrink-0 rounded-lg bg-muted" />
-              <div>
-                <div className="text-xs text-muted-foreground">
-                  18 Juli 2026
-                </div>
-                <h3 className="mt-1 text-sm font-bold text-card-foreground">
-                  Judul Artikel {i}
-                </h3>
-                <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                  Ringkasan singkat artikel.
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        {posts.length > 0 ? (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-dashed border-primary/20 bg-card p-12 text-center">
+            <p className="text-sm text-muted-foreground">
+              Belum ada artikel yang dipublikasikan.
+            </p>
+          </div>
+        )}
+      </section>
+    </>
   );
 }

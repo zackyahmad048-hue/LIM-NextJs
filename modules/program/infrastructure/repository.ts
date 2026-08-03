@@ -9,12 +9,18 @@ import type {
 } from "../domain/entities";
 import type { ProgramRepository } from "../domain/repository";
 
-const includeUser = { select: { id: true, name: true, email: true, image: true } };
+const includeUser = {
+  select: { id: true, name: true, email: true, image: true },
+};
 
 export const programRepository: ProgramRepository = {
   async findMany({ search, status, type, page, limit }) {
     const where: Record<string, unknown> = { deletedAt: null };
-    if (search) where.OR = [{ name: { contains: search } }, { code: { contains: search } }];
+    if (search)
+      where.OR = [
+        { name: { contains: search } },
+        { code: { contains: search } },
+      ];
     if (status) where.status = status;
     if (type) where.type = type;
 
@@ -32,7 +38,9 @@ export const programRepository: ProgramRepository = {
   },
 
   async findById(id) {
-    const item = await prisma.program.findFirst({ where: { id, deletedAt: null } });
+    const item = await prisma.program.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as ProgramEntity | null;
   },
 
@@ -47,12 +55,18 @@ export const programRepository: ProgramRepository = {
   },
 
   async update(id, data) {
-    const item = await prisma.program.update({ where: { id }, data: data as any });
+    const item = await prisma.program.update({
+      where: { id },
+      data: data as any,
+    });
     return item as ProgramEntity;
   },
 
   async softDelete(id) {
-    await prisma.program.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.program.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   async getSchedules(programId) {
@@ -69,12 +83,18 @@ export const programRepository: ProgramRepository = {
   },
 
   async updateSchedule(id, data) {
-    const item = await prisma.programSchedule.update({ where: { id }, data: data as any });
+    const item = await prisma.programSchedule.update({
+      where: { id },
+      data: data as any,
+    });
     return item as unknown as ProgramScheduleEntity;
   },
 
   async deleteSchedule(id) {
-    await prisma.programSchedule.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.programSchedule.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   async getCommittees(programId) {
@@ -92,7 +112,10 @@ export const programRepository: ProgramRepository = {
   },
 
   async removeCommittee(id) {
-    await prisma.programCommittee.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.programCommittee.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   async getParticipants(programId) {
@@ -110,18 +133,26 @@ export const programRepository: ProgramRepository = {
   },
 
   async updateParticipant(id, data) {
-    const item = await prisma.participant.update({ where: { id }, data: data as any });
+    const item = await prisma.participant.update({
+      where: { id },
+      data: data as any,
+    });
     return item as unknown as ParticipantEntity;
   },
 
   async removeParticipant(id) {
-    await prisma.participant.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.participant.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   async getAttendance(programId) {
     const items = await prisma.attendance.findMany({
       where: { participant: { programId } },
-      include: { participant: { include: { user: { select: { name: true } } } } },
+      include: {
+        participant: { include: { user: { select: { name: true } } } },
+      },
       orderBy: { checkIn: "desc" },
     });
     return items as any;
@@ -155,23 +186,37 @@ export const programRepository: ProgramRepository = {
   },
 
   async addDocumentation(data) {
-    const item = await prisma.programDocumentation.create({ data: data as any });
+    const item = await prisma.programDocumentation.create({
+      data: data as any,
+    });
     return item as unknown as ProgramDocumentationEntity;
   },
 
   async removeDocumentation(id) {
-    await prisma.programDocumentation.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.programDocumentation.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   async getDashboardStats() {
-    const [total, draft, published, registrationOpen, onGoing, completed] = await Promise.all([
-      prisma.program.count({ where: { deletedAt: null } }),
-      prisma.program.count({ where: { status: "DRAFT", deletedAt: null } }),
-      prisma.program.count({ where: { status: "PUBLISHED", deletedAt: null } }),
-      prisma.program.count({ where: { status: "REGISTRATION_OPEN", deletedAt: null } }),
-      prisma.program.count({ where: { status: "ON_GOING", deletedAt: null } }),
-      prisma.program.count({ where: { status: "COMPLETED", deletedAt: null } }),
-    ]);
+    const [total, draft, published, registrationOpen, onGoing, completed] =
+      await Promise.all([
+        prisma.program.count({ where: { deletedAt: null } }),
+        prisma.program.count({ where: { status: "DRAFT", deletedAt: null } }),
+        prisma.program.count({
+          where: { status: "PUBLISHED", deletedAt: null },
+        }),
+        prisma.program.count({
+          where: { status: "REGISTRATION_OPEN", deletedAt: null },
+        }),
+        prisma.program.count({
+          where: { status: "ON_GOING", deletedAt: null },
+        }),
+        prisma.program.count({
+          where: { status: "COMPLETED", deletedAt: null },
+        }),
+      ]);
 
     return { total, draft, published, registrationOpen, onGoing, completed };
   },

@@ -16,11 +16,11 @@ Folder **Architecture Decision Records (ADR)** mendokumentasikan seluruh keputus
 
 Setiap ADR menjelaskan:
 
-* Masalah yang dihadapi.
-* Konteks keputusan.
-* Alternatif yang dipertimbangkan.
-* Keputusan yang dipilih.
-* Konsekuensi dari keputusan tersebut.
+- Masalah yang dihadapi.
+- Konteks keputusan.
+- Alternatif yang dipertimbangkan.
+- Keputusan yang dipilih.
+- Konsekuensi dari keputusan tersebut.
 
 ADR menjadi referensi historis agar seluruh anggota tim memahami alasan di balik desain sistem.
 
@@ -30,11 +30,11 @@ ADR menjadi referensi historis agar seluruh anggota tim memahami alasan di balik
 
 Folder ADR bertujuan untuk:
 
-* Mendokumentasikan keputusan arsitektur.
-* Menghindari pengambilan keputusan yang berulang.
-* Menjadi referensi bagi developer baru.
-* Mendukung evolusi sistem secara terarah.
-* Menjaga konsistensi implementasi.
+- Mendokumentasikan keputusan arsitektur.
+- Menghindari pengambilan keputusan yang berulang.
+- Menjadi referensi bagi developer baru.
+- Mendukung evolusi sistem secara terarah.
+- Menjaga konsistensi implementasi.
 
 ---
 
@@ -110,14 +110,14 @@ Superseded
 
 Seluruh keputusan arsitektur mempertimbangkan:
 
-* Maintainability
-* Scalability
-* Security
-* Performance
-* Simplicity
-* Testability
-* Cost
-* Long-term Sustainability
+- Maintainability
+- Scalability
+- Security
+- Performance
+- Simplicity
+- Testability
+- Cost
+- Long-term Sustainability
 
 ---
 
@@ -127,18 +127,18 @@ ADR yang telah berstatus **Accepted** tidak diubah secara langsung.
 
 Apabila diperlukan perubahan arsitektur:
 
-* Buat ADR baru.
-* Tandai ADR lama sebagai **Superseded** atau **Deprecated**.
-* Jelaskan alasan perubahan.
+- Buat ADR baru.
+- Tandai ADR lama sebagai **Superseded** atau **Deprecated**.
+- Jelaskan alasan perubahan.
 
 ---
 
 # Related Documents
 
-* 02-architecture/
-* 03-development/
-* 04-deployment/
-* 06-references/
+- 02-architecture/
+- 03-development/
+- 04-deployment/
+- 06-references/
 
 ---
 
@@ -150,7 +150,7 @@ Apabila diperlukan perubahan arsitektur:
 
 # Acceptance Criteria
 
-* Seluruh keputusan arsitektur utama terdokumentasi.
-* Setiap ADR memiliki konteks dan alasan yang jelas.
-* Perubahan keputusan dilakukan melalui ADR baru.
-* ADR menjadi referensi resmi dalam pengembangan LIM Digital Platform.
+- Seluruh keputusan arsitektur utama terdokumentasi.
+- Setiap ADR memiliki konteks dan alasan yang jelas.
+- Perubahan keputusan dilakukan melalui ADR baru.
+- ADR menjadi referensi resmi dalam pengembangan LIM Digital Platform.

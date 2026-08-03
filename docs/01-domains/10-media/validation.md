@@ -20,10 +20,10 @@ Seluruh file dan metadata wajib melalui proses validasi sebelum disimpan ke Stor
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Messages
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -31,17 +31,17 @@ Seluruh file dan metadata wajib melalui proses validasi sebelum disimpan ke Stor
 
 ## File
 
-* Wajib dipilih.
-* Tidak boleh kosong.
-* Tidak rusak (corrupt).
+- Wajib dipilih.
+- Tidak boleh kosong.
+- Tidak rusak (corrupt).
 
 ---
 
 ## File Name
 
-* Wajib diisi.
-* Maksimum 255 karakter.
-* Tidak mengandung karakter ilegal.
+- Wajib diisi.
+- Maksimum 255 karakter.
+- Tidak mengandung karakter ilegal.
 
 ---
 
@@ -51,12 +51,12 @@ Harus termasuk tipe yang diizinkan.
 
 Contoh:
 
-* image/jpeg
-* image/png
-* image/webp
-* application/pdf
-* video/mp4
-* audio/mpeg
+- image/jpeg
+- image/png
+- image/webp
+- application/pdf
+- video/mp4
+- audio/mpeg
 
 ---
 
@@ -66,17 +66,17 @@ Harus sesuai dengan MIME Type.
 
 Ekstensi yang didukung:
 
-* JPG
-* JPEG
-* PNG
-* WEBP
-* PDF
-* DOCX
-* XLSX
-* PPTX
-* MP4
-* MP3
-* ZIP
+- JPG
+- JPEG
+- PNG
+- WEBP
+- PDF
+- DOCX
+- XLSX
+- PPTX
+- MP4
+- MP3
+- ZIP
 
 ---
 
@@ -86,17 +86,17 @@ Mengikuti konfigurasi sistem.
 
 Contoh default:
 
-* Image ≤ 10 MB
-* Document ≤ 20 MB
-* Video ≤ 200 MB
-* Audio ≤ 50 MB
+- Image ≤ 10 MB
+- Document ≤ 20 MB
+- Video ≤ 200 MB
+- Audio ≤ 50 MB
 
 ---
 
 # Folder Validation
 
-* Folder harus tersedia.
-* Parent Folder harus valid apabila digunakan.
+- Folder harus tersedia.
+- Parent Folder harus valid apabila digunakan.
 
 ---
 
@@ -104,9 +104,9 @@ Contoh default:
 
 Upload hanya dapat dilakukan apabila:
 
-* User telah login.
-* User memiliki permission.
-* Storage tersedia.
+- User telah login.
+- User memiliki permission.
+- Storage tersedia.
 
 ---
 
@@ -114,8 +114,8 @@ Upload hanya dapat dilakukan apabila:
 
 Thumbnail hanya dibuat apabila:
 
-* File bertipe Image.
-* File berhasil diunggah.
+- File bertipe Image.
+- File berhasil diunggah.
 
 ---
 
@@ -123,9 +123,9 @@ Thumbnail hanya dibuat apabila:
 
 Preview hanya didukung untuk:
 
-* Image
-* PDF
-* Video
+- Image
+- PDF
+- Video
 
 ---
 
@@ -133,8 +133,8 @@ Preview hanya didukung untuk:
 
 Download hanya dapat dilakukan apabila:
 
-* File tersedia.
-* User memiliki hak akses.
+- File tersedia.
+- User memiliki hak akses.
 
 ---
 
@@ -142,8 +142,8 @@ Download hanya dapat dilakukan apabila:
 
 File hanya dapat diarsipkan apabila:
 
-* Tidak sedang diproses.
-* Tidak rusak.
+- Tidak sedang diproses.
+- Tidak rusak.
 
 ---
 
@@ -151,7 +151,7 @@ File hanya dapat diarsipkan apabila:
 
 File hanya dapat dipulihkan apabila:
 
-* Status = Archived.
+- Status = Archived.
 
 ---
 
@@ -159,23 +159,23 @@ File hanya dapat dipulihkan apabila:
 
 File tidak dapat dihapus apabila:
 
-* Memiliki Reference aktif.
-* Digunakan sebagai Logo.
-* Digunakan sebagai Template.
-* Digunakan oleh domain lain.
+- Memiliki Reference aktif.
+- Digunakan sebagai Logo.
+- Digunakan sebagai Template.
+- Digunakan oleh domain lain.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -221,8 +221,8 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh upload tervalidasi.
-* Format dan ukuran file sesuai aturan.
-* File yang direferensikan tidak dapat dihapus.
-* Thumbnail hanya dibuat untuk gambar.
-* Validasi dijalankan sebelum Business Rules.
+- Seluruh upload tervalidasi.
+- Format dan ukuran file sesuai aturan.
+- File yang direferensikan tidak dapat dihapus.
+- Thumbnail hanya dibuat untuk gambar.
+- Validasi dijalankan sebelum Business Rules.

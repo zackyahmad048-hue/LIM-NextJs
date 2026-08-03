@@ -46,9 +46,9 @@ Announcements
 
 Berisi:
 
-* Judul
-* Breadcrumb
-* User Menu
+- Judul
+- Breadcrumb
+- User Menu
 
 ---
 
@@ -56,9 +56,9 @@ Berisi:
 
 Menampilkan:
 
-* Nama User
-* Role
-* Sapaan
+- Nama User
+- Role
+- Sapaan
 
 ---
 
@@ -66,11 +66,11 @@ Menampilkan:
 
 Menampilkan:
 
-* Total User
-* Total Program
-* Total Surat
-* Total Sertifikat
-* Total Berita
+- Total User
+- Total Program
+- Total Surat
+- Total Sertifikat
+- Total Berita
 
 ---
 
@@ -96,9 +96,9 @@ Daftar pengumuman aktif.
 
 Apabila data kosong:
 
-* Tampilkan ilustrasi.
-* Tampilkan pesan.
-* Tampilkan tombol aksi jika diperlukan.
+- Tampilkan ilustrasi.
+- Tampilkan pesan.
+- Tampilkan tombol aksi jika diperlukan.
 
 ---
 
@@ -118,23 +118,23 @@ Gunakan Alert dengan pesan yang mudah dipahami.
 
 Dashboard wajib mendukung:
 
-* Mobile
-* Tablet
-* Desktop
+- Mobile
+- Tablet
+- Desktop
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* api.md
+- README.md
+- workflow.md
+- api.md
 
 ---
 
 # Acceptance Criteria
 
-* Layout konsisten.
-* Responsive.
-* Mengikuti Design System.
-* Seluruh widget mengikuti Permission.
+- Layout konsisten.
+- Responsive.
+- Mengikuti Design System.
+- Seluruh widget mengikuti Permission.

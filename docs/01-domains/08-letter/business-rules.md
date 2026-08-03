@@ -20,10 +20,10 @@ Domain Letter bertanggung jawab atas proses pembuatan, persetujuan, penomoran, p
 
 # General Rules
 
-* Seluruh surat resmi dibuat melalui Domain Letter.
-* Setiap surat memiliki nomor yang unik.
-* Seluruh perubahan dicatat pada Audit Log.
-* Surat hanya dapat diakses oleh pengguna yang memiliki permission.
+- Seluruh surat resmi dibuat melalui Domain Letter.
+- Setiap surat memiliki nomor yang unik.
+- Seluruh perubahan dicatat pada Audit Log.
+- Surat hanya dapat diakses oleh pengguna yang memiliki permission.
 
 ---
 
@@ -31,15 +31,15 @@ Domain Letter bertanggung jawab atas proses pembuatan, persetujuan, penomoran, p
 
 Jenis surat meliputi:
 
-* Surat Keputusan (SK)
-* Surat Tugas
-* Surat Undangan
-* Surat Pemberitahuan
-* Surat Rekomendasi
-* Surat Keterangan
-* Surat Edaran
-* Surat Internal
-* Surat Eksternal
+- Surat Keputusan (SK)
+- Surat Tugas
+- Surat Undangan
+- Surat Pemberitahuan
+- Surat Rekomendasi
+- Surat Keterangan
+- Surat Edaran
+- Surat Internal
+- Surat Eksternal
 
 Jenis surat dapat ditambahkan melalui pengaturan sistem.
 
@@ -71,9 +71,9 @@ Rejected
 
 # Draft Rules
 
-* Masih dapat diubah.
-* Belum memiliki nomor surat final.
-* Tidak dapat didistribusikan.
+- Masih dapat diubah.
+- Belum memiliki nomor surat final.
+- Tidak dapat didistribusikan.
 
 ---
 
@@ -89,10 +89,10 @@ Persetujuan dilakukan oleh pejabat yang berwenang.
 
 Nomor surat:
 
-* Dibuat otomatis.
-* Bersifat unik.
-* Tidak boleh diubah setelah disetujui.
-* Mengikuti format organisasi.
+- Dibuat otomatis.
+- Bersifat unik.
+- Tidak boleh diubah setelah disetujui.
+- Mengikuti format organisasi.
 
 ---
 
@@ -100,14 +100,14 @@ Nomor surat:
 
 Surat hanya dapat ditandatangani apabila:
 
-* Status = Approved.
-* Nomor surat telah dibuat.
-* Penandatangan memiliki hak.
+- Status = Approved.
+- Nomor surat telah dibuat.
+- Penandatangan memiliki hak.
 
 Mendukung:
 
-* Tanda tangan digital.
-* Tanda tangan manual (hasil scan).
+- Tanda tangan digital.
+- Tanda tangan manual (hasil scan).
 
 ---
 
@@ -115,10 +115,10 @@ Mendukung:
 
 Surat dapat dikirim melalui:
 
-* Unduh PDF.
-* Email.
-* WhatsApp (opsional).
-* Cetak.
+- Unduh PDF.
+- Email.
+- WhatsApp (opsional).
+- Cetak.
 
 Riwayat distribusi harus tersimpan.
 
@@ -130,9 +130,9 @@ Surat yang telah dikirim dapat diarsipkan.
 
 Surat arsip:
 
-* Read Only.
-* Tetap dapat dicari.
-* Tidak dapat diubah.
+- Read Only.
+- Tetap dapat dicari.
+- Tidak dapat diubah.
 
 ---
 
@@ -142,11 +142,11 @@ Setiap surat menggunakan Template Surat.
 
 Template menentukan:
 
-* Header
-* Footer
-* Logo
-* Format Nomor
-* Format Tanda Tangan
+- Header
+- Footer
+- Logo
+- Format Nomor
+- Format Tanda Tangan
 
 ---
 
@@ -164,10 +164,10 @@ Menggunakan Soft Delete.
 
 Surat tidak dapat dihapus apabila:
 
-* Sudah ditandatangani.
-* Sudah dikirim.
-* Sudah menjadi arsip.
-* Menjadi referensi domain lain.
+- Sudah ditandatangani.
+- Sudah dikirim.
+- Sudah menjadi arsip.
+- Menjadi referensi domain lain.
 
 ---
 
@@ -175,25 +175,25 @@ Surat tidak dapat dihapus apabila:
 
 Aktivitas berikut wajib dicatat:
 
-* Create Letter
-* Update Letter
-* Submit Letter
-* Approve Letter
-* Reject Letter
-* Generate Number
-* Sign Letter
-* Send Letter
-* Archive Letter
-* Delete Letter
+- Create Letter
+- Update Letter
+- Submit Letter
+- Approve Letter
+- Reject Letter
+- Generate Number
+- Sign Letter
+- Send Letter
+- Archive Letter
+- Delete Letter
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* Nomor surat tidak dapat dimodifikasi setelah dibuat.
-* Arsip bersifat Read Only.
+- Authentication wajib.
+- Permission wajib.
+- Nomor surat tidak dapat dimodifikasi setelah dibuat.
+- Arsip bersifat Read Only.
 
 ---
 
@@ -201,21 +201,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Seluruh surat mengikuti lifecycle yang ditentukan.
-* Nomor surat selalu unik.
-* Surat tidak dapat ditandatangani sebelum disetujui.
-* Arsip tidak dapat diubah.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Seluruh surat mengikuti lifecycle yang ditentukan.
+- Nomor surat selalu unik.
+- Surat tidak dapat ditandatangani sebelum disetujui.
+- Arsip tidak dapat diubah.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

@@ -18,14 +18,14 @@ Dokumen ini berisi dokumen manajemen proyek LIM Digital Platform, meliputi backl
 
 # Document Structure
 
-| File | Keterangan |
-|------|------------|
-| `backlog.md` | Daftar backlog fitur per phase |
-| `milestone.md` | Milestone proyek sesuai roadmap |
-| `release-plan.md` | Rencana release per phase |
-| `definition-of-done.md` | Kriteria selesai untuk task |
-| `definition-of-ready.md` | Kriteria siap masuk sprint |
-| `risk-register.md` | Daftar risiko dan mitigasi |
+| File                     | Keterangan                      |
+| ------------------------ | ------------------------------- |
+| `backlog.md`             | Daftar backlog fitur per phase  |
+| `milestone.md`           | Milestone proyek sesuai roadmap |
+| `release-plan.md`        | Rencana release per phase       |
+| `definition-of-done.md`  | Kriteria selesai untuk task     |
+| `definition-of-ready.md` | Kriteria siap masuk sprint      |
+| `risk-register.md`       | Daftar risiko dan mitigasi      |
 
 ---
 

@@ -20,10 +20,10 @@ Seluruh data surat wajib melalui proses validasi sebelum diproses oleh Business 
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Messages
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -31,45 +31,45 @@ Seluruh data surat wajib melalui proses validasi sebelum diproses oleh Business 
 
 ## Letter Type
 
-* Wajib dipilih.
-* Harus merupakan tipe surat yang aktif.
+- Wajib dipilih.
+- Harus merupakan tipe surat yang aktif.
 
 ---
 
 ## Template
 
-* Wajib dipilih.
-* Harus tersedia.
+- Wajib dipilih.
+- Harus tersedia.
 
 ---
 
 ## Subject
 
-* Wajib diisi.
-* Minimum 5 karakter.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Minimum 5 karakter.
+- Maksimum 255 karakter.
 
 ---
 
 ## Recipient
 
-* Wajib diisi.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Maksimum 255 karakter.
 
 ---
 
 ## Content
 
-* Wajib diisi.
-* Tidak boleh kosong.
+- Wajib diisi.
+- Tidak boleh kosong.
 
 ---
 
 ## Signer
 
-* Wajib dipilih.
-* Harus merupakan User aktif.
-* Memiliki hak sebagai penandatangan.
+- Wajib dipilih.
+- Harus merupakan User aktif.
+- Memiliki hak sebagai penandatangan.
 
 ---
 
@@ -77,9 +77,9 @@ Seluruh data surat wajib melalui proses validasi sebelum diproses oleh Business 
 
 Nomor surat:
 
-* Dibuat otomatis.
-* Harus unik.
-* Tidak dapat diubah setelah dibuat.
+- Dibuat otomatis.
+- Harus unik.
+- Tidak dapat diubah setelah dibuat.
 
 ---
 
@@ -87,10 +87,10 @@ Nomor surat:
 
 Surat hanya dapat disubmit apabila:
 
-* Template tersedia.
-* Subject tersedia.
-* Recipient tersedia.
-* Content tersedia.
+- Template tersedia.
+- Subject tersedia.
+- Recipient tersedia.
+- Content tersedia.
 
 Approval hanya dapat dilakukan oleh Reviewer yang berwenang.
 
@@ -100,9 +100,9 @@ Approval hanya dapat dilakukan oleh Reviewer yang berwenang.
 
 Surat hanya dapat ditandatangani apabila:
 
-* Status = Approved.
-* Nomor surat tersedia.
-* Penandatangan valid.
+- Status = Approved.
+- Nomor surat tersedia.
+- Penandatangan valid.
 
 ---
 
@@ -110,29 +110,29 @@ Surat hanya dapat ditandatangani apabila:
 
 Surat hanya dapat dikirim apabila:
 
-* Status = Signed.
-* Minimal memiliki satu tujuan distribusi.
+- Status = Signed.
+- Minimal memiliki satu tujuan distribusi.
 
 ---
 
 # Attachment Validation
 
-* Menggunakan Domain Media.
-* File wajib tersedia.
-* Format mengikuti standar Domain Media.
+- Menggunakan Domain Media.
+- File wajib tersedia.
+- Format mengikuti standar Domain Media.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -140,7 +140,7 @@ Surat hanya dapat dikirim apabila:
 
 Surat hanya dapat diarsipkan apabila:
 
-* Status = Sent.
+- Status = Sent.
 
 ---
 
@@ -148,7 +148,7 @@ Surat hanya dapat diarsipkan apabila:
 
 Surat hanya dapat dipulihkan apabila:
 
-* Status = Archived.
+- Status = Archived.
 
 ---
 
@@ -156,10 +156,10 @@ Surat hanya dapat dipulihkan apabila:
 
 Surat tidak dapat dihapus apabila:
 
-* Sudah ditandatangani.
-* Sudah dikirim.
-* Sudah diarsipkan.
-* Digunakan oleh domain lain.
+- Sudah ditandatangani.
+- Sudah dikirim.
+- Sudah diarsipkan.
+- Digunakan oleh domain lain.
 
 ---
 
@@ -194,8 +194,8 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh input tervalidasi.
-* Nomor surat unik.
-* Surat tidak dapat ditandatangani sebelum Approved.
-* Surat tidak dapat dikirim sebelum Signed.
-* Validasi dijalankan sebelum Business Rules.
+- Seluruh input tervalidasi.
+- Nomor surat unik.
+- Surat tidak dapat ditandatangani sebelum Approved.
+- Surat tidak dapat dikirim sebelum Signed.
+- Validasi dijalankan sebelum Business Rules.

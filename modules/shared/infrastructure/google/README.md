@@ -6,14 +6,14 @@ Lokasi: `modules/shared/infrastructure/google/`
 
 ## Isi Modul
 
-| File | Fungsi |
-|---|---|
-| `config.ts` | Baca env: service account, spreadsheet ID, template doc ID. |
-| `client.ts` | Auth JWT service account via `googleapis` → klien `sheets`, `docs`, `drive`. |
-| `errors.ts` | `GoogleApiError` dengan kode terstruktur (`UNAUTHENTICATED`, `NOT_FOUND`, `RATE_LIMITED`, `TIMEOUT`, `CONFLICT`, `UNKNOWN`). |
-| `spreadsheet.ts` | Helper generik: `readRows`, `appendRow`, `updateRowById`, `findRowIndexById`. |
-| `sheet-repository.ts` | `SheetsBaseRepository` — konversi baris ↔ entitas (Date, number, nullable, JSON). |
-| `google-doc.ts` | `createDocumentFromTemplate(templateId, values)` → copy template + isi placeholder `{{key}}`. |
+| File                  | Fungsi                                                                                                                       |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `config.ts`           | Baca env: service account, spreadsheet ID, template doc ID.                                                                  |
+| `client.ts`           | Auth JWT service account via `googleapis` → klien `sheets`, `docs`, `drive`.                                                 |
+| `errors.ts`           | `GoogleApiError` dengan kode terstruktur (`UNAUTHENTICATED`, `NOT_FOUND`, `RATE_LIMITED`, `TIMEOUT`, `CONFLICT`, `UNKNOWN`). |
+| `spreadsheet.ts`      | Helper generik: `readRows`, `appendRow`, `updateRowById`, `findRowIndexById`.                                                |
+| `sheet-repository.ts` | `SheetsBaseRepository` — konversi baris ↔ entitas (Date, number, nullable, JSON).                                            |
+| `google-doc.ts`       | `createDocumentFromTemplate(templateId, values)` → copy template + isi placeholder `{{key}}`.                                |
 
 Aturan:
 

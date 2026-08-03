@@ -24,11 +24,11 @@ Dashboard tidak mengelola data bisnis secara langsung. Seluruh data yang ditampi
 
 Tujuan utama Domain Dashboard adalah:
 
-* Menampilkan informasi penting secara ringkas.
-* Memberikan akses cepat ke modul utama.
-* Menyajikan statistik yang relevan.
-* Menampilkan aktivitas terbaru.
-* Membantu pengguna memahami kondisi sistem setelah login.
+- Menampilkan informasi penting secara ringkas.
+- Memberikan akses cepat ke modul utama.
+- Menyajikan statistik yang relevan.
+- Menampilkan aktivitas terbaru.
+- Membantu pengguna memahami kondisi sistem setelah login.
 
 ---
 
@@ -36,20 +36,20 @@ Tujuan utama Domain Dashboard adalah:
 
 Domain Dashboard mencakup:
 
-* Dashboard Home
-* Statistics
-* Quick Access
-* Recent Activities
-* Announcements
-* System Information
+- Dashboard Home
+- Statistics
+- Quick Access
+- Recent Activities
+- Announcements
+- System Information
 
 Domain Dashboard tidak mencakup:
 
-* CRUD Data
-* Pengelolaan Program
-* Pengelolaan Surat
-* Pengelolaan Sertifikat
-* Pengelolaan Konten
+- CRUD Data
+- Pengelolaan Program
+- Pengelolaan Surat
+- Pengelolaan Sertifikat
+- Pengelolaan Konten
 
 ---
 
@@ -57,10 +57,10 @@ Domain Dashboard tidak mencakup:
 
 Domain Dashboard digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Operator
-* User
+- Super Administrator
+- Administrator
+- Operator
+- User
 
 Informasi yang ditampilkan menyesuaikan Role dan Permission masing-masing pengguna.
 
@@ -70,11 +70,11 @@ Informasi yang ditampilkan menyesuaikan Role dan Permission masing-masing penggu
 
 Domain Dashboard bertanggung jawab untuk:
 
-* Menampilkan ringkasan informasi.
-* Menampilkan statistik sistem.
-* Menampilkan shortcut menuju modul.
-* Menampilkan aktivitas terbaru.
-* Menampilkan informasi sistem sesuai hak akses.
+- Menampilkan ringkasan informasi.
+- Menampilkan statistik sistem.
+- Menampilkan shortcut menuju modul.
+- Menampilkan aktivitas terbaru.
+- Menampilkan informasi sistem sesuai hak akses.
 
 Dashboard bukan sumber data utama dan tidak memiliki Business Rules yang mengubah data.
 
@@ -84,17 +84,17 @@ Dashboard bukan sumber data utama dan tidak memiliki Business Rules yang menguba
 
 Dashboard menggunakan data dari domain berikut:
 
-* Authentication
-* Authorization
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Media
+- Notification
+- Settings
 
 Dashboard tidak menjadi dependency bagi domain lain.
 
@@ -104,12 +104,12 @@ Dashboard tidak menjadi dependency bagi domain lain.
 
 Fitur utama Dashboard:
 
-* Welcome Card
-* Statistics Card
-* Quick Access
-* Recent Activities
-* Announcement Panel
-* System Information
+- Welcome Card
+- Statistics Card
+- Quick Access
+- Recent Activities
+- Announcement Panel
+- System Information
 
 ---
 
@@ -117,14 +117,14 @@ Fitur utama Dashboard:
 
 Dokumen yang berkaitan dengan Domain Dashboard:
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

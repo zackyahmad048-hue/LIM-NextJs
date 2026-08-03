@@ -22,17 +22,17 @@ EDA digunakan secara **selektif** untuk mengurangi coupling antar domain dan mem
 
 Sebagian besar komunikasi antar domain menggunakan:
 
-* Application Service
-* REST API
+- Application Service
+- REST API
 
 Sedangkan proses yang bersifat asynchronous menggunakan Domain Event.
 
 Contoh:
 
-* Notification
-* Audit Log
-* Dashboard Update
-* Media Processing
+- Notification
+- Audit Log
+- Dashboard Update
+- Media Processing
 
 ---
 
@@ -126,9 +126,9 @@ Publisher tidak mengetahui siapa Subscriber.
 
 Subscriber bertanggung jawab:
 
-* Mendengarkan Event.
-* Menjalankan proses lanjutan.
-* Tidak mengubah Business Rules Publisher.
+- Mendengarkan Event.
+- Menjalankan proses lanjutan.
+- Tidak mengubah Business Rules Publisher.
 
 ---
 
@@ -178,12 +178,12 @@ Event Bus menjadi media komunikasi antar domain.
 
 Implementasi dapat berupa:
 
-* In Memory Event Bus
-* Message Queue
-* RabbitMQ
-* Kafka
-* Azure Service Bus
-* AWS SNS/SQS
+- In Memory Event Bus
+- Message Queue
+- RabbitMQ
+- Kafka
+- Azure Service Bus
+- AWS SNS/SQS
 
 Versi awal Modular Monolith cukup menggunakan **In Memory Event Bus**.
 
@@ -250,10 +250,10 @@ Contoh Subscriber:
 
 # Event Rules
 
-* Event bersifat immutable.
-* Event tidak boleh diubah setelah dipublikasikan.
-* Event hanya menggambarkan sesuatu yang telah terjadi.
-* Event tidak boleh digunakan sebagai Command.
+- Event bersifat immutable.
+- Event tidak boleh diubah setelah dipublikasikan.
+- Event hanya menggambarkan sesuatu yang telah terjadi.
+- Event tidak boleh digunakan sebagai Command.
 
 ---
 
@@ -299,9 +299,9 @@ Dead Letter Queue (Future)
 
 Apabila diperlukan:
 
-* FIFO Queue
-* Event Version
-* Idempotent Handler
+- FIFO Queue
+- Event Version
+- Idempotent Handler
 
 Handler harus mampu menangani event yang diterima lebih dari sekali (**Idempotency**).
 
@@ -309,11 +309,11 @@ Handler harus mampu menangani event yang diterima lebih dari sekali (**Idempoten
 
 # Benefits
 
-* Loose Coupling.
-* Scalability.
-* Asynchronous Processing.
-* Independent Modules.
-* Better Extensibility.
+- Loose Coupling.
+- Scalability.
+- Asynchronous Processing.
+- Independent Modules.
+- Better Extensibility.
 
 ---
 
@@ -321,12 +321,12 @@ Handler harus mampu menangani event yang diterima lebih dari sekali (**Idempoten
 
 EDA digunakan pada:
 
-* Notification
-* Dashboard
-* Audit Log
-* Search Index
-* Media Processing
-* Analytics
+- Notification
+- Dashboard
+- Audit Log
+- Search Index
+- Media Processing
+- Analytics
 
 Tidak seluruh proses harus menggunakan Event.
 
@@ -334,20 +334,20 @@ Tidak seluruh proses harus menggunakan Event.
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* cqrs.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- cqrs.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Domain Event terdokumentasi.
-* Publisher dan Subscriber terpisah.
-* Event bersifat immutable.
-* Implementasi mengikuti prinsip Loose Coupling.
-* Event Driven Architecture diterapkan hanya pada proses yang sesuai.
+- Domain Event terdokumentasi.
+- Publisher dan Subscriber terpisah.
+- Event bersifat immutable.
+- Implementasi mengikuti prinsip Loose Coupling.
+- Event Driven Architecture diterapkan hanya pada proses yang sesuai.

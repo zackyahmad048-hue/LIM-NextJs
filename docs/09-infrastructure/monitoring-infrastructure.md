@@ -20,11 +20,11 @@ Monitoring bertujuan memastikan seluruh layanan dapat dipantau secara real-time 
 
 Monitoring mencakup:
 
-* Metrics
-* Logs
-* Tracing (Roadmap)
-* Health Check
-* Alerting
+- Metrics
+- Logs
+- Tracing (Roadmap)
+- Health Check
+- Alerting
 
 ---
 
@@ -32,11 +32,11 @@ Monitoring mencakup:
 
 Monitoring Infrastructure bertujuan untuk:
 
-* Menjaga Availability sistem.
-* Memantau performa aplikasi.
-* Mendeteksi gangguan lebih awal.
-* Mempermudah troubleshooting.
-* Menyediakan data operasional untuk analisis.
+- Menjaga Availability sistem.
+- Memantau performa aplikasi.
+- Mendeteksi gangguan lebih awal.
+- Mempermudah troubleshooting.
+- Menyediakan data operasional untuk analisis.
 
 ---
 
@@ -44,10 +44,10 @@ Monitoring Infrastructure bertujuan untuk:
 
 Monitoring terdiri dari:
 
-* Metrics Collector
-* Log Aggregator
-* Alert Manager
-* Dashboard Monitoring
+- Metrics Collector
+- Log Aggregator
+- Alert Manager
+- Dashboard Monitoring
 
 Implementasi dapat disesuaikan dengan kebutuhan organisasi.
 
@@ -87,13 +87,13 @@ Seluruh service wajib mengirim Metrics.
 
 Minimal meliputi:
 
-* CPU Usage
-* Memory Usage
-* Disk Usage
-* Network Usage
-* Request Rate
-* Error Rate
-* Response Time
+- CPU Usage
+- Memory Usage
+- Disk Usage
+- Network Usage
+- Request Rate
+- Error Rate
+- Response Time
 
 ---
 
@@ -101,13 +101,13 @@ Minimal meliputi:
 
 Backend API memonitor:
 
-* API Request
-* API Response
-* HTTP Status
-* Authentication
-* Authorization
-* Queue Processing
-* Background Job
+- API Request
+- API Response
+- HTTP Status
+- Authentication
+- Authorization
+- Queue Processing
+- Background Job
 
 ---
 
@@ -115,11 +115,11 @@ Backend API memonitor:
 
 Database memonitor:
 
-* Active Connection
-* Slow Query
-* Query Duration
-* Storage Usage
-* Replication Status (Future)
+- Active Connection
+- Slow Query
+- Query Duration
+- Storage Usage
+- Replication Status (Future)
 
 ---
 
@@ -127,11 +127,11 @@ Database memonitor:
 
 Redis memonitor:
 
-* Memory Usage
-* Cache Hit Ratio
-* Connected Client
-* Queue Length
-* Eviction Count
+- Memory Usage
+- Cache Hit Ratio
+- Connected Client
+- Queue Length
+- Eviction Count
 
 ---
 
@@ -139,11 +139,11 @@ Redis memonitor:
 
 Storage memonitor:
 
-* Upload Rate
-* Download Rate
-* Capacity
-* Failed Upload
-* Failed Download
+- Upload Rate
+- Download Rate
+- Capacity
+- Failed Upload
+- Failed Download
 
 ---
 
@@ -151,15 +151,15 @@ Storage memonitor:
 
 Seluruh layanan wajib menyediakan:
 
-* Liveness Endpoint
-* Readiness Endpoint
-* Startup Check
+- Liveness Endpoint
+- Readiness Endpoint
+- Startup Check
 
 Health Check digunakan oleh:
 
-* Load Balancer
-* Container Platform
-* Monitoring
+- Load Balancer
+- Container Platform
+- Monitoring
 
 ---
 
@@ -169,11 +169,11 @@ Seluruh aplikasi mengirim Log secara terpusat.
 
 Kategori Log:
 
-* Application Log
-* Access Log
-* Error Log
-* Security Log
-* Audit Log
+- Application Log
+- Access Log
+- Error Log
+- Security Log
+- Audit Log
 
 Log harus memiliki Timestamp dan Correlation ID.
 
@@ -183,19 +183,19 @@ Log harus memiliki Timestamp dan Correlation ID.
 
 Alert dikirim ketika:
 
-* Service Down
-* CPU Tinggi
-* Memory Tinggi
-* Disk Hampir Penuh
-* Database Tidak Merespons
-* Queue Menumpuk
-* Error Rate Tinggi
+- Service Down
+- CPU Tinggi
+- Memory Tinggi
+- Disk Hampir Penuh
+- Database Tidak Merespons
+- Queue Menumpuk
+- Error Rate Tinggi
 
 Alert dapat dikirim melalui:
 
-* Email
-* Push Notification
-* Messaging Platform (Opsional)
+- Email
+- Push Notification
+- Messaging Platform (Opsional)
 
 ---
 
@@ -203,13 +203,13 @@ Alert dapat dikirim melalui:
 
 Dashboard menampilkan:
 
-* System Health
-* API Performance
-* Database Performance
-* Queue Status
-* Storage Usage
-* Active User
-* Error Summary
+- System Health
+- API Performance
+- Database Performance
+- Queue Status
+- Storage Usage
+- Active User
+- Error Summary
 
 ---
 
@@ -232,11 +232,11 @@ Contoh:
 
 Monitoring wajib menerapkan:
 
-* Authentication.
-* RBAC.
-* HTTPS.
-* Audit Log.
-* Private Network.
+- Authentication.
+- RBAC.
+- HTTPS.
+- Audit Log.
+- Private Network.
 
 Dashboard Monitoring tidak boleh diakses publik.
 
@@ -244,28 +244,28 @@ Dashboard Monitoring tidak boleh diakses publik.
 
 # Best Practices
 
-* Gunakan Correlation ID pada setiap Request.
-* Hindari menyimpan data sensitif di Log.
-* Uji Alert secara berkala.
-* Pantau tren performa, bukan hanya Error.
-* Dokumentasikan seluruh Alert dan Threshold.
+- Gunakan Correlation ID pada setiap Request.
+- Hindari menyimpan data sensitif di Log.
+- Uji Alert secara berkala.
+- Pantau tren performa, bukan hanya Error.
+- Dokumentasikan seluruh Alert dan Threshold.
 
 ---
 
 # Related Documents
 
-* README.md
-* server-architecture.md
-* database-infrastructure.md
-* cache-infrastructure.md
-* storage-infrastructure.md
+- README.md
+- server-architecture.md
+- database-infrastructure.md
+- cache-infrastructure.md
+- storage-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh layanan mengirim Metrics dan Log.
-* Health Check aktif pada seluruh service.
-* Dashboard Monitoring tersedia.
-* Alerting berjalan sesuai konfigurasi.
-* Monitoring Infrastructure menjadi acuan resmi implementasi observability LIM Digital Platform.
+- Seluruh layanan mengirim Metrics dan Log.
+- Health Check aktif pada seluruh service.
+- Dashboard Monitoring tersedia.
+- Alerting berjalan sesuai konfigurasi.
+- Monitoring Infrastructure menjadi acuan resmi implementasi observability LIM Digital Platform.

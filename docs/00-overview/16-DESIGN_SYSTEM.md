@@ -24,12 +24,12 @@ Seluruh implementasi UI wajib mengikuti dokumen ini.
 
 Seluruh antarmuka mengikuti prinsip berikut:
 
-* Simple
-* Consistent
-* Accessible
-* Responsive
-* Reusable
-* User Focused
+- Simple
+- Consistent
+- Accessible
+- Responsive
+- Reusable
+- User Focused
 
 ---
 
@@ -37,10 +37,10 @@ Seluruh antarmuka mengikuti prinsip berikut:
 
 LIM Digital Platform mengutamakan:
 
-* Informasi lebih penting daripada dekorasi.
-* Konsistensi lebih penting daripada variasi.
-* Kejelasan lebih penting daripada kompleksitas.
-* Komponen dapat digunakan kembali.
+- Informasi lebih penting daripada dekorasi.
+- Konsistensi lebih penting daripada variasi.
+- Kejelasan lebih penting daripada kompleksitas.
+- Komponen dapat digunakan kembali.
 
 ---
 
@@ -48,11 +48,11 @@ LIM Digital Platform mengutamakan:
 
 Karakter desain:
 
-* Modern
-* Minimalis
-* Profesional
-* Bersih
-* Mudah dipahami
+- Modern
+- Minimalis
+- Profesional
+- Bersih
+- Mudah dipahami
 
 ---
 
@@ -94,9 +94,9 @@ Menggunakan grid yang fleksibel.
 
 Standar:
 
-* Mobile
-* Tablet
-* Desktop
+- Mobile
+- Tablet
+- Desktop
 
 Seluruh halaman harus responsif.
 
@@ -134,15 +134,15 @@ Tidak menggunakan nilai acak.
 
 Font utama:
 
-* Sans Serif
+- Sans Serif
 
 Hierarki:
 
-* Heading 1
-* Heading 2
-* Heading 3
-* Body
-* Caption
+- Heading 1
+- Heading 2
+- Heading 3
+- Body
+- Caption
 
 Ukuran teks harus konsisten di seluruh aplikasi.
 
@@ -152,13 +152,13 @@ Ukuran teks harus konsisten di seluruh aplikasi.
 
 Kategori warna:
 
-* Primary
-* Secondary
-* Success
-* Warning
-* Error
-* Info
-* Neutral
+- Primary
+- Secondary
+- Success
+- Warning
+- Error
+- Info
+- Neutral
 
 Seluruh warna dikelola melalui Theme.
 
@@ -172,8 +172,8 @@ Menggunakan satu library ikon yang konsisten.
 
 Aturan:
 
-* Satu ikon untuk satu makna.
-* Tidak menggunakan ikon berbeda untuk aksi yang sama.
+- Satu ikon untuk satu makna.
+- Tidak menggunakan ikon berbeda untuk aksi yang sama.
 
 ---
 
@@ -181,18 +181,18 @@ Aturan:
 
 Jenis tombol:
 
-* Primary
-* Secondary
-* Outline
-* Ghost
-* Destructive
+- Primary
+- Secondary
+- Outline
+- Ghost
+- Destructive
 
 Seluruh tombol harus memiliki:
 
-* Hover State
-* Focus State
-* Disabled State
-* Loading State
+- Hover State
+- Focus State
+- Disabled State
+- Loading State
 
 ---
 
@@ -200,11 +200,11 @@ Seluruh tombol harus memiliki:
 
 Seluruh form memiliki:
 
-* Label
-* Placeholder (opsional)
-* Helper Text (opsional)
-* Error Message
-* Validation
+- Label
+- Placeholder (opsional)
+- Helper Text (opsional)
+- Error Message
+- Validation
 
 Error harus ditampilkan di dekat field yang bermasalah.
 
@@ -214,14 +214,14 @@ Error harus ditampilkan di dekat field yang bermasalah.
 
 Komponen standar:
 
-* Input
-* Textarea
-* Select
-* Checkbox
-* Radio
-* Switch
-* Date Picker
-* File Upload
+- Input
+- Textarea
+- Select
+- Checkbox
+- Radio
+- Switch
+- Date Picker
+- File Upload
 
 Seluruh komponen menggunakan gaya yang konsisten.
 
@@ -231,12 +231,12 @@ Seluruh komponen menggunakan gaya yang konsisten.
 
 Table mengikuti standar berikut:
 
-* Pagination
-* Sorting
-* Filtering
-* Search
-* Empty State
-* Loading State
+- Pagination
+- Sorting
+- Filtering
+- Search
+- Empty State
+- Loading State
 
 Gunakan TanStack Table sebagai implementasi utama.
 
@@ -246,9 +246,9 @@ Gunakan TanStack Table sebagai implementasi utama.
 
 Dialog digunakan untuk:
 
-* Konfirmasi
-* Form
-* Detail
+- Konfirmasi
+- Form
+- Detail
 
 Dialog harus dapat ditutup dengan aman dan tidak menghilangkan data tanpa konfirmasi.
 
@@ -258,9 +258,9 @@ Dialog harus dapat ditutup dengan aman dan tidak menghilangkan data tanpa konfir
 
 Navigasi harus:
 
-* Konsisten.
-* Mudah dipahami.
-* Tidak berubah antar halaman tanpa alasan.
+- Konsisten.
+- Mudah dipahami.
+- Tidak berubah antar halaman tanpa alasan.
 
 ---
 
@@ -268,11 +268,11 @@ Navigasi harus:
 
 Sistem memberikan feedback melalui:
 
-* Toast
-* Alert
-* Dialog
-* Badge
-* Progress Indicator
+- Toast
+- Alert
+- Dialog
+- Badge
+- Progress Indicator
 
 ---
 
@@ -288,8 +288,8 @@ Pengguna tidak boleh dibiarkan menunggu tanpa informasi.
 
 Halaman tanpa data harus menampilkan:
 
-* Penjelasan singkat.
-* Tombol aksi apabila relevan.
+- Penjelasan singkat.
+- Tombol aksi apabila relevan.
 
 ---
 
@@ -297,8 +297,8 @@ Halaman tanpa data harus menampilkan:
 
 Apabila terjadi kesalahan, tampilkan:
 
-* Pesan yang jelas.
-* Langkah yang dapat dilakukan pengguna.
+- Pesan yang jelas.
+- Langkah yang dapat dilakukan pengguna.
 
 Hindari pesan teknis.
 
@@ -308,9 +308,9 @@ Hindari pesan teknis.
 
 Platform mendukung:
 
-* Mobile
-* Tablet
-* Desktop
+- Mobile
+- Tablet
+- Desktop
 
 Seluruh halaman wajib dapat digunakan pada ketiga ukuran tersebut.
 
@@ -320,10 +320,10 @@ Seluruh halaman wajib dapat digunakan pada ketiga ukuran tersebut.
 
 Komponen harus memperhatikan:
 
-* Label yang jelas.
-* Navigasi keyboard.
-* Kontras warna yang cukup.
-* Fokus yang terlihat.
+- Label yang jelas.
+- Navigasi keyboard.
+- Kontras warna yang cukup.
+- Fokus yang terlihat.
 
 ---
 
@@ -331,8 +331,8 @@ Komponen harus memperhatikan:
 
 Platform mendukung:
 
-* Light Mode
-* Dark Mode
+- Light Mode
+- Dark Mode
 
 Seluruh komponen harus kompatibel dengan kedua tema.
 
@@ -350,9 +350,9 @@ Duplikasi komponen harus dihindari.
 
 Komponen dengan fungsi yang sama harus memiliki:
 
-* Tampilan yang sama.
-* Perilaku yang sama.
-* Validasi yang sama.
+- Tampilan yang sama.
+- Perilaku yang sama.
+- Validasi yang sama.
 
 ---
 
@@ -360,9 +360,9 @@ Komponen dengan fungsi yang sama harus memiliki:
 
 Perubahan terhadap Design System harus:
 
-* Didokumentasikan.
-* Diuji pada Website, Admin, dan Mobile.
-* Disetujui sebelum diterapkan.
+- Didokumentasikan.
+- Diuji pada Website, Admin, dan Mobile.
+- Disetujui sebelum diterapkan.
 
 ---
 

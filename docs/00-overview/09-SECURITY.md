@@ -22,12 +22,12 @@ Seluruh aplikasi, API, layanan, dan database harus mengikuti standar keamanan ya
 
 Platform dibangun berdasarkan prinsip berikut:
 
-* Security by Design
-* Privacy by Default
-* Least Privilege
-* Defense in Depth
-* Zero Trust
-* Secure by Default
+- Security by Design
+- Privacy by Default
+- Least Privilege
+- Defense in Depth
+- Zero Trust
+- Secure by Default
 
 ---
 
@@ -37,10 +37,10 @@ Seluruh autentikasi menggunakan Better Auth.
 
 Aturan:
 
-* Session dikelola secara aman.
-* Password tidak disimpan dalam bentuk plaintext.
-* Session memiliki masa berlaku.
-* Logout mengakhiri session aktif.
+- Session dikelola secara aman.
+- Password tidak disimpan dalam bentuk plaintext.
+- Session memiliki masa berlaku.
+- Logout mengakhiri session aktif.
 
 ---
 
@@ -50,10 +50,10 @@ Hak akses menggunakan Role Based Access Control (RBAC).
 
 Aturan:
 
-* Permission diberikan kepada Role.
-* User memperoleh Permission melalui Role.
-* Permission diperiksa pada setiap aksi yang memerlukan otorisasi.
-* Tidak ada akses berdasarkan asumsi atau hardcode.
+- Permission diberikan kepada Role.
+- User memperoleh Permission melalui Role.
+- Permission diperiksa pada setiap aksi yang memerlukan otorisasi.
+- Tidak ada akses berdasarkan asumsi atau hardcode.
 
 ---
 
@@ -61,10 +61,10 @@ Aturan:
 
 Password pengguna harus:
 
-* Memenuhi panjang minimum yang ditentukan sistem.
-* Disimpan menggunakan hashing yang aman.
-* Tidak ditampilkan kembali kepada pengguna.
-* Tidak dicatat pada log.
+- Memenuhi panjang minimum yang ditentukan sistem.
+- Disimpan menggunakan hashing yang aman.
+- Tidak ditampilkan kembali kepada pengguna.
+- Tidak dicatat pada log.
 
 ---
 
@@ -72,10 +72,10 @@ Password pengguna harus:
 
 Session harus:
 
-* Memiliki waktu kedaluwarsa.
-* Dapat dicabut (revoke).
-* Tidak dapat dipalsukan.
-* Menggunakan cookie yang aman bila berbasis web.
+- Memiliki waktu kedaluwarsa.
+- Dapat dicabut (revoke).
+- Tidak dapat dipalsukan.
+- Menggunakan cookie yang aman bila berbasis web.
 
 ---
 
@@ -115,10 +115,10 @@ Data yang boleh diakses publik.
 
 Contoh:
 
-* Berita
-* Artikel
-* Agenda
-* Profil Organisasi
+- Berita
+- Artikel
+- Agenda
+- Profil Organisasi
 
 ---
 
@@ -128,11 +128,11 @@ Data yang hanya dapat diakses oleh pengguna yang memiliki hak.
 
 Contoh:
 
-* Data Pengguna
-* Administrasi
-* Program Internal
-* Arsip
-* Audit Log
+- Data Pengguna
+- Administrasi
+- Program Internal
+- Arsip
+- Audit Log
 
 ---
 
@@ -140,9 +140,9 @@ Contoh:
 
 Seluruh input wajib:
 
-* Divalidasi menggunakan Zod.
-* Dibersihkan dari data yang tidak diperlukan.
-* Tidak langsung diteruskan ke database.
+- Divalidasi menggunakan Zod.
+- Dibersihkan dari data yang tidak diperlukan.
+- Tidak langsung diteruskan ke database.
 
 ---
 
@@ -150,10 +150,10 @@ Seluruh input wajib:
 
 Database harus:
 
-* Menggunakan koneksi terenkripsi.
-* Tidak dapat diakses langsung dari internet.
-* Menggunakan Environment Variables untuk kredensial.
-* Diakses hanya melalui Prisma Repository.
+- Menggunakan koneksi terenkripsi.
+- Tidak dapat diakses langsung dari internet.
+- Menggunakan Environment Variables untuk kredensial.
+- Diakses hanya melalui Prisma Repository.
 
 ---
 
@@ -161,11 +161,11 @@ Database harus:
 
 REST API wajib:
 
-* Melakukan autentikasi.
-* Melakukan otorisasi.
-* Memvalidasi seluruh input.
-* Mengembalikan response yang aman.
-* Tidak membocorkan informasi internal.
+- Melakukan autentikasi.
+- Melakukan otorisasi.
+- Memvalidasi seluruh input.
+- Mengembalikan response yang aman.
+- Tidak membocorkan informasi internal.
 
 ---
 
@@ -173,11 +173,11 @@ REST API wajib:
 
 Seluruh file upload harus:
 
-* Divalidasi tipe file.
-* Dibatasi ukuran file.
-* Memiliki nama file yang aman.
-* Disimpan di lokasi yang telah ditentukan.
-* Tidak dapat dieksekusi sebagai script.
+- Divalidasi tipe file.
+- Dibatasi ukuran file.
+- Memiliki nama file yang aman.
+- Disimpan di lokasi yang telah ditentukan.
+- Tidak dapat dieksekusi sebagai script.
 
 ---
 
@@ -185,15 +185,15 @@ Seluruh file upload harus:
 
 Aktivitas berikut wajib dicatat:
 
-* Login
-* Logout
-* Create
-* Update
-* Delete
-* Restore
-* Publish
-* Permission Change
-* Role Change
+- Login
+- Logout
+- Create
+- Update
+- Delete
+- Restore
+- Publish
+- Permission Change
+- Role Change
 
 Audit Log tidak boleh diubah oleh pengguna biasa.
 
@@ -203,10 +203,10 @@ Audit Log tidak boleh diubah oleh pengguna biasa.
 
 Pesan error kepada pengguna:
 
-* Jelas.
-* Tidak membocorkan stack trace.
-* Tidak menampilkan query database.
-* Tidak menampilkan informasi sensitif.
+- Jelas.
+- Tidak membocorkan stack trace.
+- Tidak menampilkan query database.
+- Tidak menampilkan informasi sensitif.
 
 Detail teknis hanya tersedia pada sistem logging.
 
@@ -254,9 +254,9 @@ Restore harus diuji secara berkala untuk memastikan data dapat dipulihkan.
 
 Library pihak ketiga harus:
 
-* Berasal dari sumber terpercaya.
-* Diperbarui secara berkala.
-* Ditinjau apabila terdapat kerentanan keamanan.
+- Berasal dari sumber terpercaya.
+- Diperbarui secara berkala.
+- Ditinjau apabila terdapat kerentanan keamanan.
 
 ---
 
@@ -264,16 +264,16 @@ Library pihak ketiga harus:
 
 Log digunakan untuk:
 
-* Monitoring
-* Audit
-* Investigasi
+- Monitoring
+- Audit
+- Investigasi
 
 Log tidak boleh berisi:
 
-* Password
-* Secret
-* Token
-* Informasi sensitif lainnya
+- Password
+- Secret
+- Token
+- Informasi sensitif lainnya
 
 ---
 
@@ -293,10 +293,10 @@ Apabila terjadi insiden keamanan:
 
 Seluruh modul harus mematuhi:
 
-* Business Rules
-* Architecture
-* Privacy Policy
-* Security Policy
+- Business Rules
+- Architecture
+- Privacy Policy
+- Security Policy
 
 ---
 
@@ -304,9 +304,9 @@ Seluruh modul harus mematuhi:
 
 Perubahan terhadap standar keamanan harus:
 
-* Didokumentasikan.
-* Ditinjau dampaknya.
-* Disetujui sebelum diterapkan.
+- Didokumentasikan.
+- Ditinjau dampaknya.
+- Disetujui sebelum diterapkan.
 
 ---
 

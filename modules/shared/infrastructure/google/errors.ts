@@ -10,7 +10,7 @@ export class GoogleApiError extends Error {
   constructor(
     public readonly code: GoogleApiErrorCode,
     message: string,
-    options?: { cause?: unknown }
+    options?: { cause?: unknown },
   ) {
     super(message, options);
     this.name = "GoogleApiError";

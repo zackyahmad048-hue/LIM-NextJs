@@ -2,7 +2,10 @@ import { BaseRepository } from "@/modules/shared/infrastructure/base.repository"
 import type { SettingRepository } from "../domain/setting.repository";
 import { Setting } from "../domain/setting.entity";
 
-export class PrismaSettingRepository extends BaseRepository implements SettingRepository {
+export class PrismaSettingRepository
+  extends BaseRepository
+  implements SettingRepository
+{
   async findByKey(key: string): Promise<Setting | null> {
     const setting = await this.db.setting.findUnique({ where: { key } });
     if (!setting) return null;

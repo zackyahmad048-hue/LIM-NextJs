@@ -6,6 +6,8 @@ import { Header } from "@/components/admin/layout/header";
 import { SidebarProvider } from "@/components/admin/providers/sidebar-provider";
 
 import { getSession } from "@/modules/authentication/infrastructure/session.helper";
+import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
+import { ROLE_LABELS } from "@/config/role";
 
 export const dynamic = "force-dynamic";
 
@@ -20,18 +22,27 @@ export default async function DashboardLayout({
     redirect("/admin/login");
   }
 
+  const { roleSlugs } = await getCurrentUserPermissions();
+  const roleLabel =
+    roleSlugs.map((slug) => ROLE_LABELS[slug]).filter(Boolean)[0] ?? "Admin";
+
+  const user = {
+    name: session.user.name ?? "Admin",
+    email: session.user.email ?? "",
+    image: session.user.image ?? null,
+    roleLabel,
+  };
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen bg-transparent">
-        <Sidebar />
-        <MobileSidebar />
+        <Sidebar roleSlugs={roleSlugs} />
+        <MobileSidebar roleSlugs={roleSlugs} />
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <Header />
+          <Header user={user} />
 
-          <main className="flex-1 overflow-x-hidden">
-            {children}
-          </main>
+          <main className="flex-1 overflow-x-hidden">{children}</main>
         </div>
       </div>
     </SidebarProvider>

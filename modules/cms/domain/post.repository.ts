@@ -6,6 +6,11 @@ export interface PostRepository {
   countAll(): Promise<number>;
   countPublished(): Promise<number>;
   findRecent(limit?: number): Promise<PostWithRelations[]>;
+  findPublishedByCategorySlug(
+    categorySlug: string,
+    limit?: number,
+  ): Promise<PostWithRelations[]>;
+  findPublishedBySlug(slug: string): Promise<PostWithRelations | null>;
   findById(id: string): Promise<PrismaPost | null>;
   findPaginated(params: {
     page: number;
@@ -32,7 +37,7 @@ export interface PostRepository {
       content?: string;
       thumbnail?: string;
       categoryId?: string;
-    }
+    },
   ): Promise<PrismaPost>;
   publish(id: string): Promise<PrismaPost>;
   archive(id: string): Promise<PrismaPost>;

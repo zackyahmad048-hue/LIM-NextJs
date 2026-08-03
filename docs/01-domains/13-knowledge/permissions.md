@@ -121,15 +121,15 @@ knowledge.review
 
 | Permission          | Super Admin | Admin | Editor | Contributor | User |
 | ------------------- | :---------: | :---: | :----: | :---------: | :--: |
-| View                |      ✅      |   ✅   |    ✅   |      ✅      |  ✅*  |
-| Create              |      ✅      |   ✅   |    ✅   |      ✅      |   ❌  |
-| Update              |      ✅      |   ✅   |    ✅   |     Own     |   ❌  |
-| Delete              |      ✅      |   ✅   |    ❌   |      ❌      |   ❌  |
-| Review              |      ✅      |   ✅   |    ✅   |      ❌      |   ❌  |
-| Publish             |      ✅      |   ✅   |    ✅   |      ❌      |   ❌  |
-| Archive             |      ✅      |   ✅   |    ❌   |      ❌      |   ❌  |
-| Category Management |      ✅      |   ✅   |    ✅   |      ❌      |   ❌  |
-| Tag Management      |      ✅      |   ✅   |    ✅   |      ❌      |   ❌  |
+| View                |     ✅      |  ✅   |   ✅   |     ✅      | ✅*  |
+| Create              |     ✅      |  ✅   |   ✅   |     ✅      |  ❌  |
+| Update              |     ✅      |  ✅   |   ✅   |     Own     |  ❌  |
+| Delete              |     ✅      |  ✅   |   ❌   |     ❌      |  ❌  |
+| Review              |     ✅      |  ✅   |   ✅   |     ❌      |  ❌  |
+| Publish             |     ✅      |  ✅   |   ✅   |     ❌      |  ❌  |
+| Archive             |     ✅      |  ✅   |   ❌   |     ❌      |  ❌  |
+| Category Management |     ✅      |  ✅   |   ✅   |     ❌      |  ❌  |
+| Tag Management      |     ✅      |  ✅   |   ✅   |     ❌      |  ❌  |
 
 `*` Hanya konten berstatus **Published**.
 
@@ -164,20 +164,20 @@ knowledge.view
 
 # Business Rules
 
-* Authentication wajib dilakukan.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP **403 Forbidden**.
-* Contributor hanya dapat mengubah konten miliknya sendiri.
-* Pengguna umum hanya dapat melihat konten yang telah dipublikasikan.
+- Authentication wajib dilakukan.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP **403 Forbidden**.
+- Contributor hanya dapat mengubah konten miliknya sendiri.
+- Pengguna umum hanya dapat melihat konten yang telah dipublikasikan.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh perubahan dicatat pada Audit Log.
-* Hak akses mengikuti prinsip **Least Privilege**.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh perubahan dicatat pada Audit Log.
+- Hak akses mengikuti prinsip **Least Privilege**.
 
 ---
 
@@ -199,21 +199,21 @@ knowledge.analytics
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

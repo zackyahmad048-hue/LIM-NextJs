@@ -3,7 +3,10 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
 import { StatCard } from "@/components/admin/shared/stat-card";
 import { getAllRukyat } from "@/modules/falak/queries/rukyat.query";
-import { getUpcomingEclipses, getPastEclipses } from "@/modules/falak/queries/eclipse.query";
+import {
+  getUpcomingEclipses,
+  getPastEclipses,
+} from "@/modules/falak/queries/eclipse.query";
 import { Eye, Eclipse, Clock, CheckCircle } from "lucide-react";
 
 export default async function FalakReportsPage() {
@@ -14,7 +17,9 @@ export default async function FalakReportsPage() {
   ]);
 
   const totalVisible = rukyatData.filter((r) => r.result === "VISIBLE").length;
-  const totalConfirmed = rukyatData.filter((r) => r.status === "CONFIRMED").length;
+  const totalConfirmed = rukyatData.filter(
+    (r) => r.status === "CONFIRMED",
+  ).length;
 
   return (
     <PageContainer>
@@ -52,22 +57,43 @@ export default async function FalakReportsPage() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <SectionCard className="p-4">
-          <h3 className="font-semibold text-foreground">Statistik Hasil Rukyat</h3>
+          <h3 className="font-semibold text-foreground">
+            Statistik Hasil Rukyat
+          </h3>
           <div className="mt-4 space-y-3">
-            {(["VISIBLE", "NOT_VISIBLE", "CLOUDY", "UNKNOWN"] as const).map((result) => {
-              const count = rukyatData.filter((r) => r.result === result).length;
-              const pct = rukyatData.length > 0 ? ((count / rukyatData.length) * 100).toFixed(1) : "0";
-              const label = result === "VISIBLE" ? "Terlihat" : result === "NOT_VISIBLE" ? "Tidak Terlihat" : result === "CLOUDY" ? "Berawan" : "Tidak Diketahui";
-              return (
-                <div key={result} className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">{label}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">{count}</span>
-                    <span className="text-xs text-muted-foreground">({pct}%)</span>
+            {(["VISIBLE", "NOT_VISIBLE", "CLOUDY", "UNKNOWN"] as const).map(
+              (result) => {
+                const count = rukyatData.filter(
+                  (r) => r.result === result,
+                ).length;
+                const pct =
+                  rukyatData.length > 0
+                    ? ((count / rukyatData.length) * 100).toFixed(1)
+                    : "0";
+                const label =
+                  result === "VISIBLE"
+                    ? "Terlihat"
+                    : result === "NOT_VISIBLE"
+                      ? "Tidak Terlihat"
+                      : result === "CLOUDY"
+                        ? "Berawan"
+                        : "Tidak Diketahui";
+                return (
+                  <div
+                    key={result}
+                    className="flex items-center justify-between text-sm"
+                  >
+                    <span className="text-muted-foreground">{label}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{count}</span>
+                      <span className="text-xs text-muted-foreground">
+                        ({pct}%)
+                      </span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              },
+            )}
           </div>
         </SectionCard>
 
@@ -76,9 +102,14 @@ export default async function FalakReportsPage() {
           {pastEclipses.length > 0 ? (
             <div className="mt-4 space-y-2">
               {pastEclipses.slice(0, 8).map((e) => (
-                <div key={e.id} className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm">
+                <div
+                  key={e.id}
+                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm"
+                >
                   <span className="font-medium">
-                    {e.eclipseType === "SOLAR" ? "Gerhana Matahari" : "Gerhana Bulan"}
+                    {e.eclipseType === "SOLAR"
+                      ? "Gerhana Matahari"
+                      : "Gerhana Bulan"}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     {new Intl.DateTimeFormat("id-ID").format(e.eclipseDate)}
@@ -87,7 +118,9 @@ export default async function FalakReportsPage() {
               ))}
             </div>
           ) : (
-            <p className="mt-4 text-sm text-muted-foreground">Belum ada riwayat eclipse.</p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Belum ada riwayat eclipse.
+            </p>
           )}
         </SectionCard>
       </div>

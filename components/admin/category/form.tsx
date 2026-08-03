@@ -68,7 +68,7 @@ export function CategoryForm({ category, onSuccess }: Props) {
     toast.success(
       category
         ? "Kategori berhasil diperbarui."
-        : "Kategori berhasil ditambahkan."
+        : "Kategori berhasil ditambahkan.",
     );
 
     router.refresh();
@@ -104,10 +104,7 @@ export function CategoryForm({ category, onSuccess }: Props) {
       <div className="space-y-2">
         <Label htmlFor="slug">Slug</Label>
 
-        <Input
-          id="slug"
-          {...form.register("slug")}
-        />
+        <Input id="slug" {...form.register("slug")} />
 
         {form.formState.errors.slug && (
           <p className="text-sm text-destructive">
@@ -119,11 +116,7 @@ export function CategoryForm({ category, onSuccess }: Props) {
       <div className="space-y-2">
         <Label htmlFor="description">Deskripsi</Label>
 
-        <Textarea
-          id="description"
-          rows={4}
-          {...form.register("description")}
-        />
+        <Textarea id="description" rows={4} {...form.register("description")} />
       </div>
 
       <div className="flex justify-end gap-2 pt-2">
@@ -135,8 +128,8 @@ export function CategoryForm({ category, onSuccess }: Props) {
           {form.formState.isSubmitting
             ? "Menyimpan..."
             : category
-            ? "Update"
-            : "Simpan"}
+              ? "Update"
+              : "Simpan"}
         </Button>
       </div>
     </form>

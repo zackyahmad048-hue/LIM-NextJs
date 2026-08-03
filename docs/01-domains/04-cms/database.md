@@ -22,10 +22,10 @@ Domain CMS bertanggung jawab menyimpan seluruh data konten yang dipublikasikan p
 
 CMS memiliki tabel utama untuk mengelola:
 
-* Post
-* Page
-* Category
-* Tag
+- Post
+- Page
+- Category
+- Tag
 
 Seluruh tabel mengikuti standar database LIM Digital Platform.
 
@@ -80,10 +80,10 @@ Menyimpan halaman statis.
 
 Contoh:
 
-* Tentang Kami
-* Sejarah
-* Kontak
-* Visi & Misi
+- Tentang Kami
+- Sejarah
+- Kontak
+- Visi & Misi
 
 Kolom hampir sama dengan `post`, tetapi tidak memiliki Category.
 
@@ -179,23 +179,23 @@ createdAt
 
 ## Post
 
-* title wajib diisi.
-* slug wajib unik.
-* status wajib valid.
+- title wajib diisi.
+- slug wajib unik.
+- status wajib valid.
 
 ---
 
 ## Category
 
-* name unik.
-* slug unik.
+- name unik.
+- slug unik.
 
 ---
 
 ## Tag
 
-* name unik.
-* slug unik.
+- name unik.
+- slug unik.
 
 ---
 
@@ -203,9 +203,9 @@ createdAt
 
 Tabel yang menggunakan Soft Delete:
 
-* post
-* page
-* category
+- post
+- page
+- category
 
 Tag tidak menggunakan Soft Delete pada versi 1.0.
 
@@ -227,22 +227,22 @@ Archived
 
 Perubahan berikut dicatat:
 
-* Create
-* Update
-* Publish
-* Archive
-* Restore
-* Delete
+- Create
+- Update
+- Publish
+- Archive
+- Restore
+- Delete
 
 ---
 
 # Database Rules
 
-* Slug harus unik.
-* Category tidak boleh dihapus apabila masih digunakan.
-* Post dapat memiliki banyak Tag.
-* Page tidak memiliki Category.
-* Seluruh akses database melalui Repository.
+- Slug harus unik.
+- Category tidak boleh dihapus apabila masih digunakan.
+- Post dapat memiliki banyak Tag.
+- Page tidak memiliki Category.
+- Seluruh akses database melalui Repository.
 
 ---
 
@@ -266,14 +266,14 @@ content_translation
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -281,8 +281,8 @@ content_translation
 
 Database CMS dianggap selesai apabila:
 
-* Struktur tabel mendukung Post, Page, Category, dan Tag.
-* Relasi antar tabel konsisten.
-* Seluruh slug unik.
-* Soft Delete diterapkan sesuai aturan.
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur tabel mendukung Post, Page, Category, dan Tag.
+- Relasi antar tabel konsisten.
+- Seluruh slug unik.
+- Soft Delete diterapkan sesuai aturan.
+- Seluruh akses database menggunakan Repository Pattern.

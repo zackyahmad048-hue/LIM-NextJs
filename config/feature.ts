@@ -11,6 +11,8 @@ export const FEATURES = {
 
   FALAK: true,
 
+  TWK: true,
+
   PROGRAM: true,
 
   SECRETARIAT: true,

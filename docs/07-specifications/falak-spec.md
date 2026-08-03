@@ -16,7 +16,7 @@
 
 Dokumen ini mendefinisikan spesifikasi teknis implementasi **Falak Domain**.
 
-Falak Domain merupakan domain khusus yang menyediakan layanan astronomi Islam (*Ilmu Falak*), meliputi perhitungan waktu salat, arah kiblat, kalender Hijriah, hisab, rukyat, fase bulan, serta peristiwa astronomi lainnya.
+Falak Domain merupakan domain khusus yang menyediakan layanan astronomi Islam (_Ilmu Falak_), meliputi perhitungan waktu salat, arah kiblat, kalender Hijriah, hisab, rukyat, fase bulan, serta peristiwa astronomi lainnya.
 
 Domain ini menjadi layanan inti yang dapat digunakan oleh Website, Mobile App, Dashboard, API Publik, dan sistem eksternal.
 
@@ -26,13 +26,13 @@ Domain ini menjadi layanan inti yang dapat digunakan oleh Website, Mobile App, D
 
 Falak harus mampu:
 
-* Menghitung Waktu Salat.
-* Menghitung Arah Kiblat.
-* Menghasilkan Kalender Hijriah.
-* Menghitung Hisab Hilal.
-* Mendukung Data Rukyat.
-* Menghitung Gerhana.
-* Menyediakan API Astronomi Islam.
+- Menghitung Waktu Salat.
+- Menghitung Arah Kiblat.
+- Menghasilkan Kalender Hijriah.
+- Menghitung Hisab Hilal.
+- Mendukung Data Rukyat.
+- Menghitung Gerhana.
+- Menyediakan API Astronomi Islam.
 
 ---
 
@@ -53,12 +53,12 @@ Falak harus mampu:
 
 Menghasilkan:
 
-* Fajr
-* Sunrise
-* Dhuhr
-* Asr
-* Maghrib
-* Isha
+- Fajr
+- Sunrise
+- Dhuhr
+- Asr
+- Maghrib
+- Isha
 
 Mendukung berbagai metode perhitungan.
 
@@ -68,9 +68,9 @@ Mendukung berbagai metode perhitungan.
 
 Menghasilkan:
 
-* Azimuth Kiblat
-* Kompas Kiblat
-* Peta Kiblat (Future)
+- Azimuth Kiblat
+- Kompas Kiblat
+- Peta Kiblat (Future)
 
 ---
 
@@ -78,10 +78,10 @@ Menghasilkan:
 
 Menyediakan:
 
-* Tanggal Hijriah
-* Awal Bulan
-* Nama Bulan
-* Konversi Hijriah ↔ Masehi
+- Tanggal Hijriah
+- Awal Bulan
+- Nama Bulan
+- Konversi Hijriah ↔ Masehi
 
 ---
 
@@ -89,13 +89,13 @@ Menyediakan:
 
 Menghasilkan parameter:
 
-* Tinggi Hilal
-* Elongasi
-* Umur Bulan
-* Lag Time
-* Illuminasi
-* Azimuth Matahari
-* Azimuth Bulan
+- Tinggi Hilal
+- Elongasi
+- Umur Bulan
+- Lag Time
+- Illuminasi
+- Azimuth Matahari
+- Azimuth Bulan
 
 ---
 
@@ -103,11 +103,11 @@ Menghasilkan parameter:
 
 Mengelola:
 
-* Lokasi Observasi
-* Hasil Observasi
-* Observer
-* Cuaca
-* Dokumentasi
+- Lokasi Observasi
+- Hasil Observasi
+- Observer
+- Cuaca
+- Dokumentasi
 
 ---
 
@@ -115,11 +115,11 @@ Mengelola:
 
 Menghasilkan:
 
-* Gerhana Matahari
-* Gerhana Bulan
-* Waktu Kontak
-* Magnitudo
-* Jalur Gerhana (Future)
+- Gerhana Matahari
+- Gerhana Bulan
+- Waktu Kontak
+- Magnitudo
+- Jalur Gerhana (Future)
 
 ---
 
@@ -127,28 +127,28 @@ Menghasilkan:
 
 Falak harus:
 
-* Response < 500 ms.
-* Presisi tinggi.
-* Highly Available.
-* Stateless.
-* Audit Enabled.
+- Response < 500 ms.
+- Presisi tinggi.
+- Highly Available.
+- Stateless.
+- Audit Enabled.
 
 ---
 
 # Preconditions
 
-* Parameter lokasi tersedia.
-* Koordinat valid.
-* Zona waktu diketahui.
+- Parameter lokasi tersedia.
+- Koordinat valid.
+- Zona waktu diketahui.
 
 ---
 
 # Postconditions
 
-* Hasil perhitungan dihasilkan.
-* Riwayat perhitungan (opsional) disimpan.
-* Audit Log dibuat jika diperlukan.
-* Domain Event diterbitkan untuk proses tertentu.
+- Hasil perhitungan dihasilkan.
+- Riwayat perhitungan (opsional) disimpan.
+- Audit Log dibuat jika diperlukan.
+- Domain Event diterbitkan untuk proses tertentu.
 
 ---
 
@@ -194,10 +194,10 @@ Return Cached Data
 
 # Exception Flow
 
-* Lokasi tidak valid.
-* Koordinat tidak ditemukan.
-* Metode perhitungan tidak didukung.
-* Parameter astronomi tidak tersedia.
+- Lokasi tidak valid.
+- Koordinat tidak ditemukan.
+- Metode perhitungan tidak didukung.
+- Parameter astronomi tidak tersedia.
 
 ---
 
@@ -253,22 +253,22 @@ Returned
 
 Entity:
 
-* Observation
-* CalculationProfile
-* PrayerTimeConfiguration
+- Observation
+- CalculationProfile
+- PrayerTimeConfiguration
 
 Aggregate:
 
-* Falak
+- Falak
 
 Value Object:
 
-* Coordinate
-* Elevation
-* PrayerTime
-* QiblaDirection
-* HijriDate
-* HilalParameter
+- Coordinate
+- Elevation
+- PrayerTime
+- QiblaDirection
+- HijriDate
+- HilalParameter
 
 ---
 
@@ -319,12 +319,12 @@ Sebagian besar hasil perhitungan bersifat dinamis dan tidak wajib disimpan perma
 
 | Action                | Public | User | Researcher | Admin |
 | --------------------- | :----: | :--: | :--------: | :---: |
-| Prayer Time           |    ✅   |   ✅  |      ✅     |   ✅   |
-| Qibla                 |    ✅   |   ✅  |      ✅     |   ✅   |
-| Hijri Calendar        |    ✅   |   ✅  |      ✅     |   ✅   |
-| Hilal Calculation     |    ✅   |   ✅  |      ✅     |   ✅   |
-| Submit Rukyat         |    ❌   |   ✅  |      ✅     |   ✅   |
-| Manage Reference Data |    ❌   |   ❌  |      ❌     |   ✅   |
+| Prayer Time           |   ✅   |  ✅  |     ✅     |  ✅   |
+| Qibla                 |   ✅   |  ✅  |     ✅     |  ✅   |
+| Hijri Calendar        |   ✅   |  ✅  |     ✅     |  ✅   |
+| Hilal Calculation     |   ✅   |  ✅  |     ✅     |  ✅   |
+| Submit Rukyat         |   ❌   |  ✅  |     ✅     |  ✅   |
+| Manage Reference Data |   ❌   |  ❌  |     ❌     |  ✅   |
 
 ---
 
@@ -370,39 +370,39 @@ RukyatVerified
 
 # Acceptance Test
 
-* Waktu salat dihitung dengan benar.
-* Arah kiblat sesuai koordinat.
-* Kalender Hijriah berhasil dikonversi.
-* Perhitungan hilal menghasilkan seluruh parameter.
-* Data rukyat berhasil disimpan.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Waktu salat dihitung dengan benar.
+- Arah kiblat sesuai koordinat.
+- Kalender Hijriah berhasil dikonversi.
+- Perhitungan hilal menghasilkan seluruh parameter.
+- Data rukyat berhasil disimpan.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Prayer Time Calculation < 100 ms.
-* Qibla Calculation < 100 ms.
-* Hijri Conversion < 100 ms.
-* Hilal Calculation < 500 ms.
+- Prayer Time Calculation < 100 ms.
+- Qibla Calculation < 100 ms.
+- Hijri Conversion < 100 ms.
+- Hilal Calculation < 500 ms.
 
 ---
 
 # Security Requirement
 
-* Input koordinat divalidasi.
-* RBAC diterapkan pada fitur administratif.
-* Audit Log aktif untuk perubahan data referensi dan observasi.
-* API menggunakan HTTPS.
-* Rate Limiting diterapkan pada Public API.
+- Input koordinat divalidasi.
+- RBAC diterapkan pada fitur administratif.
+- Audit Log aktif untuk perubahan data referensi dan observasi.
+- API menggunakan HTTPS.
+- Rate Limiting diterapkan pada Public API.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh layanan Falak menghasilkan perhitungan yang konsisten sesuai metode yang dipilih.
-* API mengikuti API Standard.
-* Perhitungan bersifat deterministik dan dapat diuji ulang.
-* Domain Event dan Audit Log berjalan sesuai kebutuhan.
-* Specification siap digunakan sebagai dasar implementasi Falak Domain.
+- Seluruh layanan Falak menghasilkan perhitungan yang konsisten sesuai metode yang dipilih.
+- API mengikuti API Standard.
+- Perhitungan bersifat deterministik dan dapat diuji ulang.
+- Domain Event dan Audit Log berjalan sesuai kebutuhan.
+- Specification siap digunakan sebagai dasar implementasi Falak Domain.

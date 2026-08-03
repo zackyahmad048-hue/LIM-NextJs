@@ -20,10 +20,10 @@ Seluruh konten Knowledge wajib melalui proses validasi sebelum disimpan, direvie
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Messages
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -31,17 +31,17 @@ Seluruh konten Knowledge wajib melalui proses validasi sebelum disimpan, direvie
 
 ## Title
 
-* Wajib diisi.
-* Minimum 5 karakter.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Minimum 5 karakter.
+- Maksimum 255 karakter.
 
 ---
 
 ## Slug
 
-* Dibuat otomatis dari Title (dapat diubah).
-* Harus unik.
-* Menggunakan huruf kecil, angka, dan tanda hubung (-).
+- Dibuat otomatis dari Title (dapat diubah).
+- Harus unik.
+- Menggunakan huruf kecil, angka, dan tanda hubung (-).
 
 Contoh:
 
@@ -57,9 +57,9 @@ faq-pendaftaran
 
 ## Content
 
-* Wajib diisi.
-* Tidak boleh kosong.
-* Mendukung Rich Text/Markdown.
+- Wajib diisi.
+- Tidak boleh kosong.
+- Mendukung Rich Text/Markdown.
 
 ---
 
@@ -67,35 +67,35 @@ faq-pendaftaran
 
 Harus salah satu dari:
 
-* Article
-* Documentation
-* SOP
-* FAQ
-* Tutorial
-* Reference
-* Announcement
-* Policy
+- Article
+- Documentation
+- SOP
+- FAQ
+- Tutorial
+- Reference
+- Announcement
+- Policy
 
 ---
 
 ## Category
 
-* Wajib dipilih.
-* Harus aktif.
+- Wajib dipilih.
+- Harus aktif.
 
 ---
 
 ## Tag
 
-* Opsional.
-* Tidak boleh duplikat.
+- Opsional.
+- Tidak boleh duplikat.
 
 ---
 
 # Author Validation
 
-* Author wajib aktif.
-* Author harus memiliki permission `knowledge.create`.
+- Author wajib aktif.
+- Author harus memiliki permission `knowledge.create`.
 
 ---
 
@@ -103,10 +103,10 @@ Harus salah satu dari:
 
 Konten hanya dapat dikirim untuk review apabila:
 
-* Status = Draft.
-* Title valid.
-* Content valid.
-* Category tersedia.
+- Status = Draft.
+- Title valid.
+- Content valid.
+- Category tersedia.
 
 ---
 
@@ -114,10 +114,10 @@ Konten hanya dapat dikirim untuk review apabila:
 
 Konten hanya dapat dipublikasikan apabila:
 
-* Status = Review.
-* Reviewer telah menyetujui.
-* Author valid.
-* Slug unik.
+- Status = Review.
+- Reviewer telah menyetujui.
+- Author valid.
+- Slug unik.
 
 ---
 
@@ -125,7 +125,7 @@ Konten hanya dapat dipublikasikan apabila:
 
 Konten hanya dapat diarsipkan apabila:
 
-* Status = Published.
+- Status = Published.
 
 ---
 
@@ -133,7 +133,7 @@ Konten hanya dapat diarsipkan apabila:
 
 Konten hanya dapat dipulihkan apabila:
 
-* Status = Archived.
+- Status = Archived.
 
 ---
 
@@ -141,22 +141,22 @@ Konten hanya dapat dipulihkan apabila:
 
 Konten tidak dapat dihapus apabila:
 
-* Menjadi referensi domain lain.
-* Digunakan sebagai SOP aktif.
-* Digunakan sebagai dokumentasi sistem.
+- Menjadi referensi domain lain.
+- Digunakan sebagai SOP aktif.
+- Digunakan sebagai dokumentasi sistem.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -199,8 +199,8 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh input tervalidasi.
-* Slug selalu unik.
-* Publish hanya dilakukan setelah Review.
-* Konten referensi tidak dapat dihapus.
-* Seluruh validasi dijalankan sebelum Business Rules.
+- Seluruh input tervalidasi.
+- Slug selalu unik.
+- Publish hanya dilakukan setelah Review.
+- Konten referensi tidak dapat dihapus.
+- Seluruh validasi dijalankan sebelum Business Rules.

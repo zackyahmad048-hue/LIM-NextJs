@@ -30,9 +30,9 @@ API Secretariat digunakan untuk mengelola administrasi organisasi meliputi surat
 
 Seluruh endpoint Admin memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 ---
 
@@ -40,12 +40,12 @@ Seluruh endpoint Admin memerlukan:
 
 Domain Secretariat terdiri dari:
 
-* Incoming Mail
-* Outgoing Mail
-* Disposition
-* Administrative Document
-* Agenda Book
-* Archive
+- Incoming Mail
+- Outgoing Mail
+- Disposition
+- Administrative Document
+- Agenda Book
+- Archive
 
 ---
 
@@ -317,13 +317,13 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan Authentication.
-* Seluruh endpoint memerlukan Permission.
-* Nomor agenda dibuat otomatis.
-* Nomor surat harus unik.
-* Arsip bersifat Read Only.
-* Delete menggunakan Soft Delete.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan Authentication.
+- Seluruh endpoint memerlukan Permission.
+- Nomor agenda dibuat otomatis.
+- Nomor surat harus unik.
+- Arsip bersifat Read Only.
+- Delete menggunakan Soft Delete.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -331,10 +331,10 @@ Response gagal
 
 API Secretariat wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -342,24 +342,24 @@ API Secretariat wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -367,8 +367,8 @@ Seluruh endpoint mendukung:
 
 API Secretariat dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* Response mengikuti standar API proyek.
-* Nomor agenda dibuat otomatis.
-* Arsip hanya dapat dibaca.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Response mengikuti standar API proyek.
+- Nomor agenda dibuat otomatis.
+- Arsip hanya dapat dibaca.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

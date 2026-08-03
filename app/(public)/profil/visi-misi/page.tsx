@@ -1,38 +1,55 @@
-import SectionHeading from "@/components/shared/section-heading";
+import type { Metadata } from "next";
+import PageHeader from "@/components/website/page-header";
+import SectionLabel from "@/components/shared/section-label";
+
+export const metadata: Metadata = {
+  title: "Visi & Misi | LIM Digital Platform",
+  description:
+    "Arah dan tujuan Lembaga Ittihadul Muballighin dalam membangun peradaban umat.",
+};
+
+const misi = [
+  {
+    title: "Pendidikan & Pelatihan",
+    desc: "Menyelenggarakan pendidikan dan pelatihan muballigh secara berkala dan terstruktur.",
+  },
+  {
+    title: "Jaringan Dakwah",
+    desc: "Memperkuat jaringan dakwah di seluruh Nusantara melalui koordinasi antar daerah.",
+  },
+  {
+    title: "Pemberdayaan Masyarakat",
+    desc: "Mengembangkan program pemberdayaan masyarakat yang berdampak langsung.",
+  },
+  {
+    title: "Kerja Sama",
+    desc: "Menjalin kerja sama dengan lembaga dakwah dan organisasi keagamaan lainnya.",
+  },
+  {
+    title: "Dakwah Digital",
+    desc: "Memanfaatkan teknologi digital untuk memperluas jangkauan dakwah.",
+  },
+  {
+    title: "Kaderisasi",
+    desc: "Membina kader muballigh muda yang kompeten dan bersemangat.",
+  },
+];
+
+const roman = ["I", "II", "III", "IV", "V", "VI"];
 
 export default function VisiMisiPage() {
   return (
-    <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
-          badge="Profil"
-          title="Visi & Misi"
-          description="Arah dan tujuan Lembaga Ittihadul Muballighin dalam membangun peradaban umat."
-        />
+    <>
+      <PageHeader
+        title="Visi & Misi"
+        description="Arah dan tujuan Lembaga Ittihadul Muballighin dalam membangun peradaban umat."
+      />
 
-        <div className="mt-12 space-y-8">
-          <div className="rounded-xl border border-orange-100 bg-gradient-to-br from-orange-50 to-white p-6 sm:p-8 dark:border-slate-700 dark:from-slate-800 dark:to-slate-900">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <circle cx="12" cy="12" r="6" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground">Visi</h3>
-            </div>
-            <p className="mt-5 text-sm leading-8 text-muted-foreground">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="space-y-8">
+          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+            <SectionLabel>Visi</SectionLabel>
+            <p className="mt-5 font-display text-lg italic leading-8 text-foreground">
               Menjadi lembaga dakwah terdepan yang mampu membentuk muballigh
               berkualitas, profesional, dan berakhlakul karimah di seluruh
               Indonesia, serta berkontribusi nyata dalam pembangunan peradaban
@@ -40,60 +57,16 @@ export default function VisiMisiPage() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-border bg-card p-6 sm:p-8">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-500 text-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5" />
-                  <path d="M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-card-foreground">Misi</h3>
-            </div>
-            <ul className="mt-5 space-y-4">
-              {[
-                {
-                  title: "Pendidikan & Pelatihan",
-                  desc: "Menyelenggarakan pendidikan dan pelatihan muballigh secara berkala dan terstruktur.",
-                },
-                {
-                  title: "Jaringan Dakwah",
-                  desc: "Memperkuat jaringan dakwah di seluruh Nusantara melalui koordinasi antar daerah.",
-                },
-                {
-                  title: "Pemberdayaan Masyarakat",
-                  desc: "Mengembangkan program pemberdayaan masyarakat yang berdampak langsung.",
-                },
-                {
-                  title: "Kerja Sama",
-                  desc: "Menjalin kerja sama dengan lembaga dakwah dan organisasi keagamaan lainnya.",
-                },
-                {
-                  title: "Dakwah Digital",
-                  desc: "Memanfaatkan teknologi digital untuk memperluas jangkauan dakwah.",
-                },
-                {
-                  title: "Kaderisasi",
-                  desc: "Membina kader muballigh muda yang kompeten dan bersemangat.",
-                },
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-sky-500/10 text-xs font-bold text-sky-600 dark:text-sky-400">
-                    {i + 1}
+          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+            <SectionLabel>Misi</SectionLabel>
+            <ul className="mt-5 space-y-5">
+              {misi.map((item, i) => (
+                <li key={item.title} className="flex items-start gap-4">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-primary/30 font-sans text-xs text-primary">
+                    {roman[i]}
                   </span>
                   <div>
-                    <h4 className="text-sm font-semibold text-card-foreground">
+                    <h4 className="text-sm font-semibold text-foreground">
                       {item.title}
                     </h4>
                     <p className="mt-1 text-xs leading-6 text-muted-foreground">
@@ -105,7 +78,7 @@ export default function VisiMisiPage() {
             </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

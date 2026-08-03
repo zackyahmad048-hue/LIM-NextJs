@@ -14,7 +14,7 @@
 
 Dokumen ini mendokumentasikan referensi eksternal yang menjadi acuan dalam perancangan, pengembangan, deployment, keamanan, dan operasional LIM Digital Platform.
 
-Referensi ini digunakan sebagai dasar penerapan standar industri dan praktik terbaik (*best practices*).
+Referensi ini digunakan sebagai dasar penerapan standar industri dan praktik terbaik (_best practices_).
 
 ---
 
@@ -26,16 +26,16 @@ Digunakan sebagai dasar pemodelan Domain.
 
 Referensi:
 
-* Eric Evans — *Domain-Driven Design: Tackling Complexity in the Heart of Software*
-* Vaughn Vernon — *Implementing Domain-Driven Design*
+- Eric Evans — _Domain-Driven Design: Tackling Complexity in the Heart of Software_
+- Vaughn Vernon — _Implementing Domain-Driven Design_
 
 Digunakan pada:
 
-* Domain Modeling
-* Bounded Context
-* Aggregate
-* Value Object
-* Domain Service
+- Domain Modeling
+- Bounded Context
+- Aggregate
+- Value Object
+- Domain Service
 
 ---
 
@@ -43,14 +43,14 @@ Digunakan pada:
 
 Referensi:
 
-* Robert C. Martin — *Clean Architecture*
+- Robert C. Martin — _Clean Architecture_
 
 Digunakan untuk:
 
-* Layer Separation
-* Dependency Rule
-* Use Case Design
-* Repository Pattern
+- Layer Separation
+- Dependency Rule
+- Use Case Design
+- Repository Pattern
 
 ---
 
@@ -58,14 +58,14 @@ Digunakan untuk:
 
 Referensi:
 
-* Alistair Cockburn — *Ports and Adapters Architecture*
+- Alistair Cockburn — _Ports and Adapters Architecture_
 
 Digunakan untuk:
 
-* Port
-* Adapter
-* Infrastructure
-* External Integration
+- Port
+- Adapter
+- Infrastructure
+- External Integration
 
 ---
 
@@ -73,17 +73,17 @@ Digunakan untuk:
 
 Referensi:
 
-* REST Architectural Style
-* OpenAPI Specification 3.x
-* JSON RFC 8259
-* HTTP RFC 9110
+- REST Architectural Style
+- OpenAPI Specification 3.x
+- JSON RFC 8259
+- HTTP RFC 9110
 
 Digunakan untuk:
 
-* REST API
-* Response Format
-* HTTP Status Code
-* API Documentation
+- REST API
+- Response Format
+- HTTP Status Code
+- API Documentation
 
 ---
 
@@ -91,18 +91,18 @@ Digunakan untuk:
 
 Referensi:
 
-* OWASP Top 10
-* OWASP API Security Top 10
-* OWASP Cheat Sheet Series
-* NIST Cybersecurity Framework
+- OWASP Top 10
+- OWASP API Security Top 10
+- OWASP Cheat Sheet Series
+- NIST Cybersecurity Framework
 
 Digunakan untuk:
 
-* Authentication
-* Authorization
-* Input Validation
-* Logging
-* Secure Coding
+- Authentication
+- Authorization
+- Input Validation
+- Logging
+- Secure Coding
 
 ---
 
@@ -110,17 +110,17 @@ Digunakan untuk:
 
 Referensi:
 
-* PostgreSQL Documentation
-* SQL Standard (ANSI SQL)
-* ACID Transaction Principles
+- PostgreSQL Documentation
+- SQL Standard (ANSI SQL)
+- ACID Transaction Principles
 
 Digunakan untuk:
 
-* Database Design
-* Transaction
-* Index
-* Constraint
-* Query Optimization
+- Database Design
+- Transaction
+- Index
+- Constraint
+- Query Optimization
 
 ---
 
@@ -128,16 +128,16 @@ Digunakan untuk:
 
 Referensi:
 
-* Docker Documentation
-* Docker Compose Documentation
-* GitHub Actions Documentation
+- Docker Documentation
+- Docker Compose Documentation
+- GitHub Actions Documentation
 
 Digunakan untuk:
 
-* Containerization
-* CI/CD
-* Deployment
-* Automation
+- Containerization
+- CI/CD
+- Deployment
+- Automation
 
 ---
 
@@ -145,16 +145,16 @@ Digunakan untuk:
 
 Referensi:
 
-* Git Documentation
-* Conventional Commits
-* Semantic Versioning
+- Git Documentation
+- Conventional Commits
+- Semantic Versioning
 
 Digunakan untuk:
 
-* Git Workflow
-* Branching Strategy
-* Commit Convention
-* Release Management
+- Git Workflow
+- Branching Strategy
+- Commit Convention
+- Release Management
 
 ---
 
@@ -162,16 +162,16 @@ Digunakan untuk:
 
 Referensi:
 
-* Testing Pyramid
-* Test Driven Development (TDD)
-* Behavior Driven Development (BDD)
+- Testing Pyramid
+- Test Driven Development (TDD)
+- Behavior Driven Development (BDD)
 
 Digunakan untuk:
 
-* Unit Test
-* Integration Test
-* End-to-End Test
-* Test Coverage
+- Unit Test
+- Integration Test
+- End-to-End Test
+- Test Coverage
 
 ---
 
@@ -179,17 +179,17 @@ Digunakan untuk:
 
 Referensi:
 
-* OpenTelemetry
-* Prometheus
-* Grafana
+- OpenTelemetry
+- Prometheus
+- Grafana
 
 Digunakan untuk:
 
-* Metrics
-* Logs
-* Tracing
-* Alerting
-* Dashboard
+- Metrics
+- Logs
+- Tracing
+- Alerting
+- Dashboard
 
 ---
 
@@ -197,17 +197,17 @@ Digunakan untuk:
 
 Referensi:
 
-* Twelve-Factor App
-* AWS Well-Architected Framework
-* CNCF Cloud Native Landscape
+- Twelve-Factor App
+- AWS Well-Architected Framework
+- CNCF Cloud Native Landscape
 
 Digunakan untuk:
 
-* Configuration
-* Scalability
-* Reliability
-* Observability
-* Deployment
+- Configuration
+- Scalability
+- Reliability
+- Observability
+- Deployment
 
 ---
 
@@ -215,17 +215,17 @@ Digunakan untuk:
 
 Referensi:
 
-* SOLID Principles
-* Clean Code
-* Refactoring
-* Design Patterns (GoF)
+- SOLID Principles
+- Clean Code
+- Refactoring
+- Design Patterns (GoF)
 
 Digunakan untuk:
 
-* Coding Standards
-* Refactoring
-* Object-Oriented Design
-* Maintainability
+- Coding Standards
+- Refactoring
+- Object-Oriented Design
+- Maintainability
 
 ---
 
@@ -233,17 +233,17 @@ Digunakan untuk:
 
 Referensi:
 
-* Architecture Decision Records (ADR)
-* C4 Model
-* Diátaxis Documentation Framework
-* Markdown Guide
+- Architecture Decision Records (ADR)
+- C4 Model
+- Diátaxis Documentation Framework
+- Markdown Guide
 
 Digunakan untuk:
 
-* Technical Documentation
-* Architecture Documentation
-* Decision Records
-* Developer Guide
+- Technical Documentation
+- Architecture Documentation
+- Decision Records
+- Developer Guide
 
 ---
 
@@ -251,10 +251,10 @@ Digunakan untuk:
 
 Seluruh referensi eksternal:
 
-* Harus berasal dari sumber yang terpercaya.
-* Digunakan sebagai pedoman, bukan aturan mutlak.
-* Dapat diperbarui apabila terdapat standar baru yang lebih relevan.
-* Harus disesuaikan dengan kebutuhan bisnis LIM Digital Platform.
+- Harus berasal dari sumber yang terpercaya.
+- Digunakan sebagai pedoman, bukan aturan mutlak.
+- Dapat diperbarui apabila terdapat standar baru yang lebih relevan.
+- Harus disesuaikan dengan kebutuhan bisnis LIM Digital Platform.
 
 ---
 
@@ -262,26 +262,26 @@ Seluruh referensi eksternal:
 
 Review referensi dilakukan:
 
-* Minimal satu kali setiap tahun.
-* Saat terdapat perubahan teknologi utama.
-* Saat melakukan upgrade framework.
-* Saat melakukan perubahan arsitektur.
+- Minimal satu kali setiap tahun.
+- Saat terdapat perubahan teknologi utama.
+- Saat melakukan upgrade framework.
+- Saat melakukan perubahan arsitektur.
 
 ---
 
 # Related Documents
 
-* README.md
-* glossary.md
-* coding-reference.md
-* api-reference.md
-* database-reference.md
+- README.md
+- glossary.md
+- coding-reference.md
+- api-reference.md
+- database-reference.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh standar memiliki referensi yang jelas.
-* Referensi berasal dari sumber yang kredibel.
-* Referensi mendukung implementasi arsitektur, pengembangan, deployment, dan keamanan.
-* External References menjadi acuan resmi penggunaan standar eksternal pada LIM Digital Platform.
+- Seluruh standar memiliki referensi yang jelas.
+- Referensi berasal dari sumber yang kredibel.
+- Referensi mendukung implementasi arsitektur, pengembangan, deployment, dan keamanan.
+- External References menjadi acuan resmi penggunaan standar eksternal pada LIM Digital Platform.

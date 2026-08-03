@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Plus, CheckCircle, Archive, ShieldCheck } from "lucide-react";
+import { CheckCircle, Archive, ShieldCheck } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,11 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { falakService } from "@/modules/falak/application/service";
-import { verifyRukyat, confirmRukyat, archiveRukyat } from "@/modules/falak/presentation/falak.action";
+import {
+  verifyRukyat,
+  confirmRukyat,
+  archiveRukyat,
+} from "@/modules/falak/presentation/falak.action";
 
 function formatDate(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {
@@ -20,14 +23,22 @@ function formatDate(date: Date) {
 
 function StatusBadge({ status }: { status: string }) {
   const variant =
-    status === "CONFIRMED" ? "default" :
-    status === "VERIFIED" ? "secondary" : "outline";
+    status === "CONFIRMED"
+      ? "default"
+      : status === "VERIFIED"
+        ? "secondary"
+        : "outline";
 
   const label =
-    status === "DRAFT" ? "Draft" :
-    status === "VERIFIED" ? "Terverifikasi" :
-    status === "CONFIRMED" ? "Dikonfirmasi" :
-    status === "ARCHIVED" ? "Diarsipkan" : status;
+    status === "DRAFT"
+      ? "Draft"
+      : status === "VERIFIED"
+        ? "Terverifikasi"
+        : status === "CONFIRMED"
+          ? "Dikonfirmasi"
+          : status === "ARCHIVED"
+            ? "Diarsipkan"
+            : status;
 
   return (
     <Badge variant={variant} className="h-5 px-2 text-[11px]">
@@ -45,14 +56,6 @@ export default async function RukyatPage() {
       <PageHeader
         title="Data Rukyat"
         description="Kelola data observasi rukyat."
-        actions={
-          <Button asChild size="sm">
-            <Link href="/admin/falak/rukyat/new">
-              <Plus className="size-4" />
-              Tambah Observasi
-            </Link>
-          </Button>
-        }
       />
 
       <AdminTable
@@ -62,12 +65,18 @@ export default async function RukyatPage() {
           {
             key: "lokasi",
             label: "Lokasi",
-            render: (item) => <span className="text-sm font-medium">{item.locationName}</span>,
+            render: (item) => (
+              <span className="text-sm font-medium">{item.locationName}</span>
+            ),
           },
           {
             key: "tanggal",
             label: "Tanggal",
-            render: (item) => <span className="text-xs">{formatDate(item.observationDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">
+                {formatDate(item.observationDate)}
+              </span>
+            ),
           },
           {
             key: "cuaca",

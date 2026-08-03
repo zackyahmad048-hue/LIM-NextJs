@@ -46,7 +46,9 @@ export default async function ArchivePage({
             key: "archiveNumber",
             label: "No. Arsip",
             render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">{item.archiveNumber}</span>
+              <span className="text-xs font-mono text-muted-foreground">
+                {item.archiveNumber}
+              </span>
             ),
           },
           {
@@ -56,7 +58,9 @@ export default async function ArchivePage({
               <div className="max-w-[250px]">
                 <p className="truncate text-sm font-medium">{item.title}</p>
                 {item.category && (
-                  <p className="truncate text-xs text-muted-foreground">{item.category}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {item.category}
+                  </p>
                 )}
               </div>
             ),
@@ -65,14 +69,18 @@ export default async function ArchivePage({
             key: "documentType",
             label: "Jenis Dokumen",
             render: (item) => (
-              <span className="text-xs">{documentTypeLabels[item.documentType] ?? item.documentType}</span>
+              <span className="text-xs">
+                {documentTypeLabels[item.documentType] ?? item.documentType}
+              </span>
             ),
           },
           {
             key: "retentionYear",
             label: "Masa Retensi",
             render: (item) => (
-              <span className="text-xs">{item.retentionYear ? `${item.retentionYear} tahun` : "-"}</span>
+              <span className="text-xs">
+                {item.retentionYear ? `${item.retentionYear} tahun` : "-"}
+              </span>
             ),
           },
           {

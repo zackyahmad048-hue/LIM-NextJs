@@ -26,22 +26,22 @@ Domain Authentication hanya menangani identitas dan sesi pengguna. Pengelolaan h
 
 Domain Authentication mencakup:
 
-* Login
-* Logout
-* Session
-* Password
-* Forgot Password
-* Reset Password
-* Change Password
-* Email Verification
-* User Identity
+- Login
+- Logout
+- Session
+- Password
+- Forgot Password
+- Reset Password
+- Change Password
+- Email Verification
+- User Identity
 
 Tidak mencakup:
 
-* Role
-* Permission
-* Menu
-* Hak Akses
+- Role
+- Permission
+- Menu
+- Hak Akses
 
 ---
 
@@ -49,10 +49,10 @@ Tidak mencakup:
 
 Tujuan domain ini adalah:
 
-* Mengidentifikasi pengguna.
-* Mengelola sesi login.
-* Menjaga keamanan akun.
-* Menyediakan fondasi autentikasi bagi seluruh aplikasi.
+- Mengidentifikasi pengguna.
+- Mengelola sesi login.
+- Menjaga keamanan akun.
+- Menyediakan fondasi autentikasi bagi seluruh aplikasi.
 
 ---
 
@@ -64,8 +64,8 @@ Pengguna yang belum login.
 
 Hak:
 
-* Login
-* Lupa Password
+- Login
+- Lupa Password
 
 ---
 
@@ -75,10 +75,10 @@ Pengguna yang telah login.
 
 Hak:
 
-* Logout
-* Mengubah Password
-* Melihat Profil
-* Mengelola Session sendiri
+- Logout
+- Mengubah Password
+- Melihat Profil
+- Mengelola Session sendiri
 
 ---
 
@@ -92,14 +92,14 @@ Mengelola akun pengguna sesuai kewenangan.
 
 Fitur utama Authentication:
 
-* Login
-* Logout
-* Remember Session
-* Change Password
-* Forgot Password
-* Reset Password
-* Email Verification
-* Session Management
+- Login
+- Logout
+- Remember Session
+- Change Password
+- Forgot Password
+- Reset Password
+- Email Verification
+- Session Management
 
 ---
 
@@ -135,17 +135,17 @@ Access Granted
 
 Input:
 
-* Email
-* Password
+- Email
+- Password
 
 Output:
 
-* Session aktif
+- Session aktif
 
 Apabila gagal:
 
-* Session tidak dibuat.
-* Pesan kesalahan ditampilkan.
+- Session tidak dibuat.
+- Pesan kesalahan ditampilkan.
 
 ---
 
@@ -153,8 +153,8 @@ Apabila gagal:
 
 Logout harus:
 
-* Menghapus session aktif.
-* Mengarahkan pengguna ke halaman login.
+- Menghapus session aktif.
+- Mengarahkan pengguna ke halaman login.
 
 ---
 
@@ -162,9 +162,9 @@ Logout harus:
 
 Session memiliki informasi:
 
-* User ID
-* Login Time
-* Expired Time
+- User ID
+- Login Time
+- Expired Time
 
 Session hanya berlaku selama masa aktif yang ditentukan sistem.
 
@@ -174,9 +174,9 @@ Session hanya berlaku selama masa aktif yang ditentukan sistem.
 
 Password harus:
 
-* Memenuhi panjang minimum.
-* Disimpan menggunakan hashing yang aman.
-* Tidak pernah ditampilkan kembali.
+- Memenuhi panjang minimum.
+- Disimpan menggunakan hashing yang aman.
+- Tidak pernah ditampilkan kembali.
 
 ---
 
@@ -210,19 +210,19 @@ Password Baru
 
 Apabila digunakan:
 
-* Email diverifikasi satu kali.
-* Link memiliki masa berlaku.
-* Token hanya dapat digunakan sekali.
+- Email diverifikasi satu kali.
+- Link memiliki masa berlaku.
+- Token hanya dapat digunakan sekali.
 
 ---
 
 # Business Rules
 
-* Email harus unik.
-* Password tidak boleh disimpan dalam bentuk plaintext.
-* Session harus divalidasi pada setiap request.
-* Logout menghapus session aktif.
-* Reset Password menggunakan token yang memiliki masa berlaku.
+- Email harus unik.
+- Password tidak boleh disimpan dalam bentuk plaintext.
+- Session harus divalidasi pada setiap request.
+- Logout menghapus session aktif.
+- Reset Password menggunakan token yang memiliki masa berlaku.
 
 ---
 
@@ -230,9 +230,9 @@ Apabila digunakan:
 
 Domain ini bergantung pada:
 
-* Better Auth
-* User Repository
-* Notification Service (Email)
+- Better Auth
+- User Repository
+- Notification Service (Email)
 
 ---
 
@@ -240,19 +240,19 @@ Domain ini bergantung pada:
 
 Domain yang menggunakan Authentication:
 
-* Authorization
-* Dashboard
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Falak
-* Knowledge
-* Media
-* Notification
-* Settings
+- Authorization
+- Dashboard
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Falak
+- Knowledge
+- Media
+- Notification
+- Settings
 
 ---
 
@@ -260,10 +260,10 @@ Domain yang menggunakan Authentication:
 
 Entitas utama:
 
-* User
-* Session
-* Account
-* Verification
+- User
+- Session
+- Account
+- Verification
 
 Detail schema dijelaskan pada dokumen `database.md`.
 
@@ -291,10 +291,10 @@ GET    /auth/session
 
 Authentication wajib:
 
-* Menggunakan HTTPS.
-* Memvalidasi seluruh input.
-* Menggunakan session yang aman.
-* Tidak membocorkan informasi sensitif.
+- Menggunakan HTTPS.
+- Memvalidasi seluruh input.
+- Menggunakan session yang aman.
+- Tidak membocorkan informasi sensitif.
 
 ---
 
@@ -302,11 +302,11 @@ Authentication wajib:
 
 Aktivitas berikut dicatat:
 
-* Login
-* Logout
-* Reset Password
-* Change Password
-* Email Verification
+- Login
+- Logout
+- Reset Password
+- Change Password
+- Email Verification
 
 ---
 
@@ -314,13 +314,13 @@ Aktivitas berikut dicatat:
 
 Domain Authentication dianggap selesai apabila:
 
-* Pengguna dapat login.
-* Pengguna dapat logout.
-* Session berjalan dengan benar.
-* Forgot Password berfungsi.
-* Reset Password berfungsi.
-* Email Verification berfungsi (jika diaktifkan).
-* Audit Log tercatat.
+- Pengguna dapat login.
+- Pengguna dapat logout.
+- Session berjalan dengan benar.
+- Forgot Password berfungsi.
+- Reset Password berfungsi.
+- Email Verification berfungsi (jika diaktifkan).
+- Audit Log tercatat.
 
 ---
 
@@ -328,11 +328,11 @@ Domain Authentication dianggap selesai apabila:
 
 Pengembangan berikutnya dapat mencakup:
 
-* Two Factor Authentication (2FA)
-* Passkey/WebAuthn
-* Single Sign-On (SSO)
-* OAuth Provider
-* Multi Device Session Management
+- Two Factor Authentication (2FA)
+- Passkey/WebAuthn
+- Single Sign-On (SSO)
+- OAuth Provider
+- Multi Device Session Management
 
 ---
 

@@ -9,28 +9,19 @@ interface Props {
   onChange(value: string): void;
 }
 
-export function DataToolbar({
-  value,
-  onChange,
-}: Props) {
+export function DataToolbar({ value, onChange }: Props) {
   return (
     <div className="flex items-center justify-between">
-
       <div className="relative w-full max-w-sm">
-
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"/>
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
         <Input
           className="pl-9"
           placeholder="Cari..."
           value={value}
-          onChange={(e) =>
-            onChange(e.target.value)
-          }
+          onChange={(e) => onChange(e.target.value)}
         />
-
       </div>
-
     </div>
   );
 }

@@ -158,13 +158,13 @@ Dokumen ini mendefinisikan kriteria selesai (Definition of Done) untuk setiap it
 
 Sebelum merge ke branch utama:
 
-| Check | Command |
-|-------|---------|
-| TypeScript | `npm run typecheck` |
-| Lint | `npm run lint` |
-| Format | `npm run format:check` |
-| Build | `npm run build` |
-| Test | Manual testing di browser |
+| Check      | Command                   |
+| ---------- | ------------------------- |
+| TypeScript | `npm run typecheck`       |
+| Lint       | `npm run lint`            |
+| Format     | `npm run format:check`    |
+| Build      | `npm run build`           |
+| Test       | Manual testing di browser |
 
 ---
 

@@ -24,8 +24,8 @@ Dokumen ini mendefinisikan validasi schema untuk domain Authentication menggunak
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email("Email tidak valid"),
-  password: z.string().min(1, "Password harus diisi"),
+email: z.string().email("Email tidak valid"),
+password: z.string().min(1, "Password harus diisi"),
 });
 ``
 
@@ -33,7 +33,7 @@ export const loginSchema = z.object({
 
 ### Register Schema
 
-``typescript
+`typescript
 export const registerSchema = z.object({
   name: z.string().min(2, "Nama minimal 2 karakter"),
   email: z.string().email("Email tidak valid"),
@@ -49,23 +49,23 @@ export const registerSchema = z.object({
   message: "Password tidak cocok",
   path: ["confirmPassword"],
 });
-``
+`
 
 ---
 
 ### Forgot Password Schema
 
-``typescript
+`typescript
 export const forgotPasswordSchema = z.object({
   email: z.string().email("Email tidak valid"),
 });
-``
+`
 
 ---
 
 ### Reset Password Schema
 
-``typescript
+`typescript
 export const resetPasswordSchema = z.object({
   token: z.string().min(1, "Token harus diisi"),
   password: z
@@ -80,13 +80,13 @@ export const resetPasswordSchema = z.object({
   message: "Password tidak cocok",
   path: ["confirmPassword"],
 });
-``
+`
 
 ---
 
 ### Change Password Schema
 
-``typescript
+`typescript
 export const changePasswordSchema = z.object({
   currentPassword: z.string().min(1, "Password lama harus diisi"),
   newPassword: z
@@ -101,7 +101,7 @@ export const changePasswordSchema = z.object({
   message: "Password tidak cocok",
   path: ["confirmPassword"],
 });
-``
+`
 
 ---
 

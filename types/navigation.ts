@@ -5,4 +5,5 @@ export interface NavigationItem {
   href?: string;
   icon?: LucideIcon;
   items?: NavigationItem[];
+  permissions?: string[];
 }

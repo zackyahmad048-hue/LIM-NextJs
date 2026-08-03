@@ -18,14 +18,14 @@ Dokumen ini mendefinisikan standar responsive design pada seluruh antarmuka LIM 
 
 # Breakpoints
 
-| Breakpoint | Width | Device | Tailwind |
-|------------|-------|--------|----------|
-| Default | 0px+ | Mobile | `` |
-| sm | 640px+ | Small Mobile | `sm:` |
-| md | 768px+ | Tablet | `md:` |
-| lg | 1024px+ | Laptop/Desktop | `lg:` |
-| xl | 1280px+ | Large Desktop | `xl:` |
-| 2xl | 1536px+ | Wide Screen | `2xl:` |
+| Breakpoint | Width   | Device         | Tailwind |
+| ---------- | ------- | -------------- | -------- |
+| Default    | 0px+    | Mobile         | ``       |
+| sm         | 640px+  | Small Mobile   | `sm:`    |
+| md         | 768px+  | Tablet         | `md:`    |
+| lg         | 1024px+ | Laptop/Desktop | `lg:`    |
+| xl         | 1280px+ | Large Desktop  | `xl:`    |
+| 2xl        | 1536px+ | Wide Screen    | `2xl:`   |
 
 ---
 
@@ -37,11 +37,12 @@ Seluruh implementasi dimulai dari mobile:
 // Default: Mobile
 <div className="grid grid-cols-1 gap-3">
 
-  // Tablet: 2 columns
+// Tablet: 2 columns
   <div className="md:grid-cols-2">
 
     // Desktop: 4 columns
     <div className="xl:grid-cols-4">
+
 ``
 
 ---
@@ -50,21 +51,21 @@ Seluruh implementasi dimulai dari mobile:
 
 ### Public Website
 
-| Component | Mobile | Tablet | Desktop |
-|-----------|--------|--------|---------|
-| Container | `px-4` | `px-4 sm:px-6` | `max-w-6xl mx-auto` |
-| Navbar | Drawer | Drawer | Navigation Menu |
-| Footer | Stacked | 2 columns | 4 columns |
-| Content | Full width | Full width | Max width |
+| Component | Mobile     | Tablet         | Desktop             |
+| --------- | ---------- | -------------- | ------------------- |
+| Container | `px-4`     | `px-4 sm:px-6` | `max-w-6xl mx-auto` |
+| Navbar    | Drawer     | Drawer         | Navigation Menu     |
+| Footer    | Stacked    | 2 columns      | 4 columns           |
+| Content   | Full width | Full width     | Max width           |
 
 ### Admin Dashboard
 
-| Component | Mobile | Tablet | Desktop |
-|-----------|--------|--------|---------|
-| Sidebar | Drawer | Fixed | Fixed |
-| Header | Full width | Full width | Full width |
-| Grid | 1 column | 2 columns | 4 columns |
-| Content | Full width | Full width | Flex |
+| Component | Mobile     | Tablet     | Desktop    |
+| --------- | ---------- | ---------- | ---------- |
+| Sidebar   | Drawer     | Fixed      | Fixed      |
+| Header    | Full width | Full width | Full width |
+| Grid      | 1 column   | 2 columns  | 4 columns  |
+| Content   | Full width | Full width | Flex       |
 
 ---
 
@@ -72,22 +73,22 @@ Seluruh implementasi dimulai dari mobile:
 
 ### Desktop (lg+)
 
-``text
+`text
 Logo  |  Menu Items  |  Theme Toggle + Admin Button
-``
+`
 
 ### Mobile (<lg)
 
-``text
+`text
 Logo  |  Theme Toggle + Hamburger Menu
-``
+`
 
 Drawer:
 
-``text
+`text
 Menu Items (stacked)
 Login Admin Button
-``
+`
 
 ---
 

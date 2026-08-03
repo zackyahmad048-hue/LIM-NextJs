@@ -304,24 +304,24 @@ Retry
 
 # Workflow Rules
 
-* Seluruh konten dimulai dari status **Draft**.
-* Publish hanya dapat dilakukan setelah **Review**.
-* Perubahan pada konten Published harus direview kembali.
-* Arsip bersifat Read Only.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh konten dimulai dari status **Draft**.
+- Publish hanya dapat dilakukan setelah **Review**.
+- Perubahan pada konten Published harus direview kembali.
+- Arsip bersifat Read Only.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -329,8 +329,8 @@ Retry
 
 Workflow Knowledge dianggap selesai apabila:
 
-* Seluruh konten mengikuti lifecycle yang ditentukan.
-* Publish hanya melalui proses review.
-* Search menggunakan Full Text Search.
-* Arsip bersifat Read Only.
-* Seluruh perubahan mengikuti Business Rules dan tercatat pada Audit Log.
+- Seluruh konten mengikuti lifecycle yang ditentukan.
+- Publish hanya melalui proses review.
+- Search menggunakan Full Text Search.
+- Arsip bersifat Read Only.
+- Seluruh perubahan mengikuti Business Rules dan tercatat pada Audit Log.

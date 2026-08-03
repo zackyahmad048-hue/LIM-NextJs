@@ -322,24 +322,24 @@ Retry
 
 # Workflow Rules
 
-* Seluruh upload melalui validasi.
-* Metadata dibuat otomatis.
-* Thumbnail hanya untuk gambar.
-* File hanya dihapus jika tidak memiliki referensi.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh upload melalui validasi.
+- Metadata dibuat otomatis.
+- Thumbnail hanya untuk gambar.
+- File hanya dihapus jika tidak memiliki referensi.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -347,8 +347,8 @@ Retry
 
 Workflow Media dianggap selesai apabila:
 
-* Upload berjalan sesuai alur.
-* Metadata dibuat otomatis.
-* Thumbnail berhasil dibuat untuk gambar.
-* File yang masih direferensikan tidak dapat dihapus.
-* Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.
+- Upload berjalan sesuai alur.
+- Metadata dibuat otomatis.
+- Thumbnail berhasil dibuat untuk gambar.
+- File yang masih direferensikan tidak dapat dihapus.
+- Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

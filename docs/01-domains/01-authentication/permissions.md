@@ -24,18 +24,18 @@ Domain Authentication hanya menangani identitas dan sesi. Permission untuk hak a
 
 # Access Control
 
-| Action | Guest | Authenticated User | Admin | Super Admin |
-|--------|-------|-------------------|-------|-------------|
-| Login | Ya | - | - | - |
-| Logout | - | Ya | Ya | Ya |
-| View Profile | - | Ya | Ya | Ya |
-| Change Password | - | Ya | Ya | Ya |
-| Forgot Password | Ya | - | - | - |
-| Reset Password | Ya | - | - | - |
-| Verify Email | Ya | - | - | - |
-| Manage Users | - | - | Ya | Ya |
-| Revoke Session | - | - | Ya | Ya |
-| Lock Account | - | - | Ya | Ya |
+| Action          | Guest | Authenticated User | Admin | Super Admin |
+| --------------- | ----- | ------------------ | ----- | ----------- |
+| Login           | Ya    | -                  | -     | -           |
+| Logout          | -     | Ya                 | Ya    | Ya          |
+| View Profile    | -     | Ya                 | Ya    | Ya          |
+| Change Password | -     | Ya                 | Ya    | Ya          |
+| Forgot Password | Ya    | -                  | -     | -           |
+| Reset Password  | Ya    | -                  | -     | -           |
+| Verify Email    | Ya    | -                  | -     | -           |
+| Manage Users    | -     | -                  | Ya    | Ya          |
+| Revoke Session  | -     | -                  | Ya    | Ya          |
+| Lock Account    | -     | -                  | Ya    | Ya          |
 
 ---
 

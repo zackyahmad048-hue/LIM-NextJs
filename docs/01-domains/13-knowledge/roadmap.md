@@ -18,17 +18,17 @@ Menjadi pusat Knowledge Management yang terintegrasi, mudah dicari, dan mendukun
 
 # Version 1.0
 
-* Knowledge Base
-* Article Management
-* Documentation
-* SOP Management
-* FAQ Management
-* Category Management
-* Tag Management
-* Review Workflow
-* Full Text Search
-* Archive
-* Audit Log
+- Knowledge Base
+- Article Management
+- Documentation
+- SOP Management
+- FAQ Management
+- Category Management
+- Tag Management
+- Review Workflow
+- Full Text Search
+- Archive
+- Audit Log
 
 ✅ Initial Release
 
@@ -36,53 +36,53 @@ Menjadi pusat Knowledge Management yang terintegrasi, mudah dicari, dan mendukun
 
 # Version 1.1
 
-* Article Versioning
-* Comments
-* Ratings
-* Bookmarks
-* Related Articles
-* Reading History
+- Article Versioning
+- Comments
+- Ratings
+- Bookmarks
+- Related Articles
+- Reading History
 
 ---
 
 # Version 1.2
 
-* AI Search
-* Multi-language Content
-* Article Templates
-* Content Scheduling
-* Reading Analytics
+- AI Search
+- Multi-language Content
+- Article Templates
+- Content Scheduling
+- Reading Analytics
 
 ---
 
 # Version 2.0
 
-* Knowledge Recommendation Engine
-* Collaborative Editing
-* Document Version Control
-* External Documentation Sync
-* Knowledge Graph
+- Knowledge Recommendation Engine
+- Collaborative Editing
+- Document Version Control
+- External Documentation Sync
+- Knowledge Graph
 
 ---
 
 # Version 3.0
 
-* AI Knowledge Assistant
-* AI Content Generator
-* AI Auto Categorization
-* AI Semantic Search
-* AI Knowledge Analytics
+- AI Knowledge Assistant
+- AI Content Generator
+- AI Auto Categorization
+- AI Semantic Search
+- AI Knowledge Analytics
 
 ---
 
 # Dependencies
 
-* Authentication
-* Authorization
-* Organization
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- Organization
+- Media
+- Notification
+- Settings
 
 Digunakan oleh seluruh domain sebagai pusat dokumentasi dan referensi.
 
@@ -90,11 +90,11 @@ Digunakan oleh seluruh domain sebagai pusat dokumentasi dan referensi.
 
 # Success Indicators
 
-* Knowledge mudah dicari.
-* Review workflow berjalan baik.
-* Artikel terdokumentasi dengan baik.
-* SOP selalu terbarui.
-* Full Text Search cepat dan akurat.
+- Knowledge mudah dicari.
+- Review workflow berjalan baik.
+- Artikel terdokumentasi dengan baik.
+- SOP selalu terbarui.
+- Full Text Search cepat dan akurat.
 
 ---
 

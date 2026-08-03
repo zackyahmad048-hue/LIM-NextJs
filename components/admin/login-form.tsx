@@ -10,7 +10,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { authClient } from "@/modules/authentication/infrastructure/better-auth-client";
-import { loginSchema, type LoginSchema } from "@/modules/authentication/validators/login.schema";
+import {
+  loginSchema,
+  type LoginSchema,
+} from "@/modules/authentication/validators/login.schema";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);

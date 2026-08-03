@@ -33,7 +33,7 @@ export class MediaRepository {
             href: `/images/${file}`,
             size: formatBytes(fileStat.size),
           };
-        })
+        }),
     );
   }
 }

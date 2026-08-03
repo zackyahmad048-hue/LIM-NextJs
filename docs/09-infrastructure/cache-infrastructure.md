@@ -26,12 +26,12 @@ Redis bukan merupakan sumber data utama (Source of Truth), melainkan penyimpanan
 
 Cache Infrastructure bertujuan untuk:
 
-* Mengurangi beban Database.
-* Mempercepat Response Time.
-* Mendukung Queue Processing.
-* Mengelola Session.
-* Mendukung Rate Limiting.
-* Menyediakan Temporary Data Storage.
+- Mengurangi beban Database.
+- Mempercepat Response Time.
+- Mendukung Queue Processing.
+- Mengelola Session.
+- Mendukung Rate Limiting.
+- Menyediakan Temporary Data Storage.
 
 ---
 
@@ -39,15 +39,15 @@ Cache Infrastructure bertujuan untuk:
 
 Platform utama:
 
-* Redis
+- Redis
 
 Fitur yang digunakan:
 
-* Key-Value Storage
-* TTL (Time To Live)
-* Pub/Sub (Opsional)
-* Queue
-* Atomic Operation
+- Key-Value Storage
+- TTL (Time To Live)
+- Pub/Sub (Opsional)
+- Queue
+- Atomic Operation
 
 ---
 
@@ -77,13 +77,13 @@ Aplikasi selalu memeriksa Cache terlebih dahulu sebelum mengakses Database.
 
 Redis digunakan untuk:
 
-* Application Cache
-* Session Storage
-* Authentication Token
-* Rate Limiting
-* Queue
-* Temporary Data
-* Dashboard Statistics
+- Application Cache
+- Session Storage
+- Authentication Token
+- Rate Limiting
+- Queue
+- Temporary Data
+- Dashboard Statistics
 
 ---
 
@@ -175,10 +175,10 @@ Gunakan namespace yang konsisten agar mudah dikelola.
 
 Cache harus diperbarui ketika:
 
-* Data berubah.
-* Data dihapus.
-* TTL berakhir.
-* Administrator melakukan Refresh Cache.
+- Data berubah.
+- Data dihapus.
+- TTL berakhir.
+- Administrator melakukan Refresh Cache.
 
 Tidak diperbolehkan menggunakan Cache yang sudah kedaluwarsa.
 
@@ -188,11 +188,11 @@ Tidak diperbolehkan menggunakan Cache yang sudah kedaluwarsa.
 
 Redis juga digunakan sebagai Queue untuk:
 
-* Email
-* Notification
-* Background Job
-* PDF Generation
-* Scheduled Task
+- Email
+- Notification
+- Background Job
+- PDF Generation
+- Scheduled Task
 
 Queue diproses oleh Worker secara asynchronous.
 
@@ -202,9 +202,9 @@ Queue diproses oleh Worker secara asynchronous.
 
 Redis digunakan untuk:
 
-* Active Session
-* Refresh Token Metadata
-* Temporary Authentication Data
+- Active Session
+- Refresh Token Metadata
+- Temporary Authentication Data
 
 Session akan dihapus otomatis setelah TTL berakhir.
 
@@ -214,11 +214,11 @@ Session akan dihapus otomatis setelah TTL berakhir.
 
 Redis wajib:
 
-* Berada pada Private Network.
-* Menggunakan Authentication.
-* Tidak dapat diakses langsung dari Internet.
-* Menggunakan TLS bila didukung.
-* Dipantau melalui Audit dan Monitoring.
+- Berada pada Private Network.
+- Menggunakan Authentication.
+- Tidak dapat diakses langsung dari Internet.
+- Menggunakan TLS bila didukung.
+- Dipantau melalui Audit dan Monitoring.
 
 ---
 
@@ -226,13 +226,13 @@ Redis wajib:
 
 Parameter yang dipantau:
 
-* Memory Usage
-* Cache Hit Ratio
-* Cache Miss Ratio
-* Connected Clients
-* Key Count
-* Queue Length
-* Eviction Count
+- Memory Usage
+- Cache Hit Ratio
+- Cache Miss Ratio
+- Connected Clients
+- Key Count
+- Queue Length
+- Eviction Count
 
 Alert dikirim ketika penggunaan sumber daya melebihi ambang batas.
 
@@ -248,28 +248,28 @@ Namun, konfigurasi Redis tetap didokumentasikan dan dicadangkan sesuai kebutuhan
 
 # Best Practices
 
-* Jangan menyimpan data permanen di Redis.
-* Gunakan TTL pada seluruh Cache.
-* Hindari Key yang terlalu besar.
-* Gunakan Namespace pada Key.
-* Bersihkan Cache yang sudah tidak digunakan.
-* Pantau Cache Hit Ratio secara berkala.
+- Jangan menyimpan data permanen di Redis.
+- Gunakan TTL pada seluruh Cache.
+- Hindari Key yang terlalu besar.
+- Gunakan Namespace pada Key.
+- Bersihkan Cache yang sudah tidak digunakan.
+- Pantau Cache Hit Ratio secara berkala.
 
 ---
 
 # Related Documents
 
-* README.md
-* database-infrastructure.md
-* storage-infrastructure.md
-* monitoring-infrastructure.md
+- README.md
+- database-infrastructure.md
+- storage-infrastructure.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Redis menjadi layanan Cache utama.
-* Cache menggunakan TTL yang sesuai.
-* Queue dan Session berjalan melalui Redis.
-* Monitoring Cache aktif.
-* Cache Infrastructure menjadi acuan resmi implementasi cache LIM Digital Platform.
+- Redis menjadi layanan Cache utama.
+- Cache menggunakan TTL yang sesuai.
+- Queue dan Session berjalan melalui Redis.
+- Monitoring Cache aktif.
+- Cache Infrastructure menjadi acuan resmi implementasi cache LIM Digital Platform.

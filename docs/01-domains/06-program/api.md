@@ -30,9 +30,9 @@ API Program digunakan untuk mengelola seluruh siklus kegiatan organisasi mulai d
 
 Seluruh endpoint Admin memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 Endpoint Public hanya dapat mengakses Program yang telah dipublikasikan.
 
@@ -42,12 +42,12 @@ Endpoint Public hanya dapat mengakses Program yang telah dipublikasikan.
 
 Domain Program terdiri dari:
 
-* Program
-* Schedule
-* Committee
-* Participant
-* Attendance
-* Documentation
+- Program
+- Schedule
+- Committee
+- Participant
+- Attendance
+- Documentation
 
 ---
 
@@ -361,12 +361,12 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan Authentication.
-* Seluruh endpoint memerlukan Permission.
-* Endpoint Public hanya menampilkan Program berstatus **Published** atau **Registration Open**.
-* Absensi hanya dapat dilakukan pada Program **On Going**.
-* Delete menggunakan Soft Delete.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan Authentication.
+- Seluruh endpoint memerlukan Permission.
+- Endpoint Public hanya menampilkan Program berstatus **Published** atau **Registration Open**.
+- Absensi hanya dapat dilakukan pada Program **On Going**.
+- Delete menggunakan Soft Delete.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -374,10 +374,10 @@ Response gagal
 
 API Program wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -385,24 +385,24 @@ API Program wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -410,7 +410,7 @@ Seluruh endpoint mendukung:
 
 API Program dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* Public API hanya menampilkan Program yang valid.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Public API hanya menampilkan Program yang valid.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

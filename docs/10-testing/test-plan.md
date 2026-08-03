@@ -24,11 +24,11 @@ Test Plan menjadi acuan resmi dalam merencanakan, melaksanakan, dan mengevaluasi
 
 Test Plan bertujuan untuk:
 
-* Memastikan seluruh kebutuhan bisnis terpenuhi.
-* Memvalidasi implementasi sesuai spesifikasi.
-* Mengurangi risiko kegagalan pada Production.
-* Menentukan ruang lingkup dan strategi pengujian.
-* Menjadi referensi bagi seluruh tim QA.
+- Memastikan seluruh kebutuhan bisnis terpenuhi.
+- Memvalidasi implementasi sesuai spesifikasi.
+- Mengurangi risiko kegagalan pada Production.
+- Menentukan ruang lingkup dan strategi pengujian.
+- Menjadi referensi bagi seluruh tim QA.
 
 ---
 
@@ -36,20 +36,20 @@ Test Plan bertujuan untuk:
 
 Pengujian mencakup seluruh domain:
 
-* Authentication
-* Authorization
-* Organization
-* Dashboard
-* CMS
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Media
-* Notification
-* Settings
-* Knowledge
-* Falak
+- Authentication
+- Authorization
+- Organization
+- Dashboard
+- CMS
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Media
+- Notification
+- Settings
+- Knowledge
+- Falak
 
 ---
 
@@ -57,12 +57,12 @@ Pengujian mencakup seluruh domain:
 
 Seluruh pengujian bertujuan memastikan:
 
-* Functional Requirement terpenuhi.
-* Business Rules berjalan benar.
-* API sesuai spesifikasi.
-* UI bekerja sesuai Design System.
-* Security diterapkan.
-* Performance memenuhi target.
+- Functional Requirement terpenuhi.
+- Business Rules berjalan benar.
+- API sesuai spesifikasi.
+- UI bekerja sesuai Design System.
+- Security diterapkan.
+- Performance memenuhi target.
 
 ---
 
@@ -74,8 +74,8 @@ Menguji fungsi atau komponen secara individual.
 
 Dilakukan oleh:
 
-* Backend Developer
-* Frontend Developer
+- Backend Developer
+- Frontend Developer
 
 ---
 
@@ -85,9 +85,9 @@ Menguji interaksi antar service dan domain.
 
 Contoh:
 
-* Program → Certificate
-* Letter → Notification
-* Authentication → Authorization
+- Program → Certificate
+- Letter → Notification
+- Authentication → Authorization
 
 ---
 
@@ -95,12 +95,12 @@ Contoh:
 
 Menguji:
 
-* Request
-* Response
-* Validation
-* Authentication
-* Authorization
-* Error Handling
+- Request
+- Response
+- Validation
+- Authentication
+- Authorization
+- Error Handling
 
 ---
 
@@ -110,7 +110,7 @@ Menguji alur bisnis utama dari awal hingga akhir.
 
 Contoh:
 
-* Login → Registrasi Program → Penerbitan Sertifikat.
+- Login → Registrasi Program → Penerbitan Sertifikat.
 
 ---
 
@@ -124,9 +124,9 @@ Dilakukan oleh perwakilan pengguna untuk memastikan sistem memenuhi kebutuhan op
 
 Meliputi:
 
-* Load Test
-* Stress Test
-* Endurance Test
+- Load Test
+- Stress Test
+- Endurance Test
 
 ---
 
@@ -134,11 +134,11 @@ Meliputi:
 
 Meliputi:
 
-* Authentication
-* Authorization
-* Input Validation
-* Session Management
-* OWASP Top 10
+- Authentication
+- Authorization
+- Input Validation
+- Session Management
+- OWASP Top 10
 
 ---
 
@@ -159,11 +159,11 @@ Environment yang digunakan:
 
 Testing dapat dimulai apabila:
 
-* Development selesai.
-* Build berhasil.
-* Database tersedia.
-* Environment siap.
-* Test Data tersedia.
+- Development selesai.
+- Build berhasil.
+- Database tersedia.
+- Environment siap.
+- Test Data tersedia.
 
 ---
 
@@ -171,11 +171,11 @@ Testing dapat dimulai apabila:
 
 Testing dinyatakan selesai apabila:
 
-* Seluruh Test Case Critical lulus.
-* Tidak ada Critical Bug.
-* UAT disetujui.
-* Performance memenuhi target.
-* Security Testing selesai.
+- Seluruh Test Case Critical lulus.
+- Tidak ada Critical Bug.
+- UAT disetujui.
+- Performance memenuhi target.
+- Security Testing selesai.
 
 ---
 
@@ -183,13 +183,13 @@ Testing dinyatakan selesai apabila:
 
 Output pengujian:
 
-* Test Plan
-* Test Cases
-* Test Report
-* Bug Report
-* UAT Report
-* Performance Report
-* Security Report
+- Test Plan
+- Test Cases
+- Test Report
+- Bug Report
+- UAT Report
+- Performance Report
+- Security Report
 
 ---
 
@@ -209,11 +209,11 @@ Output pengujian:
 
 Risiko yang perlu diperhatikan:
 
-* Environment tidak siap.
-* Test Data tidak lengkap.
-* Perubahan Requirement.
-* Keterlambatan Bug Fix.
-* Ketidaksesuaian spesifikasi.
+- Environment tidak siap.
+- Test Data tidak lengkap.
+- Perubahan Requirement.
+- Keterlambatan Bug Fix.
+- Ketidaksesuaian spesifikasi.
 
 ---
 
@@ -233,18 +233,18 @@ Target minimum:
 
 # Related Documents
 
-* README.md
-* test-cases.md
-* uat.md
-* performance-testing.md
-* security-testing.md
+- README.md
+- test-cases.md
+- uat.md
+- performance-testing.md
+- security-testing.md
 
 ---
 
 # Acceptance Criteria
 
-* Ruang lingkup pengujian terdokumentasi.
-* Strategi pengujian jelas.
-* Entry dan Exit Criteria terdokumentasi.
-* Target kualitas terukur.
-* Test Plan menjadi acuan resmi pelaksanaan QA pada LIM Digital Platform.
+- Ruang lingkup pengujian terdokumentasi.
+- Strategi pengujian jelas.
+- Entry dan Exit Criteria terdokumentasi.
+- Target kualitas terukur.
+- Test Plan menjadi acuan resmi pelaksanaan QA pada LIM Digital Platform.

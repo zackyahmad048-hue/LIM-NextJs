@@ -24,30 +24,23 @@ export function CategoryDialog({
   onOpenChange,
 }: CategoryDialogProps) {
   return (
-    <Dialog
-      open={open}
-      onOpenChange={onOpenChange}
-    >
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
-          {category
-            ? "Edit Kategori"
-            : "Tambah Kategori"}
-        </DialogTitle>
+            {category ? "Edit Kategori" : "Tambah Kategori"}
+          </DialogTitle>
 
-        <DialogDescription>
-          {category
-            ? "Perbarui informasi kategori."
-            : "Tambahkan kategori baru."}
-        </DialogDescription>
+          <DialogDescription>
+            {category
+              ? "Perbarui informasi kategori."
+              : "Tambahkan kategori baru."}
+          </DialogDescription>
         </DialogHeader>
 
         <CategoryForm
           category={category}
-          onSuccess={() =>
-            onOpenChange(false)
-          }
+          onSuccess={() => onOpenChange(false)}
         />
       </DialogContent>
     </Dialog>

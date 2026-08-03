@@ -57,11 +57,11 @@ Dokumen ini mendefinisikan aturan bisnis domain Authentication.
 
 # Validation Rules
 
-| Field | Rule |
-|-------|------|
-| Email | Valid email format, required |
+| Field    | Rule                                                    |
+| -------- | ------------------------------------------------------- |
+| Email    | Valid email format, required                            |
 | Password | Min 8 chars, uppercase, lowercase, number, special char |
-| Name | Required, min 2 chars |
+| Name     | Required, min 2 chars                                   |
 
 ---
 

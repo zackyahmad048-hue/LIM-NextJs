@@ -26,13 +26,13 @@ Domain ini menggunakan **Role-Based Access Control (RBAC)** sesuai ADR-004.
 
 Authorization harus mampu:
 
-* Mengelola Role
-* Mengelola Permission
-* Memberikan Role kepada User
-* Mengevaluasi Permission
-* Mendukung Authorization pada API
-* Mendukung Authorization pada UI
-* Mencatat Audit seluruh perubahan hak akses
+- Mengelola Role
+- Mengelola Permission
+- Memberikan Role kepada User
+- Mengevaluasi Permission
+- Mendukung Authorization pada API
+- Mendukung Authorization pada UI
+- Mencatat Audit seluruh perubahan hak akses
 
 ---
 
@@ -53,10 +53,10 @@ Authorization harus mampu:
 
 Administrator dapat:
 
-* Create Role
-* Update Role
-* Delete Role
-* View Role
+- Create Role
+- Update Role
+- Delete Role
+- View Role
 
 ---
 
@@ -64,10 +64,10 @@ Administrator dapat:
 
 Administrator dapat:
 
-* Create Permission
-* Update Permission
-* Delete Permission
-* View Permission
+- Create Permission
+- Update Permission
+- Delete Permission
+- View Permission
 
 ---
 
@@ -75,9 +75,9 @@ Administrator dapat:
 
 Administrator dapat:
 
-* Assign Role
-* Remove Role
-* Change Role
+- Assign Role
+- Remove Role
+- Change Role
 
 ---
 
@@ -85,10 +85,10 @@ Administrator dapat:
 
 Sistem harus memverifikasi:
 
-* Authentication
-* Role
-* Permission
-* Resource Ownership (jika berlaku)
+- Authentication
+- Role
+- Permission
+- Resource Ownership (jika berlaku)
 
 ---
 
@@ -96,19 +96,19 @@ Sistem harus memverifikasi:
 
 Authorization harus:
 
-* Response < 100 ms
-* Cached
-* Audit Enabled
-* Highly Available
-* Stateless
+- Response < 100 ms
+- Cached
+- Audit Enabled
+- Highly Available
+- Stateless
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Session valid.
-* JWT valid.
+- User telah Login.
+- Session valid.
+- JWT valid.
 
 ---
 
@@ -116,13 +116,13 @@ Authorization harus:
 
 Permission berhasil diverifikasi:
 
-* Request diteruskan.
-* Audit dicatat (untuk perubahan Role/Permission).
+- Request diteruskan.
+- Audit dicatat (untuk perubahan Role/Permission).
 
 Permission gagal:
 
-* Request ditolak.
-* Error dikembalikan.
+- Request ditolak.
+- Error dikembalikan.
 
 ---
 
@@ -180,12 +180,12 @@ Return 403
 
 # Exception Flow
 
-* JWT tidak valid.
-* Session berakhir.
-* User dinonaktifkan.
-* Role tidak ditemukan.
-* Permission tidak tersedia.
-* Resource tidak ditemukan.
+- JWT tidak valid.
+- Session berakhir.
+- User dinonaktifkan.
+- Role tidak ditemukan.
+- Permission tidak tersedia.
+- Resource tidak ditemukan.
 
 ---
 
@@ -241,18 +241,18 @@ Denied
 
 Entity:
 
-* User
-* Role
-* Permission
+- User
+- Role
+- Permission
 
 Aggregate:
 
-* Authorization
+- Authorization
 
 Value Object:
 
-* PermissionCode
-* RoleName
+- PermissionCode
+- RoleName
 
 ---
 
@@ -310,11 +310,11 @@ user_roles
 
 | Endpoint    | Super Admin | Admin | User |
 | ----------- | :---------: | :---: | :--: |
-| View Roles  |      ✅      |   ✅   |   ❌  |
-| Create Role |      ✅      |   ❌   |   ❌  |
-| Update Role |      ✅      |   ❌   |   ❌  |
-| Delete Role |      ✅      |   ❌   |   ❌  |
-| Assign Role |      ✅      |   ✅   |   ❌  |
+| View Roles  |     ✅      |  ✅   |  ❌  |
+| Create Role |     ✅      |  ❌   |  ❌  |
+| Update Role |     ✅      |  ❌   |  ❌  |
+| Delete Role |     ✅      |  ❌   |  ❌  |
+| Assign Role |     ✅      |  ✅   |  ❌  |
 
 ---
 
@@ -344,38 +344,38 @@ user_roles
 
 # Acceptance Test
 
-* Role berhasil dibuat.
-* Permission berhasil dibuat.
-* User memperoleh Role.
-* Permission Check berhasil.
-* Permission Check ditolak.
-* Audit Log tercatat.
-* API mengembalikan HTTP 403 ketika akses ditolak.
+- Role berhasil dibuat.
+- Permission berhasil dibuat.
+- User memperoleh Role.
+- Permission Check berhasil.
+- Permission Check ditolak.
+- Audit Log tercatat.
+- API mengembalikan HTTP 403 ketika akses ditolak.
 
 ---
 
 # Performance Requirement
 
-* Permission Check < 100 ms.
-* Role Assignment < 300 ms.
-* Cache Hit Ratio > 90%.
+- Permission Check < 100 ms.
+- Role Assignment < 300 ms.
+- Cache Hit Ratio > 90%.
 
 ---
 
 # Security Requirement
 
-* Menggunakan RBAC.
-* Default Deny untuk seluruh resource.
-* Permission diperiksa pada setiap request.
-* Audit Log aktif.
-* Role dan Permission hanya dapat diubah oleh Administrator yang berwenang.
+- Menggunakan RBAC.
+- Default Deny untuk seluruh resource.
+- Permission diperiksa pada setiap request.
+- Audit Log aktif.
+- Role dan Permission hanya dapat diubah oleh Administrator yang berwenang.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Authorization menggunakan RBAC.
-* Permission Check diterapkan pada seluruh endpoint yang dilindungi.
-* Role dan Permission terdokumentasi.
-* Audit Log mencatat seluruh perubahan hak akses.
-* Specification siap digunakan sebagai dasar implementasi Authorization Domain.
+- Seluruh Authorization menggunakan RBAC.
+- Permission Check diterapkan pada seluruh endpoint yang dilindungi.
+- Role dan Permission terdokumentasi.
+- Audit Log mencatat seluruh perubahan hak akses.
+- Specification siap digunakan sebagai dasar implementasi Authorization Domain.

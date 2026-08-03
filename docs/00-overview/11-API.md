@@ -22,12 +22,12 @@ Seluruh REST API harus mengikuti standar yang ditetapkan dalam dokumen ini agar 
 
 Seluruh API mengikuti prinsip berikut:
 
-* Resource Oriented
-* Stateless
-* Consistent
-* Version Ready
-* Secure by Default
-* Documentation First
+- Resource Oriented
+- Stateless
+- Consistent
+- Version Ready
+- Secure by Default
+- Documentation First
 
 ---
 
@@ -35,10 +35,10 @@ Seluruh API mengikuti prinsip berikut:
 
 REST API digunakan oleh:
 
-* Website
-* Mobile Application
-* Internal Services
-* External Integration (apabila diizinkan)
+- Website
+- Mobile Application
+- Internal Services
+- External Integration (apabila diizinkan)
 
 ---
 
@@ -66,9 +66,9 @@ Endpoint yang memerlukan autentikasi wajib memverifikasi session atau token sebe
 
 Endpoint yang bersifat privat wajib melakukan:
 
-* Authentication
-* Role Checking
-* Permission Checking
+- Authentication
+- Role Checking
+- Permission Checking
 
 Sebelum Business Rules dijalankan.
 
@@ -235,9 +235,9 @@ Upload menggunakan multipart/form-data.
 
 File wajib divalidasi:
 
-* Tipe
-* Ukuran
-* Ekstensi
+- Tipe
+- Ukuran
+- Ekstensi
 
 ---
 
@@ -245,9 +245,9 @@ File wajib divalidasi:
 
 Error harus:
 
-* Konsisten.
-* Mudah dipahami.
-* Tidak membocorkan informasi sensitif.
+- Konsisten.
+- Mudah dipahami.
+- Tidak membocorkan informasi sensitif.
 
 Contoh:
 
@@ -320,13 +320,13 @@ Versi lama hanya dihapus setelah proses migrasi selesai.
 
 Setiap endpoint harus memiliki dokumentasi yang memuat:
 
-* Tujuan endpoint
-* Request
-* Response
-* Authentication
-* Permission
-* Validation
-* Error Response
+- Tujuan endpoint
+- Request
+- Response
+- Authentication
+- Permission
+- Validation
+- Error Response
 
 ---
 
@@ -334,10 +334,10 @@ Setiap endpoint harus memiliki dokumentasi yang memuat:
 
 API wajib:
 
-* Menggunakan HTTPS.
-* Memvalidasi seluruh input.
-* Membatasi akses sesuai permission.
-* Tidak mengembalikan data sensitif yang tidak diperlukan.
+- Menggunakan HTTPS.
+- Memvalidasi seluruh input.
+- Membatasi akses sesuai permission.
+- Tidak mengembalikan data sensitif yang tidak diperlukan.
 
 ---
 
@@ -345,10 +345,10 @@ API wajib:
 
 Endpoint harus:
 
-* Mendukung pagination.
-* Menggunakan query yang efisien.
-* Menghindari N+1 Query.
-* Menggunakan index database yang sesuai.
+- Mendukung pagination.
+- Menggunakan query yang efisien.
+- Menghindari N+1 Query.
+- Menggunakan index database yang sesuai.
 
 ---
 
@@ -356,10 +356,10 @@ Endpoint harus:
 
 API dirancang agar mendukung:
 
-* Mobile Application
-* Public API
-* Internal API
-* Integrasi dengan sistem eksternal
+- Mobile Application
+- Public API
+- Internal API
+- Integrasi dengan sistem eksternal
 
 Tanpa mengubah struktur dasar.
 
@@ -369,11 +369,11 @@ Tanpa mengubah struktur dasar.
 
 Dokumen ini berkaitan dengan:
 
-* Architecture
-* Business Rules
-* Database
-* Security
-* Coding Standards
+- Architecture
+- Business Rules
+- Database
+- Security
+- Coding Standards
 
 ---
 

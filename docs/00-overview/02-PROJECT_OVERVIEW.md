@@ -34,13 +34,13 @@ Portal informasi resmi organisasi.
 
 Fitur utama:
 
-* Profil organisasi
-* Berita
-* Artikel
-* Agenda
-* Galeri
-* Kontak
-* Verifikasi Dokumen
+- Profil organisasi
+- Berita
+- Artikel
+- Agenda
+- Galeri
+- Kontak
+- Verifikasi Dokumen
 
 ---
 
@@ -50,16 +50,16 @@ Pusat administrasi organisasi.
 
 Fitur utama:
 
-* Dashboard
-* CMS
-* Organisasi
-* Program
-* Kesekretariatan
-* Persuratan
-* Sertifikat
-* Media
-* Pengguna
-* Pengaturan
+- Dashboard
+- CMS
+- Organisasi
+- Program
+- Kesekretariatan
+- Persuratan
+- Sertifikat
+- Media
+- Pengguna
+- Pengaturan
 
 ---
 
@@ -69,14 +69,14 @@ Aplikasi Android dan iOS.
 
 Fitur utama:
 
-* Jadwal Sholat
-* Al-Qur'an
-* Doa Harian
-* Istighotsah
-* Arah Kiblat
-* Berita
-* Agenda
-* Sertifikat Saya
+- Jadwal Sholat
+- Al-Qur'an
+- Doa Harian
+- Istighotsah
+- Arah Kiblat
+- Berita
+- Agenda
+- Sertifikat Saya
 
 ---
 
@@ -84,9 +84,9 @@ Fitur utama:
 
 Digunakan oleh:
 
-* Mobile Application
-* Integrasi sistem
-* Layanan eksternal
+- Mobile Application
+- Integrasi sistem
+- Layanan eksternal
 
 ---
 
@@ -124,18 +124,18 @@ Layanan inti yang digunakan bersama oleh seluruh aplikasi.
 
 Platform dibangun berdasarkan domain bisnis.
 
-* Authentication
-* Authorization
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Falak
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Falak
+- Media
+- Notification
+- Settings
 
 Setiap domain dikembangkan secara independen namun saling terintegrasi.
 
@@ -153,11 +153,11 @@ Contoh:
 
 Satu peserta Program dapat digunakan untuk:
 
-* Surat Tugas
-* Sertifikat
-* Arsip
-* Laporan
-* Riwayat Program
+- Surat Tugas
+- Sertifikat
+- Arsip
+- Laporan
+- Riwayat Program
 
 tanpa melakukan input ulang.
 
@@ -199,11 +199,11 @@ Layanan bisnis yang dapat digunakan bersama.
 
 Platform memiliki layanan berikut.
 
-* Falak Service
-* Certificate Service
-* Media Service
-* Notification Service
-* QR Verification Service
+- Falak Service
+- Certificate Service
+- Media Service
+- Notification Service
+- QR Verification Service
 
 Seluruh layanan dirancang agar dapat digunakan lintas aplikasi.
 
@@ -245,15 +245,15 @@ Mengelola seluruh platform.
 
 Platform memiliki karakteristik berikut.
 
-* Modular
-* Domain Driven
-* API Ready
-* Mobile Ready
-* Documentation First
-* Secure by Default
-* Privacy by Default
-* Scalable
-* Maintainable
+- Modular
+- Domain Driven
+- API Ready
+- Mobile Ready
+- Documentation First
+- Secure by Default
+- Privacy by Default
+- Scalable
+- Maintainable
 
 ---
 
@@ -261,31 +261,31 @@ Platform memiliki karakteristik berikut.
 
 Frontend
 
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
 
 Backend
 
-* Server Actions
-* REST API
-* Prisma ORM
-* PostgreSQL
-* Better Auth
+- Server Actions
+- REST API
+- Prisma ORM
+- PostgreSQL
+- Better Auth
 
 Mobile
 
-* React Native
-* Expo
+- React Native
+- Expo
 
 Infrastructure
 
-* Neon PostgreSQL
-* GitHub
-* GitHub Actions
-* Vercel (tahap awal)
+- Neon PostgreSQL
+- GitHub
+- GitHub Actions
+- Vercel (tahap awal)
 
 ---
 
@@ -329,11 +329,11 @@ Continuous Improvement
 
 LIM Digital Platform diharapkan menjadi fondasi digital organisasi yang:
 
-* Memusatkan data organisasi.
-* Mendukung administrasi yang lebih efisien.
-* Mempermudah publik memperoleh informasi.
-* Menyediakan layanan ibadah digital.
-* Mempermudah pengembangan fitur baru tanpa mengubah arsitektur utama.
+- Memusatkan data organisasi.
+- Mendukung administrasi yang lebih efisien.
+- Mempermudah publik memperoleh informasi.
+- Menyediakan layanan ibadah digital.
+- Mempermudah pengembangan fitur baru tanpa mengubah arsitektur utama.
 
 ---
 

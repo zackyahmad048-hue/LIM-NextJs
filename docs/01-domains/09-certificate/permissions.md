@@ -123,17 +123,17 @@ Endpoint verifikasi publik tidak memerlukan Authentication.
 
 | Permission | Super Admin | Admin | Certificate Officer | Signer |
 | ---------- | :---------: | :---: | :-----------------: | :----: |
-| View       |      ✅      |   ✅   |          ✅          |    ✅   |
-| Create     |      ✅      |   ✅   |          ✅          |    ❌   |
-| Update     |      ✅      |   ✅   |          ✅          |    ❌   |
-| Delete     |      ✅      |   ❌   |          ❌          |    ❌   |
-| Generate   |      ✅      |   ✅   |          ✅          |    ❌   |
-| Publish    |      ✅      |   ✅   |          ✅          |    ❌   |
-| Sign       |      ✅      |   ❌   |          ❌          |    ✅   |
-| Send       |      ✅      |   ✅   |          ✅          |    ❌   |
-| Archive    |      ✅      |   ✅   |          ✅          |    ❌   |
-| Restore    |      ✅      |   ✅   |          ✅          |    ❌   |
-| Revoke     |      ✅      |   ✅   |          ❌          |    ❌   |
+| View       |     ✅      |  ✅   |         ✅          |   ✅   |
+| Create     |     ✅      |  ✅   |         ✅          |   ❌   |
+| Update     |     ✅      |  ✅   |         ✅          |   ❌   |
+| Delete     |     ✅      |  ❌   |         ❌          |   ❌   |
+| Generate   |     ✅      |  ✅   |         ✅          |   ❌   |
+| Publish    |     ✅      |  ✅   |         ✅          |   ❌   |
+| Sign       |     ✅      |  ❌   |         ❌          |   ✅   |
+| Send       |     ✅      |  ✅   |         ✅          |   ❌   |
+| Archive    |     ✅      |  ✅   |         ✅          |   ❌   |
+| Restore    |     ✅      |  ✅   |         ✅          |   ❌   |
+| Revoke     |     ✅      |  ✅   |         ❌          |   ❌   |
 
 ---
 
@@ -165,21 +165,21 @@ certificate.view
 
 # Business Rules
 
-* Authentication wajib dilakukan sebelum pemeriksaan Permission.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403 Forbidden.
-* Tombol aksi mengikuti permission pengguna.
-* Penandatangan hanya dapat menandatangani sertifikat yang menjadi kewenangannya.
-* Endpoint verifikasi publik tidak menggunakan RBAC.
+- Authentication wajib dilakukan sebelum pemeriksaan Permission.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403 Forbidden.
+- Tombol aksi mengikuti permission pengguna.
+- Penandatangan hanya dapat menandatangani sertifikat yang menjadi kewenangannya.
+- Endpoint verifikasi publik tidak menggunakan RBAC.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh perubahan dicatat pada Audit Log.
-* Hak akses mengikuti prinsip Least Privilege.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh perubahan dicatat pada Audit Log.
+- Hak akses mengikuti prinsip Least Privilege.
 
 ---
 
@@ -201,21 +201,21 @@ certificate.analytics
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

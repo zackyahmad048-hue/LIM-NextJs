@@ -1,10 +1,5 @@
 import { notFound } from "next/navigation";
-import {
-  CheckCircle,
-  Pencil,
-  Send,
-  XCircle,
-} from "lucide-react";
+import { CheckCircle, Pencil, Send, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +10,10 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
 
 import { getAdministrativeDocumentById } from "@/modules/secretariat/queries/secretariat.query";
-import { updateAdministrativeDocument, transitionAdministrativeDocumentStatus } from "@/modules/secretariat/presentation/secretariat.action";
+import {
+  updateAdministrativeDocument,
+  transitionAdministrativeDocumentStatus,
+} from "@/modules/secretariat/presentation/secretariat.action";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
@@ -43,10 +41,33 @@ export default async function EditDocumentPage({
 
   if (!doc) notFound();
 
-  const statusActions: { label: string; status: string; icon: typeof Send; variant: "default" | "secondary" | "destructive" | "outline" }[] = [];
-  if (doc.status === "DRAFT") statusActions.push({ label: "Ajukan", status: "SUBMITTED", icon: Send, variant: "default" });
-  if (doc.status === "SUBMITTED") statusActions.push({ label: "Setujui", status: "APPROVED", icon: CheckCircle, variant: "default" });
-  if (doc.status === "SUBMITTED") statusActions.push({ label: "Tolak", status: "REJECTED", icon: XCircle, variant: "destructive" });
+  const statusActions: {
+    label: string;
+    status: string;
+    icon: typeof Send;
+    variant: "default" | "secondary" | "destructive" | "outline";
+  }[] = [];
+  if (doc.status === "DRAFT")
+    statusActions.push({
+      label: "Ajukan",
+      status: "SUBMITTED",
+      icon: Send,
+      variant: "default",
+    });
+  if (doc.status === "SUBMITTED")
+    statusActions.push({
+      label: "Setujui",
+      status: "APPROVED",
+      icon: CheckCircle,
+      variant: "default",
+    });
+  if (doc.status === "SUBMITTED")
+    statusActions.push({
+      label: "Tolak",
+      status: "REJECTED",
+      icon: XCircle,
+      variant: "destructive",
+    });
 
   return (
     <PageContainer>
@@ -59,7 +80,14 @@ export default async function EditDocumentPage({
         {statusActions.map((action) => {
           const Icon = action.icon;
           return (
-            <form key={action.status} action={transitionAdministrativeDocumentStatus.bind(null, doc.id, action.status)}>
+            <form
+              key={action.status}
+              action={transitionAdministrativeDocumentStatus.bind(
+                null,
+                doc.id,
+                action.status,
+              )}
+            >
               <Button type="submit" variant={action.variant} size="sm">
                 <Icon className="size-3.5" />
                 {action.label}
@@ -69,7 +97,10 @@ export default async function EditDocumentPage({
         })}
       </div>
 
-      <form action={updateAdministrativeDocument.bind(null, doc.id)} className="max-w-2xl space-y-3">
+      <form
+        action={updateAdministrativeDocument.bind(null, doc.id)}
+        className="max-w-2xl space-y-3"
+      >
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Dokumen</h2>
@@ -77,12 +108,22 @@ export default async function EditDocumentPage({
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="documentNumber" className="text-xs">Nomor Dokumen</Label>
-              <Input id="documentNumber" name="documentNumber" required defaultValue={doc.documentNumber} className="rounded-md text-xs" />
+              <Label htmlFor="documentNumber" className="text-xs">
+                Nomor Dokumen
+              </Label>
+              <Input
+                id="documentNumber"
+                name="documentNumber"
+                required
+                defaultValue={doc.documentNumber}
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="documentType" className="text-xs">Jenis Dokumen</Label>
+              <Label htmlFor="documentType" className="text-xs">
+                Jenis Dokumen
+              </Label>
               <select
                 id="documentType"
                 name="documentType"
@@ -91,24 +132,48 @@ export default async function EditDocumentPage({
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
               >
                 {documentTypes.map((t) => (
-                  <option key={t.value} value={t.value}>{t.label}</option>
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="title" className="text-xs">Judul</Label>
-              <Input id="title" name="title" required defaultValue={doc.title} className="rounded-md text-xs" />
+              <Label htmlFor="title" className="text-xs">
+                Judul
+              </Label>
+              <Input
+                id="title"
+                name="title"
+                required
+                defaultValue={doc.title}
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="description" className="text-xs">Deskripsi</Label>
-              <Textarea id="description" name="description" defaultValue={doc.description ?? ""} className="min-h-20 rounded-md text-xs" />
+              <Label htmlFor="description" className="text-xs">
+                Deskripsi
+              </Label>
+              <Textarea
+                id="description"
+                name="description"
+                defaultValue={doc.description ?? ""}
+                className="min-h-20 rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="content" className="text-xs">Konten</Label>
-              <Textarea id="content" name="content" defaultValue={doc.content ?? ""} className="min-h-32 rounded-md text-xs" />
+              <Label htmlFor="content" className="text-xs">
+                Konten
+              </Label>
+              <Textarea
+                id="content"
+                name="content"
+                defaultValue={doc.content ?? ""}
+                className="min-h-32 rounded-md text-xs"
+              />
             </div>
           </div>
         </SectionCard>

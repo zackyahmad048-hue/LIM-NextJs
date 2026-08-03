@@ -95,10 +95,10 @@ export const falakRukyatRepository = useSheets
 
 ### 4.1 Dua spreadsheet (ID via env)
 
-| Spreadsheet | Tab |
-|---|---|
+| Spreadsheet                       | Tab                                                                                       |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
 | `GOOGLE_SPREADSHEET_PENDATAAN_ID` | `SuratMasuk`, `SuratKeluar`, `Disposisi`, `DokumenAdministrasi`, `ArsipDokumen`, `Agenda` |
-| `GOOGLE_SPREADSHEET_FALAK_ID` | `PrayerTime`, `Qibla`, `HijriCalendar`, `Rukyat`, `Eclipse` |
+| `GOOGLE_SPREADSHEET_FALAK_ID`     | `PrayerTime`, `Qibla`, `HijriCalendar`, `Rukyat`, `Eclipse`                               |
 
 ### 4.2 Format tab
 
@@ -220,13 +220,13 @@ Gate: `npm run check` (lint + typecheck). Tidak ada test suite; verifikasi manua
 
 ## 10. Risiko & Mitigasi
 
-| Risiko | Mitigasi |
-|---|---|
-| Sheets lambat (HTTP) | Cache data publik falak; baca hanya kolom yang perlu |
-| Rate limit API | Retry + backoff; volume kecil |
+| Risiko                                  | Mitigasi                                                                  |
+| --------------------------------------- | ------------------------------------------------------------------------- |
+| Sheets lambat (HTTP)                    | Cache data publik falak; baca hanya kolom yang perlu                      |
+| Rate limit API                          | Retry + backoff; volume kecil                                             |
 | Placeholder tidak cocok dengan template | Konvensi penamaan `{{key}}` didokumentasikan; nilai hilang dibiarkan utuh |
-| Kredensial bocor | Private key hanya di env (server), bukan di repo; gitignore `.env` |
-| Skema tab berubah manual | Header baris pertama = sumber kebenaran kolom; dokumentasi di README |
+| Kredensial bocor                        | Private key hanya di env (server), bukan di repo; gitignore `.env`        |
+| Skema tab berubah manual                | Header baris pertama = sumber kebenaran kolom; dokumentasi di README      |
 
 ---
 

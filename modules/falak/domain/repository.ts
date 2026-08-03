@@ -13,10 +13,29 @@ import type {
 } from "@/generated/client";
 
 export interface FalakPrayerTimeRepository {
-  findToday(latitude: number, longitude: number, method: PrayerMethod): Promise<PrismaFalakPrayerTime | null>;
-  findByDateRange(latitude: number, longitude: number, method: PrayerMethod, start: Date, end: Date): Promise<PrismaFalakPrayerTime[]>;
-  findRecent(latitude: number, longitude: number, method: PrayerMethod, take?: number): Promise<PrismaFalakPrayerTime[]>;
-  findAllByCoordinate(latitude: number, longitude: number, method: PrayerMethod): Promise<PrismaFalakPrayerTime[]>;
+  findToday(
+    latitude: number,
+    longitude: number,
+    method: PrayerMethod,
+  ): Promise<PrismaFalakPrayerTime | null>;
+  findByDateRange(
+    latitude: number,
+    longitude: number,
+    method: PrayerMethod,
+    start: Date,
+    end: Date,
+  ): Promise<PrismaFalakPrayerTime[]>;
+  findRecent(
+    latitude: number,
+    longitude: number,
+    method: PrayerMethod,
+    take?: number,
+  ): Promise<PrismaFalakPrayerTime[]>;
+  findAllByCoordinate(
+    latitude: number,
+    longitude: number,
+    method: PrayerMethod,
+  ): Promise<PrismaFalakPrayerTime[]>;
   create(data: {
     locationName: string;
     latitude: number;
@@ -34,7 +53,10 @@ export interface FalakPrayerTimeRepository {
 }
 
 export interface FalakQiblaRepository {
-  findByCoordinate(latitude: number, longitude: number): Promise<PrismaFalakQibla | null>;
+  findByCoordinate(
+    latitude: number,
+    longitude: number,
+  ): Promise<PrismaFalakQibla | null>;
   create(data: {
     latitude: number;
     longitude: number;
@@ -43,8 +65,15 @@ export interface FalakQiblaRepository {
 }
 
 export interface FalakHijriCalendarRepository {
-  findByGregorian(date: Date, method: HijriMethod): Promise<PrismaFalakHijriCalendar | null>;
-  findByHijri(year: number, month: number, method: HijriMethod): Promise<PrismaFalakHijriCalendar[]>;
+  findByGregorian(
+    date: Date,
+    method: HijriMethod,
+  ): Promise<PrismaFalakHijriCalendar | null>;
+  findByHijri(
+    year: number,
+    month: number,
+    method: HijriMethod,
+  ): Promise<PrismaFalakHijriCalendar[]>;
   create(data: {
     gregorianDate: Date;
     hijriYear: number;
@@ -81,7 +110,10 @@ export interface FalakRukyatRepository {
     search?: string;
     status?: ObservationStatus;
   }): Promise<{ items: PrismaFalakRukyat[]; total: number }>;
-  findByStatus(status: ObservationStatus, take?: number): Promise<PrismaFalakRukyat[]>;
+  findByStatus(
+    status: ObservationStatus,
+    take?: number,
+  ): Promise<PrismaFalakRukyat[]>;
   findAll(take?: number): Promise<PrismaFalakRukyat[]>;
   create(data: {
     observationDate: Date;

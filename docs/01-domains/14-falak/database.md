@@ -171,28 +171,28 @@ falak_eclipse.eclipseDate
 
 ## Prayer Time
 
-* locationId wajib.
-* prayerDate wajib.
+- locationId wajib.
+- prayerDate wajib.
 
 ---
 
 ## Hijri Calendar
 
-* gregorianDate unik.
+- gregorianDate unik.
 
 ---
 
 ## Hisab
 
-* parameters wajib.
-* result wajib.
+- parameters wajib.
+- result wajib.
 
 ---
 
 ## Rukyat
 
-* observerId wajib.
-* status wajib.
+- observerId wajib.
+- status wajib.
 
 ---
 
@@ -200,8 +200,8 @@ falak_eclipse.eclipseDate
 
 Menggunakan Soft Delete:
 
-* falak_hisab
-* falak_rukyat
+- falak_hisab
+- falak_rukyat
 
 Prayer Time, Hijri Calendar, Qibla, dan Eclipse bersifat permanen.
 
@@ -239,10 +239,10 @@ Unknown
 
 # Database Rules
 
-* Seluruh hasil perhitungan menyimpan parameter.
-* Data observasi yang telah dikonfirmasi tidak dapat diubah.
-* Kalender Hijriah mengikuti metode yang dipilih.
-* Seluruh akses database menggunakan Repository Pattern.
+- Seluruh hasil perhitungan menyimpan parameter.
+- Data observasi yang telah dikonfirmasi tidak dapat diubah.
+- Kalender Hijriah mengikuti metode yang dipilih.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -264,21 +264,21 @@ falak_statistics
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Struktur database mendukung seluruh layanan Falak.
-* Parameter perhitungan tersimpan.
-* Observasi memiliki status yang jelas.
-* Data historis terjaga.
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh layanan Falak.
+- Parameter perhitungan tersimpan.
+- Observasi memiliki status yang jelas.
+- Data historis terjaga.
+- Seluruh akses database menggunakan Repository Pattern.

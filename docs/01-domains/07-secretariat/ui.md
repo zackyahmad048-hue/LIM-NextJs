@@ -29,11 +29,11 @@ Secretariat
 
 Menampilkan:
 
-* Total Surat Masuk
-* Total Surat Keluar
-* Disposisi Aktif
-* Dokumen Menunggu Persetujuan
-* Arsip Terbaru
+- Total Surat Masuk
+- Total Surat Keluar
+- Disposisi Aktif
+- Dokumen Menunggu Persetujuan
+- Arsip Terbaru
 
 ---
 
@@ -41,19 +41,19 @@ Menampilkan:
 
 List:
 
-* Agenda Number
-* Letter Number
-* Sender
-* Subject
-* Received Date
-* Status
+- Agenda Number
+- Letter Number
+- Sender
+- Subject
+- Received Date
+- Status
 
 Action:
 
-* Create
-* Edit
-* Detail
-* Delete
+- Create
+- Edit
+- Detail
+- Delete
 
 ---
 
@@ -61,18 +61,18 @@ Action:
 
 List:
 
-* Letter Number
-* Recipient
-* Subject
-* Signed By
-* Status
+- Letter Number
+- Recipient
+- Subject
+- Signed By
+- Status
 
 Action:
 
-* Create
-* Send
-* Edit
-* Archive
+- Create
+- Send
+- Edit
+- Archive
 
 ---
 
@@ -80,15 +80,15 @@ Action:
 
 List:
 
-* Mail
-* Assigned To
-* Instruction
-* Status
+- Mail
+- Assigned To
+- Instruction
+- Status
 
 Action:
 
-* Create
-* Complete
+- Create
+- Complete
 
 ---
 
@@ -96,17 +96,17 @@ Action:
 
 List:
 
-* Document Number
-* Type
-* Title
-* Status
+- Document Number
+- Type
+- Title
+- Status
 
 Action:
 
-* Create
-* Edit
-* Archive
-* Restore
+- Create
+- Edit
+- Archive
+- Restore
 
 ---
 
@@ -116,46 +116,46 @@ Read Only.
 
 Menampilkan:
 
-* Archive Date
-* Document
-* Archived By
+- Archive Date
+- Document
+- Archived By
 
 ---
 
 # Components
 
-* Data Table
-* Search
-* Filter
-* Pagination
-* Form
-* Date Picker
-* File Upload
-* Modal
-* Dialog
-* Toast
+- Data Table
+- Search
+- Filter
+- Pagination
+- Form
+- Date Picker
+- File Upload
+- Modal
+- Dialog
+- Toast
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Error State
+- Empty State
+- Loading State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile (View Only)
+- Desktop
+- Tablet
+- Mobile (View Only)
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Mengikuti Design System.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Mengikuti Design System.
+- Seluruh aksi mengikuti Permission.

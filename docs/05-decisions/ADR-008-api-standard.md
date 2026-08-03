@@ -16,11 +16,11 @@ LIM Digital Platform terdiri dari banyak domain yang menyediakan REST API.
 
 Tanpa standar yang konsisten, API akan memiliki:
 
-* Struktur URL yang berbeda.
-* Format Response yang tidak seragam.
-* Error Handling yang berbeda.
-* Dokumentasi yang sulit dipahami.
-* Integrasi yang kompleks.
+- Struktur URL yang berbeda.
+- Format Response yang tidak seragam.
+- Error Handling yang berbeda.
+- Dokumentasi yang sulit dipahami.
+- Integrasi yang kompleks.
 
 Diperlukan standar API yang berlaku untuk seluruh domain.
 
@@ -32,13 +32,13 @@ LIM Digital Platform menggunakan **RESTful API** sebagai standar komunikasi anta
 
 Seluruh API mengikuti standar yang sama untuk:
 
-* URL
-* HTTP Method
-* Request
-* Response
-* Error
-* Pagination
-* Versioning
+- URL
+- HTTP Method
+- Request
+- Response
+- Error
+- Pagination
+- Versioning
 
 ---
 
@@ -46,11 +46,11 @@ Seluruh API mengikuti standar yang sama untuk:
 
 REST dipilih karena:
 
-* Sederhana.
-* Mature.
-* Didukung hampir seluruh platform.
-* Mudah diintegrasikan.
-* Cocok untuk Modular Monolith maupun Microservices.
+- Sederhana.
+- Mature.
+- Didukung hampir seluruh platform.
+- Mudah diintegrasikan.
+- Cocok untuk Modular Monolith maupun Microservices.
 
 ---
 
@@ -174,9 +174,9 @@ JWT Bearer Token
 
 Authorization menggunakan:
 
-* Role
-* Permission
-* RBAC
+- Role
+- Permission
+- RBAC
 
 ---
 
@@ -198,10 +198,10 @@ filter
 
 Response menyediakan:
 
-* total
-* totalPages
-* currentPage
-* hasNextPage
+- total
+- totalPages
+- currentPage
+- hasNextPage
 
 ---
 
@@ -223,14 +223,14 @@ Dokumentasi harus selalu sinkron dengan implementasi.
 
 Kelebihan:
 
-* Fleksibel.
-* Efisien untuk Frontend.
+- Fleksibel.
+- Efisien untuk Frontend.
 
 Kekurangan:
 
-* Kompleks.
-* Overhead lebih tinggi.
-* Belum diperlukan pada fase awal.
+- Kompleks.
+- Overhead lebih tinggi.
+- Belum diperlukan pada fase awal.
 
 ---
 
@@ -238,13 +238,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Sangat cepat.
-* Cocok untuk Service-to-Service.
+- Sangat cepat.
+- Cocok untuk Service-to-Service.
 
 Kekurangan:
 
-* Tidak ideal untuk Public API.
-* Lebih kompleks.
+- Tidak ideal untuk Public API.
+- Lebih kompleks.
 
 ---
 
@@ -252,14 +252,14 @@ Kekurangan:
 
 Kelebihan:
 
-* Sederhana.
-* Mudah dipahami.
-* Standar industri.
-* Didukung luas.
+- Sederhana.
+- Mudah dipahami.
+- Standar industri.
+- Didukung luas.
 
 Kekurangan:
 
-* Over-fetching pada beberapa kasus.
+- Over-fetching pada beberapa kasus.
 
 ---
 
@@ -267,31 +267,31 @@ Kekurangan:
 
 Keuntungan:
 
-* API konsisten.
-* Dokumentasi lebih mudah.
-* Integrasi lebih sederhana.
-* Mendukung versioning.
+- API konsisten.
+- Dokumentasi lebih mudah.
+- Integrasi lebih sederhana.
+- Mendukung versioning.
 
 Konsekuensi:
 
-* Semua domain wajib mengikuti standar yang sama.
-* Breaking Change memerlukan versi API baru.
+- Semua domain wajib mengikuti standar yang sama.
+- Breaking Change memerlukan versi API baru.
 
 ---
 
 # Related Decisions
 
-* ADR-002 Clean Architecture
-* ADR-004 RBAC
-* ADR-009 Validation Strategy
+- ADR-002 Clean Architecture
+- ADR-004 RBAC
+- ADR-009 Validation Strategy
 
 ---
 
 # References
 
-* REST Architectural Style — Roy Fielding
-* OpenAPI Specification 3.x
-* Architecture Documentation (`01-domains/api.md`)
+- REST Architectural Style — Roy Fielding
+- OpenAPI Specification 3.x
+- Architecture Documentation (`01-domains/api.md`)
 
 ---
 
@@ -303,8 +303,8 @@ Konsekuensi:
 
 # Acceptance Criteria
 
-* Seluruh API menggunakan REST.
-* Endpoint mengikuti standar penamaan.
-* Response dan Error konsisten.
-* OpenAPI menjadi dokumentasi resmi.
-* API Standard menjadi pedoman seluruh layanan LIM Digital Platform.
+- Seluruh API menggunakan REST.
+- Endpoint mengikuti standar penamaan.
+- Response dan Error konsisten.
+- OpenAPI menjadi dokumentasi resmi.
+- API Standard menjadi pedoman seluruh layanan LIM Digital Platform.

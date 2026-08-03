@@ -4,12 +4,12 @@
  */
 
 export interface PrayerTimes {
-  fajr: string;      // Subuh
-  sunrise: string;   // Terbit
-  dhuhr: string;     // Dzuhur
-  asr: string;       // Ashar
-  maghrib: string;   // Maghrib
-  isha: string;      // Isya
+  fajr: string; // Subuh
+  sunrise: string; // Terbit
+  dhuhr: string; // Dzuhur
+  asr: string; // Ashar
+  maghrib: string; // Maghrib
+  isha: string; // Isya
 }
 
 export interface PrayerTimesNumeric {
@@ -59,7 +59,13 @@ export function getJulianDay(year: number, month: number, day: number): number {
   }
   const A = Math.floor(year / 100);
   const B = 2 - A + Math.floor(A / 4);
-  return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + B - 1524.5;
+  return (
+    Math.floor(365.25 * (year + 4716)) +
+    Math.floor(30.6001 * (month + 1)) +
+    day +
+    B -
+    1524.5
+  );
 }
 
 /**
@@ -71,16 +77,26 @@ export function getSunCoordinates(jd: number): { dec: number; eqt: number } {
   const q = fixAngle(280.459 + 0.98564736 * D); // Mean longitude
 
   // Ecliptic longitude
-  const L = fixAngle(q + 1.915 * Math.sin(degToRad(g)) + 0.020 * Math.sin(degToRad(2 * g)));
+  const L = fixAngle(
+    q + 1.915 * Math.sin(degToRad(g)) + 0.02 * Math.sin(degToRad(2 * g)),
+  );
 
   // Obliquity of ecliptic
   const e = 23.439 - 0.00000036 * D;
 
   // Solar Declination
-  const dec = radToDeg(Math.asin(Math.sin(degToRad(e)) * Math.sin(degToRad(L))));
+  const dec = radToDeg(
+    Math.asin(Math.sin(degToRad(e)) * Math.sin(degToRad(L))),
+  );
 
   // Right Ascension
-  let RA = radToDeg(Math.atan2(Math.cos(degToRad(e)) * Math.sin(degToRad(L)), Math.cos(degToRad(L)))) / 15;
+  let RA =
+    radToDeg(
+      Math.atan2(
+        Math.cos(degToRad(e)) * Math.sin(degToRad(L)),
+        Math.cos(degToRad(L)),
+      ),
+    ) / 15;
   RA = fixHour(RA);
 
   // Equation of Time in hours
@@ -95,7 +111,8 @@ export function getSunCoordinates(jd: number): { dec: number; eqt: number } {
  * Hour angle for a given altitude angle (h)
  */
 function hourAngle(h: number, lat: number, dec: number): number {
-  const top = Math.sin(degToRad(h)) - Math.sin(degToRad(lat)) * Math.sin(degToRad(dec));
+  const top =
+    Math.sin(degToRad(h)) - Math.sin(degToRad(lat)) * Math.sin(degToRad(dec));
   const bottom = Math.cos(degToRad(lat)) * Math.cos(degToRad(dec));
   const cosH = top / bottom;
 
@@ -118,14 +135,17 @@ function asrHourAngle(shadowFactor: number, lat: number, dec: number): number {
 /**
  * Format decimal hours into HH:MM:SS string
  */
-export function formatTime(decimalHours: number, includeSeconds = false): string {
+export function formatTime(
+  decimalHours: number,
+  includeSeconds = false,
+): string {
   const h = fixHour(decimalHours);
   const hours = Math.floor(h);
   const minutesDec = (h - hours) * 60;
   const minutes = Math.floor(minutesDec);
   const seconds = Math.floor((minutesDec - minutes) * 60);
 
-  const pad = (n: number) => n.toString().padStart(2, '0');
+  const pad = (n: number) => n.toString().padStart(2, "0");
 
   if (includeSeconds) {
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
@@ -136,7 +156,11 @@ export function formatTime(decimalHours: number, includeSeconds = false): string
 /**
  * Calculate Local Solar Transit Time (Dhuhr unbuffered) in Standard Local Hours
  */
-export function getSolarTransitStandard(longitude: number, timezone: number, eqt: number): number {
+export function getSolarTransitStandard(
+  longitude: number,
+  timezone: number,
+  eqt: number,
+): number {
   return 12 + timezone - longitude / 15 - eqt;
 }
 
@@ -148,8 +172,13 @@ export function calculatePrayerTimes(
   date: Date,
   location: LocationInfo,
   isIstiwaMode = false,
-  ihtiyathMinutes = 3
-): { timesFormatted: PrayerTimes; timesNumeric: PrayerTimesNumeric; transitStandard: number; deltaMinutes: number } {
+  ihtiyathMinutes = 3,
+): {
+  timesFormatted: PrayerTimes;
+  timesNumeric: PrayerTimesNumeric;
+  transitStandard: number;
+  deltaMinutes: number;
+} {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -223,7 +252,10 @@ export function calculatePrayerTimes(
 /**
  * Convert Current Standard Date/Time into Live Istiwa Time string (HH:MM:SS)
  */
-export function convertToIstiwaClock(currentDate: Date, location: LocationInfo): { istiwaTimeStr: string; deltaStr: string } {
+export function convertToIstiwaClock(
+  currentDate: Date,
+  location: LocationInfo,
+): { istiwaTimeStr: string; deltaStr: string } {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
   const day = currentDate.getDate();
@@ -231,12 +263,19 @@ export function convertToIstiwaClock(currentDate: Date, location: LocationInfo):
   const jd = getJulianDay(year, month, day);
   const { eqt } = getSunCoordinates(jd);
 
-  const transitStd = getSolarTransitStandard(location.longitude, location.timezone, eqt);
-  const localStdHours = currentDate.getHours() + currentDate.getMinutes() / 60 + currentDate.getSeconds() / 3600;
+  const transitStd = getSolarTransitStandard(
+    location.longitude,
+    location.timezone,
+    eqt,
+  );
+  const localStdHours =
+    currentDate.getHours() +
+    currentDate.getMinutes() / 60 +
+    currentDate.getSeconds() / 3600;
 
   const istiwaHours = fixHour(localStdHours - transitStd + 12);
   const deltaMinutes = (12 - transitStd) * 60;
-  const deltaSign = deltaMinutes >= 0 ? '+' : '';
+  const deltaSign = deltaMinutes >= 0 ? "+" : "";
   const deltaStr = `${deltaSign}${deltaMinutes.toFixed(1)} mnt`;
 
   return {

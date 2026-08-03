@@ -1,10 +1,15 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { fadeUp, fadeLeft, fadeRight, staggerContainer } from "@/modules/shared/utils/motion";
+import {
+  fadeUp,
+  fadeLeft,
+  fadeRight,
+  staggerContainer,
+} from "@/modules/shared/utils/motion";
 import SectionHeading from "@/components/shared/section-heading";
 import AboutCard from "@/components/website/cards/about-card";
 import { Button } from "@/components/ui/button";
@@ -21,12 +26,11 @@ export default function About() {
         className="mx-auto max-w-6xl px-4 sm:px-6"
       >
         <SectionHeading
-          badge={aboutData.badge}
           title={aboutData.title}
           description={aboutData.subtitle}
         />
 
-        <div className="mt-8 grid items-center gap-8 lg:grid-cols-2">
+        <div className="mt-8 grid items-center gap-10 lg:grid-cols-2">
           <motion.div
             variants={fadeLeft}
             initial="hidden"
@@ -34,14 +38,21 @@ export default function About() {
             viewport={{ once: true, amount: 0.2 }}
             className="relative"
           >
-            <div className="relative mx-auto aspect-[4/3] max-w-md overflow-hidden rounded-2xl shadow-lg lg:aspect-[4/5]">
-              <Image
-                src={aboutData.image}
-                alt={aboutData.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-500 hover:scale-105"
+            <div className="relative mx-auto max-w-md">
+              <div
+                className="absolute -inset-3 border border-border/10 bg-muted/60"
+                aria-hidden
               />
+              <div className="relative aspect-[4/3] overflow-hidden lg:aspect-[4/5]">
+                <Image
+                  src={aboutData.image}
+                  alt={aboutData.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                />
+              </div>
             </div>
           </motion.div>
 
@@ -51,11 +62,11 @@ export default function About() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h3 className="text-xl font-bold text-foreground">
+            <h3 className="font-display text-2xl font-semibold text-foreground">
               Siapa Kami?
             </h3>
 
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">
               {aboutData.description}
             </p>
 
@@ -64,19 +75,18 @@ export default function About() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
-              className="mt-5 grid gap-3 sm:grid-cols-2"
+              className="mt-6 grid gap-3 sm:grid-cols-2"
             >
               {aboutData.features.map((feature) => (
                 <AboutCard
                   key={feature.title}
                   title={feature.title}
                   description={feature.description}
-                  icon={feature.icon}
                 />
               ))}
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-5">
+            <motion.div variants={fadeUp} className="mt-6">
               <Button variant="default" size="sm" asChild>
                 <Link href="/profil">
                   Pelajari Lebih Lanjut

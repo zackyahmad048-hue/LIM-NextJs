@@ -100,15 +100,15 @@ Dokumen ini mendefinisikan kriteria siap (Definition of Ready) untuk setiap item
 
 Item boleh masuk sprint apabila:
 
-| Kriteria | Wajib |
-|----------|-------|
-| User Story terdokumentasi | Ya |
-| Acceptance Criteria jelas | Ya |
-| Estimasi sudah dilakukan | Ya |
-| Dependency teridentifikasi | Ya |
-| Design tersedia (jika UI) | Ya |
-| Business Rules terdokumentasi | Ya |
-| Database design tersedia (jika ada perubahan) | Ya |
+| Kriteria                                      | Wajib |
+| --------------------------------------------- | ----- |
+| User Story terdokumentasi                     | Ya    |
+| Acceptance Criteria jelas                     | Ya    |
+| Estimasi sudah dilakukan                      | Ya    |
+| Dependency teridentifikasi                    | Ya    |
+| Design tersedia (jika UI)                     | Ya    |
+| Business Rules terdokumentasi                 | Ya    |
+| Database design tersedia (jika ada perubahan) | Ya    |
 
 ---
 

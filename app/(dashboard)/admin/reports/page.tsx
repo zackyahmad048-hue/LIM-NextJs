@@ -1,9 +1,4 @@
-import {
-  FolderTree,
-  Newspaper,
-  Users,
-  BarChart3,
-} from "lucide-react";
+import { FolderTree, Newspaper, Users, BarChart3 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
@@ -50,21 +45,21 @@ export default async function ReportsPage() {
             value: totalPosts,
             detail: `${publishedPosts} published`,
             icon: Newspaper,
-            color: "text-blue-600 bg-blue-100",
+            color: "text-primary bg-primary/10",
           },
           {
             label: "Kategori",
             value: totalCategories,
             detail: "Aktif",
             icon: FolderTree,
-            color: "text-emerald-600 bg-emerald-100",
+            color: "text-amber-600 bg-amber-100 dark:bg-amber-900/40",
           },
           {
             label: "Pengguna",
             value: totalUsers,
             detail: "Terdaftar",
             icon: Users,
-            color: "text-violet-600 bg-violet-100",
+            color: "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/40",
           },
           {
             label: "Published Rate",
@@ -112,9 +107,17 @@ export default async function ReportsPage() {
         </div>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {[
-            { label: "Published", value: publishedPosts, variant: "default" as const },
+            {
+              label: "Published",
+              value: publishedPosts,
+              variant: "default" as const,
+            },
             { label: "Draft", value: draftPosts, variant: "outline" as const },
-            { label: "Archived", value: archivedPosts, variant: "secondary" as const },
+            {
+              label: "Archived",
+              value: archivedPosts,
+              variant: "secondary" as const,
+            },
           ].map((item) => (
             <div
               key={item.label}
@@ -163,9 +166,7 @@ export default async function ReportsPage() {
               );
             })
           ) : (
-            <p className="text-sm text-muted-foreground">
-              Belum ada kategori.
-            </p>
+            <p className="text-sm text-muted-foreground">Belum ada kategori.</p>
           )}
         </div>
       </SectionCard>

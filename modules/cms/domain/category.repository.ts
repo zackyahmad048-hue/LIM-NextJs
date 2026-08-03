@@ -7,7 +7,14 @@ export interface CategoryRepository {
   checkSlugTaken(slug: string, excludeId?: string): Promise<boolean>;
   checkNameTaken(name: string, excludeId?: string): Promise<boolean>;
   countPosts(categoryId: string): Promise<number>;
-  create(data: { name: string; slug: string; description?: string }): Promise<PrismaCategory>;
-  update(id: string, data: { name?: string; slug?: string; description?: string }): Promise<PrismaCategory>;
+  create(data: {
+    name: string;
+    slug: string;
+    description?: string;
+  }): Promise<PrismaCategory>;
+  update(
+    id: string,
+    data: { name?: string; slug?: string; description?: string },
+  ): Promise<PrismaCategory>;
   softDelete(id: string): Promise<PrismaCategory>;
 }

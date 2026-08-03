@@ -169,9 +169,9 @@ deleted_by
 
 Relationship yang digunakan:
 
-* One-to-One
-* One-to-Many
-* Many-to-Many
+- One-to-One
+- One-to-Many
+- Many-to-Many
 
 Foreign Key wajib digunakan untuk menjaga integritas data.
 
@@ -181,10 +181,10 @@ Foreign Key wajib digunakan untuk menjaga integritas data.
 
 Index dibuat untuk:
 
-* Foreign Key
-* Frequently Queried Column
-* Search Field
-* Unique Field
+- Foreign Key
+- Frequently Queried Column
+- Search Field
+- Unique Field
 
 Contoh:
 
@@ -204,11 +204,11 @@ created_at
 
 Gunakan:
 
-* PRIMARY KEY
-* FOREIGN KEY
-* UNIQUE
-* NOT NULL
-* CHECK Constraint
+- PRIMARY KEY
+- FOREIGN KEY
+- UNIQUE
+- NOT NULL
+- CHECK Constraint
 
 Constraint menjadi lapisan terakhir validasi data.
 
@@ -218,11 +218,11 @@ Constraint menjadi lapisan terakhir validasi data.
 
 Transaction digunakan pada:
 
-* Create Program
-* Letter Approval
-* Certificate Generation
-* Role Assignment
-* Archive Process
+- Create Program
+- Letter Approval
+- Certificate Generation
+- Role Assignment
+- Archive Process
 
 Seluruh operasi harus memenuhi prinsip:
 
@@ -236,16 +236,16 @@ ACID
 
 Migration digunakan untuk:
 
-* Membuat tabel.
-* Mengubah struktur.
-* Menambah Index.
-* Menambah Constraint.
+- Membuat tabel.
+- Mengubah struktur.
+- Menambah Index.
+- Menambah Constraint.
 
 Migration harus:
 
-* Versioned.
-* Repeatable.
-* Dapat di-roll back.
+- Versioned.
+- Repeatable.
+- Dapat di-roll back.
 
 ---
 
@@ -253,11 +253,11 @@ Migration harus:
 
 Seed digunakan untuk:
 
-* Role
-* Permission
-* Settings
-* Default Configuration
-* Reference Data
+- Role
+- Permission
+- Settings
+- Default Configuration
+- Reference Data
 
 Seed tidak digunakan untuk data transaksi.
 
@@ -279,12 +279,12 @@ Data historis tidak dihapus secara permanen kecuali melalui proses administrasi 
 
 # Performance Guidelines
 
-* Gunakan Index secara tepat.
-* Hindari SELECT *.
-* Gunakan Pagination.
-* Hindari N+1 Query.
-* Optimalkan Query Plan.
-* Gunakan Batch Operation bila memungkinkan.
+- Gunakan Index secara tepat.
+- Hindari SELECT *.
+- Gunakan Pagination.
+- Hindari N+1 Query.
+- Optimalkan Query Plan.
+- Gunakan Batch Operation bila memungkinkan.
 
 ---
 
@@ -292,10 +292,10 @@ Data historis tidak dihapus secara permanen kecuali melalui proses administrasi 
 
 Database wajib:
 
-* Backup harian.
-* Full Backup mingguan.
-* Point-in-Time Recovery.
-* Restore Test berkala.
+- Backup harian.
+- Full Backup mingguan.
+- Point-in-Time Recovery.
+- Restore Test berkala.
 
 ---
 
@@ -303,38 +303,38 @@ Database wajib:
 
 Database wajib:
 
-* Tidak dapat diakses publik.
-* Menggunakan Least Privilege.
-* Password terenkripsi.
-* Backup terenkripsi.
-* Audit aktivitas administratif.
+- Tidak dapat diakses publik.
+- Menggunakan Least Privilege.
+- Password terenkripsi.
+- Backup terenkripsi.
+- Audit aktivitas administratif.
 
 ---
 
 # Best Practices
 
-* Gunakan UUID untuk sistem terdistribusi (jika diperlukan).
-* Hindari perubahan schema langsung di Production.
-* Dokumentasikan setiap Migration.
-* Gunakan Transaction untuk operasi multi-tabel.
-* Pantau Slow Query secara berkala.
+- Gunakan UUID untuk sistem terdistribusi (jika diperlukan).
+- Hindari perubahan schema langsung di Production.
+- Dokumentasikan setiap Migration.
+- Gunakan Transaction untuk operasi multi-tabel.
+- Pantau Slow Query secara berkala.
 
 ---
 
 # Related Documents
 
-* README.md
-* glossary.md
-* coding-reference.md
-* api-reference.md
-* external-references.md
+- README.md
+- glossary.md
+- coding-reference.md
+- api-reference.md
+- external-references.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh database mengikuti standar penamaan.
-* Migration terdokumentasi.
-* Index dan Constraint diterapkan dengan benar.
-* Backup dan Security memenuhi standar.
-* Database Reference menjadi acuan seluruh implementasi database LIM Digital Platform.
+- Seluruh database mengikuti standar penamaan.
+- Migration terdokumentasi.
+- Index dan Constraint diterapkan dengan benar.
+- Backup dan Security memenuhi standar.
+- Database Reference menjadi acuan seluruh implementasi database LIM Digital Platform.

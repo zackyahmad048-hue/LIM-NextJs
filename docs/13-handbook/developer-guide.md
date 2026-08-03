@@ -18,8 +18,7 @@ Dokumen ini menjadi panduan utama bagi developer dalam mengembangkan fitur di LI
 
 # Folder Structure
 
-``
-app/
+`app/
 +-- (public)/               # Public website routes
 |   +-- page.tsx            # Homepage (/)
 |   +-- profil/             # Profil routes
@@ -33,8 +32,7 @@ app/
 |       +-- content/        # Content management
 |       +-- system/         # System settings
 +-- api/                    # REST API routes
-+-- layout.tsx              # Root layout
-``
++-- layout.tsx              # Root layout`
 
 ---
 
@@ -42,7 +40,7 @@ app/
 
 Seluruh kode mengikuti arsitektur layer berikut:
 
-``text
+`text
 Presentation (UI Component)
       |
 Action / API (Server Actions, Route Handlers)
@@ -54,9 +52,10 @@ Repository Layer (Database Access)
 Prisma ORM
       |
 PostgreSQL
-``
+`
 
 Aturan:
+
 - Layer tidak boleh dilewati.
 - Business Rules hanya di Service Layer.
 - Database access hanya melalui Repository.
@@ -67,8 +66,7 @@ Aturan:
 
 Setiap domain module memiliki struktur:
 
-``
-modules/
+`modules/
 +-- [domain]/
     +-- index.ts              # Public exports
     +-- application/          # Use cases, server actions
@@ -79,22 +77,21 @@ modules/
     |   +-- [domain].repository.ts
     |   +-- [domain].service.ts
     +-- validation/           # Zod schemas
-    |   +-- [domain].schema.ts
-``
+    |   +-- [domain].schema.ts`
 
 ---
 
 # Naming Conventions
 
-| Item | Convention | Contoh |
-|------|-----------|--------|
-| Folder | kebab-case | `category-management` |
-| File | kebab-case | `category.service.ts` |
-| Component | PascalCase | `CategoryForm` |
-| Variable | camelCase | `categoryName` |
-| Constant | UPPER_SNAKE_CASE | `MAX_PAGE_SIZE` |
-| Function | camelCase | `createCategory()` |
-| Type/Interface | PascalCase | `CategoryType` |
+| Item           | Convention       | Contoh                |
+| -------------- | ---------------- | --------------------- |
+| Folder         | kebab-case       | `category-management` |
+| File           | kebab-case       | `category.service.ts` |
+| Component      | PascalCase       | `CategoryForm`        |
+| Variable       | camelCase        | `categoryName`        |
+| Constant       | UPPER_SNAKE_CASE | `MAX_PAGE_SIZE`       |
+| Function       | camelCase        | `createCategory()`    |
+| Type/Interface | PascalCase       | `CategoryType`        |
 
 ---
 
@@ -102,12 +99,10 @@ modules/
 
 ### Server Component (Default)
 
-``
-export default async function Page() {
+`export default async function Page() {
   const data = await fetchData();
   return <div>{data.name}</div>;
-}
-``
+}`
 
 ### Client Component
 
@@ -115,12 +110,13 @@ export default async function Page() {
 "use client";
 
 export function InteractiveWidget() {
-  const [state, setState] = useState();
-  return <div onClick={() => setState(!state)}>...</div>;
+const [state, setState] = useState();
+return <div onClick={() => setState(!state)}>...</div>;
 }
 ``
 
 Aturan:
+
 - Gunakan Server Component jika memungkinkan.
 - Tambahkan `"use client"` hanya jika diperlukan (state, event handler, browser API).
 - Component harus fokus pada satu tugas.
@@ -158,15 +154,16 @@ import { revalidatePath } from "next/cache";
 import { categoryService } from "@/modules/cms/application/category.service";
 
 export async function createCategory(formData: FormData) {
-  const name = String(formData.get("name"));
+const name = String(formData.get("name"));
 
-  await categoryService.create({ name });
+await categoryService.create({ name });
 
-  revalidatePath("/admin/content/categories");
+revalidatePath("/admin/content/categories");
 }
 ``
 
 Aturan:
+
 - Gunakan `"use server"` directive.
 - Panggil Service Layer, bukan Repository langsung.
 - Gunakan `revalidatePath` atau `revalidateTag` setelah perubahan data.
@@ -181,13 +178,14 @@ Seluruh validasi menggunakan Zod:
 import { z } from "zod";
 
 export const categorySchema = z.object({
-  name: z.string().min(1, "Nama harus diisi"),
-  slug: z.string().min(1, "Slug harus diisi"),
-  description: z.string().optional(),
+name: z.string().min(1, "Nama harus diisi"),
+slug: z.string().min(1, "Slug harus diisi"),
+description: z.string().optional(),
 });
 ``
 
 Aturan:
+
 - Validasi di Client membantu UX.
 - Validasi di Server tetap wajib (security).
 - Selalu gunakan Zod schema yang sama untuk keduanya.
@@ -203,29 +201,30 @@ Aturan:
 import { prisma } from "@/lib/prisma";
 
 export const categoryRepository = {
-  async findAll() {
-    return prisma.category.findMany();
-  },
+async findAll() {
+return prisma.category.findMany();
+},
 
-  async findById(id: string) {
-    return prisma.category.findUnique({ where: { id } });
-  },
+async findById(id: string) {
+return prisma.category.findUnique({ where: { id } });
+},
 
-  async create(data: CreateCategoryInput) {
-    return prisma.category.create({ data });
-  },
+async create(data: CreateCategoryInput) {
+return prisma.category.create({ data });
+},
 
-  async update(id: string, data: UpdateCategoryInput) {
-    return prisma.category.update({ where: { id }, data });
-  },
+async update(id: string, data: UpdateCategoryInput) {
+return prisma.category.update({ where: { id }, data });
+},
 
-  async delete(id: string) {
-    return prisma.category.delete({ where: { id } });
-  },
+async delete(id: string) {
+return prisma.category.delete({ where: { id } });
+},
 };
 ``
 
 Aturan:
+
 - Selalu gunakan Repository untuk akses database.
 - Tidak boleh ada query Prisma di luar Repository.
 - Repository tidak boleh berisi Business Rules.

@@ -24,13 +24,13 @@ Settings tidak menyimpan data bisnis, melainkan parameter yang mengendalikan per
 
 Domain Settings bertujuan untuk:
 
-* Mengelola konfigurasi sistem.
-* Mengelola pengaturan organisasi.
-* Mengelola konfigurasi keamanan.
-* Mengelola konfigurasi notifikasi.
-* Mengelola konfigurasi storage.
-* Mengelola integrasi pihak ketiga.
-* Mengelola parameter aplikasi.
+- Mengelola konfigurasi sistem.
+- Mengelola pengaturan organisasi.
+- Mengelola konfigurasi keamanan.
+- Mengelola konfigurasi notifikasi.
+- Mengelola konfigurasi storage.
+- Mengelola integrasi pihak ketiga.
+- Mengelola parameter aplikasi.
 
 ---
 
@@ -38,14 +38,14 @@ Domain Settings bertujuan untuk:
 
 Domain Settings mencakup:
 
-* Application Settings
-* Organization Settings
-* Security Settings
-* Notification Settings
-* Storage Settings
-* Integration Settings
-* System Configuration
-* Environment Configuration
+- Application Settings
+- Organization Settings
+- Security Settings
+- Notification Settings
+- Storage Settings
+- Integration Settings
+- System Configuration
+- Environment Configuration
 
 ---
 
@@ -53,8 +53,8 @@ Domain Settings mencakup:
 
 Domain Settings digunakan oleh:
 
-* Super Administrator
-* Administrator
+- Super Administrator
+- Administrator
 
 Pengguna biasa tidak memiliki akses langsung ke Domain Settings.
 
@@ -64,12 +64,12 @@ Pengguna biasa tidak memiliki akses langsung ke Domain Settings.
 
 Domain Settings bertanggung jawab untuk:
 
-* Menyimpan konfigurasi sistem.
-* Mengelola parameter aplikasi.
-* Menyediakan konfigurasi bagi seluruh domain.
-* Mengelola preferensi global.
-* Mengelola integrasi eksternal.
-* Menjaga konsistensi konfigurasi.
+- Menyimpan konfigurasi sistem.
+- Mengelola parameter aplikasi.
+- Menyediakan konfigurasi bagi seluruh domain.
+- Mengelola preferensi global.
+- Mengelola integrasi eksternal.
+- Menjaga konsistensi konfigurasi.
 
 ---
 
@@ -77,48 +77,48 @@ Domain Settings bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
-* Organization
+- Authentication
+- Authorization
+- Organization
 
 Digunakan oleh:
 
-* CMS
-* Dashboard
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Media
-* Notification
-* Knowledge
-* Falak
+- CMS
+- Dashboard
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Media
+- Notification
+- Knowledge
+- Falak
 
 ---
 
 # Features
 
-* Application Settings
-* Organization Settings
-* Security Settings
-* Notification Settings
-* Storage Settings
-* Integration Settings
-* Feature Flags
-* Environment Variables
+- Application Settings
+- Organization Settings
+- Security Settings
+- Notification Settings
+- Storage Settings
+- Integration Settings
+- Feature Flags
+- Environment Variables
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

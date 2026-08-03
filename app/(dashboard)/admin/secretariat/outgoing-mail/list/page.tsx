@@ -21,7 +21,13 @@ function formatDate(date: Date | string) {
   }).format(new Date(date));
 }
 
-const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const statusLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   DRAFT: { label: "Draft", variant: "outline" },
   APPROVED: { label: "Disetujui", variant: "default" },
   SENT: { label: "Terkirim", variant: "secondary" },
@@ -63,7 +69,9 @@ export default async function OutgoingMailListPage({
             key: "registrationNumber",
             label: "No. Registrasi",
             render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">{item.registrationNumber}</span>
+              <span className="text-xs font-mono text-muted-foreground">
+                {item.registrationNumber}
+              </span>
             ),
           },
           {
@@ -71,9 +79,13 @@ export default async function OutgoingMailListPage({
             label: "Penerima",
             render: (item) => (
               <div className="max-w-[200px]">
-                <p className="truncate text-sm font-medium">{item.recipient || "-"}</p>
+                <p className="truncate text-sm font-medium">
+                  {item.recipient || "-"}
+                </p>
                 {item.senderName && (
-                  <p className="truncate text-xs text-muted-foreground">{item.senderName}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {item.senderName}
+                  </p>
                 )}
               </div>
             ),
@@ -88,14 +100,23 @@ export default async function OutgoingMailListPage({
           {
             key: "mailDate",
             label: "Tanggal Surat",
-            render: (item) => <span className="text-xs">{formatDate(item.mailDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatDate(item.mailDate)}</span>
+            ),
           },
           {
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = statusLabels[item.status] ?? { label: item.status, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = statusLabels[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -105,24 +126,43 @@ export default async function OutgoingMailListPage({
             render: (item) => (
               <div className="flex justify-end gap-1">
                 {item.googleDocUrl && (
-                  <Button asChild variant="ghost" size="sm" title="Buka di Google Docs">
-                    <a href={item.googleDocUrl} target="_blank" rel="noopener noreferrer">
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="sm"
+                    title="Buka di Google Docs"
+                  >
+                    <a
+                      href={item.googleDocUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <ExternalLink className="size-3.5" />
                     </a>
                   </Button>
                 )}
                 <form action={generateOutgoingMailDocument.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" title="Buat dokumen di Google Docs">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    title="Buat dokumen di Google Docs"
+                  >
                     <FileText className="size-3.5" />
                   </Button>
                 </form>
                 <Button asChild variant="ghost" size="sm">
-                  <Link href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}>
+                  <Link
+                    href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
+                  >
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
                 <form action={deleteOutgoingMail.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

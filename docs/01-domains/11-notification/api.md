@@ -30,9 +30,9 @@ API Notification digunakan untuk mengelola notifikasi, template, queue, riwayat 
 
 Seluruh endpoint memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 ---
 
@@ -40,12 +40,12 @@ Seluruh endpoint memerlukan:
 
 Domain Notification terdiri dari:
 
-* Notification
-* Template
-* Queue
-* Delivery
-* Preference
-* Archive
+- Notification
+- Template
+- Queue
+- Delivery
+- Preference
+- Archive
 
 ---
 
@@ -267,12 +267,12 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint memerlukan Authentication.
-* Seluruh notifikasi dikirim melalui Queue.
-* Retry hanya untuk status **Failed**.
-* Delete menggunakan Soft Delete.
-* Riwayat Delivery tidak dapat dihapus.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh endpoint memerlukan Authentication.
+- Seluruh notifikasi dikirim melalui Queue.
+- Retry hanya untuk status **Failed**.
+- Delete menggunakan Soft Delete.
+- Riwayat Delivery tidak dapat dihapus.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -280,10 +280,10 @@ Response gagal
 
 API Notification wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -291,31 +291,31 @@ API Notification wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
-* Queue Processing
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
+- Queue Processing
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh endpoint CRUD tersedia.
-* Queue dan Retry berjalan normal.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Queue dan Retry berjalan normal.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

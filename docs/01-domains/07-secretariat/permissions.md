@@ -141,14 +141,14 @@ Agenda Book bersifat Read Only.
 
 | Permission           | Super Admin | Admin | Secretary | Operator |
 | -------------------- | :---------: | :---: | :-------: | :------: |
-| View                 |      ✅      |   ✅   |     ✅     |     ✅    |
-| Create               |      ✅      |   ✅   |     ✅     |     ✅    |
-| Update               |      ✅      |   ✅   |     ✅     |     ✅    |
-| Delete               |      ✅      |   ❌   |     ❌     |     ❌    |
-| Archive              |      ✅      |   ✅   |     ✅     |     ❌    |
-| Restore              |      ✅      |   ✅   |     ✅     |     ❌    |
-| Send Mail            |      ✅      |   ✅   |     ✅     |     ❌    |
-| Complete Disposition |      ✅      |   ✅   |     ✅     |     ✅    |
+| View                 |     ✅      |  ✅   |    ✅     |    ✅    |
+| Create               |     ✅      |  ✅   |    ✅     |    ✅    |
+| Update               |     ✅      |  ✅   |    ✅     |    ✅    |
+| Delete               |     ✅      |  ❌   |    ❌     |    ❌    |
+| Archive              |     ✅      |  ✅   |    ✅     |    ❌    |
+| Restore              |     ✅      |  ✅   |    ✅     |    ❌    |
+| Send Mail            |     ✅      |  ✅   |    ✅     |    ❌    |
+| Complete Disposition |     ✅      |  ✅   |    ✅     |    ✅    |
 
 ---
 
@@ -182,20 +182,20 @@ Submenu mengikuti permission masing-masing.
 
 # Business Rules
 
-* Authentication wajib dilakukan sebelum pemeriksaan Permission.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403 Forbidden.
-* Tombol aksi hanya ditampilkan apabila permission tersedia.
-* Arsip hanya dapat dipulihkan oleh Role yang berwenang.
+- Authentication wajib dilakukan sebelum pemeriksaan Permission.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403 Forbidden.
+- Tombol aksi hanya ditampilkan apabila permission tersedia.
+- Arsip hanya dapat dipulihkan oleh Role yang berwenang.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh perubahan data dicatat pada Audit Log.
-* Dokumen rahasia hanya dapat diakses oleh Role yang memiliki hak akses.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh perubahan data dicatat pada Audit Log.
+- Dokumen rahasia hanya dapat diakses oleh Role yang memiliki hak akses.
 
 ---
 
@@ -219,14 +219,14 @@ secretariat.audit
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -234,8 +234,8 @@ secretariat.audit
 
 Permission Secretariat dianggap selesai apabila:
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

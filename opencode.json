@@ -21,8 +21,13 @@
     },
     "filesystem": {
       "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "D:/learning web/my-app"],
-      "enabled": false
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "D:/learning web/my-app"
+      ],
+      "enabled": true
     }
   }
 }

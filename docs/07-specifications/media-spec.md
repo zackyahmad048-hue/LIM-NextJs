@@ -26,13 +26,13 @@ Media Domain berfungsi sebagai **single source of truth** untuk seluruh file yan
 
 Media harus mampu:
 
-* Upload File.
-* Download File.
-* Preview File.
-* Mengelola Metadata.
-* Mengelola Folder.
-* Mengelola Versi File.
-* Menghapus dan Mengarsipkan File.
+- Upload File.
+- Download File.
+- Preview File.
+- Mengelola Metadata.
+- Mengelola Folder.
+- Mengelola Versi File.
+- Menghapus dan Mengarsipkan File.
 
 ---
 
@@ -54,14 +54,14 @@ Media harus mampu:
 
 Mendukung:
 
-* Image
-* PDF
-* DOCX
-* XLSX
-* PPTX
-* ZIP
-* Video
-* Audio
+- Image
+- PDF
+- DOCX
+- XLSX
+- PPTX
+- ZIP
+- Video
+- Audio
 
 ---
 
@@ -69,14 +69,14 @@ Mendukung:
 
 Setiap file memiliki:
 
-* Filename
-* Original Filename
-* MIME Type
-* File Size
-* Checksum
-* Storage Path
-* Uploaded By
-* Uploaded At
+- Filename
+- Original Filename
+- MIME Type
+- File Size
+- Checksum
+- Storage Path
+- Uploaded By
+- Uploaded At
 
 ---
 
@@ -84,10 +84,10 @@ Setiap file memiliki:
 
 Mengelola:
 
-* Folder
-* Sub Folder
-* Tags
-* Category
+- Folder
+- Sub Folder
+- Tags
+- Category
 
 ---
 
@@ -95,9 +95,9 @@ Mengelola:
 
 Mendukung:
 
-* Version History
-* Restore Previous Version
-* Latest Version
+- Version History
+- Restore Previous Version
+- Latest Version
 
 ---
 
@@ -105,9 +105,9 @@ Mendukung:
 
 Mendukung:
 
-* Internal Link
-* Temporary Link
-* Public Link (Opsional)
+- Internal Link
+- Temporary Link
+- Public Link (Opsional)
 
 ---
 
@@ -115,28 +115,28 @@ Mendukung:
 
 Media harus:
 
-* Upload < 5 detik (10 MB).
-* Download < 2 detik.
-* Highly Available.
-* Audit Enabled.
-* Scalable.
+- Upload < 5 detik (10 MB).
+- Download < 2 detik.
+- Highly Available.
+- Audit Enabled.
+- Scalable.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Permission sesuai.
-* File memenuhi validasi.
+- User telah Login.
+- Permission sesuai.
+- File memenuhi validasi.
 
 ---
 
 # Postconditions
 
-* File tersimpan di Object Storage.
-* Metadata tersimpan di Database.
-* Audit Log dibuat.
-* Domain Event diterbitkan.
+- File tersimpan di Object Storage.
+- Metadata tersimpan di Database.
+- Audit Log dibuat.
+- Domain Event diterbitkan.
 
 ---
 
@@ -194,11 +194,11 @@ Update Metadata
 
 # Exception Flow
 
-* File terlalu besar.
-* MIME Type tidak didukung.
-* Storage gagal.
-* Permission ditolak.
-* Metadata gagal disimpan.
+- File terlalu besar.
+- MIME Type tidak didukung.
+- Storage gagal.
+- Permission ditolak.
+- Metadata gagal disimpan.
 
 ---
 
@@ -258,20 +258,20 @@ Deleted
 
 Entity:
 
-* MediaFile
-* MediaFolder
-* MediaVersion
+- MediaFile
+- MediaFolder
+- MediaVersion
 
 Aggregate:
 
-* Media
+- Media
 
 Value Object:
 
-* FileName
-* MimeType
-* StoragePath
-* FileChecksum
+- FileName
+- MimeType
+- StoragePath
+- FileChecksum
 
 ---
 
@@ -318,10 +318,10 @@ media_versions
 
 | Action          | Admin | Operator |       User       |
 | --------------- | :---: | :------: | :--------------: |
-| Upload          |   ✅   |     ✅    |         ✅        |
-| Download        |   ✅   |     ✅    | Sesuai Hak Akses |
-| Update Metadata |   ✅   |     ✅    |         ❌        |
-| Delete          |   ✅   |     ❌    |         ❌        |
+| Upload          |  ✅   |    ✅    |        ✅        |
+| Download        |  ✅   |    ✅    | Sesuai Hak Akses |
+| Update Metadata |  ✅   |    ✅    |        ❌        |
+| Delete          |  ✅   |    ❌    |        ❌        |
 
 ---
 
@@ -366,41 +366,41 @@ MediaDeleted
 
 # Acceptance Test
 
-* File berhasil diunggah.
-* Metadata tersimpan.
-* File berhasil diunduh.
-* Versioning berjalan.
-* MIME Type tervalidasi.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- File berhasil diunggah.
+- Metadata tersimpan.
+- File berhasil diunduh.
+- Versioning berjalan.
+- MIME Type tervalidasi.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Upload 10 MB < 5 detik.
-* Download < 2 detik.
-* Metadata Query < 300 ms.
+- Upload 10 MB < 5 detik.
+- Download < 2 detik.
+- Metadata Query < 300 ms.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* MIME Type divalidasi.
-* Ukuran file divalidasi.
-* Nama file diacak (UUID).
-* File disimpan pada Object Storage.
-* Signed URL digunakan untuk akses sementara (jika diterapkan).
-* Audit Log aktif.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- MIME Type divalidasi.
+- Ukuran file divalidasi.
+- Nama file diacak (UUID).
+- File disimpan pada Object Storage.
+- Signed URL digunakan untuk akses sementara (jika diterapkan).
+- Audit Log aktif.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh file tersimpan pada Object Storage.
-* Metadata tersimpan secara konsisten.
-* Versioning berjalan dengan baik.
-* Domain Event dan Audit Log aktif.
-* Specification siap digunakan sebagai dasar implementasi Media Domain.
+- Seluruh file tersimpan pada Object Storage.
+- Metadata tersimpan secara konsisten.
+- Versioning berjalan dengan baik.
+- Domain Event dan Audit Log aktif.
+- Specification siap digunakan sebagai dasar implementasi Media Domain.

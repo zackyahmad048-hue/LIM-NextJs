@@ -22,11 +22,11 @@ Tujuan utamanya adalah melindungi aplikasi, data, infrastruktur, dan pengguna da
 
 Security bertujuan untuk:
 
-* Melindungi data pengguna.
-* Mencegah akses tidak sah.
-* Mengurangi risiko serangan siber.
-* Menjaga kerahasiaan, integritas, dan ketersediaan data.
-* Memenuhi standar keamanan aplikasi modern.
+- Melindungi data pengguna.
+- Mencegah akses tidak sah.
+- Mengurangi risiko serangan siber.
+- Menjaga kerahasiaan, integritas, dan ketersediaan data.
+- Memenuhi standar keamanan aplikasi modern.
 
 ---
 
@@ -34,12 +34,12 @@ Security bertujuan untuk:
 
 LIM Digital Platform menerapkan prinsip:
 
-* Security by Design
-* Least Privilege
-* Zero Trust
-* Defense in Depth
-* Secure by Default
-* Principle of Minimum Exposure
+- Security by Design
+- Least Privilege
+- Zero Trust
+- Defense in Depth
+- Secure by Default
+- Principle of Minimum Exposure
 
 ---
 
@@ -49,11 +49,11 @@ Seluruh pengguna wajib melalui proses Authentication.
 
 Standar:
 
-* JWT Authentication
-* Refresh Token
-* Password Hashing (Argon2/Bcrypt)
-* Multi-Factor Authentication (Future)
-* Session Expiration
+- JWT Authentication
+- Refresh Token
+- Password Hashing (Argon2/Bcrypt)
+- Multi-Factor Authentication (Future)
+- Session Expiration
 
 ---
 
@@ -89,17 +89,17 @@ HTTP otomatis diarahkan ke HTTPS.
 
 Secret meliputi:
 
-* JWT Secret
-* Database Password
-* API Key
-* SMTP Credential
-* Storage Credential
+- JWT Secret
+- Database Password
+- API Key
+- SMTP Credential
+- Storage Credential
 
 Aturan:
 
-* Tidak disimpan di repository.
-* Menggunakan Secret Manager atau Environment Variable.
-* Dilakukan rotasi secara berkala.
+- Tidak disimpan di repository.
+- Menggunakan Secret Manager atau Environment Variable.
+- Dilakukan rotasi secara berkala.
 
 ---
 
@@ -107,16 +107,16 @@ Aturan:
 
 Seluruh input wajib:
 
-* Divalidasi.
-* Disanitasi.
-* Diproteksi dari Injection.
+- Divalidasi.
+- Disanitasi.
+- Diproteksi dari Injection.
 
 Meliputi:
 
-* SQL Injection
-* XSS
-* Command Injection
-* Path Traversal
+- SQL Injection
+- XSS
+- Command Injection
+- Path Traversal
 
 ---
 
@@ -124,11 +124,11 @@ Meliputi:
 
 Seluruh upload wajib:
 
-* Validasi MIME Type.
-* Validasi ukuran file.
-* Rename file secara acak.
-* Scan malware (Future).
-* Disimpan di Storage terpisah.
+- Validasi MIME Type.
+- Validasi ukuran file.
+- Rename file secara acak.
+- Scan malware (Future).
+- Disimpan di Storage terpisah.
 
 ---
 
@@ -136,12 +136,12 @@ Seluruh upload wajib:
 
 REST API wajib menerapkan:
 
-* Authentication
-* Authorization
-* Rate Limiting
-* CORS Policy
-* Request Validation
-* Audit Logging
+- Authentication
+- Authorization
+- Rate Limiting
+- CORS Policy
+- Request Validation
+- Audit Logging
 
 ---
 
@@ -149,21 +149,21 @@ REST API wajib menerapkan:
 
 Server wajib:
 
-* Firewall aktif.
-* SSH Key Authentication.
-* Root Login dinonaktifkan.
-* Security Update rutin.
-* Port yang tidak digunakan ditutup.
+- Firewall aktif.
+- SSH Key Authentication.
+- Root Login dinonaktifkan.
+- Security Update rutin.
+- Port yang tidak digunakan ditutup.
 
 ---
 
 # Database Security
 
-* Password terenkripsi.
-* Backup terenkripsi.
-* Koneksi menggunakan TLS (jika tersedia).
-* Database tidak dapat diakses publik.
-* Least Privilege untuk akun database.
+- Password terenkripsi.
+- Backup terenkripsi.
+- Koneksi menggunakan TLS (jika tersedia).
+- Database tidak dapat diakses publik.
+- Least Privilege untuk akun database.
 
 ---
 
@@ -171,20 +171,20 @@ Server wajib:
 
 Aktivitas berikut wajib dicatat:
 
-* Login
-* Logout
-* Permission Change
-* Data Modification
-* Failed Authentication
-* Critical Error
-* Security Event
+- Login
+- Logout
+- Permission Change
+- Data Modification
+- Failed Authentication
+- Critical Error
+- Security Event
 
 Log tidak boleh berisi:
 
-* Password
-* Token
-* Secret
-* Informasi sensitif lainnya.
+- Password
+- Token
+- Secret
+- Informasi sensitif lainnya.
 
 ---
 
@@ -222,11 +222,11 @@ Post Incident Review
 
 Dilakukan secara berkala:
 
-* Dependency Update
-* Security Patch
-* Vulnerability Scan
-* Penetration Test
-* Security Review
+- Dependency Update
+- Security Patch
+- Vulnerability Scan
+- Penetration Test
+- Security Review
 
 ---
 
@@ -256,30 +256,30 @@ Dilakukan secara berkala:
 
 # Best Practices
 
-* Jangan hardcode secret.
-* Gunakan prinsip Least Privilege.
-* Lakukan rotasi credential secara berkala.
-* Perbarui dependency yang memiliki kerentanan.
-* Lakukan audit keamanan secara rutin.
+- Jangan hardcode secret.
+- Gunakan prinsip Least Privilege.
+- Lakukan rotasi credential secara berkala.
+- Perbarui dependency yang memiliki kerentanan.
+- Lakukan audit keamanan secara rutin.
 
 ---
 
 # Related Documents
 
-* README.md
-* environment.md
-* docker.md
-* ci-cd.md
-* server.md
-* backup.md
-* monitoring.md
+- README.md
+- environment.md
+- docker.md
+- ci-cd.md
+- server.md
+- backup.md
+- monitoring.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh komunikasi menggunakan HTTPS.
-* Authentication dan Authorization diterapkan pada seluruh endpoint.
-* Secret dikelola dengan aman.
-* Audit Log aktif.
-* Security menjadi standar wajib pada seluruh deployment LIM Digital Platform.
+- Seluruh komunikasi menggunakan HTTPS.
+- Authentication dan Authorization diterapkan pada seluruh endpoint.
+- Secret dikelola dengan aman.
+- Audit Log aktif.
+- Security menjadi standar wajib pada seluruh deployment LIM Digital Platform.

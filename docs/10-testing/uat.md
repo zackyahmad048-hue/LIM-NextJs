@@ -24,11 +24,11 @@ UAT merupakan tahap pengujian akhir yang dilakukan oleh perwakilan pengguna (Bus
 
 UAT bertujuan untuk:
 
-* Memastikan sistem memenuhi kebutuhan pengguna.
-* Memvalidasi Business Process.
-* Memastikan User Experience sesuai harapan.
-* Menjadi dasar persetujuan Release.
-* Mengurangi risiko setelah Go-Live.
+- Memastikan sistem memenuhi kebutuhan pengguna.
+- Memvalidasi Business Process.
+- Memastikan User Experience sesuai harapan.
+- Menjadi dasar persetujuan Release.
+- Mengurangi risiko setelah Go-Live.
 
 ---
 
@@ -36,20 +36,20 @@ UAT bertujuan untuk:
 
 UAT mencakup seluruh domain:
 
-* Authentication
-* Authorization
-* Organization
-* Dashboard
-* CMS
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Media
-* Notification
-* Settings
-* Knowledge
-* Falak
+- Authentication
+- Authorization
+- Organization
+- Dashboard
+- CMS
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Media
+- Notification
+- Settings
+- Knowledge
+- Falak
 
 ---
 
@@ -69,11 +69,11 @@ UAT mencakup seluruh domain:
 
 UAT dapat dimulai apabila:
 
-* Development selesai.
-* Integration Test lulus.
-* Critical Bug telah diperbaiki.
-* Staging Environment siap.
-* Test Data tersedia.
+- Development selesai.
+- Integration Test lulus.
+- Critical Bug telah diperbaiki.
+- Staging Environment siap.
+- Test Data tersedia.
 
 ---
 
@@ -85,52 +85,52 @@ Contoh:
 
 ### Authentication
 
-* Login
-* Logout
-* Forgot Password
+- Login
+- Logout
+- Forgot Password
 
 ---
 
 ### Program
 
-* Membuat Program
-* Registrasi Peserta
-* Menutup Registrasi
-* Menyelesaikan Program
+- Membuat Program
+- Registrasi Peserta
+- Menutup Registrasi
+- Menyelesaikan Program
 
 ---
 
 ### Letter
 
-* Membuat Draft
-* Review
-* Approval
-* Publish
+- Membuat Draft
+- Review
+- Approval
+- Publish
 
 ---
 
 ### Certificate
 
-* Generate Sertifikat
-* Download
-* Verify QR Code
+- Generate Sertifikat
+- Download
+- Verify QR Code
 
 ---
 
 ### Knowledge
 
-* Membuat Artikel
-* Review
-* Publish
-* Search Artikel
+- Membuat Artikel
+- Review
+- Publish
+- Search Artikel
 
 ---
 
 ### Falak
 
-* Hitung Waktu Salat
-* Hitung Arah Kiblat
-* Konversi Kalender Hijriah
+- Hitung Waktu Salat
+- Hitung Arah Kiblat
+- Konversi Kalender Hijriah
 
 ---
 
@@ -138,12 +138,12 @@ Contoh:
 
 Setiap fitur dinilai berdasarkan:
 
-* Fungsi berjalan.
-* Data benar.
-* Tampilan sesuai.
-* Navigasi mudah.
-* Tidak ada Error.
-* Performance memadai.
+- Fungsi berjalan.
+- Data benar.
+- Tampilan sesuai.
+- Navigasi mudah.
+- Tidak ada Error.
+- Performance memadai.
 
 ---
 
@@ -151,10 +151,10 @@ Setiap fitur dinilai berdasarkan:
 
 Status UAT:
 
-* Passed
-* Passed with Minor Issue
-* Failed
-* Deferred
+- Passed
+- Passed with Minor Issue
+- Failed
+- Deferred
 
 ---
 
@@ -173,12 +173,12 @@ Status UAT:
 
 Laporan UAT minimal berisi:
 
-* Ringkasan Pengujian
-* Daftar Skenario
-* Hasil Pengujian
-* Daftar Temuan
-* Status Perbaikan
-* Kesimpulan
+- Ringkasan Pengujian
+- Daftar Skenario
+- Hasil Pengujian
+- Daftar Temuan
+- Status Perbaikan
+- Kesimpulan
 
 ---
 
@@ -186,10 +186,10 @@ Laporan UAT minimal berisi:
 
 UAT dinyatakan selesai apabila:
 
-* Seluruh skenario Critical lulus.
-* Tidak ada Critical Bug.
-* Business Representative menyetujui hasil.
-* Product Owner memberikan Approval.
+- Seluruh skenario Critical lulus.
+- Tidak ada Critical Bug.
+- Business Representative menyetujui hasil.
+- Product Owner memberikan Approval.
 
 ---
 
@@ -208,28 +208,28 @@ Persetujuan UAT dilakukan oleh:
 
 # Best Practices
 
-* Gunakan data yang menyerupai kondisi nyata.
-* Libatkan pengguna akhir dari setiap domain.
-* Catat seluruh masukan, termasuk peningkatan (enhancement).
-* Fokus pada proses bisnis, bukan implementasi teknis.
-* Dokumentasikan seluruh hasil UAT sebagai bagian dari Release.
+- Gunakan data yang menyerupai kondisi nyata.
+- Libatkan pengguna akhir dari setiap domain.
+- Catat seluruh masukan, termasuk peningkatan (enhancement).
+- Fokus pada proses bisnis, bukan implementasi teknis.
+- Dokumentasikan seluruh hasil UAT sebagai bagian dari Release.
 
 ---
 
 # Related Documents
 
-* README.md
-* test-plan.md
-* test-cases.md
-* performance-testing.md
-* security-testing.md
+- README.md
+- test-plan.md
+- test-cases.md
+- performance-testing.md
+- security-testing.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh proses bisnis telah diuji oleh pengguna.
-* Tidak ada Critical Issue yang tersisa.
-* UAT mendapatkan persetujuan resmi.
-* Dokumentasi hasil UAT lengkap.
-* UAT menjadi dasar keputusan Go-Live LIM Digital Platform.
+- Seluruh proses bisnis telah diuji oleh pengguna.
+- Tidak ada Critical Issue yang tersisa.
+- UAT mendapatkan persetujuan resmi.
+- Dokumentasi hasil UAT lengkap.
+- UAT menjadi dasar keputusan Go-Live LIM Digital Platform.

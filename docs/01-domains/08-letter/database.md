@@ -198,28 +198,28 @@ letter_distribution.sentAt
 
 ## Letter
 
-* Nomor surat wajib unik.
-* Template wajib dipilih.
-* Penandatangan wajib tersedia.
+- Nomor surat wajib unik.
+- Template wajib dipilih.
+- Penandatangan wajib tersedia.
 
 ---
 
 ## Approval
 
-* Reviewer wajib aktif.
-* Satu reviewer hanya dapat memberikan satu keputusan.
+- Reviewer wajib aktif.
+- Satu reviewer hanya dapat memberikan satu keputusan.
 
 ---
 
 ## Signature
 
-* Hanya dapat dibuat apabila status = Approved.
+- Hanya dapat dibuat apabila status = Approved.
 
 ---
 
 ## Distribution
 
-* Hanya dapat dilakukan setelah surat Signed.
+- Hanya dapat dilakukan setelah surat Signed.
 
 ---
 
@@ -227,8 +227,8 @@ letter_distribution.sentAt
 
 Menggunakan Soft Delete:
 
-* letter
-* letter_template
+- letter
+- letter_template
 
 Approval, Signature, Distribution, dan Archive bersifat permanen.
 
@@ -284,11 +284,11 @@ Print
 
 # Database Rules
 
-* Nomor surat selalu unik.
-* Template menjadi referensi surat.
-* Lampiran menggunakan Domain Media.
-* Arsip bersifat Read Only.
-* Seluruh akses database menggunakan Repository Pattern.
+- Nomor surat selalu unik.
+- Template menjadi referensi surat.
+- Lampiran menggunakan Domain Media.
+- Arsip bersifat Read Only.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -312,14 +312,14 @@ letter_template_version
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -327,8 +327,8 @@ letter_template_version
 
 Database Letter dianggap selesai apabila:
 
-* Struktur database mendukung seluruh lifecycle surat.
-* Nomor surat selalu unik.
-* Relasi antar tabel konsisten.
-* Arsip bersifat permanen (Read Only).
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh lifecycle surat.
+- Nomor surat selalu unik.
+- Relasi antar tabel konsisten.
+- Arsip bersifat permanen (Read Only).
+- Seluruh akses database menggunakan Repository Pattern.

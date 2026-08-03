@@ -20,10 +20,10 @@ Seluruh notifikasi wajib melalui proses validasi sebelum dimasukkan ke Queue dan
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Messages
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -31,23 +31,23 @@ Seluruh notifikasi wajib melalui proses validasi sebelum dimasukkan ke Queue dan
 
 ## Recipient
 
-* Wajib diisi.
-* Harus merupakan User aktif.
+- Wajib diisi.
+- Harus merupakan User aktif.
 
 ---
 
 ## Title
 
-* Wajib diisi.
-* Minimum 3 karakter.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Minimum 3 karakter.
+- Maksimum 255 karakter.
 
 ---
 
 ## Message
 
-* Wajib diisi.
-* Tidak boleh kosong.
+- Wajib diisi.
+- Tidak boleh kosong.
 
 ---
 
@@ -55,14 +55,14 @@ Seluruh notifikasi wajib melalui proses validasi sebelum dimasukkan ke Queue dan
 
 Harus salah satu dari:
 
-* System
-* Program
-* Letter
-* Certificate
-* Reminder
-* Announcement
-* Warning
-* Information
+- System
+- Program
+- Letter
+- Certificate
+- Reminder
+- Announcement
+- Warning
+- Information
 
 ---
 
@@ -70,11 +70,11 @@ Harus salah satu dari:
 
 Harus salah satu dari:
 
-* In-App
-* Email
-* WhatsApp
-* Push
-* SMS
+- In-App
+- Email
+- WhatsApp
+- Push
+- SMS
 
 Minimal satu channel harus dipilih.
 
@@ -82,9 +82,9 @@ Minimal satu channel harus dipilih.
 
 # Template Validation
 
-* Template harus tersedia.
-* Template harus aktif.
-* Variable template wajib valid.
+- Template harus tersedia.
+- Template harus aktif.
+- Variable template wajib valid.
 
 ---
 
@@ -92,9 +92,9 @@ Minimal satu channel harus dipilih.
 
 Notifikasi hanya dapat masuk Queue apabila:
 
-* Penerima valid.
-* Channel aktif.
-* Template valid.
+- Penerima valid.
+- Channel aktif.
+- Template valid.
 
 ---
 
@@ -102,9 +102,9 @@ Notifikasi hanya dapat masuk Queue apabila:
 
 Pengiriman hanya dilakukan apabila:
 
-* Queue Status = Pending.
-* User mengaktifkan channel tersebut.
-* Alamat tujuan tersedia (Email, Nomor WhatsApp, Device Token).
+- Queue Status = Pending.
+- User mengaktifkan channel tersebut.
+- Alamat tujuan tersedia (Email, Nomor WhatsApp, Device Token).
 
 ---
 
@@ -120,8 +120,8 @@ Minimal satu channel harus tetap aktif.
 
 Retry hanya dapat dilakukan apabila:
 
-* Status = Failed.
-* Retry Count belum melebihi batas konfigurasi.
+- Status = Failed.
+- Retry Count belum melebihi batas konfigurasi.
 
 ---
 
@@ -129,8 +129,8 @@ Retry hanya dapat dilakukan apabila:
 
 Notifikasi hanya dapat diarsipkan apabila:
 
-* Status = Delivered.
-* Status = Read.
+- Status = Delivered.
+- Status = Read.
 
 ---
 
@@ -138,7 +138,7 @@ Notifikasi hanya dapat diarsipkan apabila:
 
 Notifikasi hanya dapat dipulihkan apabila:
 
-* Status = Archived.
+- Status = Archived.
 
 ---
 
@@ -146,22 +146,22 @@ Notifikasi hanya dapat dipulihkan apabila:
 
 Notifikasi tidak dapat dihapus apabila:
 
-* Masih berada di Queue.
-* Sedang diproses.
-* Menjadi bagian Audit Log.
+- Masih berada di Queue.
+- Sedang diproses.
+- Menjadi bagian Audit Log.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -207,8 +207,8 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh input tervalidasi.
-* Penerima dan channel valid.
-* Retry mengikuti konfigurasi.
-* Queue hanya menerima data yang valid.
-* Seluruh validasi dijalankan sebelum Business Rules.
+- Seluruh input tervalidasi.
+- Penerima dan channel valid.
+- Retry mengikuti konfigurasi.
+- Queue hanya menerima data yang valid.
+- Seluruh validasi dijalankan sebelum Business Rules.

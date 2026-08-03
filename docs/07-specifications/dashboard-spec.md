@@ -18,7 +18,7 @@ Dokumen ini mendefinisikan spesifikasi teknis implementasi **Dashboard Domain**.
 
 Dashboard menyediakan ringkasan informasi, statistik, KPI, aktivitas terbaru, serta insight yang diperoleh dari berbagai Domain dalam LIM Digital Platform.
 
-Dashboard tidak menjadi sumber data utama (*Source of Truth*), melainkan menyajikan data hasil agregasi dari domain lain.
+Dashboard tidak menjadi sumber data utama (_Source of Truth_), melainkan menyajikan data hasil agregasi dari domain lain.
 
 ---
 
@@ -26,12 +26,12 @@ Dashboard tidak menjadi sumber data utama (*Source of Truth*), melainkan menyaji
 
 Dashboard harus mampu:
 
-* Menampilkan KPI.
-* Menampilkan Ringkasan Statistik.
-* Menampilkan Aktivitas Terbaru.
-* Menampilkan Grafik.
-* Menampilkan Informasi Berdasarkan Role.
-* Menyediakan Dashboard Widget.
+- Menampilkan KPI.
+- Menampilkan Ringkasan Statistik.
+- Menampilkan Aktivitas Terbaru.
+- Menampilkan Grafik.
+- Menampilkan Informasi Berdasarkan Role.
+- Menyediakan Dashboard Widget.
 
 ---
 
@@ -53,13 +53,13 @@ Dashboard harus mampu:
 
 Menampilkan:
 
-* Total Users
-* Total Organizations
-* Total Programs
-* Total Letters
-* Total Certificates
-* Total Knowledge Articles
-* Total Notifications
+- Total Users
+- Total Organizations
+- Total Programs
+- Total Letters
+- Total Certificates
+- Total Knowledge Articles
+- Total Notifications
 
 ---
 
@@ -67,11 +67,11 @@ Menampilkan:
 
 Menampilkan:
 
-* Login Terbaru
-* Program Baru
-* Surat Terbaru
-* Sertifikat Terbaru
-* Artikel Terbaru
+- Login Terbaru
+- Program Baru
+- Surat Terbaru
+- Sertifikat Terbaru
+- Artikel Terbaru
 
 ---
 
@@ -79,10 +79,10 @@ Menampilkan:
 
 Dashboard menyediakan:
 
-* Daily Statistics
-* Weekly Statistics
-* Monthly Statistics
-* Yearly Statistics
+- Daily Statistics
+- Weekly Statistics
+- Monthly Statistics
+- Yearly Statistics
 
 ---
 
@@ -90,10 +90,10 @@ Dashboard menyediakan:
 
 Dashboard mendukung:
 
-* Show Widget
-* Hide Widget
-* Widget Ordering
-* Role Based Widget
+- Show Widget
+- Hide Widget
+- Widget Ordering
+- Role Based Widget
 
 ---
 
@@ -107,26 +107,26 @@ Dashboard menyediakan ringkasan hasil pencarian global.
 
 Dashboard harus:
 
-* Response < 500 ms
-* Cached
-* Highly Available
-* Responsive
-* Near Real-Time
+- Response < 500 ms
+- Cached
+- Highly Available
+- Responsive
+- Near Real-Time
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Permission telah diverifikasi.
+- User telah Login.
+- Permission telah diverifikasi.
 
 ---
 
 # Postconditions
 
-* Statistik berhasil dimuat.
-* Cache diperbarui apabila diperlukan.
-* Aktivitas terbaru ditampilkan.
+- Statistik berhasil dimuat.
+- Cache diperbarui apabila diperlukan.
+- Aktivitas terbaru ditampilkan.
 
 ---
 
@@ -184,10 +184,10 @@ Response
 
 # Exception Flow
 
-* User tidak memiliki Permission.
-* Data tidak tersedia.
-* Cache gagal.
-* Dashboard Service gagal.
+- User tidak memiliki Permission.
+- Data tidak tersedia.
+- Cache gagal.
+- Dashboard Service gagal.
 
 ---
 
@@ -239,18 +239,18 @@ Refreshing
 
 Entity:
 
-* DashboardWidget
-* DashboardPreference
+- DashboardWidget
+- DashboardPreference
 
 Value Object:
 
-* Statistic
-* KPI
-* ChartData
+- Statistic
+- KPI
+- ChartData
 
 Aggregate:
 
-* Dashboard
+- Dashboard
 
 ---
 
@@ -294,10 +294,10 @@ Data statistik berasal dari domain lain dan tidak diduplikasi kecuali untuk kebu
 
 | Feature          | Admin | Operator | User |
 | ---------------- | :---: | :------: | :--: |
-| View Dashboard   |   ✅   |     ✅    |   ✅  |
-| View KPI         |   ✅   |     ✅    |   ✅  |
-| Configure Widget |   ✅   |     ✅    |   ❌  |
-| Reset Layout     |   ✅   |     ❌    |   ❌  |
+| View Dashboard   |  ✅   |    ✅    |  ✅  |
+| View KPI         |  ✅   |    ✅    |  ✅  |
+| Configure Widget |  ✅   |    ✅    |  ❌  |
+| Reset Layout     |  ✅   |    ❌    |  ❌  |
 
 ---
 
@@ -332,36 +332,36 @@ DashboardCacheRefreshed
 
 # Acceptance Test
 
-* Dashboard berhasil dimuat.
-* KPI sesuai data.
-* Widget dapat dikonfigurasi.
-* Statistik ditampilkan dengan benar.
-* Cache bekerja.
-* Permission divalidasi.
+- Dashboard berhasil dimuat.
+- KPI sesuai data.
+- Widget dapat dikonfigurasi.
+- Statistik ditampilkan dengan benar.
+- Cache bekerja.
+- Permission divalidasi.
 
 ---
 
 # Performance Requirement
 
-* Dashboard < 500 ms.
-* Statistik < 300 ms.
-* Cache Hit Ratio > 90%.
+- Dashboard < 500 ms.
+- Statistik < 300 ms.
+- Cache Hit Ratio > 90%.
 
 ---
 
 # Security Requirement
 
-* Seluruh endpoint menggunakan RBAC.
-* Dashboard hanya menampilkan data sesuai hak akses.
-* Audit Log mencatat perubahan preferensi pengguna.
-* Tidak menampilkan data sensitif tanpa izin.
+- Seluruh endpoint menggunakan RBAC.
+- Dashboard hanya menampilkan data sesuai hak akses.
+- Audit Log mencatat perubahan preferensi pengguna.
+- Tidak menampilkan data sensitif tanpa izin.
 
 ---
 
 # Acceptance Criteria
 
-* Dashboard menampilkan data sesuai Role.
-* Statistik berasal dari sumber data yang valid.
-* Widget dapat dikustomisasi.
-* API mengikuti API Standard.
-* Specification siap digunakan sebagai dasar implementasi Dashboard Domain.
+- Dashboard menampilkan data sesuai Role.
+- Statistik berasal dari sumber data yang valid.
+- Widget dapat dikustomisasi.
+- API mengikuti API Standard.
+- Specification siap digunakan sebagai dasar implementasi Dashboard Domain.

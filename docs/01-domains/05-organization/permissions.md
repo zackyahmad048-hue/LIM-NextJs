@@ -148,12 +148,12 @@ organization.delete
 
 | Permission        | Super Admin | Admin | Secretariat |       User       |
 | ----------------- | :---------: | :---: | :---------: | :--------------: |
-| View              |      ✅      |   ✅   |      ✅      | Sesuai Hak Akses |
-| Create            |      ✅      |   ✅   |      ❌      |         ❌        |
-| Update            |      ✅      |   ✅   |      ❌      |         ❌        |
-| Delete            |      ✅      |   ❌   |      ❌      |         ❌        |
-| Activate Period   |      ✅      |   ✅   |      ❌      |         ❌        |
-| Assign Management |      ✅      |   ✅   |      ❌      |         ❌        |
+| View              |     ✅      |  ✅   |     ✅      | Sesuai Hak Akses |
+| Create            |     ✅      |  ✅   |     ❌      |        ❌        |
+| Update            |     ✅      |  ✅   |     ❌      |        ❌        |
+| Delete            |     ✅      |  ❌   |     ❌      |        ❌        |
+| Activate Period   |     ✅      |  ✅   |     ❌      |        ❌        |
+| Assign Management |     ✅      |  ✅   |     ❌      |        ❌        |
 
 Role dapat disesuaikan berdasarkan kebutuhan organisasi.
 
@@ -201,20 +201,20 @@ Setiap aksi wajib memeriksa permission sebelum diproses.
 
 # Business Rules
 
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403 Forbidden.
-* Tombol aksi hanya ditampilkan apabila permission tersedia.
-* Menu mengikuti Role pengguna.
-* Public API tidak menggunakan permission, hanya menampilkan data publik yang telah ditentukan.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403 Forbidden.
+- Tombol aksi hanya ditampilkan apabila permission tersedia.
+- Menu mengikuti Role pengguna.
+- Public API tidak menggunakan permission, hanya menampilkan data publik yang telah ditentukan.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Tidak boleh menggunakan pengecekan Role secara langsung di UI.
-* Seluruh pemeriksaan akses dilakukan pada Service Layer.
-* Perubahan Role dan Permission wajib dicatat pada Audit Log.
+- Permission tidak boleh dilewati.
+- Tidak boleh menggunakan pengecekan Role secara langsung di UI.
+- Seluruh pemeriksaan akses dilakukan pada Service Layer.
+- Perubahan Role dan Permission wajib dicatat pada Audit Log.
 
 ---
 
@@ -236,14 +236,14 @@ organization.audit
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -251,8 +251,8 @@ organization.audit
 
 Permission Organization dianggap selesai apabila:
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti hak akses pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh perubahan mengikuti RBAC dan Business Rules.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti hak akses pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh perubahan mengikuti RBAC dan Business Rules.

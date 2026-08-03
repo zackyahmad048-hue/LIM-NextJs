@@ -50,10 +50,10 @@ Berisi kode Production.
 
 Rules:
 
-* Tidak boleh commit langsung.
-* Wajib melalui Pull Request.
-* Selalu dalam kondisi stabil.
-* Setiap merge menghasilkan Release.
+- Tidak boleh commit langsung.
+- Wajib melalui Pull Request.
+- Selalu dalam kondisi stabil.
+- Setiap merge menghasilkan Release.
 
 ---
 
@@ -91,9 +91,9 @@ feature/prayer-time
 
 Rules:
 
-* Dibuat dari `develop`.
-* Satu fitur satu branch.
-* Dihapus setelah merge.
+- Dibuat dari `develop`.
+- Satu fitur satu branch.
+- Dihapus setelah merge.
 
 ---
 
@@ -115,8 +115,8 @@ bugfix/certificate-validation
 
 Rules:
 
-* Dibuat dari `develop`.
-* Digunakan untuk memperbaiki bug selama development.
+- Dibuat dari `develop`.
+- Digunakan untuk memperbaiki bug selama development.
 
 ---
 
@@ -138,11 +138,11 @@ hotfix/session-expired
 
 Rules:
 
-* Dibuat dari `main`.
-* Setelah selesai di-merge ke:
+- Dibuat dari `main`.
+- Setelah selesai di-merge ke:
 
-  * `main`
-  * `develop`
+  - `main`
+  - `develop`
 
 ---
 
@@ -164,10 +164,10 @@ release/v1.1.0
 
 Digunakan untuk:
 
-* QA
-* UAT
-* Bug Fix Release
-* Final Validation
+- QA
+- UAT
+- Bug Fix Release
+- Final Validation
 
 ---
 
@@ -263,10 +263,10 @@ develop
 
 Aturan:
 
-* Pull Request wajib.
-* CI wajib berhasil.
-* Minimal 1 Approval.
-* Tidak boleh force push.
+- Pull Request wajib.
+- CI wajib berhasil.
+- Minimal 1 Approval.
+- Tidak boleh force push.
 
 ---
 
@@ -274,9 +274,9 @@ Aturan:
 
 Gunakan:
 
-* lowercase
-* kebab-case
-* tanpa spasi
+- lowercase
+- kebab-case
+- tanpa spasi
 
 Contoh:
 
@@ -310,39 +310,39 @@ Hindari Merge Commit kecuali benar-benar diperlukan.
 
 # Branch Rules
 
-* Maksimal satu tujuan per branch.
-* Branch tidak boleh digunakan ulang.
-* Branch harus sinkron dengan `develop`.
-* Branch yang sudah selesai wajib dihapus.
+- Maksimal satu tujuan per branch.
+- Branch tidak boleh digunakan ulang.
+- Branch harus sinkron dengan `develop`.
+- Branch yang sudah selesai wajib dihapus.
 
 ---
 
 # Best Practices
 
-* Pull branch terbaru sebelum mulai bekerja.
-* Push secara berkala.
-* Hindari branch berumur terlalu lama.
-* Selesaikan konflik sebelum membuka Pull Request.
-* Pastikan seluruh test lulus sebelum merge.
+- Pull branch terbaru sebelum mulai bekerja.
+- Push secara berkala.
+- Hindari branch berumur terlalu lama.
+- Selesaikan konflik sebelum membuka Pull Request.
+- Pastikan seluruh test lulus sebelum merge.
 
 ---
 
 # Related Documents
 
-* README.md
-* coding-standards.md
-* naming-conventions.md
-* git-workflow.md
-* testing-strategy.md
-* commit-convention.md
-* code-review.md
+- README.md
+- coding-standards.md
+- naming-conventions.md
+- git-workflow.md
+- testing-strategy.md
+- commit-convention.md
+- code-review.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh branch mengikuti standar penamaan.
-* Branch terlindungi dengan Branch Protection.
-* Release menggunakan Release Branch.
-* Hotfix mengikuti alur yang ditentukan.
-* Branching Strategy diterapkan oleh seluruh developer.
+- Seluruh branch mengikuti standar penamaan.
+- Branch terlindungi dengan Branch Protection.
+- Release menggunakan Release Branch.
+- Hotfix mengikuti alur yang ditentukan.
+- Branching Strategy diterapkan oleh seluruh developer.

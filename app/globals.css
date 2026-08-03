@@ -7,9 +7,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-sans: var(--font-sans);
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-heading: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-display: var(--f-site), "Segoe UI", sans-serif;
+  --font-site: var(--f-site), "Segoe UI", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -48,75 +50,232 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * LIM Digital Platform — identitas "Oranye LIM".
+ * Aksen resmi oranye (skala orange Tailwind), permukaan putih bersih
+ * (preset shadcn radix-maia), tint abu netral zinc/neutral.
+ * Kertas tidak tembus cahaya — wadah solid, tanpa blur dekoratif.
+ * Dual mode: siang (putih + oranye) / malam (neutral-950 + oranye).
+ * Default: malam.
+ */
 :root {
-  --background: oklch(0.985 0.006 250);
+  --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0 / 55%);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0 / 70%);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.553 0.195 38.402);
   --primary-foreground: oklch(0.98 0.016 73.684);
-  --secondary: oklch(0.96 0.012 250 / 45%);
+  --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.955 0.012 250 / 45%);
-  --muted-foreground: oklch(0.5 0.01 260);
-  --accent: oklch(0.95 0.02 60 / 50%);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.45 0.02 260 / 25%);
-  --input: oklch(1 0 0 / 50%);
-  --ring: oklch(0.6 0.16 45 / 50%);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.837 0.128 66.29);
   --chart-2: oklch(0.705 0.213 47.604);
   --chart-3: oklch(0.646 0.222 41.116);
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
   --radius: 0.625rem;
-  --sidebar: oklch(1 0 0 / 50%);
+  --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.646 0.222 41.116);
   --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-accent: oklch(0.95 0.02 60 / 50%);
+  --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.45 0.02 260 / 20%);
-  --sidebar-ring: oklch(0.6 0.16 45 / 50%);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
-  --background: oklch(0.14 0.035 265);
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.23 0.035 265 / 45%);
+  --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.25 0.035 265 / 60%);
+  --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.63 0.17 45);
-  --primary-foreground: oklch(0.16 0.02 45);
-  --secondary: oklch(0.28 0.03 265 / 45%);
+  --primary: oklch(0.47 0.157 37.304);
+  --primary-foreground: oklch(0.98 0.016 73.684);
+  --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.27 0.03 265 / 45%);
-  --muted-foreground: oklch(0.74 0.02 265);
-  --accent: oklch(0.33 0.05 45 / 45%);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 14%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.68 0.15 45 / 60%);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.837 0.128 66.29);
   --chart-2: oklch(0.705 0.213 47.604);
   --chart-3: oklch(0.646 0.222 41.116);
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
-  --sidebar: oklch(0.2 0.03 265 / 50%);
+  --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.705 0.213 47.604);
   --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-accent: oklch(0.3 0.04 45 / 45%);
+  --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.68 0.15 45 / 60%);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
+/*
+ * Website publik — identitas "Oranye LIM".
+ * Putih bersih (siang) / neutral gelap (malam) dengan aurora hijau
+ * yang bergerak perlahan di kedua mode — lapisan ambient saja.
+ */
+.site {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  background-color: var(--background);
+
+  color: var(--foreground);
+  font-family: var(--f-site), "Segoe UI", sans-serif;
+  min-height: 100dvh;
+}
+
+.site::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -24%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      900px 520px at 82% -6%,
+      oklch(0.9 0.04 160 / 0.4),
+      transparent 62%
+    ),
+    radial-gradient(
+      720px 460px at -8% 68%,
+      oklch(0.95 0.025 165 / 0.3),
+      transparent 60%
+    );
+  animation: nu-aurora 32s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.dark .site::before {
+  background-image:
+    radial-gradient(
+      1000px 620px at 82% -6%,
+      oklch(0.36 0.07 158 / 0.4),
+      transparent 62%
+    ),
+    radial-gradient(
+      820px 520px at -6% 42%,
+      oklch(0.3 0.055 165 / 0.3),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 480px at 55% 108%,
+      oklch(0.26 0.04 155 / 0.35),
+      transparent 62%
+    );
+  animation: nu-aurora 28s ease-in-out infinite alternate;
+}
+
+@keyframes nu-aurora {
+  0% {
+    transform: translate3d(-1.5%, -1%, 0) rotate(-0.6deg) scale(1);
+  }
+  50% {
+    transform: translate3d(1.8%, 1.2%, 0) rotate(0.4deg) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-0.8%, 1.8%, 0) rotate(-0.2deg) scale(1.03);
+  }
+}
+
+/*
+ * Login admin — aurora hangat (warm cream) bergerak di kedua mode,
+ * tempo lebih cepat karena layar singkat. Tidak tembus kertas kartu.
+ */
+.login-aurora {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background-color: var(--background);
+}
+
+.login-aurora::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -20%;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      720px 440px at 50% -8%,
+      oklch(0.99 0.012 88 / 0.6),
+      transparent 62%
+    ),
+    radial-gradient(
+      560px 400px at 14% 34%,
+      oklch(1 0.012 88 / 0.35),
+      transparent 60%
+    ),
+    radial-gradient(
+      520px 400px at 88% 82%,
+      oklch(0.97 0.015 88 / 0.3),
+      transparent 60%
+    );
+  animation: nu-aurora 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.dark .login-aurora::before {
+  background-image:
+    radial-gradient(
+      720px 440px at 50% -8%,
+      oklch(0.42 0.07 62 / 0.45),
+      transparent 62%
+    ),
+    radial-gradient(
+      560px 400px at 14% 34%,
+      oklch(0.34 0.05 62 / 0.35),
+      transparent 60%
+    ),
+    radial-gradient(
+      520px 400px at 88% 82%,
+      oklch(0.3 0.04 62 / 0.35),
+      transparent 60%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site::before,
+  .login-aurora::before {
+    animation: none;
+  }
+}
+
+.site ::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.site h1,
+.site h2 {
+  font-family: var(--f-site), "Segoe UI", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/*
+ * Kedalaman = bayangan offset + blur lembut (kertas tertumpuk),
+ * bukan halo tanpa offset. Tidak ada kaca: permukaan selalu solid.
+ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -126,42 +285,11 @@
     background-color: var(--background);
   }
   body {
-    @apply text-foreground;
+    @apply bg-background text-foreground;
     background-color: color-mix(in oklab, var(--background) 55%, transparent);
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      radial-gradient(900px 700px at 8% 5%, oklch(0.86 0.13 330 / 0.55), transparent 65%),
-      radial-gradient(1000px 800px at 93% 8%, oklch(0.84 0.12 235 / 0.55), transparent 65%),
-      radial-gradient(1100px 900px at 55% 108%, oklch(0.86 0.13 175 / 0.5), transparent 65%),
-      radial-gradient(700px 600px at 82% 65%, oklch(0.87 0.1 80 / 0.45), transparent 65%);
-  }
-  .dark body::before {
-    background-image:
-      radial-gradient(900px 700px at 8% 5%, oklch(0.42 0.13 330 / 0.5), transparent 65%),
-      radial-gradient(1000px 800px at 93% 8%, oklch(0.45 0.12 240 / 0.5), transparent 65%),
-      radial-gradient(1100px 900px at 55% 108%, oklch(0.43 0.12 175 / 0.45), transparent 65%),
-      radial-gradient(700px 600px at 82% 65%, oklch(0.4 0.1 80 / 0.4), transparent 65%);
-  }
-}
-
-@layer components {
-  .bg-card,
-  .bg-popover,
-  .bg-sidebar,
-  .bg-secondary,
-  .bg-muted,
-  .bg-accent,
-  [class*="bg-card/"],
-  [class*="bg-popover/"] {
-    backdrop-filter: blur(16px) saturate(1.5);
   }
 }

@@ -31,7 +31,7 @@ export class PostService {
       content?: string;
       thumbnail?: string;
       categoryId?: string;
-    }
+    },
   ) {
     const post = await postRepository.findById(id);
     if (!post) throw new Error("Berita tidak ditemukan.");

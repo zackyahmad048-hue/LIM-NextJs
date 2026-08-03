@@ -24,16 +24,16 @@ Blueprint menjadi **Single Source of Truth** bagi seluruh tim pengembang.
 
 Platform dibangun berdasarkan prinsip berikut.
 
-* Documentation First
-* Architecture First
-* Domain Driven Design
-* Service Oriented
-* API First
-* Mobile Ready
-* Security First
-* Privacy by Default
-* Scalability
-* Long Term Maintainability
+- Documentation First
+- Architecture First
+- Domain Driven Design
+- Service Oriented
+- API First
+- Mobile Ready
+- Security First
+- Privacy by Default
+- Scalability
+- Long Term Maintainability
 
 ---
 
@@ -49,11 +49,11 @@ Contoh:
 
 Satu data peserta Program dapat digunakan untuk:
 
-* Surat Tugas
-* Sertifikat
-* Arsip
-* Laporan
-* Riwayat Program
+- Surat Tugas
+- Sertifikat
+- Arsip
+- Laporan
+- Riwayat Program
 
 tanpa perlu melakukan input ulang.
 
@@ -131,19 +131,19 @@ Layanan bisnis yang dapat digunakan lintas aplikasi.
 
 Platform dibangun berdasarkan domain berikut.
 
-* Authentication
-* Authorization
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Falak
-* Knowledge
-* Media
-* Notification
-* Settings
+- Authentication
+- Authorization
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Falak
+- Knowledge
+- Media
+- Notification
+- Settings
 
 Seluruh domain dikembangkan secara independen namun dapat saling berintegrasi.
 
@@ -153,11 +153,11 @@ Seluruh domain dikembangkan secara independen namun dapat saling berintegrasi.
 
 Platform memiliki layanan inti.
 
-* Falak Service
-* Certificate Service
-* Notification Service
-* Media Service
-* QR Verification Service
+- Falak Service
+- Certificate Service
+- Notification Service
+- Media Service
+- QR Verification Service
 
 Roadmap berikutnya dapat menambahkan service baru tanpa mengubah fondasi arsitektur.
 
@@ -265,42 +265,42 @@ Tidak diperbolehkan melewati layer.
 
 ## Frontend
 
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
 
 ---
 
 ## Backend
 
-* Next.js Server Actions
-* REST API
-* Prisma ORM
-* PostgreSQL
+- Next.js Server Actions
+- REST API
+- Prisma ORM
+- PostgreSQL
 
 ---
 
 ## Authentication
 
-* Better Auth
+- Better Auth
 
 ---
 
 ## Mobile
 
-* React Native
-* Expo
+- React Native
+- Expo
 
 ---
 
 ## Infrastructure
 
-* Neon PostgreSQL
-* GitHub
-* GitHub Actions
-* Vercel (Tahap Awal)
+- Neon PostgreSQL
+- GitHub
+- GitHub Actions
+- Vercel (Tahap Awal)
 
 ---
 
@@ -363,14 +363,14 @@ Continuous Improvement
 
 Seluruh implementasi wajib memenuhi standar berikut.
 
-* Mengikuti Blueprint.
-* Mengikuti Business Rules.
-* Mengikuti Coding Standards.
-* Menggunakan Repository Pattern.
-* Menggunakan Service Layer.
-* Menggunakan Soft Delete jika relevan.
-* Menggunakan Audit Log untuk aktivitas penting.
-* Memiliki dokumentasi.
+- Mengikuti Blueprint.
+- Mengikuti Business Rules.
+- Mengikuti Coding Standards.
+- Menggunakan Repository Pattern.
+- Menggunakan Service Layer.
+- Menggunakan Soft Delete jika relevan.
+- Menggunakan Audit Log untuk aktivitas penting.
+- Memiliki dokumentasi.
 
 ---
 
@@ -378,14 +378,14 @@ Seluruh implementasi wajib memenuhi standar berikut.
 
 Platform harus memiliki karakteristik berikut.
 
-* Aman.
-* Cepat.
-* Stabil.
-* Mudah dipelihara.
-* Mudah dikembangkan.
-* Siap untuk Mobile.
-* Siap untuk API.
-* Mendukung pertumbuhan organisasi.
+- Aman.
+- Cepat.
+- Stabil.
+- Mudah dipelihara.
+- Mudah dikembangkan.
+- Siap untuk Mobile.
+- Siap untuk API.
+- Mendukung pertumbuhan organisasi.
 
 ---
 
@@ -393,15 +393,15 @@ Platform harus memiliki karakteristik berikut.
 
 Blueprint dirancang agar mampu mendukung:
 
-* Multi Organization
-* Multi Language
-* Multi Region
-* AI Integration
-* Analytics
-* Offline Mobile
-* Object Storage
-* Queue System
-* Real-time Notification
+- Multi Organization
+- Multi Language
+- Multi Region
+- AI Integration
+- Analytics
+- Offline Mobile
+- Object Storage
+- Queue System
+- Real-time Notification
 
 tanpa mengubah fondasi utama.
 
@@ -411,10 +411,10 @@ tanpa mengubah fondasi utama.
 
 Perubahan terhadap Blueprint hanya dapat dilakukan apabila:
 
-* Memiliki alasan bisnis atau teknis yang kuat.
-* Tidak bertentangan dengan Product Vision.
-* Didokumentasikan dengan jelas.
-* Disetujui sebelum implementasi dilakukan.
+- Memiliki alasan bisnis atau teknis yang kuat.
+- Tidak bertentangan dengan Product Vision.
+- Didokumentasikan dengan jelas.
+- Disetujui sebelum implementasi dilakukan.
 
 Blueprint bukan sekadar dokumentasi, melainkan kontrak pengembangan seluruh LIM Digital Platform.
 

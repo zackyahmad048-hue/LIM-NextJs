@@ -32,8 +32,7 @@ Platform mengikuti prinsip berikut:
 
 # High Level Architecture
 
-``
-                    PostgreSQL
+`                    PostgreSQL
                          |
                     Prisma ORM
                          |
@@ -50,8 +49,7 @@ Platform mengikuti prinsip berikut:
             Admin Portal
             Public Website
                  |
-           Mobile (iOS/Android)
-``
+           Mobile (iOS/Android)`
 
 ---
 
@@ -103,8 +101,7 @@ Akses database.
 
 Platform menggunakan pendekatan Domain Driven. Setiap domain memiliki struktur yang konsisten:
 
-``
-[domain]/
+`[domain]/
 +-- index.ts
 +-- application/
 |   +-- [use-case].ts
@@ -112,26 +109,25 @@ Platform menggunakan pendekatan Domain Driven. Setiap domain memiliki struktur y
 |   +-- [domain].repository.ts
 |   +-- [domain].service.ts
 +-- validation/
-    +-- [domain].schema.ts
-``
+    +-- [domain].schema.ts`
 
 ### Domain List
 
-| Domain | Fungsi |
-|--------|--------|
+| Domain         | Fungsi                |
+| -------------- | --------------------- |
 | Authentication | Login, session, token |
-| Authorization | Role, permission |
-| CMS | Content management |
-| Organization | Data organisasi |
-| Program | Program kegiatan |
-| Secretariat | Administrasi |
-| Letter | Persuratan |
-| Certificate | Sertifikat |
-| Knowledge | Pengetahuan |
-| Falak | Kalendar Islam |
-| Media | File management |
-| Notification | Notifikasi |
-| Settings | Pengaturan sistem |
+| Authorization  | Role, permission      |
+| CMS            | Content management    |
+| Organization   | Data organisasi       |
+| Program        | Program kegiatan      |
+| Secretariat    | Administrasi          |
+| Letter         | Persuratan            |
+| Certificate    | Sertifikat            |
+| Knowledge      | Pengetahuan           |
+| Falak          | Kalendar Islam        |
+| Media          | File management       |
+| Notification   | Notifikasi            |
+| Settings       | Pengaturan sistem     |
 
 ---
 
@@ -139,20 +135,19 @@ Platform menggunakan pendekatan Domain Driven. Setiap domain memiliki struktur y
 
 Layanan inti yang digunakan lintas aplikasi:
 
-| Service | Fungsi |
-|---------|--------|
-| Falak Service | Prayer time, Hijri, Qibla |
-| Certificate Service | Generate, verify, publish |
+| Service              | Fungsi                    |
+| -------------------- | ------------------------- |
+| Falak Service        | Prayer time, Hijri, Qibla |
+| Certificate Service  | Generate, verify, publish |
 | Notification Service | Email, push, announcement |
-| Media Service | Upload, image processing |
-| QR Verification | Verifikasi dokumen |
+| Media Service        | Upload, image processing  |
+| QR Verification      | Verifikasi dokumen        |
 
 ---
 
 # Data Flow
 
-``
-User
+`User
   |
 Presentation
   |
@@ -170,18 +165,16 @@ Service
   |
 Response
   |
-Presentation
-``
+Presentation`
 
 ---
 
 # Authentication Flow
 
-``
-User -> Better Auth -> Session -> Authorization -> Application
-``
+`User -> Better Auth -> Session -> Authorization -> Application`
 
 Menggunakan Better Auth untuk:
+
 - User registration
 - Login / Logout
 - Session management
@@ -192,6 +185,7 @@ Menggunakan Better Auth untuk:
 # Integration Principles
 
 Seluruh aplikasi menggunakan:
+
 - Database yang sama.
 - Business Rules yang sama.
 - Permission yang sama.

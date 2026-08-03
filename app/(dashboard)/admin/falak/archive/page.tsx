@@ -35,12 +35,18 @@ export default async function FalakArchivePage() {
           {
             key: "lokasi",
             label: "Lokasi",
-            render: (item) => <span className="text-sm font-medium">{item.locationName}</span>,
+            render: (item) => (
+              <span className="text-sm font-medium">{item.locationName}</span>
+            ),
           },
           {
             key: "tanggal",
             label: "Tanggal",
-            render: (item) => <span className="text-xs">{formatDate(item.observationDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">
+                {formatDate(item.observationDate)}
+              </span>
+            ),
           },
           {
             key: "hasil",
@@ -50,7 +56,11 @@ export default async function FalakArchivePage() {
           {
             key: "cuaca",
             label: "Cuaca",
-            render: (item) => <span className="text-xs text-muted-foreground">{item.weather}</span>,
+            render: (item) => (
+              <span className="text-xs text-muted-foreground">
+                {item.weather}
+              </span>
+            ),
           },
         ]}
         data={archivedRukyat}
@@ -64,12 +74,18 @@ export default async function FalakArchivePage() {
           {
             key: "lokasi",
             label: "Lokasi",
-            render: (item) => <span className="text-sm font-medium">{item.locationName}</span>,
+            render: (item) => (
+              <span className="text-sm font-medium">{item.locationName}</span>
+            ),
           },
           {
             key: "tanggal",
             label: "Tanggal",
-            render: (item) => <span className="text-xs">{formatDate(item.calculationDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">
+                {formatDate(item.calculationDate)}
+              </span>
+            ),
           },
           {
             key: "koordinat",

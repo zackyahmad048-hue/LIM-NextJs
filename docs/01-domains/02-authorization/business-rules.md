@@ -39,12 +39,12 @@ Dokumen ini mendefinisikan aturan bisnis domain Authorization.
 
 ### BR-AUTHZ-004: Default Roles
 
-| Role | Description | Default |
-|------|-------------|---------|
-| super_admin | Akses penuh ke seluruh sistem | Tidak |
-| admin | Akses admin ke sebagian besar fitur | Tidak |
-| editor | Akses pengelolaan konten | Tidak |
-| member | Akses dasar sebagai anggota | Ya (untuk user baru) |
+| Role        | Description                         | Default              |
+| ----------- | ----------------------------------- | -------------------- |
+| super_admin | Akses penuh ke seluruh sistem       | Tidak                |
+| admin       | Akses admin ke sebagian besar fitur | Tidak                |
+| editor      | Akses pengelolaan konten            | Tidak                |
+| member      | Akses dasar sebagai anggota         | Ya (untuk user baru) |
 
 ---
 

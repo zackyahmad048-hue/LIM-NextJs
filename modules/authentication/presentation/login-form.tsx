@@ -10,7 +10,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 import { authClient } from "@/modules/authentication/infrastructure/better-auth-client";
-import { loginSchema, type LoginSchema } from "@/modules/authentication/validators/login.schema";
+import {
+  loginSchema,
+  type LoginSchema,
+} from "@/modules/authentication/validators/login.schema";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,91 +49,91 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label className="mb-1.5 block text-xs font-medium">Email</label>
+      <div>
+        <label className="mb-1.5 block text-xs font-medium">Email</label>
 
-          <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-            <Mail size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
+        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+          <Mail size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
 
-            <input
-              type="email"
-              {...register("email")}
-              placeholder="admin@email.com"
-              className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
-            />
-          </div>
-
-          {errors.email && (
-            <p className="mt-1 text-xs text-destructive">
-              {errors.email.message}
-            </p>
-          )}
+          <input
+            type="email"
+            {...register("email")}
+            placeholder="admin@email.com"
+            className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+          />
         </div>
 
-        <div>
-          <label className="mb-1.5 block text-xs font-medium">Password</label>
+        {errors.email && (
+          <p className="mt-1 text-xs text-destructive">
+            {errors.email.message}
+          </p>
+        )}
+      </div>
 
-          <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-            <Lock size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
+      <div>
+        <label className="mb-1.5 block text-xs font-medium">Password</label>
 
-            <input
-              type={showPassword ? "text" : "password"}
-              {...register("password")}
-              placeholder="********"
-              className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
-            />
+        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+          <Lock size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
 
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="ml-2 rounded-md p-1 text-muted-foreground transition hover:text-primary"
-            >
-              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-            </button>
-          </div>
+          <input
+            type={showPassword ? "text" : "password"}
+            {...register("password")}
+            placeholder="********"
+            className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+          />
 
-          {errors.password && (
-            <p className="mt-1 text-xs text-destructive">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-
-        <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-xs text-muted-foreground">
-            <input type="checkbox" className="rounded border-input" />
-            Ingat Saya
-          </label>
-
-          <Link
-            href="#"
-            className="text-xs font-medium text-primary hover:opacity-80"
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="ml-2 rounded-md p-1 text-muted-foreground transition hover:text-primary"
           >
-            Lupa Password?
-          </Link>
+            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+          </button>
         </div>
 
-        <motion.button
-          whileTap={{ scale: 0.98 }}
-          whileHover={{ scale: 1.01 }}
-          type="submit"
-          disabled={isSubmitting}
-          className="mt-5 flex h-10 w-full items-center justify-center rounded-md bg-orange-500 text-sm font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60"
+        {errors.password && (
+          <p className="mt-1 text-xs text-destructive">
+            {errors.password.message}
+          </p>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between">
+        <label className="flex items-center gap-2 text-xs text-muted-foreground">
+          <input type="checkbox" className="rounded border-input" />
+          Ingat Saya
+        </label>
+
+        <Link
+          href="#"
+          className="text-xs font-medium text-primary hover:opacity-80"
         >
-          {isSubmitting ? (
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                repeat: Infinity,
-                duration: 0.8,
-                ease: "linear",
-              }}
-              className="h-4 w-4 rounded-full border-2 border-white border-t-transparent"
-            />
-          ) : (
-            "Masuk ke Dashboard"
-          )}
-        </motion.button>
-      </form>
+          Lupa Password?
+        </Link>
+      </div>
+
+      <motion.button
+        whileTap={{ scale: 0.98 }}
+        whileHover={{ scale: 1.01 }}
+        type="submit"
+        disabled={isSubmitting}
+        className="mt-5 flex h-10 w-full items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {isSubmitting ? (
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              duration: 0.8,
+              ease: "linear",
+            }}
+            className="h-4 w-4 rounded-full border-2 border-primary-foreground border-t-transparent"
+          />
+        ) : (
+          "Masuk ke Dashboard"
+        )}
+      </motion.button>
+    </form>
   );
 }

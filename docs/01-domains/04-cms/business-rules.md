@@ -32,10 +32,10 @@ Setiap perubahan konten harus tercatat pada Audit Log.
 
 CMS mengelola beberapa jenis konten:
 
-* Post (Artikel/Berita)
-* Page (Halaman Statis)
-* Category
-* Tag
+- Post (Artikel/Berita)
+- Page (Halaman Statis)
+- Category
+- Tag
 
 Jenis konten baru dapat ditambahkan pada versi berikutnya tanpa mengubah struktur utama.
 
@@ -59,9 +59,9 @@ Archived
 
 Keterangan:
 
-* **Draft** : Konten belum dipublikasikan.
-* **Published** : Konten dapat diakses publik.
-* **Archived** : Konten disimpan dan tidak ditampilkan.
+- **Draft** : Konten belum dipublikasikan.
+- **Published** : Konten dapat diakses publik.
+- **Archived** : Konten disimpan dan tidak ditampilkan.
 
 ---
 
@@ -69,10 +69,10 @@ Keterangan:
 
 Konten Draft:
 
-* Tidak tampil di Website.
-* Tidak tampil di Mobile.
-* Masih dapat diedit.
-* Masih dapat dihapus.
+- Tidak tampil di Website.
+- Tidak tampil di Mobile.
+- Masih dapat diedit.
+- Masih dapat dihapus.
 
 ---
 
@@ -80,10 +80,10 @@ Konten Draft:
 
 Konten Published:
 
-* Ditampilkan pada Website.
-* Ditampilkan pada Mobile (jika digunakan).
-* Dapat diperbarui.
-* Perubahan langsung berlaku setelah disimpan.
+- Ditampilkan pada Website.
+- Ditampilkan pada Mobile (jika digunakan).
+- Dapat diperbarui.
+- Perubahan langsung berlaku setelah disimpan.
 
 ---
 
@@ -91,9 +91,9 @@ Konten Published:
 
 Konten Archived:
 
-* Tidak tampil di publik.
-* Tetap tersimpan.
-* Dapat dipublikasikan kembali.
+- Tidak tampil di publik.
+- Tetap tersimpan.
+- Dapat dipublikasikan kembali.
 
 ---
 
@@ -101,10 +101,10 @@ Konten Archived:
 
 Category:
 
-* Wajib memiliki nama.
-* Wajib memiliki slug unik.
-* Tidak boleh memiliki nama yang sama.
-* Dapat digunakan oleh banyak Post.
+- Wajib memiliki nama.
+- Wajib memiliki slug unik.
+- Tidak boleh memiliki nama yang sama.
+- Dapat digunakan oleh banyak Post.
 
 Category yang masih digunakan oleh Post tidak dapat dihapus.
 
@@ -114,9 +114,9 @@ Category yang masih digunakan oleh Post tidak dapat dihapus.
 
 Tag:
 
-* Bersifat opsional.
-* Dapat digunakan oleh banyak Post.
-* Nama Tag harus unik.
+- Bersifat opsional.
+- Dapat digunakan oleh banyak Post.
+- Nama Tag harus unik.
 
 ---
 
@@ -126,11 +126,11 @@ Slug digunakan sebagai URL.
 
 Aturan:
 
-* Unik.
-* Huruf kecil.
-* Menggunakan tanda hubung (-).
-* Tidak menggunakan karakter khusus.
-* Tidak boleh sama dengan slug konten lain pada jenis yang sama.
+- Unik.
+- Huruf kecil.
+- Menggunakan tanda hubung (-).
+- Tidak menggunakan karakter khusus.
+- Tidak boleh sama dengan slug konten lain pada jenis yang sama.
 
 Contoh:
 
@@ -150,9 +150,9 @@ Konten dapat ditandai sebagai Featured.
 
 Aturan:
 
-* Bersifat opsional.
-* Hanya berlaku untuk konten Published.
-* Digunakan pada halaman utama Website.
+- Bersifat opsional.
+- Hanya berlaku untuk konten Published.
+- Digunakan pada halaman utama Website.
 
 ---
 
@@ -160,10 +160,10 @@ Aturan:
 
 Setiap konten dapat memiliki metadata SEO:
 
-* Meta Title
-* Meta Description
-* Meta Keywords
-* Open Graph Image
+- Meta Title
+- Meta Description
+- Meta Keywords
+- Open Graph Image
 
 Seluruh metadata bersifat opsional.
 
@@ -181,10 +181,10 @@ CMS tidak menyimpan file secara langsung.
 
 Konten hanya dapat dipublikasikan apabila:
 
-* Judul tersedia.
-* Slug tersedia.
-* Isi konten tersedia.
-* Status diubah menjadi Published.
+- Judul tersedia.
+- Slug tersedia.
+- Isi konten tersedia.
+- Status diubah menjadi Published.
 
 ---
 
@@ -194,9 +194,9 @@ Penghapusan menggunakan Soft Delete.
 
 Konten yang dihapus:
 
-* Tidak tampil di Website.
-* Tidak tampil di Mobile.
-* Masih dapat dipulihkan.
+- Tidak tampil di Website.
+- Tidak tampil di Mobile.
+- Masih dapat dipulihkan.
 
 ---
 
@@ -204,11 +204,11 @@ Konten yang dihapus:
 
 Pencarian dilakukan berdasarkan:
 
-* Judul
-* Slug
-* Category
-* Tag
-* Status
+- Judul
+- Slug
+- Category
+- Tag
+- Status
 
 ---
 
@@ -216,10 +216,10 @@ Pencarian dilakukan berdasarkan:
 
 Daftar konten dapat diurutkan berdasarkan:
 
-* Tanggal Publikasi
-* Tanggal Dibuat
-* Judul
-* Status
+- Tanggal Publikasi
+- Tanggal Dibuat
+- Judul
+- Status
 
 ---
 
@@ -227,12 +227,12 @@ Daftar konten dapat diurutkan berdasarkan:
 
 Aktivitas berikut wajib dicatat:
 
-* Create Content
-* Update Content
-* Publish Content
-* Archive Content
-* Restore Content
-* Delete Content
+- Create Content
+- Update Content
+- Publish Content
+- Archive Content
+- Restore Content
+- Delete Content
 
 ---
 
@@ -240,10 +240,10 @@ Aktivitas berikut wajib dicatat:
 
 CMS wajib:
 
-* Memeriksa Session.
-* Memeriksa Permission.
-* Memvalidasi seluruh input.
-* Menolak akses tanpa hak.
+- Memeriksa Session.
+- Memeriksa Permission.
+- Memvalidasi seluruh input.
+- Menolak akses tanpa hak.
 
 ---
 
@@ -251,22 +251,22 @@ CMS wajib:
 
 Business Rules CMS dianggap terpenuhi apabila:
 
-* Draft tidak tampil di publik.
-* Published tampil di Website dan Mobile.
-* Archived tidak tampil di publik.
-* Slug selalu unik.
-* Category yang digunakan tidak dapat dihapus.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Draft tidak tampil di publik.
+- Published tampil di Website dan Mobile.
+- Archived tidak tampil di publik.
+- Slug selalu unik.
+- Category yang digunakan tidak dapat dihapus.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

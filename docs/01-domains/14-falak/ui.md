@@ -39,12 +39,12 @@ Falak
 
 Menampilkan:
 
-* Today's Prayer Time
-* Current Hijri Date
-* Upcoming Eclipse
-* Recent Observations
-* Pending Verification
-* Astronomy Summary
+- Today's Prayer Time
+- Current Hijri Date
+- Upcoming Eclipse
+- Recent Observations
+- Pending Verification
+- Astronomy Summary
 
 ---
 
@@ -52,24 +52,24 @@ Menampilkan:
 
 Field:
 
-* Location
-* Date
-* Calculation Method
+- Location
+- Date
+- Calculation Method
 
 Action:
 
-* Calculate
-* Save
-* Export PDF
+- Calculate
+- Save
+- Export PDF
 
 Hasil:
 
-* Fajr
-* Sunrise
-* Dhuhr
-* Asr
-* Maghrib
-* Isha
+- Fajr
+- Sunrise
+- Dhuhr
+- Asr
+- Maghrib
+- Isha
 
 ---
 
@@ -77,19 +77,19 @@ Hasil:
 
 Field:
 
-* Latitude
-* Longitude
+- Latitude
+- Longitude
 
 Action:
 
-* Calculate
-* Show Map
-* Export
+- Calculate
+- Show Map
+- Export
 
 Hasil:
 
-* Qibla Direction (Degree)
-* Compass View
+- Qibla Direction (Degree)
+- Compass View
 
 ---
 
@@ -97,14 +97,14 @@ Hasil:
 
 Field:
 
-* Year
-* Method
+- Year
+- Method
 
 Action:
 
-* Generate
-* Print
-* Export
+- Generate
+- Print
+- Export
 
 ---
 
@@ -112,16 +112,16 @@ Action:
 
 Field:
 
-* Date
-* Location
-* Method
-* Parameters
+- Date
+- Location
+- Method
+- Parameters
 
 Action:
 
-* Calculate
-* Save
-* Generate Report
+- Calculate
+- Save
+- Generate Report
 
 ---
 
@@ -129,18 +129,18 @@ Action:
 
 Kolom:
 
-* Observation Date
-* Location
-* Observer
-* Weather
-* Status
+- Observation Date
+- Location
+- Observer
+- Weather
+- Status
 
 Action:
 
-* Create Observation
-* Verify
-* Confirm
-* Archive
+- Create Observation
+- Verify
+- Confirm
+- Archive
 
 ---
 
@@ -148,16 +148,16 @@ Action:
 
 Kolom:
 
-* Eclipse Type
-* Date
-* Visibility
-* Status
+- Eclipse Type
+- Date
+- Visibility
+- Status
 
 Action:
 
-* Calculate
-* View Detail
-* Export Report
+- Calculate
+- View Detail
+- Export Report
 
 ---
 
@@ -165,17 +165,17 @@ Action:
 
 Jenis laporan:
 
-* Prayer Time Report
-* Hijri Calendar Report
-* Hisab Report
-* Rukyat Report
-* Eclipse Report
+- Prayer Time Report
+- Hijri Calendar Report
+- Hisab Report
+- Rukyat Report
+- Eclipse Report
 
 Action:
 
-* Preview
-* Export PDF
-* Export Excel
+- Preview
+- Export PDF
+- Export Excel
 
 ---
 
@@ -185,56 +185,56 @@ Read Only.
 
 Kolom:
 
-* Observation
-* Archived At
-* Archived By
+- Observation
+- Archived At
+- Archived By
 
 Action:
 
-* View
-* Restore
+- View
+- Restore
 
 ---
 
 # Components
 
-* Data Table
-* Map Viewer
-* Coordinate Picker
-* Calendar
-* Date Picker
-* Chart
-* Search
-* Filter
-* Badge
-* Modal
-* Dialog
-* Toast
-* Export Button
+- Data Table
+- Map Viewer
+- Coordinate Picker
+- Calendar
+- Date Picker
+- Chart
+- Search
+- Filter
+- Badge
+- Modal
+- Dialog
+- Toast
+- Export Button
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Calculating State
-* Error State
+- Empty State
+- Loading State
+- Calculating State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile (Prayer Time, Qibla, Hijri Calendar)
+- Desktop
+- Tablet
+- Mobile (Prayer Time, Qibla, Hijri Calendar)
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Perhitungan dapat dijalankan dari UI.
-* Peta dan arah kiblat ditampilkan dengan jelas.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Perhitungan dapat dijalankan dari UI.
+- Peta dan arah kiblat ditampilkan dengan jelas.
+- Seluruh aksi mengikuti Permission.

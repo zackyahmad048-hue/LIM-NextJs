@@ -174,28 +174,28 @@ notification_template.code
 
 ## Notification
 
-* userId wajib.
-* channel wajib.
-* type wajib.
+- userId wajib.
+- channel wajib.
+- type wajib.
 
 ---
 
 ## Queue
 
-* notificationId wajib.
-* retryCount ≥ 0.
+- notificationId wajib.
+- retryCount ≥ 0.
 
 ---
 
 ## Template
 
-* code wajib unik.
+- code wajib unik.
 
 ---
 
 ## Preference
 
-* userId wajib unik.
+- userId wajib unik.
 
 ---
 
@@ -203,8 +203,8 @@ notification_template.code
 
 Menggunakan Soft Delete:
 
-* notification
-* notification_template
+- notification
+- notification_template
 
 Queue, Delivery, Preference, dan Archive bersifat permanen.
 
@@ -252,11 +252,11 @@ SMS
 
 # Database Rules
 
-* Seluruh notifikasi menggunakan Template.
-* Pengiriman melalui Queue.
-* Riwayat Delivery tidak dihapus.
-* User Preference menentukan channel aktif.
-* Seluruh akses database menggunakan Repository Pattern.
+- Seluruh notifikasi menggunakan Template.
+- Pengiriman melalui Queue.
+- Riwayat Delivery tidak dihapus.
+- User Preference menentukan channel aktif.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -278,21 +278,21 @@ notification_metrics
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Struktur database mendukung seluruh lifecycle notifikasi.
-* Queue dan Delivery terpisah.
-* Preferensi pengguna tersimpan.
-* Riwayat pengiriman permanen.
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh lifecycle notifikasi.
+- Queue dan Delivery terpisah.
+- Preferensi pengguna tersimpan.
+- Riwayat pengiriman permanen.
+- Seluruh akses database menggunakan Repository Pattern.

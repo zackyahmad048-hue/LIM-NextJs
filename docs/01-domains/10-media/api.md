@@ -30,9 +30,9 @@ API Media digunakan untuk mengelola upload, download, preview, folder, thumbnail
 
 Seluruh endpoint Admin memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 File Public hanya dapat diakses apabila status file adalah **Public**.
 
@@ -42,11 +42,11 @@ File Public hanya dapat diakses apabila status file adalah **Public**.
 
 Domain Media terdiri dari:
 
-* Media
-* Folder
-* Thumbnail
-* Reference
-* Archive
+- Media
+- Folder
+- Thumbnail
+- Reference
+- Archive
 
 ---
 
@@ -241,12 +241,12 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan Authentication.
-* Upload wajib melalui validasi file.
-* Thumbnail dibuat otomatis untuk gambar.
-* File tidak dapat dihapus apabila masih memiliki Reference.
-* Delete menggunakan Soft Delete.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan Authentication.
+- Upload wajib melalui validasi file.
+- Thumbnail dibuat otomatis untuk gambar.
+- File tidak dapat dihapus apabila masih memiliki Reference.
+- Delete menggunakan Soft Delete.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -254,11 +254,11 @@ Response gagal
 
 API Media wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi tipe file.
-* Memvalidasi ukuran file.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi tipe file.
+- Memvalidasi ukuran file.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -266,25 +266,25 @@ API Media wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
-* Streaming Download
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
+- Streaming Download
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -292,8 +292,8 @@ Seluruh endpoint mendukung:
 
 API Media dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* Upload dan Download berjalan normal.
-* Thumbnail otomatis dibuat.
-* File yang masih direferensikan tidak dapat dihapus.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Upload dan Download berjalan normal.
+- Thumbnail otomatis dibuat.
+- File yang masih direferensikan tidak dapat dihapus.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

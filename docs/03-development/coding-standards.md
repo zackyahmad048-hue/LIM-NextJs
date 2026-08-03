@@ -22,12 +22,12 @@ Tujuannya adalah menghasilkan kode yang konsisten, mudah dibaca, mudah diuji, da
 
 Seluruh kode harus mengikuti prinsip:
 
-* Readability First
-* Simplicity
-* Maintainability
-* Consistency
-* Testability
-* Security by Default
+- Readability First
+- Simplicity
+- Maintainability
+- Consistency
+- Testability
+- Security by Default
 
 ---
 
@@ -35,12 +35,12 @@ Seluruh kode harus mengikuti prinsip:
 
 Developer wajib menerapkan:
 
-* SOLID
-* DRY (Don't Repeat Yourself)
-* KISS (Keep It Simple)
-* YAGNI (You Aren't Gonna Need It)
-* Separation of Concerns
-* Single Responsibility Principle
+- SOLID
+- DRY (Don't Repeat Yourself)
+- KISS (Keep It Simple)
+- YAGNI (You Aren't Gonna Need It)
+- Separation of Concerns
+- Single Responsibility Principle
 
 ---
 
@@ -68,15 +68,15 @@ Tidak diperbolehkan mencampur banyak tanggung jawab dalam satu file.
 
 Function harus:
 
-* Memiliki satu tanggung jawab.
-* Pendek dan mudah dipahami.
-* Menggunakan nama yang deskriptif.
-* Tidak memiliki efek samping yang tidak jelas.
+- Memiliki satu tanggung jawab.
+- Pendek dan mudah dipahami.
+- Menggunakan nama yang deskriptif.
+- Tidak memiliki efek samping yang tidak jelas.
 
 Rekomendasi:
 
-* Maksimum ±50 baris.
-* Maksimum 3–5 parameter (lebih dari itu gunakan DTO).
+- Maksimum ±50 baris.
+- Maksimum 3–5 parameter (lebih dari itu gunakan DTO).
 
 ---
 
@@ -84,13 +84,13 @@ Rekomendasi:
 
 Class harus:
 
-* Memiliki satu tanggung jawab.
-* Tidak terlalu besar.
-* Mengikuti Single Responsibility Principle.
+- Memiliki satu tanggung jawab.
+- Tidak terlalu besar.
+- Mengikuti Single Responsibility Principle.
 
 Rekomendasi:
 
-* Maksimum ±300 baris.
+- Maksimum ±300 baris.
 
 ---
 
@@ -98,9 +98,9 @@ Rekomendasi:
 
 Method harus:
 
-* Menggunakan kata kerja.
-* Mengembalikan hasil yang jelas.
-* Tidak melakukan banyak pekerjaan sekaligus.
+- Menggunakan kata kerja.
+- Mengembalikan hasil yang jelas.
+- Tidak melakukan banyak pekerjaan sekaligus.
 
 Contoh:
 
@@ -120,9 +120,9 @@ calculatePrayerTime()
 
 Nama variabel harus:
 
-* Jelas.
-* Bermakna.
-* Tidak disingkat kecuali istilah umum.
+- Jelas.
+- Bermakna.
+- Tidak disingkat kecuali istilah umum.
 
 Baik:
 
@@ -152,15 +152,15 @@ obj
 
 Gunakan:
 
-* Custom Exception.
-* Result Pattern.
-* Error Code yang konsisten.
+- Custom Exception.
+- Result Pattern.
+- Error Code yang konsisten.
 
 Jangan menggunakan:
 
-* Silent Error.
-* Empty Catch Block.
-* Magic String.
+- Silent Error.
+- Empty Catch Block.
+- Magic String.
 
 ---
 
@@ -168,17 +168,17 @@ Jangan menggunakan:
 
 Log hanya digunakan untuk:
 
-* Error
-* Warning
-* Audit
-* Monitoring
+- Error
+- Warning
+- Audit
+- Monitoring
 
 Jangan melakukan logging terhadap:
 
-* Password
-* Token
-* Credential
-* Data sensitif
+- Password
+- Token
+- Credential
+- Data sensitif
 
 ---
 
@@ -186,8 +186,8 @@ Jangan melakukan logging terhadap:
 
 Komentar hanya digunakan untuk:
 
-* Menjelaskan alasan (Why).
-* Menjelaskan keputusan desain.
+- Menjelaskan alasan (Why).
+- Menjelaskan keputusan desain.
 
 Hindari komentar yang hanya menjelaskan apa yang sudah terlihat pada kode.
 
@@ -213,9 +213,9 @@ Tidak disarankan:
 
 # Dependency Rules
 
-* Gunakan Dependency Injection.
-* Jangan membuat object menggunakan `new` di dalam Business Logic apabila dapat diinjeksi.
-* Gunakan Interface untuk dependency.
+- Gunakan Dependency Injection.
+- Jangan membuat object menggunakan `new` di dalam Business Logic apabila dapat diinjeksi.
+- Gunakan Interface untuk dependency.
 
 ---
 
@@ -225,30 +225,30 @@ Gunakan formatter yang disepakati tim.
 
 Standar:
 
-* Indent 2 atau 4 spasi (konsisten).
-* Maksimum 120 karakter per baris.
-* Gunakan trailing comma apabila didukung.
-* Import diurutkan secara konsisten.
+- Indent 2 atau 4 spasi (konsisten).
+- Maksimum 120 karakter per baris.
+- Gunakan trailing comma apabila didukung.
+- Import diurutkan secara konsisten.
 
 ---
 
 # Security Rules
 
-* Selalu validasi input.
-* Gunakan parameterized query.
-* Jangan hardcode credential.
-* Jangan menyimpan secret di source code.
-* Gunakan environment variable untuk konfigurasi sensitif.
+- Selalu validasi input.
+- Gunakan parameterized query.
+- Jangan hardcode credential.
+- Jangan menyimpan secret di source code.
+- Gunakan environment variable untuk konfigurasi sensitif.
 
 ---
 
 # Performance Rules
 
-* Hindari N+1 Query.
-* Gunakan pagination.
-* Gunakan lazy loading bila sesuai.
-* Cache hanya jika diperlukan.
-* Optimalkan query database.
+- Hindari N+1 Query.
+- Gunakan pagination.
+- Gunakan lazy loading bila sesuai.
+- Cache hanya jika diperlukan.
+- Optimalkan query database.
 
 ---
 
@@ -256,43 +256,43 @@ Standar:
 
 Harus dihindari:
 
-* Long Method
-* God Class
-* Duplicate Code
-* Deep Nesting
-* Circular Dependency
-* Tight Coupling
-* Primitive Obsession
-* Large Switch Statement
+- Long Method
+- God Class
+- Duplicate Code
+- Deep Nesting
+- Circular Dependency
+- Tight Coupling
+- Primitive Obsession
+- Large Switch Statement
 
 ---
 
 # Required Tools
 
-* Formatter
-* Linter
-* Static Analysis
-* Unit Test
-* Dependency Scanner
+- Formatter
+- Linter
+- Static Analysis
+- Unit Test
+- Dependency Scanner
 
 ---
 
 # Related Documents
 
-* README.md
-* naming-conventions.md
-* git-workflow.md
-* testing-strategy.md
-* branching-strategy.md
-* commit-convention.md
-* code-review.md
+- README.md
+- naming-conventions.md
+- git-workflow.md
+- testing-strategy.md
+- branching-strategy.md
+- commit-convention.md
+- code-review.md
 
 ---
 
 # Acceptance Criteria
 
-* Kode mengikuti Clean Code.
-* Tidak terdapat Code Smell utama.
-* Seluruh Business Logic mudah diuji.
-* Kode konsisten pada seluruh proyek.
-* Coding Standards menjadi acuan wajib seluruh developer.
+- Kode mengikuti Clean Code.
+- Tidak terdapat Code Smell utama.
+- Seluruh Business Logic mudah diuji.
+- Kode konsisten pada seluruh proyek.
+- Coding Standards menjadi acuan wajib seluruh developer.

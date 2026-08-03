@@ -20,10 +20,10 @@ Domain Notification menjadi layanan terpusat untuk mengirim notifikasi kepada pe
 
 # General Rules
 
-* Seluruh notifikasi dikirim melalui Domain Notification.
-* Setiap notifikasi memiliki ID unik.
-* Seluruh aktivitas pengiriman dicatat pada Audit Log.
-* Notifikasi dikirim sesuai preferensi pengguna.
+- Seluruh notifikasi dikirim melalui Domain Notification.
+- Setiap notifikasi memiliki ID unik.
+- Seluruh aktivitas pengiriman dicatat pada Audit Log.
+- Notifikasi dikirim sesuai preferensi pengguna.
 
 ---
 
@@ -31,11 +31,11 @@ Domain Notification menjadi layanan terpusat untuk mengirim notifikasi kepada pe
 
 Kanal yang didukung:
 
-* In-App
-* Email
-* WhatsApp
-* Push Notification
-* SMS
+- In-App
+- Email
+- WhatsApp
+- Push Notification
+- SMS
 
 Channel dapat diaktifkan atau dinonaktifkan melalui konfigurasi sistem.
 
@@ -45,14 +45,14 @@ Channel dapat diaktifkan atau dinonaktifkan melalui konfigurasi sistem.
 
 Jenis notifikasi meliputi:
 
-* System Notification
-* Program Notification
-* Letter Notification
-* Certificate Notification
-* Reminder
-* Announcement
-* Warning
-* Information
+- System Notification
+- Program Notification
+- Letter Notification
+- Certificate Notification
+- Reminder
+- Announcement
+- Warning
+- Information
 
 ---
 
@@ -62,11 +62,11 @@ Seluruh notifikasi menggunakan Template.
 
 Template terdiri dari:
 
-* Title
-* Subject
-* Message
-* Variables
-* Channel
+- Title
+- Subject
+- Message
+- Variables
+- Channel
 
 ---
 
@@ -108,10 +108,10 @@ Apabila pengiriman gagal, sistem dapat melakukan retry sesuai konfigurasi.
 
 Pengguna dapat mengatur:
 
-* Enable/Disable Email
-* Enable/Disable WhatsApp
-* Enable/Disable Push Notification
-* Enable/Disable SMS
+- Enable/Disable Email
+- Enable/Disable WhatsApp
+- Enable/Disable Push Notification
+- Enable/Disable SMS
 
 Notifikasi In-App selalu tersedia.
 
@@ -121,8 +121,8 @@ Notifikasi In-App selalu tersedia.
 
 Notifikasi In-App memiliki status:
 
-* Unread
-* Read
+- Unread
+- Read
 
 Waktu membaca dicatat oleh sistem.
 
@@ -142,8 +142,8 @@ Riwayat notifikasi dapat diarsipkan.
 
 Data arsip:
 
-* Read Only.
-* Tetap dapat dicari.
+- Read Only.
+- Tetap dapat dicari.
 
 ---
 
@@ -159,22 +159,22 @@ Riwayat pengiriman tidak boleh dihapus permanen tanpa hak khusus.
 
 Aktivitas berikut wajib dicatat:
 
-* Create Notification
-* Queue Notification
-* Send Notification
-* Retry Notification
-* Read Notification
-* Archive Notification
-* Delete Notification
+- Create Notification
+- Queue Notification
+- Send Notification
+- Retry Notification
+- Read Notification
+- Archive Notification
+- Delete Notification
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* Data penerima tidak boleh diakses oleh pihak yang tidak berwenang.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Authentication wajib.
+- Permission wajib.
+- Data penerima tidak boleh diakses oleh pihak yang tidak berwenang.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -182,21 +182,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Seluruh notifikasi melalui Queue.
-* Pengiriman mengikuti preferensi pengguna.
-* Riwayat pengiriman tersedia.
-* Retry berjalan sesuai konfigurasi.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Seluruh notifikasi melalui Queue.
+- Pengiriman mengikuti preferensi pengguna.
+- Riwayat pengiriman tersedia.
+- Retry berjalan sesuai konfigurasi.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

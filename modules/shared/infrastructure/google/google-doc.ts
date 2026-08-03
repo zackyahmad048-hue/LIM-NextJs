@@ -7,11 +7,15 @@ export interface GoogleDocResult {
   url: string;
 }
 
-function collectText(elements: docs_v1.Schema$StructuralElement[] | undefined, out: string[] = []): string {
+function collectText(
+  elements: docs_v1.Schema$StructuralElement[] | undefined,
+  out: string[] = [],
+): string {
   for (const element of elements ?? []) {
     if (element.paragraph?.elements) {
       for (const elementChild of element.paragraph.elements) {
-        if (elementChild.textRun?.content) out.push(elementChild.textRun.content);
+        if (elementChild.textRun?.content)
+          out.push(elementChild.textRun.content);
       }
     }
     for (const tableRow of element.table?.tableRows ?? []) {
@@ -23,7 +27,9 @@ function collectText(elements: docs_v1.Schema$StructuralElement[] | undefined, o
   return out.join("");
 }
 
-export function extractPlaceholders(document: docs_v1.Schema$Document): string[] {
+export function extractPlaceholders(
+  document: docs_v1.Schema$Document,
+): string[] {
   const text = collectText(document.body?.content);
   const keys = new Set<string>();
   for (const match of text.matchAll(/\{\{([A-Za-z0-9_]+)\}\}/g)) {
@@ -39,7 +45,7 @@ export function extractPlaceholders(document: docs_v1.Schema$Document): string[]
 export async function createDocumentFromTemplate(
   templateId: string,
   values: Record<string, string>,
-  name: string
+  name: string,
 ): Promise<GoogleDocResult> {
   const { drive, docs } = getGoogleClients();
 
@@ -47,7 +53,7 @@ export async function createDocumentFromTemplate(
     drive.files.copy({
       fileId: templateId,
       requestBody: { name },
-    })
+    }),
   );
 
   const documentId = copyRes.data.id;
@@ -55,7 +61,9 @@ export async function createDocumentFromTemplate(
     throw new GoogleApiError("UNKNOWN", "Gagal membuat dokumen dari template.");
   }
 
-  const docRes = await withGoogleRetry(() => docs.documents.get({ documentId }));
+  const docRes = await withGoogleRetry(() =>
+    docs.documents.get({ documentId }),
+  );
   const requests: docs_v1.Schema$Request[] = [];
 
   for (const key of extractPlaceholders(docRes.data)) {
@@ -75,7 +83,7 @@ export async function createDocumentFromTemplate(
         docs.documents.batchUpdate({
           documentId,
           requestBody: { requests },
-        })
+        }),
       );
     } catch (e) {
       const err = mapGoogleError(e);
@@ -83,5 +91,8 @@ export async function createDocumentFromTemplate(
     }
   }
 
-  return { id: documentId, url: `https://docs.google.com/document/d/${documentId}/edit` };
+  return {
+    id: documentId,
+    url: `https://docs.google.com/document/d/${documentId}/edit`,
+  };
 }

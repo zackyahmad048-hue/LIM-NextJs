@@ -36,13 +36,13 @@ Media
 
 Menampilkan:
 
-* Total Files
-* Total Storage
-* Images
-* Documents
-* Videos
-* Recent Uploads
-* Storage Usage
+- Total Files
+- Total Storage
+- Images
+- Documents
+- Videos
+- Recent Uploads
+- Storage Usage
 
 ---
 
@@ -52,29 +52,29 @@ Menampilkan:
 
 Kolom:
 
-* Preview
-* File Name
-* Type
-* Size
-* Folder
-* Uploaded By
-* Uploaded At
-* Status
+- Preview
+- File Name
+- Type
+- Size
+- Folder
+- Uploaded By
+- Uploaded At
+- Status
 
 Action:
 
-* Preview
-* Download
-* Edit
-* Archive
-* Delete
+- Preview
+- Download
+- Edit
+- Archive
+- Delete
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
+- Search
+- Filter
+- Sorting
+- Pagination
 
 ---
 
@@ -94,8 +94,8 @@ Tags
 
 Action:
 
-* Upload
-* Cancel
+- Upload
+- Cancel
 
 ---
 
@@ -103,15 +103,15 @@ Action:
 
 Kolom:
 
-* Folder Name
-* Parent Folder
-* Total Files
+- Folder Name
+- Parent Folder
+- Total Files
 
 Action:
 
-* Create
-* Rename
-* Delete
+- Create
+- Rename
+- Delete
 
 ---
 
@@ -119,9 +119,9 @@ Action:
 
 Mendukung:
 
-* Image Preview
-* PDF Preview
-* Video Preview
+- Image Preview
+- PDF Preview
+- Video Preview
 
 File lain menggunakan Download.
 
@@ -133,30 +133,30 @@ Read Only.
 
 Kolom:
 
-* File Name
-* Archived At
-* Archived By
+- File Name
+- Archived At
+- Archived By
 
 Action:
 
-* View
-* Restore
+- View
+- Restore
 
 ---
 
 # Components
 
-* Data Table
-* File Upload
-* Drag & Drop Upload
-* Search
-* Filter
-* Pagination
-* Thumbnail Grid
-* Modal
-* Dialog
-* Toast
-* Progress Bar
+- Data Table
+- File Upload
+- Drag & Drop Upload
+- Search
+- Filter
+- Pagination
+- Thumbnail Grid
+- Modal
+- Dialog
+- Toast
+- Progress Bar
 
 ---
 
@@ -164,34 +164,34 @@ Action:
 
 Menampilkan:
 
-* Progress Upload
-* File Size
-* Upload Speed
-* Upload Status
+- Progress Upload
+- File Size
+- Upload Speed
+- Upload Status
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Uploading State
-* Error State
+- Empty State
+- Loading State
+- Uploading State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile
+- Desktop
+- Tablet
+- Mobile
 
 ---
 
 # Acceptance Criteria
 
-* Upload berjalan dengan Progress Bar.
-* Preview tersedia untuk file yang didukung.
-* UI responsif.
-* Mengikuti Design System.
-* Seluruh aksi mengikuti Permission.
+- Upload berjalan dengan Progress Bar.
+- Preview tersedia untuk file yang didukung.
+- UI responsif.
+- Mengikuti Design System.
+- Seluruh aksi mengikuti Permission.

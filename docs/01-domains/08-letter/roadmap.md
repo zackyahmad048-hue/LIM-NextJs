@@ -18,14 +18,14 @@ Menjadi sistem pengelolaan surat digital yang terintegrasi, aman, dan terdokumen
 
 # Version 1.0
 
-* Letter Management
-* Template Management
-* Auto Numbering
-* Approval Workflow
-* Digital Signature
-* Distribution
-* Archive
-* Audit Log
+- Letter Management
+- Template Management
+- Auto Numbering
+- Approval Workflow
+- Digital Signature
+- Distribution
+- Archive
+- Audit Log
 
 ✅ Initial Release
 
@@ -33,61 +33,61 @@ Menjadi sistem pengelolaan surat digital yang terintegrasi, aman, dan terdokumen
 
 # Version 1.1
 
-* QR Verification
-* Email Delivery
-* WhatsApp Delivery
-* Multiple Signers
-* Letter Tracking
+- QR Verification
+- Email Delivery
+- WhatsApp Delivery
+- Multiple Signers
+- Letter Tracking
 
 ---
 
 # Version 1.2
 
-* Template Builder
-* Version History
-* Digital Stamp
-* Scheduled Delivery
-* Batch Distribution
+- Template Builder
+- Version History
+- Digital Stamp
+- Scheduled Delivery
+- Batch Distribution
 
 ---
 
 # Version 2.0
 
-* Paperless Office
-* E-Sign Integration
-* OCR Letter
-* Smart Archive
-* Public Verification Portal
+- Paperless Office
+- E-Sign Integration
+- OCR Letter
+- Smart Archive
+- Public Verification Portal
 
 ---
 
 # Version 3.0
 
-* AI Letter Generator
-* AI Grammar Check
-* AI Approval Assistant
-* AI Classification
-* AI Smart Search
+- AI Letter Generator
+- AI Grammar Check
+- AI Approval Assistant
+- AI Classification
+- AI Smart Search
 
 ---
 
 # Dependencies
 
-* Secretariat
-* Organization
-* Media
-* Notification
-* Knowledge
+- Secretariat
+- Organization
+- Media
+- Notification
+- Knowledge
 
 ---
 
 # Success Indicators
 
-* Surat dibuat secara digital.
-* Nomor surat otomatis.
-* Persetujuan terdokumentasi.
-* Distribusi terlacak.
-* Arsip mudah dicari.
+- Surat dibuat secara digital.
+- Nomor surat otomatis.
+- Persetujuan terdokumentasi.
+- Distribusi terlacak.
+- Arsip mudah dicari.
 
 ---
 

@@ -52,10 +52,10 @@ Digunakan oleh Developer.
 
 Karakteristik:
 
-* Docker Compose
-* Debug Enabled
-* Mock Service diperbolehkan
-* Database lokal
+- Docker Compose
+- Debug Enabled
+- Mock Service diperbolehkan
+- Database lokal
 
 ---
 
@@ -65,10 +65,10 @@ Digunakan untuk integrasi antar developer.
 
 Karakteristik:
 
-* Shared Database
-* Internal Access
-* Debug terbatas
-* Data non-produksi
+- Shared Database
+- Internal Access
+- Debug terbatas
+- Data non-produksi
 
 ---
 
@@ -76,9 +76,9 @@ Karakteristik:
 
 Digunakan untuk:
 
-* QA
-* Integration Test
-* Automated Testing
+- QA
+- Integration Test
+- Automated Testing
 
 Data dapat di-reset kapan saja.
 
@@ -90,9 +90,9 @@ Menyerupai Production.
 
 Digunakan untuk:
 
-* User Acceptance Test (UAT)
-* Performance Test
-* Final Validation
+- User Acceptance Test (UAT)
+- Performance Test
+- Final Validation
 
 Konfigurasi harus semirip mungkin dengan Production.
 
@@ -104,11 +104,11 @@ Digunakan oleh pengguna akhir.
 
 Karakteristik:
 
-* High Availability
-* HTTPS Only
-* Monitoring aktif
-* Backup otomatis
-* Audit Log aktif
+- High Availability
+- HTTPS Only
+- Monitoring aktif
+- Backup otomatis
+- Audit Log aktif
 
 ---
 
@@ -196,20 +196,20 @@ FIREBASE_PROJECT_ID
 
 # Security Rules
 
-* Secret tidak boleh disimpan di repository.
-* Gunakan `.env` atau Secret Manager.
-* Password wajib dienkripsi.
-* Production menggunakan Secret Management.
-* Setiap environment memiliki secret yang berbeda.
+- Secret tidak boleh disimpan di repository.
+- Gunakan `.env` atau Secret Manager.
+- Password wajib dienkripsi.
+- Production menggunakan Secret Management.
+- Setiap environment memiliki secret yang berbeda.
 
 ---
 
 # Configuration Rules
 
-* Tidak boleh melakukan hardcode konfigurasi.
-* Seluruh konfigurasi dibaca dari Environment Variable.
-* Default Value hanya digunakan untuk Local Development.
-* Perubahan konfigurasi Production harus melalui proses persetujuan.
+- Tidak boleh melakukan hardcode konfigurasi.
+- Seluruh konfigurasi dibaca dari Environment Variable.
+- Default Value hanya digunakan untuk Local Development.
+- Perubahan konfigurasi Production harus melalui proses persetujuan.
 
 ---
 
@@ -257,30 +257,30 @@ Runtime
 
 # Best Practices
 
-* Gunakan `.env.example` sebagai template.
-* Pisahkan konfigurasi per environment.
-* Rotasi secret secara berkala.
-* Dokumentasikan seluruh Environment Variable.
-* Validasi konfigurasi saat aplikasi dijalankan.
+- Gunakan `.env.example` sebagai template.
+- Pisahkan konfigurasi per environment.
+- Rotasi secret secara berkala.
+- Dokumentasikan seluruh Environment Variable.
+- Validasi konfigurasi saat aplikasi dijalankan.
 
 ---
 
 # Related Documents
 
-* README.md
-* docker.md
-* ci-cd.md
-* server.md
-* backup.md
-* monitoring.md
-* security.md
+- README.md
+- docker.md
+- ci-cd.md
+- server.md
+- backup.md
+- monitoring.md
+- security.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh konfigurasi menggunakan Environment Variable.
-* Tidak ada secret yang tersimpan di repository.
-* Setiap environment memiliki konfigurasi terpisah.
-* Production menggunakan Secret Management.
-* Konfigurasi terdokumentasi dengan lengkap.
+- Seluruh konfigurasi menggunakan Environment Variable.
+- Tidak ada secret yang tersimpan di repository.
+- Setiap environment memiliki konfigurasi terpisah.
+- Production menggunakan Secret Management.
+- Konfigurasi terdokumentasi dengan lengkap.

@@ -16,11 +16,11 @@ Dokumen ini mendefinisikan standar penulisan commit pada LIM Digital Platform.
 
 Commit yang konsisten memudahkan:
 
-* Code Review
-* Release Management
-* Changelog Generation
-* Debugging
-* Kolaborasi Tim
+- Code Review
+- Release Management
+- Changelog Generation
+- Debugging
+- Kolaborasi Tim
 
 LIM Digital Platform menggunakan standar **Conventional Commits**.
 
@@ -96,10 +96,10 @@ docs
 
 Description harus:
 
-* Menggunakan bahasa Inggris.
-* Ditulis dalam **imperative mood**.
-* Huruf kecil di awal.
-* Tidak diakhiri tanda titik.
+- Menggunakan bahasa Inggris.
+- Ditulis dalam **imperative mood**.
+- Huruf kecil di awal.
+- Tidak diakhiri tanda titik.
 
 Baik:
 
@@ -182,9 +182,9 @@ feat: update program, fix auth, edit ui, update docs
 
 Developer disarankan:
 
-* Commit kecil dan sering.
-* Jangan menunggu pekerjaan selesai seluruhnya.
-* Hindari commit yang terlalu besar.
+- Commit kecil dan sering.
+- Jangan menunggu pekerjaan selesai seluruhnya.
+- Hindari commit yang terlalu besar.
 
 ---
 
@@ -240,41 +240,41 @@ Conventional Commit memungkinkan pembuatan changelog otomatis.
 
 Contoh kategori:
 
-* Features
-* Bug Fixes
-* Documentation
-* Performance
-* Refactoring
-* Breaking Changes
+- Features
+- Bug Fixes
+- Documentation
+- Performance
+- Refactoring
+- Breaking Changes
 
 ---
 
 # Best Practices
 
-* Gunakan satu commit untuk satu perubahan logis.
-* Pastikan proyek dapat di-build setelah setiap commit.
-* Jalankan formatter dan test sebelum commit.
-* Hindari commit hasil merge yang tidak perlu.
-* Tulis pesan commit yang mudah dipahami oleh seluruh tim.
+- Gunakan satu commit untuk satu perubahan logis.
+- Pastikan proyek dapat di-build setelah setiap commit.
+- Jalankan formatter dan test sebelum commit.
+- Hindari commit hasil merge yang tidak perlu.
+- Tulis pesan commit yang mudah dipahami oleh seluruh tim.
 
 ---
 
 # Related Documents
 
-* README.md
-* coding-standards.md
-* naming-conventions.md
-* git-workflow.md
-* testing-strategy.md
-* branching-strategy.md
-* code-review.md
+- README.md
+- coding-standards.md
+- naming-conventions.md
+- git-workflow.md
+- testing-strategy.md
+- branching-strategy.md
+- code-review.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh commit mengikuti Conventional Commits.
-* Scope sesuai dengan modul yang diubah.
-* Commit bersifat atomic.
-* Commit message konsisten dan mudah dipahami.
-* Commit Convention menjadi standar resmi proyek.
+- Seluruh commit mengikuti Conventional Commits.
+- Scope sesuai dengan modul yang diubah.
+- Commit bersifat atomic.
+- Commit message konsisten dan mudah dipahami.
+- Commit Convention menjadi standar resmi proyek.

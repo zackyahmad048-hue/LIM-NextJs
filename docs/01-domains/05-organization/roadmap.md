@@ -32,18 +32,18 @@ Target implementasi awal.
 
 ## Features
 
-* Organization Profile
-* Region Management
-* Branch Management
-* Department Management
-* Position Management
-* Management Period
-* Management Assignment
-* Search
-* Filter
-* Pagination
-* Soft Delete
-* Audit Log
+- Organization Profile
+- Region Management
+- Branch Management
+- Department Management
+- Position Management
+- Management Period
+- Management Assignment
+- Search
+- Filter
+- Pagination
+- Soft Delete
+- Audit Log
 
 **Status**
 
@@ -57,13 +57,13 @@ Pengembangan berikutnya.
 
 ## Features
 
-* Organizational Structure Tree
-* Branch Code Generator
-* Organization Statistics
-* Organization Dashboard
-* Organization Settings
-* Import Organization Data
-* Export Organization Data
+- Organizational Structure Tree
+- Branch Code Generator
+- Organization Statistics
+- Organization Dashboard
+- Organization Settings
+- Import Organization Data
+- Export Organization Data
 
 ---
 
@@ -73,12 +73,12 @@ Peningkatan operasional.
 
 ## Features
 
-* Multi Organization
-* Branch Hierarchy
-* Department Hierarchy
-* Position Template
-* Organizational Chart
-* Management History
+- Multi Organization
+- Branch Hierarchy
+- Department Hierarchy
+- Position Template
+- Organizational Chart
+- Management History
 
 ---
 
@@ -88,12 +88,12 @@ Transformasi digital organisasi.
 
 ## Features
 
-* Digital Organization Directory
-* Organization API Gateway
-* QR Organization Profile
-* Organization Timeline
-* Organization Analytics
-* Organization Performance Dashboard
+- Digital Organization Directory
+- Organization API Gateway
+- QR Organization Profile
+- Organization Timeline
+- Organization Analytics
+- Organization Performance Dashboard
 
 ---
 
@@ -103,11 +103,11 @@ Integrasi dan otomatisasi.
 
 ## Features
 
-* AI Organization Assistant
-* AI Organization Recommendation
-* Organization Synchronization
-* External Organization Integration
-* Auto Organizational Mapping
+- AI Organization Assistant
+- AI Organization Recommendation
+- Organization Synchronization
+- External Organization Integration
+- Auto Organizational Mapping
 
 ---
 
@@ -115,14 +115,14 @@ Integrasi dan otomatisasi.
 
 Domain Organization menjadi fondasi bagi:
 
-* Dashboard
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Notification
-* Knowledge
-* Settings
+- Dashboard
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Notification
+- Knowledge
+- Settings
 
 Perubahan struktur Organization harus mempertimbangkan dampaknya terhadap seluruh domain tersebut.
 
@@ -132,11 +132,11 @@ Perubahan struktur Organization harus mempertimbangkan dampaknya terhadap seluru
 
 Domain Organization dianggap berhasil apabila:
 
-* Struktur organisasi dapat dikelola dengan mudah.
-* Data organisasi digunakan oleh seluruh domain tanpa duplikasi.
-* Hanya terdapat satu sumber data organisasi.
-* Pengurus dapat dikelola berdasarkan periode.
-* Struktur organisasi mudah dikembangkan sesuai kebutuhan.
+- Struktur organisasi dapat dikelola dengan mudah.
+- Data organisasi digunakan oleh seluruh domain tanpa duplikasi.
+- Hanya terdapat satu sumber data organisasi.
+- Pengurus dapat dikelola berdasarkan periode.
+- Struktur organisasi mudah dikembangkan sesuai kebutuhan.
 
 ---
 
@@ -144,11 +144,11 @@ Domain Organization dianggap berhasil apabila:
 
 Integrasi yang direncanakan:
 
-* SSO User Organization
-* HR Information System
-* Digital Member System
-* GIS / Peta Cabang
-* Public Organization Directory
+- SSO User Organization
+- HR Information System
+- Digital Member System
+- GIS / Peta Cabang
+- Public Organization Directory
 
 ---
 
@@ -156,24 +156,24 @@ Integrasi yang direncanakan:
 
 Evaluasi dilakukan pada setiap rilis untuk:
 
-* Penambahan struktur organisasi.
-* Perubahan hierarki.
-* Optimasi performa query.
-* Penyempurnaan UI/UX.
-* Penyesuaian Business Rules.
+- Penambahan struktur organisasi.
+- Perubahan hierarki.
+- Optimasi performa query.
+- Penyempurnaan UI/UX.
+- Penyesuaian Business Rules.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
 
 ---
 

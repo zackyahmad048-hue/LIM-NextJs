@@ -24,12 +24,12 @@ Dokumen ini berlaku untuk seluruh environment yang digunakan dalam pengembangan 
 
 Seluruh deployment mengikuti prinsip berikut:
 
-* Automation First
-* Zero Manual Configuration
-* Environment Isolation
-* Security First
-* Rollback Ready
-* Repeatable Deployment
+- Automation First
+- Zero Manual Configuration
+- Environment Isolation
+- Security First
+- Rollback Ready
+- Repeatable Deployment
 
 ---
 
@@ -43,10 +43,10 @@ Digunakan oleh developer untuk pengembangan lokal.
 
 Karakteristik:
 
-* Debug aktif.
-* Data dummy diperbolehkan.
-* Migration dan Seeder dapat dijalankan.
-* Tidak digunakan untuk produksi.
+- Debug aktif.
+- Data dummy diperbolehkan.
+- Migration dan Seeder dapat dijalankan.
+- Tidak digunakan untuk produksi.
 
 ---
 
@@ -54,15 +54,15 @@ Karakteristik:
 
 Digunakan untuk:
 
-* Quality Assurance
-* User Acceptance Testing
-* Validasi Release
+- Quality Assurance
+- User Acceptance Testing
+- Validasi Release
 
 Karakteristik:
 
-* Menyerupai Production.
-* Database terpisah.
-* Konfigurasi hampir identik dengan Production.
+- Menyerupai Production.
+- Database terpisah.
+- Konfigurasi hampir identik dengan Production.
 
 ---
 
@@ -72,11 +72,11 @@ Digunakan oleh pengguna akhir.
 
 Karakteristik:
 
-* Stabil.
-* Aman.
-* Monitoring aktif.
-* Backup aktif.
-* Logging aktif.
+- Stabil.
+- Aman.
+- Monitoring aktif.
+- Backup aktif.
+- Logging aktif.
 
 ---
 
@@ -86,28 +86,28 @@ Platform menggunakan:
 
 ## Source Code
 
-* GitHub Repository
+- GitHub Repository
 
 ## Database
 
-* PostgreSQL
-* Neon Database (Tahap Awal)
+- PostgreSQL
+- Neon Database (Tahap Awal)
 
 ## Authentication
 
-* Better Auth
+- Better Auth
 
 ## Hosting
 
 Tahap awal:
 
-* Vercel
+- Vercel
 
 Roadmap:
 
-* VPS
-* Docker
-* Kubernetes (jika diperlukan)
+- VPS
+- Docker
+- Kubernetes (jika diperlukan)
 
 ---
 
@@ -179,11 +179,11 @@ Deployment hanya dilakukan setelah seluruh tahapan berhasil.
 
 Setiap Pull Request wajib menjalankan:
 
-* Install Dependency
-* Type Check
-* Lint
-* Build
-* Test (jika tersedia)
+- Install Dependency
+- Type Check
+- Lint
+- Build
+- Test (jika tersedia)
 
 Apabila salah satu gagal, proses merge dihentikan.
 
@@ -233,8 +233,8 @@ Migration manual pada Production tidak diperbolehkan.
 
 Seeder hanya digunakan untuk:
 
-* Development
-* Testing
+- Development
+- Testing
 
 Seeder tidak dijalankan secara otomatis pada Production.
 
@@ -244,9 +244,9 @@ Seeder tidak dijalankan secara otomatis pada Production.
 
 Backup database dilakukan secara berkala:
 
-* Harian
-* Mingguan
-* Bulanan
+- Harian
+- Mingguan
+- Bulanan
 
 Backup harus dapat dipulihkan melalui proses restore.
 
@@ -264,11 +264,11 @@ Setiap proses restore harus dicatat dalam Audit Log operasional.
 
 Setelah deployment, sistem wajib diperiksa:
 
-* Aplikasi berjalan.
-* Database terhubung.
-* Authentication berfungsi.
-* API dapat diakses.
-* Error Log tidak menunjukkan masalah kritis.
+- Aplikasi berjalan.
+- Database terhubung.
+- Authentication berfungsi.
+- API dapat diakses.
+- Error Log tidak menunjukkan masalah kritis.
 
 ---
 
@@ -278,11 +278,11 @@ Production wajib dipantau.
 
 Minimal meliputi:
 
-* Uptime
-* Error Rate
-* Response Time
-* Database Connection
-* Storage Usage
+- Uptime
+- Error Rate
+- Response Time
+- Database Connection
+- Storage Usage
 
 ---
 
@@ -290,11 +290,11 @@ Minimal meliputi:
 
 Deployment menghasilkan log yang memuat:
 
-* Waktu deployment.
-* Versi aplikasi.
-* Commit yang dirilis.
-* Status deployment.
-* Hasil Health Check.
+- Waktu deployment.
+- Versi aplikasi.
+- Commit yang dirilis.
+- Status deployment.
+- Hasil Health Check.
 
 ---
 
@@ -342,11 +342,11 @@ Deployment langsung dari Development ke Production tidak diperbolehkan.
 
 Deployment harus memastikan:
 
-* HTTPS aktif.
-* Environment Variables lengkap.
-* Secret tidak tercetak pada log.
-* Database menggunakan koneksi terenkripsi.
-* Hak akses deployment dibatasi.
+- HTTPS aktif.
+- Environment Variables lengkap.
+- Secret tidak tercetak pada log.
+- Database menggunakan koneksi terenkripsi.
+- Hak akses deployment dibatasi.
 
 ---
 
@@ -356,13 +356,13 @@ Media dan dokumen tidak disimpan di dalam source code.
 
 Tahap awal:
 
-* Local Storage
+- Local Storage
 
 Roadmap:
 
-* Cloudflare R2
-* Amazon S3
-* Google Cloud Storage
+- Cloudflare R2
+- Amazon S3
+- Google Cloud Storage
 
 ---
 
@@ -370,14 +370,14 @@ Roadmap:
 
 Android:
 
-* Internal Testing
-* Closed Testing
-* Google Play
+- Internal Testing
+- Closed Testing
+- Google Play
 
 iOS:
 
-* TestFlight
-* App Store
+- TestFlight
+- App Store
 
 ---
 
@@ -385,11 +385,11 @@ iOS:
 
 Setiap release wajib memiliki Release Notes yang memuat:
 
-* Fitur baru.
-* Perbaikan bug.
-* Perubahan penting.
-* Migration (jika ada).
-* Catatan kompatibilitas.
+- Fitur baru.
+- Perbaikan bug.
+- Perubahan penting.
+- Migration (jika ada).
+- Catatan kompatibilitas.
 
 ---
 
@@ -399,11 +399,11 @@ Platform harus memiliki rencana pemulihan apabila terjadi kegagalan.
 
 Minimal meliputi:
 
-* Backup Database
-* Restore Database
-* Source Code Repository
-* Deployment Procedure
-* Dokumentasi Operasional
+- Backup Database
+- Restore Database
+- Source Code Repository
+- Deployment Procedure
+- Dokumentasi Operasional
 
 ---
 

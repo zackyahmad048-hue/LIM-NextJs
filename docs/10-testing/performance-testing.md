@@ -24,11 +24,11 @@ Performance Testing bertujuan memastikan sistem mampu menangani beban operasiona
 
 Performance Testing bertujuan untuk:
 
-* Mengukur performa aplikasi.
-* Mengidentifikasi bottleneck.
-* Memastikan skalabilitas sistem.
-* Memvalidasi kapasitas infrastruktur.
-* Mendukung High Availability.
+- Mengukur performa aplikasi.
+- Mengidentifikasi bottleneck.
+- Memastikan skalabilitas sistem.
+- Memvalidasi kapasitas infrastruktur.
+- Mendukung High Availability.
 
 ---
 
@@ -36,13 +36,13 @@ Performance Testing bertujuan untuk:
 
 Pengujian mencakup:
 
-* Backend API
-* Frontend
-* Database
-* Redis
-* Object Storage
-* Queue Worker
-* Background Job
+- Backend API
+- Frontend
+- Database
+- Redis
+- Object Storage
+- Queue Worker
+- Background Job
 
 ---
 
@@ -80,9 +80,9 @@ Menguji lonjakan trafik secara tiba-tiba.
 
 Contoh:
 
-* Registrasi Program dibuka.
-* Pengumuman Sertifikat.
-* Login massal.
+- Registrasi Program dibuka.
+- Pengumuman Sertifikat.
+- Login massal.
 
 ---
 
@@ -92,7 +92,7 @@ Menguji kestabilan sistem dalam jangka waktu panjang.
 
 Contoh:
 
-* Pengujian selama 24–72 jam.
+- Pengujian selama 24–72 jam.
 
 ---
 
@@ -106,13 +106,13 @@ Menguji kemampuan sistem ketika jumlah pengguna atau resource bertambah.
 
 Skenario utama:
 
-* Login bersamaan.
-* Registrasi Program massal.
-* Download Sertifikat bersamaan.
-* Upload Media bersamaan.
-* Pencarian Knowledge.
-* Dashboard Statistics.
-* Notification Queue.
+- Login bersamaan.
+- Registrasi Program massal.
+- Download Sertifikat bersamaan.
+- Upload Media bersamaan.
+- Pencarian Knowledge.
+- Dashboard Statistics.
+- Notification Queue.
 
 ---
 
@@ -120,15 +120,15 @@ Skenario utama:
 
 Parameter yang diukur:
 
-* Response Time
-* Throughput
-* Requests Per Second (RPS)
-* Concurrent Users
-* Error Rate
-* CPU Usage
-* Memory Usage
-* Database Connection
-* Queue Processing Time
+- Response Time
+- Throughput
+- Requests Per Second (RPS)
+- Concurrent Users
+- Error Rate
+- CPU Usage
+- Memory Usage
+- Database Connection
+- Queue Processing Time
 
 ---
 
@@ -136,7 +136,7 @@ Parameter yang diukur:
 
 Performance Test dilakukan pada:
 
-* Staging Environment
+- Staging Environment
 
 Konfigurasi sebisa mungkin menyerupai Production.
 
@@ -146,14 +146,14 @@ Konfigurasi sebisa mungkin menyerupai Production.
 
 Selama pengujian dipantau:
 
-* CPU
-* Memory
-* Disk
-* Network
-* Database
-* Redis
-* Queue
-* Application Log
+- CPU
+- Memory
+- Disk
+- Network
+- Database
+- Redis
+- Queue
+- Application Log
 
 ---
 
@@ -161,11 +161,11 @@ Selama pengujian dipantau:
 
 Pengujian dinyatakan berhasil apabila:
 
-* Response Time memenuhi target.
-* Error Rate rendah.
-* Tidak terjadi Crash.
-* Tidak terjadi Memory Leak.
-* Seluruh Service tetap tersedia.
+- Response Time memenuhi target.
+- Error Rate rendah.
+- Tidak terjadi Crash.
+- Tidak terjadi Memory Leak.
+- Seluruh Service tetap tersedia.
 
 ---
 
@@ -173,41 +173,41 @@ Pengujian dinyatakan berhasil apabila:
 
 Laporan Performance Test memuat:
 
-* Test Scenario
-* Jumlah Virtual User
-* Durasi Pengujian
-* Response Time
-* Throughput
-* Error Rate
-* Resource Usage
-* Bottleneck
-* Rekomendasi Perbaikan
+- Test Scenario
+- Jumlah Virtual User
+- Durasi Pengujian
+- Response Time
+- Throughput
+- Error Rate
+- Resource Usage
+- Bottleneck
+- Rekomendasi Perbaikan
 
 ---
 
 # Best Practices
 
-* Gunakan data yang realistis.
-* Uji pada lingkungan yang menyerupai Production.
-* Pantau seluruh komponen selama pengujian.
-* Lakukan pengujian setelah perubahan besar.
-* Bandingkan hasil dengan pengujian sebelumnya untuk melihat tren performa.
+- Gunakan data yang realistis.
+- Uji pada lingkungan yang menyerupai Production.
+- Pantau seluruh komponen selama pengujian.
+- Lakukan pengujian setelah perubahan besar.
+- Bandingkan hasil dengan pengujian sebelumnya untuk melihat tren performa.
 
 ---
 
 # Related Documents
 
-* README.md
-* test-plan.md
-* security-testing.md
-* 09-infrastructure/
+- README.md
+- test-plan.md
+- security-testing.md
+- 09-infrastructure/
 
 ---
 
 # Acceptance Criteria
 
-* Target performa terpenuhi.
-* Sistem stabil pada beban normal.
-* Bottleneck terdokumentasi.
-* Hasil pengujian menjadi dasar optimasi sebelum Production.
-* Performance Testing menjadi acuan resmi pengujian performa LIM Digital Platform.
+- Target performa terpenuhi.
+- Sistem stabil pada beban normal.
+- Bottleneck terdokumentasi.
+- Hasil pengujian menjadi dasar optimasi sebelum Production.
+- Performance Testing menjadi acuan resmi pengujian performa LIM Digital Platform.

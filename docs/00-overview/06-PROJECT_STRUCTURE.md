@@ -22,12 +22,12 @@ Seluruh source code, dokumentasi, layanan, dan aset proyek harus mengikuti struk
 
 Struktur proyek dirancang berdasarkan prinsip:
 
-* Domain Driven
-* Modular
-* Scalable
-* Monorepo Ready
-* Documentation First
-* Service Oriented
+- Domain Driven
+- Modular
+- Scalable
+- Monorepo Ready
+- Documentation First
+- Service Oriented
 
 ---
 
@@ -72,10 +72,10 @@ my-app/
 
 Menggunakan Next.js App Router dengan Route Groups:
 
-* `(auth)`: Halaman Login & Registrasi
-* `(dashboard)/admin`: CMS Portal Admin (dilindungi proteksi sesi)
-* `(public)`: Website publik organisasi
-* `api/auth`: Handler catch-all Better Auth
+- `(auth)`: Halaman Login & Registrasi
+- `(dashboard)/admin`: CMS Portal Admin (dilindungi proteksi sesi)
+- `(public)`: Website publik organisasi
+- `api/auth`: Handler catch-all Better Auth
 
 ---
 
@@ -84,16 +84,17 @@ Menggunakan Next.js App Router dengan Route Groups:
 Arsitektur Domain-Driven Design (DDD):
 
 Setiap modul di bawah `modules/` mengusung layering terstruktur:
-* `domain/`: Business logic, value objects, domain entities
-* `infrastructure/`: Implementasi database, ORM, external API
-* `application/`: Use cases, services, DTO
-* `presentation/`: Action handlers / UI bridge
+
+- `domain/`: Business logic, value objects, domain entities
+- `infrastructure/`: Implementasi database, ORM, external API
+- `application/`: Use cases, services, DTO
+- `presentation/`: Action handlers / UI bridge
 
 ---
 
 ## `generated/client/`
 
-Prisma Client dikonfigurasi dengan *custom output path* ke `../generated/client`. Seluruh modul wajib mengimpor Prisma Client via `@/generated/client`.
+Prisma Client dikonfigurasi dengan _custom output path_ ke `../generated/client`. Seluruh modul wajib mengimpor Prisma Client via `@/generated/client`.
 
 ---
 
@@ -103,16 +104,16 @@ Portal administrasi organisasi.
 
 Fitur utama:
 
-* Dashboard
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Media
-* Users
-* Settings
+- Dashboard
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Media
+- Users
+- Settings
 
 ---
 
@@ -122,14 +123,14 @@ Website publik.
 
 Fitur:
 
-* Homepage
-* Organization
-* News
-* Article
-* Agenda
-* Gallery
-* Contact
-* Verification
+- Homepage
+- Organization
+- News
+- Article
+- Agenda
+- Gallery
+- Contact
+- Verification
 
 ---
 
@@ -139,14 +140,14 @@ Aplikasi Android dan iOS.
 
 Fitur:
 
-* Jadwal Sholat
-* Al-Qur'an
-* Doa
-* Istighotsah
-* Arah Kiblat
-* Berita
-* Agenda
-* Sertifikat Saya
+- Jadwal Sholat
+- Al-Qur'an
+- Doa
+- Istighotsah
+- Arah Kiblat
+- Berita
+- Agenda
+- Sertifikat Saya
 
 ---
 
@@ -292,10 +293,10 @@ Automation Script.
 
 Contoh:
 
-* Seeder
-* Import
-* Export
-* Backup
+- Seeder
+- Import
+- Export
+- Backup
 
 ---
 
@@ -305,10 +306,10 @@ Konfigurasi deployment.
 
 Contoh:
 
-* Docker
-* CI/CD
-* Environment
-* Reverse Proxy
+- Docker
+- CI/CD
+- Environment
+- Reverse Proxy
 
 ---
 
@@ -316,10 +317,10 @@ Contoh:
 
 Asset publik.
 
-* Image
-* Icon
-* Font
-* Manifest
+- Image
+- Icon
+- Font
+- Manifest
 
 ---
 
@@ -453,13 +454,13 @@ Sebelum implementasi dimulai.
 
 Struktur ini dirancang agar mendukung:
 
-* Multi App
-* Multi Service
-* Multi Organization
-* Multi Language
-* AI Integration
-* Offline Mobile
-* Plugin Architecture (masa depan)
+- Multi App
+- Multi Service
+- Multi Organization
+- Multi Language
+- AI Integration
+- Offline Mobile
+- Plugin Architecture (masa depan)
 
 Tanpa perubahan besar pada repository.
 
@@ -469,10 +470,10 @@ Tanpa perubahan besar pada repository.
 
 Seluruh perubahan struktur repository harus:
 
-* Didokumentasikan.
-* Tidak bertentangan dengan Blueprint.
-* Menjaga kompatibilitas antar aplikasi.
-* Disetujui sebelum diterapkan.
+- Didokumentasikan.
+- Tidak bertentangan dengan Blueprint.
+- Menjaga kompatibilitas antar aplikasi.
+- Disetujui sebelum diterapkan.
 
 ---
 

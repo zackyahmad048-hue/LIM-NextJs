@@ -304,24 +304,24 @@ Retry
 
 # Workflow Rules
 
-* Seluruh notifikasi melalui Queue.
-* Template diproses sebelum pengiriman.
-* Retry hanya untuk pengiriman gagal.
-* Riwayat pengiriman tidak dihapus.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh notifikasi melalui Queue.
+- Template diproses sebelum pengiriman.
+- Retry hanya untuk pengiriman gagal.
+- Riwayat pengiriman tidak dihapus.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -329,8 +329,8 @@ Retry
 
 Workflow Notification dianggap selesai apabila:
 
-* Seluruh notifikasi melalui Queue.
-* Pengiriman mengikuti preferensi pengguna.
-* Retry berjalan otomatis.
-* Riwayat pengiriman tersimpan.
-* Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.
+- Seluruh notifikasi melalui Queue.
+- Pengiriman mengikuti preferensi pengguna.
+- Retry berjalan otomatis.
+- Riwayat pengiriman tersimpan.
+- Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

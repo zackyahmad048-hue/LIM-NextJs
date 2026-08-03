@@ -29,12 +29,9 @@ export function ConfirmDialog({
   title,
   description,
 }: ConfirmDialogProps) {
-  const [pending, setPending] =
-    useState(false);
+  const [pending, setPending] = useState(false);
 
-  async function handleConfirm(
-    event: MouseEvent<HTMLButtonElement>
-  ) {
+  async function handleConfirm(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
 
     try {
@@ -46,30 +43,18 @@ export function ConfirmDialog({
   }
 
   return (
-    <AlertDialog
-      open={open}
-      onOpenChange={onOpenChange}
-    >
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            {title}
-          </AlertDialogTitle>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
 
-          <AlertDialogDescription>
-            {description}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>
-            Batal
-          </AlertDialogCancel>
+          <AlertDialogCancel>Batal</AlertDialogCancel>
 
-          <AlertDialogAction
-            disabled={pending}
-            onClick={handleConfirm}
-          >
+          <AlertDialogAction disabled={pending} onClick={handleConfirm}>
             {pending ? "Memproses..." : "Ya"}
           </AlertDialogAction>
         </AlertDialogFooter>

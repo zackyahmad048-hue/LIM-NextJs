@@ -22,12 +22,12 @@ Domain ini menjadi pusat administrasi internal organisasi dan terintegrasi denga
 
 Domain Secretariat bertujuan untuk:
 
-* Mengelola administrasi organisasi.
-* Mengelola surat masuk dan surat keluar.
-* Mengelola disposisi surat.
-* Mengelola arsip administrasi.
-* Mengelola dokumen organisasi.
-* Menjadi pusat layanan kesekretariatan.
+- Mengelola administrasi organisasi.
+- Mengelola surat masuk dan surat keluar.
+- Mengelola disposisi surat.
+- Mengelola arsip administrasi.
+- Mengelola dokumen organisasi.
+- Menjadi pusat layanan kesekretariatan.
 
 ---
 
@@ -35,14 +35,14 @@ Domain Secretariat bertujuan untuk:
 
 Domain Secretariat mencakup:
 
-* Incoming Mail
-* Outgoing Mail
-* Disposition
-* Archive
-* Official Documents
-* Administrative Services
-* Agenda Book
-* Document Tracking
+- Incoming Mail
+- Outgoing Mail
+- Disposition
+- Archive
+- Official Documents
+- Administrative Services
+- Agenda Book
+- Document Tracking
 
 ---
 
@@ -50,10 +50,10 @@ Domain Secretariat mencakup:
 
 Domain Secretariat digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Sekretaris
-* Operator Sekretariat
+- Super Administrator
+- Administrator
+- Sekretaris
+- Operator Sekretariat
 
 Pengguna lain hanya dapat melihat dokumen sesuai permission yang dimiliki.
 
@@ -63,12 +63,12 @@ Pengguna lain hanya dapat melihat dokumen sesuai permission yang dimiliki.
 
 Domain Secretariat bertanggung jawab untuk:
 
-* Mengelola administrasi organisasi.
-* Mengelola surat masuk.
-* Mengelola surat keluar.
-* Mengelola disposisi.
-* Mengelola arsip dokumen.
-* Mengelola agenda administrasi.
+- Mengelola administrasi organisasi.
+- Mengelola surat masuk.
+- Mengelola surat keluar.
+- Mengelola disposisi.
+- Mengelola arsip dokumen.
+- Mengelola agenda administrasi.
 
 ---
 
@@ -76,44 +76,44 @@ Domain Secretariat bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
-* Organization
-* Program
-* Media
-* Notification
+- Authentication
+- Authorization
+- Organization
+- Program
+- Media
+- Notification
 
 Digunakan oleh:
 
-* Dashboard
-* Letter
-* Certificate
-* Knowledge
+- Dashboard
+- Letter
+- Certificate
+- Knowledge
 
 ---
 
 # Features
 
-* Incoming Mail Management
-* Outgoing Mail Management
-* Disposition Management
-* Archive Management
-* Agenda Book
-* Document Tracking
-* Administrative Reporting
+- Incoming Mail Management
+- Outgoing Mail Management
+- Disposition Management
+- Archive Management
+- Agenda Book
+- Document Tracking
+- Administrative Reporting
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

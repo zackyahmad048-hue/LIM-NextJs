@@ -26,13 +26,13 @@ Domain ini terintegrasi dengan Organization, Secretariat, Notification, Media, d
 
 Letter harus mampu:
 
-* Mengelola Surat.
-* Mengelola Template Surat.
-* Menghasilkan Nomor Surat.
-* Mengelola Approval.
-* Mengelola Lampiran.
-* Mengelola Riwayat Revisi.
-* Mengarsipkan Surat.
+- Mengelola Surat.
+- Mengelola Template Surat.
+- Menghasilkan Nomor Surat.
+- Mengelola Approval.
+- Mengelola Lampiran.
+- Mengelola Riwayat Revisi.
+- Mengarsipkan Surat.
 
 ---
 
@@ -54,10 +54,10 @@ Letter harus mampu:
 
 Mengelola:
 
-* Create Letter
-* Update Letter
-* Delete Letter
-* Archive Letter
+- Create Letter
+- Update Letter
+- Delete Letter
+- Archive Letter
 
 ---
 
@@ -65,12 +65,12 @@ Mengelola:
 
 Template meliputi:
 
-* Surat Keputusan
-* Surat Tugas
-* Surat Undangan
-* Surat Keterangan
-* Surat Edaran
-* Template Khusus
+- Surat Keputusan
+- Surat Tugas
+- Surat Undangan
+- Surat Keterangan
+- Surat Edaran
+- Template Khusus
 
 ---
 
@@ -78,11 +78,11 @@ Template meliputi:
 
 Sistem menghasilkan:
 
-* Nomor Surat
-* Tahun
-* Kode Organisasi
-* Kode Jenis Surat
-* Running Number
+- Nomor Surat
+- Tahun
+- Kode Organisasi
+- Kode Jenis Surat
+- Running Number
 
 Nomor surat harus unik.
 
@@ -92,11 +92,11 @@ Nomor surat harus unik.
 
 Tahapan:
 
-* Draft
-* Review
-* Approved
-* Signed
-* Published
+- Draft
+- Review
+- Approved
+- Signed
+- Published
 
 ---
 
@@ -104,10 +104,10 @@ Tahapan:
 
 Surat mendukung:
 
-* PDF
-* DOCX
-* Image
-* Lampiran Tambahan
+- PDF
+- DOCX
+- Image
+- Lampiran Tambahan
 
 ---
 
@@ -115,28 +115,28 @@ Surat mendukung:
 
 Letter harus:
 
-* Response < 500 ms.
-* Audit Enabled.
-* Full Text Search.
-* Highly Available.
+- Response < 500 ms.
+- Audit Enabled.
+- Full Text Search.
+- Highly Available.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Permission sesuai.
-* Data surat valid.
+- User telah Login.
+- Permission sesuai.
+- Data surat valid.
 
 ---
 
 # Postconditions
 
-* Surat tersimpan.
-* Nomor surat dibuat.
-* Audit Log dibuat.
-* Notification dikirim.
-* Domain Event diterbitkan.
+- Surat tersimpan.
+- Nomor surat dibuat.
+- Audit Log dibuat.
+- Notification dikirim.
+- Domain Event diterbitkan.
 
 ---
 
@@ -206,11 +206,11 @@ Publish
 
 # Exception Flow
 
-* Surat tidak ditemukan.
-* Nomor surat duplikat.
-* Template tidak ditemukan.
-* Approval ditolak.
-* Lampiran tidak valid.
+- Surat tidak ditemukan.
+- Nomor surat duplikat.
+- Template tidak ditemukan.
+- Approval ditolak.
+- Lampiran tidak valid.
 
 ---
 
@@ -282,20 +282,20 @@ Archived
 
 Entity:
 
-* Letter
-* LetterTemplate
-* Attachment
-* Approval
+- Letter
+- LetterTemplate
+- Attachment
+- Approval
 
 Aggregate:
 
-* Letter
+- Letter
 
 Value Object:
 
-* LetterNumber
-* LetterStatus
-* LetterType
+- LetterNumber
+- LetterStatus
+- LetterType
 
 ---
 
@@ -343,13 +343,13 @@ letter_approvals
 
 # Permission Matrix
 
-| Action  | Admin | Secretariat |   Author  |   User  |
+| Action  | Admin | Secretariat |  Author   |  User   |
 | ------- | :---: | :---------: | :-------: | :-----: |
-| View    |   ✅   |      ✅      |    Own    | Limited |
-| Create  |   ✅   |      ✅      |     ✅     |    ❌    |
-| Update  |   ✅   |      ✅      | Own Draft |    ❌    |
-| Approve |   ✅   |      ❌      |     ❌     |    ❌    |
-| Publish |   ✅   |      ❌      |     ❌     |    ❌    |
+| View    |  ✅   |     ✅      |    Own    | Limited |
+| Create  |  ✅   |     ✅      |    ✅     |   ❌    |
+| Update  |  ✅   |     ✅      | Own Draft |   ❌    |
+| Approve |  ✅   |     ❌      |    ❌     |   ❌    |
+| Publish |  ✅   |     ❌      |    ❌     |   ❌    |
 
 ---
 
@@ -397,41 +397,41 @@ LetterArchived
 
 # Acceptance Test
 
-* Surat berhasil dibuat.
-* Draft berhasil disimpan.
-* Nomor surat dibuat otomatis.
-* Approval berjalan sesuai workflow.
-* Surat berhasil dipublikasikan.
-* Notification terkirim.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Surat berhasil dibuat.
+- Draft berhasil disimpan.
+- Nomor surat dibuat otomatis.
+- Approval berjalan sesuai workflow.
+- Surat berhasil dipublikasikan.
+- Notification terkirim.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Create Letter < 500 ms.
-* Generate Letter Number < 100 ms.
-* Search Letter < 300 ms.
-* Publish Letter < 500 ms.
+- Create Letter < 500 ms.
+- Generate Letter Number < 100 ms.
+- Search Letter < 300 ms.
+- Publish Letter < 500 ms.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Audit Log aktif.
-* Nomor surat tidak dapat diubah setelah diterbitkan.
-* Lampiran divalidasi.
-* Soft Delete digunakan.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- Audit Log aktif.
+- Nomor surat tidak dapat diubah setelah diterbitkan.
+- Lampiran divalidasi.
+- Soft Delete digunakan.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Business Rules Letter berjalan sesuai spesifikasi.
-* Workflow Approval berjalan sesuai State Diagram.
-* Nomor surat unik dan otomatis.
-* Notification dan Domain Event berjalan sesuai desain.
-* Specification siap digunakan sebagai dasar implementasi Letter Domain.
+- Seluruh Business Rules Letter berjalan sesuai spesifikasi.
+- Workflow Approval berjalan sesuai State Diagram.
+- Nomor surat unik dan otomatis.
+- Notification dan Domain Event berjalan sesuai desain.
+- Specification siap digunakan sebagai dasar implementasi Letter Domain.

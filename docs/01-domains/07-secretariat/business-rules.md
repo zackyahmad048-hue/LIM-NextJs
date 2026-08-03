@@ -20,10 +20,10 @@ Domain Secretariat menjadi pusat administrasi organisasi yang mengelola surat, d
 
 # General Rules
 
-* Seluruh administrasi organisasi dikelola melalui Domain Secretariat.
-* Setiap dokumen memiliki identitas yang unik.
-* Seluruh aktivitas administrasi dicatat pada Audit Log.
-* Dokumen hanya dapat diakses oleh pengguna yang memiliki permission.
+- Seluruh administrasi organisasi dikelola melalui Domain Secretariat.
+- Setiap dokumen memiliki identitas yang unik.
+- Seluruh aktivitas administrasi dicatat pada Audit Log.
+- Dokumen hanya dapat diakses oleh pengguna yang memiliki permission.
 
 ---
 
@@ -31,14 +31,14 @@ Domain Secretariat menjadi pusat administrasi organisasi yang mengelola surat, d
 
 Setiap Surat Masuk wajib memiliki:
 
-* Nomor Agenda
-* Nomor Surat
-* Tanggal Surat
-* Tanggal Diterima
-* Pengirim
-* Perihal
-* Lampiran (Opsional)
-* Status
+- Nomor Agenda
+- Nomor Surat
+- Tanggal Surat
+- Tanggal Diterima
+- Pengirim
+- Perihal
+- Lampiran (Opsional)
+- Status
 
 ---
 
@@ -46,12 +46,12 @@ Setiap Surat Masuk wajib memiliki:
 
 Setiap Surat Keluar wajib memiliki:
 
-* Nomor Surat
-* Tanggal Surat
-* Tujuan
-* Perihal
-* Penandatangan
-* Status
+- Nomor Surat
+- Tanggal Surat
+- Tujuan
+- Perihal
+- Penandatangan
+- Status
 
 Nomor surat mengikuti format penomoran organisasi.
 
@@ -63,10 +63,10 @@ Disposisi hanya dapat dibuat untuk Surat Masuk.
 
 Setiap disposisi memiliki:
 
-* Penerima
-* Instruksi
-* Tanggal Disposisi
-* Status
+- Penerima
+- Instruksi
+- Tanggal Disposisi
+- Status
 
 Status:
 
@@ -88,9 +88,9 @@ Dokumen yang telah selesai diproses dipindahkan ke Arsip.
 
 Dokumen arsip:
 
-* Tetap dapat dicari.
-* Tidak dapat diubah.
-* Tidak dapat dihapus secara permanen melalui aplikasi.
+- Tetap dapat dicari.
+- Tidak dapat diubah.
+- Tidak dapat dihapus secara permanen melalui aplikasi.
 
 ---
 
@@ -98,11 +98,11 @@ Dokumen arsip:
 
 Dokumen administrasi meliputi:
 
-* SK
-* Berita Acara
-* Notulen
-* Memorandum
-* Dokumen Internal
+- SK
+- Berita Acara
+- Notulen
+- Memorandum
+- Dokumen Internal
 
 Seluruh dokumen memiliki nomor dokumen yang unik.
 
@@ -150,9 +150,9 @@ Menggunakan Soft Delete.
 
 Dokumen yang telah:
 
-* Diarsipkan,
-* Memiliki disposisi,
-* Menjadi referensi domain lain,
+- Diarsipkan,
+- Memiliki disposisi,
+- Menjadi referensi domain lain,
 
 tidak dapat dihapus.
 
@@ -162,23 +162,23 @@ tidak dapat dihapus.
 
 Aktivitas berikut wajib dicatat:
 
-* Create Document
-* Update Document
-* Create Incoming Mail
-* Create Outgoing Mail
-* Create Disposition
-* Archive Document
-* Restore Document
-* Delete Document
+- Create Document
+- Update Document
+- Create Incoming Mail
+- Create Outgoing Mail
+- Create Disposition
+- Archive Document
+- Restore Document
+- Delete Document
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* Dokumen rahasia hanya dapat diakses oleh Role yang berwenang.
-* Seluruh perubahan tercatat pada Audit Log.
+- Authentication wajib.
+- Permission wajib.
+- Dokumen rahasia hanya dapat diakses oleh Role yang berwenang.
+- Seluruh perubahan tercatat pada Audit Log.
 
 ---
 
@@ -186,21 +186,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Seluruh surat memiliki nomor unik.
-* Disposisi hanya dapat dibuat untuk Surat Masuk.
-* Arsip tidak dapat diubah.
-* Dokumen mengikuti alur status yang ditentukan.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Seluruh surat memiliki nomor unik.
+- Disposisi hanya dapat dibuat untuk Surat Masuk.
+- Arsip tidak dapat diubah.
+- Dokumen mengikuti alur status yang ditentukan.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

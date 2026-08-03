@@ -20,36 +20,36 @@ Dokumen ini mendefinisikan panduan teknis langkah demi langkah untuk mengonfigur
 
 Pastikan perangkat Anda telah terinstal perangkat lunak berikut sebelum memulai:
 
-| Software | Version | Keterangan |
-|----------|---------|------------|
-| Node.js | v20 LTS atau lebih baru | Runtime JavaScript |
-| Package Manager | npm / pnpm / yarn | Untuk mengelola dependency |
-| Git | Versi terbaru | Untuk manajemen versi |
-| Code Editor | VS Code (direkomendasikan) | Dengan ekstensi ESLint, Prettier |
-| PostgreSQL | 15 atau lebih baru | Database (atau gunakan Neon) |
+| Software        | Version                    | Keterangan                       |
+| --------------- | -------------------------- | -------------------------------- |
+| Node.js         | v20 LTS atau lebih baru    | Runtime JavaScript               |
+| Package Manager | npm / pnpm / yarn          | Untuk mengelola dependency       |
+| Git             | Versi terbaru              | Untuk manajemen versi            |
+| Code Editor     | VS Code (direkomendasikan) | Dengan ekstensi ESLint, Prettier |
+| PostgreSQL      | 15 atau lebih baru         | Database (atau gunakan Neon)     |
 
 ---
 
 # Step 1: Clone Repository
 
-``bash
+`bash
 git clone https://github.com/lim-digital/lim-platform.git
 cd lim-platform
-``
+`
 
 ---
 
 # Step 2: Install Dependencies
 
-``bash
+`bash
 npm install
-``
+`
 
 Atau jika menggunakan pnpm:
 
-``bash
+`bash
 pnpm install
-``
+`
 
 ---
 
@@ -57,20 +57,24 @@ pnpm install
 
 Buat file `.env` di root project:
 
-``bash
+`bash
 cp .env.example .env
-``
+`
 
 Isi variabel berikut:
 
 ``env
+
 # Database
+
 DATABASE_URL="postgresql://user:password@localhost:5432/lim_platform"
 
 # Authentication
+
 BETTER_AUTH_SECRET="your-secret-key"
 
 # App
+
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ``
 
@@ -82,41 +86,39 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
 ### Generate Prisma Client
 
-``bash
+`bash
 npm run prisma:generate
-``
+`
 
 ### Jalankan Migrasi
 
-``bash
+`bash
 npm run prisma:migrate
-``
+`
 
 Atau push schema langsung ke database:
 
-``bash
+`bash
 npm run db:push
-``
+`
 
 ### Jalankan Seed Data (opsional)
 
-``bash
+`bash
 npm run db:seed
-``
+`
 
 ---
 
 # Step 5: Jalankan Development Server
 
-``bash
+`bash
 npm run dev
-``
+`
 
 Buka browser dan akses:
 
-``
-http://localhost:3000
-``
+`http://localhost:3000`
 
 ---
 
@@ -132,21 +134,21 @@ Pastikan aplikasi berjalan dengan benar:
 
 # Available Scripts
 
-| Command | Fungsi |
-|---------|--------|
-| `npm run dev` | Jalankan dev server |
-| `npm run build` | Build untuk production |
-| `npm run start` | Jalankan production server |
-| `npm run lint` | Jalankan ESLint |
-| `npm run lint:fix` | Fix ESLint issues |
-| `npm run typecheck` | Jalankan TypeScript check |
-| `npm run format` | Format dengan Prettier |
-| `npm run check` | Lint + Typecheck |
-| `npm run prisma:generate` | Generate Prisma client |
-| `npm run prisma:migrate` | Jalankan migrasi |
-| `npm run prisma:studio` | Buka Prisma Studio |
-| `npm run db:push` | Push schema ke database |
-| `npm run db:seed` | Jalankan seed data |
+| Command                   | Fungsi                     |
+| ------------------------- | -------------------------- |
+| `npm run dev`             | Jalankan dev server        |
+| `npm run build`           | Build untuk production     |
+| `npm run start`           | Jalankan production server |
+| `npm run lint`            | Jalankan ESLint            |
+| `npm run lint:fix`        | Fix ESLint issues          |
+| `npm run typecheck`       | Jalankan TypeScript check  |
+| `npm run format`          | Format dengan Prettier     |
+| `npm run check`           | Lint + Typecheck           |
+| `npm run prisma:generate` | Generate Prisma client     |
+| `npm run prisma:migrate`  | Jalankan migrasi           |
+| `npm run prisma:studio`   | Buka Prisma Studio         |
+| `npm run db:push`         | Push schema ke database    |
+| `npm run db:seed`         | Jalankan seed data         |
 
 ---
 
@@ -164,7 +166,7 @@ Pastikan aplikasi berjalan dengan benar:
 
 Tambahkan di `.vscode/settings.json`:
 
-``json
+`json
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -172,18 +174,18 @@ Tambahkan di `.vscode/settings.json`:
     "source.fixAll.eslint": "explicit"
   }
 }
-``
+`
 
 ---
 
 # Troubleshooting
 
-| Masalah | Solusi |
-|---------|--------|
-| `DATABASE_URL` error | Pastikan PostgreSQL berjalan dan URL benar |
-| `prisma generate` gagal | Jalankan `npm install` ulang |
-| Port 3000 sudah digunakan | Gunakan `npm run dev -- -p 3001` |
-| TypeScript error | Jalankan `npm run typecheck` |
+| Masalah                   | Solusi                                     |
+| ------------------------- | ------------------------------------------ |
+| `DATABASE_URL` error      | Pastikan PostgreSQL berjalan dan URL benar |
+| `prisma generate` gagal   | Jalankan `npm install` ulang               |
+| Port 3000 sudah digunakan | Gunakan `npm run dev -- -p 3001`           |
+| TypeScript error          | Jalankan `npm run typecheck`               |
 
 Lihat [Troubleshooting](./troubleshooting.md) untuk detail lebih lanjut.
 

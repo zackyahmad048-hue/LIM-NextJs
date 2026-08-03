@@ -20,10 +20,10 @@ Domain Organization menjadi sumber data resmi (Single Source of Truth) mengenai 
 
 # General Rules
 
-* Setiap organisasi memiliki identitas yang unik.
-* Struktur organisasi mengikuti hierarki resmi organisasi.
-* Seluruh domain menggunakan data organisasi dari domain ini.
-* Data organisasi tidak boleh diduplikasi oleh domain lain.
+- Setiap organisasi memiliki identitas yang unik.
+- Struktur organisasi mengikuti hierarki resmi organisasi.
+- Seluruh domain menggunakan data organisasi dari domain ini.
+- Data organisasi tidak boleh diduplikasi oleh domain lain.
 
 ---
 
@@ -31,12 +31,12 @@ Domain Organization menjadi sumber data resmi (Single Source of Truth) mengenai 
 
 Setiap organisasi wajib memiliki:
 
-* Nama Organisasi
-* Singkatan (Opsional)
-* Logo
-* Alamat
-* Kontak
-* Status
+- Nama Organisasi
+- Singkatan (Opsional)
+- Logo
+- Alamat
+- Kontak
+- Status
 
 ---
 
@@ -70,10 +70,10 @@ Wilayah digunakan sebagai referensi Program, Secretariat, dan Letter.
 
 Setiap Cabang:
 
-* Memiliki nama unik.
-* Berada pada satu wilayah.
-* Memiliki status aktif atau nonaktif.
-* Dapat memiliki banyak pengurus.
+- Memiliki nama unik.
+- Berada pada satu wilayah.
+- Memiliki status aktif atau nonaktif.
+- Dapat memiliki banyak pengurus.
 
 ---
 
@@ -81,9 +81,9 @@ Setiap Cabang:
 
 Setiap Bidang:
 
-* Memiliki nama unik.
-* Berada di bawah organisasi.
-* Digunakan sebagai referensi jabatan.
+- Memiliki nama unik.
+- Berada di bawah organisasi.
+- Digunakan sebagai referensi jabatan.
 
 ---
 
@@ -91,9 +91,9 @@ Setiap Bidang:
 
 Setiap Jabatan:
 
-* Memiliki nama unik.
-* Berada pada satu bidang.
-* Memiliki urutan hierarki.
+- Memiliki nama unik.
+- Berada pada satu bidang.
+- Memiliki urutan hierarki.
 
 Contoh:
 
@@ -115,10 +115,10 @@ Anggota
 
 Setiap Pengurus:
 
-* Terhubung dengan User (opsional).
-* Memiliki Jabatan.
-* Memiliki Cabang.
-* Memiliki Masa Jabatan.
+- Terhubung dengan User (opsional).
+- Memiliki Jabatan.
+- Memiliki Cabang.
+- Memiliki Masa Jabatan.
 
 Satu User dapat memiliki lebih dari satu jabatan apabila diizinkan oleh organisasi.
 
@@ -128,9 +128,9 @@ Satu User dapat memiliki lebih dari satu jabatan apabila diizinkan oleh organisa
 
 Masa kepengurusan memiliki:
 
-* Tanggal Mulai
-* Tanggal Selesai
-* Status
+- Tanggal Mulai
+- Tanggal Selesai
+- Status
 
 Status:
 
@@ -150,11 +150,11 @@ Hanya satu periode yang boleh berstatus **Active** untuk satu organisasi.
 
 Data aktif digunakan oleh:
 
-* Dashboard
-* Program
-* Secretariat
-* Letter
-* Certificate
+- Dashboard
+- Program
+- Secretariat
+- Letter
+- Certificate
 
 Data nonaktif tetap disimpan sebagai arsip.
 
@@ -172,22 +172,22 @@ Data tidak dapat dihapus apabila masih digunakan oleh domain lain.
 
 Aktivitas berikut dicatat:
 
-* Create Organization
-* Update Organization
-* Create Branch
-* Update Branch
-* Create Position
-* Update Position
-* Assign Management
-* Update Management
+- Create Organization
+- Update Organization
+- Create Branch
+- Update Branch
+- Create Position
+- Update Position
+- Assign Management
+- Update Management
 
 ---
 
 # Security Rules
 
-* Hanya Administrator yang dapat mengubah struktur organisasi.
-* Pengguna biasa hanya dapat melihat data sesuai hak akses.
-* Seluruh perubahan wajib melalui Permission Check.
+- Hanya Administrator yang dapat mengubah struktur organisasi.
+- Pengguna biasa hanya dapat melihat data sesuai hak akses.
+- Seluruh perubahan wajib melalui Permission Check.
 
 ---
 
@@ -195,21 +195,21 @@ Aktivitas berikut dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Struktur organisasi konsisten.
-* Hierarki wilayah valid.
-* Jabatan mengikuti struktur organisasi.
-* Hanya satu periode aktif.
-* Seluruh perubahan tercatat pada Audit Log.
+- Struktur organisasi konsisten.
+- Hierarki wilayah valid.
+- Jabatan mengikuti struktur organisasi.
+- Hanya satu periode aktif.
+- Seluruh perubahan tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

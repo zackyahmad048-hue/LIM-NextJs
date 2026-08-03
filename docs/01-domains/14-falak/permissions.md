@@ -124,17 +124,17 @@ falak.rukyat.verify
 
 | Permission           | Super Admin | Admin | Operator Falak | Observer | User |
 | -------------------- | :---------: | :---: | :------------: | :------: | :--: |
-| Prayer Time View     |      ✅      |   ✅   |        ✅       |     ✅    |   ✅  |
-| Prayer Time Generate |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
-| Qibla View           |      ✅      |   ✅   |        ✅       |     ✅    |   ✅  |
-| Qibla Calculate      |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
-| Hijri View           |      ✅      |   ✅   |        ✅       |     ✅    |   ✅  |
-| Hijri Generate       |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
-| Hisab Calculate      |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
-| Rukyat Create        |      ✅      |   ✅   |        ✅       |     ✅    |   ❌  |
-| Rukyat Verify        |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
-| Rukyat Confirm       |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
-| Eclipse Calculate    |      ✅      |   ✅   |        ✅       |     ❌    |   ❌  |
+| Prayer Time View     |     ✅      |  ✅   |       ✅       |    ✅    |  ✅  |
+| Prayer Time Generate |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
+| Qibla View           |     ✅      |  ✅   |       ✅       |    ✅    |  ✅  |
+| Qibla Calculate      |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
+| Hijri View           |     ✅      |  ✅   |       ✅       |    ✅    |  ✅  |
+| Hijri Generate       |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
+| Hisab Calculate      |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
+| Rukyat Create        |     ✅      |  ✅   |       ✅       |    ✅    |  ❌  |
+| Rukyat Verify        |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
+| Rukyat Confirm       |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
+| Eclipse Calculate    |     ✅      |  ✅   |       ✅       |    ❌    |  ❌  |
 
 ---
 
@@ -167,20 +167,20 @@ atau permission Falak lainnya.
 
 # Business Rules
 
-* Authentication wajib untuk endpoint administrasi.
-* Permission diperiksa pada setiap request.
-* Endpoint publik hanya memerlukan permission baca apabila melalui Portal Admin.
-* Observer hanya dapat membuat observasi.
-* Verifikasi dan konfirmasi hanya dapat dilakukan oleh Operator Falak atau Administrator.
+- Authentication wajib untuk endpoint administrasi.
+- Permission diperiksa pada setiap request.
+- Endpoint publik hanya memerlukan permission baca apabila melalui Portal Admin.
+- Observer hanya dapat membuat observasi.
+- Verifikasi dan konfirmasi hanya dapat dilakukan oleh Operator Falak atau Administrator.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh aktivitas dicatat pada Audit Log.
-* Hak akses mengikuti prinsip Least Privilege.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh aktivitas dicatat pada Audit Log.
+- Hak akses mengikuti prinsip Least Privilege.
 
 ---
 
@@ -202,21 +202,21 @@ falak.api.public
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

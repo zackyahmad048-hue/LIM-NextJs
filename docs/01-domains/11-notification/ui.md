@@ -37,13 +37,13 @@ Notification
 
 Menampilkan:
 
-* Total Notifications
-* Pending Queue
-* Processing
-* Delivered
-* Failed
-* Read
-* Recent Activity
+- Total Notifications
+- Pending Queue
+- Processing
+- Delivered
+- Failed
+- Read
+- Recent Activity
 
 ---
 
@@ -51,26 +51,26 @@ Menampilkan:
 
 Kolom:
 
-* Title
-* Recipient
-* Type
-* Channel
-* Status
-* Created At
+- Title
+- Recipient
+- Type
+- Channel
+- Status
+- Created At
 
 Action:
 
-* View
-* Retry
-* Archive
-* Delete
+- View
+- Retry
+- Archive
+- Delete
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
+- Search
+- Filter
+- Sorting
+- Pagination
 
 ---
 
@@ -94,8 +94,8 @@ Schedule (Optional)
 
 Action:
 
-* Send
-* Save Draft
+- Send
+- Save Draft
 
 ---
 
@@ -103,16 +103,16 @@ Action:
 
 Kolom:
 
-* Code
-* Template Name
-* Channel
-* Status
+- Code
+- Template Name
+- Channel
+- Status
 
 Action:
 
-* Create
-* Edit
-* Delete
+- Create
+- Edit
+- Delete
 
 ---
 
@@ -120,16 +120,16 @@ Action:
 
 Kolom:
 
-* Notification
-* Channel
-* Status
-* Retry Count
-* Scheduled At
+- Notification
+- Channel
+- Status
+- Retry Count
+- Scheduled At
 
 Action:
 
-* Retry
-* Cancel
+- Retry
+- Cancel
 
 ---
 
@@ -137,14 +137,14 @@ Action:
 
 Kolom:
 
-* Recipient
-* Channel
-* Delivery Status
-* Delivered At
+- Recipient
+- Channel
+- Delivery Status
+- Delivered At
 
 Action:
 
-* View Detail
+- View Detail
 
 ---
 
@@ -152,14 +152,14 @@ Action:
 
 Field:
 
-* Email Notification
-* WhatsApp Notification
-* Push Notification
-* SMS Notification
+- Email Notification
+- WhatsApp Notification
+- Push Notification
+- SMS Notification
 
 Action:
 
-* Save Preference
+- Save Preference
 
 ---
 
@@ -169,53 +169,53 @@ Read Only.
 
 Kolom:
 
-* Notification
-* Archived At
-* Archived By
+- Notification
+- Archived At
+- Archived By
 
 Action:
 
-* View
-* Restore
+- View
+- Restore
 
 ---
 
 # Components
 
-* Data Table
-* Search Box
-* Filter Panel
-* Badge
-* Rich Text Editor
-* Modal
-* Dialog
-* Toast
-* Pagination
-* Queue Status Indicator
+- Data Table
+- Search Box
+- Filter Panel
+- Badge
+- Rich Text Editor
+- Modal
+- Dialog
+- Toast
+- Pagination
+- Queue Status Indicator
 
 ---
 
 # States
 
-* Empty State
-* Loading State
-* Processing State
-* Error State
+- Empty State
+- Loading State
+- Processing State
+- Error State
 
 ---
 
 # Responsive
 
-* Desktop
-* Tablet
-* Mobile
+- Desktop
+- Tablet
+- Mobile
 
 ---
 
 # Acceptance Criteria
 
-* UI konsisten.
-* Responsive.
-* Mengikuti Design System.
-* Status Queue tampil real-time.
-* Seluruh aksi mengikuti Permission.
+- UI konsisten.
+- Responsive.
+- Mengikuti Design System.
+- Status Queue tampil real-time.
+- Seluruh aksi mengikuti Permission.

@@ -193,29 +193,29 @@ agenda_book.agendaNumber
 
 ## Incoming Mail
 
-* agendaNumber wajib unik.
-* letterNumber wajib diisi.
+- agendaNumber wajib unik.
+- letterNumber wajib diisi.
 
 ---
 
 ## Outgoing Mail
 
-* letterNumber wajib unik.
-* recipient wajib diisi.
+- letterNumber wajib unik.
+- recipient wajib diisi.
 
 ---
 
 ## Administrative Document
 
-* documentNumber wajib unik.
-* documentType wajib diisi.
+- documentNumber wajib unik.
+- documentType wajib diisi.
 
 ---
 
 ## Disposition
 
-* incomingMailId wajib ada.
-* assignedTo wajib merupakan User aktif.
+- incomingMailId wajib ada.
+- assignedTo wajib merupakan User aktif.
 
 ---
 
@@ -223,9 +223,9 @@ agenda_book.agendaNumber
 
 Menggunakan Soft Delete:
 
-* incoming_mail
-* outgoing_mail
-* administrative_document
+- incoming_mail
+- outgoing_mail
+- administrative_document
 
 Disposition dan Agenda Book tidak menggunakan Soft Delete.
 
@@ -291,12 +291,12 @@ Archived
 
 # Database Rules
 
-* Nomor agenda harus unik.
-* Nomor surat harus unik.
-* Disposisi hanya dapat dibuat untuk Surat Masuk.
-* Lampiran menggunakan Domain Media.
-* Arsip bersifat Read Only.
-* Seluruh akses database menggunakan Repository Pattern.
+- Nomor agenda harus unik.
+- Nomor surat harus unik.
+- Disposisi hanya dapat dibuat untuk Surat Masuk.
+- Lampiran menggunakan Domain Media.
+- Arsip bersifat Read Only.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -320,14 +320,14 @@ document_comment
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -335,8 +335,8 @@ document_comment
 
 Database Secretariat dianggap selesai apabila:
 
-* Struktur database mendukung seluruh proses administrasi.
-* Relasi antar tabel konsisten.
-* Nomor agenda dan nomor dokumen selalu unik.
-* Arsip bersifat permanen (Read Only).
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh proses administrasi.
+- Relasi antar tabel konsisten.
+- Nomor agenda dan nomor dokumen selalu unik.
+- Arsip bersifat permanen (Read Only).
+- Seluruh akses database menggunakan Repository Pattern.

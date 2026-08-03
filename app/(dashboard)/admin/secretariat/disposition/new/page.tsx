@@ -43,7 +43,9 @@ export default async function NewDispositionPage() {
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="incomingMailId" className="text-xs">Surat Masuk</Label>
+              <Label htmlFor="incomingMailId" className="text-xs">
+                Surat Masuk
+              </Label>
               <select
                 id="incomingMailId"
                 name="incomingMailId"
@@ -52,13 +54,17 @@ export default async function NewDispositionPage() {
               >
                 <option value="">Pilih surat masuk</option>
                 {incomingMails.items.map((m) => (
-                  <option key={m.id} value={m.id}>{m.registrationNumber} - {m.subject}</option>
+                  <option key={m.id} value={m.id}>
+                    {m.registrationNumber} - {m.subject}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="assignedToId" className="text-xs">Tujuan Disposisi</Label>
+              <Label htmlFor="assignedToId" className="text-xs">
+                Tujuan Disposisi
+              </Label>
               <select
                 id="assignedToId"
                 name="assignedToId"
@@ -67,18 +73,30 @@ export default async function NewDispositionPage() {
               >
                 <option value="">Pilih tujuan</option>
                 {users.map((u) => (
-                  <option key={u.id} value={u.id}>{u.name}</option>
+                  <option key={u.id} value={u.id}>
+                    {u.name}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="instruction" className="text-xs">Instruksi</Label>
-              <Textarea id="instruction" name="instruction" required className="min-h-20 rounded-md text-xs" placeholder="Instruksi disposisi" />
+              <Label htmlFor="instruction" className="text-xs">
+                Instruksi
+              </Label>
+              <Textarea
+                id="instruction"
+                name="instruction"
+                required
+                className="min-h-20 rounded-md text-xs"
+                placeholder="Instruksi disposisi"
+              />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="priority" className="text-xs">Prioritas</Label>
+              <Label htmlFor="priority" className="text-xs">
+                Prioritas
+              </Label>
               <select
                 id="priority"
                 name="priority"
@@ -87,19 +105,35 @@ export default async function NewDispositionPage() {
               >
                 <option value="">Pilih prioritas</option>
                 {priorities.map((p) => (
-                  <option key={p.value} value={p.value}>{p.label}</option>
+                  <option key={p.value} value={p.value}>
+                    {p.label}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="dueDate" className="text-xs">Batas Waktu</Label>
-              <Input id="dueDate" name="dueDate" type="date" className="rounded-md text-xs" />
+              <Label htmlFor="dueDate" className="text-xs">
+                Batas Waktu
+              </Label>
+              <Input
+                id="dueDate"
+                name="dueDate"
+                type="date"
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="notes" className="text-xs">Catatan</Label>
-              <Textarea id="notes" name="notes" className="min-h-20 rounded-md text-xs" placeholder="Catatan (opsional)" />
+              <Label htmlFor="notes" className="text-xs">
+                Catatan
+              </Label>
+              <Textarea
+                id="notes"
+                name="notes"
+                className="min-h-20 rounded-md text-xs"
+                placeholder="Catatan (opsional)"
+              />
             </div>
           </div>
         </SectionCard>

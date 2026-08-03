@@ -20,18 +20,18 @@ Dokumen ini mendefinisikan arsitektur frontend untuk LIM Digital Platform yang m
 
 # Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| Next.js (App Router) | Framework utama |
-| React 19 | UI library |
-| Tailwind CSS | Utility-first CSS |
-| shadcn/ui | Component library |
+| Technology                   | Purpose                 |
+| ---------------------------- | ----------------------- |
+| Next.js (App Router)         | Framework utama         |
+| React 19                     | UI library              |
+| Tailwind CSS                 | Utility-first CSS       |
+| shadcn/ui                    | Component library       |
 | React Query (TanStack Query) | Server state management |
-| Zustand | Global client state |
-| React Hook Form | Form handling |
-| Zod | Schema validation |
-| Prisma 7 | Database ORM |
-| Better Auth | Authentication |
+| Zustand                      | Global client state     |
+| React Hook Form              | Form handling           |
+| Zod                          | Schema validation       |
+| Prisma 7                     | Database ORM            |
+| Better Auth                  | Authentication          |
 
 ---
 
@@ -53,9 +53,9 @@ api/                 → API Routes (BFF)
 
 ## Component-Driven
 
-* **UI Components:** Dumb components, hanya menerima props dan menampilkan UI.
-* **Feature Components:** Smart components yang mengelola state dan memanggil API.
-* **Page Components:** Compose feature components menjadi halaman utuh.
+- **UI Components:** Dumb components, hanya menerima props dan menampilkan UI.
+- **Feature Components:** Smart components yang mengelola state dan memanggil API.
+- **Page Components:** Compose feature components menjadi halaman utuh.
 
 ## BFF (Backend for Frontend)
 
@@ -67,10 +67,10 @@ Client → Next.js API Route → Core API → Database
 
 Manfaat:
 
-* Menjaga agar client-side tidak terekspos langsung ke microservices.
-* Agregasi data dari multiple API calls.
-* Transformasi data sesuai kebutuhan frontend.
-* Enrichment data (contoh: menambahkan user info).
+- Menjaga agar client-side tidak terekspos langsung ke microservices.
+- Agregasi data dari multiple API calls.
+- Transformasi data sesuai kebutuhan frontend.
+- Enrichment data (contoh: menambahkan user info).
 
 ---
 
@@ -80,20 +80,20 @@ Manfaat:
 
 Digunakan untuk data yang berasal dari server:
 
-* Fetching (GET)
-* Mutations (POST, PUT, DELETE)
-* Caching
-* Optimistic updates
-* Background refetch
+- Fetching (GET)
+- Mutations (POST, PUT, DELETE)
+- Caching
+- Optimistic updates
+- Background refetch
 
 ## Client State (Zustand)
 
 Digunakan untuk state lokal yang tidak bergantung pada server:
 
-* UI state (sidebar open/closed, modal state)
-* Form state (multi-step forms)
-* Filter/sort preferences
-* Theme preference
+- UI state (sidebar open/closed, modal state)
+- Form state (multi-step forms)
+- Filter/sort preferences
+- Theme preference
 
 ---
 
@@ -111,15 +111,15 @@ React Query → Manage subsequent fetches
 
 ## Server Components
 
-* Digunakan untuk data yang tidak memerlukan interaksi user.
-* SEO-friendly content.
-* Initial page load data.
+- Digunakan untuk data yang tidak memerlukan interaksi user.
+- SEO-friendly content.
+- Initial page load data.
 
 ## Client Components
 
-* Interactive UI elements.
-* Real-time updates.
-* User-triggered actions.
+- Interactive UI elements.
+- Real-time updates.
+- User-triggered actions.
 
 ---
 
@@ -153,39 +153,39 @@ Fallback UI (if needed)
 
 # Performance Optimization
 
-* **Code Splitting:** Lazy load routes dan components.
-* **Image Optimization:** Next.js Image component.
-* **Font Optimization:** next/font.
-* **Caching:** React Query cache + Next.js cache.
-* **Bundle Analysis:** Regular bundle size monitoring.
+- **Code Splitting:** Lazy load routes dan components.
+- **Image Optimization:** Next.js Image component.
+- **Font Optimization:** next/font.
+- **Caching:** React Query cache + Next.js cache.
+- **Bundle Analysis:** Regular bundle size monitoring.
 
 ---
 
 # Security
 
-* CSRF protection via SameSite cookies.
-* XSS prevention via React's automatic escaping.
-* Content Security Policy (CSP) headers.
-* Rate limiting on API routes.
-* Input validation on both client and server.
+- CSRF protection via SameSite cookies.
+- XSS prevention via React's automatic escaping.
+- Content Security Policy (CSP) headers.
+- Rate limiting on API routes.
+- Input validation on both client and server.
 
 ---
 
 # Related Documents
 
-* `README.md` - Architecture overview.
-* `architecture-overview.md` - High level architecture.
-* `mobile-strategy.md` - Mobile integration.
-* `dependency-rules.md` - Dependency rules.
+- `README.md` - Architecture overview.
+- `architecture-overview.md` - High level architecture.
+- `mobile-strategy.md` - Mobile integration.
+- `dependency-rules.md` - Dependency rules.
 
 ---
 
 # Acceptance Criteria
 
-* Tech stack terimplementasi sesuai spek.
-* BFF pattern berfungsi dengan benar.
-* Server dan client state terpisah dengan jelas.
-* Form handling menggunakan React Hook Form + Zod.
-* Error handling terimplementasi secara konsisten.
-* Performance optimization terimplementasi.
-* Security best practices terpenuhi.
+- Tech stack terimplementasi sesuai spek.
+- BFF pattern berfungsi dengan benar.
+- Server dan client state terpisah dengan jelas.
+- Form handling menggunakan React Hook Form + Zod.
+- Error handling terimplementasi secara konsisten.
+- Performance optimization terimplementasi.
+- Security best practices terpenuhi.

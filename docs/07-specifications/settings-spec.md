@@ -26,13 +26,13 @@ Settings Domain menjadi **Single Source of Configuration** pada LIM Digital Plat
 
 Settings harus mampu:
 
-* Mengelola Konfigurasi Sistem.
-* Mengelola Konfigurasi Organisasi.
-* Mengelola Feature Flag.
-* Mengelola Parameter Aplikasi.
-* Mengelola Integrasi.
-* Mengelola Konfigurasi Notifikasi.
-* Mengelola Konfigurasi Storage.
+- Mengelola Konfigurasi Sistem.
+- Mengelola Konfigurasi Organisasi.
+- Mengelola Feature Flag.
+- Mengelola Parameter Aplikasi.
+- Mengelola Integrasi.
+- Mengelola Konfigurasi Notifikasi.
+- Mengelola Konfigurasi Storage.
 
 ---
 
@@ -53,12 +53,12 @@ Settings harus mampu:
 
 Mengelola:
 
-* Application Name
-* Timezone
-* Locale
-* Theme
-* Date Format
-* Number Format
+- Application Name
+- Timezone
+- Locale
+- Theme
+- Date Format
+- Number Format
 
 ---
 
@@ -66,10 +66,10 @@ Mengelola:
 
 Mengelola:
 
-* Organization Profile
-* Logo
-* Contact Information
-* Default Language
+- Organization Profile
+- Logo
+- Contact Information
+- Default Language
 
 ---
 
@@ -77,10 +77,10 @@ Mengelola:
 
 Mengelola:
 
-* Enable Feature
-* Disable Feature
-* Beta Feature
-* Experimental Feature
+- Enable Feature
+- Disable Feature
+- Beta Feature
+- Experimental Feature
 
 ---
 
@@ -88,10 +88,10 @@ Mengelola:
 
 Mengelola:
 
-* Email Notification
-* Push Notification
-* Reminder
-* Daily Digest
+- Email Notification
+- Push Notification
+- Reminder
+- Daily Digest
 
 ---
 
@@ -99,10 +99,10 @@ Mengelola:
 
 Mengelola:
 
-* Storage Provider
-* Upload Limit
-* Allowed MIME Types
-* Retention Policy
+- Storage Provider
+- Upload Limit
+- Allowed MIME Types
+- Retention Policy
 
 ---
 
@@ -110,10 +110,10 @@ Mengelola:
 
 Mengelola:
 
-* Password Policy
-* Session Timeout
-* Login Attempt Limit
-* MFA Configuration (Future)
+- Password Policy
+- Session Timeout
+- Login Attempt Limit
+- MFA Configuration (Future)
 
 ---
 
@@ -121,27 +121,27 @@ Mengelola:
 
 Settings harus:
 
-* Response < 200 ms.
-* Cached.
-* Highly Available.
-* Audit Enabled.
+- Response < 200 ms.
+- Cached.
+- Highly Available.
+- Audit Enabled.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Memiliki Permission.
-* Nilai konfigurasi valid.
+- User telah Login.
+- Memiliki Permission.
+- Nilai konfigurasi valid.
 
 ---
 
 # Postconditions
 
-* Konfigurasi diperbarui.
-* Cache diperbarui.
-* Audit Log dibuat.
-* Domain Event diterbitkan.
+- Konfigurasi diperbarui.
+- Cache diperbarui.
+- Audit Log dibuat.
+- Domain Event diterbitkan.
 
 ---
 
@@ -207,10 +207,10 @@ Response
 
 # Exception Flow
 
-* Setting tidak ditemukan.
-* Nilai konfigurasi tidak valid.
-* Permission ditolak.
-* Cache gagal diperbarui.
+- Setting tidak ditemukan.
+- Nilai konfigurasi tidak valid.
+- Permission ditolak.
+- Cache gagal diperbarui.
 
 ---
 
@@ -266,18 +266,18 @@ Applied
 
 Entity:
 
-* Setting
-* FeatureFlag
+- Setting
+- FeatureFlag
 
 Aggregate:
 
-* Settings
+- Settings
 
 Value Object:
 
-* SettingKey
-* SettingValue
-* ConfigurationScope
+- SettingKey
+- SettingValue
+- ConfigurationScope
 
 ---
 
@@ -320,10 +320,10 @@ organization_settings
 
 | Action               | Super Admin | Admin | User |
 | -------------------- | :---------: | :---: | :--: |
-| View Settings        |      ✅      |   ✅   |   ❌  |
-| Update Settings      |      ✅      |   ❌   |   ❌  |
-| View Feature Flags   |      ✅      |   ✅   |   ❌  |
-| Update Feature Flags |      ✅      |   ❌   |   ❌  |
+| View Settings        |     ✅      |  ✅   |  ❌  |
+| Update Settings      |     ✅      |  ❌   |  ❌  |
+| View Feature Flags   |     ✅      |  ✅   |  ❌  |
+| Update Feature Flags |     ✅      |  ❌   |  ❌  |
 
 ---
 
@@ -364,36 +364,36 @@ OrganizationSettingUpdated
 
 # Acceptance Test
 
-* Konfigurasi berhasil diperbarui.
-* Feature Flag berhasil diaktifkan.
-* Cache diperbarui.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Konfigurasi berhasil diperbarui.
+- Feature Flag berhasil diaktifkan.
+- Cache diperbarui.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Read Settings < 100 ms.
-* Update Settings < 300 ms.
-* Cache Hit Ratio > 95%.
+- Read Settings < 100 ms.
+- Update Settings < 300 ms.
+- Cache Hit Ratio > 95%.
 
 ---
 
 # Security Requirement
 
-* Hanya Super Administrator yang dapat mengubah System Settings.
-* Seluruh perubahan dicatat pada Audit Log.
-* Konfigurasi sensitif tidak boleh diekspos melalui API publik.
-* Secret tetap dikelola melalui Environment Variable atau Secret Manager.
-* Seluruh endpoint menggunakan HTTPS.
+- Hanya Super Administrator yang dapat mengubah System Settings.
+- Seluruh perubahan dicatat pada Audit Log.
+- Konfigurasi sensitif tidak boleh diekspos melalui API publik.
+- Secret tetap dikelola melalui Environment Variable atau Secret Manager.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh konfigurasi sistem dikelola melalui Settings Domain.
-* Feature Flag berfungsi sesuai konfigurasi.
-* Cache dan Audit Log berjalan dengan baik.
-* API mengikuti API Standard.
-* Specification siap digunakan sebagai dasar implementasi Settings Domain.
+- Seluruh konfigurasi sistem dikelola melalui Settings Domain.
+- Feature Flag berfungsi sesuai konfigurasi.
+- Cache dan Audit Log berjalan dengan baik.
+- API mengikuti API Standard.
+- Specification siap digunakan sebagai dasar implementasi Settings Domain.

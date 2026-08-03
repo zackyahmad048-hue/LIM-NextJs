@@ -22,12 +22,12 @@ Dokumen ini menjadi acuan bagi DevOps Engineer, System Administrator, Backend De
 
 Folder ini bertujuan untuk:
 
-* Mendokumentasikan arsitektur infrastruktur.
-* Menjadi standar deployment.
-* Mendukung High Availability.
-* Mendukung Scalability.
-* Mendukung Disaster Recovery.
-* Menjadi acuan operasional Production.
+- Mendokumentasikan arsitektur infrastruktur.
+- Menjadi standar deployment.
+- Mendukung High Availability.
+- Mendukung Scalability.
+- Mendukung Disaster Recovery.
+- Menjadi acuan operasional Production.
 
 ---
 
@@ -35,13 +35,13 @@ Folder ini bertujuan untuk:
 
 Folder ini mencakup:
 
-* Network Architecture
-* Server Architecture
-* Container Architecture
-* Database Infrastructure
-* Cache Infrastructure
-* Storage Infrastructure
-* Monitoring Infrastructure
+- Network Architecture
+- Server Architecture
+- Container Architecture
+- Database Infrastructure
+- Cache Infrastructure
+- Storage Infrastructure
+- Monitoring Infrastructure
 
 ---
 
@@ -73,13 +73,13 @@ monitoring-infrastructure.md
 
 Seluruh infrastruktur mengikuti prinsip:
 
-* Security First
-* High Availability
-* Scalability
-* Reliability
-* Observability
-* Automation
-* Disaster Recovery
+- Security First
+- High Availability
+- Scalability
+- Reliability
+- Observability
+- Automation
+- Disaster Recovery
 
 ---
 
@@ -87,13 +87,13 @@ Seluruh infrastruktur mengikuti prinsip:
 
 Komponen utama infrastruktur:
 
-* Reverse Proxy
-* Application Server
-* PostgreSQL
-* Redis
-* Object Storage
-* Monitoring Stack
-* CI/CD Pipeline
+- Reverse Proxy
+- Application Server
+- PostgreSQL
+- Redis
+- Object Storage
+- Monitoring Stack
+- CI/CD Pipeline
 
 ---
 
@@ -101,10 +101,10 @@ Komponen utama infrastruktur:
 
 Lingkungan yang didukung:
 
-* Development
-* Testing
-* Staging
-* Production
+- Development
+- Testing
+- Staging
+- Production
 
 Masing-masing memiliki konfigurasi yang terpisah.
 
@@ -114,12 +114,12 @@ Masing-masing memiliki konfigurasi yang terpisah.
 
 Seluruh infrastruktur wajib menerapkan:
 
-* HTTPS
-* Firewall
-* Secret Management
-* Network Isolation
-* Least Privilege Access
-* Backup Encryption
+- HTTPS
+- Firewall
+- Secret Management
+- Network Isolation
+- Least Privilege Access
+- Backup Encryption
 
 ---
 
@@ -127,18 +127,18 @@ Seluruh infrastruktur wajib menerapkan:
 
 Seluruh layanan wajib dipantau melalui:
 
-* Metrics
-* Logs
-* Health Checks
-* Alerts
+- Metrics
+- Logs
+- Health Checks
+- Alerts
 
 ---
 
 # Related Documents
 
-* `04-deployment/`
-* `05-decisions/`
-* `06-references/`
+- `04-deployment/`
+- `05-decisions/`
+- `06-references/`
 
 ---
 
@@ -150,7 +150,7 @@ Seluruh layanan wajib dipantau melalui:
 
 # Acceptance Criteria
 
-* Seluruh komponen infrastruktur terdokumentasi.
-* Arsitektur deployment terdokumentasi.
-* Standar keamanan dan monitoring tersedia.
-* Menjadi referensi resmi implementasi infrastruktur LIM Digital Platform.
+- Seluruh komponen infrastruktur terdokumentasi.
+- Arsitektur deployment terdokumentasi.
+- Standar keamanan dan monitoring tersedia.
+- Menjadi referensi resmi implementasi infrastruktur LIM Digital Platform.

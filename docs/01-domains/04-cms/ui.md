@@ -22,11 +22,11 @@ Seluruh tampilan CMS harus mengikuti Design System dan UX Guidelines LIM Digital
 
 UI CMS harus:
 
-* Sederhana.
-* Konsisten.
-* Responsif.
-* Mudah digunakan.
-* Efisien.
+- Sederhana.
+- Konsisten.
+- Responsif.
+- Mudah digunakan.
+- Efisien.
 
 ---
 
@@ -49,13 +49,13 @@ CMS
 
 Dashboard CMS menampilkan ringkasan:
 
-* Total Post
-* Total Page
-* Total Category
-* Total Tag
-* Draft
-* Published
-* Archived
+- Total Post
+- Total Page
+- Total Category
+- Total Tag
+- Draft
+- Published
+- Archived
 
 ---
 
@@ -77,11 +77,11 @@ Menampilkan tabel:
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
-* Bulk Action
+- Search
+- Filter
+- Sorting
+- Pagination
+- Bulk Action
 
 ---
 
@@ -111,9 +111,9 @@ Featured
 
 Action:
 
-* Save Draft
-* Publish
-* Cancel
+- Save Draft
+- Publish
+- Cancel
 
 ---
 
@@ -123,9 +123,9 @@ Sama seperti Create Form.
 
 Tambahan:
 
-* Last Updated
-* Published Date
-* Preview
+- Last Updated
+- Published Date
+- Preview
 
 ---
 
@@ -133,10 +133,10 @@ Tambahan:
 
 Menampilkan:
 
-* Informasi Post
-* Preview
-* Metadata
-* Audit Information
+- Informasi Post
+- Preview
+- Metadata
+- Audit Information
 
 ---
 
@@ -146,11 +146,11 @@ Menampilkan:
 
 Kolom:
 
-* Title
-* Slug
-* Status
-* Updated At
-* Action
+- Title
+- Slug
+- Status
+- Updated At
+- Action
 
 ---
 
@@ -158,10 +158,10 @@ Kolom:
 
 Field:
 
-* Title
-* Slug
-* Content
-* Status
+- Title
+- Slug
+- Content
+- Status
 
 ---
 
@@ -169,17 +169,17 @@ Field:
 
 List:
 
-* Name
-* Slug
-* Total Posts
-* Status
-* Action
+- Name
+- Slug
+- Total Posts
+- Status
+- Action
 
 Form:
 
-* Name
-* Slug
-* Description
+- Name
+- Slug
+- Description
 
 ---
 
@@ -187,15 +187,15 @@ Form:
 
 List:
 
-* Name
-* Slug
-* Total Posts
-* Action
+- Name
+- Slug
+- Total Posts
+- Action
 
 Form:
 
-* Name
-* Slug
+- Name
+- Slug
 
 ---
 
@@ -203,10 +203,10 @@ Form:
 
 Search tersedia pada:
 
-* Posts
-* Pages
-* Categories
-* Tags
+- Posts
+- Pages
+- Categories
+- Tags
 
 ---
 
@@ -214,10 +214,10 @@ Search tersedia pada:
 
 Posts dapat difilter berdasarkan:
 
-* Status
-* Category
-* Author
-* Published Date
+- Status
+- Category
+- Author
+- Published Date
 
 ---
 
@@ -225,9 +225,9 @@ Posts dapat difilter berdasarkan:
 
 Apabila belum ada data:
 
-* Tampilkan ilustrasi.
-* Tampilkan pesan.
-* Tampilkan tombol **Tambah Data**.
+- Tampilkan ilustrasi.
+- Tampilkan pesan.
+- Tampilkan tombol **Tambah Data**.
 
 ---
 
@@ -235,8 +235,8 @@ Apabila belum ada data:
 
 Menggunakan:
 
-* Skeleton
-* Loading Spinner
+- Skeleton
+- Loading Spinner
 
 ---
 
@@ -274,8 +274,8 @@ Data akan dipindahkan ke Arsip.
 
 CMS dioptimalkan untuk:
 
-* Desktop
-* Tablet
+- Desktop
+- Tablet
 
 Mobile hanya mendukung pengelolaan sederhana.
 
@@ -285,16 +285,16 @@ Mobile hanya mendukung pengelolaan sederhana.
 
 Komponen utama:
 
-* Data Table
-* Rich Text Editor
-* Search Box
-* Filter
-* Pagination
-* Modal
-* Dialog
-* Badge
-* Toast
-* Breadcrumb
+- Data Table
+- Rich Text Editor
+- Search Box
+- Filter
+- Pagination
+- Modal
+- Dialog
+- Badge
+- Toast
+- Breadcrumb
 
 ---
 
@@ -302,21 +302,21 @@ Komponen utama:
 
 Seluruh komponen harus:
 
-* Mendukung Keyboard Navigation.
-* Memiliki Focus State.
-* Memiliki Label.
-* Menggunakan kontras warna sesuai Design System.
+- Mendukung Keyboard Navigation.
+- Memiliki Focus State.
+- Memiliki Label.
+- Menggunakan kontras warna sesuai Design System.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* validation.md
-* permissions.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- validation.md
+- permissions.md
+- roadmap.md
 
 ---
 
@@ -324,7 +324,7 @@ Seluruh komponen harus:
 
 UI CMS dianggap selesai apabila:
 
-* Seluruh halaman konsisten.
-* Mengikuti Design System.
-* Mendukung Responsive Layout.
-* Mudah digunakan oleh Administrator dan Editor.
+- Seluruh halaman konsisten.
+- Mengikuti Design System.
+- Mendukung Responsive Layout.
+- Mudah digunakan oleh Administrator dan Editor.

@@ -22,13 +22,13 @@ Dokumen ini melengkapi **Coding Standards** dengan menyediakan ringkasan aturan 
 
 Seluruh kode mengikuti prinsip:
 
-* Clean Code
-* SOLID
-* DRY
-* KISS
-* YAGNI
-* Separation of Concerns
-* Dependency Inversion
+- Clean Code
+- SOLID
+- DRY
+- KISS
+- YAGNI
+- Separation of Concerns
+- Dependency Inversion
 
 ---
 
@@ -194,15 +194,15 @@ HTTP Method:
 
 Gunakan:
 
-* Custom Exception
-* Result Pattern
-* Error Code yang konsisten
+- Custom Exception
+- Result Pattern
+- Error Code yang konsisten
 
 Hindari:
 
-* Empty Catch
-* Silent Error
-* Magic String
+- Empty Catch
+- Silent Error
+- Magic String
 
 ---
 
@@ -288,22 +288,22 @@ docs(scope): description
 
 Developer wajib:
 
-* Validasi seluruh input.
-* Gunakan Environment Variable.
-* Hindari Hardcoded Secret.
-* Gunakan Parameterized Query.
-* Terapkan RBAC.
-* Catat Audit Log.
+- Validasi seluruh input.
+- Gunakan Environment Variable.
+- Hindari Hardcoded Secret.
+- Gunakan Parameterized Query.
+- Terapkan RBAC.
+- Catat Audit Log.
 
 ---
 
 # Performance Reference
 
-* Hindari N+1 Query.
-* Gunakan Pagination.
-* Optimalkan Index Database.
-* Gunakan Cache bila diperlukan.
-* Hindari Query berulang.
+- Hindari N+1 Query.
+- Gunakan Pagination.
+- Optimalkan Index Database.
+- Gunakan Cache bila diperlukan.
+- Hindari Query berulang.
 
 ---
 
@@ -311,11 +311,11 @@ Developer wajib:
 
 Setiap perubahan besar wajib memperbarui:
 
-* README
-* API Documentation
-* ADR
-* Database Documentation
-* Architecture Documentation
+- README
+- API Documentation
+- ADR
+- Database Documentation
+- Architecture Documentation
 
 ---
 
@@ -345,17 +345,17 @@ Setiap perubahan besar wajib memperbarui:
 
 # Related Documents
 
-* README.md
-* glossary.md
-* api-reference.md
-* database-reference.md
-* external-references.md
+- README.md
+- glossary.md
+- api-reference.md
+- database-reference.md
+- external-references.md
 
 ---
 
 # Acceptance Criteria
 
-* Menjadi referensi cepat bagi Developer.
-* Selaras dengan Coding Standards.
-* Mencakup aturan implementasi utama.
-* Digunakan sebagai acuan pada Code Review dan Development.
+- Menjadi referensi cepat bagi Developer.
+- Selaras dengan Coding Standards.
+- Mencakup aturan implementasi utama.
+- Digunakan sebagai acuan pada Code Review dan Development.

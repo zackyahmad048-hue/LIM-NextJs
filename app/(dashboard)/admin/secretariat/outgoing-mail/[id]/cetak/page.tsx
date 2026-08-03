@@ -41,12 +41,17 @@ export default async function CetakOutgoingMailPage({
       {/* Toolbar */}
       <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-6 py-3 print:hidden">
         <p className="text-sm text-muted-foreground">
-          {mail.registrationNumber} &middot; {statusLabels[mail.status] ?? mail.status}
+          {mail.registrationNumber} &middot;{" "}
+          {statusLabels[mail.status] ?? mail.status}
         </p>
         <div className="flex gap-2">
           {mail.googleDocUrl && (
             <Button asChild size="sm" variant="outline">
-              <a href={mail.googleDocUrl} target="_blank" rel="noopener noreferrer">
+              <a
+                href={mail.googleDocUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Buka di Google Docs
               </a>
             </Button>
@@ -62,9 +67,12 @@ export default async function CetakOutgoingMailPage({
       <div className="mx-auto max-w-[210mm] bg-white px-8 py-10 shadow-sm print:shadow-none print:px-6 print:py-8">
         {/* Kop Surat */}
         <div className="border-b-2 border-black pb-4 text-center">
-          <h1 className="text-lg font-bold uppercase tracking-wide">{SITE.title}</h1>
+          <h1 className="text-lg font-bold uppercase tracking-wide">
+            {SITE.title}
+          </h1>
           <p className="mt-1 text-xs text-muted-foreground">
-            {SITE.email}{SITE.phone ? ` · ${SITE.phone}` : ""}
+            {SITE.email}
+            {SITE.phone ? ` · ${SITE.phone}` : ""}
           </p>
         </div>
 
@@ -85,7 +93,9 @@ export default async function CetakOutgoingMailPage({
           {mail.documentType && (
             <div className="flex">
               <span className="w-28 shrink-0 font-semibold">Jenis Surat</span>
-              <span>: {typeLabels[mail.documentType] ?? mail.documentType}</span>
+              <span>
+                : {typeLabels[mail.documentType] ?? mail.documentType}
+              </span>
             </div>
           )}
         </div>

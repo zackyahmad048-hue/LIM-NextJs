@@ -4,7 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
@@ -41,38 +44,86 @@ export default function NewOutgoingMailPage() {
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="registrationNumber" className="text-xs">Nomor Surat</Label>
-              <Input id="registrationNumber" name="registrationNumber" required placeholder="00/A/LIM-P2L/00/0000" className="rounded-md text-xs" />
+              <Label htmlFor="registrationNumber" className="text-xs">
+                Nomor Surat
+              </Label>
+              <Input
+                id="registrationNumber"
+                name="registrationNumber"
+                required
+                placeholder="00/A/LIM-P2L/00/0000"
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="mailDate" className="text-xs">Tanggal Surat</Label>
-              <Input id="mailDate" name="mailDate" type="date" required className="rounded-md text-xs" />
+              <Label htmlFor="mailDate" className="text-xs">
+                Tanggal Surat
+              </Label>
+              <Input
+                id="mailDate"
+                name="mailDate"
+                type="date"
+                required
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="recipient" className="text-xs">Penerima</Label>
-              <Input id="recipient" name="recipient" placeholder="Nama penerima surat" className="rounded-md text-xs" />
+              <Label htmlFor="recipient" className="text-xs">
+                Penerima
+              </Label>
+              <Input
+                id="recipient"
+                name="recipient"
+                placeholder="Nama penerima surat"
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="subject" className="text-xs">Perihal Surat</Label>
-              <Input id="subject" name="subject" required placeholder="Perihal surat" className="rounded-md text-xs" />
+              <Label htmlFor="subject" className="text-xs">
+                Perihal Surat
+              </Label>
+              <Input
+                id="subject"
+                name="subject"
+                required
+                placeholder="Perihal surat"
+                className="rounded-md text-xs"
+              />
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="documentType" className="text-xs">Jenis Surat</Label>
-              <NativeSelect id="documentType" name="documentType" className="w-full">
-                <NativeSelectOption value="">Pilih jenis surat</NativeSelectOption>
+              <Label htmlFor="documentType" className="text-xs">
+                Jenis Surat
+              </Label>
+              <NativeSelect
+                id="documentType"
+                name="documentType"
+                className="w-full"
+              >
+                <NativeSelectOption value="">
+                  Pilih jenis surat
+                </NativeSelectOption>
                 {letterTypes.map((t) => (
-                  <NativeSelectOption key={t.value} value={t.value}>{t.label}</NativeSelectOption>
+                  <NativeSelectOption key={t.value} value={t.value}>
+                    {t.label}
+                  </NativeSelectOption>
                 ))}
               </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="senderName" className="text-xs">Penanda Tangan</Label>
-              <Input id="senderName" name="senderName" placeholder="Nama penanda tangan surat" className="rounded-md text-xs" />
+              <Label htmlFor="senderName" className="text-xs">
+                Penanda Tangan
+              </Label>
+              <Input
+                id="senderName"
+                name="senderName"
+                placeholder="Nama penanda tangan surat"
+                className="rounded-md text-xs"
+              />
             </div>
           </div>
         </SectionCard>
@@ -86,7 +137,9 @@ export default function NewOutgoingMailPage() {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="content" className="text-xs">Konten Surat</Label>
+            <Label htmlFor="content" className="text-xs">
+              Konten Surat
+            </Label>
             <Textarea
               id="content"
               name="content"

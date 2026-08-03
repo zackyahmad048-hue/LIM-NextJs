@@ -14,14 +14,14 @@
 
 LIM Digital Platform mengelola berbagai jenis data, antara lain:
 
-* Data transaksional
-* Dokumen
-* Sertifikat
-* Gambar
-* Lampiran surat
-* Media CMS
-* Backup
-* Audit Log
+- Data transaksional
+- Dokumen
+- Sertifikat
+- Gambar
+- Lampiran surat
+- Media CMS
+- Backup
+- Audit Log
 
 Setiap jenis data memiliki karakteristik penyimpanan yang berbeda sehingga tidak tepat apabila seluruh data disimpan menggunakan pendekatan yang sama.
 
@@ -35,10 +35,10 @@ LIM Digital Platform menggunakan **Hybrid Storage Strategy**.
 
 Jenis penyimpanan:
 
-* Relational Database
-* Object Storage
-* Cache Storage
-* Backup Storage
+- Relational Database
+- Object Storage
+- Cache Storage
+- Backup Storage
 
 Setiap jenis data disimpan pada media yang sesuai dengan karakteristiknya.
 
@@ -48,10 +48,10 @@ Setiap jenis data disimpan pada media yang sesuai dengan karakteristiknya.
 
 Strategi ini dipilih karena:
 
-* Database lebih optimal untuk data relasional.
-* Object Storage lebih efisien untuk file besar.
-* Cache meningkatkan performa.
-* Backup dipisahkan dari data operasional.
+- Database lebih optimal untuk data relasional.
+- Object Storage lebih efisien untuk file besar.
+- Cache meningkatkan performa.
+- Backup dipisahkan dari data operasional.
 
 ---
 
@@ -74,16 +74,16 @@ Application
 
 Digunakan untuk:
 
-* User
-* Organization
-* Program
-* Letter
-* Certificate
-* Knowledge
-* Notification
-* Falak
-* Audit Log
-* Settings
+- User
+- Organization
+- Program
+- Letter
+- Certificate
+- Knowledge
+- Notification
+- Falak
+- Audit Log
+- Settings
 
 ---
 
@@ -91,12 +91,12 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Images
-* Documents
-* Certificate PDF
-* Letter Attachment
-* CMS Media
-* Backup File
+- Images
+- Documents
+- Certificate PDF
+- Letter Attachment
+- CMS Media
+- Backup File
 
 ---
 
@@ -104,11 +104,11 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Cache
-* Session
-* Queue
-* Rate Limiting
-* Temporary Data
+- Cache
+- Session
+- Queue
+- Rate Limiting
+- Temporary Data
 
 ---
 
@@ -116,10 +116,10 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Database Backup
-* Storage Backup
-* Configuration Backup
-* Disaster Recovery
+- Database Backup
+- Storage Backup
+- Configuration Backup
+- Disaster Recovery
 
 ---
 
@@ -127,11 +127,11 @@ Digunakan untuk:
 
 File yang diunggah:
 
-* Menggunakan UUID sebagai nama file.
-* Metadata disimpan di Database.
-* File fisik disimpan di Object Storage.
-* MIME Type divalidasi.
-* Ukuran file divalidasi.
+- Menggunakan UUID sebagai nama file.
+- Metadata disimpan di Database.
+- File fisik disimpan di Object Storage.
+- MIME Type divalidasi.
+- Ukuran file divalidasi.
 
 ---
 
@@ -161,10 +161,10 @@ Business Rules tidak mengetahui provider yang digunakan.
 
 Cache digunakan untuk:
 
-* Dashboard
-* Settings
-* Permission
-* Frequently Accessed Data
+- Dashboard
+- Settings
+- Permission
+- Frequently Accessed Data
 
 Cache bukan merupakan **Source of Truth**.
 
@@ -174,11 +174,11 @@ Cache bukan merupakan **Source of Truth**.
 
 Storage wajib menerapkan:
 
-* Encryption at Rest (jika didukung).
-* HTTPS saat transfer.
-* Access Control.
-* Audit Logging.
-* Backup berkala.
+- Encryption at Rest (jika didukung).
+- HTTPS saat transfer.
+- Access Control.
+- Audit Logging.
+- Backup berkala.
 
 ---
 
@@ -188,12 +188,12 @@ Storage wajib menerapkan:
 
 Kelebihan:
 
-* Sederhana.
+- Sederhana.
 
 Kekurangan:
 
-* Tidak efisien untuk file besar.
-* Database cepat membesar.
+- Tidak efisien untuk file besar.
+- Database cepat membesar.
 
 ---
 
@@ -201,12 +201,12 @@ Kekurangan:
 
 Kelebihan:
 
-* Mudah diimplementasikan.
+- Mudah diimplementasikan.
 
 Kekurangan:
 
-* Sulit diskalakan.
-* Metadata tidak terstruktur.
+- Sulit diskalakan.
+- Metadata tidak terstruktur.
 
 ---
 
@@ -214,12 +214,12 @@ Kekurangan:
 
 Kelebihan:
 
-* Sangat scalable.
+- Sangat scalable.
 
 Kekurangan:
 
-* Ketergantungan tinggi pada provider.
-* Biaya operasional lebih besar.
+- Ketergantungan tinggi pada provider.
+- Biaya operasional lebih besar.
 
 ---
 
@@ -227,31 +227,31 @@ Kekurangan:
 
 Keuntungan:
 
-* Performa lebih baik.
-* Mudah mengganti Storage Provider.
-* Skalabilitas tinggi.
-* Selaras dengan Hexagonal Architecture.
+- Performa lebih baik.
+- Mudah mengganti Storage Provider.
+- Skalabilitas tinggi.
+- Selaras dengan Hexagonal Architecture.
 
 Konsekuensi:
 
-* Memerlukan sinkronisasi metadata.
-* Membutuhkan strategi backup yang baik.
-* Pengelolaan Storage menjadi lebih kompleks.
+- Memerlukan sinkronisasi metadata.
+- Membutuhkan strategi backup yang baik.
+- Pengelolaan Storage menjadi lebih kompleks.
 
 ---
 
 # Related Decisions
 
-* ADR-002 Clean Architecture
-* ADR-003 Repository Pattern
-* ADR-007 Notification Architecture
+- ADR-002 Clean Architecture
+- ADR-003 Repository Pattern
+- ADR-007 Notification Architecture
 
 ---
 
 # References
 
-* Architecture Documentation (`02-architecture/hexagonal-architecture.md`)
-* AWS Well-Architected Framework – Storage Best Practices
+- Architecture Documentation (`02-architecture/hexagonal-architecture.md`)
+- AWS Well-Architected Framework – Storage Best Practices
 
 ---
 
@@ -263,8 +263,8 @@ Konsekuensi:
 
 # Acceptance Criteria
 
-* Data relasional disimpan di PostgreSQL.
-* File disimpan di Object Storage.
-* Cache menggunakan Redis.
-* Storage Provider dapat diganti tanpa mengubah Business Rules.
-* Storage Strategy menjadi standar penyimpanan LIM Digital Platform.
+- Data relasional disimpan di PostgreSQL.
+- File disimpan di Object Storage.
+- Cache menggunakan Redis.
+- Storage Provider dapat diganti tanpa mengubah Business Rules.
+- Storage Strategy menjadi standar penyimpanan LIM Digital Platform.

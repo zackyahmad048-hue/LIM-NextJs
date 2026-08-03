@@ -11,7 +11,9 @@ export interface CategoryWithCount {
   _count: { posts: number };
 }
 
-export async function getCategories(search?: string): Promise<CategoryWithCount[]> {
+export async function getCategories(
+  search?: string,
+): Promise<CategoryWithCount[]> {
   return prisma.category.findMany({
     where: {
       deletedAt: null,

@@ -24,11 +24,7 @@ interface SidebarContextValue {
 
 const SidebarContext = createContext<SidebarContextValue | null>(null);
 
-export function SidebarProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export function SidebarProvider({ children }: { children: ReactNode }) {
   const isMobile = useIsMobile();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -45,13 +41,11 @@ export function SidebarProvider({
       closeMobile: () => setMobileOpen(false),
       toggleMobile: () => setMobileOpen((prev) => !prev),
     }),
-    [collapsed, isMobile, mobileOpen]
+    [collapsed, isMobile, mobileOpen],
   );
 
   return (
-    <SidebarContext.Provider value={value}>
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>
   );
 }
 
@@ -59,9 +53,7 @@ export function useSidebar() {
   const context = useContext(SidebarContext);
 
   if (!context) {
-    throw new Error(
-      "useSidebar must be used inside SidebarProvider"
-    );
+    throw new Error("useSidebar must be used inside SidebarProvider");
   }
 
   return context;

@@ -23,11 +23,13 @@ Dokumen ini mendefinisikan UI specification untuk domain Authorization.
 **URL:** `/admin/system/roles`
 
 **Layout:**
+
 - Page header with title
 - Table with roles
 - Add role button
 
 **Table Columns:**
+
 - Name
 - Description
 - Is System
@@ -41,6 +43,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authorization.
 **Trigger:** Add/Edit button
 
 **Fields:**
+
 - Name (text input)
 - Description (textarea)
 - Permissions (checkboxes grouped by domain)
@@ -52,11 +55,13 @@ Dokumen ini mendefinisikan UI specification untuk domain Authorization.
 **URL:** `/admin/system/users`
 
 **Layout:**
+
 - Page header with title
 - Table with users
 - Add user button
 
 **Table Columns:**
+
 - Name
 - Email
 - Roles
@@ -70,6 +75,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authorization.
 **Trigger:** Add/Edit button
 
 **Fields:**
+
 - Name (text input)
 - Email (email input)
 - Password (password input, only for create)

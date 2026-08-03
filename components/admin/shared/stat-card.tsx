@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 
 import { SectionCard } from "./section-card";
+import { HubDot } from "@/components/shared/hub-dot";
 
 interface StatCardProps {
   title: string;
@@ -19,23 +20,23 @@ export function StatCard({
     <SectionCard>
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <p className="text-sm text-muted-foreground">
+          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+            <HubDot className="h-2 w-2" />
             {title}
           </p>
 
-          <h2 className="text-3xl font-bold tracking-tight">
-            {value}
-          </h2>
+          <h2 className="text-3xl font-bold tracking-tight">{value}</h2>
 
           {description && (
-            <p className="text-sm text-muted-foreground">
-              {description}
-            </p>
+            <p className="text-sm text-muted-foreground">{description}</p>
           )}
         </div>
 
         {Icon && (
-          <Icon className="h-8 w-8 text-muted-foreground" />
+          <div className="relative flex size-10 items-center justify-center">
+            <span className="absolute inset-0 rounded-full border border-dashed border-primary/40" />
+            <Icon className="relative h-4 w-4 text-primary" />
+          </div>
         )}
       </div>
     </SectionCard>

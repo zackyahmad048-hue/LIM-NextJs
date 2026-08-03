@@ -18,21 +18,29 @@ function columnLetter(index: number): string {
   return letter;
 }
 
-export async function readSheetValues(spreadsheetId: string, tab: string): Promise<string[][]> {
+export async function readSheetValues(
+  spreadsheetId: string,
+  tab: string,
+): Promise<string[][]> {
   if (!spreadsheetId) {
-    throw new GoogleApiError("UNAUTHENTICATED", "Google Spreadsheet ID belum dikonfigurasi.");
+    throw new GoogleApiError(
+      "UNAUTHENTICATED",
+      "Google Spreadsheet ID belum dikonfigurasi.",
+    );
   }
   const { sheets } = getGoogleClients();
   const res = await withGoogleRetry(() =>
     sheets.spreadsheets.values.get({
       spreadsheetId,
       range: tab,
-    })
+    }),
   );
   return res.data.values ?? [];
 }
 
-export async function readRows(schema: SheetSchema): Promise<Record<string, string>[]> {
+export async function readRows(
+  schema: SheetSchema,
+): Promise<Record<string, string>[]> {
   const values = await readSheetValues(schema.spreadsheetId, schema.tab);
   if (values.length < 2) return [];
 
@@ -46,7 +54,10 @@ export async function readRows(schema: SheetSchema): Promise<Record<string, stri
   });
 }
 
-export async function appendRow(schema: SheetSchema, data: Record<string, string>): Promise<void> {
+export async function appendRow(
+  schema: SheetSchema,
+  data: Record<string, string>,
+): Promise<void> {
   const { sheets } = getGoogleClients();
   const values = schema.headers.map((header) => data[header] ?? "");
   await withGoogleRetry(() =>
@@ -55,11 +66,14 @@ export async function appendRow(schema: SheetSchema, data: Record<string, string
       range: `${schema.tab}!A1`,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: [values] },
-    })
+    }),
   );
 }
 
-export async function findRowIndexById(schema: SheetSchema, id: string): Promise<number | null> {
+export async function findRowIndexById(
+  schema: SheetSchema,
+  id: string,
+): Promise<number | null> {
   const values = await readSheetValues(schema.spreadsheetId, schema.tab);
   for (let i = 1; i < values.length; i++) {
     if (values[i][0] === id) return i;
@@ -70,11 +84,14 @@ export async function findRowIndexById(schema: SheetSchema, id: string): Promise
 export async function updateRowById(
   schema: SheetSchema,
   id: string,
-  data: Record<string, string>
+  data: Record<string, string>,
 ): Promise<void> {
   const rowIndex = await findRowIndexById(schema, id);
   if (rowIndex === null) {
-    throw new GoogleApiError("NOT_FOUND", `Data ${id} tidak ditemukan di tab ${schema.tab}.`);
+    throw new GoogleApiError(
+      "NOT_FOUND",
+      `Data ${id} tidak ditemukan di tab ${schema.tab}.`,
+    );
   }
 
   const { sheets } = getGoogleClients();
@@ -86,12 +103,12 @@ export async function updateRowById(
     sheets.spreadsheets.values.get({
       spreadsheetId: schema.spreadsheetId,
       range,
-    })
+    }),
   );
   const current = currentRes.data.values?.[0] ?? [];
 
   const merged = schema.headers.map((header, i) =>
-    data[header] !== undefined ? data[header] : current[i] ?? ""
+    data[header] !== undefined ? data[header] : (current[i] ?? ""),
   );
 
   await withGoogleRetry(() =>
@@ -100,6 +117,6 @@ export async function updateRowById(
       range,
       valueInputOption: "USER_ENTERED",
       requestBody: { values: [merged] },
-    })
+    }),
   );
 }

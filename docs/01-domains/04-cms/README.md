@@ -24,13 +24,13 @@ Domain ini memungkinkan administrator membuat, mengubah, mempublikasikan, dan me
 
 Domain CMS bertujuan untuk:
 
-* Mengelola konten website.
-* Mengelola halaman statis.
-* Mengelola berita dan artikel.
-* Mengelola kategori konten.
-* Mengelola tag.
-* Mengelola media yang berkaitan dengan konten.
-* Menyediakan konten untuk Website dan Mobile.
+- Mengelola konten website.
+- Mengelola halaman statis.
+- Mengelola berita dan artikel.
+- Mengelola kategori konten.
+- Mengelola tag.
+- Mengelola media yang berkaitan dengan konten.
+- Menyediakan konten untuk Website dan Mobile.
 
 ---
 
@@ -38,21 +38,21 @@ Domain CMS bertujuan untuk:
 
 Domain CMS mencakup:
 
-* Posts
-* Pages
-* Categories
-* Tags
-* Featured Content
-* SEO Metadata
-* Content Publishing
+- Posts
+- Pages
+- Categories
+- Tags
+- Featured Content
+- SEO Metadata
+- Content Publishing
 
 Domain CMS tidak mencakup:
 
-* Media Library
-* Notification
-* Program
-* Secretariat
-* Certificate
+- Media Library
+- Notification
+- Program
+- Secretariat
+- Certificate
 
 ---
 
@@ -60,9 +60,9 @@ Domain CMS tidak mencakup:
 
 Domain CMS digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Editor
+- Super Administrator
+- Administrator
+- Editor
 
 Pengunjung Website hanya dapat melihat konten yang telah dipublikasikan.
 
@@ -72,12 +72,12 @@ Pengunjung Website hanya dapat melihat konten yang telah dipublikasikan.
 
 Domain CMS bertanggung jawab untuk:
 
-* Mengelola artikel.
-* Mengelola halaman.
-* Mengelola kategori.
-* Mengelola tag.
-* Mengatur status publikasi.
-* Mengelola metadata SEO.
+- Mengelola artikel.
+- Mengelola halaman.
+- Mengelola kategori.
+- Mengelola tag.
+- Mengatur status publikasi.
+- Mengelola metadata SEO.
 
 ---
 
@@ -85,10 +85,10 @@ Domain CMS bertanggung jawab untuk:
 
 CMS menggunakan layanan dari:
 
-* Authentication
-* Authorization
-* Media
-* Notification (opsional)
+- Authentication
+- Authorization
+- Media
+- Notification (opsional)
 
 Website dan Mobile menggunakan data yang disediakan oleh CMS.
 
@@ -98,13 +98,13 @@ Website dan Mobile menggunakan data yang disediakan oleh CMS.
 
 Fitur utama CMS:
 
-* Post Management
-* Page Management
-* Category Management
-* Tag Management
-* SEO Management
-* Publish & Archive
-* Draft Management
+- Post Management
+- Page Management
+- Category Management
+- Tag Management
+- SEO Management
+- Publish & Archive
+- Draft Management
 
 ---
 
@@ -112,14 +112,14 @@ Fitur utama CMS:
 
 Dokumen yang berkaitan:
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

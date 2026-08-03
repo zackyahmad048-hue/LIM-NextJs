@@ -20,10 +20,10 @@ Domain Knowledge menjadi pusat pengelolaan pengetahuan organisasi berupa artikel
 
 # General Rules
 
-* Seluruh pengetahuan dikelola melalui Domain Knowledge.
-* Setiap artikel memiliki ID unik.
-* Seluruh perubahan dicatat pada Audit Log.
-* Akses artikel mengikuti Role dan Permission.
+- Seluruh pengetahuan dikelola melalui Domain Knowledge.
+- Setiap artikel memiliki ID unik.
+- Seluruh perubahan dicatat pada Audit Log.
+- Akses artikel mengikuti Role dan Permission.
 
 ---
 
@@ -31,14 +31,14 @@ Domain Knowledge menjadi pusat pengelolaan pengetahuan organisasi berupa artikel
 
 Jenis konten meliputi:
 
-* Article
-* Documentation
-* SOP
-* FAQ
-* Tutorial
-* Reference
-* Announcement
-* Policy
+- Article
+- Documentation
+- SOP
+- FAQ
+- Tutorial
+- Reference
+- Announcement
+- Policy
 
 Jenis konten dapat ditambahkan melalui konfigurasi sistem.
 
@@ -72,9 +72,9 @@ Kategori dapat disusun secara hierarki (Parent–Child).
 
 # Tag Rules
 
-* Tag bersifat opsional.
-* Satu konten dapat memiliki banyak tag.
-* Tag digunakan untuk pencarian.
+- Tag bersifat opsional.
+- Satu konten dapat memiliki banyak tag.
+- Tag digunakan untuk pencarian.
 
 ---
 
@@ -90,10 +90,10 @@ Reviewer harus memiliki permission yang sesuai.
 
 Konten hanya dapat dipublikasikan apabila:
 
-* Status = Review.
-* Judul tersedia.
-* Isi artikel tersedia.
-* Penulis valid.
+- Status = Review.
+- Judul tersedia.
+- Isi artikel tersedia.
+- Penulis valid.
 
 ---
 
@@ -101,11 +101,11 @@ Konten hanya dapat dipublikasikan apabila:
 
 Pencarian mendukung:
 
-* Judul
-* Isi Artikel
-* Tag
-* Kategori
-* Penulis
+- Judul
+- Isi Artikel
+- Tag
+- Kategori
+- Penulis
 
 Menggunakan Full Text Search.
 
@@ -115,9 +115,9 @@ Menggunakan Full Text Search.
 
 Konten yang telah diarsipkan:
 
-* Bersifat Read Only.
-* Tetap dapat dicari oleh Administrator.
-* Tidak tampil pada daftar publik.
+- Bersifat Read Only.
+- Tetap dapat dicari oleh Administrator.
+- Tidak tampil pada daftar publik.
 
 ---
 
@@ -127,9 +127,9 @@ Menggunakan Soft Delete.
 
 Konten tidak dapat dihapus apabila:
 
-* Menjadi referensi domain lain.
-* Digunakan sebagai SOP aktif.
-* Digunakan sebagai dokumentasi sistem.
+- Menjadi referensi domain lain.
+- Digunakan sebagai SOP aktif.
+- Digunakan sebagai dokumentasi sistem.
 
 ---
 
@@ -137,23 +137,23 @@ Konten tidak dapat dihapus apabila:
 
 Aktivitas berikut wajib dicatat:
 
-* Create Content
-* Update Content
-* Submit Review
-* Approve Content
-* Reject Content
-* Publish Content
-* Archive Content
-* Delete Content
+- Create Content
+- Update Content
+- Submit Review
+- Approve Content
+- Reject Content
+- Publish Content
+- Archive Content
+- Delete Content
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* Draft hanya dapat diakses oleh Author dan Reviewer.
-* Audit Log wajib aktif.
+- Authentication wajib.
+- Permission wajib.
+- Draft hanya dapat diakses oleh Author dan Reviewer.
+- Audit Log wajib aktif.
 
 ---
 
@@ -161,21 +161,21 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* Seluruh konten mengikuti lifecycle yang ditentukan.
-* Kategori dan tag dikelola dengan benar.
-* Publish hanya melalui proses review.
-* Arsip bersifat Read Only.
-* Seluruh aktivitas tercatat pada Audit Log.
+- Seluruh konten mengikuti lifecycle yang ditentukan.
+- Kategori dan tag dikelola dengan benar.
+- Publish hanya melalui proses review.
+- Arsip bersifat Read Only.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

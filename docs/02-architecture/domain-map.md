@@ -24,11 +24,11 @@ LIM Digital Platform menggunakan pendekatan **Modular Monolith** dengan pemisaha
 
 Setiap domain memiliki:
 
-* Business Rules sendiri.
-* Database sendiri (logical ownership).
-* API sendiri.
-* Service sendiri.
-* Repository sendiri.
+- Business Rules sendiri.
+- Database sendiri (logical ownership).
+- API sendiri.
+- Service sendiri.
+- Repository sendiri.
 
 Tidak diperbolehkan mengakses database domain lain secara langsung.
 
@@ -138,10 +138,10 @@ Tidak saling bergantung secara langsung.
 
 Komunikasi dilakukan melalui:
 
-* Service Interface
-* Domain Event
-* API
-* Application Service
+- Service Interface
+- Domain Event
+- API
+- Application Service
 
 ---
 
@@ -199,15 +199,15 @@ Domain B
 
 Domain hanya boleh berkomunikasi melalui:
 
-* Public Service
-* Public API
-* Domain Event
+- Public Service
+- Public API
+- Domain Event
 
 Tidak diperbolehkan:
 
-* Query langsung ke tabel domain lain.
-* Menggunakan Repository domain lain.
-* Mengakses Entity domain lain secara langsung.
+- Query langsung ke tabel domain lain.
+- Menggunakan Repository domain lain.
+- Mengakses Entity domain lain secara langsung.
 
 ---
 
@@ -215,13 +215,13 @@ Tidak diperbolehkan:
 
 Digunakan oleh seluruh domain:
 
-* Authentication
-* Authorization
-* Audit Log
-* Validation
-* Configuration
-* Logging
-* Exception Handling
+- Authentication
+- Authorization
+- Audit Log
+- Validation
+- Configuration
+- Logging
+- Exception Handling
 
 ---
 
@@ -253,34 +253,34 @@ Migrasi dilakukan tanpa mengubah Business Rules.
 
 # Architecture Principles
 
-* High Cohesion
-* Low Coupling
-* Explicit Dependency
-* Single Source of Truth
-* Domain Ownership
-* Separation of Concerns
+- High Cohesion
+- Low Coupling
+- Explicit Dependency
+- Single Source of Truth
+- Domain Ownership
+- Separation of Concerns
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* system-context.md
-* bounded-context.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* cqrs.md
-* event-driven.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- system-context.md
+- bounded-context.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- cqrs.md
+- event-driven.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh domain memiliki ownership yang jelas.
-* Dependency antar domain terdokumentasi.
-* Komunikasi antar domain mengikuti Public Interface.
-* Tidak ada akses langsung ke database domain lain.
-* Domain Map menjadi acuan pengembangan seluruh modul.
+- Seluruh domain memiliki ownership yang jelas.
+- Dependency antar domain terdokumentasi.
+- Komunikasi antar domain mengikuti Public Interface.
+- Tidak ada akses langsung ke database domain lain.
+- Domain Map menjadi acuan pengembangan seluruh modul.

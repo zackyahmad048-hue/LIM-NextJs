@@ -24,11 +24,11 @@ Form merupakan media utama interaksi pengguna untuk memasukkan, memperbarui, dan
 
 Standar Form bertujuan untuk:
 
-* Menyeragamkan pengalaman pengguna.
-* Mengurangi kesalahan input.
-* Mempermudah implementasi Frontend.
-* Mendukung Accessibility.
-* Menjamin konsistensi validasi.
+- Menyeragamkan pengalaman pengguna.
+- Mengurangi kesalahan input.
+- Mempermudah implementasi Frontend.
+- Mendukung Accessibility.
+- Menjamin konsistensi validasi.
 
 ---
 
@@ -36,12 +36,12 @@ Standar Form bertujuan untuk:
 
 Seluruh Form harus:
 
-* Sederhana.
-* Konsisten.
-* Responsif.
-* Mudah dipahami.
-* Mudah divalidasi.
-* Accessible.
+- Sederhana.
+- Konsisten.
+- Responsif.
+- Mudah dipahami.
+- Mudah divalidasi.
+- Accessible.
 
 ---
 
@@ -49,10 +49,10 @@ Seluruh Form harus:
 
 Layout standar:
 
-* Label di atas Input.
-* Jarak antar Field konsisten.
-* Kelompokkan Field yang berkaitan.
-* Gunakan Section untuk Form panjang.
+- Label di atas Input.
+- Jarak antar Field konsisten.
+- Kelompokkan Field yang berkaitan.
+- Gunakan Section untuk Form panjang.
 
 ---
 
@@ -60,14 +60,14 @@ Layout standar:
 
 Komponen standar:
 
-* Text Field
-* Text Area
-* Password Field
-* Number Field
-* Email Field
-* Phone Field
-* Search Field
-* URL Field
+- Text Field
+- Text Area
+- Password Field
+- Number Field
+- Email Field
+- Phone Field
+- Search Field
+- URL Field
 
 ---
 
@@ -75,11 +75,11 @@ Komponen standar:
 
 Komponen pilihan:
 
-* Select
-* Multi Select
-* Radio Button
-* Checkbox
-* Toggle Switch
+- Select
+- Multi Select
+- Radio Button
+- Checkbox
+- Toggle Switch
 
 ---
 
@@ -87,10 +87,10 @@ Komponen pilihan:
 
 Mendukung:
 
-* Date Picker
-* Time Picker
-* Date Time Picker
-* Date Range Picker
+- Date Picker
+- Time Picker
+- Date Time Picker
+- Date Range Picker
 
 ---
 
@@ -98,17 +98,17 @@ Mendukung:
 
 Mendukung:
 
-* Drag & Drop
-* Browse File
-* Preview File
-* Progress Upload
-* Remove File
+- Drag & Drop
+- Browse File
+- Preview File
+- Progress Upload
+- Remove File
 
 Validasi:
 
-* MIME Type
-* Ukuran File
-* Jumlah File
+- MIME Type
+- Ukuran File
+- Jumlah File
 
 ---
 
@@ -116,9 +116,9 @@ Validasi:
 
 Validasi dilakukan secara:
 
-* Real-Time (jika sesuai)
-* Saat Submit
-* Berdasarkan aturan Business Rules
+- Real-Time (jika sesuai)
+- Saat Submit
+- Berdasarkan aturan Business Rules
 
 Error ditampilkan di bawah Field yang bermasalah.
 
@@ -152,16 +152,16 @@ Success
 
 Pesan Error harus:
 
-* Singkat.
-* Jelas.
-* Menjelaskan penyebab.
-* Memberikan arahan perbaikan bila memungkinkan.
+- Singkat.
+- Jelas.
+- Menjelaskan penyebab.
+- Memberikan arahan perbaikan bila memungkinkan.
 
 Contoh:
 
-* Email wajib diisi.
-* Format email tidak valid.
-* Password minimal 8 karakter.
+- Email wajib diisi.
+- Format email tidak valid.
+- Password minimal 8 karakter.
 
 ---
 
@@ -169,9 +169,9 @@ Contoh:
 
 Field wajib:
 
-* Ditandai secara konsisten.
-* Dijelaskan pada dokumentasi Form.
-* Tidak hanya dibedakan menggunakan warna.
+- Ditandai secara konsisten.
+- Dijelaskan pada dokumentasi Form.
+- Tidak hanya dibedakan menggunakan warna.
 
 ---
 
@@ -179,9 +179,9 @@ Field wajib:
 
 Form minimal memiliki:
 
-* Primary Action
-* Secondary Action (Opsional)
-* Cancel (bila diperlukan)
+- Primary Action
+- Secondary Action (Opsional)
+- Cancel (bila diperlukan)
 
 Button Submit menampilkan Loading ketika proses berlangsung.
 
@@ -191,9 +191,9 @@ Button Submit menampilkan Loading ketika proses berlangsung.
 
 Pada Mobile:
 
-* Field menggunakan lebar penuh.
-* Label tetap berada di atas.
-* Tombol mudah dijangkau.
+- Field menggunakan lebar penuh.
+- Label tetap berada di atas.
+- Tombol mudah dijangkau.
 
 ---
 
@@ -201,38 +201,38 @@ Pada Mobile:
 
 Form wajib:
 
-* Mendukung Keyboard Navigation.
-* Memiliki Focus Indicator.
-* Menggunakan Label yang terhubung dengan Input.
-* Menampilkan Error yang dapat dibaca Screen Reader.
-* Memenuhi WCAG 2.1 Level AA.
+- Mendukung Keyboard Navigation.
+- Memiliki Focus Indicator.
+- Menggunakan Label yang terhubung dengan Input.
+- Menampilkan Error yang dapat dibaca Screen Reader.
+- Memenuhi WCAG 2.1 Level AA.
 
 ---
 
 # Best Practices
 
-* Gunakan Placeholder sebagai contoh, bukan pengganti Label.
-* Hindari meminta data yang tidak diperlukan.
-* Kelompokkan Field berdasarkan konteks.
-* Validasi sedini mungkin tanpa mengganggu pengguna.
-* Gunakan komponen Form yang telah distandarkan.
+- Gunakan Placeholder sebagai contoh, bukan pengganti Label.
+- Hindari meminta data yang tidak diperlukan.
+- Kelompokkan Field berdasarkan konteks.
+- Validasi sedini mungkin tanpa mengganggu pengguna.
+- Gunakan komponen Form yang telah distandarkan.
 
 ---
 
 # Related Documents
 
-* README.md
-* components.md
-* colors.md
-* typography.md
-* accessibility.md
+- README.md
+- components.md
+- colors.md
+- typography.md
+- accessibility.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Form menggunakan komponen standar.
-* Validasi ditampilkan secara konsisten.
-* Form responsif pada Desktop, Tablet, dan Mobile.
-* Memenuhi standar Accessibility.
-* Forms menjadi acuan resmi implementasi seluruh Form pada LIM Digital Platform.
+- Seluruh Form menggunakan komponen standar.
+- Validasi ditampilkan secara konsisten.
+- Form responsif pada Desktop, Tablet, dan Mobile.
+- Memenuhi standar Accessibility.
+- Forms menjadi acuan resmi implementasi seluruh Form pada LIM Digital Platform.

@@ -43,7 +43,10 @@ export default async function StructurePage() {
           <div className="rounded-lg border bg-background p-4">
             <h3 className="text-sm font-semibold">Informasi</h3>
             <div className="mt-2 space-y-1 text-xs text-muted-foreground">
-              <p>Simpan perubahan untuk memperbarui tampilan struktur di halaman publik.</p>
+              <p>
+                Simpan perubahan untuk memperbarui tampilan struktur di halaman
+                publik.
+              </p>
             </div>
           </div>
         </div>

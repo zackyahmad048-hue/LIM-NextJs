@@ -25,11 +25,23 @@ export interface SecretariatRepository {
 
   findIncomingMailById(id: string): Promise<IncomingMailEntity | null>;
 
-  findIncomingMailByNumber(registrationNumber: string): Promise<IncomingMailEntity | null>;
+  findIncomingMailByNumber(
+    registrationNumber: string,
+  ): Promise<IncomingMailEntity | null>;
 
-  createIncomingMail(data: Omit<IncomingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">): Promise<IncomingMailEntity>;
+  createIncomingMail(
+    data: Omit<
+      IncomingMailEntity,
+      "id" | "createdAt" | "updatedAt" | "deletedAt"
+    >,
+  ): Promise<IncomingMailEntity>;
 
-  updateIncomingMail(id: string, data: Partial<Omit<IncomingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">>): Promise<IncomingMailEntity>;
+  updateIncomingMail(
+    id: string,
+    data: Partial<
+      Omit<IncomingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">
+    >,
+  ): Promise<IncomingMailEntity>;
 
   softDeleteIncomingMail(id: string): Promise<void>;
 
@@ -43,11 +55,23 @@ export interface SecretariatRepository {
 
   findOutgoingMailById(id: string): Promise<OutgoingMailEntity | null>;
 
-  findOutgoingMailByNumber(registrationNumber: string): Promise<OutgoingMailEntity | null>;
+  findOutgoingMailByNumber(
+    registrationNumber: string,
+  ): Promise<OutgoingMailEntity | null>;
 
-  createOutgoingMail(data: Omit<OutgoingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">): Promise<OutgoingMailEntity>;
+  createOutgoingMail(
+    data: Omit<
+      OutgoingMailEntity,
+      "id" | "createdAt" | "updatedAt" | "deletedAt"
+    >,
+  ): Promise<OutgoingMailEntity>;
 
-  updateOutgoingMail(id: string, data: Partial<Omit<OutgoingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">>): Promise<OutgoingMailEntity>;
+  updateOutgoingMail(
+    id: string,
+    data: Partial<
+      Omit<OutgoingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">
+    >,
+  ): Promise<OutgoingMailEntity>;
 
   softDeleteOutgoingMail(id: string): Promise<void>;
 
@@ -58,13 +82,23 @@ export interface SecretariatRepository {
     status?: DispositionStatus;
     page: number;
     limit: number;
-  }): Promise<{ items: (DispositionEntity & { incomingMail: { registrationNumber: string; subject: string } })[]; total: number }>;
+  }): Promise<{
+    items: (DispositionEntity & {
+      incomingMail: { registrationNumber: string; subject: string };
+    })[];
+    total: number;
+  }>;
 
   findDispositionById(id: string): Promise<DispositionEntity | null>;
 
-  createDisposition(data: Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">): Promise<DispositionEntity>;
+  createDisposition(
+    data: Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">,
+  ): Promise<DispositionEntity>;
 
-  updateDisposition(id: string, data: Partial<Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">>): Promise<DispositionEntity>;
+  updateDisposition(
+    id: string,
+    data: Partial<Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">>,
+  ): Promise<DispositionEntity>;
 
   deleteDisposition(id: string): Promise<void>;
 
@@ -77,13 +111,30 @@ export interface SecretariatRepository {
     limit: number;
   }): Promise<{ items: AdministrativeDocumentEntity[]; total: number }>;
 
-  findAdministrativeDocumentById(id: string): Promise<AdministrativeDocumentEntity | null>;
+  findAdministrativeDocumentById(
+    id: string,
+  ): Promise<AdministrativeDocumentEntity | null>;
 
-  findAdministrativeDocumentByNumber(documentNumber: string): Promise<AdministrativeDocumentEntity | null>;
+  findAdministrativeDocumentByNumber(
+    documentNumber: string,
+  ): Promise<AdministrativeDocumentEntity | null>;
 
-  createAdministrativeDocument(data: Omit<AdministrativeDocumentEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">): Promise<AdministrativeDocumentEntity>;
+  createAdministrativeDocument(
+    data: Omit<
+      AdministrativeDocumentEntity,
+      "id" | "createdAt" | "updatedAt" | "deletedAt"
+    >,
+  ): Promise<AdministrativeDocumentEntity>;
 
-  updateAdministrativeDocument(id: string, data: Partial<Omit<AdministrativeDocumentEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">>): Promise<AdministrativeDocumentEntity>;
+  updateAdministrativeDocument(
+    id: string,
+    data: Partial<
+      Omit<
+        AdministrativeDocumentEntity,
+        "id" | "createdAt" | "updatedAt" | "deletedAt"
+      >
+    >,
+  ): Promise<AdministrativeDocumentEntity>;
 
   softDeleteAdministrativeDocument(id: string): Promise<void>;
 
@@ -114,7 +165,16 @@ export interface SecretariatRepository {
     totalAdministrativeDocuments: number;
   }>;
 
-  countIncomingMailsByStatus(): Promise<{ received: number; processed: number; archived: number }>;
+  countIncomingMailsByStatus(): Promise<{
+    received: number;
+    processed: number;
+    archived: number;
+  }>;
 
-  countOutgoingMailsByStatus(): Promise<{ draft: number; approved: number; sent: number; archived: number }>;
+  countOutgoingMailsByStatus(): Promise<{
+    draft: number;
+    approved: number;
+    sent: number;
+    archived: number;
+  }>;
 }

@@ -20,10 +20,10 @@ Seluruh parameter perhitungan, data observasi, dan hasil astronomi wajib melalui
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Messages
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -31,16 +31,16 @@ Seluruh parameter perhitungan, data observasi, dan hasil astronomi wajib melalui
 
 ## Location
 
-* Wajib diisi.
-* Latitude: -90 s/d 90.
-* Longitude: -180 s/d 180.
+- Wajib diisi.
+- Latitude: -90 s/d 90.
+- Longitude: -180 s/d 180.
 
 ---
 
 ## Date
 
-* Wajib diisi.
-* Menggunakan format ISO Date.
+- Wajib diisi.
+- Menggunakan format ISO Date.
 
 ---
 
@@ -50,28 +50,28 @@ Harus salah satu metode yang didukung sistem.
 
 Contoh:
 
-* Kementerian Agama RI
-* Muhammadiyah
-* Umm Al-Qura
-* Egyptian
-* ISNA
-* MWL
+- Kementerian Agama RI
+- Muhammadiyah
+- Umm Al-Qura
+- Egyptian
+- ISNA
+- MWL
 
 ---
 
 # Qibla Validation
 
-* Latitude wajib valid.
-* Longitude wajib valid.
-* Koordinat tidak boleh kosong.
+- Latitude wajib valid.
+- Longitude wajib valid.
+- Koordinat tidak boleh kosong.
 
 ---
 
 # Hijri Calendar Validation
 
-* Tanggal Gregorian wajib diisi.
-* Metode Hisab/Rukyat harus valid.
-* Tahun Hijriah berada dalam rentang yang didukung sistem.
+- Tanggal Gregorian wajib diisi.
+- Metode Hisab/Rukyat harus valid.
+- Tahun Hijriah berada dalam rentang yang didukung sistem.
 
 ---
 
@@ -79,10 +79,10 @@ Contoh:
 
 Parameter wajib meliputi:
 
-* Tanggal
-* Lokasi
-* Zona Waktu
-* Metode Perhitungan
+- Tanggal
+- Lokasi
+- Zona Waktu
+- Metode Perhitungan
 
 Seluruh parameter astronomi harus valid.
 
@@ -92,10 +92,10 @@ Seluruh parameter astronomi harus valid.
 
 ## Observation
 
-* Lokasi observasi wajib diisi.
-* Observer wajib aktif.
-* Tanggal observasi wajib diisi.
-* Cuaca wajib dipilih.
+- Lokasi observasi wajib diisi.
+- Observer wajib aktif.
+- Tanggal observasi wajib diisi.
+- Cuaca wajib dipilih.
 
 ---
 
@@ -103,8 +103,8 @@ Seluruh parameter astronomi harus valid.
 
 Observasi hanya dapat diverifikasi apabila:
 
-* Status = Draft.
-* Data observasi lengkap.
+- Status = Draft.
+- Data observasi lengkap.
 
 ---
 
@@ -112,16 +112,16 @@ Observasi hanya dapat diverifikasi apabila:
 
 Observasi hanya dapat dikonfirmasi apabila:
 
-* Status = Verified.
-* Dilakukan oleh pengguna yang memiliki permission.
+- Status = Verified.
+- Dilakukan oleh pengguna yang memiliki permission.
 
 ---
 
 # Eclipse Validation
 
-* Jenis gerhana wajib dipilih.
-* Tanggal perhitungan wajib diisi.
-* Parameter astronomi harus lengkap.
+- Jenis gerhana wajib dipilih.
+- Tanggal perhitungan wajib diisi.
+- Parameter astronomi harus lengkap.
 
 ---
 
@@ -129,7 +129,7 @@ Observasi hanya dapat dikonfirmasi apabila:
 
 Data hanya dapat diarsipkan apabila:
 
-* Status = Confirmed.
+- Status = Confirmed.
 
 ---
 
@@ -137,7 +137,7 @@ Data hanya dapat diarsipkan apabila:
 
 Data hanya dapat dipulihkan apabila:
 
-* Status = Archived.
+- Status = Archived.
 
 ---
 
@@ -145,22 +145,22 @@ Data hanya dapat dipulihkan apabila:
 
 Data tidak dapat dihapus apabila:
 
-* Menjadi data historis.
-* Digunakan pada laporan resmi.
-* Digunakan pada kalender yang telah dipublikasikan.
+- Menjadi data historis.
+- Digunakan pada laporan resmi.
+- Digunakan pada kalender yang telah dipublikasikan.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -206,8 +206,8 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh parameter tervalidasi.
-* Perhitungan hanya menggunakan data yang valid.
-* Observasi mengikuti alur Draft → Verified → Confirmed.
-* Data historis tidak dapat dihapus.
-* Seluruh validasi dijalankan sebelum Business Rules.
+- Seluruh parameter tervalidasi.
+- Perhitungan hanya menggunakan data yang valid.
+- Observasi mengikuti alur Draft → Verified → Confirmed.
+- Data historis tidak dapat dihapus.
+- Seluruh validasi dijalankan sebelum Business Rules.

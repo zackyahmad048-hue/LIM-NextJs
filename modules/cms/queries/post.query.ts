@@ -6,6 +6,17 @@ export async function getRecentPosts(limit = 20) {
   return repository.findRecent(limit);
 }
 
+export async function getPublishedPostsByCategorySlug(
+  categorySlug: string,
+  limit = 6,
+) {
+  return repository.findPublishedByCategorySlug(categorySlug, limit);
+}
+
+export async function getPublishedPostBySlug(slug: string) {
+  return repository.findPublishedBySlug(slug);
+}
+
 export async function getPaginatedPosts(params: {
   page?: number;
   limit?: number;

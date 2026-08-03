@@ -53,7 +53,7 @@ export function PostForm({
 }: PostFormProps) {
   const router = useRouter();
   const [selectedCategoryId, setSelectedCategoryId] = useState(
-    initialData?.categoryId ?? ""
+    initialData?.categoryId ?? "",
   );
 
   const form = useForm<PostInput>({
@@ -97,7 +97,7 @@ export function PostForm({
     toast.success(
       mode === "create"
         ? "Berita berhasil dibuat."
-        : "Berita berhasil diperbarui."
+        : "Berita berhasil diperbarui.",
     );
     router.push("/admin/content/posts");
     router.refresh();
@@ -122,7 +122,10 @@ export function PostForm({
         }
       />
 
-      <form onSubmit={form.handleSubmit(submit)} className="grid gap-4 xl:grid-cols-[1fr_320px]">
+      <form
+        onSubmit={form.handleSubmit(submit)}
+        className="grid gap-4 xl:grid-cols-[1fr_320px]"
+      >
         {/* Main content */}
         <div className="flex flex-col gap-4">
           <SectionCard className="rounded-lg bg-background p-4 shadow-none">

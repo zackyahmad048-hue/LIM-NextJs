@@ -24,11 +24,11 @@ Incident Response bertujuan memastikan setiap gangguan operasional dapat didetek
 
 Incident Response bertujuan untuk:
 
-* Meminimalkan downtime.
-* Mempercepat proses pemulihan layanan.
-* Menjaga integritas data.
-* Mengurangi dampak terhadap pengguna.
-* Mendokumentasikan setiap insiden untuk perbaikan berkelanjutan.
+- Meminimalkan downtime.
+- Mempercepat proses pemulihan layanan.
+- Menjaga integritas data.
+- Mengurangi dampak terhadap pengguna.
+- Mendokumentasikan setiap insiden untuk perbaikan berkelanjutan.
 
 ---
 
@@ -38,10 +38,10 @@ Incident Response bertujuan untuk:
 
 Dampak:
 
-* Seluruh sistem tidak dapat digunakan.
-* Database tidak tersedia.
-* Kebocoran data.
-* Gangguan keamanan serius.
+- Seluruh sistem tidak dapat digunakan.
+- Database tidak tersedia.
+- Kebocoran data.
+- Gangguan keamanan serius.
 
 **Target Response:** ≤ 15 menit
 
@@ -53,8 +53,8 @@ Dampak:
 
 Dampak:
 
-* Sebagian fitur utama tidak dapat digunakan.
-* Penurunan performa yang signifikan.
+- Sebagian fitur utama tidak dapat digunakan.
+- Penurunan performa yang signifikan.
 
 **Target Response:** ≤ 30 menit
 
@@ -66,8 +66,8 @@ Dampak:
 
 Dampak:
 
-* Gangguan pada fitur tertentu.
-* Tersedia solusi sementara (*workaround*).
+- Gangguan pada fitur tertentu.
+- Tersedia solusi sementara (_workaround_).
 
 **Target Response:** ≤ 2 jam
 
@@ -79,8 +79,8 @@ Dampak:
 
 Dampak:
 
-* Masalah minor.
-* Tidak mengganggu operasional utama.
+- Masalah minor.
+- Tidak mengganggu operasional utama.
 
 **Target Response:** ≤ 1 hari kerja
 
@@ -136,12 +136,12 @@ Post Incident Review
 
 Insiden dapat terdeteksi melalui:
 
-* Monitoring Dashboard
-* Alert System
-* Error Log
-* User Report
-* Security Alert
-* Health Check
+- Monitoring Dashboard
+- Alert System
+- Error Log
+- User Report
+- Security Alert
+- Health Check
 
 ---
 
@@ -149,8 +149,8 @@ Insiden dapat terdeteksi melalui:
 
 ## 1. Detection
 
-* Terima notifikasi.
-* Verifikasi bahwa insiden benar terjadi.
+- Terima notifikasi.
+- Verifikasi bahwa insiden benar terjadi.
 
 ---
 
@@ -158,9 +158,9 @@ Insiden dapat terdeteksi melalui:
 
 Tentukan:
 
-* Severity
-* Dampak
-* Layanan yang terpengaruh
+- Severity
+- Dampak
+- Layanan yang terpengaruh
 
 ---
 
@@ -182,9 +182,9 @@ Tugaskan penanggung jawab sesuai jenis insiden.
 
 Identifikasi:
 
-* Penyebab.
-* Dampak.
-* Risiko lanjutan.
+- Penyebab.
+- Dampak.
+- Risiko lanjutan.
 
 ---
 
@@ -194,10 +194,10 @@ Lakukan tindakan sementara untuk mengurangi dampak.
 
 Contoh:
 
-* Restart Service.
-* Scale Worker.
-* Aktifkan Failover.
-* Rollback Deployment.
+- Restart Service.
+- Scale Worker.
+- Aktifkan Failover.
+- Rollback Deployment.
 
 ---
 
@@ -207,10 +207,10 @@ Pulihkan layanan hingga kembali normal.
 
 Verifikasi:
 
-* Health Check.
-* Monitoring.
-* Error Rate.
-* Response Time.
+- Health Check.
+- Monitoring.
+- Error Rate.
+- Response Time.
 
 ---
 
@@ -218,9 +218,9 @@ Verifikasi:
 
 Pastikan:
 
-* Seluruh layanan normal.
-* Tidak ada Error berulang.
-* Pengguna dapat menggunakan sistem kembali.
+- Seluruh layanan normal.
+- Tidak ada Error berulang.
+- Pengguna dapat menggunakan sistem kembali.
 
 ---
 
@@ -228,9 +228,9 @@ Pastikan:
 
 Insiden ditutup apabila:
 
-* Root Cause diketahui.
-* Perbaikan selesai.
-* Dokumentasi lengkap.
+- Root Cause diketahui.
+- Perbaikan selesai.
+- Dokumentasi lengkap.
 
 ---
 
@@ -260,14 +260,14 @@ Insiden P1 harus segera dieskalasikan tanpa menunggu proses sebelumnya selesai.
 
 Selama insiden:
 
-* Informasikan status kepada tim terkait.
-* Perbarui perkembangan secara berkala.
-* Dokumentasikan seluruh keputusan.
+- Informasikan status kepada tim terkait.
+- Perbarui perkembangan secara berkala.
+- Dokumentasikan seluruh keputusan.
 
 Setelah insiden:
 
-* Kirim laporan insiden.
-* Jadwalkan Post Incident Review.
+- Kirim laporan insiden.
+- Jadwalkan Post Incident Review.
 
 ---
 
@@ -275,15 +275,15 @@ Setelah insiden:
 
 Laporan insiden minimal memuat:
 
-* Incident ID
-* Waktu Kejadian
-* Waktu Selesai
-* Severity
-* Dampak
-* Root Cause
-* Tindakan Mitigasi
-* Tindakan Perbaikan
-* Lessons Learned
+- Incident ID
+- Waktu Kejadian
+- Waktu Selesai
+- Severity
+- Dampak
+- Root Cause
+- Tindakan Mitigasi
+- Tindakan Perbaikan
+- Lessons Learned
 
 ---
 
@@ -291,38 +291,38 @@ Laporan insiden minimal memuat:
 
 Setelah insiden selesai dilakukan evaluasi:
 
-* Apa penyebab utama?
-* Mengapa tidak terdeteksi lebih awal?
-* Apa yang dapat diperbaiki?
-* Apakah Runbook perlu diperbarui?
-* Apakah Monitoring perlu ditingkatkan?
+- Apa penyebab utama?
+- Mengapa tidak terdeteksi lebih awal?
+- Apa yang dapat diperbaiki?
+- Apakah Runbook perlu diperbarui?
+- Apakah Monitoring perlu ditingkatkan?
 
 ---
 
 # Best Practices
 
-* Fokus pada pemulihan layanan terlebih dahulu.
-* Hindari perubahan besar saat insiden berlangsung kecuali diperlukan.
-* Dokumentasikan seluruh tindakan.
-* Lakukan Root Cause Analysis (RCA).
-* Jadikan setiap insiden sebagai bahan peningkatan sistem.
+- Fokus pada pemulihan layanan terlebih dahulu.
+- Hindari perubahan besar saat insiden berlangsung kecuali diperlukan.
+- Dokumentasikan seluruh tindakan.
+- Lakukan Root Cause Analysis (RCA).
+- Jadikan setiap insiden sebagai bahan peningkatan sistem.
 
 ---
 
 # Related Documents
 
-* README.md
-* runbook.md
-* maintenance.md
-* backup-recovery.md
-* monitoring-infrastructure.md
+- README.md
+- runbook.md
+- maintenance.md
+- backup-recovery.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh tingkat insiden memiliki prosedur penanganan.
-* Jalur eskalasi terdokumentasi.
-* Target Response dan Recovery ditetapkan.
-* Post Incident Review menjadi proses wajib.
-* Incident Response menjadi standar resmi penanganan insiden LIM Digital Platform.
+- Seluruh tingkat insiden memiliki prosedur penanganan.
+- Jalur eskalasi terdokumentasi.
+- Target Response dan Recovery ditetapkan.
+- Post Incident Review menjadi proses wajib.
+- Incident Response menjadi standar resmi penanganan insiden LIM Digital Platform.

@@ -164,29 +164,29 @@ knowledge_tag.slug
 
 ## Knowledge
 
-* slug wajib unik.
-* title wajib.
-* categoryId wajib.
-* authorId wajib.
+- slug wajib unik.
+- title wajib.
+- categoryId wajib.
+- authorId wajib.
 
 ---
 
 ## Category
 
-* slug wajib unik.
+- slug wajib unik.
 
 ---
 
 ## Tag
 
-* slug wajib unik.
+- slug wajib unik.
 
 ---
 
 ## Review
 
-* reviewerId wajib.
-* status wajib.
+- reviewerId wajib.
+- status wajib.
 
 ---
 
@@ -194,9 +194,9 @@ knowledge_tag.slug
 
 Menggunakan Soft Delete:
 
-* knowledge
-* knowledge_category
-* knowledge_tag
+- knowledge
+- knowledge_category
+- knowledge_tag
 
 Review dan Archive bersifat permanen.
 
@@ -244,11 +244,11 @@ Policy
 
 # Database Rules
 
-* Slug harus unik.
-* Satu Knowledge dapat memiliki banyak Tag.
-* Review tersimpan sebagai riwayat permanen.
-* Arsip bersifat Read Only.
-* Seluruh akses database menggunakan Repository Pattern.
+- Slug harus unik.
+- Satu Knowledge dapat memiliki banyak Tag.
+- Review tersimpan sebagai riwayat permanen.
+- Arsip bersifat Read Only.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -270,21 +270,21 @@ knowledge_search_log
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Struktur database mendukung seluruh lifecycle Knowledge.
-* Slug selalu unik.
-* Relasi Knowledge, Category, dan Tag konsisten.
-* Arsip bersifat permanen (Read Only).
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh lifecycle Knowledge.
+- Slug selalu unik.
+- Relasi Knowledge, Category, dan Tag konsisten.
+- Arsip bersifat permanen (Read Only).
+- Seluruh akses database menggunakan Repository Pattern.

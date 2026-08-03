@@ -53,10 +53,10 @@ Platform ini menjadi pusat layanan digital organisasi.
 
 Bertanggung jawab terhadap:
 
-* Konfigurasi sistem.
-* Manajemen pengguna.
-* Pengaturan keamanan.
-* Monitoring.
+- Konfigurasi sistem.
+- Manajemen pengguna.
+- Pengaturan keamanan.
+- Monitoring.
 
 ---
 
@@ -64,9 +64,9 @@ Bertanggung jawab terhadap:
 
 Bertanggung jawab terhadap:
 
-* Operasional sistem.
-* Pengelolaan data.
-* Validasi proses bisnis.
+- Operasional sistem.
+- Pengelolaan data.
+- Validasi proses bisnis.
 
 ---
 
@@ -74,11 +74,11 @@ Bertanggung jawab terhadap:
 
 Menggunakan sistem untuk:
 
-* Program
-* Persuratan
-* Sertifikat
-* Knowledge
-* Dashboard
+- Program
+- Persuratan
+- Sertifikat
+- Knowledge
+- Dashboard
 
 ---
 
@@ -86,11 +86,11 @@ Menggunakan sistem untuk:
 
 Mengakses layanan publik seperti:
 
-* Jadwal Salat
-* Kalender Hijriah
-* Arah Kiblat
-* Informasi Organisasi
-* Artikel Publik
+- Jadwal Salat
+- Kalender Hijriah
+- Arah Kiblat
+- Informasi Organisasi
+- Artikel Publik
 
 ---
 
@@ -98,14 +98,14 @@ Mengakses layanan publik seperti:
 
 Platform dapat berintegrasi dengan:
 
-* SMTP Server
-* WhatsApp Gateway
-* Firebase Cloud Messaging
-* Object Storage
-* OAuth Provider
-* reCAPTCHA
-* GIS/Maps Service
-* NTP Time Service
+- SMTP Server
+- WhatsApp Gateway
+- Firebase Cloud Messaging
+- Object Storage
+- OAuth Provider
+- reCAPTCHA
+- GIS/Maps Service
+- NTP Time Service
 
 ---
 
@@ -147,22 +147,22 @@ Falak
 
 Di dalam boundary sistem:
 
-* Business Logic
-* REST API
-* Database
-* File Storage
-* Queue
-* Audit Log
-* Background Worker
+- Business Logic
+- REST API
+- Database
+- File Storage
+- Queue
+- Audit Log
+- Background Worker
 
 Di luar boundary sistem:
 
-* Email Server
-* WhatsApp API
-* Cloud Storage
-* Identity Provider
-* Browser
-* Mobile Application
+- Email Server
+- WhatsApp API
+- Cloud Storage
+- Identity Provider
+- Browser
+- Mobile Application
 
 ---
 
@@ -170,16 +170,16 @@ Di luar boundary sistem:
 
 Komunikasi internal:
 
-* Service-to-Service (Module Call)
-* Domain Event
-* Repository
+- Service-to-Service (Module Call)
+- Domain Event
+- Repository
 
 Komunikasi eksternal:
 
-* HTTPS REST API
-* Webhook
-* SMTP
-* Push Notification
+- HTTPS REST API
+- Webhook
+- SMTP
+- Push Notification
 
 ---
 
@@ -206,12 +206,12 @@ Akses data domain lain hanya melalui Service/API yang disediakan.
 
 Seluruh akses sistem menggunakan:
 
-* Authentication
-* Authorization
-* RBAC
-* HTTPS
-* Audit Log
-* Input Validation
+- Authentication
+- Authorization
+- RBAC
+- HTTPS
+- Audit Log
+- Input Validation
 
 ---
 
@@ -219,33 +219,33 @@ Seluruh akses sistem menggunakan:
 
 Arsitektur dirancang agar mendukung:
 
-* Modular Monolith
-* Migrasi ke Microservices di masa depan
-* Horizontal Scaling
-* Background Job Processing
-* Distributed Cache
+- Modular Monolith
+- Migrasi ke Microservices di masa depan
+- Horizontal Scaling
+- Background Job Processing
+- Distributed Cache
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* domain-map.md
-* bounded-context.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* cqrs.md
-* event-driven.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- domain-map.md
+- bounded-context.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- cqrs.md
+- event-driven.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Batas sistem terdokumentasi.
-* Aktor dan layanan eksternal teridentifikasi.
-* Kepemilikan data antar domain jelas.
-* Integrasi internal dan eksternal terdokumentasi.
-* Menjadi acuan integrasi sistem secara keseluruhan.
+- Batas sistem terdokumentasi.
+- Aktor dan layanan eksternal teridentifikasi.
+- Kepemilikan data antar domain jelas.
+- Integrasi internal dan eksternal terdokumentasi.
+- Menjadi acuan integrasi sistem secara keseluruhan.

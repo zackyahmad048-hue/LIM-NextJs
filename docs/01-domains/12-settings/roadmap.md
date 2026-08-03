@@ -18,14 +18,14 @@ Menjadi pusat konfigurasi global yang aman, fleksibel, dan mudah dikelola untuk 
 
 # Version 1.0
 
-* Application Settings
-* Organization Settings
-* Security Settings
-* Notification Settings
-* Storage Settings
-* Integration Settings
-* Feature Flags
-* Audit Log
+- Application Settings
+- Organization Settings
+- Security Settings
+- Notification Settings
+- Storage Settings
+- Integration Settings
+- Feature Flags
+- Audit Log
 
 ✅ Initial Release
 
@@ -33,51 +33,51 @@ Menjadi pusat konfigurasi global yang aman, fleksibel, dan mudah dikelola untuk 
 
 # Version 1.1
 
-* Configuration Import/Export
-* Environment Profiles
-* Dynamic Feature Flags
-* Configuration Backup
-* Connection Health Check
+- Configuration Import/Export
+- Environment Profiles
+- Dynamic Feature Flags
+- Configuration Backup
+- Connection Health Check
 
 ---
 
 # Version 1.2
 
-* Multi-Environment Settings
-* Configuration Versioning
-* Rollback Configuration
-* Secret Manager Integration
-* System Health Dashboard
+- Multi-Environment Settings
+- Configuration Versioning
+- Rollback Configuration
+- Secret Manager Integration
+- System Health Dashboard
 
 ---
 
 # Version 2.0
 
-* Distributed Configuration Service
-* Centralized Secret Management
-* Live Configuration Reload
-* Cluster Configuration Sync
-* Advanced Configuration Analytics
+- Distributed Configuration Service
+- Centralized Secret Management
+- Live Configuration Reload
+- Cluster Configuration Sync
+- Advanced Configuration Analytics
 
 ---
 
 # Version 3.0
 
-* AI Configuration Advisor
-* AI Security Recommendation
-* AI Performance Optimization
-* AI Auto Configuration
-* AI Infrastructure Analytics
+- AI Configuration Advisor
+- AI Security Recommendation
+- AI Performance Optimization
+- AI Auto Configuration
+- AI Infrastructure Analytics
 
 ---
 
 # Dependencies
 
-* Authentication
-* Authorization
-* Organization
-* Notification
-* Media
+- Authentication
+- Authorization
+- Organization
+- Notification
+- Media
 
 Digunakan oleh seluruh domain pada LIM Digital Platform.
 
@@ -85,11 +85,11 @@ Digunakan oleh seluruh domain pada LIM Digital Platform.
 
 # Success Indicators
 
-* Seluruh konfigurasi terpusat.
-* Perubahan konfigurasi tercatat.
-* Feature Flag berjalan real-time.
-* Integrasi mudah dikelola.
-* Konfigurasi aman dan terenkripsi.
+- Seluruh konfigurasi terpusat.
+- Perubahan konfigurasi tercatat.
+- Feature Flag berjalan real-time.
+- Integrasi mudah dikelola.
+- Konfigurasi aman dan terenkripsi.
 
 ---
 

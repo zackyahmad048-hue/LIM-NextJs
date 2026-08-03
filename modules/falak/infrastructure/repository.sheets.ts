@@ -32,7 +32,7 @@ function falakSpreadsheetId(): string {
   if (!id) {
     throw new GoogleApiError(
       "UNAUTHENTICATED",
-      "GOOGLE_SPREADSHEET_FALAK_ID belum dikonfigurasi."
+      "GOOGLE_SPREADSHEET_FALAK_ID belum dikonfigurasi.",
     );
   }
   return id;
@@ -101,11 +101,12 @@ export class SheetsFalakPrayerTimeRepository
           this.toNumber(row.latitude) === latitude &&
           this.toNumber(row.longitude) === longitude &&
           row.calculationMethod === method &&
-          sameDay(this.toDate(row.prayerDate, now), now)
+          sameDay(this.toDate(row.prayerDate, now), now),
       )
       .sort(
         (a, b) =>
-          this.toDate(b.createdAt, now).getTime() - this.toDate(a.createdAt, now).getTime()
+          this.toDate(b.createdAt, now).getTime() -
+          this.toDate(a.createdAt, now).getTime(),
       );
 
     return matches.length ? this.toEntity(matches[0]) : null;
@@ -116,7 +117,7 @@ export class SheetsFalakPrayerTimeRepository
     longitude: number,
     method: PrayerMethod,
     start: Date,
-    end: Date
+    end: Date,
   ) {
     const rows = await this.readAll();
     return rows
@@ -133,42 +134,51 @@ export class SheetsFalakPrayerTimeRepository
       .sort(
         (a, b) =>
           this.toDate(a.prayerDate, new Date()).getTime() -
-          this.toDate(b.prayerDate, new Date()).getTime()
+          this.toDate(b.prayerDate, new Date()).getTime(),
       )
       .map((row) => this.toEntity(row));
   }
 
-  async findRecent(latitude: number, longitude: number, method: PrayerMethod, take = 7) {
+  async findRecent(
+    latitude: number,
+    longitude: number,
+    method: PrayerMethod,
+    take = 7,
+  ) {
     const rows = await this.readAll();
     return rows
       .filter(
         (row) =>
           this.toNumber(row.latitude) === latitude &&
           this.toNumber(row.longitude) === longitude &&
-          row.calculationMethod === method
+          row.calculationMethod === method,
       )
       .sort(
         (a, b) =>
           this.toDate(b.prayerDate, new Date()).getTime() -
-          this.toDate(a.prayerDate, new Date()).getTime()
+          this.toDate(a.prayerDate, new Date()).getTime(),
       )
       .slice(0, take)
       .map((row) => this.toEntity(row));
   }
 
-  async findAllByCoordinate(latitude: number, longitude: number, method: PrayerMethod) {
+  async findAllByCoordinate(
+    latitude: number,
+    longitude: number,
+    method: PrayerMethod,
+  ) {
     const rows = await this.readAll();
     return rows
       .filter(
         (row) =>
           this.toNumber(row.latitude) === latitude &&
           this.toNumber(row.longitude) === longitude &&
-          row.calculationMethod === method
+          row.calculationMethod === method,
       )
       .sort(
         (a, b) =>
           this.toDate(b.prayerDate, new Date()).getTime() -
-          this.toDate(a.prayerDate, new Date()).getTime()
+          this.toDate(a.prayerDate, new Date()).getTime(),
       )
       .map((row) => this.toEntity(row));
   }
@@ -235,12 +245,18 @@ export class SheetsFalakQiblaRepository
   async findByCoordinate(latitude: number, longitude: number) {
     const rows = await this.readAll();
     const match = rows.find(
-      (row) => this.toNumber(row.latitude) === latitude && this.toNumber(row.longitude) === longitude
+      (row) =>
+        this.toNumber(row.latitude) === latitude &&
+        this.toNumber(row.longitude) === longitude,
     );
     return match ? this.toEntity(match) : null;
   }
 
-  async create(data: { latitude: number; longitude: number; direction: number }) {
+  async create(data: {
+    latitude: number;
+    longitude: number;
+    direction: number;
+  }) {
     const id = randomUUID();
     const createdAt = new Date();
     await this.createRow({
@@ -291,7 +307,8 @@ export class SheetsFalakHijriCalendarRepository
     const rows = await this.readAll();
     const match = rows.find(
       (row) =>
-        row.method === method && sameDay(this.toDate(row.gregorianDate, new Date()), date)
+        row.method === method &&
+        sameDay(this.toDate(row.gregorianDate, new Date()), date),
     );
     return match ? this.toEntity(match) : null;
   }
@@ -303,7 +320,7 @@ export class SheetsFalakHijriCalendarRepository
         (row) =>
           this.toNumber(row.hijriYear) === year &&
           this.toNumber(row.hijriMonth) === month &&
-          row.method === method
+          row.method === method,
       )
       .sort((a, b) => this.toNumber(a.hijriDay) - this.toNumber(b.hijriDay))
       .map((row) => this.toEntity(row));
@@ -400,7 +417,7 @@ export class SheetsFalakRukyatRepository
     rows = rows.sort(
       (a, b) =>
         this.toDate(b.createdAt, new Date()).getTime() -
-        this.toDate(a.createdAt, new Date()).getTime()
+        this.toDate(a.createdAt, new Date()).getTime(),
     );
 
     const total = rows.length;
@@ -418,7 +435,7 @@ export class SheetsFalakRukyatRepository
       .sort(
         (a, b) =>
           this.toDate(b.observationDate, new Date()).getTime() -
-          this.toDate(a.observationDate, new Date()).getTime()
+          this.toDate(a.observationDate, new Date()).getTime(),
       )
       .slice(0, take)
       .map((row) => this.toEntity(row));
@@ -431,7 +448,7 @@ export class SheetsFalakRukyatRepository
       .sort(
         (a, b) =>
           this.toDate(b.observationDate, new Date()).getTime() -
-          this.toDate(a.observationDate, new Date()).getTime()
+          this.toDate(a.observationDate, new Date()).getTime(),
       )
       .slice(0, take)
       .map((row) => this.toEntity(row));
@@ -520,7 +537,9 @@ export class SheetsFalakEclipseRepository
       eclipseType: row.eclipseType as EclipseType,
       eclipseDate: this.toDate(row.eclipseDate, new Date()),
       visibility: this.toNullableString(row.visibility),
-      details: row.details ? (JSON.parse(row.details) as Prisma.JsonValue) : null,
+      details: row.details
+        ? (JSON.parse(row.details) as Prisma.JsonValue)
+        : null,
       createdAt: this.toDate(row.createdAt, new Date()),
     };
   }
@@ -532,7 +551,8 @@ export class SheetsFalakEclipseRepository
       .filter((row) => this.toDate(row.eclipseDate, now) >= now)
       .sort(
         (a, b) =>
-          this.toDate(a.eclipseDate, now).getTime() - this.toDate(b.eclipseDate, now).getTime()
+          this.toDate(a.eclipseDate, now).getTime() -
+          this.toDate(b.eclipseDate, now).getTime(),
       )
       .slice(0, 5)
       .map((row) => this.toEntity(row));
@@ -545,7 +565,8 @@ export class SheetsFalakEclipseRepository
       .filter((row) => this.toDate(row.eclipseDate, now) < now)
       .sort(
         (a, b) =>
-          this.toDate(b.eclipseDate, now).getTime() - this.toDate(a.eclipseDate, now).getTime()
+          this.toDate(b.eclipseDate, now).getTime() -
+          this.toDate(a.eclipseDate, now).getTime(),
       )
       .slice(0, take)
       .map((row) => this.toEntity(row));
@@ -571,7 +592,7 @@ export class SheetsFalakEclipseRepository
     rows = rows.sort(
       (a, b) =>
         this.toDate(b.eclipseDate, new Date()).getTime() -
-        this.toDate(a.eclipseDate, new Date()).getTime()
+        this.toDate(a.eclipseDate, new Date()).getTime(),
     );
 
     const total = rows.length;

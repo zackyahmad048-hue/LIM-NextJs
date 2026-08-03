@@ -6,8 +6,14 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
-import { getProgramById, getAttendance } from "@/modules/program/queries/program.query";
-import { checkInAttendance, checkOutAttendance } from "@/modules/program/presentation/program.action";
+import {
+  getProgramById,
+  getAttendance,
+} from "@/modules/program/queries/program.query";
+import {
+  checkInAttendance,
+  checkOutAttendance,
+} from "@/modules/program/presentation/program.action";
 
 function formatTime(date: Date | null) {
   if (!date) return "-";
@@ -19,7 +25,13 @@ function formatTime(date: Date | null) {
   }).format(date);
 }
 
-const attendanceLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const attendanceLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   PRESENT: { label: "Hadir", variant: "default" },
   ABSENT: { label: "Tidak Hadir", variant: "destructive" },
   LATE: { label: "Terlambat", variant: "secondary" },
@@ -32,7 +44,10 @@ export default async function AttendancePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [program, attendance] = await Promise.all([getProgramById(id), getAttendance(id)]);
+  const [program, attendance] = await Promise.all([
+    getProgramById(id),
+    getAttendance(id),
+  ]);
 
   if (!program) notFound();
 
@@ -50,24 +65,39 @@ export default async function AttendancePage({
           {
             key: "participant",
             label: "Peserta",
-            render: (item) => <span className="text-sm font-medium">{item.participant.user.name}</span>,
+            render: (item) => (
+              <span className="text-sm font-medium">
+                {item.participant.user.name}
+              </span>
+            ),
           },
           {
             key: "checkIn",
             label: "Check In",
-            render: (item) => <span className="text-xs">{formatTime(item.checkIn)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatTime(item.checkIn)}</span>
+            ),
           },
           {
             key: "checkOut",
             label: "Check Out",
-            render: (item) => <span className="text-xs">{formatTime(item.checkOut)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatTime(item.checkOut)}</span>
+            ),
           },
           {
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = attendanceLabels[item.status] ?? { label: item.status, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = attendanceLabels[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -77,13 +107,29 @@ export default async function AttendancePage({
             render: (item) => (
               <div className="flex justify-end gap-1">
                 {!item.checkIn && (
-                  <form action={checkInAttendance.bind(null, item.participantId, program.id)}>
-                    <Button variant="outline" size="sm">Check In</Button>
+                  <form
+                    action={checkInAttendance.bind(
+                      null,
+                      item.participantId,
+                      program.id,
+                    )}
+                  >
+                    <Button variant="outline" size="sm">
+                      Check In
+                    </Button>
                   </form>
                 )}
                 {item.checkIn && !item.checkOut && (
-                  <form action={checkOutAttendance.bind(null, item.participantId, program.id)}>
-                    <Button variant="outline" size="sm">Check Out</Button>
+                  <form
+                    action={checkOutAttendance.bind(
+                      null,
+                      item.participantId,
+                      program.id,
+                    )}
+                  >
+                    <Button variant="outline" size="sm">
+                      Check Out
+                    </Button>
                   </form>
                 )}
               </div>

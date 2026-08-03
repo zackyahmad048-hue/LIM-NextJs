@@ -22,11 +22,11 @@ Seluruh data Program wajib melalui proses validasi sebelum diproses oleh Busines
 
 Seluruh validasi mengikuti prinsip:
 
-* Validate Before Process
-* Server-side Validation First
-* Client-side Validation for User Experience
-* Fail Fast
-* Consistent Error Messages
+- Validate Before Process
+- Server-side Validation First
+- Client-side Validation for User Experience
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -34,8 +34,8 @@ Seluruh validasi mengikuti prinsip:
 
 Standar validasi:
 
-* Zod (Server Validation)
-* React Hook Form (Client Validation)
+- Zod (Server Validation)
+- React Hook Form (Client Validation)
 
 Client Validation tidak menggantikan Server Validation.
 
@@ -47,10 +47,10 @@ Client Validation tidak menggantikan Server Validation.
 
 Aturan:
 
-* Wajib diisi.
-* Maksimum 30 karakter.
-* Harus unik.
-* Tidak boleh mengandung spasi.
+- Wajib diisi.
+- Maksimum 30 karakter.
+- Harus unik.
+- Tidak boleh mengandung spasi.
 
 Contoh:
 
@@ -66,9 +66,9 @@ TRN-2027-015
 
 Aturan:
 
-* Wajib diisi.
-* Minimum 5 karakter.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Minimum 5 karakter.
+- Maksimum 255 karakter.
 
 ---
 
@@ -76,8 +76,8 @@ Aturan:
 
 Aturan:
 
-* Wajib dipilih.
-* Harus berasal dari daftar Program Type yang aktif.
+- Wajib dipilih.
+- Harus berasal dari daftar Program Type yang aktif.
 
 ---
 
@@ -85,8 +85,8 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Maksimum 5000 karakter.
+- Opsional.
+- Maksimum 5000 karakter.
 
 ---
 
@@ -94,8 +94,8 @@ Aturan:
 
 Aturan:
 
-* Wajib dipilih.
-* Harus merupakan User aktif.
+- Wajib dipilih.
+- Harus merupakan User aktif.
 
 ---
 
@@ -103,7 +103,7 @@ Aturan:
 
 Aturan:
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
@@ -111,8 +111,8 @@ Aturan:
 
 Aturan:
 
-* Wajib diisi.
-* Harus lebih besar atau sama dengan Start Date.
+- Wajib diisi.
+- Harus lebih besar atau sama dengan Start Date.
 
 ---
 
@@ -144,27 +144,27 @@ Archived
 
 ## Title
 
-* Wajib diisi.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Maksimum 255 karakter.
 
 ---
 
 ## Venue
 
-* Wajib dipilih.
+- Wajib dipilih.
 
 ---
 
 ## Start Time
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
 ## End Time
 
-* Wajib diisi.
-* Harus lebih besar dari Start Time.
+- Wajib diisi.
+- Harus lebih besar dari Start Time.
 
 ---
 
@@ -172,8 +172,8 @@ Archived
 
 ## User
 
-* Wajib dipilih.
-* Harus merupakan User aktif.
+- Wajib dipilih.
+- Harus merupakan User aktif.
 
 ---
 
@@ -181,8 +181,8 @@ Archived
 
 Aturan:
 
-* Tidak boleh terdaftar dua kali pada Program yang sama.
-* Program harus masih menerima pendaftaran.
+- Tidak boleh terdaftar dua kali pada Program yang sama.
+- Program harus masih menerima pendaftaran.
 
 ---
 
@@ -190,14 +190,14 @@ Aturan:
 
 ## User
 
-* Wajib dipilih.
-* Tidak boleh menjadi panitia dua kali pada Program yang sama.
+- Wajib dipilih.
+- Tidak boleh menjadi panitia dua kali pada Program yang sama.
 
 ---
 
 ## Role
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
@@ -205,14 +205,14 @@ Aturan:
 
 Check In:
 
-* Program harus berstatus **On Going**.
-* Peserta harus terdaftar.
-* Belum pernah Check In.
+- Program harus berstatus **On Going**.
+- Peserta harus terdaftar.
+- Belum pernah Check In.
 
 Check Out:
 
-* Harus sudah Check In.
-* Belum pernah Check Out.
+- Harus sudah Check In.
+- Belum pernah Check Out.
 
 ---
 
@@ -220,16 +220,16 @@ Check Out:
 
 ## File
 
-* Wajib dipilih.
-* Harus berasal dari Domain Media.
+- Wajib dipilih.
+- Harus berasal dari Domain Media.
 
 Format:
 
-* JPG
-* PNG
-* WEBP
-* PDF
-* MP4
+- JPG
+- PNG
+- WEBP
+- PDF
+- MP4
 
 Ukuran mengikuti standar Domain Media.
 
@@ -245,7 +245,7 @@ search
 
 Aturan:
 
-* Maksimum 100 karakter.
+- Maksimum 100 karakter.
 
 ---
 
@@ -253,14 +253,14 @@ Aturan:
 
 ## page
 
-* Minimum: 1
+- Minimum: 1
 
 ---
 
 ## limit
 
-* Minimum: 1
-* Maksimum: 100
+- Minimum: 1
+- Maksimum: 100
 
 ---
 
@@ -268,11 +268,11 @@ Aturan:
 
 Program hanya dapat dipublikasikan apabila:
 
-* Program Name tersedia.
-* Program Code tersedia.
-* Program Type dipilih.
-* Penanggung Jawab tersedia.
-* Minimal satu Schedule tersedia.
+- Program Name tersedia.
+- Program Code tersedia.
+- Program Type dipilih.
+- Penanggung Jawab tersedia.
+- Minimal satu Schedule tersedia.
 
 ---
 
@@ -280,9 +280,9 @@ Program hanya dapat dipublikasikan apabila:
 
 Program hanya dapat diselesaikan apabila:
 
-* Status **On Going**.
-* Seluruh jadwal selesai.
-* Tidak ada proses yang masih berjalan.
+- Status **On Going**.
+- Seluruh jadwal selesai.
+- Tidak ada proses yang masih berjalan.
 
 ---
 
@@ -290,11 +290,11 @@ Program hanya dapat diselesaikan apabila:
 
 Program tidak dapat dihapus apabila:
 
-* Memiliki peserta.
-* Memiliki absensi.
-* Memiliki sertifikat.
-* Memiliki surat.
-* Digunakan oleh domain lain.
+- Memiliki peserta.
+- Memiliki absensi.
+- Memiliki sertifikat.
+- Memiliki surat.
+- Digunakan oleh domain lain.
 
 ---
 
@@ -355,14 +355,14 @@ Return Validation Error
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -370,9 +370,9 @@ Return Validation Error
 
 Validation Program dianggap selesai apabila:
 
-* Seluruh input tervalidasi.
-* Program Code selalu unik.
-* Peserta tidak dapat terdaftar ganda.
-* Jadwal valid.
-* Status Program mengikuti Business Rules.
-* Seluruh validasi dilakukan sebelum Business Rules dijalankan.
+- Seluruh input tervalidasi.
+- Program Code selalu unik.
+- Peserta tidak dapat terdaftar ganda.
+- Jadwal valid.
+- Status Program mengikuti Business Rules.
+- Seluruh validasi dilakukan sebelum Business Rules dijalankan.

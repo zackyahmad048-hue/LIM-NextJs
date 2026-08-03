@@ -14,15 +14,15 @@
 
 LIM Digital Platform memiliki cakupan bisnis yang luas, meliputi:
 
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Knowledge
-* Falak
-* Notification
-* Media
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Knowledge
+- Falak
+- Notification
+- Media
 
 Apabila seluruh Business Logic ditempatkan tanpa batasan domain yang jelas, sistem akan menjadi sulit dipelihara, memiliki coupling yang tinggi, dan sulit dikembangkan oleh banyak developer secara bersamaan.
 
@@ -36,22 +36,22 @@ LIM Digital Platform menggunakan **Domain Driven Design (DDD)** sebagai pendekat
 
 Implementasi DDD meliputi:
 
-* Bounded Context.
-* Domain Layer.
-* Entity.
-* Value Object.
-* Aggregate.
-* Domain Service.
-* Repository Pattern.
-* Domain Event.
-* Ubiquitous Language.
+- Bounded Context.
+- Domain Layer.
+- Entity.
+- Value Object.
+- Aggregate.
+- Domain Service.
+- Repository Pattern.
+- Domain Event.
+- Ubiquitous Language.
 
 Setiap domain memiliki:
 
-* Business Rules sendiri.
-* API sendiri.
-* Database ownership sendiri (logical ownership).
-* Tim pengembangan yang dapat bekerja secara independen.
+- Business Rules sendiri.
+- API sendiri.
+- Database ownership sendiri (logical ownership).
+- Tim pengembangan yang dapat bekerja secara independen.
 
 ---
 
@@ -59,12 +59,12 @@ Setiap domain memiliki:
 
 DDD dipilih karena:
 
-* Memisahkan kompleksitas bisnis.
-* Menjaga Business Rules tetap terorganisasi.
-* Memudahkan kolaborasi tim.
-* Mendukung Modular Monolith.
-* Mempermudah migrasi ke Microservices di masa depan.
-* Mengurangi coupling antar modul.
+- Memisahkan kompleksitas bisnis.
+- Menjaga Business Rules tetap terorganisasi.
+- Memudahkan kolaborasi tim.
+- Mendukung Modular Monolith.
+- Mempermudah migrasi ke Microservices di masa depan.
+- Mengurangi coupling antar modul.
 
 ---
 
@@ -74,13 +74,13 @@ DDD dipilih karena:
 
 Kelebihan:
 
-* Mudah dipahami.
-* Cepat diimplementasikan.
+- Mudah dipahami.
+- Cepat diimplementasikan.
 
 Kekurangan:
 
-* Business Logic mudah tercampur.
-* Sulit berkembang pada sistem besar.
+- Business Logic mudah tercampur.
+- Sulit berkembang pada sistem besar.
 
 ---
 
@@ -100,12 +100,12 @@ models/
 
 Kelebihan:
 
-* Sederhana.
+- Sederhana.
 
 Kekurangan:
 
-* Tidak merepresentasikan domain bisnis.
-* Sulit dipelihara ketika jumlah fitur bertambah.
+- Tidak merepresentasikan domain bisnis.
+- Sulit dipelihara ketika jumlah fitur bertambah.
 
 ---
 
@@ -113,13 +113,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Skalabilitas tinggi.
+- Skalabilitas tinggi.
 
 Kekurangan:
 
-* Kompleksitas operasional tinggi.
-* Overhead deployment.
-* Tidak sesuai dengan kebutuhan awal proyek.
+- Kompleksitas operasional tinggi.
+- Overhead deployment.
+- Tidak sesuai dengan kebutuhan awal proyek.
 
 ---
 
@@ -127,32 +127,32 @@ Kekurangan:
 
 Keuntungan:
 
-* Domain lebih independen.
-* Kode lebih mudah dipelihara.
-* Business Rules lebih terisolasi.
-* Mendukung pengembangan paralel.
+- Domain lebih independen.
+- Kode lebih mudah dipelihara.
+- Business Rules lebih terisolasi.
+- Mendukung pengembangan paralel.
 
 Konsekuensi:
 
-* Membutuhkan disiplin dalam menjaga batas domain.
-* Membutuhkan dokumentasi yang baik.
-* Developer harus memahami konsep DDD.
+- Membutuhkan disiplin dalam menjaga batas domain.
+- Membutuhkan dokumentasi yang baik.
+- Developer harus memahami konsep DDD.
 
 ---
 
 # Related Decisions
 
-* ADR-002 Clean Architecture
-* ADR-003 Repository Pattern
-* ADR-005 Event Driven Architecture
+- ADR-002 Clean Architecture
+- ADR-003 Repository Pattern
+- ADR-005 Event Driven Architecture
 
 ---
 
 # References
 
-* Domain Driven Design — Eric Evans
-* Implementing Domain-Driven Design — Vaughn Vernon
-* Architecture Documentation (`02-architecture/`)
+- Domain Driven Design — Eric Evans
+- Implementing Domain-Driven Design — Vaughn Vernon
+- Architecture Documentation (`02-architecture/`)
 
 ---
 
@@ -164,7 +164,7 @@ Konsekuensi:
 
 # Acceptance Criteria
 
-* Seluruh Business Rules ditempatkan pada Domain yang sesuai.
-* Setiap Domain memiliki Bounded Context.
-* Tidak ada akses langsung ke Business Rules Domain lain.
-* DDD menjadi fondasi arsitektur LIM Digital Platform.
+- Seluruh Business Rules ditempatkan pada Domain yang sesuai.
+- Setiap Domain memiliki Bounded Context.
+- Tidak ada akses langsung ke Business Rules Domain lain.
+- DDD menjadi fondasi arsitektur LIM Digital Platform.

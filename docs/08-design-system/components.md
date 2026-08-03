@@ -24,11 +24,11 @@ Seluruh komponen harus bersifat **Reusable**, **Accessible**, **Responsive**, da
 
 UI Components bertujuan untuk:
 
-* Menyeragamkan tampilan antarmuka.
-* Mempercepat pengembangan Frontend.
-* Mengurangi duplikasi komponen.
-* Mempermudah maintenance.
-* Mendukung Design Token.
+- Menyeragamkan tampilan antarmuka.
+- Mempercepat pengembangan Frontend.
+- Mengurangi duplikasi komponen.
+- Mempermudah maintenance.
+- Mendukung Design Token.
 
 ---
 
@@ -36,12 +36,12 @@ UI Components bertujuan untuk:
 
 Seluruh komponen wajib:
 
-* Reusable
-* Predictable
-* Modular
-* Responsive
-* Accessible
-* Theme Aware
+- Reusable
+- Predictable
+- Modular
+- Responsive
+- Accessible
+- Theme Aware
 
 ---
 
@@ -49,28 +49,28 @@ Seluruh komponen wajib:
 
 Jenis Button:
 
-* Primary
-* Secondary
-* Outline
-* Ghost
-* Danger
-* Link
+- Primary
+- Secondary
+- Outline
+- Ghost
+- Danger
+- Link
 
 State:
 
-* Default
-* Hover
-* Active
-* Focus
-* Disabled
-* Loading
+- Default
+- Hover
+- Active
+- Focus
+- Disabled
+- Loading
 
 Button harus mendukung:
 
-* Icon
-* Icon Only
-* Full Width
-* Different Sizes
+- Icon
+- Icon Only
+- Full Width
+- Different Sizes
 
 ---
 
@@ -78,18 +78,18 @@ Button harus mendukung:
 
 Digunakan untuk:
 
-* Dashboard Widget
-* Program
-* Article
-* Statistics
-* User Profile
+- Dashboard Widget
+- Program
+- Article
+- Statistics
+- User Profile
 
 Card dapat memiliki:
 
-* Header
-* Body
-* Footer
-* Action Area
+- Header
+- Body
+- Footer
+- Action Area
 
 ---
 
@@ -97,19 +97,19 @@ Card dapat memiliki:
 
 Fitur wajib:
 
-* Sorting
-* Pagination
-* Search
-* Filtering
-* Empty State
-* Loading State
-* Responsive Layout
+- Sorting
+- Pagination
+- Search
+- Filtering
+- Empty State
+- Loading State
+- Responsive Layout
 
 Mendukung:
 
-* Row Selection
-* Bulk Action
-* Expandable Row
+- Row Selection
+- Bulk Action
+- Expandable Row
 
 ---
 
@@ -117,18 +117,18 @@ Mendukung:
 
 Digunakan untuk:
 
-* Status
-* Label
-* Counter
-* Category
+- Status
+- Label
+- Counter
+- Category
 
 Variasi:
 
-* Primary
-* Success
-* Warning
-* Error
-* Neutral
+- Primary
+- Success
+- Warning
+- Error
+- Neutral
 
 ---
 
@@ -136,17 +136,17 @@ Variasi:
 
 Jenis Alert:
 
-* Success
-* Warning
-* Error
-* Information
+- Success
+- Warning
+- Error
+- Information
 
 Alert mendukung:
 
-* Icon
-* Title
-* Description
-* Dismiss Action
+- Icon
+- Title
+- Description
+- Dismiss Action
 
 ---
 
@@ -154,17 +154,17 @@ Alert mendukung:
 
 Digunakan untuk:
 
-* Confirmation
-* Form
-* Preview
-* Detail View
+- Confirmation
+- Form
+- Preview
+- Detail View
 
 Modal mendukung:
 
-* Header
-* Body
-* Footer
-* Close Action
+- Header
+- Body
+- Footer
+- Close Action
 
 ---
 
@@ -172,15 +172,15 @@ Modal mendukung:
 
 Digunakan untuk:
 
-* Detail Page
-* Settings
-* Dashboard
-* Reports
+- Detail Page
+- Settings
+- Dashboard
+- Reports
 
 Jenis:
 
-* Horizontal
-* Vertical
+- Horizontal
+- Vertical
 
 ---
 
@@ -188,11 +188,11 @@ Jenis:
 
 Komponen wajib mendukung:
 
-* Previous
-* Next
-* Page Number
-* Page Size
-* Total Data
+- Previous
+- Next
+- Page Number
+- Page Size
+- Total Data
 
 ---
 
@@ -200,9 +200,9 @@ Komponen wajib mendukung:
 
 Jenis Loading:
 
-* Spinner
-* Skeleton
-* Progress Indicator
+- Spinner
+- Skeleton
+- Progress Indicator
 
 Loading harus digunakan untuk operasi yang memerlukan waktu lebih dari beberapa ratus milidetik.
 
@@ -212,16 +212,16 @@ Loading harus digunakan untuk operasi yang memerlukan waktu lebih dari beberapa 
 
 Ditampilkan ketika:
 
-* Tidak ada data.
-* Hasil pencarian kosong.
-* Belum ada aktivitas.
+- Tidak ada data.
+- Hasil pencarian kosong.
+- Belum ada aktivitas.
 
 Empty State minimal berisi:
 
-* Ilustrasi/Icon
-* Judul
-* Deskripsi
-* Call To Action (Opsional)
+- Ilustrasi/Icon
+- Judul
+- Deskripsi
+- Call To Action (Opsional)
 
 ---
 
@@ -229,15 +229,15 @@ Empty State minimal berisi:
 
 Ditampilkan ketika:
 
-* Gagal memuat data.
-* Koneksi terputus.
-* Terjadi kesalahan sistem.
+- Gagal memuat data.
+- Koneksi terputus.
+- Terjadi kesalahan sistem.
 
 Error State menyediakan:
 
-* Pesan yang jelas.
-* Tombol Retry.
-* Informasi yang relevan.
+- Pesan yang jelas.
+- Tombol Retry.
+- Informasi yang relevan.
 
 ---
 
@@ -267,40 +267,40 @@ Error
 
 Seluruh komponen wajib:
 
-* Mendukung Keyboard Navigation.
-* Memiliki Focus Indicator.
-* Menggunakan Semantic HTML.
-* Mendukung Screen Reader.
-* Memenuhi WCAG 2.1 Level AA.
+- Mendukung Keyboard Navigation.
+- Memiliki Focus Indicator.
+- Menggunakan Semantic HTML.
+- Mendukung Screen Reader.
+- Memenuhi WCAG 2.1 Level AA.
 
 ---
 
 # Best Practices
 
-* Gunakan komponen yang sudah tersedia.
-* Hindari membuat variasi baru tanpa kebutuhan yang jelas.
-* Gunakan Design Token.
-* Pertahankan perilaku komponen tetap konsisten.
-* Dokumentasikan perubahan pada komponen bersama Design System.
+- Gunakan komponen yang sudah tersedia.
+- Hindari membuat variasi baru tanpa kebutuhan yang jelas.
+- Gunakan Design Token.
+- Pertahankan perilaku komponen tetap konsisten.
+- Dokumentasikan perubahan pada komponen bersama Design System.
 
 ---
 
 # Related Documents
 
-* README.md
-* colors.md
-* typography.md
-* forms.md
-* navigation.md
-* theme.md
-* accessibility.md
+- README.md
+- colors.md
+- typography.md
+- forms.md
+- navigation.md
+- theme.md
+- accessibility.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh komponen dapat digunakan kembali (Reusable).
-* Komponen konsisten di seluruh aplikasi.
-* Mendukung Light dan Dark Theme.
-* Memenuhi standar Accessibility.
-* Components menjadi acuan resmi implementasi UI pada LIM Digital Platform.
+- Seluruh komponen dapat digunakan kembali (Reusable).
+- Komponen konsisten di seluruh aplikasi.
+- Mendukung Light dan Dark Theme.
+- Memenuhi standar Accessibility.
+- Components menjadi acuan resmi implementasi UI pada LIM Digital Platform.

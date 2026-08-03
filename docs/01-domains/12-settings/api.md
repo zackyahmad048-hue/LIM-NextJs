@@ -30,9 +30,9 @@ API Settings digunakan untuk mengelola konfigurasi aplikasi, organisasi, keamana
 
 Seluruh endpoint memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 Hanya Super Administrator dan Administrator yang dapat mengakses API Settings.
 
@@ -42,14 +42,14 @@ Hanya Super Administrator dan Administrator yang dapat mengakses API Settings.
 
 Domain Settings terdiri dari:
 
-* Settings
-* Categories
-* Feature Flags
-* Integrations
-* Organization
-* Security
-* Notification
-* Storage
+- Settings
+- Categories
+- Feature Flags
+- Integrations
+- Organization
+- Security
+- Notification
+- Storage
 
 ---
 
@@ -300,12 +300,12 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint memerlukan Authentication.
-* Hanya Administrator yang dapat mengubah konfigurasi.
-* Key konfigurasi harus unik.
-* Credential integrasi disimpan dalam bentuk terenkripsi.
-* Delete menggunakan Soft Delete.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh endpoint memerlukan Authentication.
+- Hanya Administrator yang dapat mengubah konfigurasi.
+- Key konfigurasi harus unik.
+- Credential integrasi disimpan dalam bentuk terenkripsi.
+- Delete menggunakan Soft Delete.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -313,11 +313,11 @@ Response gagal
 
 API Settings wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Mengenkripsi data sensitif.
-* Menggunakan HTTPS pada Production.
-* Menyembunyikan credential pada response API.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Mengenkripsi data sensitif.
+- Menggunakan HTTPS pada Production.
+- Menyembunyikan credential pada response API.
 
 ---
 
@@ -325,32 +325,32 @@ API Settings wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Configuration Cache
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Configuration Cache
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh endpoint CRUD tersedia.
-* Feature Flag dapat diaktifkan dan dinonaktifkan.
-* Integration Test berjalan dengan baik.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Feature Flag dapat diaktifkan dan dinonaktifkan.
+- Integration Test berjalan dengan baik.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

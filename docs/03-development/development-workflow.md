@@ -146,12 +146,12 @@ Health Check
 
 Sebelum memulai pengembangan:
 
-* Pahami requirements dari Issue atau User Story.
-* Baca dokumentasi terkait di folder `docs/`.
-* Identifikasi file yang akan diubah.
-* Identifikasi dependency dan risiko.
-* Buat rencana implementasi singkat.
-* Estimasi waktu pengerjaan.
+- Pahami requirements dari Issue atau User Story.
+- Baca dokumentasi terkait di folder `docs/`.
+- Identifikasi file yang akan diubah.
+- Identifikasi dependency dan risiko.
+- Buat rencana implementasi singkat.
+- Estimasi waktu pengerjaan.
 
 ---
 
@@ -167,10 +167,10 @@ git checkout -b feature/<feature-name>
 
 Gunakan naming convention yang benar:
 
-* `feature/<feature-name>` untuk fitur baru.
-* `bugfix/<bug-name>` untuk perbaikan bug.
-* `hotfix/<issue-name>` untuk perbaikan urgent production.
-* `docs/<topic>` untuk perubahan dokumentasi.
+- `feature/<feature-name>` untuk fitur baru.
+- `bugfix/<bug-name>` untuk perbaikan bug.
+- `hotfix/<issue-name>` untuk perbaikan urgent production.
+- `docs/<topic>` untuk perubahan dokumentasi.
 
 ---
 
@@ -178,15 +178,15 @@ Gunakan naming convention yang benar:
 
 Selama proses pengembangan:
 
-* Ikuti Coding Standards dan Naming Conventions.
-* Ikuti Layer Architecture (Presentation → Service → Repository).
-* Gunakan Server Components jika memungkinkan.
-* Gunakan Client Components hanya jika diperlukan.
-* Gunakan alias import `@/`.
-* Validasi semua input.
-* Tangani error dengan jelas.
-* Jangan mengubah file yang tidak berkaitan.
-* Commit secara berkala (atomic commit).
+- Ikuti Coding Standards dan Naming Conventions.
+- Ikuti Layer Architecture (Presentation → Service → Repository).
+- Gunakan Server Components jika memungkinkan.
+- Gunakan Client Components hanya jika diperlukan.
+- Gunakan alias import `@/`.
+- Validasi semua input.
+- Tangani error dengan jelas.
+- Jangan mengubah file yang tidak berkaitan.
+- Commit secara berkala (atomic commit).
 
 ---
 
@@ -212,12 +212,12 @@ Manual Testing di Browser
 
 Pastikan:
 
-* Tidak ada ESLint error.
-* Tidak ada TypeScript error.
-* Build berhasil.
-* Fitur berfungsi dengan benar.
-* Responsive di mobile, tablet, desktop.
-* Berfungsi di light dan dark mode.
+- Tidak ada ESLint error.
+- Tidak ada TypeScript error.
+- Build berhasil.
+- Fitur berfungsi dengan benar.
+- Responsive di mobile, tablet, desktop.
+- Berfungsi di light dan dark mode.
 
 ---
 
@@ -253,11 +253,11 @@ docs(api): update authentication endpoint
 
 Buka Pull Request ke branch `develop`:
 
-* Judul yang jelas dan deskriptif.
-* Deskripsi perubahan yang lengkap.
-* Link ke Issue (jika ada).
-* Screenshot atau recording (jika ada perubahan UI).
-* Checklist yang sudah dipenuhi.
+- Judul yang jelas dan deskriptif.
+- Deskripsi perubahan yang lengkap.
+- Link ke Issue (jika ada).
+- Screenshot atau recording (jika ada perubahan UI).
+- Checklist yang sudah dipenuhi.
 
 ---
 
@@ -265,12 +265,12 @@ Buka Pull Request ke branch `develop`:
 
 Review akan dilakukan oleh reviewer:
 
-* Periksa kepatuhan terhadap Architecture.
-* Periksa kepatuhan terhadap Business Rules.
-* Periksa Code Quality.
-* Periksa Security.
-* Periksa Performance.
-* Periksa Testing.
+- Periksa kepatuhan terhadap Architecture.
+- Periksa kepatuhan terhadap Business Rules.
+- Periksa Code Quality.
+- Periksa Security.
+- Periksa Performance.
+- Periksa Testing.
 
 ---
 
@@ -306,9 +306,9 @@ Apabila salah satu gagal, proses merge dihentikan.
 
 Setelah CI berhasil dan review disetujui:
 
-* Gunakan **Squash and Merge** atau **Rebase and Merge**.
-* Hindari Merge Commit kecuali diperlukan.
-* Hapus branch setelah merge.
+- Gunakan **Squash and Merge** atau **Rebase and Merge**.
+- Hindari Merge Commit kecuali diperlukan.
+- Hapus branch setelah merge.
 
 ---
 
@@ -330,9 +330,9 @@ Production
 
 Deployment ke Production hanya dilakukan setelah:
 
-* QA Testing di Staging berhasil.
-* Persetujuan dari Technical Lead atau Maintainer.
-* Seluruh CI Pipeline berhasil.
+- QA Testing di Staging berhasil.
+- Persetujuan dari Technical Lead atau Maintainer.
+- Seluruh CI Pipeline berhasil.
 
 ---
 
@@ -340,11 +340,11 @@ Deployment ke Production hanya dilakukan setelah:
 
 Setelah deployment, verifikasi:
 
-* Aplikasi berjalan.
-* Database terhubung.
-* Authentication berfungsi.
-* API dapat diakses.
-* Error Log tidak menunjukkan masalah kritis.
+- Aplikasi berjalan.
+- Database terhubung.
+- Authentication berfungsi.
+- API dapat diakses.
+- Error Log tidak menunjukkan masalah kritis.
 
 ---
 
@@ -650,27 +650,27 @@ Verifikasi Migration di Production
 
 ## Development
 
-* Debug aktif.
-* Data dummy diperbolehkan.
-* Migration dan Seeder dapat dijalankan.
+- Debug aktif.
+- Data dummy diperbolehkan.
+- Migration dan Seeder dapat dijalankan.
 
 ---
 
 ## Staging
 
-* Menyerupai Production.
-* Database terpisah.
-* QA Testing dilakukan di sini.
-* User Acceptance Testing.
+- Menyerupai Production.
+- Database terpisah.
+- QA Testing dilakukan di sini.
+- User Acceptance Testing.
 
 ---
 
 ## Production
 
-* Stabil dan aman.
-* Monitoring aktif.
-* Backup aktif.
-* Tidak ada debug mode.
+- Stabil dan aman.
+- Monitoring aktif.
+- Backup aktif.
+- Tidak ada debug mode.
 
 ---
 
@@ -754,34 +754,34 @@ Sebelum merge Pull Request:
 
 # Best Practices
 
-* Mulai hari dengan pull branch terbaru.
-* Commit kecil dan sering.
-* Hindari branch berumur terlalu lama.
-* Selesaikan konflik sebelum membuka Pull Request.
-* Review Pull Request tim lain secara aktif.
-* Komunikasikan perubahan besar sebelum implementasi.
-* Dokumentasikan keputusan teknis penting.
+- Mulai hari dengan pull branch terbaru.
+- Commit kecil dan sering.
+- Hindari branch berumur terlalu lama.
+- Selesaikan konflik sebelum membuka Pull Request.
+- Review Pull Request tim lain secara aktif.
+- Komunikasikan perubahan besar sebelum implementasi.
+- Dokumentasikan keputusan teknis penting.
 
 ---
 
 # Related Documents
 
-* `coding-standards.md` - Standar penulisan kode.
-* `naming-conventions.md` - Standar penamaan.
-* `git-workflow.md` - Standar Git Workflow.
-* `branching-strategy.md` - Strategi branching.
-* `commit-convention.md` - Standar penulisan commit.
-* `testing-strategy.md` - Strategi pengujian.
-* `code-review.md` - Standar Code Review.
-* `docs/00-overview/15-DEPLOYMENT.md` - Standar Deployment.
-* `docs/00-overview/14-GIT_WORKFLOW.md` - Git Workflow resmi.
+- `coding-standards.md` - Standar penulisan kode.
+- `naming-conventions.md` - Standar penamaan.
+- `git-workflow.md` - Standar Git Workflow.
+- `branching-strategy.md` - Strategi branching.
+- `commit-convention.md` - Standar penulisan commit.
+- `testing-strategy.md` - Strategi pengujian.
+- `code-review.md` - Standar Code Review.
+- `docs/00-overview/15-DEPLOYMENT.md` - Standar Deployment.
+- `docs/00-overview/14-GIT_WORKFLOW.md` - Git Workflow resmi.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh developer memahami Development Workflow.
-* Development Workflow diterapkan pada seluruh pengembangan.
-* Alur dari task hingga deployment terdokumentasi.
-* Checklist digunakan secara konsisten.
-* Development Workflow menjadi pedoman resmi proses development.
+- Seluruh developer memahami Development Workflow.
+- Development Workflow diterapkan pada seluruh pengembangan.
+- Alur dari task hingga deployment terdokumentasi.
+- Checklist digunakan secara konsisten.
+- Development Workflow menjadi pedoman resmi proses development.

@@ -20,12 +20,12 @@ Dokumen ini menjelaskan rencana pengembangan Domain Dashboard.
 
 Fitur:
 
-* Dashboard Home
-* Statistics
-* Quick Access
-* Recent Activities
-* Announcement
-* System Information
+- Dashboard Home
+- Statistics
+- Quick Access
+- Recent Activities
+- Announcement
+- System Information
 
 Status:
 
@@ -37,9 +37,9 @@ Status:
 
 Penambahan:
 
-* Grafik Statistik
-* Filter Periode
-* Dashboard Refresh
+- Grafik Statistik
+- Filter Periode
+- Dashboard Refresh
 
 ---
 
@@ -47,9 +47,9 @@ Penambahan:
 
 Penambahan:
 
-* Dashboard Favorite
-* Widget Configuration
-* Export Dashboard
+- Dashboard Favorite
+- Widget Configuration
+- Export Dashboard
 
 ---
 
@@ -57,10 +57,10 @@ Penambahan:
 
 Penambahan:
 
-* Drag & Drop Widget
-* Dashboard Personalization
-* Realtime Dashboard
-* KPI Monitoring
+- Drag & Drop Widget
+- Dashboard Personalization
+- Realtime Dashboard
+- KPI Monitoring
 
 ---
 
@@ -68,11 +68,11 @@ Penambahan:
 
 Roadmap jangka panjang:
 
-* AI Insight
-* Predictive Analytics
-* Organization KPI
-* Custom Dashboard
-* Cross Module Analytics
+- AI Insight
+- Predictive Analytics
+- Organization KPI
+- Custom Dashboard
+- Cross Module Analytics
 
 ---
 
@@ -80,20 +80,20 @@ Roadmap jangka panjang:
 
 Dashboard dianggap berhasil apabila:
 
-* Memuat cepat.
-* Informasi relevan.
-* Widget sesuai Permission.
-* Mudah digunakan.
-* Mendukung kebutuhan operasional organisasi.
+- Memuat cepat.
+- Informasi relevan.
+- Widget sesuai Permission.
+- Mudah digunakan.
+- Mendukung kebutuhan operasional organisasi.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* ui.md
+- README.md
+- business-rules.md
+- workflow.md
+- ui.md
 
 ---
 

@@ -26,13 +26,13 @@ Domain ini menjadi pusat administrasi organisasi dan berintegrasi dengan Letter,
 
 Secretariat harus mampu:
 
-* Mengelola Agenda.
-* Mengelola Surat Masuk.
-* Mengelola Surat Keluar.
-* Mengelola Disposisi.
-* Mengelola Arsip Administrasi.
-* Mengelola Dokumen Internal.
-* Melacak Status Administrasi.
+- Mengelola Agenda.
+- Mengelola Surat Masuk.
+- Mengelola Surat Keluar.
+- Mengelola Disposisi.
+- Mengelola Arsip Administrasi.
+- Mengelola Dokumen Internal.
+- Melacak Status Administrasi.
 
 ---
 
@@ -54,10 +54,10 @@ Secretariat harus mampu:
 
 Mengelola:
 
-* Agenda Rapat
-* Agenda Organisasi
-* Jadwal Kegiatan
-* Kalender Internal
+- Agenda Rapat
+- Agenda Organisasi
+- Jadwal Kegiatan
+- Kalender Internal
 
 ---
 
@@ -65,10 +65,10 @@ Mengelola:
 
 Mengelola:
 
-* Registrasi Surat Masuk
-* Klasifikasi
-* Disposisi
-* Arsip
+- Registrasi Surat Masuk
+- Klasifikasi
+- Disposisi
+- Arsip
 
 ---
 
@@ -76,11 +76,11 @@ Mengelola:
 
 Mengelola:
 
-* Draft
-* Approval
-* Penomoran
-* Pengiriman
-* Arsip
+- Draft
+- Approval
+- Penomoran
+- Pengiriman
+- Arsip
 
 ---
 
@@ -88,10 +88,10 @@ Mengelola:
 
 Mengelola:
 
-* Tujuan Disposisi
-* Catatan
-* Status
-* Tindak Lanjut
+- Tujuan Disposisi
+- Catatan
+- Status
+- Tindak Lanjut
 
 ---
 
@@ -99,10 +99,10 @@ Mengelola:
 
 Mengelola:
 
-* Arsip Digital
-* Arsip Administrasi
-* Kategori Arsip
-* Retensi Arsip
+- Arsip Digital
+- Arsip Administrasi
+- Kategori Arsip
+- Retensi Arsip
 
 ---
 
@@ -110,28 +110,28 @@ Mengelola:
 
 Secretariat harus:
 
-* Response < 500 ms.
-* Audit Enabled.
-* Mendukung Full Text Search.
-* Highly Available.
+- Response < 500 ms.
+- Audit Enabled.
+- Mendukung Full Text Search.
+- Highly Available.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Permission sesuai.
-* Dokumen tervalidasi.
+- User telah Login.
+- Permission sesuai.
+- Dokumen tervalidasi.
 
 ---
 
 # Postconditions
 
-* Data tersimpan.
-* Nomor administrasi dibuat (jika diperlukan).
-* Audit Log dibuat.
-* Notification dikirim.
-* Domain Event diterbitkan.
+- Data tersimpan.
+- Nomor administrasi dibuat (jika diperlukan).
+- Audit Log dibuat.
+- Notification dikirim.
+- Domain Event diterbitkan.
 
 ---
 
@@ -197,11 +197,11 @@ Archive
 
 # Exception Flow
 
-* Dokumen tidak ditemukan.
-* Nomor administrasi sudah digunakan.
-* Permission ditolak.
-* Status tidak valid.
-* Arsip tidak tersedia.
+- Dokumen tidak ditemukan.
+- Nomor administrasi sudah digunakan.
+- Permission ditolak.
+- Status tidak valid.
+- Arsip tidak tersedia.
 
 ---
 
@@ -261,21 +261,21 @@ Archived
 
 Entity:
 
-* Agenda
-* IncomingMail
-* OutgoingMail
-* Disposition
-* Archive
+- Agenda
+- IncomingMail
+- OutgoingMail
+- Disposition
+- Archive
 
 Aggregate:
 
-* Secretariat
+- Secretariat
 
 Value Object:
 
-* AgendaNumber
-* DocumentNumber
-* ArchiveCode
+- AgendaNumber
+- DocumentNumber
+- ArchiveCode
 
 ---
 
@@ -325,13 +325,13 @@ archives
 
 # Permission Matrix
 
-| Action  | Admin | Secretariat |   User  |
+| Action  | Admin | Secretariat |  User   |
 | ------- | :---: | :---------: | :-----: |
-| View    |   ✅   |      ✅      | Limited |
-| Create  |   ✅   |      ✅      |    ❌    |
-| Update  |   ✅   |      ✅      |    ❌    |
-| Approve |   ✅   |      ❌      |    ❌    |
-| Archive |   ✅   |      ✅      |    ❌    |
+| View    |  ✅   |     ✅      | Limited |
+| Create  |  ✅   |     ✅      |   ❌    |
+| Update  |  ✅   |     ✅      |   ❌    |
+| Approve |  ✅   |     ❌      |   ❌    |
+| Archive |  ✅   |     ✅      |   ❌    |
 
 ---
 
@@ -376,40 +376,40 @@ ArchiveCreated
 
 # Acceptance Test
 
-* Agenda berhasil dibuat.
-* Surat masuk berhasil diregistrasi.
-* Surat keluar berhasil disetujui.
-* Disposisi berhasil diberikan.
-* Arsip berhasil dibuat.
-* Notification terkirim.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Agenda berhasil dibuat.
+- Surat masuk berhasil diregistrasi.
+- Surat keluar berhasil disetujui.
+- Disposisi berhasil diberikan.
+- Arsip berhasil dibuat.
+- Notification terkirim.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Create Agenda < 500 ms.
-* Register Mail < 500 ms.
-* Search Archive < 300 ms.
-* List Documents mendukung Pagination.
+- Create Agenda < 500 ms.
+- Register Mail < 500 ms.
+- Search Archive < 300 ms.
+- List Documents mendukung Pagination.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Audit Log aktif.
-* Nomor dokumen bersifat unik.
-* Arsip mengikuti kebijakan retensi.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- Audit Log aktif.
+- Nomor dokumen bersifat unik.
+- Arsip mengikuti kebijakan retensi.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh proses administrasi berjalan sesuai Business Rules.
-* Penomoran dokumen konsisten.
-* Disposisi dan Arsip terdokumentasi.
-* Notification dan Domain Event berjalan sesuai desain.
-* Specification siap digunakan sebagai dasar implementasi Secretariat Domain.
+- Seluruh proses administrasi berjalan sesuai Business Rules.
+- Penomoran dokumen konsisten.
+- Disposisi dan Arsip terdokumentasi.
+- Notification dan Domain Event berjalan sesuai desain.
+- Specification siap digunakan sebagai dasar implementasi Secretariat Domain.

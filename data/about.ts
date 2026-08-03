@@ -1,11 +1,4 @@
-import {
-  BookOpen,
-  Handshake,
-  Landmark,
-  Users,
-  LucideIcon,
-} from "lucide-react";
-
+import { BookOpen, Handshake, Landmark, Users, LucideIcon } from "lucide-react";
 
 export interface AboutFeature {
   title: string;

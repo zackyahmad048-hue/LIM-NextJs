@@ -3,42 +3,96 @@ import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/client";
 
+import { PERMISSIONS } from "@/config/permission";
+import { ROLE_LABELS } from "@/config/role";
+import {
+  DEFAULT_PERMISSION_MATRIX,
+  flattenPermissions,
+} from "@/modules/authorization/application/permission.matrix";
+
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
 });
 
 const prisma = new PrismaClient({ adapter });
 
-const PERMISSIONS = [
-  { name: "View Prayer Time", slug: "falak.prayer-time.view" },
-  { name: "Generate Prayer Time", slug: "falak.prayer-time.generate" },
-  { name: "View Qibla", slug: "falak.qibla.view" },
-  { name: "Calculate Qibla", slug: "falak.qibla.calculate" },
-  { name: "View Hijri", slug: "falak.hijri.view" },
-  { name: "Generate Hijri", slug: "falak.hijri.generate" },
-  { name: "View Hisab", slug: "falak.hisab.view" },
-  { name: "Calculate Hisab", slug: "falak.hisab.calculate" },
-  { name: "Archive Hisab", slug: "falak.hisab.archive" },
-  { name: "View Rukyat", slug: "falak.rukyat.view" },
-  { name: "Create Rukyat", slug: "falak.rukyat.create" },
-  { name: "Verify Rukyat", slug: "falak.rukyat.verify" },
-  { name: "Confirm Rukyat", slug: "falak.rukyat.confirm" },
-  { name: "Archive Rukyat", slug: "falak.rukyat.archive" },
-  { name: "View Eclipse", slug: "falak.eclipse.view" },
-  { name: "Calculate Eclipse", slug: "falak.eclipse.calculate" },
-];
+const ALL_PERMISSION_SLUGS = flattenPermissions(PERMISSIONS);
+
+function grantsForRole(roleSlug: string): string[] {
+  const grants = DEFAULT_PERMISSION_MATRIX[roleSlug];
+  if (grants === "*") return ALL_PERMISSION_SLUGS;
+  return grants;
+}
 
 async function main() {
-  for (const perm of PERMISSIONS) {
-    await prisma.permission.upsert({
-      where: { slug: perm.slug },
+  const slugToId = new Map<string, string>();
+
+  for (const slug of ALL_PERMISSION_SLUGS) {
+    const { id } = await prisma.permission.upsert({
+      where: { slug },
       update: {},
-      create: perm,
+      create: { name: slug, slug },
+      select: { id: true },
     });
-    console.log(`✓ ${perm.slug}`);
+    slugToId.set(slug, id);
+    console.log(`✓ permission ${slug}`);
   }
 
-  console.log(`\nDone — ${PERMISSIONS.length} permissions seeded.`);
+  for (const [roleSlug, roleName] of Object.entries(ROLE_LABELS)) {
+    const role = await prisma.role.upsert({
+      where: { slug: roleSlug },
+      update: { name: roleName },
+      create: { name: roleName, slug: roleSlug },
+    });
+    console.log(`✓ role ${roleSlug}`);
+
+    const grantedSlugs = grantsForRole(roleSlug);
+    for (const slug of grantedSlugs) {
+      const permissionId = slugToId.get(slug);
+      if (!permissionId) continue;
+
+      await prisma.rolePermission.upsert({
+        where: {
+          roleId_permissionId: { roleId: role.id, permissionId },
+        },
+        update: {},
+        create: { roleId: role.id, permissionId },
+      });
+    }
+    console.log(`✓ role ${roleSlug} → ${grantedSlugs.length} permissions`);
+  }
+
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (adminEmail) {
+    const admin = await prisma.user.findUnique({
+      where: { email: adminEmail },
+    });
+
+    if (admin) {
+      const superAdminRole = await prisma.role.findUnique({
+        where: { slug: "super-admin" },
+      });
+
+      if (superAdminRole) {
+        await prisma.userRole.upsert({
+          where: {
+            userId_roleId: { userId: admin.id, roleId: superAdminRole.id },
+          },
+          update: {},
+          create: { userId: admin.id, roleId: superAdminRole.id },
+        });
+        console.log(`✓ admin ${adminEmail} → super-admin`);
+      }
+    } else {
+      console.log(`! admin ${adminEmail} tidak ditemukan, role dilewati.`);
+    }
+  }
+
+  console.log(
+    `\nDone — ${ALL_PERMISSION_SLUGS.length} permissions, ${
+      Object.keys(ROLE_LABELS).length
+    } roles, RBAC ter-seed.`,
+  );
 }
 
 main()

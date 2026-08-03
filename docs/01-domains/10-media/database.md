@@ -141,23 +141,23 @@ media_folder.name
 
 ## Media
 
-* fileName wajib.
-* path unik.
-* url unik.
+- fileName wajib.
+- path unik.
+- url unik.
 
 ---
 
 ## Folder
 
-* name wajib.
-* parentId opsional.
+- name wajib.
+- parentId opsional.
 
 ---
 
 ## Reference
 
-* mediaId wajib.
-* referenceId wajib.
+- mediaId wajib.
+- referenceId wajib.
 
 ---
 
@@ -165,8 +165,8 @@ media_folder.name
 
 Menggunakan Soft Delete:
 
-* media
-* media_folder
+- media
+- media_folder
 
 Thumbnail dan Reference bersifat permanen.
 
@@ -188,11 +188,11 @@ Deleted
 
 # Database Rules
 
-* Metadata disimpan di database.
-* File fisik disimpan di Storage Provider.
-* Domain lain hanya menyimpan mediaId.
-* File tidak boleh dihapus jika masih memiliki Reference.
-* Seluruh akses menggunakan Repository Pattern.
+- Metadata disimpan di database.
+- File fisik disimpan di Storage Provider.
+- Domain lain hanya menyimpan mediaId.
+- File tidak boleh dihapus jika masih memiliki Reference.
+- Seluruh akses menggunakan Repository Pattern.
 
 ---
 
@@ -214,21 +214,21 @@ media_access_log
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Metadata tersimpan dengan benar.
-* File memiliki path dan URL unik.
-* Relasi media valid.
-* File yang direferensikan tidak dapat dihapus.
-* Seluruh akses database menggunakan Repository Pattern.
+- Metadata tersimpan dengan benar.
+- File memiliki path dan URL unik.
+- Relasi media valid.
+- File yang direferensikan tidak dapat dihapus.
+- Seluruh akses database menggunakan Repository Pattern.

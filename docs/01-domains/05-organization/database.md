@@ -203,41 +203,41 @@ management.userId
 
 ## Organization
 
-* Nama wajib unik.
+- Nama wajib unik.
 
 ---
 
 ## Branch
 
-* Nama wajib.
-* Kode wajib unik.
+- Nama wajib.
+- Kode wajib unik.
 
 ---
 
 ## Department
 
-* Nama wajib unik dalam satu Organization.
+- Nama wajib unik dalam satu Organization.
 
 ---
 
 ## Position
 
-* Nama wajib.
-* Berada pada satu Department.
+- Nama wajib.
+- Berada pada satu Department.
 
 ---
 
 ## Management Period
 
-* Hanya satu periode berstatus Active.
+- Hanya satu periode berstatus Active.
 
 ---
 
 ## Management
 
-* Position wajib ada.
-* Branch wajib ada.
-* Period wajib ada.
+- Position wajib ada.
+- Branch wajib ada.
+- Period wajib ada.
 
 ---
 
@@ -245,11 +245,11 @@ management.userId
 
 Menggunakan Soft Delete:
 
-* organization
-* branch
-* department
-* position
-* management
+- organization
+- branch
+- department
+- position
+- management
 
 Tidak diperbolehkan Hard Delete melalui aplikasi.
 
@@ -291,12 +291,12 @@ Inactive
 
 # Database Rules
 
-* Organization menjadi referensi utama.
-* Branch harus berada pada Region.
-* Position harus berada pada Department.
-* Management harus berada pada Period.
-* Data yang masih digunakan tidak dapat dihapus.
-* Seluruh perubahan menggunakan Repository Pattern.
+- Organization menjadi referensi utama.
+- Branch harus berada pada Region.
+- Position harus berada pada Department.
+- Management harus berada pada Period.
+- Data yang masih digunakan tidak dapat dihapus.
+- Seluruh perubahan menggunakan Repository Pattern.
 
 ---
 
@@ -320,14 +320,14 @@ organization_attachment
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -335,8 +335,8 @@ organization_attachment
 
 Database Organization dianggap selesai apabila:
 
-* Struktur organisasi dapat direpresentasikan dengan benar.
-* Relasi antar tabel konsisten.
-* Hanya terdapat satu periode aktif.
-* Seluruh Foreign Key valid.
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur organisasi dapat direpresentasikan dengan benar.
+- Relasi antar tabel konsisten.
+- Hanya terdapat satu periode aktif.
+- Seluruh Foreign Key valid.
+- Seluruh akses database menggunakan Repository Pattern.

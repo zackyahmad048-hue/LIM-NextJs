@@ -18,14 +18,14 @@ Dokumen ini berisi panduan praktis bagi developer baru untuk memahami, mengemban
 
 # Document Structure
 
-| File | Keterangan |
-|------|------------|
-| `getting-started.md` | Pengantar cepat proyek |
-| `local-setup.md` | Panduan setup lingkungan lokal |
-| `developer-guide.md` | Panduan pengembangan fitur |
-| `architecture-guide.md` | Ringkasan arsitektur sistem |
-| `faq.md` | Pertanyaan yang sering diajukan |
-| `troubleshooting.md` | Solusi error umum |
+| File                    | Keterangan                      |
+| ----------------------- | ------------------------------- |
+| `getting-started.md`    | Pengantar cepat proyek          |
+| `local-setup.md`        | Panduan setup lingkungan lokal  |
+| `developer-guide.md`    | Panduan pengembangan fitur      |
+| `architecture-guide.md` | Ringkasan arsitektur sistem     |
+| `faq.md`                | Pertanyaan yang sering diajukan |
+| `troubleshooting.md`    | Solusi error umum               |
 
 ---
 

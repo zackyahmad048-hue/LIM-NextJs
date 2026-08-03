@@ -18,11 +18,11 @@ Dokumen ini mendefinisikan arsitektur server yang digunakan pada LIM Digital Pla
 
 Arsitektur server dirancang agar mendukung:
 
-* High Availability
-* Scalability
-* Reliability
-* Security
-* Maintainability
+- High Availability
+- Scalability
+- Reliability
+- Security
+- Maintainability
 
 ---
 
@@ -30,11 +30,11 @@ Arsitektur server dirancang agar mendukung:
 
 Server Architecture bertujuan untuk:
 
-* Memisahkan tanggung jawab setiap layanan.
-* Mempermudah proses deployment.
-* Mendukung horizontal scaling.
-* Mengurangi Single Point of Failure.
-* Menjamin stabilitas sistem.
+- Memisahkan tanggung jawab setiap layanan.
+- Mempermudah proses deployment.
+- Mendukung horizontal scaling.
+- Mengurangi Single Point of Failure.
+- Menjamin stabilitas sistem.
 
 ---
 
@@ -85,10 +85,10 @@ Backup Server
 
 Bertugas:
 
-* Mendistribusikan Request.
-* Health Check.
-* SSL Termination.
-* Failover.
+- Mendistribusikan Request.
+- Health Check.
+- SSL Termination.
+- Failover.
 
 ---
 
@@ -96,10 +96,10 @@ Bertugas:
 
 Menjalankan:
 
-* Backend API.
-* Business Logic.
-* Authentication.
-* Authorization.
+- Backend API.
+- Business Logic.
+- Authentication.
+- Authorization.
 
 Server dapat ditambah sesuai kebutuhan beban.
 
@@ -109,11 +109,11 @@ Server dapat ditambah sesuai kebutuhan beban.
 
 Menjalankan proses asynchronous:
 
-* Notification.
-* Email.
-* PDF Generation.
-* Media Processing.
-* Background Job.
+- Notification.
+- Email.
+- PDF Generation.
+- Media Processing.
+- Background Job.
 
 ---
 
@@ -121,11 +121,11 @@ Menjalankan proses asynchronous:
 
 Menjalankan:
 
-* Cron Job.
-* Reminder.
-* Cleanup.
-* Scheduled Report.
-* Backup Trigger.
+- Cron Job.
+- Reminder.
+- Cleanup.
+- Scheduled Report.
+- Backup Trigger.
 
 ---
 
@@ -135,10 +135,10 @@ Menjalankan PostgreSQL.
 
 Karakteristik:
 
-* Private Network.
-* Backup.
-* Replication (Future).
-* High Performance Storage.
+- Private Network.
+- Backup.
+- Replication (Future).
+- High Performance Storage.
 
 ---
 
@@ -148,10 +148,10 @@ Menjalankan Redis.
 
 Digunakan untuk:
 
-* Cache.
-* Queue.
-* Session.
-* Rate Limiting.
+- Cache.
+- Queue.
+- Session.
+- Rate Limiting.
 
 ---
 
@@ -159,11 +159,11 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Upload File.
-* Certificate PDF.
-* Letter Attachment.
-* CMS Media.
-* Backup.
+- Upload File.
+- Certificate PDF.
+- Letter Attachment.
+- CMS Media.
+- Backup.
 
 ---
 
@@ -171,10 +171,10 @@ Digunakan untuk:
 
 Menjalankan:
 
-* Metrics Collection.
-* Log Aggregation.
-* Alerting.
-* Dashboard Monitoring.
+- Metrics Collection.
+- Log Aggregation.
+- Alerting.
+- Dashboard Monitoring.
 
 ---
 
@@ -182,10 +182,10 @@ Menjalankan:
 
 Digunakan untuk:
 
-* Database Backup.
-* Storage Backup.
-* Configuration Backup.
-* Disaster Recovery.
+- Database Backup.
+- Storage Backup.
+- Configuration Backup.
+- Disaster Recovery.
 
 ---
 
@@ -205,10 +205,10 @@ Production
 
 Setiap environment memiliki:
 
-* Database sendiri.
-* Storage sendiri.
-* Secret sendiri.
-* Konfigurasi sendiri.
+- Database sendiri.
+- Storage sendiri.
+- Secret sendiri.
+- Konfigurasi sendiri.
 
 ---
 
@@ -216,20 +216,20 @@ Setiap environment memiliki:
 
 Application Server:
 
-* Horizontal Scaling.
+- Horizontal Scaling.
 
 Worker:
 
-* Horizontal Scaling.
+- Horizontal Scaling.
 
 Scheduler:
 
-* Active-Passive.
+- Active-Passive.
 
 Database:
 
-* Vertical Scaling.
-* Read Replica (Future).
+- Vertical Scaling.
+- Read Replica (Future).
 
 ---
 
@@ -237,9 +237,9 @@ Database:
 
 Setiap server menyediakan:
 
-* Liveness Check.
-* Readiness Check.
-* Startup Check.
+- Liveness Check.
+- Readiness Check.
+- Startup Check.
 
 Health Check digunakan oleh Load Balancer dan Orchestrator.
 
@@ -249,10 +249,10 @@ Health Check digunakan oleh Load Balancer dan Orchestrator.
 
 Setiap service harus memiliki:
 
-* CPU Limit.
-* Memory Limit.
-* Storage Limit.
-* Network Policy.
+- CPU Limit.
+- Memory Limit.
+- Storage Limit.
+- Network Policy.
 
 Resource disesuaikan berdasarkan kebutuhan lingkungan.
 
@@ -262,12 +262,12 @@ Resource disesuaikan berdasarkan kebutuhan lingkungan.
 
 Seluruh server wajib:
 
-* Menggunakan SSH Key Authentication.
-* Menonaktifkan Login Root.
-* Memiliki Firewall.
-* Menggunakan Secret Manager.
-* Mendukung Automatic Security Update.
-* Mengaktifkan Audit Logging.
+- Menggunakan SSH Key Authentication.
+- Menonaktifkan Login Root.
+- Memiliki Firewall.
+- Menggunakan Secret Manager.
+- Mendukung Automatic Security Update.
+- Mengaktifkan Audit Logging.
 
 ---
 
@@ -275,13 +275,13 @@ Seluruh server wajib:
 
 Parameter yang dipantau:
 
-* CPU Usage.
-* Memory Usage.
-* Disk Usage.
-* Network Traffic.
-* Request Rate.
-* Error Rate.
-* Response Time.
+- CPU Usage.
+- Memory Usage.
+- Disk Usage.
+- Network Traffic.
+- Request Rate.
+- Error Rate.
+- Response Time.
 
 Alert dikirim ketika melewati ambang batas operasional.
 
@@ -291,38 +291,38 @@ Alert dikirim ketika melewati ambang batas operasional.
 
 Strategi pemulihan meliputi:
 
-* Backup harian.
-* Snapshot berkala.
-* Restore Test.
-* Recovery Procedure terdokumentasi.
-* Recovery Time Objective (RTO) dan Recovery Point Objective (RPO) sesuai kebutuhan bisnis.
+- Backup harian.
+- Snapshot berkala.
+- Restore Test.
+- Recovery Procedure terdokumentasi.
+- Recovery Time Objective (RTO) dan Recovery Point Objective (RPO) sesuai kebutuhan bisnis.
 
 ---
 
 # Best Practices
 
-* Pisahkan setiap layanan sesuai tanggung jawabnya.
-* Hindari menjalankan Database pada server yang sama dengan Application Server di Production.
-* Gunakan Auto Restart untuk layanan penting.
-* Terapkan prinsip Immutable Infrastructure bila memungkinkan.
-* Dokumentasikan seluruh perubahan konfigurasi server.
+- Pisahkan setiap layanan sesuai tanggung jawabnya.
+- Hindari menjalankan Database pada server yang sama dengan Application Server di Production.
+- Gunakan Auto Restart untuk layanan penting.
+- Terapkan prinsip Immutable Infrastructure bila memungkinkan.
+- Dokumentasikan seluruh perubahan konfigurasi server.
 
 ---
 
 # Related Documents
 
-* README.md
-* network-topology.md
-* container-platform.md
-* database-infrastructure.md
-* monitoring-infrastructure.md
+- README.md
+- network-topology.md
+- container-platform.md
+- database-infrastructure.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh peran server terdokumentasi.
-* Environment dipisahkan dengan jelas.
-* Mendukung High Availability dan Scalability.
-* Monitoring dan Backup diterapkan.
-* Server Architecture menjadi acuan resmi implementasi infrastruktur LIM Digital Platform.
+- Seluruh peran server terdokumentasi.
+- Environment dipisahkan dengan jelas.
+- Mendukung High Availability dan Scalability.
+- Monitoring dan Backup diterapkan.
+- Server Architecture menjadi acuan resmi implementasi infrastruktur LIM Digital Platform.

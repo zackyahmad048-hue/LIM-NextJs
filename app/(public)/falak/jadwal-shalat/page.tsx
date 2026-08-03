@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageHeader from "@/components/website/page-header";
 import { PrayerTimeTable } from "@/components/website/falak/prayer-time-table";
 
 export const metadata: Metadata = {
@@ -8,15 +9,15 @@ export const metadata: Metadata = {
 
 export default function JadwalShalatPage() {
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-foreground">Jadwal Shalat</h1>
-        <p className="mt-2 text-muted-foreground">
-          Jadwal shalat harian berdasarkan lokasi dan metode perhitungan yang dipilih.
-        </p>
-      </div>
+    <>
+      <PageHeader
+        title="Jadwal Shalat"
+        description="Jadwal shalat harian berdasarkan lokasi Anda — dengan mode waktu standar, waktu istiwa', dan ihtiyat +3 menit."
+      />
 
-      <PrayerTimeTable />
-    </section>
+      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <PrayerTimeTable />
+      </section>
+    </>
   );
 }

@@ -22,12 +22,12 @@ CI/CD bertujuan mengotomatisasi proses build, testing, quality assurance, dan de
 
 CI/CD bertujuan untuk:
 
-* Mengotomatisasi proses build.
-* Menjalankan pengujian secara otomatis.
-* Menjaga kualitas kode.
-* Mempercepat deployment.
-* Mengurangi human error.
-* Mendukung release yang lebih sering.
+- Mengotomatisasi proses build.
+- Menjalankan pengujian secara otomatis.
+- Menjaga kualitas kode.
+- Mempercepat deployment.
+- Mengurangi human error.
+- Mendukung release yang lebih sering.
 
 ---
 
@@ -87,9 +87,9 @@ Deploy Production
 
 Continuous Integration dijalankan setiap:
 
-* Push ke `develop`
-* Pull Request
-* Push ke `main`
+- Push ke `develop`
+- Pull Request
+- Push ke `main`
 
 Tahapan:
 
@@ -160,12 +160,12 @@ Verification
 
 Pipeline hanya dapat dilanjutkan apabila:
 
-* Linter berhasil.
-* Static Analysis berhasil.
-* Unit Test berhasil.
-* Integration Test berhasil.
-* Coverage memenuhi standar.
-* Build berhasil.
+- Linter berhasil.
+- Static Analysis berhasil.
+- Unit Test berhasil.
+- Integration Test berhasil.
+- Coverage memenuhi standar.
+- Build berhasil.
 
 ---
 
@@ -173,10 +173,10 @@ Pipeline hanya dapat dilanjutkan apabila:
 
 Artifact yang dihasilkan:
 
-* Docker Image
-* Build Output
-* Coverage Report
-* Test Report
+- Docker Image
+- Build Output
+- Coverage Report
+- Test Report
 
 Artifact disimpan sesuai kebijakan retensi proyek.
 
@@ -234,12 +234,12 @@ Rollback menggunakan image versi sebelumnya yang telah tervalidasi.
 
 CI/CD menggunakan Secret Manager untuk:
 
-* Database Password
-* JWT Secret
-* API Key
-* SMTP Credential
-* Object Storage Credential
-* Deployment Token
+- Database Password
+- JWT Secret
+- API Key
+- SMTP Credential
+- Object Storage Credential
+- Deployment Token
 
 Secret tidak boleh ditulis di repository maupun workflow.
 
@@ -249,18 +249,18 @@ Secret tidak boleh ditulis di repository maupun workflow.
 
 Pipeline mengirim notifikasi ketika:
 
-* Build gagal.
-* Test gagal.
-* Deployment berhasil.
-* Deployment gagal.
-* Rollback dilakukan.
+- Build gagal.
+- Test gagal.
+- Deployment berhasil.
+- Deployment gagal.
+- Rollback dilakukan.
 
 Media notifikasi dapat berupa:
 
-* Email
-* Slack
-* Microsoft Teams
-* WhatsApp (opsional)
+- Email
+- Slack
+- Microsoft Teams
+- WhatsApp (opsional)
 
 ---
 
@@ -268,11 +268,11 @@ Media notifikasi dapat berupa:
 
 Pipeline mencatat:
 
-* Build Duration
-* Test Duration
-* Deployment Time
-* Success Rate
-* Failure Rate
+- Build Duration
+- Test Duration
+- Deployment Time
+- Success Rate
+- Failure Rate
 
 Seluruh aktivitas deployment dicatat pada Audit Log.
 
@@ -280,31 +280,31 @@ Seluruh aktivitas deployment dicatat pada Audit Log.
 
 # Best Practices
 
-* Jalankan pipeline sesingkat mungkin.
-* Cache dependency untuk mempercepat build.
-* Gunakan reusable workflow.
-* Pisahkan workflow CI dan CD.
-* Gunakan tag versi untuk deployment Production.
-* Jangan deploy langsung dari branch feature.
+- Jalankan pipeline sesingkat mungkin.
+- Cache dependency untuk mempercepat build.
+- Gunakan reusable workflow.
+- Pisahkan workflow CI dan CD.
+- Gunakan tag versi untuk deployment Production.
+- Jangan deploy langsung dari branch feature.
 
 ---
 
 # Related Documents
 
-* README.md
-* environment.md
-* docker.md
-* server.md
-* backup.md
-* monitoring.md
-* security.md
+- README.md
+- environment.md
+- docker.md
+- server.md
+- backup.md
+- monitoring.md
+- security.md
 
 ---
 
 # Acceptance Criteria
 
-* CI berjalan otomatis pada setiap Pull Request.
-* CD mengikuti alur deployment yang telah ditentukan.
-* Pipeline memiliki Quality Gate.
-* Rollback dapat dilakukan dengan cepat.
-* CI/CD menjadi standar deployment LIM Digital Platform.
+- CI berjalan otomatis pada setiap Pull Request.
+- CD mengikuti alur deployment yang telah ditentukan.
+- Pipeline memiliki Quality Gate.
+- Rollback dapat dilakukan dengan cepat.
+- CI/CD menjadi standar deployment LIM Digital Platform.

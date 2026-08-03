@@ -25,7 +25,13 @@ function canTransition(from: ProgramStatus, to: ProgramStatus): boolean {
 }
 
 export const programService = {
-  async list(params: { search?: string; status?: ProgramStatus; type?: string; page?: number; limit?: number }) {
+  async list(params: {
+    search?: string;
+    status?: ProgramStatus;
+    type?: string;
+    page?: number;
+    limit?: number;
+  }) {
     return repo.findMany({
       search: params.search,
       status: params.status,
@@ -41,7 +47,12 @@ export const programService = {
     return program;
   },
 
-  async create(data: Omit<Parameters<ProgramRepository["create"]>[0], "status" | "organizerId">) {
+  async create(
+    data: Omit<
+      Parameters<ProgramRepository["create"]>[0],
+      "status" | "organizerId"
+    >,
+  ) {
     const existing = await repo.findByCode(data.code);
     if (existing) throw new ProgramCodeExistsError(data.code);
     return repo.create({ ...data, status: "DRAFT", organizerId: null });
@@ -80,11 +91,17 @@ export const programService = {
     return repo.getSchedules(programId);
   },
 
-  async createSchedule(programId: string, data: Omit<Parameters<ProgramRepository["createSchedule"]>[0], "programId">) {
+  async createSchedule(
+    programId: string,
+    data: Omit<Parameters<ProgramRepository["createSchedule"]>[0], "programId">,
+  ) {
     return repo.createSchedule({ ...data, programId });
   },
 
-  async updateSchedule(id: string, data: Parameters<ProgramRepository["updateSchedule"]>[1]) {
+  async updateSchedule(
+    id: string,
+    data: Parameters<ProgramRepository["updateSchedule"]>[1],
+  ) {
     return repo.updateSchedule(id, data);
   },
 
@@ -96,7 +113,10 @@ export const programService = {
     return repo.getCommittees(programId);
   },
 
-  async assignCommittee(programId: string, data: { userId: string; role: string }) {
+  async assignCommittee(
+    programId: string,
+    data: { userId: string; role: string },
+  ) {
     return repo.assignCommittee({ ...data, programId, status: "ACTIVE" });
   },
 
@@ -112,10 +132,19 @@ export const programService = {
     const participants = await repo.getParticipants(programId);
     const exists = participants.find((p) => p.userId === userId);
     if (exists) throw new ParticipantAlreadyRegisteredError();
-    return repo.registerParticipant({ programId, userId, registrationStatus: "PENDING" });
+    return repo.registerParticipant({
+      programId,
+      userId,
+      registrationStatus: "PENDING",
+    });
   },
 
-  async updateParticipant(id: string, data: { registrationStatus?: "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED" }) {
+  async updateParticipant(
+    id: string,
+    data: {
+      registrationStatus?: "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
+    },
+  ) {
     return repo.updateParticipant(id, data);
   },
 
@@ -129,13 +158,15 @@ export const programService = {
 
   async checkIn(participantId: string, programId: string) {
     const program = await repo.findById(programId);
-    if (!program || program.status !== "ON_GOING") throw new ProgramNotOnGoingError();
+    if (!program || program.status !== "ON_GOING")
+      throw new ProgramNotOnGoingError();
     return repo.checkIn(participantId);
   },
 
   async checkOut(participantId: string, programId: string) {
     const program = await repo.findById(programId);
-    if (!program || program.status !== "ON_GOING") throw new ProgramNotOnGoingError();
+    if (!program || program.status !== "ON_GOING")
+      throw new ProgramNotOnGoingError();
     return repo.checkOut(participantId);
   },
 
@@ -143,8 +174,15 @@ export const programService = {
     return repo.getDocumentation(programId);
   },
 
-  async addDocumentation(programId: string, data: { mediaId: string; title: string; description?: string }) {
-    return repo.addDocumentation({ ...data, programId, description: data.description ?? null });
+  async addDocumentation(
+    programId: string,
+    data: { mediaId: string; title: string; description?: string },
+  ) {
+    return repo.addDocumentation({
+      ...data,
+      programId,
+      description: data.description ?? null,
+    });
   },
 
   async removeDocumentation(id: string) {

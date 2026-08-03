@@ -30,9 +30,9 @@ Strategi ini bertujuan memastikan setiap fitur memenuhi kebutuhan bisnis, bebas 
 
 Prioritas pengujian:
 
-* Banyak Unit Test.
-* Integration Test secukupnya.
-* End-to-End Test untuk alur bisnis utama.
+- Banyak Unit Test.
+- Integration Test secukupnya.
+- End-to-End Test untuk alur bisnis utama.
 
 ---
 
@@ -42,18 +42,18 @@ Prioritas pengujian:
 
 Menguji:
 
-* Entity
-* Value Object
-* Domain Service
-* Use Case
-* Business Rules
+- Entity
+- Value Object
+- Domain Service
+- Use Case
+- Business Rules
 
 Tidak bergantung pada:
 
-* Database
-* HTTP
-* Framework
-* External API
+- Database
+- HTTP
+- Framework
+- External API
 
 ---
 
@@ -61,12 +61,12 @@ Tidak bergantung pada:
 
 Menguji integrasi antara:
 
-* Repository
-* Database
-* Queue
-* Storage
-* Notification
-* External Service
+- Repository
+- Database
+- Queue
+- Storage
+- Notification
+- External Service
 
 ---
 
@@ -76,12 +76,12 @@ Menguji alur bisnis secara penuh.
 
 Contoh:
 
-* Login
-* Create Program
-* Create Letter
-* Publish Knowledge
-* Generate Certificate
-* Calculate Prayer Time
+- Login
+- Create Program
+- Create Letter
+- Publish Knowledge
+- Generate Certificate
+- Calculate Prayer Time
 
 ---
 
@@ -148,12 +148,12 @@ should_publish_article_after_review
 
 Gunakan Mock untuk:
 
-* Repository
-* Notification
-* Email
-* Storage
-* External API
-* Queue
+- Repository
+- Notification
+- Email
+- Storage
+- External API
+- Queue
 
 Jangan melakukan Mock terhadap Business Rules.
 
@@ -163,9 +163,9 @@ Jangan melakukan Mock terhadap Business Rules.
 
 Gunakan:
 
-* Fixture
-* Factory
-* Builder Pattern
+- Fixture
+- Factory
+- Builder Pattern
 
 Hindari penggunaan data Production.
 
@@ -175,10 +175,10 @@ Hindari penggunaan data Production.
 
 Regression Test wajib dijalankan apabila:
 
-* Merge ke `develop`
-* Release
-* Hotfix
-* Refactoring besar
+- Merge ke `develop`
+- Release
+- Hotfix
+- Refactoring besar
 
 ---
 
@@ -218,11 +218,11 @@ Pull Request tidak boleh di-merge apabila salah satu proses gagal.
 
 Dilakukan untuk:
 
-* UI/UX
-* Cross Browser
-* Mobile Responsiveness
-* Accessibility
-* Exploratory Testing
+- UI/UX
+- Cross Browser
+- Mobile Responsiveness
+- Accessibility
+- Exploratory Testing
 
 ---
 
@@ -230,18 +230,18 @@ Dilakukan untuk:
 
 Dilakukan pada:
 
-* REST API
-* Database Query
-* Search
-* Dashboard
-* File Upload
+- REST API
+- Database Query
+- Search
+- Dashboard
+- File Upload
 
 Metrik utama:
 
-* Response Time
-* Throughput
-* Memory Usage
-* CPU Usage
+- Response Time
+- Throughput
+- Memory Usage
+- CPU Usage
 
 ---
 
@@ -249,13 +249,13 @@ Metrik utama:
 
 Meliputi:
 
-* Authentication
-* Authorization
-* SQL Injection
-* XSS
-* CSRF
-* File Upload Validation
-* Rate Limiting
+- Authentication
+- Authorization
+- SQL Injection
+- XSS
+- CSRF
+- File Upload Validation
+- Rate Limiting
 
 ---
 
@@ -263,9 +263,9 @@ Meliputi:
 
 Dilakukan berdasarkan:
 
-* Business Rules
-* User Story
-* Acceptance Criteria
+- Business Rules
+- User Story
+- Acceptance Criteria
 
 Fitur dianggap selesai apabila seluruh Acceptance Test lulus.
 
@@ -273,30 +273,30 @@ Fitur dianggap selesai apabila seluruh Acceptance Test lulus.
 
 # Testing Principles
 
-* Test Business Rules terlebih dahulu.
-* Test harus deterministik.
-* Test tidak saling bergantung.
-* Test harus cepat dijalankan.
-* Test harus mudah dipelihara.
+- Test Business Rules terlebih dahulu.
+- Test harus deterministik.
+- Test tidak saling bergantung.
+- Test harus cepat dijalankan.
+- Test harus mudah dipelihara.
 
 ---
 
 # Related Documents
 
-* README.md
-* coding-standards.md
-* naming-conventions.md
-* git-workflow.md
-* branching-strategy.md
-* commit-convention.md
-* code-review.md
+- README.md
+- coding-standards.md
+- naming-conventions.md
+- git-workflow.md
+- branching-strategy.md
+- commit-convention.md
+- code-review.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Business Rules memiliki Unit Test.
-* Coverage minimum 80%.
-* CI menjalankan seluruh pengujian otomatis.
-* Regression Test dilakukan sebelum Release.
-* Testing Strategy menjadi standar resmi proyek.
+- Seluruh Business Rules memiliki Unit Test.
+- Coverage minimum 80%.
+- CI menjalankan seluruh pengujian otomatis.
+- Regression Test dilakukan sebelum Release.
+- Testing Strategy menjadi standar resmi proyek.

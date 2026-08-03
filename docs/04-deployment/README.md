@@ -22,12 +22,12 @@ Dokumen pada folder ini menjadi acuan bagi DevOps Engineer, System Administrator
 
 Folder Deployment bertujuan untuk:
 
-* Menstandarkan proses deployment.
-* Menjamin konsistensi antar environment.
-* Mendukung Continuous Delivery (CD).
-* Menjaga keamanan infrastruktur.
-* Memudahkan proses recovery.
-* Mendukung skalabilitas sistem.
+- Menstandarkan proses deployment.
+- Menjamin konsistensi antar environment.
+- Mendukung Continuous Delivery (CD).
+- Menjaga keamanan infrastruktur.
+- Memudahkan proses recovery.
+- Mendukung skalabilitas sistem.
 
 ---
 
@@ -35,13 +35,13 @@ Folder Deployment bertujuan untuk:
 
 Folder ini mencakup:
 
-* Environment Configuration
-* Docker
-* CI/CD Pipeline
-* Server Configuration
-* Backup & Restore
-* Monitoring & Logging
-* Security Hardening
+- Environment Configuration
+- Docker
+- CI/CD Pipeline
+- Server Configuration
+- Backup & Restore
+- Monitoring & Logging
+- Security Hardening
 
 ---
 
@@ -101,12 +101,12 @@ Setiap environment memiliki konfigurasi dan resource yang terpisah.
 
 Seluruh deployment mengikuti prinsip:
 
-* Immutable Infrastructure
-* Infrastructure as Code (IaC)
-* Zero Downtime Deployment (jika memungkinkan)
-* Automated Deployment
-* Rollback Ready
-* Secure by Default
+- Immutable Infrastructure
+- Infrastructure as Code (IaC)
+- Zero Downtime Deployment (jika memungkinkan)
+- Automated Deployment
+- Rollback Ready
+- Secure by Default
 
 ---
 
@@ -114,14 +114,14 @@ Seluruh deployment mengikuti prinsip:
 
 Deployment mendukung:
 
-* Docker
-* Docker Compose
-* GitHub Actions
-* Nginx
-* PostgreSQL
-* Redis
-* Object Storage
-* Linux Server
+- Docker
+- Docker Compose
+- GitHub Actions
+- Nginx
+- PostgreSQL
+- Redis
+- Object Storage
+- Linux Server
 
 Kubernetes dapat dipertimbangkan pada fase berikutnya apabila kebutuhan skalabilitas meningkat.
 
@@ -131,13 +131,13 @@ Kubernetes dapat dipertimbangkan pada fase berikutnya apabila kebutuhan skalabil
 
 Komponen utama:
 
-* Reverse Proxy
-* Application Server
-* Database Server
-* Cache Server
-* Storage
-* Background Worker
-* Monitoring Service
+- Reverse Proxy
+- Application Server
+- Database Server
+- Cache Server
+- Storage
+- Background Worker
+- Monitoring Service
 
 ---
 
@@ -181,11 +181,11 @@ Deploy Production
 
 Setiap deployment harus:
 
-* Memiliki Backup.
-* Memiliki Rollback Plan.
-* Menggunakan Environment Variable.
-* Menghasilkan Deployment Log.
-* Memiliki Health Check.
+- Memiliki Backup.
+- Memiliki Rollback Plan.
+- Menggunakan Environment Variable.
+- Menghasilkan Deployment Log.
+- Memiliki Health Check.
 
 ---
 
@@ -193,12 +193,12 @@ Setiap deployment harus:
 
 Deployment wajib menerapkan:
 
-* HTTPS
-* Secret Management
-* Firewall
-* Least Privilege
-* Audit Logging
-* Secure Configuration
+- HTTPS
+- Secret Management
+- Firewall
+- Least Privilege
+- Audit Logging
+- Secure Configuration
 
 ---
 
@@ -206,21 +206,21 @@ Deployment wajib menerapkan:
 
 Sistem wajib dipantau melalui:
 
-* Application Metrics
-* Server Metrics
-* Database Metrics
-* Error Logs
-* Uptime Monitoring
-* Alerting
+- Application Metrics
+- Server Metrics
+- Database Metrics
+- Error Logs
+- Uptime Monitoring
+- Alerting
 
 ---
 
 # Related Documents
 
-* 02-architecture/
-* 03-development/
-* 05-decisions/
-* 06-references/
+- 02-architecture/
+- 03-development/
+- 05-decisions/
+- 06-references/
 
 ---
 
@@ -232,8 +232,8 @@ Sistem wajib dipantau melalui:
 
 # Acceptance Criteria
 
-* Proses deployment terdokumentasi.
-* Seluruh environment memiliki standar yang sama.
-* Keamanan deployment terdefinisi.
-* Rollback dapat dilakukan dengan cepat.
-* Menjadi pedoman resmi deployment LIM Digital Platform.
+- Proses deployment terdokumentasi.
+- Seluruh environment memiliki standar yang sama.
+- Keamanan deployment terdefinisi.
+- Rollback dapat dilakukan dengan cepat.
+- Menjadi pedoman resmi deployment LIM Digital Platform.

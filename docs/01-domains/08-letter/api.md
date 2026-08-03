@@ -30,9 +30,9 @@ API Letter digunakan untuk mengelola seluruh proses pembuatan surat, persetujuan
 
 Seluruh endpoint Admin memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 Endpoint Public tidak tersedia pada versi 1.0.
 
@@ -42,12 +42,12 @@ Endpoint Public tidak tersedia pada versi 1.0.
 
 Domain Letter terdiri dari:
 
-* Letter
-* Template
-* Approval
-* Signature
-* Distribution
-* Archive
+- Letter
+- Template
+- Approval
+- Signature
+- Distribution
+- Archive
 
 ---
 
@@ -273,13 +273,13 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint memerlukan Authentication.
-* Seluruh endpoint memerlukan Permission.
-* Nomor surat hanya dapat dibuat setelah Approval.
-* Surat hanya dapat ditandatangani setelah nomor surat tersedia.
-* Surat hanya dapat dikirim setelah Signed.
-* Delete menggunakan Soft Delete.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh endpoint memerlukan Authentication.
+- Seluruh endpoint memerlukan Permission.
+- Nomor surat hanya dapat dibuat setelah Approval.
+- Surat hanya dapat ditandatangani setelah nomor surat tersedia.
+- Surat hanya dapat dikirim setelah Signed.
+- Delete menggunakan Soft Delete.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -287,10 +287,10 @@ Response gagal
 
 API Letter wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -298,24 +298,24 @@ API Letter wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -323,7 +323,7 @@ Seluruh endpoint mendukung:
 
 API Letter dianggap selesai apabila:
 
-* Seluruh endpoint CRUD tersedia.
-* Approval, Signature, dan Distribution berjalan sesuai workflow.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Approval, Signature, dan Distribution berjalan sesuai workflow.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

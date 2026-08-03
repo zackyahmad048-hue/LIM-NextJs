@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  FileText,
-  FolderTree,
-  Newspaper,
-} from "lucide-react";
+import { ArrowUpRight, FileText, FolderTree, Newspaper } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
@@ -75,9 +70,7 @@ export default async function ContentPage() {
             <p className="mt-2 text-2xl font-semibold tracking-tight">
               {item.value}
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              {item.caption}
-            </p>
+            <p className="mt-1 text-xs text-muted-foreground">{item.caption}</p>
           </SectionCard>
         ))}
       </div>

@@ -30,16 +30,16 @@ API Falak digunakan untuk mengelola perhitungan waktu salat, arah kiblat, kalend
 
 Endpoint administrasi memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 Endpoint publik tersedia untuk:
 
-* Prayer Time
-* Qibla Direction
-* Hijri Calendar
-* Eclipse Information
+- Prayer Time
+- Qibla Direction
+- Hijri Calendar
+- Eclipse Information
 
 ---
 
@@ -47,12 +47,12 @@ Endpoint publik tersedia untuk:
 
 Domain Falak terdiri dari:
 
-* Prayer Time
-* Qibla
-* Hijri Calendar
-* Hisab
-* Rukyat
-* Eclipse
+- Prayer Time
+- Qibla
+- Hijri Calendar
+- Hisab
+- Rukyat
+- Eclipse
 
 ---
 
@@ -247,12 +247,12 @@ Response gagal
 
 # Business Rules
 
-* Endpoint publik hanya menyediakan data yang dapat diakses umum.
-* Seluruh endpoint administrasi memerlukan Authentication.
-* Perhitungan menggunakan parameter yang tervalidasi.
-* Observasi harus melalui proses Verify sebelum Confirm.
-* Delete menggunakan Soft Delete.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Endpoint publik hanya menyediakan data yang dapat diakses umum.
+- Seluruh endpoint administrasi memerlukan Authentication.
+- Perhitungan menggunakan parameter yang tervalidasi.
+- Observasi harus melalui proses Verify sebelum Confirm.
+- Delete menggunakan Soft Delete.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -260,10 +260,10 @@ Response gagal
 
 API Falak wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi parameter astronomi.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi parameter astronomi.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -271,31 +271,31 @@ API Falak wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Database Index
-* Calculation Cache
+- Pagination
+- Search
+- Filtering
+- Database Index
+- Calculation Cache
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh endpoint tersedia sesuai modul.
-* Perhitungan astronomi berjalan konsisten.
-* Endpoint publik berjalan tanpa Authentication (sesuai kebutuhan).
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint tersedia sesuai modul.
+- Perhitungan astronomi berjalan konsisten.
+- Endpoint publik berjalan tanpa Authentication (sesuai kebutuhan).
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

@@ -24,16 +24,16 @@ Login pengguna.
 
 **Request:**
 
-``json
+`json
 {
   "email": "user@example.com",
   "password": "password123"
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "token": "...",
   "user": {
@@ -42,15 +42,15 @@ Login pengguna.
     "name": "..."
   }
 }
-``
+`
 
 **Response (401):**
 
-``json
+`json
 {
   "error": "Email atau password salah"
 }
-``
+`
 
 ---
 
@@ -60,21 +60,21 @@ Registrasi pengguna baru.
 
 **Request:**
 
-``json
+`json
 {
   "name": "John Doe",
   "email": "user@example.com",
   "password": "Password123!"
 }
-``
+`
 
 **Response (201):**
 
-``json
+`json
 {
   "message": "Registrasi berhasil. Silakan verifikasi email Anda."
 }
-``
+`
 
 ---
 
@@ -84,17 +84,17 @@ Logout pengguna.
 
 **Headers:**
 
-``text
+`text
 Authorization: Bearer <token>
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Logout berhasil"
 }
-``
+`
 
 ---
 
@@ -104,19 +104,19 @@ Minta reset password.
 
 **Request:**
 
-``json
+`json
 {
   "email": "user@example.com"
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Email reset password telah dikirim"
 }
-``
+`
 
 ---
 
@@ -126,20 +126,20 @@ Reset password dengan token.
 
 **Request:**
 
-``json
+`json
 {
   "token": "...",
   "password": "NewPassword123!"
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Password berhasil diubah"
 }
-``
+`
 
 ---
 
@@ -149,26 +149,26 @@ Ganti password (authenticated).
 
 **Headers:**
 
-``text
+`text
 Authorization: Bearer <token>
-``
+`
 
 **Request:**
 
-``json
+`json
 {
   "currentPassword": "oldpassword",
   "newPassword": "NewPassword123!"
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Password berhasil diubah"
 }
-``
+`
 
 ---
 
@@ -178,17 +178,17 @@ Verifikasi email.
 
 **Query:**
 
-``text
+`text
 ?token=...
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Email berhasil diverifikasi"
 }
-``
+`
 
 ---
 

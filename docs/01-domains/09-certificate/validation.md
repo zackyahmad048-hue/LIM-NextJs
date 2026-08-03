@@ -20,10 +20,10 @@ Seluruh data sertifikat wajib melalui proses validasi sebelum diproses oleh Busi
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Messages
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -31,38 +31,38 @@ Seluruh data sertifikat wajib melalui proses validasi sebelum diproses oleh Busi
 
 ## Program
 
-* Wajib dipilih.
-* Harus berstatus **Completed**.
+- Wajib dipilih.
+- Harus berstatus **Completed**.
 
 ---
 
 ## Participant
 
-* Wajib dipilih.
-* Harus terdaftar pada Program.
-* Memenuhi syarat penerbitan sertifikat.
+- Wajib dipilih.
+- Harus terdaftar pada Program.
+- Memenuhi syarat penerbitan sertifikat.
 
 ---
 
 ## Template
 
-* Wajib dipilih.
-* Harus aktif.
+- Wajib dipilih.
+- Harus aktif.
 
 ---
 
 ## Certificate Title
 
-* Wajib diisi.
-* Minimum 5 karakter.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Minimum 5 karakter.
+- Maksimum 255 karakter.
 
 ---
 
 ## Issue Date
 
-* Wajib diisi.
-* Tidak boleh lebih kecil dari tanggal selesai Program.
+- Wajib diisi.
+- Tidak boleh lebih kecil dari tanggal selesai Program.
 
 ---
 
@@ -70,17 +70,17 @@ Seluruh data sertifikat wajib melalui proses validasi sebelum diproses oleh Busi
 
 Nomor sertifikat:
 
-* Dibuat otomatis.
-* Harus unik.
-* Tidak dapat diubah setelah diterbitkan.
+- Dibuat otomatis.
+- Harus unik.
+- Tidak dapat diubah setelah diterbitkan.
 
 ---
 
 # QR Code Validation
 
-* QR Code wajib dibuat sebelum Publish.
-* Verification Code harus unik.
-* Tidak boleh kosong.
+- QR Code wajib dibuat sebelum Publish.
+- Verification Code harus unik.
+- Tidak boleh kosong.
 
 ---
 
@@ -88,10 +88,10 @@ Nomor sertifikat:
 
 Sertifikat hanya dapat ditandatangani apabila:
 
-* Status = Generated.
-* Nomor sertifikat tersedia.
-* Penandatangan aktif.
-* Penandatangan memiliki permission.
+- Status = Generated.
+- Nomor sertifikat tersedia.
+- Penandatangan aktif.
+- Penandatangan memiliki permission.
 
 ---
 
@@ -99,9 +99,9 @@ Sertifikat hanya dapat ditandatangani apabila:
 
 Sertifikat hanya dapat dipublikasikan apabila:
 
-* Sudah ditandatangani.
-* QR Code tersedia.
-* Verification Code tersedia.
+- Sudah ditandatangani.
+- QR Code tersedia.
+- Verification Code tersedia.
 
 ---
 
@@ -109,8 +109,8 @@ Sertifikat hanya dapat dipublikasikan apabila:
 
 Sertifikat hanya dapat dikirim apabila:
 
-* Status = Published.
-* Pemilik sertifikat valid.
+- Status = Published.
+- Pemilik sertifikat valid.
 
 ---
 
@@ -118,9 +118,9 @@ Sertifikat hanya dapat dikirim apabila:
 
 Verifikasi berhasil apabila:
 
-* Verification Code ditemukan.
-* Status bukan **Revoked**.
-* Sertifikat belum dihapus.
+- Verification Code ditemukan.
+- Status bukan **Revoked**.
+- Sertifikat belum dihapus.
 
 ---
 
@@ -128,29 +128,29 @@ Verifikasi berhasil apabila:
 
 Sertifikat dapat dicabut apabila:
 
-* Status = Published.
-* Dilakukan oleh pengguna yang memiliki permission.
+- Status = Published.
+- Dilakukan oleh pengguna yang memiliki permission.
 
 ---
 
 # Attachment Validation
 
-* Menggunakan Domain Media.
-* File template wajib tersedia.
-* Format mengikuti standar Domain Media.
+- Menggunakan Domain Media.
+- File template wajib tersedia.
+- Format mengikuti standar Domain Media.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -158,9 +158,9 @@ Sertifikat dapat dicabut apabila:
 
 Sertifikat tidak dapat dihapus apabila:
 
-* Sudah Published.
-* Sudah didistribusikan.
-* Menjadi referensi domain lain.
+- Sudah Published.
+- Sudah didistribusikan.
+- Menjadi referensi domain lain.
 
 ---
 
@@ -203,8 +203,8 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh input tervalidasi.
-* Program harus berstatus **Completed**.
-* Nomor sertifikat dan Verification Code selalu unik.
-* Sertifikat tidak dapat dipublikasikan sebelum Signed.
-* Seluruh validasi dijalankan sebelum Business Rules.
+- Seluruh input tervalidasi.
+- Program harus berstatus **Completed**.
+- Nomor sertifikat dan Verification Code selalu unik.
+- Sertifikat tidak dapat dipublikasikan sebelum Signed.
+- Seluruh validasi dijalankan sebelum Business Rules.

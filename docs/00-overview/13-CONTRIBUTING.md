@@ -24,11 +24,11 @@ Dokumen ini berlaku untuk seluruh kontributor, baik internal maupun eksternal.
 
 Seluruh kontributor wajib mengikuti prinsip berikut:
 
-* Documentation First
-* Architecture First
-* Business Rules First
-* Security First
-* Quality Over Speed
+- Documentation First
+- Architecture First
+- Business Rules First
+- Security First
+- Quality Over Speed
 
 ---
 
@@ -140,14 +140,14 @@ refactor(auth): simplify session service
 
 Jenis commit yang digunakan:
 
-* feat
-* fix
-* docs
-* refactor
-* test
-* perf
-* chore
-* ci
+- feat
+- fix
+- docs
+- refactor
+- test
+- perf
+- chore
+- ci
 
 ---
 
@@ -167,12 +167,12 @@ Contoh:
 
 Sebelum membuat Pull Request:
 
-* Build berhasil.
-* TypeScript tanpa error.
-* Lint tanpa error.
-* Dokumentasi diperbarui jika diperlukan.
-* Tidak ada `console.log()`.
-* Mengikuti Coding Standards.
+- Build berhasil.
+- TypeScript tanpa error.
+- Lint tanpa error.
+- Dokumentasi diperbarui jika diperlukan.
+- Tidak ada `console.log()`.
+- Mengikuti Coding Standards.
 
 ---
 
@@ -180,12 +180,12 @@ Sebelum membuat Pull Request:
 
 Reviewer memeriksa:
 
-* Arsitektur.
-* Business Rules.
-* Keamanan.
-* Konsistensi kode.
-* Dampak terhadap modul lain.
-* Kualitas dokumentasi.
+- Arsitektur.
+- Business Rules.
+- Keamanan.
+- Konsistensi kode.
+- Dampak terhadap modul lain.
+- Kualitas dokumentasi.
 
 ---
 
@@ -193,13 +193,13 @@ Reviewer memeriksa:
 
 Dokumentasi wajib diperbarui apabila terjadi perubahan pada:
 
-* Business Rules
-* Database
-* API
-* Architecture
-* Workflow
-* UI
-* Security
+- Business Rules
+- Database
+- API
+- Architecture
+- Workflow
+- UI
+- Security
 
 ---
 
@@ -207,10 +207,10 @@ Dokumentasi wajib diperbarui apabila terjadi perubahan pada:
 
 Minimal dilakukan:
 
-* Manual Testing
-* Type Checking
-* Lint Checking
-* Build Verification
+- Manual Testing
+- Type Checking
+- Lint Checking
+- Build Verification
 
 Untuk fitur penting disarankan menambahkan Unit Test dan Integration Test.
 
@@ -220,10 +220,10 @@ Untuk fitur penting disarankan menambahkan Unit Test dan Integration Test.
 
 Kontributor tidak boleh:
 
-* Menyimpan secret di repository.
-* Menghapus validasi keamanan.
-* Mengubah permission tanpa dokumentasi.
-* Mengakses data privat tanpa hak.
+- Menyimpan secret di repository.
+- Menghapus validasi keamanan.
+- Mengubah permission tanpa dokumentasi.
+- Mengakses data privat tanpa hak.
 
 ---
 
@@ -231,10 +231,10 @@ Kontributor tidak boleh:
 
 Kontribusi yang menggunakan AI tetap mengikuti:
 
-* AI Rules
-* Coding Standards
-* Business Rules
-* Architecture
+- AI Rules
+- Coding Standards
+- Business Rules
+- Architecture
 
 Seluruh hasil AI wajib direview sebelum digabungkan.
 
@@ -244,11 +244,11 @@ Seluruh hasil AI wajib direview sebelum digabungkan.
 
 Suatu pekerjaan dianggap selesai apabila:
 
-* Fitur selesai.
-* Build berhasil.
-* Dokumentasi diperbarui.
-* Review disetujui.
-* Siap digabungkan ke branch utama.
+- Fitur selesai.
+- Build berhasil.
+- Dokumentasi diperbarui.
+- Review disetujui.
+- Siap digabungkan ke branch utama.
 
 ---
 
@@ -256,11 +256,11 @@ Suatu pekerjaan dianggap selesai apabila:
 
 Maintainer bertanggung jawab untuk:
 
-* Meninjau Pull Request.
-* Menjaga kualitas proyek.
-* Menyetujui perubahan arsitektur.
-* Menjaga konsistensi dokumentasi.
-* Mengelola proses release.
+- Meninjau Pull Request.
+- Menjaga kualitas proyek.
+- Menyetujui perubahan arsitektur.
+- Menjaga konsistensi dokumentasi.
+- Mengelola proses release.
 
 ---
 

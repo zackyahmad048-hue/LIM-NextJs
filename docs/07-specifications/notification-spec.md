@@ -16,7 +16,7 @@
 
 Dokumen ini mendefinisikan spesifikasi teknis implementasi **Notification Domain**.
 
-Notification Domain bertanggung jawab mengelola seluruh pengiriman notifikasi pada LIM Digital Platform. Domain ini menjadi layanan terpusat (*Centralized Notification Service*) yang menerima Domain Event dari berbagai domain dan mengirimkan notifikasi melalui berbagai channel.
+Notification Domain bertanggung jawab mengelola seluruh pengiriman notifikasi pada LIM Digital Platform. Domain ini menjadi layanan terpusat (_Centralized Notification Service_) yang menerima Domain Event dari berbagai domain dan mengirimkan notifikasi melalui berbagai channel.
 
 Domain ini mengimplementasikan **ADR-007 Notification Architecture**.
 
@@ -26,13 +26,13 @@ Domain ini mengimplementasikan **ADR-007 Notification Architecture**.
 
 Notification harus mampu:
 
-* Mengirim Email.
-* Mengirim Push Notification.
-* Mengelola In-App Notification.
-* Mengelola Template Notification.
-* Mengelola Delivery Queue.
-* Retry Notification.
-* Melacak Status Pengiriman.
+- Mengirim Email.
+- Mengirim Push Notification.
+- Mengelola In-App Notification.
+- Mengelola Template Notification.
+- Mengelola Delivery Queue.
+- Retry Notification.
+- Melacak Status Pengiriman.
 
 ---
 
@@ -53,10 +53,10 @@ Notification harus mampu:
 
 Mengelola:
 
-* Queue Notification
-* Retry Queue
-* Failed Queue
-* Processing Queue
+- Queue Notification
+- Retry Queue
+- Failed Queue
+- Processing Queue
 
 ---
 
@@ -64,16 +64,16 @@ Mengelola:
 
 Channel yang didukung:
 
-* Email
-* In-App Notification
-* Push Notification
+- Email
+- In-App Notification
+- Push Notification
 
 Roadmap:
 
-* WhatsApp
-* SMS
-* Telegram
-* Slack
+- WhatsApp
+- SMS
+- Telegram
+- Slack
 
 ---
 
@@ -81,11 +81,11 @@ Roadmap:
 
 Template mendukung:
 
-* HTML
-* Plain Text
-* Placeholder
-* Localization
-* Versioning
+- HTML
+- Plain Text
+- Placeholder
+- Localization
+- Versioning
 
 ---
 
@@ -93,12 +93,12 @@ Template mendukung:
 
 Status:
 
-* Queued
-* Processing
-* Sent
-* Delivered
-* Failed
-* Cancelled
+- Queued
+- Processing
+- Sent
+- Delivered
+- Failed
+- Cancelled
 
 ---
 
@@ -106,9 +106,9 @@ Status:
 
 Retry menggunakan:
 
-* Exponential Backoff
-* Maximum Retry Count
-* Failed Queue
+- Exponential Backoff
+- Maximum Retry Count
+- Failed Queue
 
 ---
 
@@ -116,28 +116,28 @@ Retry menggunakan:
 
 Notification harus:
 
-* Asynchronous.
-* Highly Available.
-* Audit Enabled.
-* Horizontal Scalable.
-* Mendukung ribuan notifikasi per jam.
+- Asynchronous.
+- Highly Available.
+- Audit Enabled.
+- Horizontal Scalable.
+- Mendukung ribuan notifikasi per jam.
 
 ---
 
 # Preconditions
 
-* Domain Event diterima.
-* Recipient valid.
-* Template tersedia.
+- Domain Event diterima.
+- Recipient valid.
+- Template tersedia.
 
 ---
 
 # Postconditions
 
-* Notification dikirim.
-* Delivery Status diperbarui.
-* Audit Log dibuat.
-* Delivery Event diterbitkan.
+- Notification dikirim.
+- Delivery Status diperbarui.
+- Audit Log dibuat.
+- Delivery Event diterbitkan.
 
 ---
 
@@ -199,11 +199,11 @@ Delivered
 
 # Exception Flow
 
-* Recipient tidak ditemukan.
-* Template tidak ditemukan.
-* SMTP gagal.
-* Push Provider gagal.
-* Retry melebihi batas.
+- Recipient tidak ditemukan.
+- Template tidak ditemukan.
+- SMTP gagal.
+- Push Provider gagal.
+- Retry melebihi batas.
 
 ---
 
@@ -267,19 +267,19 @@ Cancelled
 
 Entity:
 
-* Notification
-* NotificationTemplate
-* DeliveryLog
+- Notification
+- NotificationTemplate
+- DeliveryLog
 
 Aggregate:
 
-* Notification
+- Notification
 
 Value Object:
 
-* Recipient
-* NotificationChannel
-* DeliveryStatus
+- Recipient
+- NotificationChannel
+- DeliveryStatus
 
 ---
 
@@ -324,10 +324,10 @@ notification_deliveries
 
 | Action          | Admin | User | System |
 | --------------- | :---: | :--: | :----: |
-| View            |   ✅   |  Own |    ✅   |
-| Send            |   ✅   |   ❌  |    ✅   |
-| Retry           |   ✅   |   ❌  |    ✅   |
-| Manage Template |   ✅   |   ❌  |    ❌   |
+| View            |  ✅   | Own  |   ✅   |
+| Send            |  ✅   |  ❌  |   ✅   |
+| Retry           |  ✅   |  ❌  |   ✅   |
+| Manage Template |  ✅   |  ❌  |   ❌   |
 
 ---
 
@@ -377,40 +377,40 @@ NotificationCancelled
 
 # Acceptance Test
 
-* Notification berhasil di-queue.
-* Email berhasil dikirim.
-* Push Notification berhasil dikirim.
-* Retry berjalan saat pengiriman gagal.
-* Delivery Status diperbarui.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Notification berhasil di-queue.
+- Email berhasil dikirim.
+- Push Notification berhasil dikirim.
+- Retry berjalan saat pengiriman gagal.
+- Delivery Status diperbarui.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Queue Processing < 100 ms.
-* Email Dispatch < 2 detik.
-* Push Dispatch < 1 detik.
-* Retry Processing < 5 detik.
+- Queue Processing < 100 ms.
+- Email Dispatch < 2 detik.
+- Push Dispatch < 1 detik.
+- Retry Processing < 5 detik.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Template hanya dapat diubah Administrator.
-* Recipient divalidasi.
-* Secret SMTP dan Push Provider dikelola melalui Secret Manager.
-* Audit Log aktif.
-* Seluruh komunikasi menggunakan HTTPS/TLS.
+- RBAC diterapkan.
+- Template hanya dapat diubah Administrator.
+- Recipient divalidasi.
+- Secret SMTP dan Push Provider dikelola melalui Secret Manager.
+- Audit Log aktif.
+- Seluruh komunikasi menggunakan HTTPS/TLS.
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Notification diproses secara asynchronous.
-* Multi-channel Notification berjalan sesuai konfigurasi.
-* Retry dan Delivery Tracking berfungsi.
-* Domain Event dan Audit Log aktif.
-* Specification siap digunakan sebagai dasar implementasi Notification Domain.
+- Seluruh Notification diproses secara asynchronous.
+- Multi-channel Notification berjalan sesuai konfigurasi.
+- Retry dan Delivery Tracking berfungsi.
+- Domain Event dan Audit Log aktif.
+- Specification siap digunakan sebagai dasar implementasi Notification Domain.

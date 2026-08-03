@@ -26,11 +26,11 @@ Seluruh file disimpan menggunakan **Object Storage** sehingga Application Server
 
 Storage Infrastructure bertujuan untuk:
 
-* Menyimpan seluruh aset digital.
-* Mendukung skalabilitas penyimpanan.
-* Menjamin keamanan data.
-* Mendukung Backup dan Recovery.
-* Mempermudah integrasi dengan Media Domain.
+- Menyimpan seluruh aset digital.
+- Mendukung skalabilitas penyimpanan.
+- Menjamin keamanan data.
+- Mendukung Backup dan Recovery.
+- Mempermudah integrasi dengan Media Domain.
 
 ---
 
@@ -38,14 +38,14 @@ Storage Infrastructure bertujuan untuk:
 
 Storage utama menggunakan:
 
-* S3 Compatible Object Storage
+- S3 Compatible Object Storage
 
 Contoh implementasi:
 
-* MinIO
-* AWS S3
-* Cloudflare R2
-* DigitalOcean Spaces
+- MinIO
+- AWS S3
+- Cloudflare R2
+- DigitalOcean Spaces
 
 Implementasi dapat disesuaikan tanpa mengubah aplikasi.
 
@@ -77,15 +77,15 @@ Application tidak mengakses file secara langsung melalui filesystem lokal.
 
 Storage digunakan untuk:
 
-* User Avatar
-* Organization Logo
-* CMS Media
-* Letter Attachment
-* Certificate PDF
-* Knowledge Attachment
-* Program Media
-* Backup File
-* Export Report
+- User Avatar
+- Organization Logo
+- CMS Media
+- Letter Attachment
+- Certificate PDF
+- Knowledge Attachment
+- Program Media
+- Backup File
+- Export Report
 
 ---
 
@@ -121,9 +121,9 @@ Setiap kategori memiliki namespace yang terpisah.
 
 Nama file menggunakan:
 
-* UUID
-* Timestamp
-* Extension asli
+- UUID
+- Timestamp
+- Extension asli
 
 Contoh:
 
@@ -143,13 +143,13 @@ Nama file asli disimpan sebagai Metadata.
 
 Setiap file memiliki metadata:
 
-* Original Filename
-* MIME Type
-* File Size
-* Upload Time
-* Uploaded By
-* Checksum
-* Storage Path
+- Original Filename
+- MIME Type
+- File Size
+- Upload Time
+- Uploaded By
+- Checksum
+- Storage Path
 
 Metadata disimpan pada Database melalui Media Domain.
 
@@ -163,10 +163,10 @@ Jenis akses:
 
 Digunakan untuk:
 
-* Letter
-* Certificate
-* Internal Document
-* Backup
+- Letter
+- Certificate
+- Internal Document
+- Backup
 
 ---
 
@@ -174,9 +174,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Logo
-* Public CMS Media
-* Public Images
+- Logo
+- Public CMS Media
+- Public Images
 
 ---
 
@@ -184,9 +184,9 @@ Digunakan untuk:
 
 Digunakan untuk:
 
-* Download sementara.
-* File privat.
-* Dokumen sensitif.
+- Download sementara.
+- File privat.
+- Dokumen sensitif.
 
 URL memiliki masa berlaku (Expiration).
 
@@ -224,12 +224,12 @@ Response
 
 Storage wajib menerapkan:
 
-* Private Bucket secara default.
-* HTTPS/TLS.
-* Server Side Encryption (bila tersedia).
-* Signed URL untuk file privat.
-* Antivirus Scan (Roadmap).
-* Access Control berdasarkan RBAC.
+- Private Bucket secara default.
+- HTTPS/TLS.
+- Server Side Encryption (bila tersedia).
+- Signed URL untuk file privat.
+- Antivirus Scan (Roadmap).
+- Access Control berdasarkan RBAC.
 
 ---
 
@@ -237,9 +237,9 @@ Storage wajib menerapkan:
 
 Backup meliputi:
 
-* Metadata Database.
-* Bucket Storage.
-* Export Configuration.
+- Metadata Database.
+- Bucket Storage.
+- Export Configuration.
 
 Backup dilakukan secara berkala dan diuji proses pemulihannya.
 
@@ -249,13 +249,13 @@ Backup dilakukan secara berkala dan diuji proses pemulihannya.
 
 Parameter yang dipantau:
 
-* Total Storage Usage.
-* Bucket Size.
-* Upload Rate.
-* Download Rate.
-* Failed Upload.
-* Failed Download.
-* Available Capacity.
+- Total Storage Usage.
+- Bucket Size.
+- Upload Rate.
+- Download Rate.
+- Failed Upload.
+- Failed Download.
+- Available Capacity.
 
 ---
 
@@ -277,28 +277,28 @@ Contoh:
 
 # Best Practices
 
-* Gunakan Object Storage, bukan Local Storage untuk Production.
-* Gunakan UUID sebagai nama file.
-* Simpan Metadata pada Database.
-* Jangan menyimpan Secret di Storage.
-* Gunakan Signed URL untuk file privat.
-* Bersihkan file sementara secara berkala.
+- Gunakan Object Storage, bukan Local Storage untuk Production.
+- Gunakan UUID sebagai nama file.
+- Simpan Metadata pada Database.
+- Jangan menyimpan Secret di Storage.
+- Gunakan Signed URL untuk file privat.
+- Bersihkan file sementara secara berkala.
 
 ---
 
 # Related Documents
 
-* README.md
-* media-spec.md
-* database-infrastructure.md
-* monitoring-infrastructure.md
+- README.md
+- media-spec.md
+- database-infrastructure.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh file disimpan pada Object Storage.
-* Metadata dikelola oleh Media Domain.
-* File privat menggunakan Signed URL.
-* Monitoring dan Backup aktif.
-* Storage Infrastructure menjadi acuan resmi implementasi penyimpanan LIM Digital Platform.
+- Seluruh file disimpan pada Object Storage.
+- Metadata dikelola oleh Media Domain.
+- File privat menggunakan Signed URL.
+- Monitoring dan Backup aktif.
+- Storage Infrastructure menjadi acuan resmi implementasi penyimpanan LIM Digital Platform.

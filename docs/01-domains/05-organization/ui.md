@@ -22,11 +22,11 @@ UI Organization digunakan untuk mengelola struktur organisasi, wilayah, cabang, 
 
 UI mengikuti prinsip:
 
-* Simple
-* Consistent
-* Responsive
-* Efficient
-* User Friendly
+- Simple
+- Consistent
+- Responsive
+- Efficient
+- User Friendly
 
 Seluruh komponen mengikuti Design System LIM Digital Platform.
 
@@ -53,15 +53,15 @@ Organization
 
 Menampilkan:
 
-* Logo
-* Nama Organisasi
-* Singkatan
-* Status
+- Logo
+- Nama Organisasi
+- Singkatan
+- Status
 
 Action:
 
-* Detail
-* Edit
+- Detail
+- Edit
 
 ---
 
@@ -95,17 +95,17 @@ Status
 
 Kolom:
 
-* Province
-* Regency / City
-* District
-* Village
-* Action
+- Province
+- Regency / City
+- District
+- Village
+- Action
 
 Fitur:
 
-* Search
-* Filter
-* Pagination
+- Search
+- Filter
+- Pagination
 
 ---
 
@@ -131,17 +131,17 @@ Village
 
 Kolom:
 
-* Code
-* Branch Name
-* Region
-* Status
-* Action
+- Code
+- Branch Name
+- Region
+- Status
+- Action
 
 Fitur:
 
-* Search
-* Filter
-* Pagination
+- Search
+- Filter
+- Pagination
 
 ---
 
@@ -171,10 +171,10 @@ Status
 
 Kolom:
 
-* Department
-* Description
-* Sort Order
-* Action
+- Department
+- Description
+- Sort Order
+- Action
 
 ---
 
@@ -198,11 +198,11 @@ Sort Order
 
 Kolom:
 
-* Position
-* Department
-* Level
-* Sort Order
-* Action
+- Position
+- Department
+- Level
+- Sort Order
+- Action
 
 ---
 
@@ -228,11 +228,11 @@ Sort Order
 
 Kolom:
 
-* Period Name
-* Start Date
-* End Date
-* Status
-* Action
+- Period Name
+- Start Date
+- End Date
+- Status
+- Action
 
 ---
 
@@ -258,18 +258,18 @@ Status
 
 Kolom:
 
-* User
-* Branch
-* Position
-* Period
-* Status
-* Action
+- User
+- Branch
+- Position
+- Period
+- Status
+- Action
 
 Fitur:
 
-* Search
-* Filter
-* Pagination
+- Search
+- Filter
+- Pagination
 
 ---
 
@@ -299,10 +299,10 @@ Status
 
 Seluruh halaman mendukung:
 
-* Search
-* Filter
-* Sorting
-* Pagination
+- Search
+- Filter
+- Sorting
+- Pagination
 
 ---
 
@@ -310,9 +310,9 @@ Seluruh halaman mendukung:
 
 Apabila data belum tersedia:
 
-* Tampilkan ilustrasi.
-* Tampilkan pesan.
-* Tampilkan tombol **Tambah Data** apabila pengguna memiliki permission.
+- Tampilkan ilustrasi.
+- Tampilkan pesan.
+- Tampilkan tombol **Tambah Data** apabila pengguna memiliki permission.
 
 ---
 
@@ -320,8 +320,8 @@ Apabila data belum tersedia:
 
 Gunakan:
 
-* Skeleton Loading
-* Loading Spinner
+- Skeleton Loading
+- Loading Spinner
 
 ---
 
@@ -359,8 +359,8 @@ Data yang masih digunakan oleh modul lain tidak dapat dihapus.
 
 Mendukung:
 
-* Desktop
-* Tablet
+- Desktop
+- Tablet
 
 Mobile hanya mendukung tampilan data dan pengelolaan sederhana.
 
@@ -370,17 +370,17 @@ Mobile hanya mendukung tampilan data dan pengelolaan sederhana.
 
 Komponen standar:
 
-* Data Table
-* Search Box
-* Filter Panel
-* Form
-* Select
-* Date Picker
-* Badge
-* Modal
-* Dialog
-* Toast
-* Pagination
+- Data Table
+- Search Box
+- Filter Panel
+- Form
+- Select
+- Date Picker
+- Badge
+- Modal
+- Dialog
+- Toast
+- Pagination
 
 ---
 
@@ -388,23 +388,23 @@ Komponen standar:
 
 Seluruh komponen wajib:
 
-* Mendukung Keyboard Navigation.
-* Memiliki Focus State.
-* Menggunakan Label yang jelas.
-* Mengikuti standar kontras warna.
+- Mendukung Keyboard Navigation.
+- Memiliki Focus State.
+- Menggunakan Label yang jelas.
+- Mengikuti standar kontras warna.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- roadmap.md
 
 ---
 
@@ -412,8 +412,8 @@ Seluruh komponen wajib:
 
 UI Organization dianggap selesai apabila:
 
-* Seluruh modul memiliki halaman List dan Form.
-* Layout konsisten.
-* Mengikuti Design System.
-* Mendukung Responsive Layout.
-* Seluruh aksi mengikuti Permission pengguna.
+- Seluruh modul memiliki halaman List dan Form.
+- Layout konsisten.
+- Mengikuti Design System.
+- Mendukung Responsive Layout.
+- Seluruh aksi mengikuti Permission pengguna.

@@ -136,14 +136,14 @@ program.publish
 
 | Permission    | Super Admin | Admin | Operator Program | Panitia |
 | ------------- | :---------: | :---: | :--------------: | :-----: |
-| View          |      ✅      |   ✅   |         ✅        |    ✅    |
-| Create        |      ✅      |   ✅   |         ✅        |    ❌    |
-| Update        |      ✅      |   ✅   |         ✅        |    ❌    |
-| Delete        |      ✅      |   ❌   |         ❌        |    ❌    |
-| Publish       |      ✅      |   ✅   |         ✅        |    ❌    |
-| Complete      |      ✅      |   ✅   |         ✅        |    ❌    |
-| Attendance    |      ✅      |   ✅   |         ✅        |    ✅    |
-| Documentation |      ✅      |   ✅   |         ✅        |    ✅    |
+| View          |     ✅      |  ✅   |        ✅        |   ✅    |
+| Create        |     ✅      |  ✅   |        ✅        |   ❌    |
+| Update        |     ✅      |  ✅   |        ✅        |   ❌    |
+| Delete        |     ✅      |  ❌   |        ❌        |   ❌    |
+| Publish       |     ✅      |  ✅   |        ✅        |   ❌    |
+| Complete      |     ✅      |  ✅   |        ✅        |   ❌    |
+| Attendance    |     ✅      |  ✅   |        ✅        |   ✅    |
+| Documentation |     ✅      |  ✅   |        ✅        |   ✅    |
 
 ---
 
@@ -178,19 +178,19 @@ Submenu mengikuti permission masing-masing.
 
 # Business Rules
 
-* Seluruh request wajib melalui Authentication.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403 Forbidden.
-* Tombol aksi hanya tampil apabila permission tersedia.
-* Public API tidak menggunakan permission.
+- Seluruh request wajib melalui Authentication.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403 Forbidden.
+- Tombol aksi hanya tampil apabila permission tersedia.
+- Public API tidak menggunakan permission.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan permission dilakukan pada Service Layer.
-* Perubahan data Program wajib tercatat pada Audit Log.
+- Permission tidak boleh dilewati.
+- Pemeriksaan permission dilakukan pada Service Layer.
+- Perubahan data Program wajib tercatat pada Audit Log.
 
 ---
 
@@ -214,14 +214,14 @@ program.analytics
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -229,8 +229,8 @@ program.analytics
 
 Permission Program dianggap selesai apabila:
 
-* Seluruh fitur memiliki permission.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh akses mengikuti standar RBAC.

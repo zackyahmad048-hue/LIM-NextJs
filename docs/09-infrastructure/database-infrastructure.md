@@ -20,11 +20,11 @@ Database menggunakan **PostgreSQL** sebagai Relational Database Management Syste
 
 Arsitektur dirancang untuk mendukung:
 
-* High Availability
-* Data Integrity
-* Scalability
-* Backup & Recovery
-* Security
+- High Availability
+- Data Integrity
+- Scalability
+- Backup & Recovery
+- Security
 
 ---
 
@@ -32,11 +32,11 @@ Arsitektur dirancang untuk mendukung:
 
 Database Infrastructure bertujuan untuk:
 
-* Menjamin konsistensi data.
-* Mendukung performa tinggi.
-* Mempermudah backup dan recovery.
-* Mendukung pertumbuhan data.
-* Menjadi standar implementasi seluruh layanan.
+- Menjamin konsistensi data.
+- Mendukung performa tinggi.
+- Mempermudah backup dan recovery.
+- Mendukung pertumbuhan data.
+- Menjadi standar implementasi seluruh layanan.
 
 ---
 
@@ -44,18 +44,18 @@ Database Infrastructure bertujuan untuk:
 
 Database utama:
 
-* PostgreSQL
+- PostgreSQL
 
 Fitur yang digunakan:
 
-* ACID Transaction
-* Foreign Key
-* Index
-* Constraint
-* View
-* Stored Function (bila diperlukan)
-* JSONB
-* Full Text Search
+- ACID Transaction
+- Foreign Key
+- Index
+- Constraint
+- View
+- Stored Function (bila diperlukan)
+- JSONB
+- Full Text Search
 
 ---
 
@@ -87,17 +87,17 @@ Backup Server
 
 Database terdiri dari:
 
-* Authentication
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* CMS
-* Knowledge
-* Notification
-* Settings
-* Falak
+- Authentication
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- CMS
+- Knowledge
+- Notification
+- Settings
+- Falak
 
 Seluruh domain berada dalam satu PostgreSQL Cluster dengan pemisahan melalui schema atau tabel sesuai kebutuhan arsitektur.
 
@@ -107,9 +107,9 @@ Seluruh domain berada dalam satu PostgreSQL Cluster dengan pemisahan melalui sch
 
 Seluruh koneksi menggunakan:
 
-* Connection Pool
-* Timeout
-* Retry Policy
+- Connection Pool
+- Timeout
+- Retry Policy
 
 Aplikasi tidak diperbolehkan membuka koneksi database secara berlebihan.
 
@@ -119,9 +119,9 @@ Aplikasi tidak diperbolehkan membuka koneksi database secara berlebihan.
 
 Perubahan struktur database dilakukan melalui:
 
-* Versioned Migration
-* Rollback Migration
-* Automated Migration pada Deployment
+- Versioned Migration
+- Rollback Migration
+- Automated Migration pada Deployment
 
 Perubahan manual di Production tidak diperbolehkan.
 
@@ -131,11 +131,11 @@ Perubahan manual di Production tidak diperbolehkan.
 
 Index digunakan untuk:
 
-* Primary Key
-* Foreign Key
-* Search Field
-* Frequently Filtered Field
-* Frequently Joined Field
+- Primary Key
+- Foreign Key
+- Search Field
+- Frequently Filtered Field
+- Frequently Joined Field
 
 Index harus dievaluasi secara berkala untuk menghindari penurunan performa.
 
@@ -145,11 +145,11 @@ Index harus dievaluasi secara berkala untuk menghindari penurunan performa.
 
 Backup meliputi:
 
-* Full Backup Harian
-* Incremental Backup (jika tersedia)
-* Transaction Log / WAL Archive
-* Backup Verification
-* Restore Test Berkala
+- Full Backup Harian
+- Incremental Backup (jika tersedia)
+- Transaction Log / WAL Archive
+- Backup Verification
+- Restore Test Berkala
 
 Backup disimpan pada lokasi yang terpisah dari Database Server.
 
@@ -159,10 +159,10 @@ Backup disimpan pada lokasi yang terpisah dari Database Server.
 
 Recovery mencakup:
 
-* Point in Time Recovery (PITR)
-* Restore dari Backup
-* Database Failover (Roadmap)
-* Recovery Procedure terdokumentasi
+- Point in Time Recovery (PITR)
+- Restore dari Backup
+- Database Failover (Roadmap)
+- Recovery Procedure terdokumentasi
 
 ---
 
@@ -170,12 +170,12 @@ Recovery mencakup:
 
 Database wajib menerapkan:
 
-* TLS Connection
-* Encrypted Backup
-* Strong Authentication
-* Least Privilege Access
-* Audit Logging
-* Private Network Only
+- TLS Connection
+- Encrypted Backup
+- Strong Authentication
+- Least Privilege Access
+- Audit Logging
+- Private Network Only
 
 Database tidak boleh dapat diakses langsung dari Internet.
 
@@ -185,11 +185,11 @@ Database tidak boleh dapat diakses langsung dari Internet.
 
 Optimasi dilakukan melalui:
 
-* Query Optimization
-* Proper Indexing
-* Connection Pooling
-* Vacuum & Analyze
-* Monitoring Slow Query
+- Query Optimization
+- Proper Indexing
+- Connection Pooling
+- Vacuum & Analyze
+- Monitoring Slow Query
 
 ---
 
@@ -197,14 +197,14 @@ Optimasi dilakukan melalui:
 
 Parameter yang dipantau:
 
-* Active Connection
-* Query Duration
-* Slow Query
-* Deadlock
-* Replication Status
-* CPU Usage
-* Memory Usage
-* Storage Usage
+- Active Connection
+- Query Duration
+- Slow Query
+- Deadlock
+- Replication Status
+- CPU Usage
+- Memory Usage
+- Storage Usage
 
 ---
 
@@ -212,39 +212,39 @@ Parameter yang dipantau:
 
 Pemeliharaan berkala meliputi:
 
-* VACUUM
-* ANALYZE
-* REINDEX (bila diperlukan)
-* Backup Verification
-* Capacity Review
+- VACUUM
+- ANALYZE
+- REINDEX (bila diperlukan)
+- Backup Verification
+- Capacity Review
 
 ---
 
 # Best Practices
 
-* Gunakan Migration untuk seluruh perubahan schema.
-* Hindari Query N+1.
-* Gunakan Transaction untuk operasi kritis.
-* Jangan menyimpan Secret di Database.
-* Hindari penggunaan `SELECT *` pada Production.
-* Dokumentasikan seluruh perubahan schema.
+- Gunakan Migration untuk seluruh perubahan schema.
+- Hindari Query N+1.
+- Gunakan Transaction untuk operasi kritis.
+- Jangan menyimpan Secret di Database.
+- Hindari penggunaan `SELECT *` pada Production.
+- Dokumentasikan seluruh perubahan schema.
 
 ---
 
 # Related Documents
 
-* README.md
-* server-architecture.md
-* cache-infrastructure.md
-* storage-infrastructure.md
-* monitoring-infrastructure.md
+- README.md
+- server-architecture.md
+- cache-infrastructure.md
+- storage-infrastructure.md
+- monitoring-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* PostgreSQL menjadi database utama seluruh aplikasi.
-* Seluruh perubahan schema menggunakan Migration.
-* Backup dan Recovery terdokumentasi.
-* Monitoring Database aktif.
-* Database Infrastructure menjadi acuan resmi implementasi database LIM Digital Platform.
+- PostgreSQL menjadi database utama seluruh aplikasi.
+- Seluruh perubahan schema menggunakan Migration.
+- Backup dan Recovery terdokumentasi.
+- Monitoring Database aktif.
+- Database Infrastructure menjadi acuan resmi implementasi database LIM Digital Platform.

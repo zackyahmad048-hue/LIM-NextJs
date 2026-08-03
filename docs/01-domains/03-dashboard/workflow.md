@@ -328,12 +328,12 @@ Redirect Login Page
 
 # Workflow Rules
 
-* Dashboard hanya dapat diakses oleh pengguna yang telah login.
-* Dashboard hanya menampilkan informasi sesuai Role dan Permission.
-* Dashboard tidak mengubah data bisnis.
-* Widget dimuat secara independen.
-* Kegagalan satu widget tidak boleh menyebabkan Dashboard gagal dimuat.
-* Seluruh data berasal dari domain resmi melalui Service Layer.
+- Dashboard hanya dapat diakses oleh pengguna yang telah login.
+- Dashboard hanya menampilkan informasi sesuai Role dan Permission.
+- Dashboard tidak mengubah data bisnis.
+- Widget dimuat secara independen.
+- Kegagalan satu widget tidak boleh menyebabkan Dashboard gagal dimuat.
+- Seluruh data berasal dari domain resmi melalui Service Layer.
 
 ---
 
@@ -389,14 +389,14 @@ Display Empty State
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -404,8 +404,8 @@ Display Empty State
 
 Workflow Dashboard dianggap benar apabila:
 
-* Pengguna yang telah login dapat membuka Dashboard.
-* Informasi yang ditampilkan sesuai Permission.
-* Widget dimuat secara independen.
-* Dashboard tetap berjalan ketika salah satu widget gagal.
-* Seluruh alur mengikuti Architecture dan Business Rules proyek.
+- Pengguna yang telah login dapat membuka Dashboard.
+- Informasi yang ditampilkan sesuai Permission.
+- Widget dimuat secara independen.
+- Dashboard tetap berjalan ketika salah satu widget gagal.
+- Seluruh alur mengikuti Architecture dan Business Rules proyek.

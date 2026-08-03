@@ -18,7 +18,13 @@ function formatDate(date: Date | string) {
   }).format(new Date(date));
 }
 
-const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const statusLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   RECEIVED: { label: "Diterima", variant: "default" },
   PROCESSED: { label: "Diproses", variant: "secondary" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
@@ -59,7 +65,9 @@ export default async function IncomingMailListPage({
             key: "registrationNumber",
             label: "No. Agenda",
             render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">{item.registrationNumber}</span>
+              <span className="text-xs font-mono text-muted-foreground">
+                {item.registrationNumber}
+              </span>
             ),
           },
           {
@@ -69,7 +77,9 @@ export default async function IncomingMailListPage({
               <div className="max-w-[200px]">
                 <p className="truncate text-sm font-medium">{item.sender}</p>
                 {item.senderAddress && (
-                  <p className="truncate text-xs text-muted-foreground">{item.senderAddress}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {item.senderAddress}
+                  </p>
                 )}
               </div>
             ),
@@ -84,14 +94,23 @@ export default async function IncomingMailListPage({
           {
             key: "receivedDate",
             label: "Tanggal Diterima",
-            render: (item) => <span className="text-xs">{formatDate(item.receivedDate)}</span>,
+            render: (item) => (
+              <span className="text-xs">{formatDate(item.receivedDate)}</span>
+            ),
           },
           {
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = statusLabels[item.status] ?? { label: item.status, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = statusLabels[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -101,12 +120,18 @@ export default async function IncomingMailListPage({
             render: (item) => (
               <div className="flex justify-end gap-1">
                 <Button asChild variant="ghost" size="sm">
-                  <Link href={`/admin/secretariat/incoming-mail/${item.id}/edit`}>
+                  <Link
+                    href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
+                  >
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
                 <form action={deleteIncomingMail.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

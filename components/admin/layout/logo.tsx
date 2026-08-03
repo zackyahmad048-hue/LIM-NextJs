@@ -14,9 +14,7 @@ export function Logo() {
       </div>
 
       <div>
-        <h1 className="text-sm font-bold leading-tight">
-          {APP.shortName}
-        </h1>
+        <h1 className="text-sm font-bold leading-tight">{APP.shortName}</h1>
         <p className="text-[10px] text-muted-foreground">
           {APP.organization.shortName}
         </p>

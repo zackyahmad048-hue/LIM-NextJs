@@ -1,9 +1,6 @@
 import { z } from "zod";
 
-export const postIdSchema = z
-  .string()
-  .trim()
-  .min(1, "Berita tidak valid.");
+export const postIdSchema = z.string().trim().min(1, "Berita tidak valid.");
 
 export const postSchema = z.object({
   title: z
@@ -19,7 +16,7 @@ export const postSchema = z.object({
     .max(255)
     .regex(
       /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-      "Slug hanya boleh huruf kecil, angka, dan tanda hubung"
+      "Slug hanya boleh huruf kecil, angka, dan tanda hubung",
     ),
 
   excerpt: z
@@ -28,18 +25,11 @@ export const postSchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  content: z
-    .string()
-    .min(1, "Konten wajib diisi"),
+  content: z.string().min(1, "Konten wajib diisi"),
 
-  categoryId: z
-    .string()
-    .min(1, "Kategori wajib dipilih"),
+  categoryId: z.string().min(1, "Kategori wajib dipilih"),
 
-  thumbnail: z
-    .string()
-    .optional()
-    .or(z.literal("")),
+  thumbnail: z.string().optional().or(z.literal("")),
 });
 
 export type PostInput = z.infer<typeof postSchema>;

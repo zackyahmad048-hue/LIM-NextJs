@@ -24,12 +24,12 @@ Seluruh hasil kerja AI tetap menjadi tanggung jawab developer dan maintainer pro
 
 Dokumen ini berlaku untuk seluruh AI yang digunakan dalam proyek, termasuk namun tidak terbatas pada:
 
-* ChatGPT
-* Codex
-* Claude
-* Gemini
-* GitHub Copilot
-* AI Assistant lainnya
+- ChatGPT
+- Codex
+- Claude
+- Gemini
+- GitHub Copilot
+- AI Assistant lainnya
 
 ---
 
@@ -37,11 +37,11 @@ Dokumen ini berlaku untuk seluruh AI yang digunakan dalam proyek, termasuk namun
 
 Penggunaan AI mengikuti prinsip berikut:
 
-* Documentation First
-* Architecture First
-* Business Rules First
-* Security First
-* Human Review Required
+- Documentation First
+- Architecture First
+- Business Rules First
+- Security First
+- Human Review Required
 
 AI membantu mempercepat pekerjaan, tetapi tidak menggantikan proses engineering.
 
@@ -69,16 +69,16 @@ Apabila terdapat konflik, AI harus mengikuti dokumen dengan prioritas lebih ting
 
 AI diperbolehkan membantu:
 
-* Menulis kode.
-* Refactoring.
-* Menulis dokumentasi.
-* Membuat unit test.
-* Membuat migration.
-* Membuat query database.
-* Menjelaskan kode.
-* Membantu code review.
-* Membuat dokumentasi API.
-* Membantu debugging.
+- Menulis kode.
+- Refactoring.
+- Menulis dokumentasi.
+- Membuat unit test.
+- Membuat migration.
+- Membuat query database.
+- Menjelaskan kode.
+- Membantu code review.
+- Membuat dokumentasi API.
+- Membantu debugging.
 
 ---
 
@@ -86,12 +86,12 @@ AI diperbolehkan membantu:
 
 AI tidak boleh secara mandiri:
 
-* Mengubah arsitektur.
-* Mengubah Business Rules.
-* Mengubah struktur database.
-* Menghapus fitur.
-* Mengubah sistem keamanan.
-* Mengubah workflow utama.
+- Mengubah arsitektur.
+- Mengubah Business Rules.
+- Mengubah struktur database.
+- Menghapus fitur.
+- Mengubah sistem keamanan.
+- Mengubah workflow utama.
 
 Perubahan tersebut harus mendapat persetujuan maintainer.
 
@@ -103,10 +103,10 @@ AI tidak boleh mengimplementasikan fitur besar sebelum dokumentasi terkait terse
 
 Minimal harus tersedia:
 
-* Business Rules
-* Database Design
-* API Specification
-* UI Specification (jika ada)
+- Business Rules
+- Database Design
+- API Specification
+- UI Specification (jika ada)
 
 ---
 
@@ -122,11 +122,11 @@ Jika aturan bisnis belum terdokumentasi, implementasi harus ditunda sampai atura
 
 Seluruh kode yang dihasilkan AI wajib mengikuti:
 
-* Coding Standards
-* Project Structure
-* Repository Pattern
-* Service Layer
-* Naming Convention
+- Coding Standards
+- Project Structure
+- Repository Pattern
+- Service Layer
+- Naming Convention
 
 ---
 
@@ -134,9 +134,9 @@ Seluruh kode yang dihasilkan AI wajib mengikuti:
 
 AI tidak boleh:
 
-* Mengakses Prisma di luar Repository.
-* Menulis query database di Component.
-* Menempatkan Business Rules di UI.
+- Mengakses Prisma di luar Repository.
+- Menulis query database di Component.
+- Menempatkan Business Rules di UI.
 
 ---
 
@@ -152,11 +152,11 @@ AI wajib menjaga pemisahan tanggung jawab antar layer.
 
 AI tidak boleh:
 
-* Hardcode secret.
-* Menyimpan password.
-* Menonaktifkan validasi.
-* Menghilangkan pemeriksaan permission.
-* Menampilkan informasi sensitif kepada pengguna.
+- Hardcode secret.
+- Menyimpan password.
+- Menonaktifkan validasi.
+- Menghilangkan pemeriksaan permission.
+- Menampilkan informasi sensitif kepada pengguna.
 
 ---
 
@@ -172,11 +172,11 @@ Seluruh hasil AI wajib melalui review manusia sebelum digabungkan ke branch utam
 
 Review mencakup:
 
-* Arsitektur
-* Business Rules
-* Keamanan
-* Performa
-* Konsistensi kode
+- Arsitektur
+- Business Rules
+- Keamanan
+- Performa
+- Konsistensi kode
 
 ---
 
@@ -186,10 +186,10 @@ Kode hasil AI tetap mengikuti workflow proyek.
 
 Tidak ada pengecualian terhadap:
 
-* Pull Request
-* Code Review
-* CI/CD
-* Testing
+- Pull Request
+- Code Review
+- CI/CD
+- Testing
 
 ---
 
@@ -197,10 +197,10 @@ Tidak ada pengecualian terhadap:
 
 AI wajib menghasilkan kode yang:
 
-* Dapat dibangun (build).
-* Lulus pemeriksaan TypeScript.
-* Lulus lint.
-* Tidak menghasilkan error yang diketahui.
+- Dapat dibangun (build).
+- Lulus pemeriksaan TypeScript.
+- Lulus lint.
+- Tidak menghasilkan error yang diketahui.
 
 ---
 
@@ -208,10 +208,10 @@ AI wajib menghasilkan kode yang:
 
 AI harus:
 
-* Memberikan jawaban yang jelas.
-* Menjelaskan risiko jika ada.
-* Tidak membuat klaim yang tidak dapat dipastikan.
-* Mengakui apabila informasi belum tersedia.
+- Memberikan jawaban yang jelas.
+- Menjelaskan risiko jika ada.
+- Tidak membuat klaim yang tidak dapat dipastikan.
+- Mengakui apabila informasi belum tersedia.
 
 ---
 
@@ -219,11 +219,11 @@ AI harus:
 
 Keputusan berikut hanya dapat dilakukan oleh maintainer:
 
-* Perubahan Blueprint.
-* Perubahan Architecture.
-* Perubahan Business Rules.
-* Perubahan Database.
-* Perubahan Security Policy.
+- Perubahan Blueprint.
+- Perubahan Architecture.
+- Perubahan Business Rules.
+- Perubahan Database.
+- Perubahan Security Policy.
 
 AI hanya dapat memberikan rekomendasi.
 
@@ -233,9 +233,9 @@ AI hanya dapat memberikan rekomendasi.
 
 AI hanya boleh menggunakan:
 
-* Dokumentasi proyek.
-* Source code proyek.
-* Informasi yang diberikan pengguna.
+- Dokumentasi proyek.
+- Source code proyek.
+- Informasi yang diberikan pengguna.
 
 AI tidak boleh menganggap contoh umum sebagai aturan proyek apabila belum terdokumentasi.
 
@@ -245,12 +245,12 @@ AI tidak boleh menganggap contoh umum sebagai aturan proyek apabila belum terdok
 
 Sebelum hasil AI diterima, pastikan:
 
-* Mengikuti Blueprint.
-* Mengikuti Business Rules.
-* Mengikuti Coding Standards.
-* Mengikuti Project Structure.
-* Tidak melanggar Security Rules.
-* Dokumentasi diperbarui bila diperlukan.
+- Mengikuti Blueprint.
+- Mengikuti Business Rules.
+- Mengikuti Coding Standards.
+- Mengikuti Project Structure.
+- Tidak melanggar Security Rules.
+- Dokumentasi diperbarui bila diperlukan.
 
 ---
 
@@ -267,6 +267,7 @@ Seluruh AI diperlakukan sebagai alat bantu pengembangan yang harus bekerja sesua
 LIM Digital Platform memanfaatkan AI untuk meningkatkan produktivitas, kualitas dokumentasi, dan kecepatan pengembangan.
 
 Namun seluruh keputusan arsitektur, aturan bisnis, keamanan, dan kualitas akhir sistem tetap menjadi tanggung jawab manusia agar platform tetap konsisten, aman, dan berkelanjutan.
+
 # AI_RULES
 
 **Project:** LIM Digital Platform
@@ -293,12 +294,12 @@ Seluruh hasil kerja AI tetap menjadi tanggung jawab developer dan maintainer pro
 
 Dokumen ini berlaku untuk seluruh AI yang digunakan dalam proyek, termasuk namun tidak terbatas pada:
 
-* ChatGPT
-* Codex
-* Claude
-* Gemini
-* GitHub Copilot
-* AI Assistant lainnya
+- ChatGPT
+- Codex
+- Claude
+- Gemini
+- GitHub Copilot
+- AI Assistant lainnya
 
 ---
 
@@ -306,11 +307,11 @@ Dokumen ini berlaku untuk seluruh AI yang digunakan dalam proyek, termasuk namun
 
 Penggunaan AI mengikuti prinsip berikut:
 
-* Documentation First
-* Architecture First
-* Business Rules First
-* Security First
-* Human Review Required
+- Documentation First
+- Architecture First
+- Business Rules First
+- Security First
+- Human Review Required
 
 AI membantu mempercepat pekerjaan, tetapi tidak menggantikan proses engineering.
 
@@ -338,16 +339,16 @@ Apabila terdapat konflik, AI harus mengikuti dokumen dengan prioritas lebih ting
 
 AI diperbolehkan membantu:
 
-* Menulis kode.
-* Refactoring.
-* Menulis dokumentasi.
-* Membuat unit test.
-* Membuat migration.
-* Membuat query database.
-* Menjelaskan kode.
-* Membantu code review.
-* Membuat dokumentasi API.
-* Membantu debugging.
+- Menulis kode.
+- Refactoring.
+- Menulis dokumentasi.
+- Membuat unit test.
+- Membuat migration.
+- Membuat query database.
+- Menjelaskan kode.
+- Membantu code review.
+- Membuat dokumentasi API.
+- Membantu debugging.
 
 ---
 
@@ -355,12 +356,12 @@ AI diperbolehkan membantu:
 
 AI tidak boleh secara mandiri:
 
-* Mengubah arsitektur.
-* Mengubah Business Rules.
-* Mengubah struktur database.
-* Menghapus fitur.
-* Mengubah sistem keamanan.
-* Mengubah workflow utama.
+- Mengubah arsitektur.
+- Mengubah Business Rules.
+- Mengubah struktur database.
+- Menghapus fitur.
+- Mengubah sistem keamanan.
+- Mengubah workflow utama.
 
 Perubahan tersebut harus mendapat persetujuan maintainer.
 
@@ -372,10 +373,10 @@ AI tidak boleh mengimplementasikan fitur besar sebelum dokumentasi terkait terse
 
 Minimal harus tersedia:
 
-* Business Rules
-* Database Design
-* API Specification
-* UI Specification (jika ada)
+- Business Rules
+- Database Design
+- API Specification
+- UI Specification (jika ada)
 
 ---
 
@@ -391,11 +392,11 @@ Jika aturan bisnis belum terdokumentasi, implementasi harus ditunda sampai atura
 
 Seluruh kode yang dihasilkan AI wajib mengikuti:
 
-* Coding Standards
-* Project Structure
-* Repository Pattern
-* Service Layer
-* Naming Convention
+- Coding Standards
+- Project Structure
+- Repository Pattern
+- Service Layer
+- Naming Convention
 
 ---
 
@@ -403,9 +404,9 @@ Seluruh kode yang dihasilkan AI wajib mengikuti:
 
 AI tidak boleh:
 
-* Mengakses Prisma di luar Repository.
-* Menulis query database di Component.
-* Menempatkan Business Rules di UI.
+- Mengakses Prisma di luar Repository.
+- Menulis query database di Component.
+- Menempatkan Business Rules di UI.
 
 ---
 
@@ -421,11 +422,11 @@ AI wajib menjaga pemisahan tanggung jawab antar layer.
 
 AI tidak boleh:
 
-* Hardcode secret.
-* Menyimpan password.
-* Menonaktifkan validasi.
-* Menghilangkan pemeriksaan permission.
-* Menampilkan informasi sensitif kepada pengguna.
+- Hardcode secret.
+- Menyimpan password.
+- Menonaktifkan validasi.
+- Menghilangkan pemeriksaan permission.
+- Menampilkan informasi sensitif kepada pengguna.
 
 ---
 
@@ -441,11 +442,11 @@ Seluruh hasil AI wajib melalui review manusia sebelum digabungkan ke branch utam
 
 Review mencakup:
 
-* Arsitektur
-* Business Rules
-* Keamanan
-* Performa
-* Konsistensi kode
+- Arsitektur
+- Business Rules
+- Keamanan
+- Performa
+- Konsistensi kode
 
 ---
 
@@ -455,10 +456,10 @@ Kode hasil AI tetap mengikuti workflow proyek.
 
 Tidak ada pengecualian terhadap:
 
-* Pull Request
-* Code Review
-* CI/CD
-* Testing
+- Pull Request
+- Code Review
+- CI/CD
+- Testing
 
 ---
 
@@ -466,10 +467,10 @@ Tidak ada pengecualian terhadap:
 
 AI wajib menghasilkan kode yang:
 
-* Dapat dibangun (build).
-* Lulus pemeriksaan TypeScript.
-* Lulus lint.
-* Tidak menghasilkan error yang diketahui.
+- Dapat dibangun (build).
+- Lulus pemeriksaan TypeScript.
+- Lulus lint.
+- Tidak menghasilkan error yang diketahui.
 
 ---
 
@@ -477,10 +478,10 @@ AI wajib menghasilkan kode yang:
 
 AI harus:
 
-* Memberikan jawaban yang jelas.
-* Menjelaskan risiko jika ada.
-* Tidak membuat klaim yang tidak dapat dipastikan.
-* Mengakui apabila informasi belum tersedia.
+- Memberikan jawaban yang jelas.
+- Menjelaskan risiko jika ada.
+- Tidak membuat klaim yang tidak dapat dipastikan.
+- Mengakui apabila informasi belum tersedia.
 
 ---
 
@@ -488,11 +489,11 @@ AI harus:
 
 Keputusan berikut hanya dapat dilakukan oleh maintainer:
 
-* Perubahan Blueprint.
-* Perubahan Architecture.
-* Perubahan Business Rules.
-* Perubahan Database.
-* Perubahan Security Policy.
+- Perubahan Blueprint.
+- Perubahan Architecture.
+- Perubahan Business Rules.
+- Perubahan Database.
+- Perubahan Security Policy.
 
 AI hanya dapat memberikan rekomendasi.
 
@@ -502,9 +503,9 @@ AI hanya dapat memberikan rekomendasi.
 
 AI hanya boleh menggunakan:
 
-* Dokumentasi proyek.
-* Source code proyek.
-* Informasi yang diberikan pengguna.
+- Dokumentasi proyek.
+- Source code proyek.
+- Informasi yang diberikan pengguna.
 
 AI tidak boleh menganggap contoh umum sebagai aturan proyek apabila belum terdokumentasi.
 
@@ -514,12 +515,12 @@ AI tidak boleh menganggap contoh umum sebagai aturan proyek apabila belum terdok
 
 Sebelum hasil AI diterima, pastikan:
 
-* Mengikuti Blueprint.
-* Mengikuti Business Rules.
-* Mengikuti Coding Standards.
-* Mengikuti Project Structure.
-* Tidak melanggar Security Rules.
-* Dokumentasi diperbarui bila diperlukan.
+- Mengikuti Blueprint.
+- Mengikuti Business Rules.
+- Mengikuti Coding Standards.
+- Mengikuti Project Structure.
+- Tidak melanggar Security Rules.
+- Dokumentasi diperbarui bila diperlukan.
 
 ---
 
@@ -536,6 +537,7 @@ Seluruh AI diperlakukan sebagai alat bantu pengembangan yang harus bekerja sesua
 LIM Digital Platform memanfaatkan AI untuk meningkatkan produktivitas, kualitas dokumentasi, dan kecepatan pengembangan.
 
 Namun seluruh keputusan arsitektur, aturan bisnis, keamanan, dan kualitas akhir sistem tetap menjadi tanggung jawab manusia agar platform tetap konsisten, aman, dan berkelanjutan.
+
 # AI_RULES
 
 **Project:** LIM Digital Platform
@@ -562,12 +564,12 @@ Seluruh hasil kerja AI tetap menjadi tanggung jawab developer dan maintainer pro
 
 Dokumen ini berlaku untuk seluruh AI yang digunakan dalam proyek, termasuk namun tidak terbatas pada:
 
-* ChatGPT
-* Codex
-* Claude
-* Gemini
-* GitHub Copilot
-* AI Assistant lainnya
+- ChatGPT
+- Codex
+- Claude
+- Gemini
+- GitHub Copilot
+- AI Assistant lainnya
 
 ---
 
@@ -575,11 +577,11 @@ Dokumen ini berlaku untuk seluruh AI yang digunakan dalam proyek, termasuk namun
 
 Penggunaan AI mengikuti prinsip berikut:
 
-* Documentation First
-* Architecture First
-* Business Rules First
-* Security First
-* Human Review Required
+- Documentation First
+- Architecture First
+- Business Rules First
+- Security First
+- Human Review Required
 
 AI membantu mempercepat pekerjaan, tetapi tidak menggantikan proses engineering.
 
@@ -607,16 +609,16 @@ Apabila terdapat konflik, AI harus mengikuti dokumen dengan prioritas lebih ting
 
 AI diperbolehkan membantu:
 
-* Menulis kode.
-* Refactoring.
-* Menulis dokumentasi.
-* Membuat unit test.
-* Membuat migration.
-* Membuat query database.
-* Menjelaskan kode.
-* Membantu code review.
-* Membuat dokumentasi API.
-* Membantu debugging.
+- Menulis kode.
+- Refactoring.
+- Menulis dokumentasi.
+- Membuat unit test.
+- Membuat migration.
+- Membuat query database.
+- Menjelaskan kode.
+- Membantu code review.
+- Membuat dokumentasi API.
+- Membantu debugging.
 
 ---
 
@@ -624,12 +626,12 @@ AI diperbolehkan membantu:
 
 AI tidak boleh secara mandiri:
 
-* Mengubah arsitektur.
-* Mengubah Business Rules.
-* Mengubah struktur database.
-* Menghapus fitur.
-* Mengubah sistem keamanan.
-* Mengubah workflow utama.
+- Mengubah arsitektur.
+- Mengubah Business Rules.
+- Mengubah struktur database.
+- Menghapus fitur.
+- Mengubah sistem keamanan.
+- Mengubah workflow utama.
 
 Perubahan tersebut harus mendapat persetujuan maintainer.
 
@@ -641,10 +643,10 @@ AI tidak boleh mengimplementasikan fitur besar sebelum dokumentasi terkait terse
 
 Minimal harus tersedia:
 
-* Business Rules
-* Database Design
-* API Specification
-* UI Specification (jika ada)
+- Business Rules
+- Database Design
+- API Specification
+- UI Specification (jika ada)
 
 ---
 
@@ -660,11 +662,11 @@ Jika aturan bisnis belum terdokumentasi, implementasi harus ditunda sampai atura
 
 Seluruh kode yang dihasilkan AI wajib mengikuti:
 
-* Coding Standards
-* Project Structure
-* Repository Pattern
-* Service Layer
-* Naming Convention
+- Coding Standards
+- Project Structure
+- Repository Pattern
+- Service Layer
+- Naming Convention
 
 ---
 
@@ -672,9 +674,9 @@ Seluruh kode yang dihasilkan AI wajib mengikuti:
 
 AI tidak boleh:
 
-* Mengakses Prisma di luar Repository.
-* Menulis query database di Component.
-* Menempatkan Business Rules di UI.
+- Mengakses Prisma di luar Repository.
+- Menulis query database di Component.
+- Menempatkan Business Rules di UI.
 
 ---
 
@@ -690,11 +692,11 @@ AI wajib menjaga pemisahan tanggung jawab antar layer.
 
 AI tidak boleh:
 
-* Hardcode secret.
-* Menyimpan password.
-* Menonaktifkan validasi.
-* Menghilangkan pemeriksaan permission.
-* Menampilkan informasi sensitif kepada pengguna.
+- Hardcode secret.
+- Menyimpan password.
+- Menonaktifkan validasi.
+- Menghilangkan pemeriksaan permission.
+- Menampilkan informasi sensitif kepada pengguna.
 
 ---
 
@@ -710,11 +712,11 @@ Seluruh hasil AI wajib melalui review manusia sebelum digabungkan ke branch utam
 
 Review mencakup:
 
-* Arsitektur
-* Business Rules
-* Keamanan
-* Performa
-* Konsistensi kode
+- Arsitektur
+- Business Rules
+- Keamanan
+- Performa
+- Konsistensi kode
 
 ---
 
@@ -724,10 +726,10 @@ Kode hasil AI tetap mengikuti workflow proyek.
 
 Tidak ada pengecualian terhadap:
 
-* Pull Request
-* Code Review
-* CI/CD
-* Testing
+- Pull Request
+- Code Review
+- CI/CD
+- Testing
 
 ---
 
@@ -735,10 +737,10 @@ Tidak ada pengecualian terhadap:
 
 AI wajib menghasilkan kode yang:
 
-* Dapat dibangun (build).
-* Lulus pemeriksaan TypeScript.
-* Lulus lint.
-* Tidak menghasilkan error yang diketahui.
+- Dapat dibangun (build).
+- Lulus pemeriksaan TypeScript.
+- Lulus lint.
+- Tidak menghasilkan error yang diketahui.
 
 ---
 
@@ -746,10 +748,10 @@ AI wajib menghasilkan kode yang:
 
 AI harus:
 
-* Memberikan jawaban yang jelas.
-* Menjelaskan risiko jika ada.
-* Tidak membuat klaim yang tidak dapat dipastikan.
-* Mengakui apabila informasi belum tersedia.
+- Memberikan jawaban yang jelas.
+- Menjelaskan risiko jika ada.
+- Tidak membuat klaim yang tidak dapat dipastikan.
+- Mengakui apabila informasi belum tersedia.
 
 ---
 
@@ -757,11 +759,11 @@ AI harus:
 
 Keputusan berikut hanya dapat dilakukan oleh maintainer:
 
-* Perubahan Blueprint.
-* Perubahan Architecture.
-* Perubahan Business Rules.
-* Perubahan Database.
-* Perubahan Security Policy.
+- Perubahan Blueprint.
+- Perubahan Architecture.
+- Perubahan Business Rules.
+- Perubahan Database.
+- Perubahan Security Policy.
 
 AI hanya dapat memberikan rekomendasi.
 
@@ -771,9 +773,9 @@ AI hanya dapat memberikan rekomendasi.
 
 AI hanya boleh menggunakan:
 
-* Dokumentasi proyek.
-* Source code proyek.
-* Informasi yang diberikan pengguna.
+- Dokumentasi proyek.
+- Source code proyek.
+- Informasi yang diberikan pengguna.
 
 AI tidak boleh menganggap contoh umum sebagai aturan proyek apabila belum terdokumentasi.
 
@@ -783,12 +785,12 @@ AI tidak boleh menganggap contoh umum sebagai aturan proyek apabila belum terdok
 
 Sebelum hasil AI diterima, pastikan:
 
-* Mengikuti Blueprint.
-* Mengikuti Business Rules.
-* Mengikuti Coding Standards.
-* Mengikuti Project Structure.
-* Tidak melanggar Security Rules.
-* Dokumentasi diperbarui bila diperlukan.
+- Mengikuti Blueprint.
+- Mengikuti Business Rules.
+- Mengikuti Coding Standards.
+- Mengikuti Project Structure.
+- Tidak melanggar Security Rules.
+- Dokumentasi diperbarui bila diperlukan.
 
 ---
 

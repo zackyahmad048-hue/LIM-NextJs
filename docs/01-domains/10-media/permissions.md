@@ -109,15 +109,15 @@ media.download
 
 | Permission        | Super Admin | Admin | Operator | User |
 | ----------------- | :---------: | :---: | :------: | :--: |
-| View              |      ✅      |   ✅   |     ✅    |   ✅  |
-| Upload            |      ✅      |   ✅   |     ✅    |   ✅  |
-| Update            |      ✅      |   ✅   |     ✅    |   ❌  |
-| Delete            |      ✅      |   ❌   |     ❌    |   ❌  |
-| Download          |      ✅      |   ✅   |     ✅    |   ✅  |
-| Preview           |      ✅      |   ✅   |     ✅    |   ✅  |
-| Archive           |      ✅      |   ✅   |     ❌    |   ❌  |
-| Restore           |      ✅      |   ✅   |     ❌    |   ❌  |
-| Folder Management |      ✅      |   ✅   |     ✅    |   ❌  |
+| View              |     ✅      |  ✅   |    ✅    |  ✅  |
+| Upload            |     ✅      |  ✅   |    ✅    |  ✅  |
+| Update            |     ✅      |  ✅   |    ✅    |  ❌  |
+| Delete            |     ✅      |  ❌   |    ❌    |  ❌  |
+| Download          |     ✅      |  ✅   |    ✅    |  ✅  |
+| Preview           |     ✅      |  ✅   |    ✅    |  ✅  |
+| Archive           |     ✅      |  ✅   |    ❌    |  ❌  |
+| Restore           |     ✅      |  ✅   |    ❌    |  ❌  |
+| Folder Management |     ✅      |  ✅   |    ✅    |  ❌  |
 
 ---
 
@@ -148,20 +148,20 @@ media.view
 
 # Business Rules
 
-* Authentication wajib dilakukan.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403 Forbidden.
-* Tombol aksi mengikuti permission pengguna.
-* File Public tetap mengikuti kebijakan akses sistem.
+- Authentication wajib dilakukan.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403 Forbidden.
+- Tombol aksi mengikuti permission pengguna.
+- File Public tetap mengikuti kebijakan akses sistem.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh aktivitas dicatat pada Audit Log.
-* Hak akses mengikuti prinsip Least Privilege.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh aktivitas dicatat pada Audit Log.
+- Hak akses mengikuti prinsip Least Privilege.
 
 ---
 
@@ -183,21 +183,21 @@ media.analytics
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

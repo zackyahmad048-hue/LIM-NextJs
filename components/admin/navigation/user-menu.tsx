@@ -7,7 +7,18 @@ import { toast } from "sonner";
 import { authClient } from "@/modules/authentication/infrastructure/better-auth-client";
 import { Button } from "@/components/ui/button";
 
-export function UserMenu() {
+interface UserMenuUser {
+  name: string;
+  email: string;
+  image: string | null;
+  roleLabel: string;
+}
+
+interface Props {
+  user: UserMenuUser;
+}
+
+export function UserMenu({ user }: Props) {
   const router = useRouter();
 
   async function handleLogout() {
@@ -20,11 +31,22 @@ export function UserMenu() {
   return (
     <div className="flex items-center gap-3">
       <div className="hidden items-center gap-2.5 md:flex">
-        <div className="h-7 w-7 rounded-full bg-muted" />
+        <div className="flex size-7 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
+          {user.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={user.image}
+              alt={user.name}
+              className="size-7 rounded-full object-cover"
+            />
+          ) : (
+            user.name.charAt(0).toUpperCase()
+          )}
+        </div>
 
         <div>
-          <p className="text-xs font-medium">Super Admin</p>
-          <p className="text-xs text-muted-foreground">Administrator</p>
+          <p className="max-w-40 truncate text-xs font-medium">{user.name}</p>
+          <p className="text-xs text-muted-foreground">{user.roleLabel}</p>
         </div>
       </div>
 

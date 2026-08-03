@@ -70,11 +70,11 @@ Footer (Optional)
 Gunakan container dengan lebar maksimum:
 
 | Breakpoint | Max Width |
-|------------|----------:|
-| Default | 100% |
-| lg | 1024px |
-| xl | 1280px |
-| 2xl | 1400px |
+| ---------- | --------: |
+| Default    |      100% |
+| lg         |    1024px |
+| xl         |    1280px |
+| 2xl        |    1400px |
 
 ---
 

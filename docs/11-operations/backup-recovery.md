@@ -26,11 +26,11 @@ Strategi ini merupakan bagian dari **Business Continuity** dan **Disaster Recove
 
 Backup & Recovery bertujuan untuk:
 
-* Melindungi data dari kehilangan.
-* Menjamin keberlangsungan layanan.
-* Mempercepat proses pemulihan.
-* Memenuhi kebutuhan audit.
-* Mengurangi risiko operasional.
+- Melindungi data dari kehilangan.
+- Menjamin keberlangsungan layanan.
+- Mempercepat proses pemulihan.
+- Memenuhi kebutuhan audit.
+- Mengurangi risiko operasional.
 
 ---
 
@@ -38,13 +38,13 @@ Backup & Recovery bertujuan untuk:
 
 Komponen yang wajib dicadangkan:
 
-* PostgreSQL Database
-* Object Storage
-* Application Configuration
-* Environment Configuration
-* Container Configuration
-* Infrastructure Configuration
-* Monitoring Configuration
+- PostgreSQL Database
+- Object Storage
+- Application Configuration
+- Environment Configuration
+- Container Configuration
+- Infrastructure Configuration
+- Monitoring Configuration
 
 ---
 
@@ -56,7 +56,7 @@ Backup seluruh data.
 
 Dilakukan:
 
-* Harian
+- Harian
 
 ---
 
@@ -66,7 +66,7 @@ Backup perubahan sejak backup terakhir.
 
 Dilakukan:
 
-* Berkala sesuai kebutuhan.
+- Berkala sesuai kebutuhan.
 
 ---
 
@@ -74,11 +74,11 @@ Dilakukan:
 
 Meliputi:
 
-* Docker Compose
-* Kubernetes Manifest
-* Reverse Proxy Configuration
-* Environment Template
-* Infrastructure Script
+- Docker Compose
+- Kubernetes Manifest
+- Reverse Proxy Configuration
+- Environment Template
+- Infrastructure Script
 
 ---
 
@@ -98,9 +98,9 @@ Meliputi:
 
 Backup disimpan pada:
 
-* Primary Backup Storage
-* Secondary Backup Storage
-* Offsite Storage (Recommended)
+- Primary Backup Storage
+- Secondary Backup Storage
+- Offsite Storage (Recommended)
 
 Backup tidak boleh disimpan hanya pada server Production.
 
@@ -187,13 +187,13 @@ Service Recovery
 
 Pastikan setelah Restore:
 
-* Database dapat diakses.
-* File dapat diunduh.
-* Login berhasil.
-* API normal.
-* Queue berjalan.
-* Dashboard dapat diakses.
-* Monitoring kembali aktif.
+- Database dapat diakses.
+- File dapat diunduh.
+- Login berhasil.
+- API normal.
+- Queue berjalan.
+- Dashboard dapat diakses.
+- Monitoring kembali aktif.
 
 ---
 
@@ -201,13 +201,13 @@ Pastikan setelah Restore:
 
 Apabila terjadi kegagalan besar:
 
-* Aktifkan Disaster Recovery Plan.
-* Pulihkan Infrastruktur.
-* Restore Database.
-* Restore Object Storage.
-* Restore Configuration.
-* Verifikasi seluruh layanan.
-* Umumkan pemulihan layanan.
+- Aktifkan Disaster Recovery Plan.
+- Pulihkan Infrastruktur.
+- Restore Database.
+- Restore Object Storage.
+- Restore Configuration.
+- Verifikasi seluruh layanan.
+- Umumkan pemulihan layanan.
 
 ---
 
@@ -226,11 +226,11 @@ Target dapat disesuaikan dengan kebutuhan bisnis.
 
 Backup wajib:
 
-* Dienkripsi.
-* Memiliki Access Control.
-* Menggunakan HTTPS/TLS saat transfer.
-* Dilindungi dari perubahan tanpa izin.
-* Diaudit secara berkala.
+- Dienkripsi.
+- Memiliki Access Control.
+- Menggunakan HTTPS/TLS saat transfer.
+- Dilindungi dari perubahan tanpa izin.
+- Diaudit secara berkala.
 
 ---
 
@@ -238,11 +238,11 @@ Backup wajib:
 
 Backup harus diuji secara berkala:
 
-* Verifikasi Integritas File.
-* Simulasi Restore.
-* Restore Database.
-* Restore Storage.
-* Dokumentasi hasil pengujian.
+- Verifikasi Integritas File.
+- Simulasi Restore.
+- Restore Database.
+- Restore Storage.
+- Dokumentasi hasil pengujian.
 
 Backup yang tidak pernah diuji dianggap belum tervalidasi.
 
@@ -252,41 +252,41 @@ Backup yang tidak pernah diuji dianggap belum tervalidasi.
 
 Setiap aktivitas Backup mencatat:
 
-* Backup ID
-* Tanggal
-* Operator
-* Jenis Backup
-* Durasi
-* Status
-* Lokasi Penyimpanan
+- Backup ID
+- Tanggal
+- Operator
+- Jenis Backup
+- Durasi
+- Status
+- Lokasi Penyimpanan
 
 ---
 
 # Best Practices
 
-* Terapkan prinsip **3-2-1 Backup** (3 salinan data, 2 media berbeda, 1 lokasi terpisah).
-* Enkripsi seluruh Backup.
-* Lakukan Restore Test secara berkala.
-* Dokumentasikan seluruh proses Recovery.
-* Pantau kapasitas Backup Storage secara rutin.
+- Terapkan prinsip **3-2-1 Backup** (3 salinan data, 2 media berbeda, 1 lokasi terpisah).
+- Enkripsi seluruh Backup.
+- Lakukan Restore Test secara berkala.
+- Dokumentasikan seluruh proses Recovery.
+- Pantau kapasitas Backup Storage secara rutin.
 
 ---
 
 # Related Documents
 
-* README.md
-* runbook.md
-* maintenance.md
-* incident-response.md
-* 09-infrastructure/storage-infrastructure.md
-* 09-infrastructure/database-infrastructure.md
+- README.md
+- runbook.md
+- maintenance.md
+- incident-response.md
+- 09-infrastructure/storage-infrastructure.md
+- 09-infrastructure/database-infrastructure.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh data penting masuk dalam cakupan Backup.
-* Jadwal Backup terdokumentasi.
-* Recovery Procedure terdokumentasi dengan jelas.
-* RTO dan RPO ditetapkan.
-* Backup & Recovery menjadi acuan resmi perlindungan data LIM Digital Platform.
+- Seluruh data penting masuk dalam cakupan Backup.
+- Jadwal Backup terdokumentasi.
+- Recovery Procedure terdokumentasi dengan jelas.
+- RTO dan RPO ditetapkan.
+- Backup & Recovery menjadi acuan resmi perlindungan data LIM Digital Platform.

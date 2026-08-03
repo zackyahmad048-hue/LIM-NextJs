@@ -27,15 +27,13 @@ Dokumen ini mendefinisikan rencana release LIM Digital Platform per phase. Setia
 
 # Release Strategy
 
-``
-Development -> Staging -> Production
-``
+`Development -> Staging -> Production`
 
-| Environment | Fungsi |
-|-------------|--------|
-| Development | Local development |
-| Staging | Pre-production testing |
-| Production | Live environment |
+| Environment | Fungsi                 |
+| ----------- | ---------------------- |
+| Development | Local development      |
+| Staging     | Pre-production testing |
+| Production  | Live environment       |
 
 ---
 
@@ -44,6 +42,7 @@ Development -> Staging -> Production
 **Phase:** 1 - Foundation
 
 **Scope:**
+
 - Project structure
 - Design system
 - Theme (light/dark)
@@ -54,6 +53,7 @@ Development -> Staging -> Production
 - CI/CD
 
 **Pre-release Checklist:**
+
 - [ ] Semua halaman dapat diakses.
 - [ ] Login/logout berfungsi.
 - [ ] Theme light/dark berfungsi.
@@ -62,6 +62,7 @@ Development -> Staging -> Production
 - [ ] Documentation updated.
 
 **Rollback Plan:**
+
 - Revert ke versi sebelumnya.
 - Database migration rollback (jika ada).
 
@@ -72,6 +73,7 @@ Development -> Staging -> Production
 **Phase:** 2 - Core Platform
 
 **Scope:**
+
 - Dashboard
 - User management
 - Role management
@@ -81,6 +83,7 @@ Development -> Staging -> Production
 - Notification
 
 **Pre-release Checklist:**
+
 - [ ] Admin dapat mengelola users dan roles.
 - [ ] Dashboard menampilkan metrics.
 - [ ] Media dapat di-upload dan dikelola.
@@ -88,6 +91,7 @@ Development -> Staging -> Production
 - [ ] Permission system berfungsi.
 
 **Rollback Plan:**
+
 - Revert ke v0.1.0.
 - Database backup sebelum migration.
 
@@ -98,6 +102,7 @@ Development -> Staging -> Production
 **Phase:** 3 - CMS
 
 **Scope:**
+
 - Category management
 - Post management
 - Page management
@@ -106,12 +111,14 @@ Development -> Staging -> Production
 - SEO management
 
 **Pre-release Checklist:**
+
 - [ ] Berita dapat dipublikasikan.
 - [ ] Website menampilkan konten dari CMS.
 - [ ] SEO berfungsi.
 - [ ] Media integration berfungsi.
 
 **Rollback Plan:**
+
 - Revert ke v0.2.0.
 - Database backup.
 
@@ -122,6 +129,7 @@ Development -> Staging -> Production
 **Phase:** 4 - Organization
 
 **Scope:**
+
 - Organization structure
 - Wilayah management
 - Cabang management
@@ -129,11 +137,13 @@ Development -> Staging -> Production
 - Jabatan management
 
 **Pre-release Checklist:**
+
 - [ ] Data organisasi terpusat.
 - [ ] Struktur organisasi tergambar dengan jelas.
 - [ ] CRUD berfungsi.
 
 **Rollback Plan:**
+
 - Revert ke v0.3.0.
 
 ---
@@ -143,6 +153,7 @@ Development -> Staging -> Production
 **Phase:** 5 - Program Management
 
 **Scope:**
+
 - Program management
 - Peserta management
 - Lokasi management
@@ -151,11 +162,13 @@ Development -> Staging -> Production
 - Laporan
 
 **Pre-release Checklist:**
+
 - [ ] Program dapat dibuat dan dikelola.
 - [ ] Peserta dapat mendaftar.
 - [ ] Laporan dapat dihasilkan.
 
 **Rollback Plan:**
+
 - Revert ke v0.4.0.
 
 ---
@@ -165,16 +178,19 @@ Development -> Staging -> Production
 **Phase:** 6 - Secretariat
 
 **Scope:**
+
 - Arsip management
 - Dokumen management
 - Surat internal
 - Administrasi
 
 **Pre-release Checklist:**
+
 - [ ] Arsip dapat dikelola secara digital.
 - [ ] Surat internal dapat dibuat.
 
 **Rollback Plan:**
+
 - Revert ke v0.5.0.
 
 ---
@@ -184,6 +200,7 @@ Development -> Staging -> Production
 **Phase:** 7 - Letter & Certificate
 
 **Scope:**
+
 - Surat management
 - Template surat
 - Nomor surat
@@ -192,12 +209,14 @@ Development -> Staging -> Production
 - Verifikasi publik
 
 **Pre-release Checklist:**
+
 - [ ] Surat dapat di-generate.
 - [ ] Sertifikat dapat di-generate.
 - [ ] Verifikasi QR berfungsi.
 - [ ] Verifikasi publik berfungsi.
 
 **Rollback Plan:**
+
 - Revert ke v0.6.0.
 
 ---
@@ -207,6 +226,7 @@ Development -> Staging -> Production
 **Phase:** 8 - Falak Service
 
 **Scope:**
+
 - Prayer engine
 - Hijri calendar
 - Qibla
@@ -214,11 +234,13 @@ Development -> Staging -> Production
 - Imsakiyah
 
 **Pre-release Checklist:**
+
 - [ ] Prayer time akurat.
 - [ ] Kalender Hijri berfungsi.
 - [ ] Arah kiblat akurat.
 
 **Rollback Plan:**
+
 - Revert ke v0.7.0.
 
 ---
@@ -228,6 +250,7 @@ Development -> Staging -> Production
 **Phase:** 9 - Mobile Platform
 
 **Scope:**
+
 - Mobile app (Android & iOS)
 - Jadwal Sholat
 - Al-Quran
@@ -237,29 +260,31 @@ Development -> Staging -> Production
 - Sertifikat Saya
 
 **Pre-release Checklist:**
+
 - [ ] App dapat di-install.
 - [ ] Fitur utama berfungsi.
 - [ ] App ready untuk testing.
 - [ ] App Store/Play Store listing siap.
 
 **Rollback Plan:**
+
 - Revert ke v0.8.0.
 
 ---
 
 # Release Summary
 
-| Version | Phase | Scope | Estimasi |
-|---------|-------|-------|----------|
-| v0.1.0 | 1 | Foundation | ~70h |
-| v0.2.0 | 2 | Core Platform | ~50h |
-| v0.3.0 | 3 | CMS | ~44h |
-| v0.4.0 | 4 | Organization | ~32h |
-| v0.5.0 | 5 | Program Management | ~48h |
-| v0.6.0 | 6 | Secretariat | ~30h |
-| v0.7.0 | 7 | Letter & Certificate | ~52h |
-| v0.8.0 | 8 | Falak Service | ~50h |
-| v1.0.0 | 9 | Mobile Platform | ~60h |
+| Version | Phase | Scope                | Estimasi |
+| ------- | ----- | -------------------- | -------- |
+| v0.1.0  | 1     | Foundation           | ~70h     |
+| v0.2.0  | 2     | Core Platform        | ~50h     |
+| v0.3.0  | 3     | CMS                  | ~44h     |
+| v0.4.0  | 4     | Organization         | ~32h     |
+| v0.5.0  | 5     | Program Management   | ~48h     |
+| v0.6.0  | 6     | Secretariat          | ~30h     |
+| v0.7.0  | 7     | Letter & Certificate | ~52h     |
+| v0.8.0  | 8     | Falak Service        | ~50h     |
+| v1.0.0  | 9     | Mobile Platform      | ~60h     |
 
 ---
 
@@ -279,15 +304,13 @@ Apabila ada bug kritis di production:
 
 Menggunakan Semantic Versioning:
 
-``
-MAJOR.MINOR.PATCH
-``
+`MAJOR.MINOR.PATCH`
 
-| Component | Keterangan |
-|-----------|------------|
-| MAJOR | Perubahan besar, breaking changes |
-| MINOR | Fitur baru, backward compatible |
-| PATCH | Bug fixes |
+| Component | Keterangan                        |
+| --------- | --------------------------------- |
+| MAJOR     | Perubahan besar, breaking changes |
+| MINOR     | Fitur baru, backward compatible   |
+| PATCH     | Bug fixes                         |
 
 ---
 

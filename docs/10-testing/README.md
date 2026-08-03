@@ -22,11 +22,11 @@ Dokumen ini menjadi acuan bagi QA Engineer, Backend Developer, Frontend Develope
 
 Folder ini bertujuan untuk:
 
-* Menjamin kualitas perangkat lunak.
-* Memastikan seluruh Business Rules berjalan sesuai spesifikasi.
-* Mengurangi risiko bug pada Production.
-* Mendukung proses Continuous Integration dan Continuous Delivery (CI/CD).
-* Menjadi standar pengujian di seluruh siklus pengembangan.
+- Menjamin kualitas perangkat lunak.
+- Memastikan seluruh Business Rules berjalan sesuai spesifikasi.
+- Mengurangi risiko bug pada Production.
+- Mendukung proses Continuous Integration dan Continuous Delivery (CI/CD).
+- Menjadi standar pengujian di seluruh siklus pengembangan.
 
 ---
 
@@ -34,13 +34,13 @@ Folder ini bertujuan untuk:
 
 Testing mencakup:
 
-* Functional Testing
-* Integration Testing
-* End-to-End Testing
-* User Acceptance Testing (UAT)
-* Performance Testing
-* Security Testing
-* Regression Testing
+- Functional Testing
+- Integration Testing
+- End-to-End Testing
+- User Acceptance Testing (UAT)
+- Performance Testing
+- Security Testing
+- Regression Testing
 
 ---
 
@@ -88,12 +88,12 @@ security-testing.md
 
 Seluruh fitur harus memenuhi:
 
-* Functional Requirement
-* Non-Functional Requirement
-* Acceptance Criteria
-* Business Rules
-* Security Standard
-* Performance Standard
+- Functional Requirement
+- Non-Functional Requirement
+- Acceptance Criteria
+- Business Rules
+- Security Standard
+- Performance Standard
 
 ---
 
@@ -101,9 +101,9 @@ Seluruh fitur harus memenuhi:
 
 Pengujian dilakukan pada:
 
-* Development
-* Testing
-* Staging
+- Development
+- Testing
+- Staging
 
 Production hanya digunakan untuk Smoke Test setelah deployment.
 
@@ -113,11 +113,11 @@ Production hanya digunakan untuk Smoke Test setelah deployment.
 
 Seluruh pengujian harus:
 
-* Repeatable
-* Measurable
-* Traceable
-* Automated jika memungkinkan
-* Terdokumentasi
+- Repeatable
+- Measurable
+- Traceable
+- Automated jika memungkinkan
+- Terdokumentasi
 
 ---
 
@@ -139,13 +139,13 @@ Target minimum:
 
 Setiap bug harus memiliki:
 
-* ID
-* Severity
-* Priority
-* Status
-* Reporter
-* Assignee
-* Resolution
+- ID
+- Severity
+- Priority
+- Status
+- Reporter
+- Assignee
+- Resolution
 
 ---
 
@@ -153,19 +153,19 @@ Setiap bug harus memiliki:
 
 Suatu Release dinyatakan layak apabila:
 
-* Seluruh Critical Test lulus.
-* Tidak ada Critical Bug.
-* UAT disetujui.
-* Performance memenuhi target.
-* Security Testing selesai.
+- Seluruh Critical Test lulus.
+- Tidak ada Critical Bug.
+- UAT disetujui.
+- Performance memenuhi target.
+- Security Testing selesai.
 
 ---
 
 # Related Documents
 
-* `07-specifications/`
-* `09-infrastructure/`
-* `03-development/`
+- `07-specifications/`
+- `09-infrastructure/`
+- `03-development/`
 
 ---
 
@@ -177,7 +177,7 @@ Suatu Release dinyatakan layak apabila:
 
 # Acceptance Criteria
 
-* Seluruh proses pengujian terdokumentasi.
-* Standar QA diterapkan.
-* Test Coverage memenuhi target.
-* Folder Testing menjadi referensi resmi proses Quality Assurance LIM Digital Platform.
+- Seluruh proses pengujian terdokumentasi.
+- Standar QA diterapkan.
+- Test Coverage memenuhi target.
+- Folder Testing menjadi referensi resmi proses Quality Assurance LIM Digital Platform.

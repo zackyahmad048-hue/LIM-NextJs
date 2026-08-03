@@ -80,9 +80,12 @@ function uid() {
 
 export function StructureEditor({ initial }: Props) {
   const router = useRouter();
-  const [data, setData] = useState<OrgStructure>(() => structuredClone(initial));
+  const [data, setData] = useState<OrgStructure>(() =>
+    structuredClone(initial),
+  );
   const [saving, setSaving] = useState(false);
-  const [expandedSection, setExpandedSection] = useState<string>("organization");
+  const [expandedSection, setExpandedSection] =
+    useState<string>("organization");
   const [editingDept, setEditingDept] = useState<string | null>(null);
   const [editingPos, setEditingPos] = useState<string | null>(null);
   const [editingMgt, setEditingMgt] = useState<string | null>(null);
@@ -99,7 +102,12 @@ export function StructureEditor({ initial }: Props) {
       ...prev,
       departments: [
         ...prev.departments,
-        { id: uid(), name: "", description: "", sortOrder: prev.departments.length + 1 },
+        {
+          id: uid(),
+          name: "",
+          description: "",
+          sortOrder: prev.departments.length + 1,
+        },
       ],
     }));
   }
@@ -108,7 +116,7 @@ export function StructureEditor({ initial }: Props) {
     setData((prev) => ({
       ...prev,
       departments: prev.departments.map((d) =>
-        d.id === id ? { ...d, [field]: value } : d
+        d.id === id ? { ...d, [field]: value } : d,
       ),
     }));
   }
@@ -131,7 +139,8 @@ export function StructureEditor({ initial }: Props) {
           departmentId: deptId,
           name: "",
           level: 1,
-          sortOrder: prev.positions.filter((p) => p.departmentId === deptId).length + 1,
+          sortOrder:
+            prev.positions.filter((p) => p.departmentId === deptId).length + 1,
         },
       ],
     }));
@@ -141,7 +150,7 @@ export function StructureEditor({ initial }: Props) {
     setData((prev) => ({
       ...prev,
       positions: prev.positions.map((p) =>
-        p.id === id ? { ...p, [field]: value } : p
+        p.id === id ? { ...p, [field]: value } : p,
       ),
     }));
   }
@@ -168,7 +177,7 @@ export function StructureEditor({ initial }: Props) {
     setData((prev) => ({
       ...prev,
       management: prev.management.map((m) =>
-        m.id === id ? { ...m, [field]: value } : m
+        m.id === id ? { ...m, [field]: value } : m,
       ),
     }));
   }
@@ -209,13 +218,13 @@ export function StructureEditor({ initial }: Props) {
       </div>
 
       <Section
-          id="organization"
-          title="Informasi Organisasi"
-          icon={Building2}
-          expanded={expandedSection === "organization"}
-          badge=""
-          onToggle={setExpandedSection}
-        >
+        id="organization"
+        title="Informasi Organisasi"
+        icon={Building2}
+        expanded={expandedSection === "organization"}
+        badge=""
+        onToggle={setExpandedSection}
+      >
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label>Nama organisasi</Label>
@@ -264,13 +273,13 @@ export function StructureEditor({ initial }: Props) {
       </Section>
 
       <Section
-          id="departments"
-          title="Bidang / Divisi"
-          icon={Building2}
-          expanded={expandedSection === "departments"}
-          badge={`${data.departments.length} bidang`}
-          onToggle={setExpandedSection}
-        >
+        id="departments"
+        title="Bidang / Divisi"
+        icon={Building2}
+        expanded={expandedSection === "departments"}
+        badge={`${data.departments.length} bidang`}
+        onToggle={setExpandedSection}
+      >
         <div className="space-y-3">
           {data.departments.map((dept) => (
             <div key={dept.id} className="rounded-md border p-3">
@@ -281,7 +290,9 @@ export function StructureEditor({ initial }: Props) {
                     {editingDept === dept.id ? (
                       <Input
                         value={dept.name}
-                        onChange={(e) => updateDepartment(dept.id, "name", e.target.value)}
+                        onChange={(e) =>
+                          updateDepartment(dept.id, "name", e.target.value)
+                        }
                         className="h-7 text-sm"
                         placeholder="Nama bidang"
                       />
@@ -290,7 +301,11 @@ export function StructureEditor({ initial }: Props) {
                         className="text-sm font-medium cursor-pointer hover:text-orange-600"
                         onClick={() => setEditingDept(dept.id)}
                       >
-                        {dept.name || <span className="italic text-muted-foreground">Klik untuk isi nama</span>}
+                        {dept.name || (
+                          <span className="italic text-muted-foreground">
+                            Klik untuk isi nama
+                          </span>
+                        )}
                       </span>
                     )}
                   </div>
@@ -299,7 +314,13 @@ export function StructureEditor({ initial }: Props) {
                       <Textarea
                         rows={2}
                         value={dept.description}
-                        onChange={(e) => updateDepartment(dept.id, "description", e.target.value)}
+                        onChange={(e) =>
+                          updateDepartment(
+                            dept.id,
+                            "description",
+                            e.target.value,
+                          )
+                        }
                         placeholder="Deskripsi bidang"
                         className="text-xs"
                       />
@@ -309,7 +330,11 @@ export function StructureEditor({ initial }: Props) {
                           type="number"
                           value={dept.sortOrder}
                           onChange={(e) =>
-                            updateDepartment(dept.id, "sortOrder", parseInt(e.target.value) || 0)
+                            updateDepartment(
+                              dept.id,
+                              "sortOrder",
+                              parseInt(e.target.value) || 0,
+                            )
                           }
                           className="h-7 w-20 text-xs"
                         />
@@ -343,12 +368,17 @@ export function StructureEditor({ initial }: Props) {
                   {data.positions
                     .filter((p) => p.departmentId === dept.id)
                     .map((pos) => (
-                      <div key={pos.id} className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50">
+                      <div
+                        key={pos.id}
+                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
+                      >
                         {editingPos === pos.id ? (
                           <div className="flex-1 space-y-1">
                             <Input
                               value={pos.name}
-                              onChange={(e) => updatePosition(pos.id, "name", e.target.value)}
+                              onChange={(e) =>
+                                updatePosition(pos.id, "name", e.target.value)
+                              }
                               className="h-7 text-xs"
                               placeholder="Nama jabatan"
                             />
@@ -358,7 +388,11 @@ export function StructureEditor({ initial }: Props) {
                                 type="number"
                                 value={pos.level}
                                 onChange={(e) =>
-                                  updatePosition(pos.id, "level", parseInt(e.target.value) || 0)
+                                  updatePosition(
+                                    pos.id,
+                                    "level",
+                                    parseInt(e.target.value) || 0,
+                                  )
                                 }
                                 className="h-7 w-16 text-xs"
                               />
@@ -367,7 +401,11 @@ export function StructureEditor({ initial }: Props) {
                                 type="number"
                                 value={pos.sortOrder}
                                 onChange={(e) =>
-                                  updatePosition(pos.id, "sortOrder", parseInt(e.target.value) || 0)
+                                  updatePosition(
+                                    pos.id,
+                                    "sortOrder",
+                                    parseInt(e.target.value) || 0,
+                                  )
                                 }
                                 className="h-7 w-16 text-xs"
                               />
@@ -395,20 +433,36 @@ export function StructureEditor({ initial }: Props) {
                               className="text-xs cursor-pointer hover:text-orange-600"
                               onClick={() => setEditingPos(pos.id)}
                             >
-                              {pos.name || <span className="italic text-muted-foreground">Jabatan</span>}
+                              {pos.name || (
+                                <span className="italic text-muted-foreground">
+                                  Jabatan
+                                </span>
+                              )}
                             </span>
                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
                               {data.management
                                 .filter((m) => m.positionId === pos.id)
                                 .slice(0, 2)
                                 .map((m) => (
-                                  <Badge key={m.id} variant="outline" className="text-[10px] h-5">
+                                  <Badge
+                                    key={m.id}
+                                    variant="outline"
+                                    className="text-[10px] h-5"
+                                  >
                                     {m.name || "?"}
                                   </Badge>
                                 ))}
-                              {data.management.filter((m) => m.positionId === pos.id).length > 2 && (
-                                <Badge variant="secondary" className="text-[10px] h-5">
-                                  +{data.management.filter((m) => m.positionId === pos.id).length - 2}
+                              {data.management.filter(
+                                (m) => m.positionId === pos.id,
+                              ).length > 2 && (
+                                <Badge
+                                  variant="secondary"
+                                  className="text-[10px] h-5"
+                                >
+                                  +
+                                  {data.management.filter(
+                                    (m) => m.positionId === pos.id,
+                                  ).length - 2}
                                 </Badge>
                               )}
                               <Button
@@ -446,38 +500,55 @@ export function StructureEditor({ initial }: Props) {
       </Section>
 
       <Section
-          id="management"
-          title="Pengurus"
-          icon={Building2}
-          expanded={expandedSection === "management"}
-          badge={`${data.management.length} pengurus`}
-          onToggle={setExpandedSection}
-        >
+        id="management"
+        title="Pengurus"
+        icon={Building2}
+        expanded={expandedSection === "management"}
+        badge={`${data.management.length} pengurus`}
+        onToggle={setExpandedSection}
+      >
         <div className="space-y-3">
           {data.management.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Belum ada data pengurus. Tambahkan jabatan dan isi pengurusnya.</p>
+            <p className="text-sm text-muted-foreground">
+              Belum ada data pengurus. Tambahkan jabatan dan isi pengurusnya.
+            </p>
           ) : (
             data.management.map((mgt) => {
               const pos = data.positions.find((p) => p.id === mgt.positionId);
-              const dept = data.departments.find((d) => d.id === pos?.departmentId);
+              const dept = data.departments.find(
+                (d) => d.id === pos?.departmentId,
+              );
               return (
                 <div key={mgt.id} className="rounded-md border p-3">
                   {editingMgt === mgt.id ? (
                     <div className="space-y-2">
                       <Input
                         value={mgt.name}
-                        onChange={(e) => updateManagement(mgt.id, "name", e.target.value)}
+                        onChange={(e) =>
+                          updateManagement(mgt.id, "name", e.target.value)
+                        }
                         className="h-7 text-sm"
                         placeholder="Nama pengurus"
                       />
                       <Input
                         value={mgt.description}
-                        onChange={(e) => updateManagement(mgt.id, "description", e.target.value)}
+                        onChange={(e) =>
+                          updateManagement(
+                            mgt.id,
+                            "description",
+                            e.target.value,
+                          )
+                        }
                         className="h-7 text-xs"
                         placeholder="Deskripsi"
                       />
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => setEditingMgt(null)}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-7 text-xs"
+                          onClick={() => setEditingMgt(null)}
+                        >
                           Selesai
                         </Button>
                         <Button
@@ -498,14 +569,23 @@ export function StructureEditor({ initial }: Props) {
                           className="text-sm font-medium cursor-pointer hover:text-orange-600"
                           onClick={() => setEditingMgt(mgt.id)}
                         >
-                          {mgt.name || <span className="italic text-muted-foreground">Nama pengurus</span>}
+                          {mgt.name || (
+                            <span className="italic text-muted-foreground">
+                              Nama pengurus
+                            </span>
+                          )}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {pos?.name || "Tanpa jabatan"}
                           {dept ? ` — ${dept.name}` : ""}
                         </p>
                       </div>
-                      <Button variant="ghost" size="icon" className="size-7" onClick={() => setEditingMgt(mgt.id)}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="size-7"
+                        onClick={() => setEditingMgt(mgt.id)}
+                      >
                         <Pencil className="size-3" />
                       </Button>
                     </div>

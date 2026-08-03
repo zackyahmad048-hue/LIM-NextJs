@@ -14,12 +14,12 @@
 
 Business Rules pada LIM Digital Platform tidak boleh bergantung langsung pada teknologi penyimpanan data seperti:
 
-* PostgreSQL
-* MySQL
-* MongoDB
-* Prisma
-* TypeORM
-* Raw SQL
+- PostgreSQL
+- MySQL
+- MongoDB
+- Prisma
+- TypeORM
+- Raw SQL
 
 Apabila Domain mengakses database secara langsung, maka perubahan teknologi penyimpanan akan memengaruhi Business Rules dan menyulitkan proses pengujian.
 
@@ -33,8 +33,8 @@ LIM Digital Platform menggunakan **Repository Pattern** sebagai abstraksi akses 
 
 Repository dibagi menjadi dua bagian:
 
-* Repository Interface
-* Repository Implementation
+- Repository Interface
+- Repository Implementation
 
 Struktur:
 
@@ -62,11 +62,11 @@ Repository Interface ditempatkan pada **Domain Layer**, sedangkan implementasiny
 
 Repository Pattern dipilih karena:
 
-* Memisahkan Business Logic dari Database.
-* Mendukung Dependency Inversion Principle.
-* Mempermudah Unit Testing menggunakan Mock Repository.
-* Memungkinkan pergantian ORM atau Database tanpa mengubah Domain.
-* Selaras dengan Clean Architecture dan DDD.
+- Memisahkan Business Logic dari Database.
+- Mendukung Dependency Inversion Principle.
+- Mempermudah Unit Testing menggunakan Mock Repository.
+- Memungkinkan pergantian ORM atau Database tanpa mengubah Domain.
+- Selaras dengan Clean Architecture dan DDD.
 
 ---
 
@@ -90,14 +90,14 @@ Database
 
 Kelebihan:
 
-* Implementasi cepat.
-* Kode lebih sedikit.
+- Implementasi cepat.
+- Kode lebih sedikit.
 
 Kekurangan:
 
-* Business Logic bergantung pada ORM.
-* Sulit diuji tanpa database.
-* Tight Coupling.
+- Business Logic bergantung pada ORM.
+- Sulit diuji tanpa database.
+- Tight Coupling.
 
 ---
 
@@ -105,14 +105,14 @@ Kekurangan:
 
 Kelebihan:
 
-* Mudah dipahami.
-* Cocok untuk aplikasi sederhana.
+- Mudah dipahami.
+- Cocok untuk aplikasi sederhana.
 
 Kekurangan:
 
-* Entity mengetahui Database.
-* Tidak sesuai dengan Clean Architecture.
-* Sulit berkembang pada sistem berskala besar.
+- Entity mengetahui Database.
+- Tidak sesuai dengan Clean Architecture.
+- Sulit berkembang pada sistem berskala besar.
 
 ---
 
@@ -120,12 +120,12 @@ Kekurangan:
 
 Kelebihan:
 
-* Memisahkan query dari Business Logic.
+- Memisahkan query dari Business Logic.
 
 Kekurangan:
 
-* Tidak terintegrasi dengan konsep Aggregate dan Domain pada DDD.
-* Kurang merepresentasikan model bisnis.
+- Tidak terintegrasi dengan konsep Aggregate dan Domain pada DDD.
+- Kurang merepresentasikan model bisnis.
 
 ---
 
@@ -133,16 +133,16 @@ Kekurangan:
 
 Keuntungan:
 
-* Domain tetap independen.
-* Repository mudah di-mock untuk Unit Test.
-* Pergantian ORM lebih mudah.
-* Query kompleks dapat diisolasi pada Infrastructure.
+- Domain tetap independen.
+- Repository mudah di-mock untuk Unit Test.
+- Pergantian ORM lebih mudah.
+- Query kompleks dapat diisolasi pada Infrastructure.
 
 Konsekuensi:
 
-* Menambah jumlah Interface dan Class.
-* Membutuhkan Dependency Injection.
-* Membutuhkan implementasi Repository untuk setiap Domain.
+- Menambah jumlah Interface dan Class.
+- Membutuhkan Dependency Injection.
+- Membutuhkan implementasi Repository untuk setiap Domain.
 
 ---
 
@@ -174,25 +174,25 @@ PostgresKnowledgeRepository
 
 Repository tidak boleh:
 
-* Berisi Business Rules.
-* Memanggil HTTP API.
-* Mengakses Repository Domain lain.
+- Berisi Business Rules.
+- Memanggil HTTP API.
+- Mengakses Repository Domain lain.
 
 ---
 
 # Related Decisions
 
-* ADR-001 Domain Driven Design
-* ADR-002 Clean Architecture
-* ADR-005 Event Driven Architecture
+- ADR-001 Domain Driven Design
+- ADR-002 Clean Architecture
+- ADR-005 Event Driven Architecture
 
 ---
 
 # References
 
-* Patterns of Enterprise Application Architecture — Martin Fowler
-* Clean Architecture — Robert C. Martin
-* Architecture Documentation (`02-architecture/repository-pattern.md`)
+- Patterns of Enterprise Application Architecture — Martin Fowler
+- Clean Architecture — Robert C. Martin
+- Architecture Documentation (`02-architecture/repository-pattern.md`)
 
 ---
 
@@ -204,8 +204,8 @@ Repository tidak boleh:
 
 # Acceptance Criteria
 
-* Seluruh akses database melalui Repository.
-* Repository Interface berada pada Domain Layer.
-* Repository Implementation berada pada Infrastructure Layer.
-* Business Rules tidak bergantung pada ORM atau Database.
-* Repository Pattern menjadi standar akses data LIM Digital Platform.
+- Seluruh akses database melalui Repository.
+- Repository Interface berada pada Domain Layer.
+- Repository Implementation berada pada Infrastructure Layer.
+- Business Rules tidak bergantung pada ORM atau Database.
+- Repository Pattern menjadi standar akses data LIM Digital Platform.

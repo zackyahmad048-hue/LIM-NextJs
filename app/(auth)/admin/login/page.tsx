@@ -3,19 +3,11 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShaderBackground } from "@/components/motion/shader-background";
 import LoginForm from "@/modules/authentication/presentation/login-form";
 
 export default function LoginPage() {
   return (
-    <main className="relative flex min-h-screen min-w-full flex-col items-center justify-center px-4 py-10">
-      <div className="absolute inset-0">
-        <ShaderBackground
-          variant="mesh-gradient"
-          colors={["#0c0a09", "#1c1917", "#f97316", "#0c0a09"]}
-          speed={0.1}
-        />
-      </div>
+    <main className="login-aurora relative flex min-h-screen min-w-full flex-col items-center justify-center px-4 py-10">
 
       <div className="relative z-10 w-full max-w-sm">
         <motion.div
@@ -28,7 +20,7 @@ export default function LoginPage() {
             damping: 20,
           }}
         >
-          <Card className="border-border bg-card/70 shadow-xl backdrop-blur-xl">
+          <Card className="border-border/10 bg-card shadow-[0_24px_60px_-24px] shadow-black/20">
             <CardContent className="p-6">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

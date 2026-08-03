@@ -330,10 +330,10 @@ Return Result
 
 Workflow ini digunakan oleh:
 
-* Program
-* Secretariat
-* Letter
-* Certificate
+- Program
+- Secretariat
+- Letter
+- Certificate
 
 ---
 
@@ -383,24 +383,24 @@ Execute Action
 
 # Workflow Rules
 
-* Seluruh perubahan melalui proses validasi.
-* Seluruh perubahan memerlukan Permission.
-* Seluruh perubahan dicatat pada Audit Log.
-* Data organisasi menjadi referensi resmi domain lain.
-* Tidak diperbolehkan menghapus data yang masih digunakan.
+- Seluruh perubahan melalui proses validasi.
+- Seluruh perubahan memerlukan Permission.
+- Seluruh perubahan dicatat pada Audit Log.
+- Data organisasi menjadi referensi resmi domain lain.
+- Tidak diperbolehkan menghapus data yang masih digunakan.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -408,8 +408,8 @@ Execute Action
 
 Workflow Organization dianggap selesai apabila:
 
-* Organisasi dapat dibuat dan diperbarui.
-* Cabang, Bidang, dan Jabatan mengikuti alur yang ditentukan.
-* Pengurus dapat ditetapkan pada periode aktif.
-* Seluruh perubahan melalui validasi, permission, dan audit.
-* Data dapat digunakan oleh domain lain sebagai referensi resmi.
+- Organisasi dapat dibuat dan diperbarui.
+- Cabang, Bidang, dan Jabatan mengikuti alur yang ditentukan.
+- Pengurus dapat ditetapkan pada periode aktif.
+- Seluruh perubahan melalui validasi, permission, dan audit.
+- Data dapat digunakan oleh domain lain sebagai referensi resmi.

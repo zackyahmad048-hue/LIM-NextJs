@@ -22,11 +22,11 @@ UI Program digunakan untuk mengelola seluruh siklus kegiatan organisasi mulai da
 
 UI mengikuti prinsip:
 
-* Simple
-* Consistent
-* Responsive
-* Efficient
-* User Friendly
+- Simple
+- Consistent
+- Responsive
+- Efficient
+- User Friendly
 
 Seluruh halaman mengikuti Design System LIM Digital Platform.
 
@@ -51,14 +51,14 @@ Program
 
 Dashboard menampilkan ringkasan:
 
-* Total Program
-* Draft
-* Published
-* Registration Open
-* On Going
-* Completed
-* Upcoming Programs
-* Recent Activities
+- Total Program
+- Draft
+- Published
+- Registration Open
+- On Going
+- Completed
+- Upcoming Programs
+- Recent Activities
 
 ---
 
@@ -68,22 +68,22 @@ Dashboard menampilkan ringkasan:
 
 Kolom:
 
-* Code
-* Program Name
-* Type
-* PIC
-* Start Date
-* End Date
-* Status
-* Action
+- Code
+- Program Name
+- Type
+- PIC
+- Start Date
+- End Date
+- Status
+- Action
 
 Fitur:
 
-* Search
-* Filter
-* Sorting
-* Pagination
-* Bulk Action
+- Search
+- Filter
+- Sorting
+- Pagination
+- Bulk Action
 
 ---
 
@@ -115,9 +115,9 @@ Status
 
 Action:
 
-* Save Draft
-* Publish
-* Cancel
+- Save Draft
+- Publish
+- Cancel
 
 ---
 
@@ -127,9 +127,9 @@ Field sama dengan Create Program.
 
 Tambahan:
 
-* Last Updated
-* Audit Information
-* Preview
+- Last Updated
+- Audit Information
+- Preview
 
 ---
 
@@ -139,11 +139,11 @@ Tambahan:
 
 Kolom:
 
-* Title
-* Venue
-* Start Time
-* End Time
-* Action
+- Title
+- Venue
+- Start Time
+- End Time
+- Action
 
 Form:
 
@@ -167,18 +167,18 @@ Description
 
 Kolom:
 
-* Name
-* Registration Date
-* Registration Status
-* Attendance Status
-* Action
+- Name
+- Registration Date
+- Registration Status
+- Attendance Status
+- Action
 
 Fitur:
 
-* Search
-* Filter
-* Import
-* Export
+- Search
+- Filter
+- Import
+- Export
 
 ---
 
@@ -188,10 +188,10 @@ Fitur:
 
 Kolom:
 
-* Name
-* Role
-* Status
-* Action
+- Name
+- Role
+- Status
+- Action
 
 Form:
 
@@ -211,15 +211,15 @@ Status
 
 Kolom:
 
-* Participant
-* Check In
-* Check Out
-* Attendance Status
+- Participant
+- Check In
+- Check Out
+- Attendance Status
 
 Action:
 
-* Check In
-* Check Out
+- Check In
+- Check Out
 
 ---
 
@@ -229,16 +229,16 @@ Action:
 
 Menampilkan:
 
-* Thumbnail
-* Title
-* Upload Date
-* Uploaded By
+- Thumbnail
+- Title
+- Upload Date
+- Uploaded By
 
 Action:
 
-* Upload
-* Preview
-* Delete
+- Upload
+- Preview
+- Delete
 
 ---
 
@@ -246,18 +246,18 @@ Action:
 
 Tersedia pada:
 
-* Program
-* Schedule
-* Participant
-* Committee
-* Documentation
+- Program
+- Schedule
+- Participant
+- Committee
+- Documentation
 
 Filter berdasarkan:
 
-* Status
-* Program Type
-* Date
-* PIC
+- Status
+- Program Type
+- Date
+- PIC
 
 ---
 
@@ -265,9 +265,9 @@ Filter berdasarkan:
 
 Jika data belum tersedia:
 
-* Tampilkan ilustrasi.
-* Tampilkan pesan.
-* Tampilkan tombol **Buat Program** apabila pengguna memiliki permission.
+- Tampilkan ilustrasi.
+- Tampilkan pesan.
+- Tampilkan tombol **Buat Program** apabila pengguna memiliki permission.
 
 ---
 
@@ -275,8 +275,8 @@ Jika data belum tersedia:
 
 Menggunakan:
 
-* Skeleton Loading
-* Spinner
+- Skeleton Loading
+- Spinner
 
 ---
 
@@ -312,15 +312,15 @@ Program yang telah memiliki peserta tidak dapat dihapus.
 
 Mendukung:
 
-* Desktop
-* Tablet
+- Desktop
+- Tablet
 
 Mobile mendukung:
 
-* Melihat Program
-* Registrasi
-* Absensi
-* Dokumentasi sederhana
+- Melihat Program
+- Registrasi
+- Absensi
+- Dokumentasi sederhana
 
 ---
 
@@ -328,18 +328,18 @@ Mobile mendukung:
 
 Komponen standar:
 
-* Data Table
-* Search Box
-* Filter Panel
-* Date Picker
-* Select
-* Badge
-* Card
-* Modal
-* Dialog
-* Toast
-* Pagination
-* Calendar
+- Data Table
+- Search Box
+- Filter Panel
+- Date Picker
+- Select
+- Badge
+- Card
+- Modal
+- Dialog
+- Toast
+- Pagination
+- Calendar
 
 ---
 
@@ -347,23 +347,23 @@ Komponen standar:
 
 Seluruh komponen wajib:
 
-* Mendukung Keyboard Navigation.
-* Memiliki Focus State.
-* Menggunakan Label yang jelas.
-* Mengikuti standar kontras warna.
+- Mendukung Keyboard Navigation.
+- Memiliki Focus State.
+- Menggunakan Label yang jelas.
+- Mengikuti standar kontras warna.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- roadmap.md
 
 ---
 
@@ -371,8 +371,8 @@ Seluruh komponen wajib:
 
 UI Program dianggap selesai apabila:
 
-* Seluruh modul memiliki halaman List dan Form.
-* Dashboard menampilkan ringkasan Program.
-* Layout konsisten.
-* Mendukung Responsive Layout.
-* Seluruh aksi mengikuti Permission pengguna.
+- Seluruh modul memiliki halaman List dan Form.
+- Dashboard menampilkan ringkasan Program.
+- Layout konsisten.
+- Mendukung Responsive Layout.
+- Seluruh aksi mengikuti Permission pengguna.

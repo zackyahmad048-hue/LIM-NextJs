@@ -14,20 +14,20 @@
 
 LIM Digital Platform memiliki banyak domain yang saling berinteraksi, seperti:
 
-* Program
-* Letter
-* Certificate
-* Notification
-* Dashboard
-* Knowledge
-* Falak
+- Program
+- Letter
+- Certificate
+- Notification
+- Dashboard
+- Knowledge
+- Falak
 
 Apabila seluruh domain saling memanggil secara langsung (synchronous), maka akan terjadi:
 
-* Tight Coupling.
-* Sulit melakukan scaling.
-* Sulit menambahkan fitur baru.
-* Risiko kegagalan berantai (Cascade Failure).
+- Tight Coupling.
+- Sulit melakukan scaling.
+- Sulit menambahkan fitur baru.
+- Risiko kegagalan berantai (Cascade Failure).
 
 Diperlukan mekanisme komunikasi asynchronous untuk proses yang tidak membutuhkan respons langsung.
 
@@ -41,14 +41,14 @@ EDA digunakan hanya pada proses asynchronous.
 
 Komunikasi synchronous tetap menggunakan:
 
-* Application Service
-* REST API
+- Application Service
+- REST API
 
 Komunikasi asynchronous menggunakan:
 
-* Domain Event
-* Event Bus
-* Event Handler
+- Domain Event
+- Event Bus
+- Event Handler
 
 ---
 
@@ -56,11 +56,11 @@ Komunikasi asynchronous menggunakan:
 
 EDA dipilih karena:
 
-* Mengurangi coupling antar domain.
-* Mendukung skalabilitas.
-* Mempermudah penambahan fitur baru.
-* Mendukung proses asynchronous.
-* Selaras dengan CQRS dan Clean Architecture.
+- Mengurangi coupling antar domain.
+- Mendukung skalabilitas.
+- Mempermudah penambahan fitur baru.
+- Mendukung proses asynchronous.
+- Selaras dengan CQRS dan Clean Architecture.
 
 ---
 
@@ -78,14 +78,14 @@ Domain B
 
 Kelebihan:
 
-* Mudah diimplementasikan.
-* Respons langsung.
+- Mudah diimplementasikan.
+- Respons langsung.
 
 Kekurangan:
 
-* Tight Coupling.
-* Sulit berkembang.
-* Sulit melakukan retry.
+- Tight Coupling.
+- Sulit berkembang.
+- Sulit melakukan retry.
 
 ---
 
@@ -93,13 +93,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Sangat scalable.
+- Sangat scalable.
 
 Kekurangan:
 
-* Kompleks.
-* Menambah latency.
-* Tidak diperlukan untuk seluruh proses.
+- Kompleks.
+- Menambah latency.
+- Tidak diperlukan untuk seluruh proses.
 
 ---
 
@@ -107,13 +107,13 @@ Kekurangan:
 
 Kelebihan:
 
-* Fleksibel.
-* Sederhana.
-* Efisien.
+- Fleksibel.
+- Sederhana.
+- Efisien.
 
 Kekurangan:
 
-* Memerlukan pengelolaan Event yang baik.
+- Memerlukan pengelolaan Event yang baik.
 
 ---
 
@@ -121,16 +121,16 @@ Kekurangan:
 
 Keuntungan:
 
-* Loose Coupling.
-* Mudah menambah Subscriber baru.
-* Mendukung Background Processing.
-* Mempermudah migrasi ke Microservices.
+- Loose Coupling.
+- Mudah menambah Subscriber baru.
+- Mendukung Background Processing.
+- Mempermudah migrasi ke Microservices.
 
 Konsekuensi:
 
-* Debugging lebih kompleks.
-* Membutuhkan Idempotent Handler.
-* Monitoring Event menjadi penting.
+- Debugging lebih kompleks.
+- Membutuhkan Idempotent Handler.
+- Monitoring Event menjadi penting.
 
 ---
 
@@ -162,10 +162,10 @@ ObservationConfirmed
 
 Event harus:
 
-* Immutable.
-* Memiliki Timestamp.
-* Memiliki Aggregate ID.
-* Memiliki Payload.
+- Immutable.
+- Memiliki Timestamp.
+- Memiliki Aggregate ID.
+- Memiliki Payload.
 
 ---
 
@@ -197,13 +197,13 @@ Pemilihan bergantung pada kebutuhan skala sistem.
 
 EDA diterapkan pada:
 
-* Notification
-* Dashboard Update
-* Search Index
-* Audit Log
-* Media Processing
-* Analytics
-* Background Job
+- Notification
+- Dashboard Update
+- Search Index
+- Audit Log
+- Media Processing
+- Analytics
+- Background Job
 
 Tidak digunakan untuk transaksi yang memerlukan respons sinkron secara langsung.
 
@@ -231,18 +231,18 @@ Event Handler wajib bersifat **Idempotent**.
 
 # Related Decisions
 
-* ADR-001 Domain Driven Design
-* ADR-002 Clean Architecture
-* ADR-003 Repository Pattern
-* ADR-010 Audit Log
+- ADR-001 Domain Driven Design
+- ADR-002 Clean Architecture
+- ADR-003 Repository Pattern
+- ADR-010 Audit Log
 
 ---
 
 # References
 
-* Enterprise Integration Patterns
-* Designing Event-Driven Systems (Ben Stopford)
-* Architecture Documentation (`02-architecture/event-driven.md`)
+- Enterprise Integration Patterns
+- Designing Event-Driven Systems (Ben Stopford)
+- Architecture Documentation (`02-architecture/event-driven.md`)
 
 ---
 
@@ -254,8 +254,8 @@ Event Handler wajib bersifat **Idempotent**.
 
 # Acceptance Criteria
 
-* Domain Event digunakan untuk proses asynchronous.
-* Publisher tidak bergantung pada Subscriber.
-* Event bersifat immutable.
-* Handler bersifat idempotent.
-* Event Driven Architecture menjadi standar komunikasi asynchronous pada LIM Digital Platform.
+- Domain Event digunakan untuk proses asynchronous.
+- Publisher tidak bergantung pada Subscriber.
+- Event bersifat immutable.
+- Handler bersifat idempotent.
+- Event Driven Architecture menjadi standar komunikasi asynchronous pada LIM Digital Platform.

@@ -16,7 +16,7 @@ Folder **Technical Specifications** mendefinisikan spesifikasi implementasi tekn
 
 Dokumen ini menjembatani Architecture dengan Implementasi sehingga Developer memiliki acuan rinci sebelum menulis kode.
 
-Dokumen Specification bukan menjelaskan *apa* sistem, tetapi menjelaskan *bagaimana fitur diimplementasikan*.
+Dokumen Specification bukan menjelaskan _apa_ sistem, tetapi menjelaskan _bagaimana fitur diimplementasikan_.
 
 ---
 
@@ -24,11 +24,11 @@ Dokumen Specification bukan menjelaskan *apa* sistem, tetapi menjelaskan *bagaim
 
 Folder ini bertujuan untuk:
 
-* Menjadi blueprint implementasi.
-* Mengurangi ambiguitas saat development.
-* Menjadi acuan Backend, Frontend, QA, dan DevOps.
-* Memastikan implementasi sesuai Architecture.
-* Menjadi dasar Test Case dan UAT.
+- Menjadi blueprint implementasi.
+- Mengurangi ambiguitas saat development.
+- Menjadi acuan Backend, Frontend, QA, dan DevOps.
+- Memastikan implementasi sesuai Architecture.
+- Menjadi dasar Test Case dan UAT.
 
 ---
 
@@ -114,21 +114,21 @@ Setiap Specification wajib memiliki bagian berikut:
 
 Seluruh Specification harus:
 
-* Konsisten dengan DDD.
-* Konsisten dengan Clean Architecture.
-* Konsisten dengan API Standard.
-* Konsisten dengan ADR.
-* Mudah diterjemahkan menjadi kode.
+- Konsisten dengan DDD.
+- Konsisten dengan Clean Architecture.
+- Konsisten dengan API Standard.
+- Konsisten dengan ADR.
+- Mudah diterjemahkan menjadi kode.
 
 ---
 
 # Related Documents
 
-* 01-domains/
-* 02-architecture/
-* 03-development/
-* 05-decisions/
-* 06-references/
+- 01-domains/
+- 02-architecture/
+- 03-development/
+- 05-decisions/
+- 06-references/
 
 ---
 
@@ -140,7 +140,7 @@ Seluruh Specification harus:
 
 # Acceptance Criteria
 
-* Seluruh Domain memiliki Technical Specification.
-* Seluruh Use Case terdokumentasi.
-* API, Validation, Permission, dan Error terdokumentasi.
-* Dokumen siap digunakan sebagai dasar implementasi.
+- Seluruh Domain memiliki Technical Specification.
+- Seluruh Use Case terdokumentasi.
+- API, Validation, Permission, dan Error terdokumentasi.
+- Dokumen siap digunakan sebagai dasar implementasi.

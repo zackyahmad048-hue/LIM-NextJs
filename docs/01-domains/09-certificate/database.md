@@ -177,28 +177,28 @@ certificate.issueDate
 
 ## Certificate
 
-* Nomor sertifikat wajib unik.
-* Program wajib ada.
-* User wajib ada.
-* Template wajib dipilih.
+- Nomor sertifikat wajib unik.
+- Program wajib ada.
+- User wajib ada.
+- Template wajib dipilih.
 
 ---
 
 ## Verification
 
-* Verification Code wajib unik.
+- Verification Code wajib unik.
 
 ---
 
 ## Signature
 
-* Hanya dapat dibuat apabila status = Generated.
+- Hanya dapat dibuat apabila status = Generated.
 
 ---
 
 ## Distribution
 
-* Hanya dapat dilakukan apabila status = Published.
+- Hanya dapat dilakukan apabila status = Published.
 
 ---
 
@@ -206,8 +206,8 @@ certificate.issueDate
 
 Menggunakan Soft Delete:
 
-* certificate
-* certificate_template
+- certificate
+- certificate_template
 
 Signature, Distribution, Verification, dan Archive bersifat permanen.
 
@@ -259,12 +259,12 @@ WhatsApp
 
 # Database Rules
 
-* Nomor sertifikat selalu unik.
-* Verification Code selalu unik.
-* QR Code dibuat otomatis.
-* Template menjadi referensi sertifikat.
-* Arsip bersifat Read Only.
-* Seluruh akses database menggunakan Repository Pattern.
+- Nomor sertifikat selalu unik.
+- Verification Code selalu unik.
+- QR Code dibuat otomatis.
+- Template menjadi referensi sertifikat.
+- Arsip bersifat Read Only.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -288,14 +288,14 @@ certificate_print_log
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -303,8 +303,8 @@ certificate_print_log
 
 Database Certificate dianggap selesai apabila:
 
-* Struktur database mendukung seluruh lifecycle sertifikat.
-* Nomor sertifikat dan Verification Code selalu unik.
-* Relasi antar tabel konsisten.
-* Arsip bersifat permanen (Read Only).
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh lifecycle sertifikat.
+- Nomor sertifikat dan Verification Code selalu unik.
+- Relasi antar tabel konsisten.
+- Arsip bersifat permanen (Read Only).
+- Seluruh akses database menggunakan Repository Pattern.

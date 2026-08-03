@@ -147,25 +147,25 @@ Tujuannya adalah memastikan seluruh anggota tim menggunakan **Ubiquitous Languag
 
 # Glossary Rules
 
-* Seluruh istilah bisnis harus menggunakan Ubiquitous Language.
-* Definisi harus konsisten di seluruh dokumentasi.
-* Istilah baru harus ditambahkan ke Glossary sebelum digunakan secara luas.
-* Hindari penggunaan sinonim untuk istilah inti yang sama.
+- Seluruh istilah bisnis harus menggunakan Ubiquitous Language.
+- Definisi harus konsisten di seluruh dokumentasi.
+- Istilah baru harus ditambahkan ke Glossary sebelum digunakan secara luas.
+- Hindari penggunaan sinonim untuk istilah inti yang sama.
 
 ---
 
 # Related Documents
 
-* README.md
-* coding-reference.md
-* api-reference.md
-* database-reference.md
-* external-references.md
+- README.md
+- coding-reference.md
+- api-reference.md
+- database-reference.md
+- external-references.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh istilah utama terdokumentasi.
-* Definisi konsisten di seluruh proyek.
-* Glossary menjadi referensi resmi bagi seluruh anggota tim.
+- Seluruh istilah utama terdokumentasi.
+- Definisi konsisten di seluruh proyek.
+- Glossary menjadi referensi resmi bagi seluruh anggota tim.

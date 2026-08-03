@@ -22,12 +22,12 @@ Tujuannya adalah memastikan seluruh komponen sistem dapat dipantau secara real-t
 
 Monitoring bertujuan untuk:
 
-* Menjaga Availability.
-* Mengukur Performance.
-* Mendeteksi Error.
-* Mempercepat Incident Response.
-* Mendukung Capacity Planning.
-* Menyediakan Audit dan Operational Insight.
+- Menjaga Availability.
+- Mengukur Performance.
+- Mendeteksi Error.
+- Mempercepat Incident Response.
+- Mendukung Capacity Planning.
+- Menyediakan Audit dan Operational Insight.
 
 ---
 
@@ -79,40 +79,40 @@ Metric yang dipantau:
 
 ## Application
 
-* Request Count
-* Response Time
-* Error Rate
-* Active User
-* Queue Length
+- Request Count
+- Response Time
+- Error Rate
+- Active User
+- Queue Length
 
 ---
 
 ## Server
 
-* CPU Usage
-* Memory Usage
-* Disk Usage
-* Network Usage
-* Load Average
+- CPU Usage
+- Memory Usage
+- Disk Usage
+- Network Usage
+- Load Average
 
 ---
 
 ## Database
 
-* Active Connection
-* Slow Query
-* Query Duration
-* Database Size
-* Replication Status (Future)
+- Active Connection
+- Slow Query
+- Query Duration
+- Database Size
+- Replication Status (Future)
 
 ---
 
 ## Cache
 
-* Cache Hit Ratio
-* Cache Miss
-* Memory Usage
-* Connected Client
+- Cache Hit Ratio
+- Cache Miss
+- Memory Usage
+- Connected Client
 
 ---
 
@@ -138,13 +138,13 @@ AUDIT
 
 Setiap log minimal berisi:
 
-* Timestamp
-* Request ID
-* User ID (jika tersedia)
-* Module
-* Log Level
-* Message
-* Stack Trace (untuk Error)
+- Timestamp
+- Request ID
+- User ID (jika tersedia)
+- Module
+- Log Level
+- Message
+- Stack Trace (untuk Error)
 
 ---
 
@@ -190,9 +190,9 @@ Setiap service wajib menyediakan endpoint:
 
 Health Check digunakan oleh:
 
-* Load Balancer
-* Docker
-* Monitoring System
+- Load Balancer
+- Docker
+- Monitoring System
 
 ---
 
@@ -200,14 +200,14 @@ Health Check digunakan oleh:
 
 Alert dikirim apabila terjadi:
 
-* Service Down
-* CPU > 80%
-* Memory > 85%
-* Disk > 90%
-* Database Error
-* Backup Failure
-* CI/CD Failure
-* SSL Certificate Expiring
+- Service Down
+- CPU > 80%
+- Memory > 85%
+- Disk > 90%
+- Database Error
+- Backup Failure
+- CI/CD Failure
+- SSL Certificate Expiring
 
 ---
 
@@ -215,13 +215,13 @@ Alert dikirim apabila terjadi:
 
 Dashboard Monitoring menampilkan:
 
-* System Status
-* API Response Time
-* Error Rate
-* Active Users
-* Queue Status
-* Database Performance
-* Server Resources
+- System Status
+- API Response Time
+- Error Rate
+- Active Users
+- Queue Status
+- Database Performance
+- Server Resources
 
 ---
 
@@ -238,40 +238,40 @@ Dashboard Monitoring menampilkan:
 
 # Monitoring Rules
 
-* Monitoring aktif 24/7.
-* Alert harus dikirim secara otomatis.
-* Error Critical wajib dicatat pada Audit Log.
-* Metric disimpan sesuai kebijakan retensi.
-* Health Check diperiksa secara berkala.
+- Monitoring aktif 24/7.
+- Alert harus dikirim secara otomatis.
+- Error Critical wajib dicatat pada Audit Log.
+- Metric disimpan sesuai kebijakan retensi.
+- Health Check diperiksa secara berkala.
 
 ---
 
 # Best Practices
 
-* Gunakan Dashboard real-time.
-* Hindari logging data sensitif.
-* Tetapkan threshold yang realistis.
-* Lakukan review metric secara berkala.
-* Dokumentasikan seluruh incident penting.
+- Gunakan Dashboard real-time.
+- Hindari logging data sensitif.
+- Tetapkan threshold yang realistis.
+- Lakukan review metric secara berkala.
+- Dokumentasikan seluruh incident penting.
 
 ---
 
 # Related Documents
 
-* README.md
-* environment.md
-* docker.md
-* ci-cd.md
-* server.md
-* backup.md
-* security.md
+- README.md
+- environment.md
+- docker.md
+- ci-cd.md
+- server.md
+- backup.md
+- security.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh service dapat dimonitor.
-* Health Check tersedia.
-* Alert berjalan otomatis.
-* Dashboard menyediakan informasi operasional utama.
-* Monitoring & Observability menjadi standar operasional LIM Digital Platform.
+- Seluruh service dapat dimonitor.
+- Health Check tersedia.
+- Alert berjalan otomatis.
+- Dashboard menyediakan informasi operasional utama.
+- Monitoring & Observability menjadi standar operasional LIM Digital Platform.

@@ -24,12 +24,12 @@ Media tidak menyimpan data bisnis, tetapi menjadi penyedia layanan penyimpanan f
 
 Domain Media bertujuan untuk:
 
-* Mengelola penyimpanan file.
-* Mengelola upload dan download file.
-* Mengelola metadata file.
-* Mengelola folder dan kategori file.
-* Menyediakan layanan file bagi seluruh domain.
-* Mengoptimalkan keamanan dan performa penyimpanan.
+- Mengelola penyimpanan file.
+- Mengelola upload dan download file.
+- Mengelola metadata file.
+- Mengelola folder dan kategori file.
+- Menyediakan layanan file bagi seluruh domain.
+- Mengoptimalkan keamanan dan performa penyimpanan.
 
 ---
 
@@ -37,14 +37,14 @@ Domain Media bertujuan untuk:
 
 Domain Media mencakup:
 
-* File Upload
-* File Download
-* File Preview
-* File Storage
-* Folder Management
-* Media Metadata
-* Image Processing
-* File Archive
+- File Upload
+- File Download
+- File Preview
+- File Storage
+- Folder Management
+- Media Metadata
+- Image Processing
+- File Archive
 
 ---
 
@@ -52,9 +52,9 @@ Domain Media mencakup:
 
 Domain Media digunakan oleh:
 
-* Super Administrator
-* Administrator
-* Seluruh Domain Internal
+- Super Administrator
+- Administrator
+- Seluruh Domain Internal
 
 Pengguna tidak berinteraksi langsung dengan Domain Media, tetapi melalui domain lain yang menggunakan layanan Media.
 
@@ -64,12 +64,12 @@ Pengguna tidak berinteraksi langsung dengan Domain Media, tetapi melalui domain 
 
 Domain Media bertanggung jawab untuk:
 
-* Menyimpan file.
-* Mengelola metadata file.
-* Menghasilkan URL file.
-* Mengelola thumbnail.
-* Mengelola penghapusan file.
-* Menyediakan layanan akses file.
+- Menyimpan file.
+- Mengelola metadata file.
+- Menghasilkan URL file.
+- Mengelola thumbnail.
+- Mengelola penghapusan file.
+- Menyediakan layanan akses file.
 
 ---
 
@@ -77,46 +77,46 @@ Domain Media bertanggung jawab untuk:
 
 Menggunakan data dari:
 
-* Authentication
-* Authorization
+- Authentication
+- Authorization
 
 Digunakan oleh:
 
-* CMS
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Notification
-* Knowledge
-* Settings
+- CMS
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Notification
+- Knowledge
+- Settings
 
 ---
 
 # Features
 
-* File Upload
-* File Download
-* File Preview
-* Image Resize
-* Thumbnail Generation
-* Folder Management
-* File Search
-* File Archive
+- File Upload
+- File Download
+- File Preview
+- Image Resize
+- Thumbnail Generation
+- Folder Management
+- File Search
+- File Archive
 
 ---
 
 # Related Documents
 
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 

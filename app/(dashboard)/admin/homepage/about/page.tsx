@@ -124,7 +124,7 @@ export default async function AboutSettingsPage() {
             ))}
           </div>
           <p className="mt-3 text-[11px] text-muted-foreground">
-            Fitur saat ini bersifat read-only. Edit langsung di{' '}
+            Fitur saat ini bersifat read-only. Edit langsung di{" "}
             <code className="rounded bg-muted px-1 py-0.5">data/about.ts</code>.
           </p>
         </SectionCard>

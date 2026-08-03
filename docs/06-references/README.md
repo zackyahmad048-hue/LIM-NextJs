@@ -18,13 +18,13 @@ Dokumen ini berisi referensi lengkap LIM Digital Platform, meliputi referensi AP
 
 # Document Structure
 
-| File | Keterangan |
-|------|------------|
-| `glossary.md` | Istilah-istilah yang digunakan dalam proyek |
-| `api-reference.md` | Referensi API endpoint dan response |
-| `database-reference.md` | Referensi database schema dan field |
-| `coding-reference.md` | Referensi coding patterns dan conventions |
-| `external-reference.md` | Referensi tools dan library eksternal |
+| File                    | Keterangan                                  |
+| ----------------------- | ------------------------------------------- |
+| `glossary.md`           | Istilah-istilah yang digunakan dalam proyek |
+| `api-reference.md`      | Referensi API endpoint dan response         |
+| `database-reference.md` | Referensi database schema dan field         |
+| `coding-reference.md`   | Referensi coding patterns dan conventions   |
+| `external-reference.md` | Referensi tools dan library eksternal       |
 
 ---
 

@@ -119,17 +119,17 @@ notification.template.create
 
 | Permission          | Super Admin | Admin | Operator | User |
 | ------------------- | :---------: | :---: | :------: | :--: |
-| View                |      ✅      |   ✅   |     ✅    |   ✅  |
-| Create              |      ✅      |   ✅   |     ✅    |   ❌  |
-| Update              |      ✅      |   ✅   |     ✅    |   ❌  |
-| Delete              |      ✅      |   ❌   |     ❌    |   ❌  |
-| Send                |      ✅      |   ✅   |     ✅    |   ❌  |
-| Retry               |      ✅      |   ✅   |     ✅    |   ❌  |
-| Read                |      ✅      |   ✅   |     ✅    |   ✅  |
-| Archive             |      ✅      |   ✅   |     ❌    |   ❌  |
-| Restore             |      ✅      |   ✅   |     ❌    |   ❌  |
-| Template Management |      ✅      |   ✅   |     ✅    |   ❌  |
-| Queue Management    |      ✅      |   ✅   |     ✅    |   ❌  |
+| View                |     ✅      |  ✅   |    ✅    |  ✅  |
+| Create              |     ✅      |  ✅   |    ✅    |  ❌  |
+| Update              |     ✅      |  ✅   |    ✅    |  ❌  |
+| Delete              |     ✅      |  ❌   |    ❌    |  ❌  |
+| Send                |     ✅      |  ✅   |    ✅    |  ❌  |
+| Retry               |     ✅      |  ✅   |    ✅    |  ❌  |
+| Read                |     ✅      |  ✅   |    ✅    |  ✅  |
+| Archive             |     ✅      |  ✅   |    ❌    |  ❌  |
+| Restore             |     ✅      |  ✅   |    ❌    |  ❌  |
+| Template Management |     ✅      |  ✅   |    ✅    |  ❌  |
+| Queue Management    |     ✅      |  ✅   |    ✅    |  ❌  |
 
 ---
 
@@ -161,20 +161,20 @@ notification.view
 
 # Business Rules
 
-* Authentication wajib dilakukan.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP 403 Forbidden.
-* Tombol aksi mengikuti permission pengguna.
-* Pengguna hanya dapat mengubah preferensi notifikasi miliknya sendiri.
+- Authentication wajib dilakukan.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP 403 Forbidden.
+- Tombol aksi mengikuti permission pengguna.
+- Pengguna hanya dapat mengubah preferensi notifikasi miliknya sendiri.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh aktivitas dicatat pada Audit Log.
-* Hak akses mengikuti prinsip Least Privilege.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh aktivitas dicatat pada Audit Log.
+- Hak akses mengikuti prinsip Least Privilege.
 
 ---
 
@@ -196,21 +196,21 @@ notification.schedule
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

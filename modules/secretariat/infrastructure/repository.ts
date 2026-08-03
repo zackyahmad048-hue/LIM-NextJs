@@ -14,7 +14,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   // Incoming Mail
   async findManyIncomingMails({ search, status, page, limit }) {
     const where: Record<string, unknown> = { deletedAt: null };
-    if (search) where.OR = [{ subject: { contains: search } }, { registrationNumber: { contains: search } }, { sender: { contains: search } }];
+    if (search)
+      where.OR = [
+        { subject: { contains: search } },
+        { registrationNumber: { contains: search } },
+        { sender: { contains: search } },
+      ];
     if (status) where.status = status;
 
     const [items, total] = await Promise.all([
@@ -31,12 +36,16 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findIncomingMailById(id) {
-    const item = await prisma.incomingMail.findFirst({ where: { id, deletedAt: null } });
+    const item = await prisma.incomingMail.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as IncomingMailEntity | null;
   },
 
   async findIncomingMailByNumber(registrationNumber) {
-    const item = await prisma.incomingMail.findUnique({ where: { registrationNumber } });
+    const item = await prisma.incomingMail.findUnique({
+      where: { registrationNumber },
+    });
     return item as IncomingMailEntity | null;
   },
 
@@ -46,18 +55,29 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async updateIncomingMail(id, data) {
-    const item = await prisma.incomingMail.update({ where: { id }, data: data as any });
+    const item = await prisma.incomingMail.update({
+      where: { id },
+      data: data as any,
+    });
     return item as IncomingMailEntity;
   },
 
   async softDeleteIncomingMail(id) {
-    await prisma.incomingMail.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.incomingMail.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   // Outgoing Mail
   async findManyOutgoingMails({ search, status, page, limit }) {
     const where: Record<string, unknown> = { deletedAt: null };
-    if (search) where.OR = [{ subject: { contains: search } }, { registrationNumber: { contains: search } }, { recipient: { contains: search } }];
+    if (search)
+      where.OR = [
+        { subject: { contains: search } },
+        { registrationNumber: { contains: search } },
+        { recipient: { contains: search } },
+      ];
     if (status) where.status = status;
 
     const [items, total] = await Promise.all([
@@ -74,12 +94,16 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findOutgoingMailById(id) {
-    const item = await prisma.outgoingMail.findFirst({ where: { id, deletedAt: null } });
+    const item = await prisma.outgoingMail.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as OutgoingMailEntity | null;
   },
 
   async findOutgoingMailByNumber(registrationNumber) {
-    const item = await prisma.outgoingMail.findUnique({ where: { registrationNumber } });
+    const item = await prisma.outgoingMail.findUnique({
+      where: { registrationNumber },
+    });
     return item as OutgoingMailEntity | null;
   },
 
@@ -89,16 +113,28 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async updateOutgoingMail(id, data) {
-    const item = await prisma.outgoingMail.update({ where: { id }, data: data as any });
+    const item = await prisma.outgoingMail.update({
+      where: { id },
+      data: data as any,
+    });
     return item as OutgoingMailEntity;
   },
 
   async softDeleteOutgoingMail(id) {
-    await prisma.outgoingMail.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.outgoingMail.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   // Disposition
-  async findManyDispositions({ incomingMailId, assignedToId, status, page, limit }) {
+  async findManyDispositions({
+    incomingMailId,
+    assignedToId,
+    status,
+    page,
+    limit,
+  }) {
     const where: Record<string, unknown> = {};
     if (incomingMailId) where.incomingMailId = incomingMailId;
     if (assignedToId) where.assignedToId = assignedToId;
@@ -107,7 +143,9 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     const [items, total] = await Promise.all([
       prisma.disposition.findMany({
         where: where as any,
-        include: { incomingMail: { select: { registrationNumber: true, subject: true } } },
+        include: {
+          incomingMail: { select: { registrationNumber: true, subject: true } },
+        },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
@@ -129,7 +167,10 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async updateDisposition(id, data) {
-    const item = await prisma.disposition.update({ where: { id }, data: data as any });
+    const item = await prisma.disposition.update({
+      where: { id },
+      data: data as any,
+    });
     return item as DispositionEntity;
   },
 
@@ -138,9 +179,19 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   // Administrative Document
-  async findManyAdministrativeDocuments({ search, status, documentType, page, limit }) {
+  async findManyAdministrativeDocuments({
+    search,
+    status,
+    documentType,
+    page,
+    limit,
+  }) {
     const where: Record<string, unknown> = { deletedAt: null };
-    if (search) where.OR = [{ title: { contains: search } }, { documentNumber: { contains: search } }];
+    if (search)
+      where.OR = [
+        { title: { contains: search } },
+        { documentNumber: { contains: search } },
+      ];
     if (status) where.status = status;
     if (documentType) where.documentType = documentType;
 
@@ -158,33 +209,49 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findAdministrativeDocumentById(id) {
-    const item = await prisma.administrativeDocument.findFirst({ where: { id, deletedAt: null } });
+    const item = await prisma.administrativeDocument.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as AdministrativeDocumentEntity | null;
   },
 
   async findAdministrativeDocumentByNumber(documentNumber) {
-    const item = await prisma.administrativeDocument.findUnique({ where: { documentNumber } });
+    const item = await prisma.administrativeDocument.findUnique({
+      where: { documentNumber },
+    });
     return item as AdministrativeDocumentEntity | null;
   },
 
   async createAdministrativeDocument(data) {
-    const item = await prisma.administrativeDocument.create({ data: data as any });
+    const item = await prisma.administrativeDocument.create({
+      data: data as any,
+    });
     return item as AdministrativeDocumentEntity;
   },
 
   async updateAdministrativeDocument(id, data) {
-    const item = await prisma.administrativeDocument.update({ where: { id }, data: data as any });
+    const item = await prisma.administrativeDocument.update({
+      where: { id },
+      data: data as any,
+    });
     return item as AdministrativeDocumentEntity;
   },
 
   async softDeleteAdministrativeDocument(id) {
-    await prisma.administrativeDocument.update({ where: { id }, data: { deletedAt: new Date() } });
+    await prisma.administrativeDocument.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   // Agenda Book (read-only)
   async findManyAgendaBooks({ search, page, limit }) {
     const where: Record<string, unknown> = {};
-    if (search) where.OR = [{ title: { contains: search } }, { description: { contains: search } }];
+    if (search)
+      where.OR = [
+        { title: { contains: search } },
+        { description: { contains: search } },
+      ];
 
     const [items, total] = await Promise.all([
       prisma.agendaBook.findMany({
@@ -207,7 +274,11 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   // Document Archive (read-only)
   async findManyDocumentArchives({ search, documentType, page, limit }) {
     const where: Record<string, unknown> = {};
-    if (search) where.OR = [{ title: { contains: search } }, { archiveNumber: { contains: search } }];
+    if (search)
+      where.OR = [
+        { title: { contains: search } },
+        { archiveNumber: { contains: search } },
+      ];
     if (documentType) where.documentType = documentType;
 
     const [items, total] = await Promise.all([
@@ -230,22 +301,37 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   // Dashboard
   async getDashboardStats() {
-    const [totalIncomingMails, totalOutgoingMails, pendingDispositions, totalAdministrativeDocuments] =
-      await Promise.all([
-        prisma.incomingMail.count({ where: { deletedAt: null } }),
-        prisma.outgoingMail.count({ where: { deletedAt: null } }),
-        prisma.disposition.count({ where: { status: "PENDING" } }),
-        prisma.administrativeDocument.count({ where: { deletedAt: null } }),
-      ]);
+    const [
+      totalIncomingMails,
+      totalOutgoingMails,
+      pendingDispositions,
+      totalAdministrativeDocuments,
+    ] = await Promise.all([
+      prisma.incomingMail.count({ where: { deletedAt: null } }),
+      prisma.outgoingMail.count({ where: { deletedAt: null } }),
+      prisma.disposition.count({ where: { status: "PENDING" } }),
+      prisma.administrativeDocument.count({ where: { deletedAt: null } }),
+    ]);
 
-    return { totalIncomingMails, totalOutgoingMails, pendingDispositions, totalAdministrativeDocuments };
+    return {
+      totalIncomingMails,
+      totalOutgoingMails,
+      pendingDispositions,
+      totalAdministrativeDocuments,
+    };
   },
 
   async countIncomingMailsByStatus() {
     const [received, processed, archived] = await Promise.all([
-      prisma.incomingMail.count({ where: { status: "RECEIVED", deletedAt: null } }),
-      prisma.incomingMail.count({ where: { status: "PROCESSED", deletedAt: null } }),
-      prisma.incomingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
+      prisma.incomingMail.count({
+        where: { status: "RECEIVED", deletedAt: null },
+      }),
+      prisma.incomingMail.count({
+        where: { status: "PROCESSED", deletedAt: null },
+      }),
+      prisma.incomingMail.count({
+        where: { status: "ARCHIVED", deletedAt: null },
+      }),
     ]);
 
     return { received, processed, archived };
@@ -253,10 +339,16 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   async countOutgoingMailsByStatus() {
     const [draft, approved, sent, archived] = await Promise.all([
-      prisma.outgoingMail.count({ where: { status: "DRAFT", deletedAt: null } }),
-      prisma.outgoingMail.count({ where: { status: "APPROVED", deletedAt: null } }),
+      prisma.outgoingMail.count({
+        where: { status: "DRAFT", deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: { status: "APPROVED", deletedAt: null },
+      }),
       prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
-      prisma.outgoingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
+      prisma.outgoingMail.count({
+        where: { status: "ARCHIVED", deletedAt: null },
+      }),
     ]);
 
     return { draft, approved, sent, archived };

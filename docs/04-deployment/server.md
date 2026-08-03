@@ -22,11 +22,11 @@ Tujuannya adalah memastikan server Production, Staging, dan Development memiliki
 
 Konfigurasi server bertujuan untuk:
 
-* Menjamin stabilitas sistem.
-* Meningkatkan keamanan.
-* Mendukung performa tinggi.
-* Memudahkan proses deployment.
-* Mempermudah monitoring dan maintenance.
+- Menjamin stabilitas sistem.
+- Meningkatkan keamanan.
+- Mendukung performa tinggi.
+- Memudahkan proses deployment.
+- Mempermudah monitoring dan maintenance.
 
 ---
 
@@ -121,12 +121,12 @@ Nginx
 
 Tugas:
 
-* HTTPS Termination
-* Reverse Proxy
-* Compression
-* Static File
-* Rate Limiting
-* Security Header
+- HTTPS Termination
+- Reverse Proxy
+- Compression
+- Static File
+- Rate Limiting
+- Security Header
 
 ---
 
@@ -134,10 +134,10 @@ Tugas:
 
 Server wajib menggunakan:
 
-* HTTPS
-* TLS 1.2+
-* Sertifikat valid
-* Automatic Renewal (misalnya Let's Encrypt)
+- HTTPS
+- TLS 1.2+
+- Sertifikat valid
+- Automatic Renewal (misalnya Let's Encrypt)
 
 HTTP harus diarahkan ke HTTPS.
 
@@ -161,22 +161,22 @@ Port database tidak boleh diakses publik.
 
 ## Development
 
-* 2 CPU
-* 4 GB RAM
-* 40 GB Storage
+- 2 CPU
+- 4 GB RAM
+- 40 GB Storage
 
 ## Staging
 
-* 4 CPU
-* 8 GB RAM
-* 100 GB Storage
+- 4 CPU
+- 8 GB RAM
+- 100 GB Storage
 
 ## Production
 
-* 8+ CPU
-* 16+ GB RAM
-* SSD Storage
-* Backup Storage
+- 8+ CPU
+- 16+ GB RAM
+- SSD Storage
+- Backup Storage
 
 ---
 
@@ -184,9 +184,9 @@ Port database tidak boleh diakses publik.
 
 Gunakan:
 
-* Docker Compose
-* Systemd
-* Supervisor (jika diperlukan)
+- Docker Compose
+- Systemd
+- Supervisor (jika diperlukan)
 
 Worker harus dapat restart otomatis apabila gagal.
 
@@ -196,9 +196,9 @@ Worker harus dapat restart otomatis apabila gagal.
 
 Server wajib:
 
-* Menggunakan UTC atau zona waktu yang telah ditentukan.
-* Sinkron dengan NTP Server.
-* Memiliki waktu sistem yang akurat.
+- Menggunakan UTC atau zona waktu yang telah ditentukan.
+- Sinkron dengan NTP Server.
+- Memiliki waktu sistem yang akurat.
 
 ---
 
@@ -228,11 +228,11 @@ Log harus memiliki kebijakan rotasi (Log Rotation).
 
 Kegiatan rutin:
 
-* Update keamanan.
-* Patch sistem operasi.
-* Membersihkan log lama.
-* Memeriksa kapasitas disk.
-* Memverifikasi backup.
+- Update keamanan.
+- Patch sistem operasi.
+- Membersihkan log lama.
+- Memeriksa kapasitas disk.
+- Memverifikasi backup.
 
 ---
 
@@ -240,12 +240,12 @@ Kegiatan rutin:
 
 Server wajib:
 
-* Menonaktifkan login root melalui SSH.
-* Menggunakan SSH Key Authentication.
-* Mengaktifkan Firewall.
-* Membatasi akses SSH.
-* Menonaktifkan service yang tidak digunakan.
-* Memperbarui paket keamanan secara berkala.
+- Menonaktifkan login root melalui SSH.
+- Menggunakan SSH Key Authentication.
+- Mengaktifkan Firewall.
+- Membatasi akses SSH.
+- Menonaktifkan service yang tidak digunakan.
+- Memperbarui paket keamanan secara berkala.
 
 ---
 
@@ -253,12 +253,12 @@ Server wajib:
 
 Server dipantau melalui:
 
-* CPU Usage
-* Memory Usage
-* Disk Usage
-* Network
-* Service Status
-* HTTP Health Endpoint
+- CPU Usage
+- Memory Usage
+- Disk Usage
+- Network
+- Service Status
+- HTTP Health Endpoint
 
 ---
 
@@ -290,20 +290,20 @@ Production Ready
 
 # Related Documents
 
-* README.md
-* environment.md
-* docker.md
-* ci-cd.md
-* backup.md
-* monitoring.md
-* security.md
+- README.md
+- environment.md
+- docker.md
+- ci-cd.md
+- backup.md
+- monitoring.md
+- security.md
 
 ---
 
 # Acceptance Criteria
 
-* Server memiliki konfigurasi standar.
-* HTTPS diterapkan.
-* Firewall aktif.
-* Backup dan monitoring tersedia.
-* Server Configuration menjadi standar operasional LIM Digital Platform.
+- Server memiliki konfigurasi standar.
+- HTTPS diterapkan.
+- Firewall aktif.
+- Backup dan monitoring tersedia.
+- Server Configuration menjadi standar operasional LIM Digital Platform.

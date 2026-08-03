@@ -7,11 +7,22 @@ import { PanelLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "../providers/sidebar-provider";
 
-export function Header() {
+interface HeaderUser {
+  name: string;
+  email: string;
+  image: string | null;
+  roleLabel: string;
+}
+
+interface Props {
+  user: HeaderUser;
+}
+
+export function Header({ user }: Props) {
   const { isMobile, toggle, toggleMobile } = useSidebar();
 
   return (
-    <header className="flex h-12 items-center justify-between border-b border-border/50 bg-background/50 px-4 backdrop-blur-xl">
+    <header className="flex h-12 items-center justify-between border-b border-border/50 bg-background px-4">
       <div className="flex items-center gap-2">
         <Button
           variant="ghost"
@@ -23,7 +34,7 @@ export function Header() {
         <Breadcrumb />
       </div>
 
-      <UserMenu />
+      <UserMenu user={user} />
     </header>
   );
 }

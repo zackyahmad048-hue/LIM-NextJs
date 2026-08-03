@@ -7,16 +7,10 @@ interface SectionCardProps {
   className?: string;
 }
 
-export function SectionCard({
-  children,
-  className,
-}: SectionCardProps) {
+export function SectionCard({ children, className }: SectionCardProps) {
   return (
     <section
-      className={cn(
-        "rounded-xl border bg-card p-6 shadow-sm",
-        className
-      )}
+      className={cn("rounded-xl border bg-card p-6 shadow-sm", className)}
     >
       {children}
     </section>

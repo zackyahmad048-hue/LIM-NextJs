@@ -18,16 +18,16 @@ Menjadi layanan notifikasi terpusat yang cepat, andal, dan mendukung komunikasi 
 
 # Version 1.0
 
-* In-App Notification
-* Email Notification
-* WhatsApp Notification
-* Push Notification
-* SMS Notification
-* Template Management
-* Queue Management
-* Delivery History
-* User Preference
-* Audit Log
+- In-App Notification
+- Email Notification
+- WhatsApp Notification
+- Push Notification
+- SMS Notification
+- Template Management
+- Queue Management
+- Delivery History
+- User Preference
+- Audit Log
 
 ✅ Initial Release
 
@@ -35,65 +35,65 @@ Menjadi layanan notifikasi terpusat yang cepat, andal, dan mendukung komunikasi 
 
 # Version 1.1
 
-* Scheduled Notification
-* Broadcast Notification
-* Webhook Notification
-* Bulk Notification
-* Retry Policy Management
+- Scheduled Notification
+- Broadcast Notification
+- Webhook Notification
+- Bulk Notification
+- Retry Policy Management
 
 ---
 
 # Version 1.2
 
-* Notification Campaign
-* Delivery Analytics
-* Read Analytics
-* Template Versioning
-* Multi-language Template
+- Notification Campaign
+- Delivery Analytics
+- Read Analytics
+- Template Versioning
+- Multi-language Template
 
 ---
 
 # Version 2.0
 
-* Real-time Notification
-* WebSocket Notification
-* Firebase Push Integration
-* Message Priority
-* Rate Limiting
+- Real-time Notification
+- WebSocket Notification
+- Firebase Push Integration
+- Message Priority
+- Rate Limiting
 
 ---
 
 # Version 3.0
 
-* AI Message Generator
-* AI Delivery Optimization
-* AI User Preference Prediction
-* AI Smart Scheduling
-* AI Notification Analytics
+- AI Message Generator
+- AI Delivery Optimization
+- AI User Preference Prediction
+- AI Smart Scheduling
+- AI Notification Analytics
 
 ---
 
 # Dependencies
 
-* Authentication
-* Organization
-* Program
-* Secretariat
-* Letter
-* Certificate
-* Media
-* Knowledge
-* Settings
+- Authentication
+- Organization
+- Program
+- Secretariat
+- Letter
+- Certificate
+- Media
+- Knowledge
+- Settings
 
 ---
 
 # Success Indicators
 
-* Pengiriman notifikasi stabil.
-* Queue berjalan otomatis.
-* Retry berhasil mengurangi kegagalan.
-* Multi-channel berjalan dengan baik.
-* Riwayat pengiriman lengkap.
+- Pengiriman notifikasi stabil.
+- Queue berjalan otomatis.
+- Retry berhasil mengurangi kegagalan.
+- Multi-channel berjalan dengan baik.
+- Riwayat pengiriman lengkap.
 
 ---
 

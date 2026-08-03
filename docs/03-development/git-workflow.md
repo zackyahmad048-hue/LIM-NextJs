@@ -94,8 +94,8 @@ release/*
 
 Digunakan untuk:
 
-* Production
-* Stable Release
+- Production
+- Stable Release
 
 Tidak boleh melakukan commit langsung.
 
@@ -231,11 +231,11 @@ Merge
 
 Pull Request wajib:
 
-* Memiliki deskripsi.
-* Mengacu pada Issue.
-* Lulus CI Pipeline.
-* Mendapat persetujuan Reviewer.
-* Tidak memiliki konflik.
+- Memiliki deskripsi.
+- Mengacu pada Issue.
+- Lulus CI Pipeline.
+- Mendapat persetujuan Reviewer.
+- Tidak memiliki konflik.
 
 ---
 
@@ -269,10 +269,10 @@ develop
 
 Aturan:
 
-* Tidak boleh push langsung.
-* Pull Request wajib.
-* Minimal 1 Approval.
-* CI wajib berhasil.
+- Tidak boleh push langsung.
+- Pull Request wajib.
+- Minimal 1 Approval.
+- CI wajib berhasil.
 
 ---
 
@@ -352,30 +352,30 @@ Deploy
 
 # Git Rules
 
-* Satu branch untuk satu fitur.
-* Satu Pull Request untuk satu tujuan.
-* Branch dihapus setelah merge.
-* Rebase sebelum membuka Pull Request.
-* Selalu sinkron dengan `develop`.
+- Satu branch untuk satu fitur.
+- Satu Pull Request untuk satu tujuan.
+- Branch dihapus setelah merge.
+- Rebase sebelum membuka Pull Request.
+- Selalu sinkron dengan `develop`.
 
 ---
 
 # Related Documents
 
-* README.md
-* coding-standards.md
-* naming-conventions.md
-* testing-strategy.md
-* branching-strategy.md
-* commit-convention.md
-* code-review.md
+- README.md
+- coding-standards.md
+- naming-conventions.md
+- testing-strategy.md
+- branching-strategy.md
+- commit-convention.md
+- code-review.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh perubahan melalui Pull Request.
-* Branch mengikuti standar penamaan.
-* `main` dan `develop` terlindungi.
-* CI Pipeline berhasil sebelum merge.
-* Git Workflow diterapkan oleh seluruh developer.
+- Seluruh perubahan melalui Pull Request.
+- Branch mengikuti standar penamaan.
+- `main` dan `develop` terlindungi.
+- CI Pipeline berhasil sebelum merge.
+- Git Workflow diterapkan oleh seluruh developer.

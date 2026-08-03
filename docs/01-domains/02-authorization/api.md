@@ -24,13 +24,13 @@ Mendapatkan semua roles.
 
 **Headers:**
 
-``text
+`text
 Authorization: Bearer <token>
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "roles": [
     {
@@ -41,7 +41,7 @@ Authorization: Bearer <token>
     }
   ]
 }
-``
+`
 
 ---
 
@@ -51,22 +51,22 @@ Membuat role baru.
 
 **Request:**
 
-``json
+`json
 {
   "name": "editor",
   "description": "Content Editor"
 }
-``
+`
 
 **Response (201):**
 
-``json
+`json
 {
   "id": "...",
   "name": "editor",
   "description": "Content Editor"
 }
-``
+`
 
 ---
 
@@ -76,22 +76,22 @@ Memperbarui role.
 
 **Request:**
 
-``json
+`json
 {
   "name": "editor",
   "description": "Senior Content Editor"
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "id": "...",
   "name": "editor",
   "description": "Senior Content Editor"
 }
-``
+`
 
 ---
 
@@ -101,11 +101,11 @@ Menghapus role.
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Role berhasil dihapus"
 }
-``
+`
 
 ---
 
@@ -115,19 +115,19 @@ Menugaskan permission ke role.
 
 **Request:**
 
-``json
+`json
 {
   "permissionIds": ["...", "..."]
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Permission berhasil ditugaskan"
 }
-``
+`
 
 ---
 
@@ -137,19 +137,19 @@ Menugaskan role ke user.
 
 **Request:**
 
-``json
+`json
 {
   "roleIds": ["...", "..."]
 }
-``
+`
 
 **Response (200):**
 
-``json
+`json
 {
   "message": "Role berhasil ditugaskan"
 }
-``
+`
 
 ---
 

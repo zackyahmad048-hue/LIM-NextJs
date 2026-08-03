@@ -16,7 +16,7 @@ export default async function SecretariatDashboardPage() {
       value: stats.totalIncomingMails,
       href: "/admin/secretariat/surat?tab=masuk",
       icon: Inbox,
-      color: "text-blue-600 bg-blue-50 dark:bg-blue-950/50",
+      color: "text-primary bg-primary/10",
     },
     {
       title: "Surat Keluar",
@@ -24,7 +24,7 @@ export default async function SecretariatDashboardPage() {
       value: stats.totalOutgoingMails,
       href: "/admin/secretariat/surat?tab=keluar",
       icon: Send,
-      color: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50",
+      color: "text-amber-600 bg-amber-100 dark:bg-amber-900/40",
     },
   ];
 

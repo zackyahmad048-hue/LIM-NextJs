@@ -144,16 +144,16 @@ settings.feature-flag.update
 
 | Permission          | Super Admin | Admin | Operator | User |
 | ------------------- | :---------: | :---: | :------: | :--: |
-| View                |      ✅      |   ✅   |     ❌    |   ❌  |
-| Create              |      ✅      |   ❌   |     ❌    |   ❌  |
-| Update              |      ✅      |   ✅   |     ❌    |   ❌  |
-| Delete              |      ✅      |   ❌   |     ❌    |   ❌  |
-| Restore             |      ✅      |   ❌   |     ❌    |   ❌  |
-| Category Management |      ✅      |   ❌   |     ❌    |   ❌  |
-| Feature Flag        |      ✅      |   ✅   |     ❌    |   ❌  |
-| Integration         |      ✅      |   ✅   |     ❌    |   ❌  |
-| Security            |      ✅      |   ❌   |     ❌    |   ❌  |
-| Storage             |      ✅      |   ✅   |     ❌    |   ❌  |
+| View                |     ✅      |  ✅   |    ❌    |  ❌  |
+| Create              |     ✅      |  ❌   |    ❌    |  ❌  |
+| Update              |     ✅      |  ✅   |    ❌    |  ❌  |
+| Delete              |     ✅      |  ❌   |    ❌    |  ❌  |
+| Restore             |     ✅      |  ❌   |    ❌    |  ❌  |
+| Category Management |     ✅      |  ❌   |    ❌    |  ❌  |
+| Feature Flag        |     ✅      |  ✅   |    ❌    |  ❌  |
+| Integration         |     ✅      |  ✅   |    ❌    |  ❌  |
+| Security            |     ✅      |  ❌   |    ❌    |  ❌  |
+| Storage             |     ✅      |  ✅   |    ❌    |  ❌  |
 
 ---
 
@@ -186,21 +186,21 @@ settings.view
 
 # Business Rules
 
-* Authentication wajib dilakukan.
-* Permission diperiksa pada setiap request.
-* Pengguna tanpa permission menerima HTTP **403 Forbidden**.
-* Pengaturan keamanan hanya dapat diubah oleh **Super Administrator**.
-* Credential sensitif tidak ditampilkan kepada pengguna selain yang berwenang.
+- Authentication wajib dilakukan.
+- Permission diperiksa pada setiap request.
+- Pengguna tanpa permission menerima HTTP **403 Forbidden**.
+- Pengaturan keamanan hanya dapat diubah oleh **Super Administrator**.
+- Credential sensitif tidak ditampilkan kepada pengguna selain yang berwenang.
 
 ---
 
 # Security Rules
 
-* Permission tidak boleh dilewati.
-* Pemeriksaan dilakukan pada Service Layer.
-* Seluruh perubahan dicatat pada Audit Log.
-* Hak akses mengikuti prinsip **Least Privilege**.
-* Credential terenkripsi tidak pernah dikembalikan dalam bentuk plaintext.
+- Permission tidak boleh dilewati.
+- Pemeriksaan dilakukan pada Service Layer.
+- Seluruh perubahan dicatat pada Audit Log.
+- Hak akses mengikuti prinsip **Least Privilege**.
+- Credential terenkripsi tidak pernah dikembalikan dalam bentuk plaintext.
 
 ---
 
@@ -222,21 +222,21 @@ settings.audit
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh fitur memiliki permission yang jelas.
-* Permission diterapkan pada UI dan API.
-* Menu mengikuti Role pengguna.
-* Aksi tanpa permission ditolak.
-* Seluruh hak akses mengikuti standar RBAC.
+- Seluruh fitur memiliki permission yang jelas.
+- Permission diterapkan pada UI dan API.
+- Menu mengikuti Role pengguna.
+- Aksi tanpa permission ditolak.
+- Seluruh hak akses mengikuti standar RBAC.

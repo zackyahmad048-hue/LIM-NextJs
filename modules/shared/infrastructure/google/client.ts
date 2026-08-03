@@ -16,7 +16,7 @@ function getAuth() {
   if (!serviceAccountEmail || !serviceAccountPrivateKey) {
     throw new GoogleApiError(
       "UNAUTHENTICATED",
-      "Kredensial Google belum dikonfigurasi (GOOGLE_SERVICE_ACCOUNT_EMAIL/GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY)."
+      "Kredensial Google belum dikonfigurasi (GOOGLE_SERVICE_ACCOUNT_EMAIL/GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY).",
     );
   }
 
@@ -47,7 +47,8 @@ export function mapGoogleError(e: unknown): GoogleApiError {
   if (e instanceof GoogleApiError) return e;
 
   const status = (e as { response?: { status?: number } })?.response?.status;
-  const message = e instanceof Error ? e.message : "Terjadi kesalahan pada Google API.";
+  const message =
+    e instanceof Error ? e.message : "Terjadi kesalahan pada Google API.";
 
   switch (status) {
     case 401:
@@ -72,13 +73,19 @@ export async function withGoogle<T>(fn: () => Promise<T>): Promise<T> {
   }
 }
 
-export async function withGoogleRetry<T>(fn: () => Promise<T>, attempts = 2): Promise<T> {
+export async function withGoogleRetry<T>(
+  fn: () => Promise<T>,
+  attempts = 2,
+): Promise<T> {
   for (let attempt = 1; ; attempt++) {
     try {
       return await fn();
     } catch (e) {
       const err = mapGoogleError(e);
-      if (attempt >= attempts || (err.code !== "RATE_LIMITED" && err.code !== "TIMEOUT")) {
+      if (
+        attempt >= attempts ||
+        (err.code !== "RATE_LIMITED" && err.code !== "TIMEOUT")
+      ) {
         throw err;
       }
       await new Promise((resolve) => setTimeout(resolve, 500 * attempt));

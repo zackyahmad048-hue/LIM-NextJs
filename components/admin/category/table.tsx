@@ -21,10 +21,5 @@ interface Props {
 }
 
 export function CategoryTable({ data, onEdit }: Props) {
-  return (
-    <DataTable
-      columns={getCategoryColumns(onEdit)}
-      data={data}
-    />
-  );
+  return <DataTable columns={getCategoryColumns(onEdit)} data={data} />;
 }

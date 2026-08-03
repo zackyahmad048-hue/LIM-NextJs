@@ -22,12 +22,12 @@ Roadmap dapat diperbarui sesuai kebutuhan organisasi tanpa mengubah Blueprint.
 
 Seluruh pengembangan mengikuti prinsip:
 
-* Foundation First
-* Documentation First
-* Domain Driven
-* Incremental Delivery
-* Long Term Maintainability
-* Organization First
+- Foundation First
+- Documentation First
+- Domain Driven
+- Incremental Delivery
+- Long Term Maintainability
+- Organization First
 
 ---
 
@@ -105,16 +105,16 @@ Menyelesaikan seluruh dokumentasi proyek.
 
 Output:
 
-* Product Vision
-* Blueprint
-* Architecture
-* Business Rules
-* Database
-* Security
-* API
-* Coding Standards
-* AI Rules
-* Module Documentation
+- Product Vision
+- Blueprint
+- Architecture
+- Business Rules
+- Database
+- Security
+- API
+- Coding Standards
+- AI Rules
+- Module Documentation
 
 Status
 
@@ -134,16 +134,16 @@ Membangun fondasi teknis platform.
 
 Scope
 
-* Monorepo
-* Project Structure
-* Design System
-* Authentication
-* Authorization
-* Layout
-* Navigation
-* Theme
-* CI/CD
-* Audit Log
+- Monorepo
+- Project Structure
+- Design System
+- Authentication
+- Authorization
+- Layout
+- Navigation
+- Theme
+- CI/CD
+- Audit Log
 
 Output
 
@@ -161,13 +161,13 @@ Membangun modul dasar.
 
 Scope
 
-* Dashboard
-* User
-* Role
-* Permission
-* Settings
-* Media
-* Notification
+- Dashboard
+- User
+- Role
+- Permission
+- Settings
+- Media
+- Notification
 
 Output
 
@@ -185,13 +185,13 @@ Portal publik dapat dikelola.
 
 Scope
 
-* Category
-* Post
-* Page
-* Banner
-* Gallery
-* Download
-* SEO
+- Category
+- Post
+- Page
+- Banner
+- Gallery
+- Download
+- SEO
 
 Output
 
@@ -209,11 +209,11 @@ Digitalisasi struktur organisasi.
 
 Scope
 
-* Organisasi
-* Wilayah
-* Cabang
-* Pengurus
-* Jabatan
+- Organisasi
+- Wilayah
+- Cabang
+- Pengurus
+- Jabatan
 
 Output
 
@@ -231,21 +231,21 @@ Membangun sistem pengelolaan seluruh kegiatan organisasi.
 
 Scope
 
-* Program
-* Peserta
-* Lokasi
-* Jadwal
-* Penanggung Jawab
-* Dokumen
-* Laporan
+- Program
+- Peserta
+- Lokasi
+- Jadwal
+- Penanggung Jawab
+- Dokumen
+- Laporan
 
 Contoh Program
 
-* Safari Ramadan
-* Wajib Khidmah
-* Pelatihan
-* Seminar
-* Kajian
+- Safari Ramadan
+- Wajib Khidmah
+- Pelatihan
+- Seminar
+- Kajian
 
 Output
 
@@ -263,11 +263,11 @@ Digitalisasi administrasi organisasi.
 
 Scope
 
-* Arsip
-* Dokumen
-* Surat Internal
-* Administrasi
-* Program Support
+- Arsip
+- Dokumen
+- Surat Internal
+- Administrasi
+- Program Support
 
 Output
 
@@ -285,12 +285,12 @@ Digitalisasi dokumen resmi.
 
 Scope
 
-* Surat
-* Template
-* Nomor Surat
-* Sertifikat
-* QR Verification
-* Verifikasi Publik
+- Surat
+- Template
+- Nomor Surat
+- Sertifikat
+- QR Verification
+- Verifikasi Publik
 
 Output
 
@@ -308,13 +308,13 @@ Mengembangkan layanan Falak sebagai Core Service.
 
 Scope
 
-* Prayer Engine
-* Hijri Calendar
-* Qibla
-* Astronomy
-* Hilal
-* Imsakiyah
-* Eclipse
+- Prayer Engine
+- Hijri Calendar
+- Qibla
+- Astronomy
+- Hilal
+- Imsakiyah
+- Eclipse
 
 Output
 
@@ -332,14 +332,14 @@ Merilis aplikasi Android dan iOS.
 
 Fitur
 
-* Jadwal Sholat
-* Al-Qur'an
-* Doa Harian
-* Istighotsah
-* Arah Kiblat
-* Berita
-* Agenda
-* Sertifikat Saya
+- Jadwal Sholat
+- Al-Qur'an
+- Doa Harian
+- Istighotsah
+- Arah Kiblat
+- Berita
+- Agenda
+- Sertifikat Saya
 
 Output
 
@@ -357,11 +357,11 @@ Menyediakan REST API resmi.
 
 Scope
 
-* Authentication
-* CMS
-* Program
-* Certificate
-* Falak
+- Authentication
+- CMS
+- Program
+- Certificate
+- Falak
 
 Output
 
@@ -379,12 +379,12 @@ Meningkatkan performa platform.
 
 Scope
 
-* Redis
-* Queue
-* Cache
-* CDN
-* Monitoring
-* Analytics
+- Redis
+- Queue
+- Cache
+- CDN
+- Monitoring
+- Analytics
 
 ---
 
@@ -396,19 +396,19 @@ Roadmap jangka panjang.
 
 Potensi pengembangan
 
-* Multi Organization
-* Multi Language
-* AI Assistant
-* Digital Library
-* Knowledge Center
-* Learning Management
-* Event Management
-* Volunteer Management
-* Asset Management
-* Financial Integration
-* SSO
-* Offline Mobile
-* Progressive Web App
+- Multi Organization
+- Multi Language
+- AI Assistant
+- Digital Library
+- Knowledge Center
+- Learning Management
+- Event Management
+- Volunteer Management
+- Asset Management
+- Financial Integration
+- SSO
+- Offline Mobile
+- Progressive Web App
 
 ---
 
@@ -416,31 +416,31 @@ Potensi pengembangan
 
 ## High Priority
 
-* Foundation
-* Authentication
-* Organization
-* Program
-* Secretariat
-* Certificate
-* Falak
+- Foundation
+- Authentication
+- Organization
+- Program
+- Secretariat
+- Certificate
+- Falak
 
 ---
 
 ## Medium Priority
 
-* Mobile
-* Public API
-* Notification
-* Analytics
+- Mobile
+- Public API
+- Notification
+- Analytics
 
 ---
 
 ## Long Term
 
-* AI
-* Knowledge Center
-* LMS
-* Multi Organization
+- AI
+- Knowledge Center
+- LMS
+- Multi Organization
 
 ---
 
@@ -448,12 +448,12 @@ Potensi pengembangan
 
 Platform dianggap berhasil apabila:
 
-* Seluruh administrasi organisasi terdigitalisasi.
-* Tidak terjadi duplikasi data.
-* Website, Admin, Mobile, dan API menggunakan sumber data yang sama.
-* Layanan Falak berjalan stabil.
-* Dokumentasi selalu diperbarui.
-* Arsitektur tetap konsisten meskipun platform berkembang.
+- Seluruh administrasi organisasi terdigitalisasi.
+- Tidak terjadi duplikasi data.
+- Website, Admin, Mobile, dan API menggunakan sumber data yang sama.
+- Layanan Falak berjalan stabil.
+- Dokumentasi selalu diperbarui.
+- Arsitektur tetap konsisten meskipun platform berkembang.
 
 ---
 
@@ -463,10 +463,10 @@ Roadmap dapat berubah sesuai kebutuhan organisasi.
 
 Namun perubahan roadmap tidak boleh bertentangan dengan:
 
-* Product Vision
-* Blueprint
-* Business Rules
-* Architecture
+- Product Vision
+- Blueprint
+- Business Rules
+- Architecture
 
 Perubahan roadmap harus didokumentasikan sebelum implementasi dilakukan.
 

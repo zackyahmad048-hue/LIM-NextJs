@@ -344,25 +344,25 @@ Retry
 
 # Workflow Rules
 
-* Sertifikat hanya dibuat dari Program **Completed**.
-* Nomor sertifikat dibuat otomatis.
-* QR Code selalu dibuat sebelum Publish.
-* Sertifikat harus ditandatangani sebelum dipublikasikan.
-* Sertifikat yang diarsipkan bersifat Read Only.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Sertifikat hanya dibuat dari Program **Completed**.
+- Nomor sertifikat dibuat otomatis.
+- QR Code selalu dibuat sebelum Publish.
+- Sertifikat harus ditandatangani sebelum dipublikasikan.
+- Sertifikat yang diarsipkan bersifat Read Only.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -370,8 +370,8 @@ Retry
 
 Workflow Certificate dianggap selesai apabila:
 
-* Sertifikat mengikuti lifecycle yang ditentukan.
-* Nomor sertifikat selalu unik.
-* QR Verification berfungsi.
-* Sertifikat tidak dapat dipublikasikan sebelum Signed.
-* Seluruh perubahan mengikuti Business Rules dan tercatat pada Audit Log.
+- Sertifikat mengikuti lifecycle yang ditentukan.
+- Nomor sertifikat selalu unik.
+- QR Verification berfungsi.
+- Sertifikat tidak dapat dipublikasikan sebelum Signed.
+- Seluruh perubahan mengikuti Business Rules dan tercatat pada Audit Log.

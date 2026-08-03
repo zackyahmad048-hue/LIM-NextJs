@@ -22,11 +22,11 @@ Seluruh data organisasi harus melalui proses validasi sebelum diproses oleh Busi
 
 Seluruh validasi mengikuti prinsip berikut:
 
-* Validate Before Process
-* Server-side Validation First
-* Client-side Validation for User Experience
-* Fail Fast
-* Consistent Error Messages
+- Validate Before Process
+- Server-side Validation First
+- Client-side Validation for User Experience
+- Fail Fast
+- Consistent Error Messages
 
 ---
 
@@ -34,8 +34,8 @@ Seluruh validasi mengikuti prinsip berikut:
 
 Standar validasi menggunakan:
 
-* Zod (Server Validation)
-* React Hook Form (Client Validation)
+- Zod (Server Validation)
+- React Hook Form (Client Validation)
 
 Client Validation tidak menggantikan Server Validation.
 
@@ -47,10 +47,10 @@ Client Validation tidak menggantikan Server Validation.
 
 Aturan:
 
-* Wajib diisi.
-* Minimum 3 karakter.
-* Maksimum 255 karakter.
-* Harus unik.
+- Wajib diisi.
+- Minimum 3 karakter.
+- Maksimum 255 karakter.
+- Harus unik.
 
 ---
 
@@ -58,8 +58,8 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Maksimum 50 karakter.
+- Opsional.
+- Maksimum 50 karakter.
 
 ---
 
@@ -67,10 +67,10 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Harus berupa gambar.
-* Format: JPG, PNG, WEBP.
-* Maksimum 2 MB.
+- Opsional.
+- Harus berupa gambar.
+- Format: JPG, PNG, WEBP.
+- Maksimum 2 MB.
 
 ---
 
@@ -78,8 +78,8 @@ Aturan:
 
 Aturan:
 
-* Wajib diisi.
-* Maksimum 1000 karakter.
+- Wajib diisi.
+- Maksimum 1000 karakter.
 
 ---
 
@@ -87,8 +87,8 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Format nomor telepon yang valid.
+- Opsional.
+- Format nomor telepon yang valid.
 
 ---
 
@@ -96,8 +96,8 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Format email yang valid.
+- Opsional.
+- Format email yang valid.
 
 ---
 
@@ -105,8 +105,8 @@ Aturan:
 
 Aturan:
 
-* Opsional.
-* Format URL yang valid.
+- Opsional.
+- Format URL yang valid.
 
 ---
 
@@ -114,25 +114,25 @@ Aturan:
 
 ## Province
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
 ## Regency / City
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
 ## District
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
 ## Village
 
-* Opsional.
+- Opsional.
 
 ---
 
@@ -140,37 +140,37 @@ Aturan:
 
 ## Organization
 
-* Wajib dipilih.
-* Harus merupakan Organization yang aktif.
+- Wajib dipilih.
+- Harus merupakan Organization yang aktif.
 
 ---
 
 ## Region
 
-* Wajib dipilih.
-* Harus merupakan Region yang valid.
+- Wajib dipilih.
+- Harus merupakan Region yang valid.
 
 ---
 
 ## Name
 
-* Wajib diisi.
-* Maksimum 255 karakter.
+- Wajib diisi.
+- Maksimum 255 karakter.
 
 ---
 
 ## Code
 
-* Wajib diisi.
-* Maksimum 20 karakter.
-* Harus unik.
+- Wajib diisi.
+- Maksimum 20 karakter.
+- Harus unik.
 
 ---
 
 ## Address
 
-* Opsional.
-* Maksimum 1000 karakter.
+- Opsional.
+- Maksimum 1000 karakter.
 
 ---
 
@@ -178,16 +178,16 @@ Aturan:
 
 ## Name
 
-* Wajib diisi.
-* Maksimum 150 karakter.
-* Unik dalam satu Organization.
+- Wajib diisi.
+- Maksimum 150 karakter.
+- Unik dalam satu Organization.
 
 ---
 
 ## Description
 
-* Opsional.
-* Maksimum 1000 karakter.
+- Opsional.
+- Maksimum 1000 karakter.
 
 ---
 
@@ -195,28 +195,28 @@ Aturan:
 
 ## Department
 
-* Wajib dipilih.
+- Wajib dipilih.
 
 ---
 
 ## Name
 
-* Wajib diisi.
-* Maksimum 150 karakter.
+- Wajib diisi.
+- Maksimum 150 karakter.
 
 ---
 
 ## Level
 
-* Wajib.
-* Nilai minimal 1.
+- Wajib.
+- Nilai minimal 1.
 
 ---
 
 ## Sort Order
 
-* Wajib.
-* Bilangan bulat positif.
+- Wajib.
+- Bilangan bulat positif.
 
 ---
 
@@ -224,21 +224,21 @@ Aturan:
 
 ## Name
 
-* Wajib diisi.
-* Maksimum 100 karakter.
+- Wajib diisi.
+- Maksimum 100 karakter.
 
 ---
 
 ## Start Date
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
 ## End Date
 
-* Wajib diisi.
-* Harus lebih besar atau sama dengan Start Date.
+- Wajib diisi.
+- Harus lebih besar atau sama dengan Start Date.
 
 ---
 
@@ -262,40 +262,40 @@ Hanya satu periode yang boleh berstatus **Active**.
 
 ## User
 
-* Wajib dipilih.
-* Harus merupakan User yang aktif.
+- Wajib dipilih.
+- Harus merupakan User yang aktif.
 
 ---
 
 ## Branch
 
-* Wajib dipilih.
+- Wajib dipilih.
 
 ---
 
 ## Position
 
-* Wajib dipilih.
+- Wajib dipilih.
 
 ---
 
 ## Period
 
-* Wajib dipilih.
-* Harus merupakan periode yang aktif.
+- Wajib dipilih.
+- Harus merupakan periode yang aktif.
 
 ---
 
 ## Start Date
 
-* Wajib diisi.
+- Wajib diisi.
 
 ---
 
 ## End Date
 
-* Opsional.
-* Jika diisi, harus lebih besar atau sama dengan Start Date.
+- Opsional.
+- Jika diisi, harus lebih besar atau sama dengan Start Date.
 
 ---
 
@@ -309,7 +309,7 @@ search
 
 Aturan:
 
-* Maksimum 100 karakter.
+- Maksimum 100 karakter.
 
 ---
 
@@ -317,14 +317,14 @@ Aturan:
 
 ## page
 
-* Minimum: 1
+- Minimum: 1
 
 ---
 
 ## limit
 
-* Minimum: 1
-* Maksimum: 100
+- Minimum: 1
+- Maksimum: 100
 
 ---
 
@@ -332,9 +332,9 @@ Aturan:
 
 Data tidak dapat dihapus apabila:
 
-* Masih digunakan oleh domain lain.
-* Memiliki relasi aktif.
-* Menjadi referensi pada Program, Letter, Certificate, atau Secretariat.
+- Masih digunakan oleh domain lain.
+- Memiliki relasi aktif.
+- Menjadi referensi pada Program, Letter, Certificate, atau Secretariat.
 
 ---
 
@@ -396,14 +396,14 @@ Return Validation Error
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -411,8 +411,8 @@ Return Validation Error
 
 Validation Organization dianggap selesai apabila:
 
-* Seluruh input tervalidasi.
-* Nama dan kode yang unik tidak dapat diduplikasi.
-* Periode aktif hanya satu.
-* Data dengan relasi aktif tidak dapat dihapus.
-* Seluruh validasi dijalankan sebelum Business Rules dieksekusi.
+- Seluruh input tervalidasi.
+- Nama dan kode yang unik tidak dapat diduplikasi.
+- Periode aktif hanya satu.
+- Data dengan relasi aktif tidak dapat dihapus.
+- Seluruh validasi dijalankan sebelum Business Rules dieksekusi.

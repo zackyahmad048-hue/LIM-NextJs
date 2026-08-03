@@ -15,12 +15,8 @@ interface Props {
   name: string;
 }
 
-export function DeleteCategoryDialog({
-  id,
-  name,
-}: Props) {
-  const [open, setOpen] =
-    useState(false);
+export function DeleteCategoryDialog({ id, name }: Props) {
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
 
@@ -42,8 +38,7 @@ export function DeleteCategoryDialog({
         title="Hapus kategori"
         description={`Kategori "${name}" akan dihapus.`}
         onConfirm={async () => {
-          const result =
-            await deleteCategory(id);
+          const result = await deleteCategory(id);
 
           if (!result.ok) {
             toast.error(result.message);
@@ -51,9 +46,7 @@ export function DeleteCategoryDialog({
             return;
           }
 
-          toast.success(
-            "Kategori dihapus."
-          );
+          toast.success("Kategori dihapus.");
 
           setOpen(false);
           router.refresh();

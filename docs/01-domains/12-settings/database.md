@@ -150,29 +150,29 @@ settings_category.code
 
 ## Settings
 
-* key wajib unik.
-* categoryId wajib.
-* dataType wajib.
+- key wajib unik.
+- categoryId wajib.
+- dataType wajib.
 
 ---
 
 ## Category
 
-* code wajib unik.
-* name wajib.
+- code wajib unik.
+- name wajib.
 
 ---
 
 ## Feature Flag
 
-* key wajib unik.
+- key wajib unik.
 
 ---
 
 ## Integration
 
-* provider wajib unik.
-* clientSecret wajib dienkripsi.
+- provider wajib unik.
+- clientSecret wajib dienkripsi.
 
 ---
 
@@ -180,8 +180,8 @@ settings_category.code
 
 Menggunakan Soft Delete:
 
-* settings
-* settings_category
+- settings
+- settings_category
 
 Feature Flag, Integration, dan Audit bersifat permanen.
 
@@ -219,11 +219,11 @@ Array
 
 # Database Rules
 
-* Key konfigurasi selalu unik.
-* Credential disimpan dalam bentuk terenkripsi.
-* Seluruh perubahan disimpan pada Audit.
-* Konfigurasi dibaca melalui Configuration Service.
-* Seluruh akses database menggunakan Repository Pattern.
+- Key konfigurasi selalu unik.
+- Credential disimpan dalam bentuk terenkripsi.
+- Seluruh perubahan disimpan pada Audit.
+- Konfigurasi dibaca melalui Configuration Service.
+- Seluruh akses database menggunakan Repository Pattern.
 
 ---
 
@@ -245,21 +245,21 @@ settings_version
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Struktur database mendukung seluruh konfigurasi sistem.
-* Key konfigurasi unik.
-* Credential terenkripsi.
-* Audit perubahan tersedia.
-* Seluruh akses database menggunakan Repository Pattern.
+- Struktur database mendukung seluruh konfigurasi sistem.
+- Key konfigurasi unik.
+- Credential terenkripsi.
+- Audit perubahan tersedia.
+- Seluruh akses database menggunakan Repository Pattern.

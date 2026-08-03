@@ -38,7 +38,9 @@ export default async function UsersPage() {
           {
             key: "email",
             label: "Email",
-            render: (user) => <span className="text-muted-foreground">{user.email}</span>,
+            render: (user) => (
+              <span className="text-muted-foreground">{user.email}</span>
+            ),
           },
           {
             key: "role",
@@ -47,7 +49,11 @@ export default async function UsersPage() {
               <div className="flex flex-wrap gap-1">
                 {user.roles.length > 0 ? (
                   user.roles.map((role) => (
-                    <Badge key={role.id} variant="secondary" className="text-[11px]">
+                    <Badge
+                      key={role.id}
+                      variant="secondary"
+                      className="text-[11px]"
+                    >
                       {role.name}
                     </Badge>
                   ))
@@ -61,7 +67,10 @@ export default async function UsersPage() {
             key: "status",
             label: "Status",
             render: (user) => (
-              <Badge variant={user.emailVerified ? "default" : "outline"} className="text-[11px]">
+              <Badge
+                variant={user.emailVerified ? "default" : "outline"}
+                className="text-[11px]"
+              >
                 {user.emailVerified ? "Terverifikasi" : "Belum"}
               </Badge>
             ),

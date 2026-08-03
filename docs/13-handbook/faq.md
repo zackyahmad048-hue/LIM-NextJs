@@ -20,12 +20,12 @@ Pertanyaan yang sering diajukan oleh developer baru.
 
 ### Bagaimana cara menjalankan project lokal?
 
-``bash
+`bash
 npm install
 npm run prisma:generate
 npm run prisma:migrate
 npm run dev
-``
+`
 
 Lihat [Local Setup](./local-setup.md) untuk panduan lengkap.
 
@@ -42,17 +42,17 @@ Lihat [Local Setup](./local-setup.md) untuk panduan lengkap.
 import SectionHeading from "@/components/shared/section-heading";
 
 export default function ArtikelPage() {
-  return (
-    <section className="py-16 sm:py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading
+return (
+<section className="py-16 sm:py-20">
+<div className="mx-auto max-w-6xl px-4 sm:px-6">
+<SectionHeading
           badge="Artikel"
           title="Artikel & Kajian"
           description="Artikel, kajian, dan tulisan dari LIM."
         />
-      </div>
-    </section>
-  );
+</div>
+</section>
+);
 }
 ``
 
@@ -81,6 +81,7 @@ Lihat [Developer Guide](./developer-guide.md) untuk detail.
 Business Rules hanya boleh berada di **Service Layer** (`modules/[domain]/infrastructure/[domain].service.ts`).
 
 Tidak diperbolehkan di:
+
 - Component (UI)
 - Repository
 - Server Actions
@@ -96,8 +97,8 @@ Gunakan Zod schema:
 import { z } from "zod";
 
 export const categorySchema = z.object({
-  name: z.string().min(1, "Nama harus diisi"),
-  slug: z.string().min(1, "Slug harus diisi"),
+name: z.string().min(1, "Nama harus diisi"),
+slug: z.string().min(1, "Slug harus diisi"),
 });
 ``
 
@@ -110,23 +111,25 @@ Client validation dengan React Hook Form + Zod Resolver.
 ### Bagaimana cara membuat migrasi?
 
 ``bash
+
 # Edit schema.prisma
+
 npm run prisma:migrate
 ``
 
 Atau push langsung (development):
 
-``bash
+`bash
 npm run db:push
-``
+`
 
 ---
 
 ### Bagaimama cara melihat database?
 
-``bash
+`bash
 npm run prisma:studio
-``
+`
 
 Ini akan membuka Prisma Studio di browser.
 
@@ -134,11 +137,11 @@ Ini akan membuka Prisma Studio di browser.
 
 ### Bagaimana cara reset database?
 
-``bash
+`bash
 npx prisma migrate reset
 npm run prisma:migrate
 npm run db:seed
-``
+`
 
 ---
 

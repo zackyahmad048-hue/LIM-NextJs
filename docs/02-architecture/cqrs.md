@@ -24,16 +24,16 @@ CQRS **bukan** diterapkan pada seluruh modul.
 
 LIM Digital Platform menggunakan pendekatan:
 
-* CRUD untuk kasus sederhana.
-* CQRS untuk domain yang memiliki kompleksitas tinggi.
+- CRUD untuk kasus sederhana.
+- CQRS untuk domain yang memiliki kompleksitas tinggi.
 
 Contoh:
 
-* Dashboard
-* Notification
-* Knowledge Search
-* Falak Calculation
-* Reporting
+- Dashboard
+- Notification
+- Knowledge Search
+- Falak Calculation
+- Reporting
 
 ---
 
@@ -49,10 +49,10 @@ Read
 
 Command dan Query memiliki:
 
-* Model berbeda.
-* DTO berbeda.
-* Use Case berbeda.
-* Optimisasi berbeda.
+- Model berbeda.
+- DTO berbeda.
+- Use Case berbeda.
+- Optimisasi berbeda.
 
 ---
 
@@ -60,12 +60,12 @@ Command dan Query memiliki:
 
 Command digunakan untuk:
 
-* Create
-* Update
-* Delete
-* Approve
-* Publish
-* Archive
+- Create
+- Update
+- Delete
+- Approve
+- Publish
+- Archive
 
 Command mengubah state sistem.
 
@@ -75,12 +75,12 @@ Command mengubah state sistem.
 
 Query digunakan untuk:
 
-* Get Detail
-* List
-* Search
-* Dashboard
-* Reporting
-* Analytics
+- Get Detail
+- List
+- Search
+- Dashboard
+- Reporting
+- Analytics
 
 Query tidak mengubah data.
 
@@ -222,18 +222,18 @@ GetCertificateQuery
 
 ## Command Handler
 
-* Validasi Command.
-* Menjalankan Business Rules.
-* Menyimpan perubahan.
-* Menghasilkan Domain Event (jika diperlukan).
+- Validasi Command.
+- Menjalankan Business Rules.
+- Menyimpan perubahan.
+- Menghasilkan Domain Event (jika diperlukan).
 
 ---
 
 ## Query Handler
 
-* Mengambil data.
-* Mengoptimalkan query.
-* Tidak menjalankan Business Rules yang mengubah state.
+- Mengambil data.
+- Mengoptimalkan query.
+- Tidak menjalankan Business Rules yang mengubah state.
 
 ---
 
@@ -241,10 +241,10 @@ GetCertificateQuery
 
 Read Model dapat:
 
-* Menggunakan View Database.
-* Menggunakan Projection.
-* Menggunakan Cache.
-* Menggunakan Materialized View.
+- Menggunakan View Database.
+- Menggunakan Projection.
+- Menggunakan Cache.
+- Menggunakan Materialized View.
 
 Read Model tidak boleh digunakan untuk proses update.
 
@@ -254,10 +254,10 @@ Read Model tidak boleh digunakan untuk proses update.
 
 Write Model menggunakan:
 
-* Entity
-* Aggregate
-* Repository
-* Domain Service
+- Entity
+- Aggregate
+- Repository
+- Domain Service
 
 Write Model menjadi sumber kebenaran (**Source of Truth**).
 
@@ -281,40 +281,40 @@ Domain CRUD sederhana tidak wajib menggunakan CQRS.
 
 # Benefits
 
-* Query lebih cepat.
-* Command lebih sederhana.
-* Skalabilitas lebih baik.
-* Mudah menambahkan Reporting.
-* Mendukung Event Driven Architecture.
+- Query lebih cepat.
+- Command lebih sederhana.
+- Skalabilitas lebih baik.
+- Mudah menambahkan Reporting.
+- Mendukung Event Driven Architecture.
 
 ---
 
 # Design Principles
 
-* Separate Read & Write.
-* Independent Optimization.
-* Simple Command.
-* Fast Query.
-* Event Friendly.
+- Separate Read & Write.
+- Independent Optimization.
+- Simple Command.
+- Fast Query.
+- Event Friendly.
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* event-driven.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- event-driven.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Command dan Query dipisahkan.
-* Handler memiliki tanggung jawab yang jelas.
-* CQRS hanya diterapkan pada domain yang membutuhkan.
-* Read Model dan Write Model terpisah.
-* Implementasi tetap mengikuti Clean Architecture.
+- Command dan Query dipisahkan.
+- Handler memiliki tanggung jawab yang jelas.
+- CQRS hanya diterapkan pada domain yang membutuhkan.
+- Read Model dan Write Model terpisah.
+- Implementasi tetap mengikuti Clean Architecture.

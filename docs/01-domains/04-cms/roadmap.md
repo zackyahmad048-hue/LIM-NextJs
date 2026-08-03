@@ -22,16 +22,16 @@ Roadmap digunakan sebagai acuan pengembangan bertahap tanpa mengubah fondasi dom
 
 Target:
 
-* Post Management
-* Page Management
-* Category Management
-* Tag Management
-* Draft
-* Publish
-* Archive
-* Search
-* Filter
-* Pagination
+- Post Management
+- Page Management
+- Category Management
+- Tag Management
+- Draft
+- Publish
+- Archive
+- Search
+- Filter
+- Pagination
 
 Status:
 
@@ -43,11 +43,11 @@ Status:
 
 Penambahan:
 
-* Scheduled Publish
-* Featured Post
-* SEO Metadata
-* Preview Mode
-* Duplicate Content
+- Scheduled Publish
+- Featured Post
+- SEO Metadata
+- Preview Mode
+- Duplicate Content
 
 ---
 
@@ -55,11 +55,11 @@ Penambahan:
 
 Penambahan:
 
-* Content Revision
-* Content History
-* Author Profile
-* Reading Time
-* Related Articles
+- Content Revision
+- Content History
+- Author Profile
+- Reading Time
+- Related Articles
 
 ---
 
@@ -67,11 +67,11 @@ Penambahan:
 
 Penambahan:
 
-* Multi Language
-* Workflow Approval
-* Multiple Authors
-* Content Versioning
-* Comment Management
+- Multi Language
+- Workflow Approval
+- Multiple Authors
+- Content Versioning
+- Comment Management
 
 ---
 
@@ -79,11 +79,11 @@ Penambahan:
 
 Penambahan:
 
-* AI Content Assistant
-* AI SEO Recommendation
-* AI Content Summary
-* AI Tag Suggestion
-* AI Translation
+- AI Content Assistant
+- AI SEO Recommendation
+- AI Content Summary
+- AI Tag Suggestion
+- AI Translation
 
 ---
 
@@ -93,11 +93,11 @@ CMS akan menjadi pusat pengelolaan seluruh informasi digital organisasi.
 
 Selain Website, CMS juga menjadi sumber data bagi:
 
-* Mobile Application
-* Public API
-* Digital Signage
-* Portal Anggota
-* Sistem Eksternal
+- Mobile Application
+- Public API
+- Digital Signage
+- Portal Anggota
+- Sistem Eksternal
 
 ---
 
@@ -105,10 +105,10 @@ Selain Website, CMS juga menjadi sumber data bagi:
 
 CMS dianggap berhasil apabila:
 
-* Administrator dapat mengelola konten dengan mudah.
-* Editor dapat mempublikasikan konten tanpa bantuan developer.
-* Website dan Mobile selalu menggunakan data yang sama.
-* Konten mudah dicari, dikelola, dan dipelihara.
+- Administrator dapat mengelola konten dengan mudah.
+- Editor dapat mempublikasikan konten tanpa bantuan developer.
+- Website dan Mobile selalu menggunakan data yang sama.
+- Konten mudah dicari, dikelola, dan dipelihara.
 
 ---
 
@@ -116,21 +116,21 @@ CMS dianggap berhasil apabila:
 
 Roadmap CMS berkaitan dengan:
 
-* Media
-* Notification
-* Knowledge
-* Search Service
-* AI Service
+- Media
+- Notification
+- Knowledge
+- Search Service
+- AI Service
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
 
 ---
 

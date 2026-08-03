@@ -56,11 +56,11 @@ Settings
 
 ### Responsibility
 
-* Authentication
-* Authorization
-* File Storage
-* Notification
-* Global Configuration
+- Authentication
+- Authorization
+- File Storage
+- Notification
+- Global Configuration
 
 ---
 
@@ -84,11 +84,11 @@ Falak
 
 ### Responsibility
 
-* Organisasi
-* Program
-* Persuratan
-* Sertifikat
-* Astronomi Islam
+- Organisasi
+- Program
+- Persuratan
+- Sertifikat
+- Astronomi Islam
 
 ---
 
@@ -106,9 +106,9 @@ Knowledge
 
 ### Responsibility
 
-* Dashboard
-* Content Management
-* Knowledge Base
+- Dashboard
+- Content Management
+- Knowledge Base
 
 ---
 
@@ -178,16 +178,16 @@ Knowledge
 
 Setiap Context hanya boleh berkomunikasi melalui:
 
-* Application Service
-* Public Interface
-* REST API
-* Domain Event
+- Application Service
+- Public Interface
+- REST API
+- Domain Event
 
 Tidak diperbolehkan:
 
-* Mengakses Entity context lain.
-* Mengakses Repository context lain.
-* Mengakses Database context lain.
+- Mengakses Entity context lain.
+- Mengakses Repository context lain.
+- Mengakses Database context lain.
 
 ---
 
@@ -253,14 +253,14 @@ Dependency antar Context hanya melalui **Application Layer**.
 
 Setiap Context memiliki:
 
-* Entity
-* Repository
-* Use Case
-* Service
-* Validation
-* Permission
-* API
-* Database
+- Entity
+- Repository
+- Use Case
+- Service
+- Validation
+- Permission
+- API
+- Database
 
 Tidak ada implementasi yang dibagikan selain Shared Kernel yang telah ditentukan.
 
@@ -270,13 +270,13 @@ Tidak ada implementasi yang dibagikan selain Shared Kernel yang telah ditentukan
 
 Komponen yang boleh digunakan bersama:
 
-* Base Entity
-* Base Repository
-* Result Pattern
-* Error Model
-* Pagination Model
-* Audit Model
-* Value Objects umum
+- Base Entity
+- Base Repository
+- Result Pattern
+- Error Model
+- Pagination Model
+- Audit Model
+- Value Objects umum
 
 Business Rules **tidak boleh** ditempatkan di Shared Kernel.
 
@@ -304,33 +304,33 @@ Microservice (Optional)
 
 # Architecture Principles
 
-* High Cohesion
-* Low Coupling
-* Explicit Boundary
-* Independent Evolution
-* Single Ownership
+- High Cohesion
+- Low Coupling
+- Explicit Boundary
+- Independent Evolution
+- Single Ownership
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* system-context.md
-* domain-map.md
-* clean-architecture.md
-* hexagonal-architecture.md
-* cqrs.md
-* event-driven.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- system-context.md
+- domain-map.md
+- clean-architecture.md
+- hexagonal-architecture.md
+- cqrs.md
+- event-driven.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh Bounded Context terdokumentasi.
-* Ownership setiap Context jelas.
-* Tidak ada akses lintas database.
-* Komunikasi antar Context melalui Public Interface.
-* Bounded Context menjadi acuan implementasi DDD pada LIM Digital Platform.
+- Seluruh Bounded Context terdokumentasi.
+- Ownership setiap Context jelas.
+- Tidak ada akses lintas database.
+- Komunikasi antar Context melalui Public Interface.
+- Bounded Context menjadi acuan implementasi DDD pada LIM Digital Platform.

@@ -202,10 +202,10 @@ Sent
 
 Metode distribusi:
 
-* PDF
-* Email
-* WhatsApp
-* Print
+- PDF
+- Email
+- WhatsApp
+- Print
 
 ---
 
@@ -339,25 +339,25 @@ Retry
 
 # Workflow Rules
 
-* Surat selalu dimulai dari status **Draft**.
-* Nomor surat dibuat setelah **Approved**.
-* Surat hanya dapat ditandatangani setelah nomor dibuat.
-* Surat hanya dapat dikirim setelah ditandatangani.
-* Arsip bersifat Read Only.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Surat selalu dimulai dari status **Draft**.
+- Nomor surat dibuat setelah **Approved**.
+- Surat hanya dapat ditandatangani setelah nomor dibuat.
+- Surat hanya dapat dikirim setelah ditandatangani.
+- Arsip bersifat Read Only.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
@@ -365,8 +365,8 @@ Retry
 
 Workflow Letter dianggap selesai apabila:
 
-* Seluruh surat mengikuti lifecycle yang ditentukan.
-* Nomor surat selalu dibuat setelah persetujuan.
-* Surat tidak dapat dikirim sebelum ditandatangani.
-* Arsip bersifat Read Only.
-* Seluruh perubahan mengikuti Business Rules dan tercatat pada Audit Log.
+- Seluruh surat mengikuti lifecycle yang ditentukan.
+- Nomor surat selalu dibuat setelah persetujuan.
+- Surat tidak dapat dikirim sebelum ditandatangani.
+- Arsip bersifat Read Only.
+- Seluruh perubahan mengikuti Business Rules dan tercatat pada Audit Log.

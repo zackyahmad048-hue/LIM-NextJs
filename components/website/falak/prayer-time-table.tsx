@@ -50,32 +50,32 @@ const PRAYER_CARDS: Array<{
   {
     key: "fajr",
     label: "Subuh",
-    icon: <Sunrise className="h-5 w-5 text-sky-400" />,
+    icon: <Sunrise className="h-5 w-5 text-primary" />,
   },
   {
     key: "sunrise",
     label: "Terbit",
-    icon: <Sun className="h-5 w-5 text-amber-400" />,
+    icon: <Sun className="h-5 w-5 text-primary" />,
   },
   {
     key: "dhuhr",
     label: "Dzuhur",
-    icon: <Sun className="h-5 w-5 text-amber-500" />,
+    icon: <Sun className="h-5 w-5 text-primary" />,
   },
   {
     key: "asr",
     label: "Ashar",
-    icon: <Sun className="h-5 w-5 text-emerald-500" />,
+    icon: <Sun className="h-5 w-5 text-primary" />,
   },
   {
     key: "maghrib",
     label: "Maghrib",
-    icon: <Sunset className="h-5 w-5 text-rose-500" />,
+    icon: <Sunset className="h-5 w-5 text-primary" />,
   },
   {
     key: "isha",
     label: "Isya",
-    icon: <Moon className="h-5 w-5 text-indigo-400" />,
+    icon: <Moon className="h-5 w-5 text-primary" />,
   },
 ];
 
@@ -213,12 +213,12 @@ export function PrayerTimeTable() {
       {/* Top Controls: Location & City Picker */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 shadow-sm">
         <div className="flex flex-wrap items-center gap-2">
-          <MapPin className="h-5 w-5 text-emerald-500" />
+          <MapPin className="h-5 w-5 text-primary" />
           <span className="font-semibold text-foreground">{locationName}</span>
           {isGPS ? (
             <Badge
               variant="default"
-              className="bg-emerald-600 text-white hover:bg-emerald-700"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               GPS Device
             </Badge>
@@ -229,7 +229,7 @@ export function PrayerTimeTable() {
           )}
           <Badge
             variant="secondary"
-            className="gap-1 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+            className="gap-1 border-primary/30 text-primary"
           >
             <ShieldCheck className="h-3 w-3" />
             Ihtiyat +3 Menit
@@ -243,7 +243,7 @@ export function PrayerTimeTable() {
             onClick={requestGPSLocation}
             className="gap-1.5"
           >
-            <Navigation className="h-4 w-4 text-emerald-500" />
+            <Navigation className="h-4 w-4 text-primary" />
             Lacak GPS Device
           </Button>
 
@@ -251,7 +251,7 @@ export function PrayerTimeTable() {
             <DialogTrigger asChild>
               <Button variant="secondary" size="sm" className="gap-1.5">
                 <Search className="h-4 w-4" />
-                Pilih / Input Kota Manual
+                Input Kota Manual
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto">
@@ -345,7 +345,7 @@ export function PrayerTimeTable() {
                     <Button
                       type="submit"
                       size="sm"
-                      className="w-full text-xs h-8 bg-emerald-600 hover:bg-emerald-700 text-white"
+                      className="w-full text-xs h-8 bg-primary hover:bg-primary/90 text-primary-foreground"
                     >
                       Terapkan Koordinat Custom
                     </Button>
@@ -358,19 +358,19 @@ export function PrayerTimeTable() {
       </div>
 
       {errorMessage && (
-        <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-600 dark:text-amber-400">
+        <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
           {errorMessage}
         </div>
       )}
 
       {/* Hero Live Clock & Istiwa Toggle Switch */}
-      <Card className="relative overflow-hidden border-emerald-500/20 bg-linear-to-br from-card via-card to-emerald-950/20 shadow-md">
+      <Card className="border-border/10 bg-card shadow-[0_18px_40px_-20px] shadow-black/20">
         <CardHeader className="pb-2 text-center">
-          <div className="mx-auto mb-3 flex items-center justify-center gap-3 rounded-full border border-border bg-background/80 px-4 py-1.5 backdrop-blur-md">
+          <div className="mx-auto mb-3 flex items-center justify-center gap-3 rounded-full border border-border/10 bg-muted px-4 py-1.5">
             <span
               className={`text-xs sm:text-sm font-medium transition-colors ${
                 !isIstiwaMode
-                  ? "font-bold text-sky-500 dark:text-sky-400"
+                  ? "font-bold text-primary"
                   : "text-muted-foreground"
               }`}
             >
@@ -386,30 +386,24 @@ export function PrayerTimeTable() {
             <span
               className={`text-xs sm:text-sm font-medium transition-colors ${
                 isIstiwaMode
-                  ? "font-bold text-amber-500 dark:text-amber-400"
+                  ? "font-bold text-amber-400"
                   : "text-muted-foreground"
               }`}
             >
-              Waktu Istiwa (Hakiki)
+              Waktu Istiwa
             </span>
           </div>
 
-          <CardTitle className="font-mono text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+          <CardTitle className="font-mono text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground tabular-nums">
             {isIstiwaMode
-              ? `${istiwaClockInfo.istiwaTimeStr} Istiwa`
+              ? `${istiwaClockInfo.istiwaTimeStr} WIS`
               : `${standardClockStr} ${location.timezoneName || "WIB"}`}
           </CardTitle>
           <CardDescription className="pt-2 text-sm">
-            WIB/WITA/WIT:{" "}
-            <strong className="text-foreground">{standardClockStr}</strong> |
-            Jam Istiwa:{" "}
-            <strong className="text-foreground">
-              {istiwaClockInfo.istiwaTimeStr}
-            </strong>{" "}
-            | Selisih:{" "}
+            Selisih:{" "}
             <Badge
               variant="outline"
-              className="border-amber-500/40 text-amber-500"
+              className="border-primary/40 text-primary"
             >
               {istiwaClockInfo.deltaStr}
             </Badge>
@@ -417,11 +411,13 @@ export function PrayerTimeTable() {
         </CardHeader>
 
         <CardContent className="pt-2 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs sm:text-sm text-emerald-600 dark:text-emerald-400">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs sm:text-sm text-primary">
             <Sparkles className="h-4 w-4" />
             <span>
               Menuju <strong>{nextPrayerName}</strong> dalam:{" "}
-              <strong className="font-mono font-bold">{countdownStr}</strong>
+              <strong className="font-mono font-bold tabular-nums">
+                {countdownStr}
+              </strong>
             </span>
           </div>
         </CardContent>
@@ -452,7 +448,7 @@ export function PrayerTimeTable() {
                 key={p.key}
                 className={`transition-all hover:scale-[1.02] ${
                   isNext
-                    ? "border-emerald-500 bg-emerald-500/10 shadow-md shadow-emerald-500/10"
+                    ? "border-primary bg-primary/10 shadow-md shadow-primary/10"
                     : "border-border"
                 }`}
               >
@@ -461,16 +457,12 @@ export function PrayerTimeTable() {
                   <div className="text-xs font-medium text-muted-foreground">
                     {p.label}
                   </div>
-                  <div className="mt-1 font-mono text-xl font-bold text-foreground">
+                  <div className="mt-1 font-mono text-xl font-bold text-foreground tabular-nums">
                     {prayerTimesFormatted[p.key]}
                   </div>
                   <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wider">
                     <span>
-                      {isIstiwaMode ? "Istiwa" : location.timezoneName || "WIB"}
-                    </span>
-                    <span>•</span>
-                    <span className="text-emerald-500 font-semibold">
-                      +3m Ihtiyat
+                      {isIstiwaMode ? "WIS" : location.timezoneName || "WIB"}
                     </span>
                   </div>
                 </CardContent>
@@ -481,17 +473,17 @@ export function PrayerTimeTable() {
       </div>
 
       {/* Educational Explanation Box */}
-      <Card className="border-border bg-card/50">
+      <Card className="border-border bg-card">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-base">
-            <Info className="h-4 w-4 text-emerald-500" />
+            <Info className="h-4 w-4 text-primary" />
             Penjelasan Waktu Istiwa & Waktu Ihtiyat (+3 Menit)
           </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4 text-xs sm:text-sm text-muted-foreground sm:grid-cols-3">
           <div className="rounded-lg border border-border p-3">
             <h4 className="font-semibold text-foreground flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-emerald-500" />
+              <ShieldCheck className="h-4 w-4 text-primary" />
               Waktu Ihtiyat (Hati-Hati)
             </h4>
             <p className="mt-1">

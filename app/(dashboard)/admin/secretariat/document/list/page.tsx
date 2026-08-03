@@ -13,7 +13,13 @@ import {
   generateAdministrativeDocument,
 } from "@/modules/secretariat/presentation/secretariat.action";
 
-const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+const statusLabels: Record<
+  string,
+  {
+    label: string;
+    variant: "default" | "secondary" | "outline" | "destructive";
+  }
+> = {
   DRAFT: { label: "Draft", variant: "outline" },
   SUBMITTED: { label: "Diajukan", variant: "default" },
   APPROVED: { label: "Disetujui", variant: "secondary" },
@@ -64,7 +70,9 @@ export default async function DocumentListPage({
             key: "documentNumber",
             label: "No. Dokumen",
             render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">{item.documentNumber}</span>
+              <span className="text-xs font-mono text-muted-foreground">
+                {item.documentNumber}
+              </span>
             ),
           },
           {
@@ -83,8 +91,15 @@ export default async function DocumentListPage({
             key: "status",
             label: "Status",
             render: (item) => {
-              const s = statusLabels[item.status] ?? { label: item.status, variant: "outline" as const };
-              return <Badge variant={s.variant} className="h-5 px-2 text-[11px]">{s.label}</Badge>;
+              const s = statusLabels[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
           },
           {
@@ -94,14 +109,29 @@ export default async function DocumentListPage({
             render: (item) => (
               <div className="flex justify-end gap-1">
                 {item.googleDocUrl && (
-                  <Button asChild variant="ghost" size="sm" title="Buka di Google Docs">
-                    <a href={item.googleDocUrl} target="_blank" rel="noopener noreferrer">
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="sm"
+                    title="Buka di Google Docs"
+                  >
+                    <a
+                      href={item.googleDocUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <ExternalLink className="size-3.5" />
                     </a>
                   </Button>
                 )}
-                <form action={generateAdministrativeDocument.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" title="Buat dokumen di Google Docs">
+                <form
+                  action={generateAdministrativeDocument.bind(null, item.id)}
+                >
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    title="Buat dokumen di Google Docs"
+                  >
                     <FileText className="size-3.5" />
                   </Button>
                 </form>
@@ -111,7 +141,11 @@ export default async function DocumentListPage({
                   </Link>
                 </Button>
                 <form action={deleteAdministrativeDocument.bind(null, item.id)}>
-                  <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                  >
                     <Trash2 className="size-3.5" />
                   </Button>
                 </form>

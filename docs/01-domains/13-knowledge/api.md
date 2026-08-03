@@ -30,9 +30,9 @@ API Knowledge digunakan untuk mengelola artikel, dokumentasi, SOP, FAQ, kategori
 
 Seluruh endpoint Admin memerlukan:
 
-* Authentication
-* Session Valid
-* Authorization
+- Authentication
+- Session Valid
+- Authorization
 
 Endpoint publik hanya dapat mengakses konten yang berstatus **Published**.
 
@@ -42,12 +42,12 @@ Endpoint publik hanya dapat mengakses konten yang berstatus **Published**.
 
 Domain Knowledge terdiri dari:
 
-* Knowledge
-* Category
-* Tag
-* Review
-* Archive
-* Search
+- Knowledge
+- Category
+- Tag
+- Review
+- Archive
+- Search
 
 ---
 
@@ -225,11 +225,11 @@ GET /api/v1/knowledge/search
 
 Mendukung pencarian berdasarkan:
 
-* Judul
-* Isi Artikel
-* Tag
-* Kategori
-* Penulis
+- Judul
+- Isi Artikel
+- Tag
+- Kategori
+- Penulis
 
 ---
 
@@ -292,11 +292,11 @@ Response gagal
 
 # Business Rules
 
-* Seluruh endpoint Admin memerlukan Authentication.
-* Publish hanya dapat dilakukan setelah Review.
-* Endpoint publik hanya menampilkan konten Published.
-* Delete menggunakan Soft Delete.
-* Seluruh perubahan dicatat pada Audit Log.
+- Seluruh endpoint Admin memerlukan Authentication.
+- Publish hanya dapat dilakukan setelah Review.
+- Endpoint publik hanya menampilkan konten Published.
+- Delete menggunakan Soft Delete.
+- Seluruh perubahan dicatat pada Audit Log.
 
 ---
 
@@ -304,10 +304,10 @@ Response gagal
 
 API Knowledge wajib:
 
-* Memvalidasi Session.
-* Memvalidasi Permission.
-* Memvalidasi seluruh input.
-* Menggunakan HTTPS pada Production.
+- Memvalidasi Session.
+- Memvalidasi Permission.
+- Memvalidasi seluruh input.
+- Menggunakan HTTPS pada Production.
 
 ---
 
@@ -315,32 +315,32 @@ API Knowledge wajib:
 
 Seluruh endpoint mendukung:
 
-* Pagination
-* Search
-* Filtering
-* Sorting
-* Full Text Search
-* Database Index
+- Pagination
+- Search
+- Filtering
+- Sorting
+- Full Text Search
+- Database Index
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md
 
 ---
 
 # Acceptance Criteria
 
-* Seluruh endpoint CRUD tersedia.
-* Workflow Review dan Publish berjalan dengan baik.
-* Full Text Search berfungsi.
-* Response mengikuti standar API proyek.
-* Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.
+- Seluruh endpoint CRUD tersedia.
+- Workflow Review dan Publish berjalan dengan baik.
+- Full Text Search berfungsi.
+- Response mengikuti standar API proyek.
+- Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

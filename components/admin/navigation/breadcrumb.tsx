@@ -7,9 +7,7 @@ export function Breadcrumb() {
 
   return (
     <h1 className="text-lg font-semibold capitalize">
-      {pathname === "/admin"
-        ? "Dashboard"
-        : pathname.split("/").pop()}
+      {pathname === "/admin" ? "Dashboard" : pathname.split("/").pop()}
     </h1>
   );
 }

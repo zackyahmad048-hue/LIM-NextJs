@@ -1,6 +1,12 @@
 import { randomUUID } from "crypto";
 
-import { googleConfig, GoogleApiError, SheetsBaseRepository, readRows, type SheetSchema } from "@/modules/shared/infrastructure/google";
+import {
+  googleConfig,
+  GoogleApiError,
+  SheetsBaseRepository,
+  readRows,
+  type SheetSchema,
+} from "@/modules/shared/infrastructure/google";
 import type {
   IncomingMailStatus,
   OutgoingMailStatus,
@@ -23,7 +29,7 @@ function pendataanSpreadsheetId(): string {
   if (!id) {
     throw new GoogleApiError(
       "UNAUTHENTICATED",
-      "GOOGLE_SPREADSHEET_PENDATAAN_ID belum dikonfigurasi."
+      "GOOGLE_SPREADSHEET_PENDATAAN_ID belum dikonfigurasi.",
     );
   }
   return id;
@@ -137,12 +143,36 @@ export class SheetsSecretariatRepository
   };
 
   private readonly schemas: Record<string, SheetSchema> = {
-    incomingMail: { spreadsheetId: this.schema.spreadsheetId, tab: "SuratMasuk", headers: INCOMING_MAIL_HEADERS },
-    outgoingMail: { spreadsheetId: this.schema.spreadsheetId, tab: "SuratKeluar", headers: OUTGOING_MAIL_HEADERS },
-    disposition: { spreadsheetId: this.schema.spreadsheetId, tab: "Disposisi", headers: DISPOSITION_HEADERS },
-    administrativeDocument: { spreadsheetId: this.schema.spreadsheetId, tab: "DokumenAdministrasi", headers: ADMINISTRATIVE_DOCUMENT_HEADERS },
-    agendaBook: { spreadsheetId: this.schema.spreadsheetId, tab: "Agenda", headers: AGENDA_BOOK_HEADERS },
-    documentArchive: { spreadsheetId: this.schema.spreadsheetId, tab: "ArsipDokumen", headers: DOCUMENT_ARCHIVE_HEADERS },
+    incomingMail: {
+      spreadsheetId: this.schema.spreadsheetId,
+      tab: "SuratMasuk",
+      headers: INCOMING_MAIL_HEADERS,
+    },
+    outgoingMail: {
+      spreadsheetId: this.schema.spreadsheetId,
+      tab: "SuratKeluar",
+      headers: OUTGOING_MAIL_HEADERS,
+    },
+    disposition: {
+      spreadsheetId: this.schema.spreadsheetId,
+      tab: "Disposisi",
+      headers: DISPOSITION_HEADERS,
+    },
+    administrativeDocument: {
+      spreadsheetId: this.schema.spreadsheetId,
+      tab: "DokumenAdministrasi",
+      headers: ADMINISTRATIVE_DOCUMENT_HEADERS,
+    },
+    agendaBook: {
+      spreadsheetId: this.schema.spreadsheetId,
+      tab: "Agenda",
+      headers: AGENDA_BOOK_HEADERS,
+    },
+    documentArchive: {
+      spreadsheetId: this.schema.spreadsheetId,
+      tab: "ArsipDokumen",
+      headers: DOCUMENT_ARCHIVE_HEADERS,
+    },
   };
 
   private toIncomingMail(row: Record<string, string>): IncomingMailEntity {
@@ -174,7 +204,9 @@ export class SheetsSecretariatRepository
       mailDate: this.toDate(row.mailDate, new Date()),
       status: (row.status || "DRAFT") as OutgoingMailStatus,
       documentNumber: this.toNullableString(row.documentNumber),
-      documentType: row.documentType ? (row.documentType as DocumentType) : null,
+      documentType: row.documentType
+        ? (row.documentType as DocumentType)
+        : null,
       content: this.toNullableString(row.content),
       approvedById: this.toNullableString(row.approvedById),
       approvedAt: this.toNullableDate(row.approvedAt),
@@ -202,7 +234,9 @@ export class SheetsSecretariatRepository
     };
   }
 
-  private toAdministrativeDocument(row: Record<string, string>): AdministrativeDocumentEntity {
+  private toAdministrativeDocument(
+    row: Record<string, string>,
+  ): AdministrativeDocumentEntity {
     return {
       id: row.id,
       documentNumber: row.documentNumber ?? "",
@@ -236,7 +270,9 @@ export class SheetsSecretariatRepository
     };
   }
 
-  private toDocumentArchive(row: Record<string, string>): DocumentArchiveEntity {
+  private toDocumentArchive(
+    row: Record<string, string>,
+  ): DocumentArchiveEntity {
     return {
       id: row.id,
       archiveNumber: row.archiveNumber ?? "",
@@ -264,24 +300,40 @@ export class SheetsSecretariatRepository
   }
 
   // Incoming Mail
-  async findManyIncomingMails({ search, status, page, limit }: { search?: string; status?: IncomingMailStatus; page: number; limit: number }) {
-    let rows = (await readRows(this.schemas.incomingMail)).filter((row) => !row.deletedAt);
+  async findManyIncomingMails({
+    search,
+    status,
+    page,
+    limit,
+  }: {
+    search?: string;
+    status?: IncomingMailStatus;
+    page: number;
+    limit: number;
+  }) {
+    let rows = (await readRows(this.schemas.incomingMail)).filter(
+      (row) => !row.deletedAt,
+    );
     if (search) {
       rows = rows.filter(
         (row) =>
           includesQuery(row.subject, search) ||
           includesQuery(row.registrationNumber, search) ||
-          includesQuery(row.sender, search)
+          includesQuery(row.sender, search),
       );
     }
     if (status) rows = rows.filter((row) => row.status === status);
 
     rows = rows.sort(
-      (a, b) => this.toDate(b.receivedDate, new Date()).getTime() - this.toDate(a.receivedDate, new Date()).getTime()
+      (a, b) =>
+        this.toDate(b.receivedDate, new Date()).getTime() -
+        this.toDate(a.receivedDate, new Date()).getTime(),
     );
 
     const total = rows.length;
-    const items = rows.slice((page - 1) * limit, page * limit).map((row) => this.toIncomingMail(row));
+    const items = rows
+      .slice((page - 1) * limit, page * limit)
+      .map((row) => this.toIncomingMail(row));
     return { items, total };
   }
 
@@ -292,11 +344,18 @@ export class SheetsSecretariatRepository
 
   async findIncomingMailByNumber(registrationNumber: string) {
     const rows = await readRows(this.schemas.incomingMail);
-    const row = rows.find((r) => r.registrationNumber === registrationNumber && !r.deletedAt);
+    const row = rows.find(
+      (r) => r.registrationNumber === registrationNumber && !r.deletedAt,
+    );
     return row ? this.toIncomingMail(row) : null;
   }
 
-  async createIncomingMail(data: Omit<IncomingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">) {
+  async createIncomingMail(
+    data: Omit<
+      IncomingMailEntity,
+      "id" | "createdAt" | "updatedAt" | "deletedAt"
+    >,
+  ) {
     const now = new Date();
     const id = randomUUID();
     await this.createRow({
@@ -306,16 +365,31 @@ export class SheetsSecretariatRepository
       updatedAt: now.toISOString(),
       deletedAt: "",
     });
-    return { ...data, id, createdAt: now, updatedAt: now, deletedAt: null } as IncomingMailEntity;
+    return {
+      ...data,
+      id,
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+    } as IncomingMailEntity;
   }
 
-  async updateIncomingMail(id: string, data: Partial<Omit<IncomingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">>) {
+  async updateIncomingMail(
+    id: string,
+    data: Partial<
+      Omit<IncomingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">
+    >,
+  ) {
     await this.updateRow(id, {
       ...this.entityToRow(data),
       updatedAt: new Date().toISOString(),
     });
     const updated = await this.findIncomingMailById(id);
-    if (!updated) throw new GoogleApiError("NOT_FOUND", `Surat masuk ${id} tidak ditemukan.`);
+    if (!updated)
+      throw new GoogleApiError(
+        "NOT_FOUND",
+        `Surat masuk ${id} tidak ditemukan.`,
+      );
     return updated;
   }
 
@@ -324,24 +398,40 @@ export class SheetsSecretariatRepository
   }
 
   // Outgoing Mail
-  async findManyOutgoingMails({ search, status, page, limit }: { search?: string; status?: OutgoingMailStatus; page: number; limit: number }) {
-    let rows = (await readRows(this.schemas.outgoingMail)).filter((row) => !row.deletedAt);
+  async findManyOutgoingMails({
+    search,
+    status,
+    page,
+    limit,
+  }: {
+    search?: string;
+    status?: OutgoingMailStatus;
+    page: number;
+    limit: number;
+  }) {
+    let rows = (await readRows(this.schemas.outgoingMail)).filter(
+      (row) => !row.deletedAt,
+    );
     if (search) {
       rows = rows.filter(
         (row) =>
           includesQuery(row.subject, search) ||
           includesQuery(row.registrationNumber, search) ||
-          includesQuery(row.recipient, search)
+          includesQuery(row.recipient, search),
       );
     }
     if (status) rows = rows.filter((row) => row.status === status);
 
     rows = rows.sort(
-      (a, b) => this.toDate(b.mailDate, new Date()).getTime() - this.toDate(a.mailDate, new Date()).getTime()
+      (a, b) =>
+        this.toDate(b.mailDate, new Date()).getTime() -
+        this.toDate(a.mailDate, new Date()).getTime(),
     );
 
     const total = rows.length;
-    const items = rows.slice((page - 1) * limit, page * limit).map((row) => this.toOutgoingMail(row));
+    const items = rows
+      .slice((page - 1) * limit, page * limit)
+      .map((row) => this.toOutgoingMail(row));
     return { items, total };
   }
 
@@ -352,11 +442,18 @@ export class SheetsSecretariatRepository
 
   async findOutgoingMailByNumber(registrationNumber: string) {
     const rows = await readRows(this.schemas.outgoingMail);
-    const row = rows.find((r) => r.registrationNumber === registrationNumber && !r.deletedAt);
+    const row = rows.find(
+      (r) => r.registrationNumber === registrationNumber && !r.deletedAt,
+    );
     return row ? this.toOutgoingMail(row) : null;
   }
 
-  async createOutgoingMail(data: Omit<OutgoingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">) {
+  async createOutgoingMail(
+    data: Omit<
+      OutgoingMailEntity,
+      "id" | "createdAt" | "updatedAt" | "deletedAt"
+    >,
+  ) {
     const now = new Date();
     const id = randomUUID();
     await this.createRow({
@@ -366,16 +463,31 @@ export class SheetsSecretariatRepository
       updatedAt: now.toISOString(),
       deletedAt: "",
     });
-    return { ...data, id, createdAt: now, updatedAt: now, deletedAt: null } as OutgoingMailEntity;
+    return {
+      ...data,
+      id,
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+    } as OutgoingMailEntity;
   }
 
-  async updateOutgoingMail(id: string, data: Partial<Omit<OutgoingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">>) {
+  async updateOutgoingMail(
+    id: string,
+    data: Partial<
+      Omit<OutgoingMailEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">
+    >,
+  ) {
     await this.updateRow(id, {
       ...this.entityToRow(data),
       updatedAt: new Date().toISOString(),
     });
     const updated = await this.findOutgoingMailById(id);
-    if (!updated) throw new GoogleApiError("NOT_FOUND", `Surat keluar ${id} tidak ditemukan.`);
+    if (!updated)
+      throw new GoogleApiError(
+        "NOT_FOUND",
+        `Surat keluar ${id} tidak ditemukan.`,
+      );
     return updated;
   }
 
@@ -384,14 +496,32 @@ export class SheetsSecretariatRepository
   }
 
   // Disposition
-  async findManyDispositions({ incomingMailId, assignedToId, status, page, limit }: { incomingMailId?: string; assignedToId?: string; status?: DispositionStatus; page: number; limit: number }) {
-    let rows = (await readRows(this.schemas.disposition)).filter((row) => !row.deletedAt);
-    if (incomingMailId) rows = rows.filter((row) => row.incomingMailId === incomingMailId);
-    if (assignedToId) rows = rows.filter((row) => row.assignedToId === assignedToId);
+  async findManyDispositions({
+    incomingMailId,
+    assignedToId,
+    status,
+    page,
+    limit,
+  }: {
+    incomingMailId?: string;
+    assignedToId?: string;
+    status?: DispositionStatus;
+    page: number;
+    limit: number;
+  }) {
+    let rows = (await readRows(this.schemas.disposition)).filter(
+      (row) => !row.deletedAt,
+    );
+    if (incomingMailId)
+      rows = rows.filter((row) => row.incomingMailId === incomingMailId);
+    if (assignedToId)
+      rows = rows.filter((row) => row.assignedToId === assignedToId);
     if (status) rows = rows.filter((row) => row.status === status);
 
     rows = rows.sort(
-      (a, b) => this.toDate(b.createdAt, new Date()).getTime() - this.toDate(a.createdAt, new Date()).getTime()
+      (a, b) =>
+        this.toDate(b.createdAt, new Date()).getTime() -
+        this.toDate(a.createdAt, new Date()).getTime(),
     );
 
     const incomingRows = await readRows(this.schemas.incomingMail);
@@ -417,7 +547,9 @@ export class SheetsSecretariatRepository
     return row ? this.toDisposition(row) : null;
   }
 
-  async createDisposition(data: Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">) {
+  async createDisposition(
+    data: Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">,
+  ) {
     const now = new Date();
     const id = randomUUID();
     await this.createRow({
@@ -430,13 +562,17 @@ export class SheetsSecretariatRepository
     return { ...data, id, createdAt: now, updatedAt: now } as DispositionEntity;
   }
 
-  async updateDisposition(id: string, data: Partial<Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">>) {
+  async updateDisposition(
+    id: string,
+    data: Partial<Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">>,
+  ) {
     await this.updateRow(id, {
       ...this.entityToRow(data),
       updatedAt: new Date().toISOString(),
     });
     const updated = await this.findDispositionById(id);
-    if (!updated) throw new GoogleApiError("NOT_FOUND", `Disposisi ${id} tidak ditemukan.`);
+    if (!updated)
+      throw new GoogleApiError("NOT_FOUND", `Disposisi ${id} tidak ditemukan.`);
     return updated;
   }
 
@@ -445,22 +581,43 @@ export class SheetsSecretariatRepository
   }
 
   // Administrative Document
-  async findManyAdministrativeDocuments({ search, status, documentType, page, limit }: { search?: string; status?: AdministrativeDocumentStatus; documentType?: DocumentType; page: number; limit: number }) {
-    let rows = (await readRows(this.schemas.administrativeDocument)).filter((row) => !row.deletedAt);
+  async findManyAdministrativeDocuments({
+    search,
+    status,
+    documentType,
+    page,
+    limit,
+  }: {
+    search?: string;
+    status?: AdministrativeDocumentStatus;
+    documentType?: DocumentType;
+    page: number;
+    limit: number;
+  }) {
+    let rows = (await readRows(this.schemas.administrativeDocument)).filter(
+      (row) => !row.deletedAt,
+    );
     if (search) {
       rows = rows.filter(
-        (row) => includesQuery(row.title, search) || includesQuery(row.documentNumber, search)
+        (row) =>
+          includesQuery(row.title, search) ||
+          includesQuery(row.documentNumber, search),
       );
     }
     if (status) rows = rows.filter((row) => row.status === status);
-    if (documentType) rows = rows.filter((row) => row.documentType === documentType);
+    if (documentType)
+      rows = rows.filter((row) => row.documentType === documentType);
 
     rows = rows.sort(
-      (a, b) => this.toDate(b.createdAt, new Date()).getTime() - this.toDate(a.createdAt, new Date()).getTime()
+      (a, b) =>
+        this.toDate(b.createdAt, new Date()).getTime() -
+        this.toDate(a.createdAt, new Date()).getTime(),
     );
 
     const total = rows.length;
-    const items = rows.slice((page - 1) * limit, page * limit).map((row) => this.toAdministrativeDocument(row));
+    const items = rows
+      .slice((page - 1) * limit, page * limit)
+      .map((row) => this.toAdministrativeDocument(row));
     return { items, total };
   }
 
@@ -471,11 +628,18 @@ export class SheetsSecretariatRepository
 
   async findAdministrativeDocumentByNumber(documentNumber: string) {
     const rows = await readRows(this.schemas.administrativeDocument);
-    const row = rows.find((r) => r.documentNumber === documentNumber && !r.deletedAt);
+    const row = rows.find(
+      (r) => r.documentNumber === documentNumber && !r.deletedAt,
+    );
     return row ? this.toAdministrativeDocument(row) : null;
   }
 
-  async createAdministrativeDocument(data: Omit<AdministrativeDocumentEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">) {
+  async createAdministrativeDocument(
+    data: Omit<
+      AdministrativeDocumentEntity,
+      "id" | "createdAt" | "updatedAt" | "deletedAt"
+    >,
+  ) {
     const now = new Date();
     const id = randomUUID();
     await this.createRow({
@@ -485,16 +649,34 @@ export class SheetsSecretariatRepository
       updatedAt: now.toISOString(),
       deletedAt: "",
     });
-    return { ...data, id, createdAt: now, updatedAt: now, deletedAt: null } as AdministrativeDocumentEntity;
+    return {
+      ...data,
+      id,
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+    } as AdministrativeDocumentEntity;
   }
 
-  async updateAdministrativeDocument(id: string, data: Partial<Omit<AdministrativeDocumentEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">>) {
+  async updateAdministrativeDocument(
+    id: string,
+    data: Partial<
+      Omit<
+        AdministrativeDocumentEntity,
+        "id" | "createdAt" | "updatedAt" | "deletedAt"
+      >
+    >,
+  ) {
     await this.updateRow(id, {
       ...this.entityToRow(data),
       updatedAt: new Date().toISOString(),
     });
     const updated = await this.findAdministrativeDocumentById(id);
-    if (!updated) throw new GoogleApiError("NOT_FOUND", `Dokumen administrasi ${id} tidak ditemukan.`);
+    if (!updated)
+      throw new GoogleApiError(
+        "NOT_FOUND",
+        `Dokumen administrasi ${id} tidak ditemukan.`,
+      );
     return updated;
   }
 
@@ -503,20 +685,34 @@ export class SheetsSecretariatRepository
   }
 
   // Agenda Book (read-only)
-  async findManyAgendaBooks({ search, page, limit }: { search?: string; page: number; limit: number }) {
+  async findManyAgendaBooks({
+    search,
+    page,
+    limit,
+  }: {
+    search?: string;
+    page: number;
+    limit: number;
+  }) {
     let rows = await readRows(this.schemas.agendaBook);
     if (search) {
       rows = rows.filter(
-        (row) => includesQuery(row.title, search) || includesQuery(row.description, search)
+        (row) =>
+          includesQuery(row.title, search) ||
+          includesQuery(row.description, search),
       );
     }
 
     rows = rows.sort(
-      (a, b) => this.toDate(b.date, new Date()).getTime() - this.toDate(a.date, new Date()).getTime()
+      (a, b) =>
+        this.toDate(b.date, new Date()).getTime() -
+        this.toDate(a.date, new Date()).getTime(),
     );
 
     const total = rows.length;
-    const items = rows.slice((page - 1) * limit, page * limit).map((row) => this.toAgendaBook(row));
+    const items = rows
+      .slice((page - 1) * limit, page * limit)
+      .map((row) => this.toAgendaBook(row));
     return { items, total };
   }
 
@@ -526,21 +722,38 @@ export class SheetsSecretariatRepository
   }
 
   // Document Archive (read-only)
-  async findManyDocumentArchives({ search, documentType, page, limit }: { search?: string; documentType?: DocumentType; page: number; limit: number }) {
+  async findManyDocumentArchives({
+    search,
+    documentType,
+    page,
+    limit,
+  }: {
+    search?: string;
+    documentType?: DocumentType;
+    page: number;
+    limit: number;
+  }) {
     let rows = await readRows(this.schemas.documentArchive);
     if (search) {
       rows = rows.filter(
-        (row) => includesQuery(row.title, search) || includesQuery(row.archiveNumber, search)
+        (row) =>
+          includesQuery(row.title, search) ||
+          includesQuery(row.archiveNumber, search),
       );
     }
-    if (documentType) rows = rows.filter((row) => row.documentType === documentType);
+    if (documentType)
+      rows = rows.filter((row) => row.documentType === documentType);
 
     rows = rows.sort(
-      (a, b) => this.toDate(b.archivedAt, new Date()).getTime() - this.toDate(a.archivedAt, new Date()).getTime()
+      (a, b) =>
+        this.toDate(b.archivedAt, new Date()).getTime() -
+        this.toDate(a.archivedAt, new Date()).getTime(),
     );
 
     const total = rows.length;
-    const items = rows.slice((page - 1) * limit, page * limit).map((row) => this.toDocumentArchive(row));
+    const items = rows
+      .slice((page - 1) * limit, page * limit)
+      .map((row) => this.toDocumentArchive(row));
     return { items, total };
   }
 
@@ -551,23 +764,29 @@ export class SheetsSecretariatRepository
 
   // Dashboard
   async getDashboardStats() {
-    const [incomingMails, outgoingMails, dispositions, documents] = await Promise.all([
-      readRows(this.schemas.incomingMail),
-      readRows(this.schemas.outgoingMail),
-      readRows(this.schemas.disposition),
-      readRows(this.schemas.administrativeDocument),
-    ]);
+    const [incomingMails, outgoingMails, dispositions, documents] =
+      await Promise.all([
+        readRows(this.schemas.incomingMail),
+        readRows(this.schemas.outgoingMail),
+        readRows(this.schemas.disposition),
+        readRows(this.schemas.administrativeDocument),
+      ]);
 
     return {
       totalIncomingMails: incomingMails.filter((row) => !row.deletedAt).length,
       totalOutgoingMails: outgoingMails.filter((row) => !row.deletedAt).length,
-      pendingDispositions: dispositions.filter((row) => !row.deletedAt && row.status === "PENDING").length,
-      totalAdministrativeDocuments: documents.filter((row) => !row.deletedAt).length,
+      pendingDispositions: dispositions.filter(
+        (row) => !row.deletedAt && row.status === "PENDING",
+      ).length,
+      totalAdministrativeDocuments: documents.filter((row) => !row.deletedAt)
+        .length,
     };
   }
 
   async countIncomingMailsByStatus() {
-    const rows = (await readRows(this.schemas.incomingMail)).filter((row) => !row.deletedAt);
+    const rows = (await readRows(this.schemas.incomingMail)).filter(
+      (row) => !row.deletedAt,
+    );
     return {
       received: rows.filter((row) => row.status === "RECEIVED").length,
       processed: rows.filter((row) => row.status === "PROCESSED").length,
@@ -576,7 +795,9 @@ export class SheetsSecretariatRepository
   }
 
   async countOutgoingMailsByStatus() {
-    const rows = (await readRows(this.schemas.outgoingMail)).filter((row) => !row.deletedAt);
+    const rows = (await readRows(this.schemas.outgoingMail)).filter(
+      (row) => !row.deletedAt,
+    );
     return {
       draft: rows.filter((row) => row.status === "DRAFT").length,
       approved: rows.filter((row) => row.status === "APPROVED").length,

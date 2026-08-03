@@ -10,7 +10,5 @@ export default async function NewPostPage() {
     redirect("/admin/content/categories");
   }
 
-  return (
-    <PostForm mode="create" categories={categories} />
-  );
+  return <PostForm mode="create" categories={categories} />;
 }

@@ -18,10 +18,10 @@ Mendefinisikan aturan validasi seluruh data pada Domain Secretariat.
 
 # Validation Principles
 
-* Server-side Validation
-* Client-side Validation
-* Fail Fast
-* Consistent Error Message
+- Server-side Validation
+- Client-side Validation
+- Fail Fast
+- Consistent Error Message
 
 ---
 
@@ -29,17 +29,17 @@ Mendefinisikan aturan validasi seluruh data pada Domain Secretariat.
 
 Wajib:
 
-* Agenda Number (otomatis)
-* Letter Number
-* Sender
-* Subject
-* Letter Date
-* Received Date
+- Agenda Number (otomatis)
+- Letter Number
+- Sender
+- Subject
+- Letter Date
+- Received Date
 
 Aturan:
 
-* Nomor Surat unik.
-* Received Date ≥ Letter Date.
+- Nomor Surat unik.
+- Received Date ≥ Letter Date.
 
 ---
 
@@ -47,16 +47,16 @@ Aturan:
 
 Wajib:
 
-* Letter Number
-* Recipient
-* Subject
-* Signed By
-* Letter Date
+- Letter Number
+- Recipient
+- Subject
+- Signed By
+- Letter Date
 
 Aturan:
 
-* Nomor Surat unik.
-* Penandatangan harus aktif.
+- Nomor Surat unik.
+- Penandatangan harus aktif.
 
 ---
 
@@ -64,14 +64,14 @@ Aturan:
 
 Wajib:
 
-* Incoming Mail
-* Assigned User
-* Instruction
+- Incoming Mail
+- Assigned User
+- Instruction
 
 Aturan:
 
-* Hanya untuk Surat Masuk.
-* Assigned User harus aktif.
+- Hanya untuk Surat Masuk.
+- Assigned User harus aktif.
 
 ---
 
@@ -79,35 +79,35 @@ Aturan:
 
 Wajib:
 
-* Document Number
-* Document Type
-* Title
+- Document Number
+- Document Type
+- Title
 
 Aturan:
 
-* Nomor Dokumen unik.
-* Document Type harus valid.
+- Nomor Dokumen unik.
+- Document Type harus valid.
 
 ---
 
 # Attachment Validation
 
-* Menggunakan Domain Media.
-* Format mengikuti standar Media.
-* File wajib tersedia.
+- Menggunakan Domain Media.
+- Format mengikuti standar Media.
+- File wajib tersedia.
 
 ---
 
 # Search Validation
 
-* search ≤ 100 karakter.
+- search ≤ 100 karakter.
 
 ---
 
 # Pagination Validation
 
-* page ≥ 1
-* limit 1–100
+- page ≥ 1
+- limit 1–100
 
 ---
 
@@ -115,8 +115,8 @@ Aturan:
 
 Dokumen hanya dapat diarsipkan apabila:
 
-* Status = Approved
-* Tidak memiliki proses aktif.
+- Status = Approved
+- Tidak memiliki proses aktif.
 
 ---
 
@@ -124,7 +124,7 @@ Dokumen hanya dapat diarsipkan apabila:
 
 Dokumen hanya dapat dipulihkan apabila:
 
-* Status = Archived.
+- Status = Archived.
 
 ---
 
@@ -132,9 +132,9 @@ Dokumen hanya dapat dipulihkan apabila:
 
 Data tidak dapat dihapus apabila:
 
-* Memiliki relasi aktif.
-* Sudah menjadi arsip.
-* Digunakan domain lain.
+- Memiliki relasi aktif.
+- Sudah menjadi arsip.
+- Digunakan domain lain.
 
 ---
 
@@ -167,7 +167,7 @@ Database
 
 # Acceptance Criteria
 
-* Seluruh input tervalidasi.
-* Nomor surat unik.
-* Dokumen tidak valid ditolak.
-* Validasi dijalankan sebelum Business Rules.
+- Seluruh input tervalidasi.
+- Nomor surat unik.
+- Dokumen tidak valid ditolak.
+- Validasi dijalankan sebelum Business Rules.

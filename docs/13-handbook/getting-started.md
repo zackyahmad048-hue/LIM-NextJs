@@ -29,27 +29,27 @@ LIM Digital Platform adalah platform digital terintegrasi untuk Lembaga Ittihadu
 
 # Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Language | TypeScript |
-| Framework | Next.js 16 |
-| UI Library | React 19 |
-| Styling | Tailwind CSS 4 |
-| Component | shadcn/ui |
-| ORM | Prisma 7 |
-| Database | PostgreSQL |
-| Auth | Better Auth |
-| Validation | Zod |
-| Form | React Hook Form |
-| Table | TanStack Table |
-| Animation | Motion |
-| State | React Context |
+| Layer      | Technology      |
+| ---------- | --------------- |
+| Language   | TypeScript      |
+| Framework  | Next.js 16      |
+| UI Library | React 19        |
+| Styling    | Tailwind CSS 4  |
+| Component  | shadcn/ui       |
+| ORM        | Prisma 7        |
+| Database   | PostgreSQL      |
+| Auth       | Better Auth     |
+| Validation | Zod             |
+| Form       | React Hook Form |
+| Table      | TanStack Table  |
+| Animation  | Motion          |
+| State      | React Context   |
 
 ---
 
 # Project Structure
 
-``text
+`text
 my-app/
 +-- app/                    # Next.js App Router
 |   +-- (public)/           # Public website routes
@@ -72,13 +72,13 @@ my-app/
 +-- docs/                   # Documentation
 +-- public/                 # Static assets
 +-- config/                 # App configuration
-``
+`
 
 ---
 
 # Architecture Layers
 
-``text
+`text
 Presentation (UI)
       |
 Server Actions / API
@@ -90,9 +90,10 @@ Repository Layer (Database Access)
 Prisma ORM
       |
 PostgreSQL
-``
+`
 
 Aturan utama:
+
 - Business Rules hanya di Service Layer.
 - Database access hanya melalui Repository.
 - UI tidak boleh mengakses Prisma langsung.
@@ -135,21 +136,25 @@ Setiap domain memiliki struktur yang konsisten: validation, service, repository.
 # Essential Commands
 
 ``bash
+
 # Development
-npm run dev              # Jalankan dev server
+
+npm run dev # Jalankan dev server
 
 # Quality
-npm run check            # Lint + Typecheck
-npm run lint             # ESLint only
-npm run typecheck        # TypeScript only
-npm run format           # Prettier format
+
+npm run check # Lint + Typecheck
+npm run lint # ESLint only
+npm run typecheck # TypeScript only
+npm run format # Prettier format
 
 # Database
-npm run prisma:generate  # Generate Prisma client
-npm run prisma:migrate   # Jalankan migrasi
-npm run prisma:studio    # Buka Prisma Studio
-npm run db:push          # Push schema ke database
-npm run db:seed          # Jalankan seed data
+
+npm run prisma:generate # Generate Prisma client
+npm run prisma:migrate # Jalankan migrasi
+npm run prisma:studio # Buka Prisma Studio
+npm run db:push # Push schema ke database
+npm run db:seed # Jalankan seed data
 ``
 
 ---

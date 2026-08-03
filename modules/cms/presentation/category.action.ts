@@ -12,9 +12,7 @@ function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message === "UNAUTHORIZED") {
     return "Sesi tidak valid. Silakan login kembali.";
   }
-  return error instanceof Error
-    ? error.message
-    : "Terjadi kesalahan.";
+  return error instanceof Error ? error.message : "Terjadi kesalahan.";
 }
 
 export async function createCategory(formData: FormData) {

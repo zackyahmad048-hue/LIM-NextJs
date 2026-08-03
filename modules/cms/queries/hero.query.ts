@@ -21,7 +21,12 @@ function isHeroConfig(value: unknown): value is HeroConfig {
 }
 
 export async function getHeroConfig(): Promise<HeroConfig> {
-  const setting = await settingRepository.findByKey(HERO_CONFIG_SETTING_KEY);
+  let setting;
+  try {
+    setting = await settingRepository.findByKey(HERO_CONFIG_SETTING_KEY);
+  } catch {
+    return DEFAULT_HERO_CONFIG;
+  }
 
   if (!setting) return DEFAULT_HERO_CONFIG;
 

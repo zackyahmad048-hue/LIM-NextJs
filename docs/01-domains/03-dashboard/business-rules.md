@@ -96,10 +96,10 @@ Informasi sensitif seperti konfigurasi server, secret, atau detail database tida
 
 Dashboard harus:
 
-* Memuat dengan cepat.
-* Menggunakan query yang efisien.
-* Tidak melakukan query yang berulang.
-* Menggunakan pagination apabila diperlukan.
+- Memuat dengan cepat.
+- Menggunakan query yang efisien.
+- Tidak melakukan query yang berulang.
+- Menggunakan pagination apabila diperlukan.
 
 ---
 
@@ -117,9 +117,9 @@ Dashboard tidak boleh melakukan operasi Create, Update, Delete, atau Restore.
 
 Apabila widget gagal dimuat:
 
-* Widget lain tetap ditampilkan.
-* Sistem mencatat error pada log.
-* Pengguna menerima pesan yang mudah dipahami.
+- Widget lain tetap ditampilkan.
+- Sistem mencatat error pada log.
+- Pengguna menerima pesan yang mudah dipahami.
 
 ---
 
@@ -135,9 +135,9 @@ Audit hanya dicatat apabila terdapat aksi yang mengubah data pada domain lain.
 
 Dashboard wajib:
 
-* Memeriksa Session pengguna.
-* Memeriksa Permission sebelum memuat widget.
-* Menyembunyikan informasi yang tidak memiliki hak akses.
+- Memeriksa Session pengguna.
+- Memeriksa Permission sebelum memuat widget.
+- Menyembunyikan informasi yang tidak memiliki hak akses.
 
 ---
 
@@ -145,21 +145,21 @@ Dashboard wajib:
 
 Business Rules Dashboard dianggap terpenuhi apabila:
 
-* Dashboard hanya dapat diakses setelah login.
-* Widget mengikuti Permission pengguna.
-* Statistik hanya menghitung data aktif.
-* Dashboard tidak mengubah data.
-* Dashboard tetap dapat digunakan meskipun salah satu widget gagal dimuat.
+- Dashboard hanya dapat diakses setelah login.
+- Widget mengikuti Permission pengguna.
+- Statistik hanya menghitung data aktif.
+- Dashboard tidak mengubah data.
+- Dashboard tetap dapat digunakan meskipun salah satu widget gagal dimuat.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

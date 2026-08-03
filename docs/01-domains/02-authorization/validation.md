@@ -24,12 +24,12 @@ Dokumen ini mendefinisikan validasi schema untuk domain Authorization menggunaka
 import { z } from "zod";
 
 export const createRoleSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Nama role harus diisi")
-    .max(50, "Nama role maksimal 50 karakter")
-    .regex(/^[a-z_]+$/, "Nama role hanya boleh huruf kecil dan underscore"),
-  description: z.string().optional(),
+name: z
+.string()
+.min(1, "Nama role harus diisi")
+.max(50, "Nama role maksimal 50 karakter")
+.regex(/^[a-z_]+$/, "Nama role hanya boleh huruf kecil dan underscore"),
+description: z.string().optional(),
 });
 ``
 
@@ -37,7 +37,7 @@ export const createRoleSchema = z.object({
 
 ### Update Role Schema
 
-``typescript
+`typescript
 export const updateRoleSchema = z.object({
   name: z
     .string()
@@ -47,31 +47,31 @@ export const updateRoleSchema = z.object({
     .optional(),
   description: z.string().optional(),
 });
-``
+`
 
 ---
 
 ### Assign Permissions Schema
 
-``typescript
+`typescript
 export const assignPermissionsSchema = z.object({
   permissionIds: z
     .array(z.string().uuid())
     .min(1, "Pilih minimal satu permission"),
 });
-``
+`
 
 ---
 
 ### Assign Roles Schema
 
-``typescript
+`typescript
 export const assignRolesSchema = z.object({
   roleIds: z
     .array(z.string().uuid())
     .min(1, "Pilih minimal satu role"),
 });
-``
+`
 
 ---
 

@@ -24,12 +24,12 @@ Seluruh developer dan AI wajib mengikuti standar ini.
 
 Seluruh kode harus memenuhi prinsip berikut:
 
-* Readability First
-* Consistency Over Preference
-* Simplicity First
-* Reusability
-* Maintainability
-* Testability
+- Readability First
+- Consistency Over Preference
+- Simplicity First
+- Reusability
+- Maintainability
+- Testability
 
 Kode dibaca lebih sering daripada ditulis.
 
@@ -39,33 +39,33 @@ Kode dibaca lebih sering daripada ditulis.
 
 Bahasa:
 
-* TypeScript
+- TypeScript
 
 Framework:
 
-* Next.js
+- Next.js
 
 UI:
 
-* React
-* Tailwind CSS
-* shadcn/ui
+- React
+- Tailwind CSS
+- shadcn/ui
 
 Database:
 
-* Prisma ORM
+- Prisma ORM
 
 Validation:
 
-* Zod
+- Zod
 
 Form:
 
-* React Hook Form
+- React Hook Form
 
 Table:
 
-* TanStack Table
+- TanStack Table
 
 ---
 
@@ -181,10 +181,10 @@ DEFAULT_PAGE_SIZE
 
 Function harus:
 
-* Memiliki satu tanggung jawab.
-* Mudah dipahami.
-* Tidak terlalu panjang.
-* Menggunakan nama yang jelas.
+- Memiliki satu tanggung jawab.
+- Mudah dipahami.
+- Tidak terlalu panjang.
+- Menggunakan nama yang jelas.
 
 Contoh:
 
@@ -202,10 +202,10 @@ publishCertificate()
 
 React Component harus:
 
-* Fokus pada satu tugas.
-* Reusable.
-* Tidak menyimpan Business Rules.
-* Tidak mengakses database.
+- Fokus pada satu tugas.
+- Reusable.
+- Tidak menyimpan Business Rules.
+- Tidak mengakses database.
 
 ---
 
@@ -215,10 +215,10 @@ Business Rules hanya berada pada Service Layer.
 
 Tidak diperbolehkan meletakkan Business Rules di:
 
-* Component
-* Repository
-* Prisma
-* UI
+- Component
+- Repository
+- Prisma
+- UI
 
 ---
 
@@ -226,10 +226,10 @@ Tidak diperbolehkan meletakkan Business Rules di:
 
 Repository hanya bertugas:
 
-* Membaca data.
-* Menyimpan data.
-* Memperbarui data.
-* Menghapus data.
+- Membaca data.
+- Menyimpan data.
+- Memperbarui data.
+- Menghapus data.
 
 Repository tidak boleh berisi Business Rules.
 
@@ -249,14 +249,14 @@ Server Validation tetap wajib dilakukan.
 
 Wajib:
 
-* Strict Mode.
-* Type yang jelas.
-* Interface atau Type sesuai kebutuhan.
+- Strict Mode.
+- Type yang jelas.
+- Interface atau Type sesuai kebutuhan.
 
 Tidak diperbolehkan:
 
-* Menggunakan `any` tanpa alasan yang kuat.
-* Mengabaikan error TypeScript.
+- Menggunakan `any` tanpa alasan yang kuat.
+- Mengabaikan error TypeScript.
 
 ---
 
@@ -290,9 +290,9 @@ Gunakan Error yang jelas.
 
 Contoh:
 
-* "Kategori tidak ditemukan."
-* "Slug sudah digunakan."
-* "Akses ditolak."
+- "Kategori tidak ditemukan."
+- "Slug sudah digunakan."
+- "Akses ditolak."
 
 Hindari pesan yang tidak informatif.
 
@@ -308,9 +308,9 @@ Repository
 
 Tidak diperbolehkan memanggil Prisma langsung dari:
 
-* UI
-* Component
-* Service lain
+- UI
+- Component
+- Service lain
 
 ---
 
@@ -318,9 +318,9 @@ Tidak diperbolehkan memanggil Prisma langsung dari:
 
 REST API hanya:
 
-* Menerima Request.
-* Memanggil Service.
-* Mengembalikan Response.
+- Menerima Request.
+- Memanggil Service.
+- Mengembalikan Response.
 
 Business Rules tetap berada pada Service Layer.
 
@@ -338,9 +338,9 @@ Kode yang baik seharusnya dapat dipahami tanpa komentar berlebihan.
 
 Gunakan logging untuk:
 
-* Error
-* Warning
-* Audit
+- Error
+- Warning
+- Audit
 
 Hapus seluruh log debugging sebelum release.
 
@@ -350,9 +350,9 @@ Hapus seluruh log debugging sebelum release.
 
 Tidak boleh:
 
-* Hardcode Secret.
-* Menyimpan Password.
-* Menampilkan Stack Trace ke pengguna.
+- Hardcode Secret.
+- Menyimpan Password.
+- Menampilkan Stack Trace ke pengguna.
 
 ---
 
@@ -360,11 +360,11 @@ Tidak boleh:
 
 Utamakan:
 
-* Pagination
-* Lazy Loading bila diperlukan
-* Query efisien
-* Menghindari N+1 Query
-* Reuse Component
+- Pagination
+- Lazy Loading bila diperlukan
+- Query efisien
+- Menghindari N+1 Query
+- Reuse Component
 
 ---
 
@@ -372,13 +372,13 @@ Utamakan:
 
 Sebelum merge, pastikan:
 
-* Build berhasil.
-* TypeScript tanpa error.
-* Lint tanpa error.
-* Tidak ada `console.log()`.
-* Business Rules dipatuhi.
-* Repository Pattern dipatuhi.
-* Dokumentasi diperbarui bila diperlukan.
+- Build berhasil.
+- TypeScript tanpa error.
+- Lint tanpa error.
+- Tidak ada `console.log()`.
+- Business Rules dipatuhi.
+- Repository Pattern dipatuhi.
+- Dokumentasi diperbarui bila diperlukan.
 
 ---
 
@@ -386,12 +386,12 @@ Sebelum merge, pastikan:
 
 Sebuah pekerjaan dianggap selesai apabila:
 
-* Fitur berjalan sesuai kebutuhan.
-* Build berhasil.
-* Tidak ada error TypeScript.
-* Tidak ada lint error.
-* Dokumentasi diperbarui.
-* Siap untuk code review.
+- Fitur berjalan sesuai kebutuhan.
+- Build berhasil.
+- Tidak ada error TypeScript.
+- Tidak ada lint error.
+- Dokumentasi diperbarui.
+- Siap untuk code review.
 
 ---
 

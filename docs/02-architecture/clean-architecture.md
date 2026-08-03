@@ -52,11 +52,11 @@ Infrastructure
 
 Bertanggung jawab untuk:
 
-* REST API
-* HTTP Controller
-* Request Validation
-* Authentication
-* Response Formatting
+- REST API
+- HTTP Controller
+- Request Validation
+- Authentication
+- Response Formatting
 
 Tidak boleh mengandung Business Logic.
 
@@ -66,12 +66,12 @@ Tidak boleh mengandung Business Logic.
 
 Berisi:
 
-* Use Case
-* Command
-* Query
-* DTO
-* Transaction Management
-* Event Publishing
+- Use Case
+- Command
+- Query
+- DTO
+- Transaction Management
+- Event Publishing
 
 Application Layer mengorkestrasi Business Rules tanpa mengimplementasikannya.
 
@@ -83,21 +83,21 @@ Merupakan inti sistem.
 
 Berisi:
 
-* Entity
-* Aggregate
-* Value Object
-* Domain Service
-* Repository Interface
-* Domain Event
-* Business Rules
+- Entity
+- Aggregate
+- Value Object
+- Domain Service
+- Repository Interface
+- Domain Event
+- Business Rules
 
 Layer ini tidak mengetahui:
 
-* HTTP
-* ORM
-* Framework
-* Database
-* Storage
+- HTTP
+- ORM
+- Framework
+- Database
+- Storage
 
 ---
 
@@ -105,15 +105,15 @@ Layer ini tidak mengetahui:
 
 Berisi implementasi teknis:
 
-* Database
-* ORM
-* Repository Implementation
-* Cache
-* Storage
-* Email
-* Notification
-* Queue
-* External API
+- Database
+- ORM
+- Repository Implementation
+- Cache
+- Storage
+- Email
+- Notification
+- Queue
+- External API
 
 Infrastructure bergantung pada Domain, bukan sebaliknya.
 
@@ -233,15 +233,15 @@ Repository Implementation
 
 Domain Layer tidak boleh mengetahui:
 
-* Express
-* NestJS
-* Laravel
-* Spring
-* Prisma
-* TypeORM
-* PostgreSQL
-* MySQL
-* MongoDB
+- Express
+- NestJS
+- Laravel
+- Spring
+- Prisma
+- TypeORM
+- PostgreSQL
+- MySQL
+- MongoDB
 
 Business Rules tetap dapat berjalan walaupun teknologi berubah.
 
@@ -251,13 +251,13 @@ Business Rules tetap dapat berjalan walaupun teknologi berubah.
 
 Digunakan oleh seluruh layer:
 
-* Logging
-* Validation
-* Configuration
-* Authentication
-* Authorization
-* Audit Log
-* Exception Handling
+- Logging
+- Validation
+- Configuration
+- Authentication
+- Authorization
+- Audit Log
+- Exception Handling
 
 Implementasi dilakukan tanpa melanggar Dependency Rule.
 
@@ -265,43 +265,43 @@ Implementasi dilakukan tanpa melanggar Dependency Rule.
 
 # Design Principles
 
-* SOLID
-* Dependency Inversion Principle
-* Single Responsibility Principle
-* Open Closed Principle
-* Separation of Concerns
+- SOLID
+- Dependency Inversion Principle
+- Single Responsibility Principle
+- Open Closed Principle
+- Separation of Concerns
 
 ---
 
 # Benefits
 
-* Mudah diuji (Unit Test).
-* Mudah mengganti database.
-* Mudah mengganti framework.
-* Business Rules tetap stabil.
-* Mendukung Modular Monolith dan migrasi ke Microservices.
+- Mudah diuji (Unit Test).
+- Mudah mengganti database.
+- Mudah mengganti framework.
+- Business Rules tetap stabil.
+- Mendukung Modular Monolith dan migrasi ke Microservices.
 
 ---
 
 # Related Documents
 
-* README.md
-* architecture-overview.md
-* system-context.md
-* domain-map.md
-* bounded-context.md
-* hexagonal-architecture.md
-* cqrs.md
-* event-driven.md
-* folder-structure.md
-* dependency-rules.md
+- README.md
+- architecture-overview.md
+- system-context.md
+- domain-map.md
+- bounded-context.md
+- hexagonal-architecture.md
+- cqrs.md
+- event-driven.md
+- folder-structure.md
+- dependency-rules.md
 
 ---
 
 # Acceptance Criteria
 
-* Dependency mengikuti aturan Clean Architecture.
-* Business Rules independen dari teknologi.
-* Repository menggunakan Interface.
-* Infrastructure hanya berisi implementasi teknis.
-* Seluruh modul mengikuti struktur Clean Architecture.
+- Dependency mengikuti aturan Clean Architecture.
+- Business Rules independen dari teknologi.
+- Repository menggunakan Interface.
+- Infrastructure hanya berisi implementasi teknis.
+- Seluruh modul mengikuti struktur Clean Architecture.

@@ -28,16 +28,16 @@ Domain Program menjadi pusat manajemen seluruh kegiatan organisasi, mulai dari p
 
 ## Features
 
-* Program Management
-* Schedule Management
-* Participant Management
-* Committee Management
-* Registration
-* Attendance
-* Documentation
-* Reporting
-* Soft Delete
-* Audit Log
+- Program Management
+- Schedule Management
+- Participant Management
+- Committee Management
+- Registration
+- Attendance
+- Documentation
+- Reporting
+- Soft Delete
+- Audit Log
 
 **Status**
 
@@ -49,12 +49,12 @@ Domain Program menjadi pusat manajemen seluruh kegiatan organisasi, mulai dari p
 
 ## Features
 
-* QR Code Registration
-* QR Code Attendance
-* Waiting List
-* Capacity Management
-* Reminder Notification
-* Calendar Integration
+- QR Code Registration
+- QR Code Attendance
+- Waiting List
+- Capacity Management
+- Reminder Notification
+- Calendar Integration
 
 ---
 
@@ -62,12 +62,12 @@ Domain Program menjadi pusat manajemen seluruh kegiatan organisasi, mulai dari p
 
 ## Features
 
-* Budget Management
-* Task Management
-* Committee Assignment
-* Program Timeline
-* Program Evaluation
-* Participant Feedback
+- Budget Management
+- Task Management
+- Committee Assignment
+- Program Timeline
+- Program Evaluation
+- Participant Feedback
 
 ---
 
@@ -75,12 +75,12 @@ Domain Program menjadi pusat manajemen seluruh kegiatan organisasi, mulai dari p
 
 ## Features
 
-* Multi Day Event
-* Multi Venue
-* Live Attendance Dashboard
-* Live Monitoring
-* Public Registration Portal
-* Event Analytics
+- Multi Day Event
+- Multi Venue
+- Live Attendance Dashboard
+- Live Monitoring
+- Public Registration Portal
+- Event Analytics
 
 ---
 
@@ -88,11 +88,11 @@ Domain Program menjadi pusat manajemen seluruh kegiatan organisasi, mulai dari p
 
 ## Features
 
-* AI Schedule Assistant
-* AI Attendance Analysis
-* AI Participant Recommendation
-* AI Event Summary
-* AI Program Analytics
+- AI Schedule Assistant
+- AI Attendance Analysis
+- AI Participant Recommendation
+- AI Event Summary
+- AI Program Analytics
 
 ---
 
@@ -100,12 +100,12 @@ Domain Program menjadi pusat manajemen seluruh kegiatan organisasi, mulai dari p
 
 Domain Program menjadi referensi bagi:
 
-* Dashboard
-* Certificate
-* Letter
-* Notification
-* Knowledge
-* Media
+- Dashboard
+- Certificate
+- Letter
+- Notification
+- Knowledge
+- Media
 
 ---
 
@@ -113,22 +113,22 @@ Domain Program menjadi referensi bagi:
 
 Program dianggap berhasil apabila:
 
-* Seluruh kegiatan terdokumentasi.
-* Registrasi berjalan otomatis.
-* Absensi berjalan digital.
-* Sertifikat dapat diterbitkan otomatis.
-* Dokumentasi terintegrasi dengan Domain Media.
+- Seluruh kegiatan terdokumentasi.
+- Registrasi berjalan otomatis.
+- Absensi berjalan digital.
+- Sertifikat dapat diterbitkan otomatis.
+- Dokumentasi terintegrasi dengan Domain Media.
 
 ---
 
 # Future Integrations
 
-* Google Calendar
-* Outlook Calendar
-* WhatsApp Notification
-* Email Notification
-* QR Scanner
-* Mobile Application
+- Google Calendar
+- Outlook Calendar
+- WhatsApp Notification
+- Email Notification
+- QR Scanner
+- Mobile Application
 
 ---
 
@@ -136,24 +136,24 @@ Program dianggap berhasil apabila:
 
 Evaluasi dilakukan setiap rilis untuk:
 
-* Penambahan fitur.
-* Optimasi performa.
-* Penyempurnaan UI/UX.
-* Penyesuaian Business Rules.
-* Integrasi dengan domain baru.
+- Penambahan fitur.
+- Optimasi performa.
+- Penyempurnaan UI/UX.
+- Penyesuaian Business Rules.
+- Integrasi dengan domain baru.
 
 ---
 
 # Related Documents
 
-* README.md
-* business-rules.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
+- README.md
+- business-rules.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
 
 ---
 

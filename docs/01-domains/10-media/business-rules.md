@@ -20,11 +20,11 @@ Domain Media menjadi layanan penyimpanan terpusat untuk seluruh file yang diguna
 
 # General Rules
 
-* Seluruh file disimpan melalui Domain Media.
-* Setiap file memiliki ID unik.
-* File hanya disimpan satu kali.
-* Domain lain hanya menyimpan referensi `mediaId`.
-* Seluruh aktivitas dicatat pada Audit Log.
+- Seluruh file disimpan melalui Domain Media.
+- Setiap file memiliki ID unik.
+- File hanya disimpan satu kali.
+- Domain lain hanya menyimpan referensi `mediaId`.
+- Seluruh aktivitas dicatat pada Audit Log.
 
 ---
 
@@ -32,14 +32,14 @@ Domain Media menjadi layanan penyimpanan terpusat untuk seluruh file yang diguna
 
 Media mendukung:
 
-* Image
-* Document
-* PDF
-* Spreadsheet
-* Presentation
-* Video
-* Audio
-* Archive
+- Image
+- Document
+- PDF
+- Spreadsheet
+- Presentation
+- Video
+- Audio
+- Archive
 
 Format dapat ditambah melalui konfigurasi sistem.
 
@@ -49,12 +49,12 @@ Format dapat ditambah melalui konfigurasi sistem.
 
 Setiap file wajib memiliki:
 
-* File Name
-* MIME Type
-* File Size
-* Storage Path
-* Uploaded By
-* Uploaded At
+- File Name
+- MIME Type
+- File Size
+- Storage Path
+- Uploaded By
+- Uploaded At
 
 Upload hanya dapat dilakukan oleh pengguna yang memiliki permission.
 
@@ -62,15 +62,15 @@ Upload hanya dapat dilakukan oleh pengguna yang memiliki permission.
 
 # Storage Rules
 
-* File disimpan pada Storage Provider.
-* Metadata disimpan di Database.
-* File tidak disimpan sebagai BLOB di database.
+- File disimpan pada Storage Provider.
+- Metadata disimpan di Database.
+- File tidak disimpan sebagai BLOB di database.
 
 Storage dapat berupa:
 
-* Local Storage
-* S3 Compatible Storage
-* Cloud Storage
+- Local Storage
+- S3 Compatible Storage
+- Cloud Storage
 
 ---
 
@@ -78,9 +78,9 @@ Storage dapat berupa:
 
 File dapat dikelompokkan berdasarkan:
 
-* Domain
-* Folder
-* Kategori
+- Domain
+- Folder
+- Kategori
 
 Contoh:
 
@@ -102,9 +102,9 @@ cms/
 
 Thumbnail otomatis dibuat untuk:
 
-* JPG
-* PNG
-* WEBP
+- JPG
+- PNG
+- WEBP
 
 Thumbnail tidak dibuat untuk dokumen non-gambar.
 
@@ -114,9 +114,9 @@ Thumbnail tidak dibuat untuk dokumen non-gambar.
 
 Preview didukung untuk:
 
-* Image
-* PDF
-* Video
+- Image
+- PDF
+- Video
 
 File lain menggunakan proses download.
 
@@ -136,8 +136,8 @@ File dapat diarsipkan.
 
 File arsip:
 
-* Tidak dapat diubah.
-* Tetap dapat digunakan sebagai referensi.
+- Tidak dapat diubah.
+- Tetap dapat digunakan sebagai referensi.
 
 ---
 
@@ -147,10 +147,10 @@ Menggunakan Soft Delete.
 
 File tidak dapat dihapus apabila:
 
-* Masih digunakan domain lain.
-* Menjadi logo organisasi.
-* Menjadi template.
-* Menjadi lampiran aktif.
+- Masih digunakan domain lain.
+- Menjadi logo organisasi.
+- Menjadi template.
+- Menjadi lampiran aktif.
 
 ---
 
@@ -158,22 +158,22 @@ File tidak dapat dihapus apabila:
 
 Aktivitas berikut wajib dicatat:
 
-* Upload File
-* Update Metadata
-* Download File
-* Preview File
-* Archive File
-* Restore File
-* Delete File
+- Upload File
+- Update Metadata
+- Download File
+- Preview File
+- Archive File
+- Restore File
+- Delete File
 
 ---
 
 # Security Rules
 
-* Authentication wajib.
-* Permission wajib.
-* File pribadi hanya dapat diakses oleh pengguna yang memiliki hak.
-* URL file mengikuti kebijakan keamanan storage.
+- Authentication wajib.
+- Permission wajib.
+- File pribadi hanya dapat diakses oleh pengguna yang memiliki hak.
+- URL file mengikuti kebijakan keamanan storage.
 
 ---
 
@@ -181,20 +181,20 @@ Aktivitas berikut wajib dicatat:
 
 Business Rules dianggap selesai apabila:
 
-* File hanya disimpan satu kali.
-* Metadata selalu tersedia.
-* File tidak dapat dihapus apabila masih direferensikan.
-* Seluruh aktivitas tercatat pada Audit Log.
+- File hanya disimpan satu kali.
+- Metadata selalu tersedia.
+- File tidak dapat dihapus apabila masih direferensikan.
+- Seluruh aktivitas tercatat pada Audit Log.
 
 ---
 
 # Related Documents
 
-* README.md
-* workflow.md
-* database.md
-* api.md
-* permissions.md
-* validation.md
-* ui.md
-* roadmap.md
+- README.md
+- workflow.md
+- database.md
+- api.md
+- permissions.md
+- validation.md
+- ui.md
+- roadmap.md

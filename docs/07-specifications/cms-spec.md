@@ -26,13 +26,13 @@ CMS tidak mengelola Knowledge Base karena dikelola oleh **Knowledge Domain**.
 
 CMS harus mampu:
 
-* Mengelola Halaman (Pages).
-* Mengelola Berita (News).
-* Mengelola Banner.
-* Mengelola Menu Navigasi.
-* Mengelola Kategori Konten.
-* Mengelola SEO Metadata.
-* Mengelola Status Publikasi.
+- Mengelola Halaman (Pages).
+- Mengelola Berita (News).
+- Mengelola Banner.
+- Mengelola Menu Navigasi.
+- Mengelola Kategori Konten.
+- Mengelola SEO Metadata.
+- Mengelola Status Publikasi.
 
 ---
 
@@ -54,11 +54,11 @@ CMS harus mampu:
 
 Mengelola:
 
-* Create Page
-* Update Page
-* Delete Page
-* Publish Page
-* Archive Page
+- Create Page
+- Update Page
+- Delete Page
+- Publish Page
+- Archive Page
 
 ---
 
@@ -66,10 +66,10 @@ Mengelola:
 
 Mengelola:
 
-* News Article
-* Category
-* Featured News
-* Publication Date
+- News Article
+- Category
+- Featured News
+- Publication Date
 
 ---
 
@@ -77,9 +77,9 @@ Mengelola:
 
 Mengelola:
 
-* Homepage Banner
-* Promotion Banner
-* Event Banner
+- Homepage Banner
+- Promotion Banner
+- Event Banner
 
 ---
 
@@ -87,10 +87,10 @@ Mengelola:
 
 Mengelola:
 
-* Main Menu
-* Footer Menu
-* External Link
-* Internal Link
+- Main Menu
+- Footer Menu
+- External Link
+- Internal Link
 
 ---
 
@@ -98,11 +98,11 @@ Mengelola:
 
 Setiap konten mendukung:
 
-* Meta Title
-* Meta Description
-* Slug
-* Canonical URL
-* Open Graph Metadata
+- Meta Title
+- Meta Description
+- Slug
+- Canonical URL
+- Open Graph Metadata
 
 ---
 
@@ -132,29 +132,29 @@ Archived
 
 CMS harus:
 
-* Response < 500 ms.
-* Mendukung Full Text Search.
-* Mendukung Versioning.
-* Audit Enabled.
-* Highly Available.
+- Response < 500 ms.
+- Mendukung Full Text Search.
+- Mendukung Versioning.
+- Audit Enabled.
+- Highly Available.
 
 ---
 
 # Preconditions
 
-* User telah Login.
-* Permission sesuai.
-* Konten memenuhi validasi.
+- User telah Login.
+- Permission sesuai.
+- Konten memenuhi validasi.
 
 ---
 
 # Postconditions
 
-* Konten tersimpan.
-* Audit Log dibuat.
-* Search Index diperbarui.
-* Cache diperbarui.
-* Domain Event diterbitkan.
+- Konten tersimpan.
+- Audit Log dibuat.
+- Search Index diperbarui.
+- Cache diperbarui.
+- Domain Event diterbitkan.
 
 ---
 
@@ -216,11 +216,11 @@ Publish Later
 
 # Exception Flow
 
-* Slug sudah digunakan.
-* Konten tidak ditemukan.
-* Permission ditolak.
-* Status tidak valid.
-* Media tidak tersedia.
+- Slug sudah digunakan.
+- Konten tidak ditemukan.
+- Permission ditolak.
+- Status tidak valid.
+- Media tidak tersedia.
 
 ---
 
@@ -276,21 +276,21 @@ Archived
 
 Entity:
 
-* Page
-* News
-* Banner
-* Menu
-* Category
+- Page
+- News
+- Banner
+- Menu
+- Category
 
 Aggregate:
 
-* CMSContent
+- CMSContent
 
 Value Object:
 
-* Slug
-* SEO Metadata
-* PublicationStatus
+- Slug
+- SEO Metadata
+- PublicationStatus
 
 ---
 
@@ -341,10 +341,10 @@ cms_menus
 
 | Action         | Admin | Editor | Author | Public |
 | -------------- | :---: | :----: | :----: | :----: |
-| View Published |   ✅   |    ✅   |    ✅   |    ✅   |
-| Create Draft   |   ✅   |    ✅   |    ✅   |    ❌   |
-| Publish        |   ✅   |    ✅   |    ❌   |    ❌   |
-| Delete         |   ✅   |    ❌   |    ❌   |    ❌   |
+| View Published |  ✅   |   ✅   |   ✅   |   ✅   |
+| Create Draft   |  ✅   |   ✅   |   ✅   |   ❌   |
+| Publish        |  ✅   |   ✅   |   ❌   |   ❌   |
+| Delete         |  ✅   |   ❌   |   ❌   |   ❌   |
 
 ---
 
@@ -388,39 +388,39 @@ BannerUpdated
 
 # Acceptance Test
 
-* Halaman berhasil dibuat.
-* Draft berhasil disimpan.
-* Konten berhasil dipublikasikan.
-* Banner berhasil diperbarui.
-* Menu berhasil diperbarui.
-* SEO Metadata tersimpan.
-* Audit Log tercatat.
-* Domain Event diterbitkan.
+- Halaman berhasil dibuat.
+- Draft berhasil disimpan.
+- Konten berhasil dipublikasikan.
+- Banner berhasil diperbarui.
+- Menu berhasil diperbarui.
+- SEO Metadata tersimpan.
+- Audit Log tercatat.
+- Domain Event diterbitkan.
 
 ---
 
 # Performance Requirement
 
-* Create Content < 500 ms.
-* Publish Content < 500 ms.
-* Search Content < 300 ms.
+- Create Content < 500 ms.
+- Publish Content < 500 ms.
+- Search Content < 300 ms.
 
 ---
 
 # Security Requirement
 
-* RBAC diterapkan.
-* Audit Log aktif.
-* HTML disanitasi sebelum disimpan.
-* File Upload divalidasi.
-* Seluruh endpoint menggunakan HTTPS.
+- RBAC diterapkan.
+- Audit Log aktif.
+- HTML disanitasi sebelum disimpan.
+- File Upload divalidasi.
+- Seluruh endpoint menggunakan HTTPS.
 
 ---
 
 # Acceptance Criteria
 
-* Workflow Draft–Review–Published berjalan sesuai spesifikasi.
-* Seluruh konten tervalidasi sebelum dipublikasikan.
-* Search Index dan Cache diperbarui setelah publikasi.
-* API mengikuti API Standard.
-* Specification siap digunakan sebagai dasar implementasi CMS Domain.
+- Workflow Draft–Review–Published berjalan sesuai spesifikasi.
+- Seluruh konten tervalidasi sebelum dipublikasikan.
+- Search Index dan Cache diperbarui setelah publikasi.
+- API mengikuti API Standard.
+- Specification siap digunakan sebagai dasar implementasi CMS Domain.

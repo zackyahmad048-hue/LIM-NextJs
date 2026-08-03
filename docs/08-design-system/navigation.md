@@ -224,23 +224,23 @@ Bidang
 
 # Navigation Components
 
-| Component | Desktop | Mobile |
-|------------|----------|---------|
-| Navbar | Navigation Menu | Drawer |
-| Dropdown | Hover | Expand |
-| Sidebar | Fixed | Drawer |
-| Breadcrumb | Yes | Yes |
-| Footer Navigation | Yes | Yes |
+| Component         | Desktop         | Mobile |
+| ----------------- | --------------- | ------ |
+| Navbar            | Navigation Menu | Drawer |
+| Dropdown          | Hover           | Expand |
+| Sidebar           | Fixed           | Drawer |
+| Breadcrumb        | Yes             | Yes    |
+| Footer Navigation | Yes             | Yes    |
 
 ---
 
 # Responsive Behavior
 
-| Device | Navigation |
-|---------|------------|
-| Mobile | Drawer |
-| Tablet | Drawer |
-| Desktop | Navigation Menu |
+| Device        | Navigation      |
+| ------------- | --------------- |
+| Mobile        | Drawer          |
+| Tablet        | Drawer          |
+| Desktop       | Navigation Menu |
 | Large Desktop | Navigation Menu |
 
 ---
