@@ -225,18 +225,34 @@ Review
 Deploy
 ```
 
-Migration manual pada Production tidak diperbolehkan.
+Migration manual pada Production tidak diperbolehkan. Pada Production (Vercel), migration diterapkan otomatis melalui `prisma migrate deploy` dalam build pipeline.
 
 ---
 
 # Seeder
 
-Seeder hanya digunakan untuk:
+Seeder bersifat idempotent (menggunakan `upsert`) sehingga aman dijalankan berulang kali.
 
-- Development
-- Testing
+Pada Production (Vercel), migration dan seeder dijalankan otomatis pada setiap deployment melalui build command:
 
-Seeder tidak dijalankan secara otomatis pada Production.
+```text id="dp06"
+npm run db:deploy   # prisma migrate deploy && tsx prisma/seed.ts
+npm run build       # prisma generate && next build
+```
+
+Seeder hanya memuat data referensi RBAC (bukan data dummy/transaksi):
+
+- 93 permission.
+- 5 role: `super-admin`, `administrator`, `editor`, `operator`, `viewer`.
+- Grant Role → Permission sesuai `DEFAULT_PERMISSION_MATRIX`.
+- User dengan email `ADMIN_EMAIL` terhubung ke role `super-admin`.
+
+Prasyarat environment Production:
+
+- `DATABASE_URL` mengarah ke database Production.
+- `ADMIN_EMAIL` dikonfigurasi agar akun admin otomatis mendapatkan role `super-admin` (jika user tersebut sudah ada).
+
+Seeder tidak menulis atau menghapus data pengguna maupun data transaksional.
 
 ---
 

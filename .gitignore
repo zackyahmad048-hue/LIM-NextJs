@@ -49,3 +49,4 @@ scripts/.cache/
 next-env.d.ts
 
 .vercel
+.env*

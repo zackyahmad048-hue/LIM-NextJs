@@ -22,6 +22,7 @@ npm run prisma:generate  # Regenerate client → ../generated/client
 npm run prisma:migrate   # Create & apply migration
 npm run db:push          # Push schema without migration
 npm run db:seed          # Run tsx prisma/seed.ts
+npm run db:deploy        # prisma migrate deploy && seed (runs on every Vercel build via vercel.json)
 npm run prisma:studio    # DB browser
 ```
 
