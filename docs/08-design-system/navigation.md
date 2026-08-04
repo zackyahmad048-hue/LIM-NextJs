@@ -6,9 +6,11 @@
 
 **Document:** `navigation.md`
 
-**Version:** 2.0
+**Version:** 3.0
 
 **Status:** Approved
+
+Perubahan pada 3.0: logo tanpa lingkaran (warna asli), pill aktif oranye, bar blur, Prayer Strip di atas navbar, mobile menggunakan Sheet shadcn.
 
 ---
 
@@ -147,47 +149,65 @@ Desktop menggunakan:
 - Dropdown Menu
 - Hover Interaction
 
+Detail visual:
+
+- Bar: `sticky top-0 z-50 border-b border-border/10 bg-background/80 backdrop-blur-md`, konten `h-16 max-w-6xl`.
+- Logo: tampil polos dengan warna aslinya (tanpa lingkaran, tanpa invert di dark mode).
+- Menu aktif: pill oranye `bg-primary/10 text-primary`; idle `text-foreground/70 hover:bg-muted/70 hover:text-foreground`.
+- Typography: Hanken Grotesk (kelas `font-display`), tanpa font mixing.
+
 Contoh:
 
 ```text
-Logo
-
-Beranda
-
-Profil ▼
-
-Artikel
-
-Media
-
-Kontak
+Jadwal Shalat:  Subuh 04:12  Dzuhur 11:37  Ashar 14:58  Maghrib 17:43  Isya 18:53   [Selengkapnya]   ← Prayer Strip
+Logo  Beranda  Profil ▼  Artikel  Media  Kontak  🌙  Admin                                    ← Navbar
 ```
+
+---
+
+## Prayer Strip
+
+Strip jadwal shalat adalah signature dari Public Website, diletakkan di atas Navbar (bukan di dalam Navbar).
+
+- Posisi: bar penuh di atas Navbar; ikut scroll (tidak sticky), Navbar tetap sticky.
+- Isi: label `Jadwal Shalat` + kelima waktu shalat (`Subuh, Dzuhur, Ashar, Maghrib, Isya`) + link `Selengkapnya`; shalat berikutnya di-highlight `text-primary font-semibold`.
+- Sumber data: `calculatePrayerTimes` dari `@/lib/astroCalc` (lokasi Kediri/Lirboyo, WIB), dihitung client-side dengan interval 60 detik; highlight bergeser otomatis setelah waktu shalat lewat.
+- Fallback sebelum hydration: `--:--`.
+- Style: `h-9 bg-muted/40 border-b border-border/10`, konten `max-w-6xl`; entri scrollable horizontal (`no-scrollbar`) di layar sempit.
+- Label dan link menuju `/falak/jadwal-shalat`.
+
+---
 
 ---
 
 # Mobile Navigation
 
-Mobile menggunakan:
+Mobile menggunakan Sheet shadcn (side right, `w-80 sm:w-96`, overlay `bg-black/10` + blur-xs) dengan:
 
-- Drawer
-- Sheet
-- Expandable Menu
-- Touch Friendly Navigation
+- Brand row di atas (logo warna asli + wordmark).
+- Navigasi pill utama.
+- Profil dan Bidang sebagai accordion (ChevronDown untuk Profil, ChevronRight untuk Bidang).
+- Login Admin di bagian bawah.
+- Sheet menutup otomatis setelah memilih menu.
+- Jadwal shalat tersedia di Prayer Strip di atas Navbar (tidak digandakan di Sheet).
 
 Contoh:
 
 ```text
-☰
+Subuh 04:12  Dzuhur 11:37  Ashar 14:58  Maghrib 17:43  Isya 18:53   ← Prayer Strip
+[Logo LIM Digital Platform]
 
 Beranda
 
-▶ Profil
+Profil ▾
 
 Artikel
 
 Media
 
 Kontak
+
+[Login Admin]
 ```
 
 Saat Profil dibuka:
@@ -224,13 +244,13 @@ Bidang
 
 # Navigation Components
 
-| Component         | Desktop         | Mobile |
-| ----------------- | --------------- | ------ |
-| Navbar            | Navigation Menu | Drawer |
-| Dropdown          | Hover           | Expand |
-| Sidebar           | Fixed           | Drawer |
-| Breadcrumb        | Yes             | Yes    |
-| Footer Navigation | Yes             | Yes    |
+| Component         | Desktop         | Mobile    |
+| ----------------- | --------------- | --------- |
+| Navbar            | Navigation Menu | Sheet     |
+| Dropdown          | Hover           | Accordion |
+| Sidebar           | Fixed           | Drawer    |
+| Breadcrumb        | Yes             | Yes       |
+| Footer Navigation | Yes             | Yes       |
 
 ---
 
@@ -238,8 +258,8 @@ Bidang
 
 | Device        | Navigation      |
 | ------------- | --------------- |
-| Mobile        | Drawer          |
-| Tablet        | Drawer          |
+| Mobile        | Sheet           |
+| Tablet        | Sheet           |
 | Desktop       | Navigation Menu |
 | Large Desktop | Navigation Menu |
 
@@ -250,6 +270,8 @@ Bidang
 ## Logo
 
 - Logo selalu mengarah ke Beranda.
+- Logo tampil polos dengan warna aslinya — tanpa lingkaran, tanpa invert dark mode.
+- Wordmark memakai Hanken Grotesk `tracking-tight`.
 
 ---
 

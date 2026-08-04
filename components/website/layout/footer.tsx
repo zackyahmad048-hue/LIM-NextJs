@@ -145,7 +145,7 @@ export default function Footer() {
                 <Link
                   href="https://wa.me/6281367891910"
                   target="_blank"
-                  className="inline-flex h-11 items-center gap-2 rounded-md bg-primary-foreground px-4 text-xs font-semibold text-primary transition hover:bg-primary-foreground/90"
+                  className="inline-flex h-8 items-center gap-2 rounded-xl bg-primary-foreground px-4 text-xs font-semibold text-primary transition hover:bg-primary-foreground/90"
                 >
                   <FaWhatsapp className="h-3.5 w-3.5" />
                   WhatsApp

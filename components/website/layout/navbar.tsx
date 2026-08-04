@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { ChevronDown, ChevronRight, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
   NavigationMenu,
@@ -14,9 +14,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { BIDANG } from "@/config/bidang";
-import { HubDot } from "@/components/shared/hub-dot";
 
 const profilChildren = [
   { title: "Tentang LIM", href: "/profil/tentang" },
@@ -30,6 +35,10 @@ const navLinks = [
   { title: "Kontak", href: "/kontak" },
 ];
 
+const linkPill = cn(
+  "flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+);
+
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -39,46 +48,45 @@ export default function Navbar() {
   const profilActive = pathname.startsWith("/profil");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/10 bg-background/90">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="group flex items-center gap-3">
-          <span className="relative inline-flex h-10 w-10 items-center justify-center">
-            <span className="absolute inset-0 rounded-full border border-primary/50 transition-colors group-hover:border-primary" />
-            <Image
-              src="/images/logo.png"
-              alt="Lembaga Ittihadul Muballighin"
-              width={30}
-              height={30}
-              priority
-              className="h-7 w-7 rounded-full object-contain dark:invert"
-            />
-          </span>
+    <header className="sticky top-0 z-50 border-b border-border/10 bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+        <Link href="/" className="group flex shrink-0 items-center gap-3">
+          <Image
+            src="/images/orangelim.png"
+            alt="Lembaga Ittihadul Muballighin"
+            width={999}
+            height={1107}
+            priority
+            className="h-7 w-auto object-contain"
+          />
 
           <span className="leading-tight">
-            <span className="block text-[10px] font-medium tracking-[0.28em] text-muted-foreground uppercase">
+            <span className="block text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
               Lembaga
             </span>
-            <span className="block font-sans text-base font-semibold tracking-wide text-foreground">
+            <span className="block text-[15px] font-semibold tracking-tight text-foreground">
               Ittihadul Muballighin
             </span>
           </span>
         </Link>
 
-        {/* Desktop */}
-        <NavigationMenu className="hidden lg:flex" viewport={false}>
+        {/* Desktop nav */}
+        <NavigationMenu
+          className="hidden flex-1 justify-center lg:flex"
+          viewport={false}
+        >
           <NavigationMenuList className="gap-1">
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
                   className={cn(
-                    "flex items-center gap-1.5 text-sm font-medium",
+                    linkPill,
                     pathname === "/"
-                      ? "text-primary"
-                      : "text-foreground/80 hover:text-primary",
+                      ? "bg-primary/10 text-primary"
+                      : "text-foreground/70 hover:bg-muted/70 hover:text-foreground",
                   )}
                 >
-                  {pathname === "/" && <HubDot className="h-2 w-2" />}
                   Beranda
                 </Link>
               </NavigationMenuLink>
@@ -87,17 +95,19 @@ export default function Navbar() {
             <NavigationMenuItem>
               <NavigationMenuTrigger
                 className={cn(
-                  "text-sm font-medium",
-                  profilActive ? "text-primary" : "text-foreground/80",
+                  "h-9 rounded-full px-3.5 text-sm font-medium transition-colors",
+                  profilActive
+                    ? "bg-primary/10 text-primary data-open:bg-primary/10 data-open:hover:bg-primary/10"
+                    : "text-foreground/70 hover:bg-muted/70 hover:text-foreground data-open:bg-muted/70 data-open:text-foreground",
                 )}
               >
                 Profil
               </NavigationMenuTrigger>
               <NavigationMenuContent className="md:top-full md:mt-1.5">
                 <div className="w-110 max-w-[calc(100vw-2rem)]">
-                  <div className="grid gap-3 p-4 sm:grid-cols-2">
-                    <div className="space-y-1">
-                      <p className="px-3 pb-1 font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-muted-foreground">
+                  <div className="grid gap-2 p-3 sm:grid-cols-2">
+                    <div>
+                      <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
                         Profil
                       </p>
                       {profilChildren.map((item) => (
@@ -105,9 +115,9 @@ export default function Navbar() {
                           <Link
                             href={item.href}
                             className={cn(
-                              "text-sm",
+                              "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
                               pathname === item.href
-                                ? "text-primary"
+                                ? "bg-primary/10 text-primary hover:bg-primary/10"
                                 : "text-foreground/80",
                             )}
                           >
@@ -117,8 +127,8 @@ export default function Navbar() {
                       ))}
                     </div>
 
-                    <div className="space-y-1">
-                      <p className="px-3 pb-1 font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-muted-foreground">
+                    <div>
+                      <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
                         Bidang
                       </p>
                       {BIDANG.map((bidang) => (
@@ -126,9 +136,9 @@ export default function Navbar() {
                           <Link
                             href={`/profil/bidang/${bidang.slug}`}
                             className={cn(
-                              "text-sm",
+                              "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
                               pathname === `/profil/bidang/${bidang.slug}`
-                                ? "text-primary"
+                                ? "bg-primary/10 text-primary hover:bg-primary/10"
                                 : "text-foreground/80",
                             )}
                           >
@@ -148,13 +158,12 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-1.5 text-sm font-medium",
+                      linkPill,
                       pathname === item.href
-                        ? "text-primary"
-                        : "text-foreground/80 hover:text-primary",
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground/70 hover:bg-muted/70 hover:text-foreground",
                     )}
                   >
-                    {pathname === item.href && <HubDot className="h-2 w-2" />}
                     {item.title}
                   </Link>
                 </NavigationMenuLink>
@@ -163,145 +172,169 @@ export default function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        {/* Right cluster */}
+        <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
+
           <Link
             href="/admin/login"
-            className="text-xs font-medium tracking-wide text-muted-foreground transition hover:text-primary"
+            className="hidden rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-foreground/70 transition-colors hover:border-primary hover:text-primary lg:inline-flex"
           >
             Admin
           </Link>
-        </div>
 
-        {/* Mobile */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
-          <button
-            type="button"
-            onClick={() => setOpen(!open)}
-            aria-label="Buka menu"
-            aria-expanded={open}
-            className="rounded-md p-1.5 transition hover:bg-accent"
-          >
-            {open ? (
-              <X className="h-5 w-5 text-foreground" />
-            ) : (
-              <Menu className="h-5 w-5 text-foreground" />
-            )}
-          </button>
-        </div>
-      </div>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button
+                type="button"
+                aria-label="Buka menu"
+                aria-expanded={open}
+                className="rounded-full p-2 transition hover:bg-accent lg:hidden"
+              >
+                <Menu className="h-5 w-5 text-foreground" />
+              </button>
+            </SheetTrigger>
 
-      {open && (
-        <div className="border-t border-border/10 bg-background lg:hidden">
-          <nav className="flex flex-col p-3">
-            <Link
-              href="/"
-              onClick={() => setOpen(false)}
-              className={cn(
-                "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm transition hover:text-primary",
-                pathname === "/"
-                  ? "font-medium text-primary"
-                  : "text-foreground/80",
-              )}
-            >
-              {pathname === "/" && <HubDot className="h-2 w-2" />}
-              Beranda
-            </Link>
+            <SheetContent side="right" className="gap-0 p-0">
+              <SheetTitle className="sr-only">Menu navigasi</SheetTitle>
 
-            <button
-              type="button"
-              onClick={() => setProfilOpen(!profilOpen)}
-              aria-expanded={profilOpen}
-              className="flex items-center justify-between rounded-md px-3 py-2 text-sm transition hover:text-primary"
-            >
-              <span className={profilActive ? "font-medium text-primary" : "text-foreground/80"}>
-                Profil
-              </span>
-              <ChevronDown
-                className={`h-3.5 w-3.5 transition-transform ${profilOpen ? "rotate-180" : ""}`}
-              />
-            </button>
+              <div className="flex items-center gap-3 border-b border-border/10 px-4 py-4">
+                <Image
+                  src="/images/orangelim.png"
+                  alt=""
+                  width={999}
+                  height={1107}
+                  className="h-6 w-auto object-contain"
+                />
+                <span className="leading-tight">
+                  <span className="block text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                    Lembaga
+                  </span>
+                  <span className="block text-[15px] font-semibold tracking-tight text-foreground">
+                    Ittihadul Muballighin
+                  </span>
+                </span>
+              </div>
 
-            {profilOpen && (
-              <div className="ml-3 space-y-0.5 border-l border-border/15 pl-3">
-                {profilChildren.map((item) => (
+              <nav className="flex-1 overflow-y-auto p-3">
+                <Link
+                  href="/"
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-center rounded-xl px-3.5 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                    pathname === "/"
+                      ? "bg-primary/10 font-medium text-primary hover:bg-primary/10"
+                      : "text-foreground/80",
+                  )}
+                >
+                  Beranda
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setProfilOpen(!profilOpen)}
+                  aria-expanded={profilOpen}
+                  className={cn(
+                    "flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                    profilActive
+                      ? "bg-primary/10 font-medium text-primary hover:bg-primary/10"
+                      : "text-foreground/80",
+                  )}
+                >
+                  Profil
+                  <ChevronDown
+                    className={cn(
+                      "h-3.5 w-3.5 transition-transform",
+                      profilOpen && "rotate-180",
+                    )}
+                  />
+                </button>
+
+                {profilOpen && (
+                  <div className="ml-3 space-y-0.5 border-l border-border/15 pl-3">
+                    {profilChildren.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                          pathname === item.href
+                            ? "font-medium text-primary"
+                            : "text-muted-foreground",
+                        )}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+
+                    <button
+                      type="button"
+                      onClick={() => setBidangOpen(!bidangOpen)}
+                      aria-expanded={bidangOpen}
+                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                    >
+                      Bidang
+                      <ChevronRight
+                        className={cn(
+                          "h-3.5 w-3.5 transition-transform",
+                          bidangOpen && "rotate-90",
+                        )}
+                      />
+                    </button>
+
+                    {bidangOpen && (
+                      <div className="ml-3 space-y-0.5 border-l border-border/15 pl-3">
+                        {BIDANG.map((bidang) => (
+                          <Link
+                            key={bidang.slug}
+                            href={`/profil/bidang/${bidang.slug}`}
+                            onClick={() => setOpen(false)}
+                            className={cn(
+                              "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                              pathname === `/profil/bidang/${bidang.slug}`
+                                ? "font-medium text-primary"
+                                : "text-muted-foreground",
+                            )}
+                          >
+                            {bidang.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {navLinks.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className={cn(
-                      "block rounded-md px-3 py-1.5 text-sm transition hover:text-primary",
+                      "flex items-center rounded-xl px-3.5 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
                       pathname === item.href
-                        ? "font-medium text-primary"
-                        : "text-muted-foreground",
+                        ? "bg-primary/10 font-medium text-primary hover:bg-primary/10"
+                        : "text-foreground/80",
                     )}
                   >
                     {item.title}
                   </Link>
                 ))}
+              </nav>
 
-                <button
-                  type="button"
-                  onClick={() => setBidangOpen(!bidangOpen)}
-                  aria-expanded={bidangOpen}
-                  className="flex w-full items-center justify-between rounded-md px-3 py-1.5 text-sm text-muted-foreground transition hover:text-primary"
+              <div className="border-t border-border/10 p-3">
+                <Link
+                  href="/admin/login"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl border border-border px-3.5 py-2.5 text-center text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
                 >
-                  Bidang
-                  <ChevronRight
-                    className={`h-3.5 w-3.5 transition-transform ${bidangOpen ? "rotate-90" : ""}`}
-                  />
-                </button>
-
-                {bidangOpen && (
-                  <div className="ml-3 space-y-0.5 border-l border-border/15 pl-3">
-                    {BIDANG.map((bidang) => (
-                      <Link
-                        key={bidang.slug}
-                        href={`/profil/bidang/${bidang.slug}`}
-                        onClick={() => setOpen(false)}
-                        className={cn(
-                          "block rounded-md px-3 py-1.5 text-sm transition hover:text-primary",
-                          pathname === `/profil/bidang/${bidang.slug}`
-                            ? "font-medium text-primary"
-                            : "text-muted-foreground",
-                        )}
-                      >
-                        {bidang.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                  Login Admin
+                </Link>
               </div>
-            )}
-
-            {navLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm transition hover:text-primary",
-                  pathname === item.href
-                    ? "font-medium text-primary"
-                    : "text-foreground/80",
-                )}
-              >
-                {pathname === item.href && <HubDot className="h-2 w-2" />}
-                {item.title}
-              </Link>
-            ))}
-
-            <Link
-              href="/admin/login"
-              onClick={() => setOpen(false)}
-              className="mt-3 rounded-md border border-border/25 px-3 py-2 text-center text-sm font-medium text-foreground transition hover:border-primary hover:text-primary"
-            >
-              Login Admin
-            </Link>
-          </nav>
+            </SheetContent>
+          </Sheet>
         </div>
-      )}
+      </div>
     </header>
   );
 }
