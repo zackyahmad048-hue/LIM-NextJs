@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/modules/authentication/infrastructure/better-auth";
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { ensureSuperAdminRole } from "@/modules/authorization/application/ensure-super-admin";
 
 export type CreateAdminResult = {
   ok: boolean;
@@ -48,25 +48,19 @@ export async function createAdmin(): Promise<CreateAdminResult> {
     }
   }
 
-  const user = await prisma.user.findUnique({
-    where: { email },
-    select: { id: true },
-  });
-
-  if (user) {
-    const superAdminRole = await prisma.role.upsert({
-      where: { slug: "super-admin" },
-      update: {},
-      create: { name: "Super Admin", slug: "super-admin" },
-    });
-
-    await prisma.userRole.upsert({
-      where: {
-        userId_roleId: { userId: user.id, roleId: superAdminRole.id },
-      },
-      update: {},
-      create: { userId: user.id, roleId: superAdminRole.id },
-    });
+  try {
+    const linked = await ensureSuperAdminRole(email);
+    if (!linked) {
+      return {
+        ok: false,
+        message: "Akun admin tidak ditemukan setelah pendaftaran.",
+      };
+    }
+  } catch {
+    return {
+      ok: false,
+      message: "Gagal memastikan role super-admin. Periksa kembali database.",
+    };
   }
 
   return {

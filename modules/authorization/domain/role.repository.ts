@@ -14,4 +14,6 @@ export interface RoleRepository {
     data: Partial<{ name: string; slug: string; description: string }>,
   ): Promise<Role>;
   delete(id: string): Promise<void>;
+  upsertBySlug(slug: string, name: string): Promise<Role>;
+  assignToUser(roleId: string, userId: string): Promise<void>;
 }

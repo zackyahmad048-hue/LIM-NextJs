@@ -2,12 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 
-import { requireSession } from "@/modules/shared/infrastructure/require-session";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 
 const ABOUT_PATH = "/admin/homepage/about";
 
 export async function updateAbout(formData: FormData) {
-  await requireSession();
+  await requireSessionWithPermissions(["content.post.update"]);
 
   const data = {
     badge: String(formData.get("badge") ?? ""),

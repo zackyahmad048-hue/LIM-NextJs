@@ -22,8 +22,21 @@ export function assertPermissions(
 export async function requireSessionWithPermissions(
   required: PermissionSlug[],
   matrix: PermissionMatrix = DEFAULT_PERMISSION_MATRIX,
-): Promise<{ userId: string | null; roleSlugs: string[]; permissionSlugs: string[] }> {
+): Promise<{
+  user: { id: string };
+  roleSlugs: string[];
+  permissionSlugs: string[];
+}> {
   const current = await getCurrentUserPermissions();
   assertPermissions(current.roleSlugs, required, matrix);
-  return current;
+
+  if (!current.userId) {
+    throw new Error("UNAUTHORIZED");
+  }
+
+  return {
+    user: { id: current.userId },
+    roleSlugs: current.roleSlugs,
+    permissionSlugs: current.permissionSlugs,
+  };
 }

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { secretariatService } from "../application/service";
 import type { DocumentType } from "@/generated/client";
 import {
@@ -19,12 +20,26 @@ import {
   DuplicateNumberError,
 } from "../domain/secretariat.errors";
 
+const PERMISSION_INCOMING_CREATE = ["secretariat.incoming-mail.create"];
+const PERMISSION_INCOMING_UPDATE = ["secretariat.incoming-mail.update"];
+const PERMISSION_INCOMING_DELETE = ["secretariat.incoming-mail.delete"];
+const PERMISSION_OUTGOING_CREATE = ["secretariat.outgoing-mail.create"];
+const PERMISSION_OUTGOING_UPDATE = ["secretariat.outgoing-mail.update"];
+const PERMISSION_OUTGOING_DELETE = ["secretariat.outgoing-mail.delete"];
+const PERMISSION_DISPOSITION_CREATE = ["secretariat.disposition.create"];
+const PERMISSION_DISPOSITION_UPDATE = ["secretariat.disposition.update"];
+const PERMISSION_DISPOSITION_DELETE = ["secretariat.disposition.delete"];
+const PERMISSION_DOCUMENT_CREATE = ["secretariat.document.create"];
+const PERMISSION_DOCUMENT_UPDATE = ["secretariat.document.update"];
+const PERMISSION_DOCUMENT_DELETE = ["secretariat.document.delete"];
+
 export async function createIncomingMail(formData: FormData) {
   const raw = Object.fromEntries(formData);
   const parsed = createIncomingMailSchema.safeParse(raw);
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_INCOMING_CREATE);
     await secretariatService.createIncomingMail({
       registrationNumber: parsed.data.registrationNumber,
       sender: parsed.data.sender,
@@ -49,6 +64,7 @@ export async function updateIncomingMail(id: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
     const data: Record<string, unknown> = {};
     if (parsed.data.registrationNumber)
       data.registrationNumber = parsed.data.registrationNumber;
@@ -76,6 +92,7 @@ export async function updateIncomingMail(id: string, formData: FormData) {
 
 export async function deleteIncomingMail(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_INCOMING_DELETE);
     await secretariatService.deleteIncomingMail(id);
     revalidatePath("/admin/secretariat/incoming-mails");
   } catch {
@@ -85,6 +102,7 @@ export async function deleteIncomingMail(id: string) {
 
 export async function transitionIncomingMailStatus(id: string, status: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
     await secretariatService.transitionIncomingMailStatus(id, status as any);
     revalidatePath("/admin/secretariat/incoming-mails");
   } catch {
@@ -98,6 +116,7 @@ export async function createOutgoingMail(formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_CREATE);
     await secretariatService.createOutgoingMail({
       registrationNumber: parsed.data.registrationNumber,
       recipient: parsed.data.recipient || null,
@@ -124,6 +143,7 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
     const data: Record<string, unknown> = {};
     if (parsed.data.registrationNumber)
       data.registrationNumber = parsed.data.registrationNumber;
@@ -152,6 +172,7 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
 
 export async function deleteOutgoingMail(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_DELETE);
     await secretariatService.deleteOutgoingMail(id);
     revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch {
@@ -161,6 +182,7 @@ export async function deleteOutgoingMail(id: string) {
 
 export async function transitionOutgoingMailStatus(id: string, status: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
     await secretariatService.transitionOutgoingMailStatus(id, status as any);
     revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch {
@@ -170,6 +192,7 @@ export async function transitionOutgoingMailStatus(id: string, status: string) {
 
 export async function generateOutgoingMailDocument(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
     await secretariatService.generateOutgoingMailDocument(id);
   } catch (e) {
     console.error("[generateOutgoingMailDocument]", e);
@@ -183,6 +206,7 @@ export async function createDisposition(formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_DISPOSITION_CREATE);
     await secretariatService.createDisposition({
       incomingMailId: parsed.data.incomingMailId,
       assignedToId: parsed.data.assignedToId,
@@ -203,6 +227,7 @@ export async function updateDisposition(id: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_DISPOSITION_UPDATE);
     const data: Record<string, unknown> = {};
     if (parsed.data.incomingMailId)
       data.incomingMailId = parsed.data.incomingMailId;
@@ -223,6 +248,7 @@ export async function updateDisposition(id: string, formData: FormData) {
 
 export async function deleteDisposition(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DISPOSITION_DELETE);
     await secretariatService.deleteDisposition(id);
     revalidatePath("/admin/secretariat/dispositions");
   } catch {
@@ -232,6 +258,7 @@ export async function deleteDisposition(id: string) {
 
 export async function transitionDispositionStatus(id: string, status: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DISPOSITION_UPDATE);
     await secretariatService.transitionDispositionStatus(id, status as any);
     revalidatePath("/admin/secretariat/dispositions");
   } catch {
@@ -245,6 +272,7 @@ export async function createAdministrativeDocument(formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENT_CREATE);
     await secretariatService.createAdministrativeDocument({
       documentNumber: parsed.data.documentNumber,
       documentType: parsed.data.documentType,
@@ -268,6 +296,7 @@ export async function updateAdministrativeDocument(
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENT_UPDATE);
     const data: Record<string, unknown> = {};
     if (parsed.data.documentNumber)
       data.documentNumber = parsed.data.documentNumber;
@@ -288,6 +317,7 @@ export async function updateAdministrativeDocument(
 
 export async function deleteAdministrativeDocument(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENT_DELETE);
     await secretariatService.deleteAdministrativeDocument(id);
     revalidatePath("/admin/secretariat/administrative-documents");
   } catch {
@@ -300,6 +330,7 @@ export async function transitionAdministrativeDocumentStatus(
   status: string,
 ) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENT_UPDATE);
     await secretariatService.transitionAdministrativeDocumentStatus(
       id,
       status as any,
@@ -312,6 +343,7 @@ export async function transitionAdministrativeDocumentStatus(
 
 export async function generateAdministrativeDocument(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENT_CREATE);
     await secretariatService.generateAdministrativeDocument(id);
   } catch (e) {
     console.error("[generateAdministrativeDocument]", e);

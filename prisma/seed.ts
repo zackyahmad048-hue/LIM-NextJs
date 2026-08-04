@@ -1,7 +1,6 @@
 import "dotenv/config";
 
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@/generated/client";
+import { prisma } from "@/modules/shared/infrastructure/prisma";
 
 import { PERMISSIONS } from "@/config/permission";
 import { ROLE_LABELS } from "@/config/role";
@@ -9,12 +8,6 @@ import {
   DEFAULT_PERMISSION_MATRIX,
   flattenPermissions,
 } from "@/modules/authorization/application/permission.matrix";
-
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL!,
-});
-
-const prisma = new PrismaClient({ adapter });
 
 const ALL_PERMISSION_SLUGS = flattenPermissions(PERMISSIONS);
 

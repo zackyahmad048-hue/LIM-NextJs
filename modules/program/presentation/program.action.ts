@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { programService } from "../application/service";
 import {
   createProgramSchema,
@@ -12,12 +13,43 @@ import {
 } from "../validations/schema";
 import { ProgramError, ProgramCodeExistsError } from "../domain/program.errors";
 
+const PERMISSION_CREATE = ["program.create"];
+const PERMISSION_UPDATE = ["program.update"];
+const PERMISSION_DELETE = ["program.delete"];
+const PERMISSION_PUBLISH = ["program.publish"];
+const PERMISSION_CANCEL = ["program.cancel"];
+const PERMISSION_COMPLETE = ["program.complete"];
+const PERMISSION_ARCHIVE = ["program.archive"];
+const PERMISSION_SCHEDULE_CREATE = ["program.schedule.create"];
+const PERMISSION_SCHEDULE_DELETE = ["program.schedule.delete"];
+const PERMISSION_COMMITTEE_CREATE = ["program.committee.create"];
+const PERMISSION_COMMITTEE_DELETE = ["program.committee.delete"];
+const PERMISSION_PARTICIPANT_CREATE = ["program.participant.create"];
+const PERMISSION_PARTICIPANT_UPDATE = ["program.participant.update"];
+const PERMISSION_PARTICIPANT_DELETE = ["program.participant.delete"];
+const PERMISSION_ATTENDANCE_CREATE = ["program.attendance.create"];
+const PERMISSION_ATTENDANCE_UPDATE = ["program.attendance.update"];
+const PERMISSION_DOCUMENTATION_CREATE = ["program.documentation.create"];
+const PERMISSION_DOCUMENTATION_DELETE = ["program.documentation.delete"];
+
+const TRANSITION_PERMISSIONS: Record<string, string[]> = {
+  PUBLISHED: PERMISSION_PUBLISH,
+  REGISTRATION_OPEN: PERMISSION_PUBLISH,
+  REGISTRATION_CLOSED: PERMISSION_UPDATE,
+  ON_GOING: PERMISSION_UPDATE,
+  COMPLETED: PERMISSION_COMPLETE,
+  CANCELLED: PERMISSION_CANCEL,
+  ARCHIVED: PERMISSION_ARCHIVE,
+};
+
 export async function createProgram(formData: FormData) {
   const raw = Object.fromEntries(formData);
   const parsed = createProgramSchema.safeParse(raw);
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_CREATE);
+
     const data = {
       code: parsed.data.code,
       name: parsed.data.name,
@@ -47,6 +79,8 @@ export async function updateProgram(id: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
+
     const data: Record<string, unknown> = {};
     if (parsed.data.code) data.code = parsed.data.code;
     if (parsed.data.name) data.name = parsed.data.name;
@@ -72,6 +106,7 @@ export async function updateProgram(id: string, formData: FormData) {
 
 export async function deleteProgram(id: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DELETE);
     await programService.delete(id);
     revalidatePath("/admin/program");
   } catch {
@@ -81,6 +116,9 @@ export async function deleteProgram(id: string) {
 
 export async function transitionProgramStatus(id: string, status: string) {
   try {
+    const required =
+      TRANSITION_PERMISSIONS[status] ?? PERMISSION_UPDATE;
+    await requireSessionWithPermissions(required);
     await programService.transitionStatus(id, status as any);
     revalidatePath("/admin/program");
   } catch {
@@ -94,6 +132,7 @@ export async function createSchedule(programId: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_SCHEDULE_CREATE);
     await programService.createSchedule(programId, {
       title: parsed.data.title,
       venueId: parsed.data.venueId || null,
@@ -109,6 +148,7 @@ export async function createSchedule(programId: string, formData: FormData) {
 
 export async function deleteSchedule(id: string, programId: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_SCHEDULE_DELETE);
     await programService.deleteSchedule(id);
     revalidatePath(`/admin/program/${programId}/schedules`);
   } catch {
@@ -122,6 +162,7 @@ export async function assignCommittee(programId: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_COMMITTEE_CREATE);
     await programService.assignCommittee(programId, parsed.data);
     revalidatePath(`/admin/program/${programId}/committees`);
   } catch {
@@ -131,6 +172,7 @@ export async function assignCommittee(programId: string, formData: FormData) {
 
 export async function removeCommittee(id: string, programId: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_COMMITTEE_DELETE);
     await programService.removeCommittee(id);
     revalidatePath(`/admin/program/${programId}/committees`);
   } catch {
@@ -147,6 +189,7 @@ export async function registerParticipant(
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_PARTICIPANT_CREATE);
     await programService.registerParticipant(programId, parsed.data.userId);
     revalidatePath(`/admin/program/${programId}/participants`);
   } catch {
@@ -160,6 +203,7 @@ export async function updateParticipantStatus(
   status: string,
 ) {
   try {
+    await requireSessionWithPermissions(PERMISSION_PARTICIPANT_UPDATE);
     await programService.updateParticipant(id, {
       registrationStatus: status as any,
     });
@@ -171,6 +215,7 @@ export async function updateParticipantStatus(
 
 export async function removeParticipant(id: string, programId: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_PARTICIPANT_DELETE);
     await programService.removeParticipant(id);
     revalidatePath(`/admin/program/${programId}/participants`);
   } catch {
@@ -183,6 +228,7 @@ export async function checkInAttendance(
   programId: string,
 ) {
   try {
+    await requireSessionWithPermissions(PERMISSION_ATTENDANCE_CREATE);
     await programService.checkIn(participantId, programId);
     revalidatePath(`/admin/program/${programId}/attendance`);
   } catch {
@@ -195,6 +241,7 @@ export async function checkOutAttendance(
   programId: string,
 ) {
   try {
+    await requireSessionWithPermissions(PERMISSION_ATTENDANCE_UPDATE);
     await programService.checkOut(participantId, programId);
     revalidatePath(`/admin/program/${programId}/attendance`);
   } catch {
@@ -208,6 +255,7 @@ export async function addDocumentation(programId: string, formData: FormData) {
   if (!parsed.success) return;
 
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENTATION_CREATE);
     await programService.addDocumentation(programId, parsed.data);
     revalidatePath(`/admin/program/${programId}/documentation`);
   } catch {
@@ -217,6 +265,7 @@ export async function addDocumentation(programId: string, formData: FormData) {
 
 export async function removeDocumentation(id: string, programId: string) {
   try {
+    await requireSessionWithPermissions(PERMISSION_DOCUMENTATION_DELETE);
     await programService.removeDocumentation(id);
     revalidatePath(`/admin/program/${programId}/documentation`);
   } catch {

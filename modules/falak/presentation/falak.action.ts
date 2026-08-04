@@ -1,13 +1,21 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { requireSession } from "@/modules/shared/infrastructure/require-session";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { falakService } from "@/modules/falak/application/service";
 import {
   hisabInputSchema,
   rukyatInputSchema,
   eclipseInputSchema,
 } from "@/modules/falak/validations/schema";
+
+const PERMISSION_HISAB_CALCULATE = ["falak.hisab.calculate"];
+const PERMISSION_HISAB_ARCHIVE = ["falak.hisab.archive"];
+const PERMISSION_RUKYAT_CREATE = ["falak.rukyat.create"];
+const PERMISSION_RUKYAT_VERIFY = ["falak.rukyat.verify"];
+const PERMISSION_RUKYAT_CONFIRM = ["falak.rukyat.confirm"];
+const PERMISSION_RUKYAT_ARCHIVE = ["falak.rukyat.archive"];
+const PERMISSION_ECLIPSE_CALCULATE = ["falak.eclipse.calculate"];
 
 export async function createHisab(input: {
   calculationDate: Date;
@@ -17,7 +25,7 @@ export async function createHisab(input: {
   parameters: Record<string, unknown>;
   result: Record<string, unknown>;
 }) {
-  const session = await requireSession();
+  const session = await requireSessionWithPermissions(PERMISSION_HISAB_CALCULATE);
   const parsed = hisabInputSchema.parse(input);
   await falakService.saveHisab({
     ...parsed,
@@ -27,7 +35,7 @@ export async function createHisab(input: {
 }
 
 export async function deleteHisab(id: string) {
-  await requireSession();
+  await requireSessionWithPermissions(PERMISSION_HISAB_ARCHIVE);
   await falakService.deleteHisab(id);
   revalidatePath("/admin/falak/hisab");
 }
@@ -41,7 +49,7 @@ export async function createRukyat(input: {
   result: "VISIBLE" | "NOT_VISIBLE" | "CLOUDY" | "UNKNOWN";
   notes?: string;
 }) {
-  const session = await requireSession();
+  const session = await requireSessionWithPermissions(PERMISSION_RUKYAT_CREATE);
   const parsed = rukyatInputSchema.parse(input);
   await falakService.createRukyat({
     ...parsed,
@@ -52,19 +60,19 @@ export async function createRukyat(input: {
 }
 
 export async function verifyRukyat(id: string) {
-  await requireSession();
+  await requireSessionWithPermissions(PERMISSION_RUKYAT_VERIFY);
   await falakService.verifyRukyat(id);
   revalidatePath("/admin/falak/rukyat");
 }
 
 export async function confirmRukyat(id: string) {
-  await requireSession();
+  await requireSessionWithPermissions(PERMISSION_RUKYAT_CONFIRM);
   await falakService.confirmRukyat(id);
   revalidatePath("/admin/falak/rukyat");
 }
 
 export async function archiveRukyat(id: string) {
-  await requireSession();
+  await requireSessionWithPermissions(PERMISSION_RUKYAT_ARCHIVE);
   await falakService.archiveRukyat(id);
   revalidatePath("/admin/falak/rukyat");
 }
@@ -75,7 +83,7 @@ export async function createEclipse(input: {
   visibility?: string;
   details?: Record<string, unknown>;
 }) {
-  await requireSession();
+  await requireSessionWithPermissions(PERMISSION_ECLIPSE_CALCULATE);
   const parsed = eclipseInputSchema.parse(input);
   await falakService.createEclipse({
     ...parsed,

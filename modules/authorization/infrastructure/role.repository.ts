@@ -87,4 +87,29 @@ export class PrismaRoleRepository
   async delete(id: string): Promise<void> {
     await this.db.role.delete({ where: { id } });
   }
+
+  async upsertBySlug(slug: string, name: string): Promise<Role> {
+    const role = await this.db.role.upsert({
+      where: { slug },
+      update: { name },
+      create: { name, slug },
+    });
+
+    return Role.create({
+      id: role.id,
+      name: role.name,
+      slug: role.slug,
+      description: role.description,
+      createdAt: role.createdAt,
+      updatedAt: role.updatedAt,
+    });
+  }
+
+  async assignToUser(roleId: string, userId: string): Promise<void> {
+    await this.db.userRole.upsert({
+      where: { userId_roleId: { userId, roleId } },
+      update: {},
+      create: { userId, roleId },
+    });
+  }
 }

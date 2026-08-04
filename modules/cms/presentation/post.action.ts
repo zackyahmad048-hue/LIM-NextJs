@@ -7,20 +7,28 @@ import {
   postIdSchema,
   postSchema,
 } from "@/modules/cms/validations/post.schema";
-import { requireSession } from "@/modules/shared/infrastructure/require-session";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 
 const POST_PATH = "/admin/content/posts";
+
+const PERMISSION_CREATE = ["content.post.create"];
+const PERMISSION_UPDATE = ["content.post.update"];
+const PERMISSION_PUBLISH = ["content.post.publish"];
+const PERMISSION_DELETE = ["content.post.delete"];
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message === "UNAUTHORIZED") {
     return "Sesi tidak valid. Silakan login kembali.";
+  }
+  if (error instanceof Error && error.message === "FORBIDDEN") {
+    return "Anda tidak memiliki izin untuk melakukan aksi ini.";
   }
   return error instanceof Error ? error.message : "Terjadi kesalahan.";
 }
 
 export async function createPost(formData: FormData) {
   try {
-    const session = await requireSession();
+    const session = await requireSessionWithPermissions(PERMISSION_CREATE);
 
     const parsed = postSchema.parse({
       title: formData.get("title"),
@@ -47,7 +55,7 @@ export async function createPost(formData: FormData) {
 
 export async function updatePost(id: string, formData: FormData) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
 
     const parsed = postSchema.parse({
       title: formData.get("title"),
@@ -74,7 +82,7 @@ export async function updatePost(id: string, formData: FormData) {
 
 export async function publishPost(id: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_PUBLISH);
     await postService.publish(postIdSchema.parse(id));
 
     revalidatePath(POST_PATH);
@@ -87,7 +95,7 @@ export async function publishPost(id: string) {
 
 export async function archivePost(id: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_DELETE);
     await postService.archive(postIdSchema.parse(id));
 
     revalidatePath(POST_PATH);
@@ -100,7 +108,7 @@ export async function archivePost(id: string) {
 
 export async function restorePostToDraft(id: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
     await postService.restoreToDraft(postIdSchema.parse(id));
 
     revalidatePath(POST_PATH);
@@ -112,7 +120,7 @@ export async function restorePostToDraft(id: string) {
 
 export async function deletePost(id: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_DELETE);
     await postService.delete(postIdSchema.parse(id));
 
     revalidatePath(POST_PATH);

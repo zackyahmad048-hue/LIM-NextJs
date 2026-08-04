@@ -4,8 +4,8 @@ import { revalidatePath } from "next/cache";
 
 import { HERO_CONFIG_SETTING_KEY } from "@/config/hero";
 import { SettingType } from "@/generated/enums";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { PrismaSettingRepository } from "@/modules/settings/infrastructure/setting.repository";
-import { requireSession } from "@/modules/shared/infrastructure/require-session";
 import type { HeroConfig } from "@/types/hero";
 
 const settingRepository = new PrismaSettingRepository();
@@ -15,7 +15,7 @@ function readValue(formData: FormData, key: string) {
 }
 
 export async function updateHeroConfig(formData: FormData) {
-  await requireSession();
+  await requireSessionWithPermissions(["content.post.update"]);
 
   const statCards = [
     {

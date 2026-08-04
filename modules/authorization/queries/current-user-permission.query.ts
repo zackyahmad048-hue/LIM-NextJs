@@ -1,5 +1,5 @@
 import { getSession } from "@/modules/authentication/infrastructure/session.helper";
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { PrismaUserPermissionRepository } from "../infrastructure/user-permission.repository";
 
 export interface CurrentUserPermissions {
   userId: string | null;
@@ -7,41 +7,17 @@ export interface CurrentUserPermissions {
   permissionSlugs: string[];
 }
 
+const repository = new PrismaUserPermissionRepository();
+
 export async function getCurrentUserPermissions(): Promise<CurrentUserPermissions> {
   const session = await getSession();
   if (!session?.user?.id) {
     return { userId: null, roleSlugs: [], permissionSlugs: [] };
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    include: {
-      userRoles: {
-        include: {
-          role: {
-            include: {
-              rolePermissions: {
-                include: { permission: { select: { slug: true } } },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-
-  if (!user) {
-    return { userId: session.user.id, roleSlugs: [], permissionSlugs: [] };
-  }
-
-  const roleSlugs = user.userRoles.map((userRole) => userRole.role.slug);
-  const permissionSlugs = Array.from(
-    new Set(
-      user.userRoles.flatMap((userRole) =>
-        userRole.role.rolePermissions.map((rolePermission) => rolePermission.permission.slug),
-      ),
-    ),
+  const { roleSlugs, permissionSlugs } = await repository.findSlugsByUserId(
+    session.user.id,
   );
 
-  return { userId: user.id, roleSlugs, permissionSlugs };
+  return { userId: session.user.id, roleSlugs, permissionSlugs };
 }

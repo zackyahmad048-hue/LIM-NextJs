@@ -3,18 +3,21 @@
 import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/modules/shared/infrastructure/prisma";
-import { requireSession } from "@/modules/shared/infrastructure/require-session";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message === "UNAUTHORIZED") {
     return "Sesi tidak valid. Silakan login kembali.";
+  }
+  if (error instanceof Error && error.message === "FORBIDDEN") {
+    return "Anda tidak memiliki izin untuk melakukan aksi ini.";
   }
   return error instanceof Error ? error.message : "Terjadi kesalahan.";
 }
 
 export async function savePageContent(key: string, content: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(["content.post.update"]);
 
     await prisma.setting.upsert({
       where: { key },

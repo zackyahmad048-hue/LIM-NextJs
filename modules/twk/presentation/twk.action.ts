@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { requireSession } from "@/modules/shared/infrastructure/require-session";
+import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { parseCsv } from "../application/service";
 import { twkService } from "../application/twk.service";
 import { MemberNotFoundError } from "../domain/twk.errors";
@@ -13,9 +13,17 @@ import {
 
 const TWK_PATH = "/admin/twk";
 
+const PERMISSION_CREATE = ["twk.member.create"];
+const PERMISSION_UPDATE = ["twk.member.update"];
+const PERMISSION_DELETE = ["twk.member.delete"];
+const PERMISSION_IMPORT = ["twk.member.import"];
+
 function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message === "UNAUTHORIZED") {
     return "Sesi tidak valid. Silakan login kembali.";
+  }
+  if (error instanceof Error && error.message === "FORBIDDEN") {
+    return "Anda tidak memiliki izin untuk melakukan aksi ini.";
   }
   if (error instanceof MemberNotFoundError) {
     return error.message;
@@ -25,7 +33,7 @@ function getErrorMessage(error: unknown) {
 
 export async function createWajibKhidmahMember(formData: FormData) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_CREATE);
 
     const parsed = createWajibKhidmahMemberSchema.parse({
       nama: formData.get("nama"),
@@ -49,7 +57,7 @@ export async function updateWajibKhidmahMember(
   formData: FormData,
 ) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
 
     const parsed = updateWajibKhidmahMemberSchema.parse({
       nama: formData.get("nama"),
@@ -70,7 +78,7 @@ export async function updateWajibKhidmahMember(
 
 export async function deleteWajibKhidmahMember(id: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_DELETE);
 
     await twkService.delete(id);
 
@@ -83,7 +91,7 @@ export async function deleteWajibKhidmahMember(id: string) {
 
 export async function importWajibKhidmahMembers(csvText: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_IMPORT);
 
     const members = parseCsv(csvText);
     if (members.length === 0) {
@@ -120,7 +128,7 @@ function extractGoogleSheetUrl(input: string): string | null {
 
 export async function importWajibKhidmahFromGoogleSheet(url: string) {
   try {
-    await requireSession();
+    await requireSessionWithPermissions(PERMISSION_IMPORT);
 
     const exportUrl = extractGoogleSheetUrl(url);
     if (!exportUrl) {
