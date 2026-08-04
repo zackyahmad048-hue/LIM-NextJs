@@ -15,7 +15,7 @@ export default function KiblatPage() {
         description="Tentukan arah kiblat berdasarkan koordinat lokasi Anda dengan kompas digital."
       />
 
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <QiblaCompass />
       </section>
     </>

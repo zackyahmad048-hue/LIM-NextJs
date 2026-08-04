@@ -15,7 +15,7 @@ export default function JadwalShalatPage() {
         description="Jadwal shalat harian berdasarkan lokasi Anda — dengan mode waktu standar, waktu istiwa', dan ihtiyat +3 menit."
       />
 
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <PrayerTimeTable />
       </section>
     </>

@@ -15,7 +15,7 @@ export default function KalenderHijriahPage() {
         description="Konversi tanggal antara Masehi dan Hijriah, serta telusuri kalender Hijriah sepanjang tahun."
       />
 
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <HijriCalendarWidget />
       </section>
     </>

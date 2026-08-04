@@ -32,7 +32,7 @@ const REGION_LIST = [
 
 export default function RouteMap() {
   return (
-    <section className="border-y border-border/10">
+    <section className="relative border-y border-border/10">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <p className="font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
           Jaringan Dakwah
@@ -98,12 +98,7 @@ export default function RouteMap() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.05 }}
           >
-            <circle
-              cx={HUB.x}
-              cy={HUB.y}
-              r={11}
-              fill="var(--primary)"
-            />
+            <circle cx={HUB.x} cy={HUB.y} r={11} fill="var(--primary)" />
             <circle
               cx={HUB.x}
               cy={HUB.y}

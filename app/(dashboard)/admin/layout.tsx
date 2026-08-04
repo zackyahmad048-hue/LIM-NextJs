@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Sidebar } from "@/components/admin/layout/sidebar";
 import { MobileSidebar } from "@/components/admin/layout/mobile-sidebar";
 import { Header } from "@/components/admin/layout/header";
+import { Footer } from "@/components/admin/layout/footer";
 import { SidebarProvider } from "@/components/admin/providers/sidebar-provider";
 
 import { getSession } from "@/modules/authentication/infrastructure/session.helper";
@@ -43,6 +44,8 @@ export default async function DashboardLayout({
           <Header user={user} />
 
           <main className="flex-1 overflow-x-hidden">{children}</main>
+
+          <Footer />
         </div>
       </div>
     </SidebarProvider>

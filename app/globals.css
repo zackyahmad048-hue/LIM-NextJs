@@ -197,8 +197,8 @@
 }
 
 /*
- * Login admin — aurora hangat (warm cream) bergerak di kedua mode,
- * tempo lebih cepat karena layar singkat. Tidak tembus kertas kartu.
+ * Login admin — background liquid (LiquidEther) bergerak di kedua mode.
+ * Kelas ini memastikan wadah tertutup (clip) dan tidak tembus kertas kartu.
  */
 .login-aurora {
   position: relative;
@@ -207,54 +207,8 @@
   background-color: var(--background);
 }
 
-.login-aurora::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -20%;
-  pointer-events: none;
-  background-image:
-    radial-gradient(
-      720px 440px at 50% -8%,
-      oklch(0.99 0.012 88 / 0.6),
-      transparent 62%
-    ),
-    radial-gradient(
-      560px 400px at 14% 34%,
-      oklch(1 0.012 88 / 0.35),
-      transparent 60%
-    ),
-    radial-gradient(
-      520px 400px at 88% 82%,
-      oklch(0.97 0.015 88 / 0.3),
-      transparent 60%
-    );
-  animation: nu-aurora 16s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.dark .login-aurora::before {
-  background-image:
-    radial-gradient(
-      720px 440px at 50% -8%,
-      oklch(0.42 0.07 62 / 0.45),
-      transparent 62%
-    ),
-    radial-gradient(
-      560px 400px at 14% 34%,
-      oklch(0.34 0.05 62 / 0.35),
-      transparent 60%
-    ),
-    radial-gradient(
-      520px 400px at 88% 82%,
-      oklch(0.3 0.04 62 / 0.35),
-      transparent 60%
-    );
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .site::before,
-  .login-aurora::before {
+  .site::before {
     animation: none;
   }
 }

@@ -1,18 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { TextReveal } from "@/components/motion/text-reveal";
 import { Button } from "@/components/ui/button";
 import { SkyInstrument } from "@/components/website/sky/sky-instrument";
 import RouteMap from "@/components/website/sections/route-map";
+import LiquidEther from "@/components/LiquidEther";
 import type { HeroConfig } from "@/types/hero";
 import { EASE_OUT } from "@/lib/ease";
 
 export default function Hero({ hero }: { hero: HeroConfig }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section className="relative">
+      {!prefersReducedMotion && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
+          <LiquidEther
+            colors={["#7C2D12", "#C2410C", "#F59E0B"]}
+            autoIntensity={1.2}
+          />
+        </div>
+      )}
+
       <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
         <div>
           <TextReveal
