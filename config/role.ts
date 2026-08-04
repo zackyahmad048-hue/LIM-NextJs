@@ -7,6 +7,8 @@ export const ROLES = {
 
   OPERATOR: "operator",
 
+  SEKRETARIS: "sekretaris",
+
   VIEWER: "viewer",
 } as const;
 
@@ -17,5 +19,6 @@ export const ROLE_LABELS: Record<string, string> = {
   [ROLES.ADMINISTRATOR]: "Administrator",
   [ROLES.EDITOR]: "Editor",
   [ROLES.OPERATOR]: "Operator",
+  [ROLES.SEKRETARIS]: "Sekretaris",
   [ROLES.VIEWER]: "Viewer",
 };

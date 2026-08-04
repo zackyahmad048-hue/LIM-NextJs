@@ -15,6 +15,7 @@ const CONTENT = flattenPermissions(PERMISSIONS.CONTENT);
 const FALAK = flattenPermissions(PERMISSIONS.FALAK);
 const PROGRAM = flattenPermissions(PERMISSIONS.PROGRAM);
 const TWK = flattenPermissions(PERMISSIONS.TWK);
+const SECRETARIAT = flattenPermissions(PERMISSIONS.SECRETARIAT);
 
 const READ_ONLY: PermissionSlug[] = [
   "content.category.read",
@@ -42,5 +43,6 @@ export const DEFAULT_PERMISSION_MATRIX: PermissionMatrix = {
   administrator: ALL,
   editor: CONTENT,
   operator: [...FALAK, ...PROGRAM, ...TWK],
+  sekretaris: SECRETARIAT,
   viewer: READ_ONLY,
 };

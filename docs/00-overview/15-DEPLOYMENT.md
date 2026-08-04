@@ -243,7 +243,7 @@ npm run build       # prisma generate && next build
 Seeder hanya memuat data referensi RBAC (bukan data dummy/transaksi):
 
 - 93 permission.
-- 5 role: `super-admin`, `administrator`, `editor`, `operator`, `viewer`.
+- 6 role: `super-admin`, `administrator`, `editor`, `operator`, `sekretaris`, `viewer`.
 - Grant Role → Permission sesuai `DEFAULT_PERMISSION_MATRIX`.
 - User dengan email `ADMIN_EMAIL` terhubung ke role `super-admin`.
 
