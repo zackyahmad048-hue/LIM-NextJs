@@ -3,6 +3,9 @@ import { Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 import PageHeader from "@/components/website/page-header";
 import WhatsAppForm from "@/components/website/kontak/whatsapp-form";
 import SectionLabel from "@/components/shared/section-label";
+import { getKontakContent } from "@/modules/cms/queries/site-page.query";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Hubungi Kami | LIM Digital Platform",
@@ -10,30 +13,32 @@ export const metadata: Metadata = {
     "Hubungi Lembaga Ittihadul Muballighin untuk informasi lebih lanjut.",
 };
 
-const contacts = [
-  {
-    icon: MapPin,
-    title: "Alamat",
-    value: "Gedung Al Ittihad Lt.1\nPondok Pesantren Lirboyo, Kediri",
-  },
-  {
-    icon: Phone,
-    title: "Telepon",
-    value: "+62 813-6789-1910",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    value: "info@ittihadulmuballighin.or.id",
-  },
-];
+export default async function KontakPage() {
+  const kontak = await getKontakContent();
 
-export default function KontakPage() {
+  const contacts = [
+    {
+      icon: MapPin,
+      title: "Alamat",
+      value: kontak.address,
+    },
+    {
+      icon: Phone,
+      title: "Telepon",
+      value: kontak.phone,
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      value: kontak.email,
+    },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Hubungi Kami"
-        description="Silakan hubungi kami untuk informasi lebih lanjut."
+        title={kontak.headerTitle}
+        description={kontak.headerDescription}
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -66,7 +71,7 @@ export default function KontakPage() {
             Sekretariat LIM.
           </p>
           <div className="mt-6">
-            <WhatsAppForm />
+            <WhatsAppForm whatsappNumber={kontak.whatsapp} />
           </div>
         </div>
       </section>

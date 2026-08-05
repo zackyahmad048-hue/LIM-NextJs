@@ -1,80 +1,58 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
-import { BIDANG } from "@/config/bidang";
+import { getTimWajibKhidmahContent } from "@/modules/cms/queries/site-page.query";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Tim Wajib Khidmah | LIM Digital Platform",
   description:
-    "Tim Wajib Khidmah merupakan penugasan anggota LIM untuk melayani kegiatan dan kebutuhan organisasi selama masa khidmah.",
+    "Penugasan anggota LIM untuk melayani kegiatan dan kebutuhan organisasi selama masa khidmah.",
 };
 
-export default function TimWajibKhidmahPage() {
-  const lainnya = BIDANG.filter((item) => item.slug !== "tim-wajib-khidmah");
+export default async function TimWajibKhidmahPage() {
+  const content = await getTimWajibKhidmahContent();
 
   return (
     <>
       <PageHeader
-        title="Tim Wajib Khidmah"
-        description="Penugasan anggota LIM untuk melayani kegiatan dan kebutuhan organisasi selama masa khidmah."
+        centered
+        title={content.headerTitle}
+        description={content.headerDescription}
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="space-y-8">
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <SectionLabel>Peran dan Tugas</SectionLabel>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
-              <li className="flex items-start gap-3">
-                <HubDot className="mt-1.5 h-2.5 w-2.5" />
-                Menjadi panitia maupun petugas dalam kegiatan organisasi.
-              </li>
-              <li className="flex items-start gap-3">
-                <HubDot className="mt-1.5 h-2.5 w-2.5" />
-                Melaksanakan penugasan rutin yang ditetapkan oleh pengurus.
-              </li>
-              <li className="flex items-start gap-3">
-                <HubDot className="mt-1.5 h-2.5 w-2.5" />
-                Mendukung pelayanan di tempat-tempat kegiatan sesuai pos
-                Wajib Khidmah yang ditugaskan.
-              </li>
-              <li className="flex items-start gap-3">
-                <HubDot className="mt-1.5 h-2.5 w-2.5" />
-                Menjaga amanah, kedisiplinan, dan ketertiban selama masa
-                khidmah.
-              </li>
-            </ul>
-          </div>
-
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <SectionLabel>Data Anggota</SectionLabel>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Daftar anggota Wajib Khidmah bersifat internal dan dikelola
-              melalui sistem administratif organisasi. Informasi terkait
-              penugasan dapat dikonfirmasi langsung kepada pengurus.
+        <div className="rounded-2xl border border-primary/15 bg-card px-6 py-12 sm:px-10 md:py-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel>{content.sectionTitle}</SectionLabel>
+            <p className="mt-6 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
+              {content.description}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <SectionLabel>Bidang Lainnya</SectionLabel>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              {lainnya.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/profil/bidang/${item.slug}`}
-                  className="group rounded-xl border border-primary/10 bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
-                >
-                  <p className="text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
-                    {item.title}
-                  </p>
-                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                    {item.tagline}
-                  </p>
-                </Link>
-              ))}
+          <ul className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-2">
+            {content.peran.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 rounded-xl border border-primary/10 bg-muted/40 p-4"
+              >
+                <HubDot className="mt-1.5 h-2.5 w-2.5 shrink-0" />
+                <span className="text-sm leading-6 text-foreground/90">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {content.memberNote && (
+            <div className="mx-auto mt-10 max-w-3xl border-t border-border/60 pt-6 text-center">
+              <p className="text-xs leading-6 text-muted-foreground">
+                {content.memberNote}
+              </p>
             </div>
-          </div>
+          )}
         </div>
       </section>
     </>

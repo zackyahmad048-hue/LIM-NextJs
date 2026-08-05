@@ -4,9 +4,9 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
@@ -14,7 +14,7 @@
 
 Dokumen ini mendefinisikan hak akses (Permission) yang digunakan pada Domain Organization.
 
-Permission digunakan untuk mengendalikan akses terhadap seluruh data organisasi, cabang, wilayah, jabatan, dan kepengurusan berdasarkan Role yang dimiliki pengguna.
+Permission digunakan untuk mengendalikan akses terhadap seluruh data organisasi, cabang, dan kepengurusan berdasarkan Role yang dimiliki pengguna.
 
 ---
 
@@ -77,17 +77,6 @@ organization.delete
 
 ---
 
-# Region Permissions
-
-| Permission                 | Description       |
-| -------------------------- | ----------------- |
-| organization.region.view   | Melihat wilayah   |
-| organization.region.create | Menambah wilayah  |
-| organization.region.update | Mengubah wilayah  |
-| organization.region.delete | Menghapus wilayah |
-
----
-
 # Branch Permissions
 
 | Permission                 | Description      |
@@ -99,61 +88,59 @@ organization.delete
 
 ---
 
-# Department Permissions
+# Central Board Permissions
 
-| Permission                     | Description      |
-| ------------------------------ | ---------------- |
-| organization.department.view   | Melihat bidang   |
-| organization.department.create | Menambah bidang  |
-| organization.department.update | Mengubah bidang  |
-| organization.department.delete | Menghapus bidang |
-
----
-
-# Position Permissions
-
-| Permission                   | Description       |
-| ---------------------------- | ----------------- |
-| organization.position.view   | Melihat jabatan   |
-| organization.position.create | Menambah jabatan  |
-| organization.position.update | Mengubah jabatan  |
-| organization.position.delete | Menghapus jabatan |
+| Permission                       | Description            |
+| -------------------------------- | ---------------------- |
+| organization.central-board.view  | Melihat pengurus pusat |
+| organization.central-board.create | Menetapkan pengurus pusat |
+| organization.central-board.update | Mengubah data pengurus pusat |
+| organization.central-board.delete | Menghapus pengurus pusat |
 
 ---
 
-# Management Period Permissions
+# Regional Board Permissions
 
-| Permission                   | Description          |
-| ---------------------------- | -------------------- |
-| organization.period.view     | Melihat periode      |
-| organization.period.create   | Membuat periode      |
-| organization.period.update   | Mengubah periode     |
-| organization.period.activate | Mengaktifkan periode |
-| organization.period.close    | Menutup periode      |
+| Permission                       | Description              |
+| -------------------------------- | ------------------------ |
+| organization.regional-board.view | Melihat pengurus wilayah |
+| organization.regional-board.create | Menetapkan pengurus wilayah |
+| organization.regional-board.update | Mengubah data pengurus wilayah |
+| organization.regional-board.delete | Menghapus pengurus wilayah |
 
 ---
 
-# Management Permissions
+# Branch Board Permissions
 
-| Permission                     | Description            |
-| ------------------------------ | ---------------------- |
-| organization.management.view   | Melihat pengurus       |
-| organization.management.create | Menambah pengurus      |
-| organization.management.update | Mengubah data pengurus |
-| organization.management.delete | Menghapus pengurus     |
+| Permission                       | Description             |
+| -------------------------------- | ----------------------- |
+| organization.branch-board.view   | Melihat pengurus cabang |
+| organization.branch-board.create | Menetapkan pengurus cabang |
+| organization.branch-board.update | Mengubah data pengurus cabang |
+| organization.branch-board.delete | Menghapus pengurus cabang |
+
+---
+
+# Member Permissions
+
+| Permission              | Description        |
+| ----------------------- | ------------------ |
+| organization.member.view | Melihat anggota    |
+| organization.member.create | Menambah anggota  |
+| organization.member.update | Mengubah data anggota |
+| organization.member.delete | Menghapus anggota |
 
 ---
 
 # Permission Matrix
 
-| Permission        | Super Admin | Admin | Secretariat |       User       |
-| ----------------- | :---------: | :---: | :---------: | :--------------: |
+| Permission        | Super Admin | Admin | Secretariat | User |
+| ----------------- | :---------: | :---: | :---------: | :--: |
 | View              |     ✅      |  ✅   |     ✅      | Sesuai Hak Akses |
 | Create            |     ✅      |  ✅   |     ❌      |        ❌        |
 | Update            |     ✅      |  ✅   |     ❌      |        ❌        |
 | Delete            |     ✅      |  ❌   |     ❌      |        ❌        |
-| Activate Period   |     ✅      |  ✅   |     ❌      |        ❌        |
-| Assign Management |     ✅      |  ✅   |     ❌      |        ❌        |
+| Assign Board      |     ✅      |  ✅   |     ❌      |        ❌        |
 
 Role dapat disesuaikan berdasarkan kebutuhan organisasi.
 
@@ -174,9 +161,13 @@ Contoh:
 ```text id="orgpm05"
 organization.branch.view
 
-organization.position.view
+organization.central-board.view
 
-organization.management.view
+organization.regional-board.view
+
+organization.branch-board.view
+
+organization.member.view
 ```
 
 ---
@@ -185,17 +176,18 @@ organization.management.view
 
 Setiap aksi wajib memeriksa permission sebelum diproses.
 
-| Action              | Permission                     |
-| ------------------- | ------------------------------ |
-| Create Organization | organization.create            |
-| Update Organization | organization.update            |
-| Delete Organization | organization.delete            |
-| Create Branch       | organization.branch.create     |
-| Update Branch       | organization.branch.update     |
-| Delete Branch       | organization.branch.delete     |
-| Create Position     | organization.position.create   |
-| Assign Management   | organization.management.create |
-| Activate Period     | organization.period.activate   |
+| Action                    | Permission                          |
+| ------------------------- | ----------------------------------- |
+| Create Organization       | organization.create                 |
+| Update Organization       | organization.update                 |
+| Delete Organization       | organization.delete                 |
+| Create Branch             | organization.branch.create          |
+| Update Branch             | organization.branch.update          |
+| Delete Branch             | organization.branch.delete          |
+| Assign Central Board      | organization.central-board.create   |
+| Assign Regional Board     | organization.regional-board.create  |
+| Assign Branch Board       | organization.branch-board.create    |
+| Add Member                | organization.member.create          |
 
 ---
 
@@ -215,22 +207,6 @@ Setiap aksi wajib memeriksa permission sebelum diproses.
 - Tidak boleh menggunakan pengecekan Role secara langsung di UI.
 - Seluruh pemeriksaan akses dilakukan pada Service Layer.
 - Perubahan Role dan Permission wajib dicatat pada Audit Log.
-
----
-
-# Future Permissions
-
-Versi berikutnya dapat menambahkan:
-
-```text id="orgpm06"
-organization.export
-
-organization.import
-
-organization.approval
-
-organization.audit
-```
 
 ---
 

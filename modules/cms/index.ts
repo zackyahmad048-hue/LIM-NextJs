@@ -32,6 +32,7 @@ export {
   restorePostToDraft,
   deletePost,
 } from "./presentation/post.action";
+export { saveStructureAction } from "./presentation/structure.action";
 
 // Queries
 export { getCategories } from "./queries/category.query";
@@ -43,7 +44,17 @@ export {
 } from "./queries/post.query";
 export { getHeroConfig } from "./queries/hero.query";
 export { getContentSummary } from "./queries/content.query";
-export { getPages, getPage, savePage } from "./queries/page.query";
+export {
+  getSitePageValues,
+  getSitePageStatuses,
+  getAboutContent,
+  getProfilContent,
+  getTentangContent,
+  getVisiMisiContent,
+  getFalakContent,
+  getKontakContent,
+  getTimWajibKhidmahContent,
+} from "./queries/site-page.query";
 
 // Validators
 export { categorySchema } from "./validations/category.schema";

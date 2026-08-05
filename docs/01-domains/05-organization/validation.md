@@ -4,9 +4,9 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
@@ -110,32 +110,6 @@ Aturan:
 
 ---
 
-# Region Validation
-
-## Province
-
-- Wajib diisi.
-
----
-
-## Regency / City
-
-- Wajib diisi.
-
----
-
-## District
-
-- Wajib diisi.
-
----
-
-## Village
-
-- Opsional.
-
----
-
 # Branch Validation
 
 ## Organization
@@ -145,25 +119,23 @@ Aturan:
 
 ---
 
-## Region
-
-- Wajib dipilih.
-- Harus merupakan Region yang valid.
-
----
-
 ## Name
 
 - Wajib diisi.
 - Maksimum 255 karakter.
+- Harus unik dalam satu Organization.
 
 ---
 
-## Code
+## Province
 
 - Wajib diisi.
-- Maksimum 20 karakter.
-- Harus unik.
+
+---
+
+## Regency
+
+- Wajib diisi.
 
 ---
 
@@ -174,91 +146,7 @@ Aturan:
 
 ---
 
-# Department Validation
-
-## Name
-
-- Wajib diisi.
-- Maksimum 150 karakter.
-- Unik dalam satu Organization.
-
----
-
-## Description
-
-- Opsional.
-- Maksimum 1000 karakter.
-
----
-
-# Position Validation
-
-## Department
-
-- Wajib dipilih.
-
----
-
-## Name
-
-- Wajib diisi.
-- Maksimum 150 karakter.
-
----
-
-## Level
-
-- Wajib.
-- Nilai minimal 1.
-
----
-
-## Sort Order
-
-- Wajib.
-- Bilangan bulat positif.
-
----
-
-# Management Period Validation
-
-## Name
-
-- Wajib diisi.
-- Maksimum 100 karakter.
-
----
-
-## Start Date
-
-- Wajib diisi.
-
----
-
-## End Date
-
-- Wajib diisi.
-- Harus lebih besar atau sama dengan Start Date.
-
----
-
-## Status
-
-Nilai yang diperbolehkan:
-
-```text id="orgval01"
-Upcoming
-
-Active
-
-Completed
-```
-
-Hanya satu periode yang boleh berstatus **Active**.
-
----
-
-# Management Validation
+# Central Board Validation
 
 ## User
 
@@ -267,35 +155,106 @@ Hanya satu periode yang boleh berstatus **Active**.
 
 ---
 
-## Branch
+## Organization
 
 - Wajib dipilih.
-
----
-
-## Position
-
-- Wajib dipilih.
+- Harus merupakan Organization yang aktif.
 
 ---
 
 ## Period
 
-- Wajib dipilih.
-- Harus merupakan periode yang aktif.
+- Wajib.
+- Nilai tetap: `2024-2029`.
 
 ---
 
-## Start Date
+# Regional Board Validation
+
+## User
+
+- Wajib dipilih.
+- Harus merupakan User yang aktif.
+
+---
+
+## Organization
+
+- Wajib dipilih.
+- Harus merupakan Organization yang aktif.
+
+---
+
+## Province
 
 - Wajib diisi.
 
 ---
 
-## End Date
+## Period
 
-- Opsional.
-- Jika diisi, harus lebih besar atau sama dengan Start Date.
+- Wajib.
+- Nilai tetap: `2024-2029`.
+
+---
+
+# Branch Board Validation
+
+## User
+
+- Wajib dipilih.
+- Harus merupakan User yang aktif.
+
+---
+
+## Organization
+
+- Wajib dipilih.
+- Harus merupakan Organization yang aktif.
+
+---
+
+## Branch
+
+- Wajib dipilih.
+- Harus merupakan Branch yang aktif.
+
+---
+
+## Period
+
+- Wajib.
+- Nilai tetap: `2024-2029`.
+
+---
+
+# Member Validation
+
+## User
+
+- Wajib dipilih.
+- Harus merupakan User yang aktif.
+
+---
+
+## Organization
+
+- Wajib dipilih.
+- Harus merupakan Organization yang aktif.
+
+---
+
+## Branch
+
+- Wajib dipilih.
+- Harus merupakan Branch yang aktif.
+
+---
+
+## Period
+
+- Wajib.
+- Nilai tetap: `2024-2029`.
 
 ---
 
@@ -303,7 +262,7 @@ Hanya satu periode yang boleh berstatus **Active**.
 
 Parameter:
 
-```text id="orgval02"
+```text id="orgval01"
 search
 ```
 
@@ -334,7 +293,7 @@ Data tidak dapat dihapus apabila:
 
 - Masih digunakan oleh domain lain.
 - Memiliki relasi aktif.
-- Menjadi referensi pada Program, Letter, Certificate, atau Secretariat.
+- Menjadi referensi pada Program, Secretariat, Letter, atau Certificate.
 
 ---
 
@@ -344,17 +303,18 @@ Data tidak dapat dihapus apabila:
 | ---------------------------- | -------------------------------------------- |
 | Name kosong                  | Nama wajib diisi.                            |
 | Name duplikat                | Nama sudah digunakan.                        |
-| Code duplikat                | Kode sudah digunakan.                        |
 | Organization tidak ditemukan | Organization tidak ditemukan.                |
-| Region tidak valid           | Region tidak valid.                          |
-| Period aktif sudah ada       | Hanya satu periode aktif yang diperbolehkan. |
+| Branch tidak ditemukan       | Cabang tidak ditemukan.                      |
+| User tidak ditemukan         | Pengguna tidak ditemukan.                    |
+| Periode tidak valid          | Periode kepengurusan harus 2024-2029.        |
+| Branch aktif sudah ada       | Pengurus cabang untuk branch ini sudah ada.  |
 | End Date tidak valid         | Tanggal selesai harus setelah tanggal mulai. |
 
 ---
 
 # Validation Flow
 
-```text id="orgval03"
+```text id="orgval02"
 Request
 
 ↓
@@ -380,7 +340,7 @@ Database
 
 Apabila validasi gagal:
 
-```text id="orgval04"
+```text id="orgval03"
 Request
 
 ↓
@@ -413,6 +373,6 @@ Validation Organization dianggap selesai apabila:
 
 - Seluruh input tervalidasi.
 - Nama dan kode yang unik tidak dapat diduplikasi.
-- Periode aktif hanya satu.
+- Periode kepengurusan bersifat tetap (2024-2029).
 - Data dengan relasi aktif tidak dapat dihapus.
 - Seluruh validasi dijalankan sebelum Business Rules dieksekusi.

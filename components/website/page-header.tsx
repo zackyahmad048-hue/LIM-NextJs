@@ -2,22 +2,36 @@ interface PageHeaderProps {
   title: string;
   description?: string;
   children?: React.ReactNode;
+  centered?: boolean;
 }
 
 export default function PageHeader({
   title,
   description,
   children,
+  centered = false,
 }: PageHeaderProps) {
   return (
     <header className="relative">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20">
-        <h1 className="max-w-3xl font-display text-[2rem] font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+      <div
+        className={`mx-auto max-w-6xl px-4 py-14 sm:px-6 md:py-20 ${
+          centered ? "text-center" : ""
+        }`}
+      >
+        <h1
+          className={`max-w-3xl font-display text-[2rem] font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl ${
+            centered ? "mx-auto" : ""
+          }`}
+        >
           {title}
         </h1>
 
         {description && (
-          <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+          <p
+            className={`mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg ${
+              centered ? "mx-auto" : ""
+            }`}
+          >
             {description}
           </p>
         )}

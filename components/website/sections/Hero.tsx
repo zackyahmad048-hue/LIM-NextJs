@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { TextReveal } from "@/components/motion/text-reveal";
 import { Button } from "@/components/ui/button";
-import { SkyInstrument } from "@/components/website/sky/sky-instrument";
+import { PrayerScheduleCard } from "@/components/website/sky/prayer-schedule-card";
 import RouteMap from "@/components/website/sections/route-map";
 import LiquidEther from "@/components/LiquidEther";
 import type { HeroConfig } from "@/types/hero";
@@ -118,7 +118,7 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
           transition={{ duration: 0.6, delay: 0.55, ease: EASE_OUT }}
           className="lg:justify-self-end"
         >
-          <SkyInstrument />
+          <PrayerScheduleCard />
         </motion.div>
       </div>
 

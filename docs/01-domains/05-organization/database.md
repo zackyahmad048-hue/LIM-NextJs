@@ -4,163 +4,133 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
 # Purpose
 
-Dokumen ini mendefinisikan struktur database pada Domain Organization.
+Dokumen ini mendefinisikan skema database untuk Domain Organization.
 
-Domain Organization menjadi sumber utama data organisasi yang digunakan oleh seluruh domain dalam LIM Digital Platform.
-
----
-
-# Overview
-
-Domain Organization menyimpan struktur organisasi, wilayah, cabang, bidang, jabatan, kepengurusan, dan periode kepengurusan.
-
-Seluruh tabel mengikuti standar database LIM Digital Platform.
+Database menyimpan seluruh data organisasi, cabang, kepengurusan (pengurus pusat, pengurus wilayah, pengurus cabang), dan anggota.
 
 ---
 
-# Entity Relationship
-
-```text id="orgdb01"
-Organization
-      │
-      ├──────┐
-      │      │
-      ▼      ▼
- Region   Department
-      │          │
-      ▼          ▼
- Branch     Position
-      │          │
-      └────┐ ┌───┘
-           ▼ ▼
-      Management
-           │
-           ▼
- Management Period
-```
-
----
-
-# Main Tables
+# Entities
 
 ## organization
 
-Menyimpan data organisasi.
+Menyimpan profil organisasi LIM.
 
-| Field     | Type      | Description       |
-| --------- | --------- | ----------------- |
-| id        | UUID      | Primary Key       |
-| name      | String    | Nama Organisasi   |
-| shortName | String    | Singkatan         |
-| logo      | String    | Logo              |
-| address   | Text      | Alamat            |
-| phone     | String    | Nomor Telepon     |
-| email     | String    | Email             |
-| website   | String    | Website           |
-| status    | Enum      | Active / Inactive |
-| createdAt | Timestamp | Dibuat            |
-| updatedAt | Timestamp | Diubah            |
-| deletedAt | Timestamp | Soft Delete       |
-
----
-
-## region
-
-Menyimpan referensi wilayah.
-
-| Field    | Type   |
-| -------- | ------ |
-| id       | UUID   |
-| province | String |
-| regency  | String |
-| district | String |
-| village  | String |
+| Field        | Type   | Description               |
+| ------------ | ------ | ------------------------- |
+| id           | UUID   | Primary Key               |
+| name         | String | Nama organisasi           |
+| short_name   | String | Singkatan (opsional)      |
+| logo         | String | Path logo (opsional)      |
+| address      | Text   | Alamat organisasi         |
+| phone        | String | Telepon (opsional)        |
+| email        | String | Email (opsional)          |
+| website      | String | Website (opsional)        |
+| status       | Enum   | Active / Inactive         |
+| created_at   | Timestamp | Dibuat                 |
+| updated_at   | Timestamp | Diubah                 |
+| deleted_at   | Timestamp | Soft Delete            |
 
 ---
 
 ## branch
 
-Menyimpan data cabang organisasi.
+Menyimpan data cabang organisasi (tingkat kabupaten/kota).
 
-| Field          | Type      |
-| -------------- | --------- |
-| id             | UUID      |
-| organizationId | UUID      |
-| regionId       | UUID      |
-| name           | String    |
-| code           | String    |
-| address        | Text      |
-| status         | Enum      |
-| createdAt      | Timestamp |
-| updatedAt      | Timestamp |
-| deletedAt      | Timestamp |
-
----
-
-## department
-
-Menyimpan bidang atau divisi organisasi.
-
-| Field          | Type    |
-| -------------- | ------- |
-| id             | UUID    |
-| organizationId | UUID    |
-| name           | String  |
-| description    | Text    |
-| sortOrder      | Integer |
+| Field          | Type   | Description                    |
+| -------------- | ------ | ------------------------------ |
+| id             | UUID   | Primary Key                    |
+| organization_id | UUID  | Foreign Key → organization     |
+| name           | String | Nama cabang                    |
+| province       | String | Provinsi                       |
+| regency        | String | Kabupaten/Kota                 |
+| address        | Text   | Alamat cabang (opsional)       |
+| status         | Enum   | Active / Inactive              |
+| created_at     | Timestamp | Dibuat                      |
+| updated_at     | Timestamp | Diubah                      |
+| deleted_at     | Timestamp | Soft Delete                 |
 
 ---
 
-## position
+## central_board
 
-Menyimpan jabatan.
+Menyimpan data Pengurus Pusat (Central Board).
 
-| Field        | Type    |
-| ------------ | ------- |
-| id           | UUID    |
-| departmentId | UUID    |
-| name         | String  |
-| level        | Integer |
-| sortOrder    | Integer |
-
----
-
-## management_period
-
-Menyimpan periode kepengurusan.
-
-| Field     | Type   |
-| --------- | ------ |
-| id        | UUID   |
-| name      | String |
-| startDate | Date   |
-| endDate   | Date   |
-| status    | Enum   |
+| Field        | Type   | Description                          |
+| ------------ | ------ | ------------------------------------ |
+| id           | UUID   | Primary Key                          |
+| user_id      | UUID   | Foreign Key → users                  |
+| organization_id | UUID | Foreign Key → organization           |
+| role         | Enum   | `central`                            |
+| period       | String | Periode kepengurusan (2024-2029)     |
+| status       | Enum   | Active / Inactive                    |
+| created_at   | Timestamp | Dibuat                            |
+| updated_at   | Timestamp | Diubah                            |
+| deleted_at   | Timestamp | Soft Delete                       |
 
 ---
 
-## management
+## regional_board
 
-Menyimpan data pengurus.
+Menyimpan data Pengurus Wilayah (Regional Board — tingkat provinsi).
 
-| Field      | Type |
-| ---------- | ---- |
-| id         | UUID |
-| userId     | UUID |
-| branchId   | UUID |
-| positionId | UUID |
-| periodId   | UUID |
-| startDate  | Date |
-| endDate    | Date |
-| status     | Enum |
+| Field        | Type   | Description                          |
+| ------------ | ------ | ------------------------------------ |
+| id           | UUID   | Primary Key                          |
+| user_id      | UUID   | Foreign Key → users                  |
+| organization_id | UUID | Foreign Key → organization           |
+| province     | String | Provinsi                             |
+| role         | Enum   | `regional`                           |
+| period       | String | Periode kepengurusan (2024-2029)     |
+| status       | Enum   | Active / Inactive                    |
+| created_at   | Timestamp | Dibuat                            |
+| updated_at   | Timestamp | Diubah                            |
+| deleted_at   | Timestamp | Soft Delete                       |
+
+---
+
+## branch_board
+
+Menyimpan data Pengurus Cabang (Branch Board — tingkat kabupaten/kota).
+
+| Field        | Type   | Description                          |
+| ------------ | ------ | ------------------------------------ |
+| id           | UUID   | Primary Key                          |
+| user_id      | UUID   | Foreign Key → users                  |
+| organization_id | UUID | Foreign Key → organization           |
+| branch_id    | UUID   | Foreign Key → branch                 |
+| role         | Enum   | `branch`                             |
+| period       | String | Periode kepengurusan (2024-2029)     |
+| status       | Enum   | Active / Inactive                    |
+| created_at   | Timestamp | Dibuat                            |
+| updated_at   | Timestamp | Diubah                            |
+| deleted_at   | Timestamp | Soft Delete                       |
+
+---
+
+## member
+
+Menyimpan data Anggota organisasi.
+
+| Field        | Type   | Description                          |
+| ------------ | ------ | ------------------------------------ |
+| id           | UUID   | Primary Key                          |
+| user_id      | UUID   | Foreign Key → users                  |
+| organization_id | UUID | Foreign Key → organization           |
+| branch_id    | UUID   | Foreign Key → branch                 |
+| period       | String | Periode kepengurusan (2024-2029)     |
+| status       | Enum   | Active / Inactive                    |
+| created_at   | Timestamp | Dibuat                            |
+| updated_at   | Timestamp | Diubah                            |
+| deleted_at   | Timestamp | Soft Delete                       |
 
 ---
 
@@ -169,13 +139,16 @@ Menyimpan data pengurus.
 | Source            | Relation | Target     |
 | ----------------- | -------- | ---------- |
 | Organization      | 1 : N    | Branch     |
-| Organization      | 1 : N    | Department |
-| Region            | 1 : N    | Branch     |
-| Department        | 1 : N    | Position   |
-| Branch            | 1 : N    | Management |
-| Position          | 1 : N    | Management |
-| Management Period | 1 : N    | Management |
-| User              | 1 : N    | Management |
+| Organization      | 1 : N    | Central Board |
+| Organization      | 1 : N    | Regional Board |
+| Organization      | 1 : N    | Branch Board |
+| Organization      | 1 : N    | Member     |
+| Branch            | 1 : N    | Branch Board |
+| Branch            | 1 : N    | Member     |
+| User              | 1 : N    | Central Board |
+| User              | 1 : N    | Regional Board |
+| User              | 1 : N    | Branch Board |
+| User              | 1 : N    | Member     |
 
 ---
 
@@ -183,18 +156,22 @@ Menyimpan data pengurus.
 
 Index dibuat pada:
 
-```text id="orgdb02"
+```text id="orgdb01"
 organization.name
 
 branch.code
 
 branch.name
 
-position.name
+central_board.user_id
 
-management_period.status
+regional_board.user_id
 
-management.userId
+branch_board.user_id
+
+member.user_id
+
+member.branch_id
 ```
 
 ---
@@ -205,39 +182,41 @@ management.userId
 
 - Nama wajib unik.
 
----
-
 ## Branch
 
 - Nama wajib.
 - Kode wajib unik.
+- Harus berada pada satu Organization.
 
----
+## Central Board
 
-## Department
+- User wajib.
+- Organization wajib.
+- Role wajib (`central`).
+- Periode wajib (`2024-2029`).
 
-- Nama wajib unik dalam satu Organization.
+## Regional Board
 
----
+- User wajib.
+- Organization wajib.
+- Province wajib.
+- Role wajib (`regional`).
+- Periode wajib (`2024-2029`).
 
-## Position
+## Branch Board
 
-- Nama wajib.
-- Berada pada satu Department.
+- User wajib.
+- Organization wajib.
+- Branch wajib.
+- Role wajib (`branch`).
+- Periode wajib (`2024-2029`).
 
----
+## Member
 
-## Management Period
-
-- Hanya satu periode berstatus Active.
-
----
-
-## Management
-
-- Position wajib ada.
-- Branch wajib ada.
-- Period wajib ada.
+- User wajib.
+- Organization wajib.
+- Branch wajib.
+- Periode wajib (`2024-2029`).
 
 ---
 
@@ -247,9 +226,10 @@ Menggunakan Soft Delete:
 
 - organization
 - branch
-- department
-- position
-- management
+- central_board
+- regional_board
+- branch_board
+- member
 
 Tidak diperbolehkan Hard Delete melalui aplikasi.
 
@@ -257,31 +237,17 @@ Tidak diperbolehkan Hard Delete melalui aplikasi.
 
 # Status Enum
 
-## Organization
+## Organization & Branch
 
-```text id="orgdb03"
+```text id="orgdb02"
 Active
 
 Inactive
 ```
 
----
+## Central Board, Regional Board, Branch Board, Member
 
-## Management Period
-
-```text id="orgdb04"
-Upcoming
-
-Active
-
-Completed
-```
-
----
-
-## Management
-
-```text id="orgdb05"
+```text id="orgdb03"
 Active
 
 Inactive
@@ -292,29 +258,22 @@ Inactive
 # Database Rules
 
 - Organization menjadi referensi utama.
-- Branch harus berada pada Region.
-- Position harus berada pada Department.
-- Management harus berada pada Period.
+- Branch harus berada pada satu Organization.
+- Central Board tidak terikat Branch.
+- Regional Board menunjuk ke provinsi.
+- Branch Board harus berada pada satu Branch.
+- Member harus berada pada satu Branch.
+- Satu User dapat menjadi anggota lebih dari satu Board apabila diizinkan oleh organisasi.
 - Data yang masih digunakan tidak dapat dihapus.
 - Seluruh perubahan menggunakan Repository Pattern.
 
 ---
 
-# Future Tables
+# Period
 
-Versi berikutnya dapat menambahkan:
+Periode kepengurusan bersifat tetap: **2024–2029**.
 
-```text id="orgdb06"
-organization_setting
-
-organization_document
-
-organization_history
-
-organization_logo
-
-organization_attachment
-```
+Disimpan sebagai setting organisasi (`org:period`).
 
 ---
 
@@ -337,6 +296,7 @@ Database Organization dianggap selesai apabila:
 
 - Struktur organisasi dapat direpresentasikan dengan benar.
 - Relasi antar tabel konsisten.
-- Hanya terdapat satu periode aktif.
+- Pengurus Pusat, Pengurus Wilayah, Pengurus Cabang, dan Anggota dapat dikelola.
+- Hanya terdapat satu periode aktif (2024-2029).
 - Seluruh Foreign Key valid.
 - Seluruh akses database menggunakan Repository Pattern.

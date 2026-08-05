@@ -4,9 +4,9 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
@@ -14,15 +14,15 @@
 
 Dokumen ini menjelaskan alur proses (workflow) pada Domain Organization.
 
-Workflow menjadi acuan implementasi pengelolaan organisasi, wilayah, cabang, jabatan, kepengurusan, dan periode kepengurusan.
+Workflow menjadi acuan implementasi pengelolaan organisasi, cabang, kepengurusan (pengurus pusat, pengurus wilayah, pengurus cabang), dan data anggota.
 
 ---
 
 # Overview
 
-Domain Organization merupakan pusat referensi struktur organisasi.
+Domain Organization merupakan pusat referensi struktur kepengurusan organisasi LIM berdasarkan AD/ART.
 
-Seluruh perubahan struktur organisasi dilakukan melalui domain ini dan akan digunakan oleh domain lain seperti Program, Secretariat, Letter, dan Certificate.
+Seluruh perubahan data kepengurusan dilakukan melalui domain ini dan akan digunakan oleh domain lain seperti Program, Secretariat, Letter, dan Certificate.
 
 ---
 
@@ -33,27 +33,23 @@ Create Organization
 
 ↓
 
-Configure Structure
+Configure Branch
 
 ↓
 
-Create Branch
+Assign Central Board
 
 ↓
 
-Create Department
+Assign Regional Board
 
 ↓
 
-Create Position
+Assign Branch Board
 
 ↓
 
-Assign Management
-
-↓
-
-Activate Organization
+Add Member
 ```
 
 ---
@@ -97,7 +93,7 @@ Validation
 
 ↓
 
-Assign Region
+Assign Province & Regency
 
 ↓
 
@@ -110,14 +106,18 @@ Audit Log
 
 ---
 
-# Department Workflow
+# Central Board Workflow
 
 ```text id="orgwf04"
 Administrator
 
 ↓
 
-Create Department
+Select User
+
+↓
+
+Select Organization
 
 ↓
 
@@ -134,104 +134,22 @@ Audit Log
 
 ---
 
-# Position Workflow
+# Regional Board Workflow
 
 ```text id="orgwf05"
 Administrator
 
 ↓
 
-Create Position
-
-↓
-
-Assign Department
-
-↓
-
-Validation
-
-↓
-
-Save
-
-↓
-
-Audit Log
-```
-
----
-
-# Management Assignment Workflow
-
-```text id="orgwf06"
 Select User
 
 ↓
 
-Select Branch
-
-↓
-
-Select Position
-
-↓
-
-Set Management Period
-
-↓
-
-Validation
-
-↓
-
-Save
-
-↓
-
-Audit Log
-```
-
----
-
-# Management Period Workflow
-
-```text id="orgwf07"
-Create Period
-
-↓
-
-Set Start Date
-
-↓
-
-Set End Date
-
-↓
-
-Validation
-
-↓
-
-Activate Period
-
-↓
-
-Audit Log
-```
-
-Apabila terdapat periode yang masih aktif, sistem harus menonaktifkannya terlebih dahulu sebelum mengaktifkan periode baru.
-
----
-
-# Organization Update Workflow
-
-```text id="orgwf08"
 Select Organization
 
 ↓
 
-Update Data
+Input Province
 
 ↓
 
@@ -248,30 +166,74 @@ Audit Log
 
 ---
 
-# Branch Update Workflow
+# Branch Board Workflow
 
-```text id="orgwf09"
+```text id="orgwf06"
+Administrator
+
+↓
+
+Select User
+
+↓
+
+Select Organization
+
+↓
+
 Select Branch
 
 ↓
 
-Update Information
-
-↓
-
 Validation
 
 ↓
 
 Save
+
+↓
+
+Audit Log
 ```
 
 ---
 
-# Position Update Workflow
+# Member Workflow
 
-```text id="orgwf10"
-Select Position
+```text id="orgwf07"
+Administrator
+
+↓
+
+Select User
+
+↓
+
+Select Organization
+
+↓
+
+Select Branch
+
+↓
+
+Validation
+
+↓
+
+Save
+
+↓
+
+Audit Log
+```
+
+---
+
+# Update Workflow
+
+```text id="orgwf08"
+Select Data
 
 ↓
 
@@ -284,13 +246,17 @@ Validation
 ↓
 
 Save
+
+↓
+
+Audit Log
 ```
 
 ---
 
 # Deactivate Workflow
 
-```text id="orgwf11"
+```text id="orgwf09"
 Deactivate Organization Data
 
 ↓
@@ -312,7 +278,7 @@ Data yang masih digunakan oleh domain lain tidak dapat dinonaktifkan.
 
 # Organization Lookup Workflow
 
-```text id="orgwf12"
+```text id="orgwf10"
 Request Organization Data
 
 ↓
@@ -339,7 +305,7 @@ Workflow ini digunakan oleh:
 
 # Error Workflow
 
-```text id="orgwf13"
+```text id="orgwf11"
 Validation Failed
 
 ↓
@@ -359,7 +325,7 @@ Save Again
 
 # Permission Workflow
 
-```text id="orgwf14"
+```text id="orgwf12"
 User Request
 
 ↓
@@ -386,8 +352,9 @@ Execute Action
 - Seluruh perubahan melalui proses validasi.
 - Seluruh perubahan memerlukan Permission.
 - Seluruh perubahan dicatat pada Audit Log.
-- Data organisasi menjadi referensi resmi domain lain.
+- Data organisasi dan kepengurusan menjadi referensi resmi domain lain.
 - Tidak diperbolehkan menghapus data yang masih digunakan.
+- Periode kepengurusan bersifat tetap (2024–2029).
 
 ---
 
@@ -409,7 +376,7 @@ Execute Action
 Workflow Organization dianggap selesai apabila:
 
 - Organisasi dapat dibuat dan diperbarui.
-- Cabang, Bidang, dan Jabatan mengikuti alur yang ditentukan.
-- Pengurus dapat ditetapkan pada periode aktif.
+- Cabang, Pengurus Pusat, Pengurus Wilayah, Pengurus Cabang, dan Anggota mengikuti alur yang ditentukan.
+- Kepengurusan dapat ditetapkan pada periode tetap (2024-2029).
 - Seluruh perubahan melalui validasi, permission, dan audit.
 - Data dapat digunakan oleh domain lain sebagai referensi resmi.

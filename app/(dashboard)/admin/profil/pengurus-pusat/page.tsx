@@ -1,19 +1,27 @@
 import { Building2 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 
 import { getStructure } from "@/modules/cms/queries/structure.query";
 import { StructureEditor } from "@/components/admin/structure/editor";
 
-export default async function StructurePage() {
+export default async function PengurusPusatPage() {
   const structure = await getStructure();
 
   return (
     <PageContainer>
       <PageHeader
-        title="Struktur Organisasi"
-        description="Kelola informasi organisasi, bidang, jabatan, dan pengurus."
+        title="Pengurus Pusat"
+        description="Kelola struktur pengurus pusat LIM periode 2024–2029."
+        actions={
+          <Button variant="outline" size="sm" className="rounded-full" asChild>
+            <a href="/profil/pengurus-pusat" target="_blank" rel="noreferrer">
+              Lihat halaman
+            </a>
+          </Button>
+        }
       />
 
       <div className="grid gap-4 xl:grid-cols-3">
@@ -29,13 +37,21 @@ export default async function StructurePage() {
             </div>
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
               <p>
-                Bidang: <strong>{structure.departments.length}</strong>
+                Pengurus Pusat:{" "}
+                <strong>{structure.centralBoard.length}</strong>
               </p>
               <p>
-                Jabatan: <strong>{structure.positions.length}</strong>
+                Pengurus Wilayah:{" "}
+                <strong>{structure.regionalBoards.length}</strong>{" "}
+                wilayah
               </p>
               <p>
-                Pengurus: <strong>{structure.management.length}</strong>
+                Pengurus Cabang:{" "}
+                <strong>{structure.branchBoards.length}</strong>{" "}
+                cabang
+              </p>
+              <p>
+                Anggota: <strong>{structure.members.length}</strong>
               </p>
             </div>
           </div>
@@ -44,8 +60,8 @@ export default async function StructurePage() {
             <h3 className="text-sm font-semibold">Informasi</h3>
             <div className="mt-2 space-y-1 text-xs text-muted-foreground">
               <p>
-                Simpan perubahan untuk memperbarui tampilan struktur di halaman
-                publik.
+                Simpan perubahan untuk memperbarui tampilan struktur
+                di halaman publik.
               </p>
             </div>
           </div>

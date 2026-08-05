@@ -213,6 +213,46 @@ export const PERMISSIONS = {
     },
   },
 
+  CENTRAL_BOARD: {
+    VIEW: "central-board.view",
+
+    CREATE: "central-board.create",
+
+    UPDATE: "central-board.update",
+
+    DELETE: "central-board.delete",
+  },
+
+  REGIONAL_BOARD: {
+    VIEW: "regional-board.view",
+
+    CREATE: "regional-board.create",
+
+    UPDATE: "regional-board.update",
+
+    DELETE: "regional-board.delete",
+  },
+
+  BRANCH_BOARD: {
+    VIEW: "branch-board.view",
+
+    CREATE: "branch-board.create",
+
+    UPDATE: "branch-board.update",
+
+    DELETE: "branch-board.delete",
+  },
+
+  MEMBER: {
+    VIEW: "member.view",
+
+    CREATE: "member.create",
+
+    UPDATE: "member.update",
+
+    DELETE: "member.delete",
+  },
+
   STRUCTURE: {
     VIEW: "structure.view",
 

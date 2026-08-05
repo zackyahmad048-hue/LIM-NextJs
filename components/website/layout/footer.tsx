@@ -70,7 +70,7 @@ export default function Footer() {
               Lembaga Ittihadul Muballighin
             </p>
             <p className="mt-2 text-xs font-medium uppercase tracking-widest text-primary-foreground/70">
-              Menebar Cahaya
+              Pondok Pesantren Lirboyo Kota Kediri
             </p>
           </div>
 

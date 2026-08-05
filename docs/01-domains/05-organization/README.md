@@ -4,26 +4,28 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
 # Overview
 
-Domain Organization bertanggung jawab mengelola struktur organisasi LIM beserta seluruh data referensi organisasi.
+Domain Organization bertanggung jawab mengelola data kepengurusan organisasi LIM berdasarkan AD/ART.
 
-Domain ini menjadi sumber data utama (Single Source of Truth) untuk seluruh informasi organisasi yang digunakan oleh domain lain.
+Domain ini menjadi sumber data utama (Single Source of Truth) untuk seluruh informasi kepengurusan yang digunakan oleh domain lain.
 
 ---
 
 # Objectives
 
-- Mengelola struktur organisasi.
-- Mengelola kepengurusan.
-- Mengelola wilayah organisasi.
-- Mengelola jabatan.
+- Mengelola profil organisasi.
+- Mengelola data cabang (kabupaten/kota).
+- Mengelola Pengurus Pusat (Central Board).
+- Mengelola Pengurus Wilayah (Regional Board — tingkat provinsi).
+- Mengelola Pengurus Cabang (Branch Board — tingkat kabupaten/kota).
+- Mengelola data Anggota.
 - Menjadi referensi seluruh domain.
 
 ---
@@ -33,12 +35,11 @@ Domain ini menjadi sumber data utama (Single Source of Truth) untuk seluruh info
 Domain ini mencakup:
 
 - Organization Profile
-- Region
 - Branch
-- Department
-- Position
-- Management
-- Organizational Period
+- Central Board (Pengurus Pusat)
+- Regional Board (Pengurus Wilayah)
+- Branch Board (Pengurus Cabang)
+- Member (Anggota)
 
 ---
 
@@ -54,11 +55,13 @@ Domain ini mencakup:
 
 Domain Organization bertanggung jawab terhadap:
 
-- Struktur organisasi.
-- Data pengurus.
-- Masa jabatan.
-- Hierarki organisasi.
-- Referensi wilayah organisasi.
+- Profil organisasi.
+- Data cabang.
+- Data Pengurus Pusat.
+- Data Pengurus Wilayah.
+- Data Pengurus Cabang.
+- Data Anggota.
+- Periode kepengurusan tetap (2024–2029).
 
 ---
 
@@ -82,11 +85,11 @@ Digunakan oleh:
 # Features
 
 - Organization Profile
-- Region Management
 - Branch Management
-- Department Management
-- Position Management
-- Management Period
+- Central Board Management
+- Regional Board Management
+- Branch Board Management
+- Member Management
 
 ---
 

@@ -4,9 +4,9 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
@@ -14,7 +14,7 @@
 
 Dokumen ini mendefinisikan standar REST API untuk Domain Organization.
 
-API Organization digunakan sebagai sumber data resmi struktur organisasi yang akan digunakan oleh Admin Portal, Website, Mobile Application, dan domain lainnya.
+API Organization digunakan sebagai sumber data resmi struktur kepengurusan organisasi yang akan digunakan oleh Admin Portal, Website, Mobile Application, dan domain lainnya.
 
 ---
 
@@ -47,12 +47,11 @@ Hak akses mengikuti Role Based Access Control (RBAC).
 Domain Organization terdiri dari:
 
 - Organization
-- Region
 - Branch
-- Department
-- Position
-- Management
-- Management Period
+- Central Board
+- Regional Board
+- Branch Board
+- Member
 
 ---
 
@@ -71,7 +70,7 @@ Query Parameter
 | page      | Number | Halaman     |
 | limit     | Number | Jumlah data |
 | search    | String | Pencarian   |
-| status    | Enum   | Status      |
+| status    | Enum   | Active / Inactive |
 
 ---
 
@@ -109,48 +108,6 @@ Menggunakan Soft Delete.
 
 ---
 
-# Region Endpoints
-
-## Get Regions
-
-```http
-GET /api/v1/organization/regions
-```
-
----
-
-## Get Region Detail
-
-```http
-GET /api/v1/organization/regions/{id}
-```
-
----
-
-## Create Region
-
-```http
-POST /api/v1/organization/regions
-```
-
----
-
-## Update Region
-
-```http
-PUT /api/v1/organization/regions/{id}
-```
-
----
-
-## Delete Region
-
-```http
-DELETE /api/v1/organization/regions/{id}
-```
-
----
-
 # Branch Endpoints
 
 ## Get Branches
@@ -158,6 +115,17 @@ DELETE /api/v1/organization/regions/{id}
 ```http
 GET /api/v1/organization/branches
 ```
+
+Query Parameter
+
+| Parameter    | Type   | Description            |
+| ------------ | ------ | ---------------------- |
+| page         | Number | Halaman                |
+| limit        | Number | Jumlah data            |
+| search       | String | Pencarian              |
+| province     | String | Filter provinsi        |
+| regency      | String | Filter kabupaten/kota  |
+| status       | Enum   | Active / Inactive      |
 
 ---
 
@@ -191,180 +159,258 @@ PUT /api/v1/organization/branches/{id}
 DELETE /api/v1/organization/branches/{id}
 ```
 
+Menggunakan Soft Delete.
+
 ---
 
-# Department Endpoints
+# Central Board Endpoints
 
-## Get Departments
+## Get Central Board
 
 ```http
-GET /api/v1/organization/departments
+GET /api/v1/organization/central-board
+```
+
+Query Parameter
+
+| Parameter | Type   | Description |
+| --------- | ------ | ----------- |
+| page      | Number | Halaman     |
+| limit     | Number | Jumlah data |
+| search    | String | Pencarian   |
+| status    | Enum   | Active / Inactive |
+
+---
+
+## Get Central Board Detail
+
+```http
+GET /api/v1/organization/central-board/{id}
 ```
 
 ---
 
-## Get Department Detail
+## Assign Central Board
 
 ```http
-GET /api/v1/organization/departments/{id}
+POST /api/v1/organization/central-board
+```
+
+Body:
+
+```json
+{
+  "user_id": "uuid",
+  "organization_id": "uuid"
+}
 ```
 
 ---
 
-## Create Department
+## Update Central Board
 
 ```http
-POST /api/v1/organization/departments
+PUT /api/v1/organization/central-board/{id}
 ```
 
 ---
 
-## Update Department
+## Remove Central Board
 
 ```http
-PUT /api/v1/organization/departments/{id}
+DELETE /api/v1/organization/central-board/{id}
+```
+
+Menggunakan Soft Delete.
+
+---
+
+# Regional Board Endpoints
+
+## Get Regional Board
+
+```http
+GET /api/v1/organization/regional-board
+```
+
+Query Parameter
+
+| Parameter | Type   | Description |
+| --------- | ------ | ----------- |
+| page      | Number | Halaman     |
+| limit     | Number | Jumlah data |
+| search    | String | Pencarian   |
+| province  | String | Filter provinsi |
+| status    | Enum   | Active / Inactive |
+
+---
+
+## Get Regional Board Detail
+
+```http
+GET /api/v1/organization/regional-board/{id}
 ```
 
 ---
 
-## Delete Department
+## Assign Regional Board
 
 ```http
-DELETE /api/v1/organization/departments/{id}
+POST /api/v1/organization/regional-board
+```
+
+Body:
+
+```json
+{
+  "user_id": "uuid",
+  "organization_id": "uuid",
+  "province": "string"
+}
 ```
 
 ---
 
-# Position Endpoints
-
-## Get Positions
+## Update Regional Board
 
 ```http
-GET /api/v1/organization/positions
+PUT /api/v1/organization/regional-board/{id}
 ```
 
 ---
 
-## Get Position Detail
+## Remove Regional Board
 
 ```http
-GET /api/v1/organization/positions/{id}
+DELETE /api/v1/organization/regional-board/{id}
+```
+
+Menggunakan Soft Delete.
+
+---
+
+# Branch Board Endpoints
+
+## Get Branch Board
+
+```http
+GET /api/v1/organization/branch-board
+```
+
+Query Parameter
+
+| Parameter  | Type   | Description |
+| ---------- | ------ | ----------- |
+| page       | Number | Halaman     |
+| limit      | Number | Jumlah data |
+| search     | String | Pencarian   |
+| branch_id  | UUID   | Filter cabang |
+| status     | Enum   | Active / Inactive |
+
+---
+
+## Get Branch Board Detail
+
+```http
+GET /api/v1/organization/branch-board/{id}
 ```
 
 ---
 
-## Create Position
+## Assign Branch Board
 
 ```http
-POST /api/v1/organization/positions
+POST /api/v1/organization/branch-board
+```
+
+Body:
+
+```json
+{
+  "user_id": "uuid",
+  "organization_id": "uuid",
+  "branch_id": "uuid"
+}
 ```
 
 ---
 
-## Update Position
+## Update Branch Board
 
 ```http
-PUT /api/v1/organization/positions/{id}
+PUT /api/v1/organization/branch-board/{id}
 ```
 
 ---
 
-## Delete Position
+## Remove Branch Board
 
 ```http
-DELETE /api/v1/organization/positions/{id}
+DELETE /api/v1/organization/branch-board/{id}
+```
+
+Menggunakan Soft Delete.
+
+---
+
+# Member Endpoints
+
+## Get Members
+
+```http
+GET /api/v1/organization/members
+```
+
+Query Parameter
+
+| Parameter  | Type   | Description |
+| ---------- | ------ | ----------- |
+| page       | Number | Halaman     |
+| limit      | Number | Jumlah data |
+| search     | String | Pencarian   |
+| branch_id  | UUID   | Filter cabang |
+| status     | Enum   | Active / Inactive |
+
+---
+
+## Get Member Detail
+
+```http
+GET /api/v1/organization/members/{id}
 ```
 
 ---
 
-# Management Period Endpoints
-
-## Get Periods
+## Add Member
 
 ```http
-GET /api/v1/organization/periods
+POST /api/v1/organization/members
+```
+
+Body:
+
+```json
+{
+  "user_id": "uuid",
+  "organization_id": "uuid",
+  "branch_id": "uuid"
+}
 ```
 
 ---
 
-## Get Period Detail
+## Update Member
 
 ```http
-GET /api/v1/organization/periods/{id}
+PUT /api/v1/organization/members/{id}
 ```
 
 ---
 
-## Create Period
+## Remove Member
 
 ```http
-POST /api/v1/organization/periods
-```
-
----
-
-## Update Period
-
-```http
-PUT /api/v1/organization/periods/{id}
-```
-
----
-
-## Activate Period
-
-```http
-POST /api/v1/organization/periods/{id}/activate
-```
-
----
-
-## Close Period
-
-```http
-POST /api/v1/organization/periods/{id}/close
-```
-
----
-
-# Management Endpoints
-
-## Get Management
-
-```http
-GET /api/v1/organization/management
-```
-
----
-
-## Get Management Detail
-
-```http
-GET /api/v1/organization/management/{id}
-```
-
----
-
-## Assign Management
-
-```http
-POST /api/v1/organization/management
-```
-
----
-
-## Update Management
-
-```http
-PUT /api/v1/organization/management/{id}
-```
-
----
-
-## Remove Management
-
-```http
-DELETE /api/v1/organization/management/{id}
+DELETE /api/v1/organization/members/{id}
 ```
 
 Menggunakan Soft Delete.
@@ -391,10 +437,34 @@ GET /api/v1/public/organization/branches
 
 ---
 
-## Active Management
+## Central Board List
 
 ```http
-GET /api/v1/public/organization/management
+GET /api/v1/public/organization/central-board
+```
+
+---
+
+## Regional Board List
+
+```http
+GET /api/v1/public/organization/regional-board
+```
+
+---
+
+## Branch Board List
+
+```http
+GET /api/v1/public/organization/branch-board
+```
+
+---
+
+## Active Member List
+
+```http
+GET /api/v1/public/organization/members
 ```
 
 ---
@@ -444,7 +514,6 @@ Response gagal
 - Seluruh endpoint memerlukan Permission sesuai aksi.
 - Endpoint Public hanya menampilkan data yang berstatus Active.
 - Delete menggunakan Soft Delete.
-- Aktivasi periode otomatis menonaktifkan periode aktif sebelumnya.
 - Seluruh perubahan dicatat pada Audit Log.
 
 ---
@@ -490,7 +559,7 @@ Seluruh endpoint harus mendukung:
 
 API Organization dianggap selesai apabila:
 
-- Seluruh endpoint CRUD tersedia.
+- Seluruh endpoint CRUD tersedia untuk Organization, Branch, Central Board, Regional Board, Branch Board, dan Member.
 - Endpoint Public hanya menampilkan data aktif.
 - Response mengikuti standar API proyek.
 - Seluruh endpoint mengikuti Business Rules, Security Policy, dan Repository Pattern.

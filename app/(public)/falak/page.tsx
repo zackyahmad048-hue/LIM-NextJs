@@ -3,37 +3,42 @@ import { ArrowRight, Calendar, Clock, Compass } from "lucide-react";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
+import { getFalakContent } from "@/modules/cms/queries/site-page.query";
 
-const tools = [
-  {
-    title: "Jadwal Shalat",
-    description:
-      "Jadwal shalat harian dengan metode hisab Kemenag RI, mode waktu istiwa hakiki, dan ihtiyat +3 menit.",
-    icon: Clock,
-    href: "/falak/jadwal-shalat",
-  },
-  {
-    title: "Arah Kiblat",
-    description:
-      "Tentukan arah kiblat dari lokasi Anda dengan kompas digital dan perhitungan geodesi.",
-    icon: Compass,
-    href: "/falak/kiblat",
-  },
-  {
-    title: "Kalender Hijriah",
-    description:
-      "Konversi tanggal Masehi–Hijriah dan telusuri kalender Hijriah sepanjang tahun.",
-    icon: Calendar,
-    href: "/falak/kalender-hijriah",
-  },
-];
+export const revalidate = 3600;
 
-export default function FalakPage() {
+export default async function FalakPage() {
+  const falak = await getFalakContent();
+
+  const tools = [
+    {
+      title: "Jadwal Shalat",
+      description:
+        "Jadwal shalat harian dengan metode hisab Kemenag RI, mode waktu istiwa hakiki, dan ihtiyat +3 menit.",
+      icon: Clock,
+      href: "/falak/jadwal-shalat",
+    },
+    {
+      title: "Arah Kiblat",
+      description:
+        "Tentukan arah kiblat dari lokasi Anda dengan kompas digital dan perhitungan geodesi.",
+      icon: Compass,
+      href: "/falak/kiblat",
+    },
+    {
+      title: "Kalender Hijriah",
+      description:
+        "Konversi tanggal Masehi–Hijriah dan telusuri kalender Hijriah sepanjang tahun.",
+      icon: Calendar,
+      href: "/falak/kalender-hijriah",
+    },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Layanan Falak"
-        description="Ilmu falak yang hidup: jadwal shalat, arah kiblat, dan kalender Hijriah — dihitung mengikuti kaidah hisab yang dipakai para muwaqqit pesantren."
+        title={falak.headerTitle}
+        description={falak.headerDescription}
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
@@ -71,11 +76,7 @@ export default function FalakPage() {
         <div className="mt-8 rounded-2xl border border-primary/15 bg-card p-6 sm:p-8">
           <SectionLabel>Metode Perhitungan</SectionLabel>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-            Seluruh layanan falak LIM mengikuti kaidah hisab yang digunakan
-            Kementerian Agama RI dan tradisi muwaqqit pesantren: perhitungan
-            posisi Matahari dan Bulan berdasarkan koordinat lokasi, dengan
-            penambahan waktu ihtiyat sebesar 3 menit sebagai bentuk kehati-hatian
-            dalam beribadah.
+            {falak.metode}
           </p>
         </div>
       </section>

@@ -6,6 +6,8 @@ import { requireSessionWithPermissions } from "@/modules/authorization/applicati
 import { saveStructure } from "@/modules/cms/queries/structure.query";
 import type { OrgStructure } from "@/modules/cms/queries/structure.query";
 
+const PERMISSION_UPDATE = ["structure.update"];
+
 function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message === "UNAUTHORIZED") {
     return "Sesi tidak valid. Silakan login kembali.";
@@ -18,9 +20,10 @@ function getErrorMessage(error: unknown) {
 
 export async function saveStructureAction(data: OrgStructure) {
   try {
-    await requireSessionWithPermissions(["structure.update"]);
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
     await saveStructure(data);
-    revalidatePath("/admin/structure");
+    revalidatePath("/admin/profil/pengurus-pusat");
+    revalidatePath("/profil/pengurus-pusat");
     return { ok: true as const };
   } catch (error) {
     return { ok: false as const, message: getErrorMessage(error) };

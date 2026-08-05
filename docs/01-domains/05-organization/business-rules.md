@@ -4,9 +4,9 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
@@ -14,16 +14,17 @@
 
 Dokumen ini mendefinisikan aturan bisnis pada Domain Organization.
 
-Domain Organization menjadi sumber data resmi (Single Source of Truth) mengenai struktur organisasi yang digunakan oleh seluruh domain dalam LIM Digital Platform.
+Domain Organization menjadi sumber data resmi (Single Source of Truth) mengenai struktur kepengurusan organisasi LIM berdasarkan AD/ART.
 
 ---
 
 # General Rules
 
 - Setiap organisasi memiliki identitas yang unik.
-- Struktur organisasi mengikuti hierarki resmi organisasi.
+- Struktur kepengurusan mengikuti AD/ART organisasi.
 - Seluruh domain menggunakan data organisasi dari domain ini.
 - Data organisasi tidak boleh diduplikasi oleh domain lain.
+- Periode kepengurusan bersifat tetap: **2024–2029**.
 
 ---
 
@@ -40,109 +41,63 @@ Setiap organisasi wajib memiliki:
 
 ---
 
-# Region Rules
-
-Wilayah organisasi mengikuti struktur administratif.
-
-Urutan wilayah:
-
-```text id="org01"
-Provinsi
-
-↓
-
-Kabupaten/Kota
-
-↓
-
-Kecamatan
-
-↓
-
-Desa/Kelurahan
-```
-
-Wilayah digunakan sebagai referensi Program, Secretariat, dan Letter.
-
----
-
 # Branch Rules
 
-Setiap Cabang:
+Setiap Cabang (tingkat kabupaten/kota):
 
-- Memiliki nama unik.
-- Berada pada satu wilayah.
+- Memiliki nama unik dalam satu Organization.
+- Berada pada satu provinsi dan kabupaten/kota.
 - Memiliki status aktif atau nonaktif.
-- Dapat memiliki banyak pengurus.
+- Dapat memiliki banyak Pengurus Cabang dan Anggota.
 
 ---
 
-# Department Rules
+# Central Board Rules
 
-Setiap Bidang:
+Pengurus Pusat (Central Board):
 
-- Memiliki nama unik.
-- Berada di bawah organisasi.
-- Digunakan sebagai referensi jabatan.
-
----
-
-# Position Rules
-
-Setiap Jabatan:
-
-- Memiliki nama unik.
-- Berada pada satu bidang.
-- Memiliki urutan hierarki.
-
-Contoh:
-
-```text id="org02"
-Ketua Umum
-
-Sekretaris
-
-Bendahara
-
-Ketua Bidang
-
-Anggota
-```
+- Terhubung dengan User.
+- Tidak terikat Branch.
+- Memiliki periode kepengurusan tetap (2024–2029).
+- Status aktif atau nonaktif.
+- Satu User dapat menjadi Pengurus Pusat untuk satu Organization.
 
 ---
 
-# Management Rules
+# Regional Board Rules
 
-Setiap Pengurus:
+Pengurus Wilayah (Regional Board — tingkat provinsi):
 
-- Terhubung dengan User (opsional).
-- Memiliki Jabatan.
-- Memiliki Cabang.
-- Memiliki Masa Jabatan.
-
-Satu User dapat memiliki lebih dari satu jabatan apabila diizinkan oleh organisasi.
+- Terhubung dengan User.
+- Tidak terikat Branch.
+- Menunjuk ke provinsi.
+- Memiliki periode kepengurusan tetap (2024–2029).
+- Status aktif atau nonaktif.
+- Satu User dapat menjadi Pengurus Wilayah untuk beberapa provinsi apabila diizinkan oleh organisasi.
 
 ---
 
-# Management Period Rules
+# Branch Board Rules
 
-Masa kepengurusan memiliki:
+Pengurus Cabang (Branch Board — tingkat kabupaten/kota):
 
-- Tanggal Mulai
-- Tanggal Selesai
-- Status
+- Terhubung dengan User.
+- Terikat pada satu Branch.
+- Memiliki periode kepengurusan tetap (2024–2029).
+- Status aktif atau nonaktif.
+- Satu User dapat menjadi Pengurus Cabang untuk beberapa Branch apabila diizinkan oleh organisasi.
 
-Status:
+---
 
-```text id="org03"
-Upcoming
+# Member Rules
 
-Active
+Anggota:
 
-Completed
-```
-
-Hanya satu periode yang boleh berstatus **Active** untuk satu organisasi.
+- Terhubung dengan User.
+- Terikat pada satu Branch.
+- Memiliki periode kepengurusan tetap (2024–2029).
+- Status aktif atau nonaktif.
+- Satu User dapat menjadi Anggota di beberapa Branch apabila diizinkan oleh organisasi.
 
 ---
 
@@ -176,16 +131,20 @@ Aktivitas berikut dicatat:
 - Update Organization
 - Create Branch
 - Update Branch
-- Create Position
-- Update Position
-- Assign Management
-- Update Management
+- Assign Central Board
+- Update Central Board
+- Assign Regional Board
+- Update Regional Board
+- Assign Branch Board
+- Update Branch Board
+- Add Member
+- Update Member
 
 ---
 
 # Security Rules
 
-- Hanya Administrator yang dapat mengubah struktur organisasi.
+- Hanya Administrator yang dapat mengubah struktur organisasi dan kepengurusan.
 - Pengguna biasa hanya dapat melihat data sesuai hak akses.
 - Seluruh perubahan wajib melalui Permission Check.
 
@@ -196,9 +155,8 @@ Aktivitas berikut dicatat:
 Business Rules dianggap selesai apabila:
 
 - Struktur organisasi konsisten.
-- Hierarki wilayah valid.
-- Jabatan mengikuti struktur organisasi.
-- Hanya satu periode aktif.
+- Pengurus Pusat, Pengurus Wilayah, Pengurus Cabang, dan Anggota mengikuti aturan AD/ART.
+- Hanya satu periode aktif (2024-2029).
 - Seluruh perubahan tercatat pada Audit Log.
 
 ---

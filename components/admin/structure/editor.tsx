@@ -10,12 +10,15 @@ import {
   Trash2,
   ChevronDown,
   ChevronRight,
-  GripVertical,
   Pencil,
+  Download,
+  MapPin,
+  Users,
+  Flag,
 } from "lucide-react";
 
 import type { OrgStructure } from "@/modules/cms/queries/structure.query";
-import { saveStructureAction } from "@/app/(dashboard)/admin/structure/_actions";
+import { saveStructureAction } from "@/modules/cms/presentation/structure.action";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +26,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionCard } from "@/components/admin/shared/section-card";
 import { Badge } from "@/components/ui/badge";
+import { PreviewDialog } from "./preview.dialog";
 
 function Section({
   id,
@@ -86,9 +90,10 @@ export function StructureEditor({ initial }: Props) {
   const [saving, setSaving] = useState(false);
   const [expandedSection, setExpandedSection] =
     useState<string>("organization");
-  const [editingDept, setEditingDept] = useState<string | null>(null);
-  const [editingPos, setEditingPos] = useState<string | null>(null);
-  const [editingMgt, setEditingMgt] = useState<string | null>(null);
+  const [editingMember, setEditingMember] = useState<string | null>(null);
+  const [editingRegional, setEditingRegional] = useState<string | null>(null);
+  const [editingBranch, setEditingBranch] = useState<string | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   function updateOrg(field: string, value: string) {
     setData((prev) => ({
@@ -97,95 +102,216 @@ export function StructureEditor({ initial }: Props) {
     }));
   }
 
-  function addDepartment() {
+  function addCentralMember() {
     setData((prev) => ({
       ...prev,
-      departments: [
-        ...prev.departments,
+      centralBoard: [
+        ...prev.centralBoard,
         {
           id: uid(),
           name: "",
-          description: "",
-          sortOrder: prev.departments.length + 1,
+          position: "",
+          image: "",
+          sortOrder: prev.centralBoard.length + 1,
         },
       ],
     }));
   }
 
-  function updateDepartment(id: string, field: string, value: string | number) {
+  function updateCentralMember(
+    id: string,
+    field: string,
+    value: string | number,
+  ) {
     setData((prev) => ({
       ...prev,
-      departments: prev.departments.map((d) =>
-        d.id === id ? { ...d, [field]: value } : d,
-      ),
-    }));
-  }
-
-  function removeDepartment(id: string) {
-    setData((prev) => ({
-      ...prev,
-      departments: prev.departments.filter((d) => d.id !== id),
-      positions: prev.positions.filter((p) => p.departmentId !== id),
-    }));
-  }
-
-  function addPosition(deptId: string) {
-    setData((prev) => ({
-      ...prev,
-      positions: [
-        ...prev.positions,
-        {
-          id: uid(),
-          departmentId: deptId,
-          name: "",
-          level: 1,
-          sortOrder:
-            prev.positions.filter((p) => p.departmentId === deptId).length + 1,
-        },
-      ],
-    }));
-  }
-
-  function updatePosition(id: string, field: string, value: string | number) {
-    setData((prev) => ({
-      ...prev,
-      positions: prev.positions.map((p) =>
-        p.id === id ? { ...p, [field]: value } : p,
-      ),
-    }));
-  }
-
-  function removePosition(id: string) {
-    setData((prev) => ({
-      ...prev,
-      positions: prev.positions.filter((p) => p.id !== id),
-      management: prev.management.filter((m) => m.positionId !== id),
-    }));
-  }
-
-  function addManagement(positionId: string) {
-    setData((prev) => ({
-      ...prev,
-      management: [
-        ...prev.management,
-        { id: uid(), name: "", positionId, description: "", image: "" },
-      ],
-    }));
-  }
-
-  function updateManagement(id: string, field: string, value: string) {
-    setData((prev) => ({
-      ...prev,
-      management: prev.management.map((m) =>
+      centralBoard: prev.centralBoard.map((m) =>
         m.id === id ? { ...m, [field]: value } : m,
       ),
     }));
   }
 
-  function removeManagement(id: string) {
+  function removeCentralMember(id: string) {
     setData((prev) => ({
       ...prev,
-      management: prev.management.filter((m) => m.id !== id),
+      centralBoard: prev.centralBoard.filter((m) => m.id !== id),
+    }));
+  }
+
+  function addRegionalBoard() {
+    setData((prev) => ({
+      ...prev,
+      regionalBoards: [
+        ...prev.regionalBoards,
+        {
+          id: uid(),
+          province: "",
+          name: "",
+          members: [],
+        },
+      ],
+    }));
+  }
+
+  function updateRegionalBoard(
+    id: string,
+    field: string,
+    value: string | number,
+  ) {
+    setData((prev) => ({
+      ...prev,
+      regionalBoards: prev.regionalBoards.map((r) =>
+        r.id === id ? { ...r, [field]: value } : r,
+      ),
+    }));
+  }
+
+  function removeRegionalBoard(id: string) {
+    setData((prev) => ({
+      ...prev,
+      regionalBoards: prev.regionalBoards.filter((r) => r.id !== id),
+    }));
+  }
+
+  function addRegionalMember(regionalId: string) {
+    setData((prev) => ({
+      ...prev,
+      regionalBoards: prev.regionalBoards.map((r) =>
+        r.id === regionalId
+          ? {
+              ...r,
+              members: [
+                ...r.members,
+                {
+                  id: uid(),
+                  name: "",
+                  position: "",
+                  image: "",
+                  sortOrder: r.members.length + 1,
+                },
+              ],
+            }
+          : r,
+      ),
+    }));
+  }
+
+  function removeRegionalMember(regionalId: string, memberId: string) {
+    setData((prev) => ({
+      ...prev,
+      regionalBoards: prev.regionalBoards.map((r) =>
+        r.id === regionalId
+          ? {
+              ...r,
+              members: r.members.filter((m) => m.id !== memberId),
+            }
+          : r,
+      ),
+    }));
+  }
+
+  function addBranchBoard() {
+    setData((prev) => ({
+      ...prev,
+      branchBoards: [
+        ...prev.branchBoards,
+        {
+          id: uid(),
+          province: "",
+          regency: "",
+          name: "",
+          members: [],
+        },
+      ],
+    }));
+  }
+
+  function updateBranchBoard(
+    id: string,
+    field: string,
+    value: string | number,
+  ) {
+    setData((prev) => ({
+      ...prev,
+      branchBoards: prev.branchBoards.map((b) =>
+        b.id === id ? { ...b, [field]: value } : b,
+      ),
+    }));
+  }
+
+  function removeBranchBoard(id: string) {
+    setData((prev) => ({
+      ...prev,
+      branchBoards: prev.branchBoards.filter((b) => b.id !== id),
+    }));
+  }
+
+  function addBranchMember(branchId: string) {
+    setData((prev) => ({
+      ...prev,
+      branchBoards: prev.branchBoards.map((b) =>
+        b.id === branchId
+          ? {
+              ...b,
+              members: [
+                ...b.members,
+                {
+                  id: uid(),
+                  name: "",
+                  position: "",
+                  image: "",
+                  sortOrder: b.members.length + 1,
+                },
+              ],
+            }
+          : b,
+      ),
+    }));
+  }
+
+  function removeBranchMember(branchId: string, memberId: string) {
+    setData((prev) => ({
+      ...prev,
+      branchBoards: prev.branchBoards.map((b) =>
+        b.id === branchId
+          ? {
+              ...b,
+              members: b.members.filter((m) => m.id !== memberId),
+            }
+          : b,
+      ),
+    }));
+  }
+
+  function addMember() {
+    setData((prev) => ({
+      ...prev,
+      members: [
+        ...prev.members,
+        {
+          id: uid(),
+          name: "",
+          position: "",
+          image: "",
+          sortOrder: prev.members.length + 1,
+        },
+      ],
+    }));
+  }
+
+  function updateMember(id: string, field: string, value: string | number) {
+    setData((prev) => ({
+      ...prev,
+      members: prev.members.map((m) =>
+        m.id === id ? { ...m, [field]: value } : m,
+      ),
+    }));
+  }
+
+  function removeMember(id: string) {
+    setData((prev) => ({
+      ...prev,
+      members: prev.members.filter((m) => m.id !== id),
     }));
   }
 
@@ -209,7 +335,8 @@ export function StructureEditor({ initial }: Props) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          Atur struktur organisasi, bidang, jabatan, dan pengurus.
+          Atur struktur organisasi LIM: Pengurus Pusat, Pengurus
+          Wilayah, Pengurus Cabang, dan Anggota.
         </p>
         <Button size="sm" onClick={handleSave} disabled={saving}>
           <Save className="size-4" />
@@ -270,332 +397,582 @@ export function StructureEditor({ initial }: Props) {
             />
           </div>
         </div>
+
+        <div className="mt-4 space-y-2">
+          <Label htmlFor="sheet-url">URL Google Sheet Anggota</Label>
+          <div className="flex gap-2">
+            <Input
+              id="sheet-url"
+              placeholder="https://docs.google.com/spreadsheets/d/..."
+              value={data.googleSheetUrl}
+              onChange={(e) =>
+                setData((prev) => ({
+                  ...prev,
+                  googleSheetUrl: e.target.value,
+                }))
+              }
+            />
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              className="rounded-full"
+              onClick={() => setPreviewOpen(true)}
+              disabled={!data.googleSheetUrl.trim()}
+            >
+              <Download className="size-4" />
+              Preview
+            </Button>
+          </div>
+          <p className="text-[11px] text-muted-foreground">
+            Sheet harus memiliki kolom: nama, alamat, kelas, pos,
+            tempat. Data anggota diimpor dari sheet ini.
+          </p>
+        </div>
       </Section>
 
       <Section
-        id="departments"
-        title="Bidang / Divisi"
+        id="centralBoard"
+        title="Pengurus Pusat"
         icon={Building2}
-        expanded={expandedSection === "departments"}
-        badge={`${data.departments.length} bidang`}
+        expanded={expandedSection === "centralBoard"}
+        badge={`${data.centralBoard.length} pengurus`}
         onToggle={setExpandedSection}
       >
         <div className="space-y-3">
-          {data.departments.map((dept) => (
-            <div key={dept.id} className="rounded-md border p-3">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex-1 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <GripVertical className="size-3.5 shrink-0 text-muted-foreground" />
-                    {editingDept === dept.id ? (
-                      <Input
-                        value={dept.name}
-                        onChange={(e) =>
-                          updateDepartment(dept.id, "name", e.target.value)
-                        }
-                        className="h-7 text-sm"
-                        placeholder="Nama bidang"
-                      />
-                    ) : (
-                      <span
-                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
-                        onClick={() => setEditingDept(dept.id)}
+          {data.centralBoard.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Belum ada data Pengurus Pusat. Tambahkan pengurus
+              pusat.
+            </p>
+          ) : (
+            data.centralBoard.map((m) => (
+              <div
+                key={m.id}
+                className="rounded-md border p-3"
+              >
+                {editingMember === m.id ? (
+                  <div className="space-y-2">
+                    <Input
+                      value={m.name}
+                      onChange={(e) =>
+                        updateCentralMember(m.id, "name", e.target.value)
+                      }
+                      className="h-7 text-sm"
+                      placeholder="Nama pengurus"
+                    />
+                    <Input
+                      value={m.position}
+                      onChange={(e) =>
+                        updateCentralMember(
+                          m.id,
+                          "position",
+                          e.target.value,
+                        )
+                      }
+                      className="h-7 text-xs"
+                      placeholder="Jabatan"
+                    />
+                    <Input
+                      value={m.image}
+                      onChange={(e) =>
+                        updateCentralMember(m.id, "image", e.target.value)
+                      }
+                      className="h-7 text-xs"
+                      placeholder="URL gambar"
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setEditingMember(null)}
                       >
-                        {dept.name || (
+                        Selesai
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs text-destructive"
+                        onClick={() =>
+                          removeCentralMember(m.id)
+                        }
+                      >
+                        <Trash2 className="size-3" />
+                        Hapus
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p
+                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                        onClick={() => setEditingMember(m.id)}
+                      >
+                        {m.name || (
                           <span className="italic text-muted-foreground">
-                            Klik untuk isi nama
+                            Nama pengurus
                           </span>
                         )}
-                      </span>
-                    )}
-                  </div>
-                  {editingDept === dept.id && (
-                    <div className="space-y-2 pl-6">
-                      <Textarea
-                        rows={2}
-                        value={dept.description}
-                        onChange={(e) =>
-                          updateDepartment(
-                            dept.id,
-                            "description",
-                            e.target.value,
-                          )
-                        }
-                        placeholder="Deskripsi bidang"
-                        className="text-xs"
-                      />
-                      <div className="flex items-center gap-2">
-                        <Label className="text-xs">Urutan:</Label>
-                        <Input
-                          type="number"
-                          value={dept.sortOrder}
-                          onChange={(e) =>
-                            updateDepartment(
-                              dept.id,
-                              "sortOrder",
-                              parseInt(e.target.value) || 0,
-                            )
-                          }
-                          className="h-7 w-20 text-xs"
-                        />
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-7 text-xs"
-                          onClick={() => setEditingDept(null)}
-                        >
-                          Selesai
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 text-xs text-destructive"
-                          onClick={() => removeDepartment(dept.id)}
-                        >
-                          <Trash2 className="size-3" />
-                          Hapus
-                        </Button>
-                      </div>
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {m.position || "Tanpa jabatan"}
+                      </p>
                     </div>
-                  )}
-                </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-7"
+                      onClick={() => setEditingMember(m.id)}
+                    >
+                      <Pencil className="size-3" />
+                    </Button>
+                  </div>
+                )}
               </div>
-
-              {editingDept !== dept.id && (
-                <div className="mt-2 space-y-1.5 pl-6">
-                  {data.positions
-                    .filter((p) => p.departmentId === dept.id)
-                    .map((pos) => (
-                      <div
-                        key={pos.id}
-                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
-                      >
-                        {editingPos === pos.id ? (
-                          <div className="flex-1 space-y-1">
-                            <Input
-                              value={pos.name}
-                              onChange={(e) =>
-                                updatePosition(pos.id, "name", e.target.value)
-                              }
-                              className="h-7 text-xs"
-                              placeholder="Nama jabatan"
-                            />
-                            <div className="flex items-center gap-2">
-                              <Label className="text-xs">Level:</Label>
-                              <Input
-                                type="number"
-                                value={pos.level}
-                                onChange={(e) =>
-                                  updatePosition(
-                                    pos.id,
-                                    "level",
-                                    parseInt(e.target.value) || 0,
-                                  )
-                                }
-                                className="h-7 w-16 text-xs"
-                              />
-                              <Label className="text-xs">Urutan:</Label>
-                              <Input
-                                type="number"
-                                value={pos.sortOrder}
-                                onChange={(e) =>
-                                  updatePosition(
-                                    pos.id,
-                                    "sortOrder",
-                                    parseInt(e.target.value) || 0,
-                                  )
-                                }
-                                className="h-7 w-16 text-xs"
-                              />
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="h-6 text-xs"
-                                onClick={() => setEditingPos(null)}
-                              >
-                                OK
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-6 text-xs text-destructive"
-                                onClick={() => removePosition(pos.id)}
-                              >
-                                <Trash2 className="size-3" />
-                              </Button>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <span
-                              className="text-xs cursor-pointer hover:text-orange-600"
-                              onClick={() => setEditingPos(pos.id)}
-                            >
-                              {pos.name || (
-                                <span className="italic text-muted-foreground">
-                                  Jabatan
-                                </span>
-                              )}
-                            </span>
-                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                              {data.management
-                                .filter((m) => m.positionId === pos.id)
-                                .slice(0, 2)
-                                .map((m) => (
-                                  <Badge
-                                    key={m.id}
-                                    variant="outline"
-                                    className="text-[10px] h-5"
-                                  >
-                                    {m.name || "?"}
-                                  </Badge>
-                                ))}
-                              {data.management.filter(
-                                (m) => m.positionId === pos.id,
-                              ).length > 2 && (
-                                <Badge
-                                  variant="secondary"
-                                  className="text-[10px] h-5"
-                                >
-                                  +
-                                  {data.management.filter(
-                                    (m) => m.positionId === pos.id,
-                                  ).length - 2}
-                                </Badge>
-                              )}
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="size-5"
-                                onClick={() => addManagement(pos.id)}
-                              >
-                                <Plus className="size-3" />
-                              </Button>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    ))}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-6 text-xs text-muted-foreground"
-                    onClick={() => addPosition(dept.id)}
-                  >
-                    <Plus className="size-3" />
-                    Tambah jabatan
-                  </Button>
-                </div>
-              )}
-            </div>
-          ))}
-
-          <Button variant="outline" size="sm" onClick={addDepartment}>
+            ))
+          )}
+          <Button variant="outline" size="sm" onClick={addCentralMember}>
             <Plus className="size-4" />
-            Tambah bidang
+            Tambah Pengurus Pusat
           </Button>
         </div>
       </Section>
 
       <Section
-        id="management"
-        title="Pengurus"
-        icon={Building2}
-        expanded={expandedSection === "management"}
-        badge={`${data.management.length} pengurus`}
+        id="regionalBoards"
+        title="Pengurus Wilayah"
+        icon={Flag}
+        expanded={expandedSection === "regionalBoards"}
+        badge={`${data.regionalBoards.length} wilayah`}
         onToggle={setExpandedSection}
       >
         <div className="space-y-3">
-          {data.management.length === 0 ? (
+          {data.regionalBoards.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Belum ada data pengurus. Tambahkan jabatan dan isi pengurusnya.
+              Belum ada data Pengurus Wilayah. Tambahkan wilayah
+              (provinsi).
             </p>
           ) : (
-            data.management.map((mgt) => {
-              const pos = data.positions.find((p) => p.id === mgt.positionId);
-              const dept = data.departments.find(
-                (d) => d.id === pos?.departmentId,
-              );
-              return (
-                <div key={mgt.id} className="rounded-md border p-3">
-                  {editingMgt === mgt.id ? (
-                    <div className="space-y-2">
-                      <Input
-                        value={mgt.name}
-                        onChange={(e) =>
-                          updateManagement(mgt.id, "name", e.target.value)
-                        }
-                        className="h-7 text-sm"
-                        placeholder="Nama pengurus"
-                      />
-                      <Input
-                        value={mgt.description}
-                        onChange={(e) =>
-                          updateManagement(
-                            mgt.id,
-                            "description",
-                            e.target.value,
-                          )
-                        }
-                        className="h-7 text-xs"
-                        placeholder="Deskripsi"
-                      />
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
+            data.regionalBoards.map((r) => (
+              <div key={r.id} className="rounded-md border p-3">
+                {editingRegional === r.id ? (
+                  <div className="space-y-2">
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <div className="space-y-1">
+                        <Label className="text-xs">Provinsi</Label>
+                        <Input
+                          value={r.province}
+                          onChange={(e) =>
+                            updateRegionalBoard(
+                              r.id,
+                              "province",
+                              e.target.value,
+                            )
+                          }
                           className="h-7 text-xs"
-                          onClick={() => setEditingMgt(null)}
-                        >
-                          Selesai
-                        </Button>
+                          placeholder="Nama provinsi"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-xs">Nama
+                        Pengurus</Label>
+                        <Input
+                          value={r.name}
+                          onChange={(e) =>
+                            updateRegionalBoard(
+                              r.id,
+                              "name",
+                              e.target.value,
+                            )
+                          }
+                          className="h-7 text-xs"
+                          placeholder="Nama pengurus wilayah"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setEditingRegional(null)}
+                      >
+                        Selesai
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs text-destructive"
+                        onClick={() =>
+                          removeRegionalBoard(r.id)
+                        }
+                      >
+                        <Trash2 className="size-3" />
+                        Hapus
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p
+                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                        onClick={() => setEditingRegional(r.id)}
+                      >
+                        {r.province || (
+                          <span className="italic text-muted-foreground">
+                            Provinsi
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {r.name || "Tanpa nama"} ·{" "}
+                        {r.members.length} anggota
+                      </p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-7"
+                      onClick={() => setEditingRegional(r.id)}
+                    >
+                      <Pencil className="size-3" />
+                    </Button>
+                  </div>
+                )}
+
+                {editingRegional !== r.id && (
+                  <div className="mt-2 space-y-1.5">
+                    {r.members.map((m) => (
+                      <div
+                        key={m.id}
+                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
+                      >
+                        <span className="text-xs">
+                          {m.name || (
+                            <span className="italic text-muted-foreground">
+                              Anggota
+                            </span>
+                          )}
+                          {m.position && (
+                            <span className="ml-2 text-[10px] text-muted-foreground">
+                              — {m.position}
+                            </span>
+                          )}
+                        </span>
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-7 text-xs text-destructive"
-                          onClick={() => removeManagement(mgt.id)}
+                          className="h-5 text-[10px] text-destructive"
+                          onClick={() =>
+                            removeRegionalMember(r.id, m.id)
+                          }
                         >
                           <Trash2 className="size-3" />
-                          Hapus
                         </Button>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p
-                          className="text-sm font-medium cursor-pointer hover:text-orange-600"
-                          onClick={() => setEditingMgt(mgt.id)}
-                        >
-                          {mgt.name || (
-                            <span className="italic text-muted-foreground">
-                              Nama pengurus
-                            </span>
-                          )}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {pos?.name || "Tanpa jabatan"}
-                          {dept ? ` — ${dept.name}` : ""}
-                        </p>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-7"
-                        onClick={() => setEditingMgt(mgt.id)}
-                      >
-                        <Pencil className="size-3" />
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              );
-            })
+                    ))}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 text-xs text-muted-foreground"
+                      onClick={() => addRegionalMember(r.id)}
+                    >
+                      <Plus className="size-3" />
+                      Tambah anggota
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))
           )}
+          <Button variant="outline" size="sm" onClick={addRegionalBoard}>
+            <Plus className="size-4" />
+            Tambah Pengurus Wilayah
+          </Button>
         </div>
       </Section>
+
+      <Section
+        id="branchBoards"
+        title="Pengurus Cabang"
+        icon={MapPin}
+        expanded={expandedSection === "branchBoards"}
+        badge={`${data.branchBoards.length} cabang`}
+        onToggle={setExpandedSection}
+      >
+        <div className="space-y-3">
+          {data.branchBoards.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Belum ada data Pengurus Cabang. Tambahkan cabang
+              (kabupaten/kota).
+            </p>
+          ) : (
+            data.branchBoards.map((b) => (
+              <div key={b.id} className="rounded-md border p-3">
+                {editingBranch === b.id ? (
+                  <div className="space-y-2">
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <div className="space-y-1">
+                        <Label className="text-xs">Provinsi</Label>
+                        <Input
+                          value={b.province}
+                          onChange={(e) =>
+                            updateBranchBoard(
+                              b.id,
+                              "province",
+                              e.target.value,
+                            )
+                          }
+                          className="h-7 text-xs"
+                          placeholder="Nama provinsi"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label className="text-xs">Kabupaten/Kota</Label>
+                        <Input
+                          value={b.regency}
+                          onChange={(e) =>
+                            updateBranchBoard(
+                              b.id,
+                              "regency",
+                              e.target.value,
+                            )
+                          }
+                          className="h-7 text-xs"
+                          placeholder="Nama kabupaten/kota"
+                        />
+                      </div>
+                      <div className="space-y-1 sm:col-span-2">
+                        <Label className="text-xs">Nama
+                        Pengurus</Label>
+                        <Input
+                          value={b.name}
+                          onChange={(e) =>
+                            updateBranchBoard(
+                              b.id,
+                              "name",
+                              e.target.value,
+                            )
+                          }
+                          className="h-7 text-xs"
+                          placeholder="Nama pengurus cabang"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setEditingBranch(null)}
+                      >
+                        Selesai
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs text-destructive"
+                        onClick={() =>
+                          removeBranchBoard(b.id)
+                        }
+                      >
+                        <Trash2 className="size-3" />
+                        Hapus
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p
+                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                        onClick={() => setEditingBranch(b.id)}
+                      >
+                        {b.regency || (
+                          <span className="italic text-muted-foreground">
+                            Kabupaten/Kota
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {b.province && `${b.province} · `}
+                        {b.name || "Tanpa nama"} ·{" "}
+                        {b.members.length} anggota
+                      </p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-7"
+                      onClick={() => setEditingBranch(b.id)}
+                    >
+                      <Pencil className="size-3" />
+                    </Button>
+                  </div>
+                )}
+
+                {editingBranch !== b.id && (
+                  <div className="mt-2 space-y-1.5">
+                    {b.members.map((m) => (
+                      <div
+                        key={m.id}
+                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
+                      >
+                        <span className="text-xs">
+                          {m.name || (
+                            <span className="italic text-muted-foreground">
+                              Anggota
+                            </span>
+                          )}
+                          {m.position && (
+                            <span className="ml-2 text-[10px] text-muted-foreground">
+                              — {m.position}
+                            </span>
+                          )}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-5 text-[10px] text-destructive"
+                          onClick={() =>
+                            removeBranchMember(b.id, m.id)
+                          }
+                        >
+                          <Trash2 className="size-3" />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 text-xs text-muted-foreground"
+                      onClick={() => addBranchMember(b.id)}
+                    >
+                      <Plus className="size-3" />
+                      Tambah anggota
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+          <Button variant="outline" size="sm" onClick={addBranchBoard}>
+            <Plus className="size-4" />
+            Tambah Pengurus Cabang
+          </Button>
+        </div>
+      </Section>
+
+      <Section
+        id="members"
+        title="Anggota"
+        icon={Users}
+        expanded={expandedSection === "members"}
+        badge={`${data.members.length} anggota`}
+        onToggle={setExpandedSection}
+      >
+        <div className="space-y-3">
+          {data.members.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Belum ada data anggota. Tambahkan anggota.
+            </p>
+          ) : (
+            data.members.map((m) => (
+              <div
+                key={m.id}
+                className="rounded-md border p-3"
+              >
+                {editingMember === m.id ? (
+                  <div className="space-y-2">
+                    <Input
+                      value={m.name}
+                      onChange={(e) =>
+                        updateMember(m.id, "name", e.target.value)
+                      }
+                      className="h-7 text-sm"
+                      placeholder="Nama anggota"
+                    />
+                    <Input
+                      value={m.position}
+                      onChange={(e) =>
+                        updateMember(m.id, "position", e.target.value)
+                      }
+                      className="h-7 text-xs"
+                      placeholder="Jabatan/posisi"
+                    />
+                    <Input
+                      value={m.image}
+                      onChange={(e) =>
+                        updateMember(m.id, "image", e.target.value)
+                      }
+                      className="h-7 text-xs"
+                      placeholder="URL gambar"
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setEditingMember(null)}
+                      >
+                        Selesai
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs text-destructive"
+                        onClick={() => removeMember(m.id)}
+                      >
+                        <Trash2 className="size-3" />
+                        Hapus
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p
+                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                        onClick={() => setEditingMember(m.id)}
+                      >
+                        {m.name || (
+                          <span className="italic text-muted-foreground">
+                            Nama anggota
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {m.position || "Tanpa posisi"}
+                      </p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-7"
+                      onClick={() => setEditingMember(m.id)}
+                    >
+                      <Pencil className="size-3" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+          <Button variant="outline" size="sm" onClick={addMember}>
+            <Plus className="size-4" />
+            Tambah Anggota
+          </Button>
+        </div>
+      </Section>
+
+      <PreviewDialog
+        open={previewOpen}
+        onOpenChange={setPreviewOpen}
+        initialUrl={data.googleSheetUrl}
+      />
     </div>
   );
 }

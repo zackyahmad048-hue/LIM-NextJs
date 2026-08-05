@@ -1,5 +1,28 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 
+export interface BoardMember {
+  id: string;
+  name: string;
+  position: string;
+  image: string;
+  sortOrder: number;
+}
+
+export interface RegionalBoard {
+  id: string;
+  province: string;
+  name: string;
+  members: BoardMember[];
+}
+
+export interface BranchBoard {
+  id: string;
+  province: string;
+  regency: string;
+  name: string;
+  members: BoardMember[];
+}
+
 export interface OrgStructure {
   organization: {
     name: string;
@@ -10,26 +33,11 @@ export interface OrgStructure {
     email: string;
     website: string;
   };
-  departments: {
-    id: string;
-    name: string;
-    description: string;
-    sortOrder: number;
-  }[];
-  positions: {
-    id: string;
-    departmentId: string;
-    name: string;
-    level: number;
-    sortOrder: number;
-  }[];
-  management: {
-    id: string;
-    name: string;
-    positionId: string;
-    description: string;
-    image: string;
-  }[];
+  googleSheetUrl: string;
+  centralBoard: BoardMember[];
+  regionalBoards: RegionalBoard[];
+  branchBoards: BranchBoard[];
+  members: BoardMember[];
 }
 
 const STRUCTURE_KEY = "org:structure";
@@ -44,9 +52,11 @@ const defaultStructure: OrgStructure = {
     email: "",
     website: "",
   },
-  departments: [],
-  positions: [],
-  management: [],
+  googleSheetUrl: "",
+  centralBoard: [],
+  regionalBoards: [],
+  branchBoards: [],
+  members: [],
 };
 
 export async function getStructure(): Promise<OrgStructure> {
@@ -58,7 +68,19 @@ export async function getStructure(): Promise<OrgStructure> {
 
   try {
     const parsed = JSON.parse(setting.value);
-    return { ...defaultStructure, ...parsed };
+    return {
+      ...defaultStructure,
+      ...parsed,
+      organization: {
+        ...defaultStructure.organization,
+        ...parsed.organization,
+      },
+      centralBoard: parsed.centralBoard ?? defaultStructure.centralBoard,
+      regionalBoards:
+        parsed.regionalBoards ?? defaultStructure.regionalBoards,
+      branchBoards: parsed.branchBoards ?? defaultStructure.branchBoards,
+      members: parsed.members ?? defaultStructure.members,
+    };
   } catch {
     return defaultStructure;
   }

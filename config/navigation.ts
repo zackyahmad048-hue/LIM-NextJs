@@ -22,6 +22,8 @@ import {
   UserPlus,
   Mail,
   UsersRound,
+  BookOpen,
+  Grid3X3,
 } from "lucide-react";
 
 import type { NavigationItem } from "@/types/navigation";
@@ -49,7 +51,7 @@ const rawNav: (NavigationItem | false | undefined)[] = [
       {
         title: "Tentang Kami",
         icon: Info,
-        href: "/admin/homepage/about",
+        href: "/admin/content/pages/homepage.about",
         permissions: ["content.post.read"],
       },
     ],
@@ -181,10 +183,30 @@ const rawNav: (NavigationItem | false | undefined)[] = [
   },
 
   FEATURES.STRUCTURE && {
-    title: "Struktur",
-    icon: Building2,
-    href: "/admin/structure",
-    permissions: ["structure.view"],
+    title: "Profil",
+    icon: Info,
+    permissions: ["central-board.view"],
+
+    items: [
+      {
+        title: "Tentang LIM",
+        icon: BookOpen,
+        href: "/admin/profil/tentang",
+        permissions: ["content.post.read"],
+      },
+      {
+        title: "Pengurus Pusat",
+        icon: Building2,
+        href: "/admin/profil/pengurus-pusat",
+        permissions: ["central-board.view"],
+      },
+      {
+        title: "Bidang-Bidang",
+        icon: Grid3X3,
+        href: "/admin/profil/bidang",
+        permissions: ["content.post.read"],
+      },
+    ],
   },
 
   FEATURES.REPORTS && {

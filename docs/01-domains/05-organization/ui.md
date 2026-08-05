@@ -4,9 +4,9 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
-**Status:** Approved
+**Status:** Draft
 
 ---
 
@@ -14,7 +14,7 @@
 
 Dokumen ini mendefinisikan standar antarmuka pengguna (UI) pada Domain Organization.
 
-UI Organization digunakan untuk mengelola struktur organisasi, wilayah, cabang, bidang, jabatan, periode kepengurusan, dan data pengurus.
+UI Organization digunakan untuk mengelola profil organisasi, cabang, kepengurusan (pengurus pusat, pengurus wilayah, pengurus cabang), dan data anggota.
 
 ---
 
@@ -37,12 +37,11 @@ Seluruh komponen mengikuti Design System LIM Digital Platform.
 ```text id="orgui01"
 Organization
 ├── Organization Profile
-├── Regions
-├── Branches
-├── Departments
-├── Positions
-├── Management Periods
-└── Management
+├── Cabang
+├── Pengurus Pusat
+├── Pengurus Wilayah
+├── Pengurus Cabang
+└── Anggota
 ```
 
 ---
@@ -89,16 +88,16 @@ Status
 
 ---
 
-# Region
+# Branch
 
 ## List View
 
 Kolom:
 
-- Province
-- Regency / City
-- District
-- Village
+- Nama Cabang
+- Provinsi
+- Kabupaten/Kota
+- Status
 - Action
 
 Fitur:
@@ -114,154 +113,30 @@ Fitur:
 Field:
 
 ```text id="orgui03"
-Province
-
-Regency / City
-
-District
-
-Village
-```
-
----
-
-# Branch
-
-## List View
-
-Kolom:
-
-- Code
-- Branch Name
-- Region
-- Status
-- Action
-
-Fitur:
-
-- Search
-- Filter
-- Pagination
-
----
-
-## Form
-
-Field:
-
-```text id="orgui04"
 Organization
 
-Region
+Nama Cabang
 
-Branch Code
+Provinsi
 
-Branch Name
+Kabupaten/Kota
 
-Address
-
-Status
-```
-
----
-
-# Department
-
-## List View
-
-Kolom:
-
-- Department
-- Description
-- Sort Order
-- Action
-
----
-
-## Form
-
-Field:
-
-```text id="orgui05"
-Department Name
-
-Description
-
-Sort Order
-```
-
----
-
-# Position
-
-## List View
-
-Kolom:
-
-- Position
-- Department
-- Level
-- Sort Order
-- Action
-
----
-
-## Form
-
-Field:
-
-```text id="orgui06"
-Department
-
-Position Name
-
-Level
-
-Sort Order
-```
-
----
-
-# Management Period
-
-## List View
-
-Kolom:
-
-- Period Name
-- Start Date
-- End Date
-- Status
-- Action
-
----
-
-## Form
-
-Field:
-
-```text id="orgui07"
-Period Name
-
-Start Date
-
-End Date
+Alamat (Opsional)
 
 Status
 ```
 
 ---
 
-# Management
+# Central Board (Pengurus Pusat)
 
 ## List View
 
 Kolom:
 
 - User
-- Branch
-- Position
-- Period
+- Organization
+- Periode
 - Status
 - Action
 
@@ -273,24 +148,127 @@ Fitur:
 
 ---
 
-## Form
+## Assign Form
 
 Field:
 
-```text id="orgui08"
+```text id="orgui04"
 User
 
-Branch
+Organization
 
-Position
+Periode (2024-2029)
+```
 
-Management Period
+---
 
-Start Date
+# Regional Board (Pengurus Wilayah)
 
-End Date
+## List View
 
-Status
+Kolom:
+
+- User
+- Organization
+- Provinsi
+- Periode
+- Status
+- Action
+
+Fitur:
+
+- Search
+- Filter
+- Pagination
+
+---
+
+## Assign Form
+
+Field:
+
+```text id="orgui05"
+User
+
+Organization
+
+Provinsi
+
+Periode (2024-2029)
+```
+
+---
+
+# Branch Board (Pengurus Cabang)
+
+## List View
+
+Kolom:
+
+- User
+- Organization
+- Cabang
+- Periode
+- Status
+- Action
+
+Fitur:
+
+- Search
+- Filter
+- Pagination
+
+---
+
+## Assign Form
+
+Field:
+
+```text id="orgui06"
+User
+
+Organization
+
+Cabang
+
+Periode (2024-2029)
+```
+
+---
+
+# Member (Anggota)
+
+## List View
+
+Kolom:
+
+- User
+- Organization
+- Cabang
+- Periode
+- Status
+- Action
+
+Fitur:
+
+- Search
+- Filter
+- Pagination
+
+---
+
+## Add Form
+
+Field:
+
+```text id="orgui07"
+User
+
+Organization
+
+Cabang
+
+Periode (2024-2029)
 ```
 
 ---
@@ -331,7 +309,7 @@ Gunakan Alert.
 
 Contoh:
 
-```text id="orgui09"
+```text id="orgui08"
 Data gagal dimuat.
 
 Silakan coba beberapa saat lagi.
@@ -343,7 +321,7 @@ Silakan coba beberapa saat lagi.
 
 Sebelum menghapus data:
 
-```text id="orgui10"
+```text id="orgui09"
 Hapus data ini?
 
 Data yang masih digunakan oleh modul lain tidak dapat dihapus.

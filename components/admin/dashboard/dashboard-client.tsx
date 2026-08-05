@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,16 +8,55 @@ import {
   UsersRound,
   Building2,
   FileBarChart,
+  Download,
 } from "lucide-react";
 import { FEATURES } from "@/config/feature";
 import { hasAnyPermission } from "@/modules/authorization/application/permission.service";
 import { DEFAULT_PERMISSION_MATRIX } from "@/modules/authorization/application/permission.matrix";
+import { Button } from "@/components/ui/button";
+import { PreviewDialog } from "@/components/admin/structure/preview.dialog";
+import { SectionCard } from "@/components/admin/shared/section-card";
 
 interface DashboardUser {
   name: string;
   email: string;
   image: string | null;
   roleLabel: string;
+}
+
+interface BoardMember {
+  id: string;
+  name: string;
+  position: string;
+  image: string;
+  sortOrder: number;
+}
+
+interface RegionalBoard {
+  id: string;
+  province: string;
+  name: string;
+  members: BoardMember[];
+}
+
+interface BranchBoard {
+  id: string;
+  province: string;
+  regency: string;
+  name: string;
+  members: BoardMember[];
+}
+
+interface StructureData {
+  organization: {
+    name: string;
+    shortName: string;
+  };
+  googleSheetUrl: string;
+  centralBoard: BoardMember[];
+  regionalBoards: RegionalBoard[];
+  branchBoards: BranchBoard[];
+  members: BoardMember[];
 }
 
 interface ModuleCard {
@@ -73,9 +110,9 @@ const modules: (ModuleCard | false)[] = [
     permissions: ["secretariat.view"],
   },
   FEATURES.STRUCTURE && {
-    title: "Struktur",
-    description: "Kelola struktur organisasi.",
-    href: "/admin/structure",
+    title: "Profil",
+    description: "Kelola profil organisasi dan struktur AD/ART.",
+    href: "/admin/profil/pengurus-pusat",
     icon: Building2,
     color: "text-sky-600 bg-sky-100 dark:bg-sky-950/50",
     permissions: ["structure.view"],
@@ -90,12 +127,26 @@ const modules: (ModuleCard | false)[] = [
   },
 ];
 
+interface ProfilData {
+  headerTitle: string;
+  headerDescription: string;
+  visi: string;
+  misi: string[];
+}
+
 interface Props {
   user: DashboardUser;
   roleSlugs: string[];
+  structure: StructureData;
+  profil: ProfilData;
 }
 
-export function DashboardClient({ user, roleSlugs }: Props) {
+export function DashboardClient({
+  user,
+  roleSlugs,
+  structure,
+  profil,
+}: Props) {
   const enabled = modules.filter((mod): mod is ModuleCard => {
     if (!mod) return false;
     return hasAnyPermission(
@@ -104,6 +155,11 @@ export function DashboardClient({ user, roleSlugs }: Props) {
       DEFAULT_PERMISSION_MATRIX,
     );
   });
+
+  const totalCentralBoard = structure.centralBoard.length;
+  const totalRegionalBoards = structure.regionalBoards.length;
+  const totalBranchBoards = structure.branchBoards.length;
+  const totalMembers = structure.members.length;
 
   return (
     <div className="flex flex-col gap-4">
@@ -126,8 +182,8 @@ export function DashboardClient({ user, roleSlugs }: Props) {
             Selamat datang, {user.name}
           </h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
-            Anda masuk sebagai {user.roleLabel}. Pilih modul yang ingin
-            dikelola.
+            Anda masuk sebagai {user.roleLabel}. Pilih modul
+            yang ingin dikelola.
           </p>
         </div>
       </div>
@@ -159,6 +215,105 @@ export function DashboardClient({ user, roleSlugs }: Props) {
           );
         })}
       </div>
+
+      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+        <div className="flex items-center gap-3">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-sky-100 text-sky-600 dark:bg-sky-950/50">
+            <Building2 className="size-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-base font-semibold">
+              Struktur & Anggota
+            </h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {totalCentralBoard} Pengurus Pusat ·{" "}
+              {totalRegionalBoards} Wilayah ·{" "}
+              {totalBranchBoards} Cabang · {totalMembers}{" "}
+              Anggota
+            </p>
+          </div>
+          <Button
+            size="sm"
+            variant="outline"
+            className="rounded-full"
+            asChild
+          >
+            <Link href="/admin/profil/pengurus-pusat">Kelola</Link>
+          </Button>
+        </div>
+
+        {structure.googleSheetUrl && (
+          <div className="mt-3 flex items-center gap-2">
+            <div className="flex h-7 flex-1 items-center gap-2 rounded-md bg-muted/50 px-3">
+              <Download className="size-3.5 shrink-0 text-muted-foreground" />
+              <span className="truncate text-xs text-muted-foreground">
+                {structure.googleSheetUrl}
+              </span>
+            </div>
+            <PreviewDialog initialUrl={structure.googleSheetUrl} />
+          </div>
+        )}
+      </SectionCard>
+
+      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+        <div className="flex items-center gap-3">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-orange-100 text-orange-600 dark:bg-orange-950/50">
+            <Building2 className="size-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-base font-semibold">Profil</h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {profil.misi.length} poin misi · visi diperbarui
+            </p>
+          </div>
+          <Button
+            size="sm"
+            variant="outline"
+            className="rounded-full"
+            asChild
+          >
+            <Link href="/admin/content/pages/page:profil">
+              Kelola
+            </Link>
+          </Button>
+        </div>
+
+        <div className="mt-3 space-y-2">
+          <div>
+            <p className="text-xs font-medium text-muted-foreground">
+              Visi
+            </p>
+            <p className="mt-1 text-sm leading-6 text-foreground">
+              {profil.visi.length > 120
+                ? `${profil.visi.slice(0, 120)}...`
+                : profil.visi}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs font-medium text-muted-foreground">
+              Misi
+            </p>
+            <ul className="mt-1 space-y-1">
+              {profil.misi.slice(0, 3).map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2 text-xs text-muted-foreground"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                  {item.length > 60
+                    ? `${item.slice(0, 60)}...`
+                    : item}
+                </li>
+              ))}
+              {profil.misi.length > 3 && (
+                <li className="text-xs text-muted-foreground">
+                  +{profil.misi.length - 3} poin lainnya
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      </SectionCard>
     </div>
   );
 }

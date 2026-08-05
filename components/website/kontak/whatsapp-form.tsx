@@ -7,9 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-const WA_NUMBER = "6281367891910";
+interface WhatsAppFormProps {
+  whatsappNumber: string;
+}
 
-export default function WhatsAppForm() {
+export default function WhatsAppForm({
+  whatsappNumber,
+}: WhatsAppFormProps) {
   const [nama, setNama] = useState("");
   const [pesan, setPesan] = useState("");
 
@@ -17,7 +21,7 @@ export default function WhatsAppForm() {
     event.preventDefault();
     const text = `Assalamu'alaikum, saya ${nama.trim() || "..."}.\n\n${pesan.trim()}`;
     window.open(
-      `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`,
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`,
       "_blank",
       "noopener,noreferrer",
     );

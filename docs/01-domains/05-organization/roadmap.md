@@ -4,7 +4,7 @@
 
 **Domain:** Organization
 
-**Version:** 1.0
+**Version:** 2.0
 
 **Status:** Planning
 
@@ -20,25 +20,25 @@ Roadmap digunakan sebagai acuan pengembangan bertahap tanpa mengubah arsitektur 
 
 # Vision
 
-Domain Organization menjadi **Single Source of Truth** untuk seluruh data organisasi pada LIM Digital Platform.
+Domain Organization menjadi **Single Source of Truth** untuk seluruh data kepengurusan organisasi LIM berdasarkan AD/ART.
 
-Seluruh domain yang membutuhkan informasi organisasi harus menggunakan data dari domain ini.
+Seluruh domain yang membutuhkan informasi organisasi dan kepengurusan harus menggunakan data dari domain ini.
 
 ---
 
-# Version 1.0
+# Version 2.0
 
-Target implementasi awal.
+Target implementasi awal — sesuai AD/ART.
 
 ## Features
 
 - Organization Profile
-- Region Management
-- Branch Management
-- Department Management
-- Position Management
-- Management Period
-- Management Assignment
+- Branch Management (kabupaten/kota)
+- Central Board Management (Pengurus Pusat)
+- Regional Board Management (Pengurus Wilayah — provinsi)
+- Branch Board Management (Pengurus Cabang — kabupaten/kota)
+- Member Management (Anggota)
+- Period: 2024–2029 (tetap)
 - Search
 - Filter
 - Pagination
@@ -51,63 +51,31 @@ Target implementasi awal.
 
 ---
 
-# Version 1.1
+# Version 2.1
 
 Pengembangan berikutnya.
 
 ## Features
 
-- Organizational Structure Tree
-- Branch Code Generator
 - Organization Statistics
 - Organization Dashboard
+- Board Assignment Import (CSV)
+- Board Assignment Export
 - Organization Settings
-- Import Organization Data
-- Export Organization Data
 
 ---
 
-# Version 1.2
+# Version 3.0
 
 Peningkatan operasional.
 
 ## Features
 
 - Multi Organization
-- Branch Hierarchy
-- Department Hierarchy
-- Position Template
-- Organizational Chart
+- Board Hierarchy Visualization
+- Board Template
 - Management History
-
----
-
-# Version 2.0
-
-Transformasi digital organisasi.
-
-## Features
-
-- Digital Organization Directory
-- Organization API Gateway
-- QR Organization Profile
-- Organization Timeline
-- Organization Analytics
-- Organization Performance Dashboard
-
----
-
-# Version 3.0
-
-Integrasi dan otomatisasi.
-
-## Features
-
-- AI Organization Assistant
-- AI Organization Recommendation
-- Organization Synchronization
-- External Organization Integration
-- Auto Organizational Mapping
+- Organization Chart
 
 ---
 
@@ -132,10 +100,10 @@ Perubahan struktur Organization harus mempertimbangkan dampaknya terhadap seluru
 
 Domain Organization dianggap berhasil apabila:
 
-- Struktur organisasi dapat dikelola dengan mudah.
-- Data organisasi digunakan oleh seluruh domain tanpa duplikasi.
+- Struktur organisasi dan kepengurusan dapat dikelola dengan mudah.
+- Data organisasi dan kepengurusan digunakan oleh seluruh domain tanpa duplikasi.
 - Hanya terdapat satu sumber data organisasi.
-- Pengurus dapat dikelola berdasarkan periode.
+- Pengurus Pusat, Pengurus Wilayah, Pengurus Cabang, dan Anggota dapat dikelola sesuai AD/ART.
 - Struktur organisasi mudah dikembangkan sesuai kebutuhan.
 
 ---
@@ -156,11 +124,11 @@ Integrasi yang direncanakan:
 
 Evaluasi dilakukan pada setiap rilis untuk:
 
-- Penambahan struktur organisasi.
+- Penambahan struktur organisasi dan kepengurusan.
 - Perubahan hierarki.
 - Optimasi performa query.
 - Penyempurnaan UI/UX.
-- Penyesuaian Business Rules.
+- Penyesuaian Business Rules sesuai AD/ART.
 
 ---
 
@@ -188,15 +156,15 @@ Evaluasi dilakukan pada setiap rilis untuk:
 ```text
 organization/
 
-✅ README.md
-✅ business-rules.md
-✅ workflow.md
-✅ database.md
-✅ api.md
-✅ permissions.md
-✅ validation.md
-✅ ui.md
-✅ roadmap.md
+✅ README.md (v2.0)
+✅ business-rules.md (v2.0)
+✅ workflow.md (v2.0)
+✅ database.md (v2.0)
+✅ api.md (v2.0)
+✅ permissions.md (v2.0)
+✅ validation.md (v2.0)
+✅ ui.md (v2.0)
+✅ roadmap.md (v2.0)
 
 Status : COMPLETED
 ```

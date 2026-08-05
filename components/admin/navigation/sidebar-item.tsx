@@ -35,7 +35,7 @@ export function SidebarItem({
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="flex h-9 w-full items-center justify-between rounded-md px-2.5 text-sm hover:bg-muted"
+          className="flex h-9 w-full items-center justify-between rounded-full px-3 text-sm hover:bg-muted"
         >
           <div className="flex items-center gap-2.5">
             {Icon && <Icon className="h-4 w-4" />}
@@ -57,11 +57,11 @@ export function SidebarItem({
           !collapsed &&
           item.items.map((child) => (
             <Link
-              key={child.href}
+              key={child.href + child.title}
               href={child.href!}
               onClick={onNavigate}
               className={cn(
-                "ml-7 flex h-8 items-center gap-2 rounded-md px-2.5 text-xs transition-colors",
+                "ml-7 flex h-8 items-center gap-2 rounded-full px-3 text-xs transition-colors",
                 pathname === child.href
                   ? "bg-primary/10 font-medium text-primary"
                   : "hover:bg-muted",
@@ -80,8 +80,8 @@ export function SidebarItem({
       href={item.href!}
       onClick={onNavigate}
       className={cn(
-        "flex h-9 items-center rounded-md text-sm transition-colors",
-        collapsed ? "justify-center" : "gap-2.5 px-2.5",
+        "flex h-9 items-center rounded-full text-sm transition-colors",
+        collapsed ? "justify-center" : "gap-2.5 px-3",
         active ? "bg-primary text-primary-foreground" : "hover:bg-muted",
       )}
     >
