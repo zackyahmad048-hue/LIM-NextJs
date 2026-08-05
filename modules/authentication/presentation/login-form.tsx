@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
@@ -17,7 +16,6 @@ import {
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -43,8 +41,7 @@ export default function LoginForm() {
     }
 
     toast.success("Selamat datang kembali.");
-    router.push("/admin");
-    router.refresh();
+    window.location.href = "/admin";
   };
 
   return (
