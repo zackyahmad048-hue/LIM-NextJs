@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import { getStructure } from "@/modules/cms/queries/structure.query";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Pengurus Pusat | LIM Digital Platform",

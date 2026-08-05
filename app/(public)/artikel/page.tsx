@@ -3,7 +3,7 @@ import PageHeader from "@/components/website/page-header";
 import PostCard from "@/components/website/cards/post-card";
 import { getPaginatedPosts } from "@/modules/cms";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Artikel & Kajian | LIM Digital Platform",

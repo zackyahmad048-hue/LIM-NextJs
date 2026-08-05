@@ -8,7 +8,7 @@ import { getAboutContent } from "@/modules/cms/queries/site-page.query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HOME_GRIDS } from "@/config/home";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Lembaga Ittihadul Muballighin - Pondok Pesantren Lirboyo Kota Kediri",
