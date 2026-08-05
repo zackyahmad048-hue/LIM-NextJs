@@ -91,19 +91,19 @@ model AuditLog {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String             @id @default(cuid())
   name          String
-  email         String     @unique
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  emailVerified Boolean    @default(false)
+  email         String             @unique
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  emailVerified Boolean            @default(false)
   image         String?
   accounts      Account[]
   auditLogs     AuditLog[]
   posts         Post[]
   sessions      Session[]
   userRoles     UserRole[]
-  programs      Program[]  @relation("PersonInCharge")
+  programs      Program[]          @relation("PersonInCharge")
   committees    ProgramCommittee[]
   participants  Participant[]
 
@@ -169,7 +169,6 @@ model Category {
 
   @@map("categories")
 }
-
 
 model Post {
   id          String    @id @default(cuid())
@@ -340,7 +339,7 @@ enum DocumentType {
 }
 
 model FalakPrayerTime {
-  id                String      @id @default(cuid())
+  id                String       @id @default(cuid())
   locationName      String
   latitude          Float
   longitude         Float
@@ -353,7 +352,7 @@ model FalakPrayerTime {
   asr               DateTime
   maghrib           DateTime
   isha              DateTime
-  createdAt         DateTime    @default(now())
+  createdAt         DateTime     @default(now())
 
   @@index([prayerDate])
   @@index([latitude, longitude])
@@ -372,21 +371,21 @@ model FalakQibla {
 }
 
 model FalakHijriCalendar {
-  id            String     @id @default(cuid())
+  id            String      @id @default(cuid())
   gregorianDate DateTime
   hijriYear     Int
   hijriMonth    Int
   hijriDay      Int
   method        HijriMethod
-  createdAt     DateTime   @default(now())
+  createdAt     DateTime    @default(now())
 
-  @@index([gregorianDate])
   @@unique([gregorianDate, method])
+  @@index([gregorianDate])
   @@map("falak_hijri_calendar")
 }
 
 model FalakHisab {
-  id              String   @id @default(cuid())
+  id              String    @id @default(cuid())
   calculationDate DateTime
   locationName    String
   latitude        Float
@@ -394,7 +393,7 @@ model FalakHisab {
   parameters      Json
   result          Json
   calculatedById  String?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime  @default(now())
   deletedAt       DateTime?
 
   @@index([calculationDate])
@@ -402,7 +401,7 @@ model FalakHisab {
 }
 
 model FalakRukyat {
-  id              String           @id @default(cuid())
+  id              String            @id @default(cuid())
   observationDate DateTime
   locationName    String
   latitude        Float
@@ -412,7 +411,7 @@ model FalakRukyat {
   result          RukyatResult
   notes           String?
   status          ObservationStatus @default(DRAFT)
-  createdAt       DateTime         @default(now())
+  createdAt       DateTime          @default(now())
   deletedAt       DateTime?
 
   @@index([observationDate])
@@ -449,7 +448,7 @@ model Program {
   updatedAt         DateTime      @updatedAt
   deletedAt         DateTime?
 
-  personInCharge User?              @relation("PersonInCharge", fields: [personInChargeId], references: [id])
+  personInCharge User?                  @relation("PersonInCharge", fields: [personInChargeId], references: [id])
   schedules      ProgramSchedule[]
   committees     ProgramCommittee[]
   participants   Participant[]
@@ -461,7 +460,7 @@ model Program {
 }
 
 model ProgramSchedule {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   programId   String
   title       String
   venueId     String?
@@ -469,21 +468,21 @@ model ProgramSchedule {
   endTime     DateTime
   description String?
   deletedAt   DateTime?
-  program     Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  program     Program   @relation(fields: [programId], references: [id], onDelete: Cascade)
 
   @@index([programId])
   @@map("program_schedule")
 }
 
 model ProgramCommittee {
-  id          String          @id @default(cuid())
-  programId   String
-  userId      String
-  role        String
-  status      CommitteeStatus @default(ACTIVE)
-  deletedAt   DateTime?
-  program     Program         @relation(fields: [programId], references: [id], onDelete: Cascade)
-  user        User            @relation(fields: [userId], references: [id])
+  id        String          @id @default(cuid())
+  programId String
+  userId    String
+  role      String
+  status    CommitteeStatus @default(ACTIVE)
+  deletedAt DateTime?
+  program   Program         @relation(fields: [programId], references: [id], onDelete: Cascade)
+  user      User            @relation(fields: [userId], references: [id])
 
   @@unique([programId, userId])
   @@index([programId])
@@ -521,34 +520,34 @@ model Attendance {
 }
 
 model ProgramDocumentation {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   programId   String
   mediaId     String?
   title       String
   description String?
   deletedAt   DateTime?
-  program     Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  program     Program   @relation(fields: [programId], references: [id], onDelete: Cascade)
 
   @@index([programId])
   @@map("program_documentation")
 }
 
 model IncomingMail {
-  id               String              @id @default(cuid())
-  registrationNumber String            @unique
-  sender           String
-  subject          String
-  senderAddress    String?
-  receivedDate     DateTime
-  status           IncomingMailStatus  @default(RECEIVED)
-  classification   String?
-  category         String?
-  notes            String?
-  attachmentUrl    String?
-  createdAt        DateTime            @default(now())
-  updatedAt        DateTime            @updatedAt
-  deletedAt        DateTime?
-  dispositions     Disposition[]
+  id                 String             @id @default(cuid())
+  registrationNumber String             @unique
+  sender             String
+  subject            String
+  senderAddress      String?
+  receivedDate       DateTime
+  status             IncomingMailStatus @default(RECEIVED)
+  classification     String?
+  category           String?
+  notes              String?
+  attachmentUrl      String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  deletedAt          DateTime?
+  dispositions       Disposition[]
 
   @@index([status])
   @@index([receivedDate])
@@ -557,13 +556,13 @@ model IncomingMail {
 }
 
 model OutgoingMail {
-  id                 String              @id @default(cuid())
-  registrationNumber String              @unique
+  id                 String             @id @default(cuid())
+  registrationNumber String             @unique
   recipient          String?
   subject            String
   senderName         String?
   mailDate           DateTime
-  status             OutgoingMailStatus  @default(DRAFT)
+  status             OutgoingMailStatus @default(DRAFT)
   documentNumber     String?
   documentType       DocumentType?
   content            String?
@@ -572,8 +571,8 @@ model OutgoingMail {
   attachmentUrl      String?
   googleDocId        String?
   googleDocUrl       String?
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
   deletedAt          DateTime?
 
   @@index([status])
@@ -583,17 +582,17 @@ model OutgoingMail {
 }
 
 model Disposition {
-  id              String             @id @default(cuid())
-  incomingMailId  String
-  assignedToId    String
-  instruction     String
-  priority        String             @default("NORMAL")
-  status          DispositionStatus  @default(PENDING)
-  dueDate         DateTime?
-  notes           String?
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-  incomingMail    IncomingMail       @relation(fields: [incomingMailId], references: [id], onDelete: Cascade)
+  id             String            @id @default(cuid())
+  incomingMailId String
+  assignedToId   String
+  instruction    String
+  priority       String            @default("NORMAL")
+  status         DispositionStatus @default(PENDING)
+  dueDate        DateTime?
+  notes          String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  incomingMail   IncomingMail      @relation(fields: [incomingMailId], references: [id], onDelete: Cascade)
 
   @@index([incomingMailId])
   @@index([assignedToId])
@@ -602,22 +601,22 @@ model Disposition {
 }
 
 model AdministrativeDocument {
-  id               String                      @id @default(cuid())
-  documentNumber   String                      @unique
-  documentType     DocumentType
-  title            String
-  description      String?
-  content          String?
-  status           AdministrativeDocumentStatus @default(DRAFT)
-  submittedById    String?
-  submittedAt      DateTime?
-  approvedById     String?
-  approvedAt       DateTime?
-  googleDocId      String?
-  googleDocUrl     String?
-  createdAt        DateTime                    @default(now())
-  updatedAt        DateTime                    @updatedAt
-  deletedAt        DateTime?
+  id             String                       @id @default(cuid())
+  documentNumber String                       @unique
+  documentType   DocumentType
+  title          String
+  description    String?
+  content        String?
+  status         AdministrativeDocumentStatus @default(DRAFT)
+  submittedById  String?
+  submittedAt    DateTime?
+  approvedById   String?
+  approvedAt     DateTime?
+  googleDocId    String?
+  googleDocUrl   String?
+  createdAt      DateTime                     @default(now())
+  updatedAt      DateTime                     @updatedAt
+  deletedAt      DateTime?
 
   @@index([status])
   @@index([documentType])
@@ -626,30 +625,53 @@ model AdministrativeDocument {
 }
 
 model AgendaBook {
-  id          String   @id @default(cuid())
-  date        DateTime
-  title       String
-  description String?
-  location    String?
+  id           String   @id @default(cuid())
+  date         DateTime
+  title        String
+  description  String?
+  location     String?
   participants String?
-  notes       String?
-  createdAt   DateTime @default(now())
+  notes        String?
+  createdAt    DateTime @default(now())
 
   @@index([date])
   @@map("agenda_book")
 }
 
 model DocumentArchive {
-  id             String     @id @default(cuid())
-  archiveNumber  String     @unique
-  title          String
-  documentType   DocumentType
-  category       String?
-  retentionYear  Int?
-  archivedAt     DateTime   @default(now())
-  createdAt      DateTime   @default(now())
+  id            String       @id @default(cuid())
+  archiveNumber String       @unique
+  title         String
+  documentType  DocumentType
+  category      String?
+  retentionYear Int?
+  archivedAt    DateTime     @default(now())
+  createdAt     DateTime     @default(now())
 
   @@index([archiveNumber])
   @@index([documentType])
   @@map("document_archive")
+}
+
+model VerifiedLetter {
+  id                 String   @id @default(cuid())
+  letterType         String
+  registrationNumber String
+  subject            String
+  date               DateTime
+  issuer             String?
+  originalFileUrl    String
+  processedPdfUrl    String
+  qrPngUrl           String
+  fileName           String
+  mimeType           String
+  verificationCode   String   @unique
+  verifiedAt         DateTime @default(now())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([letterType])
+  @@index([registrationNumber])
+  @@index([verifiedAt])
+  @@map("verified_letter")
 }

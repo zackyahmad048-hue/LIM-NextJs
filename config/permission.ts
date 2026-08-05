@@ -195,6 +195,12 @@ export const PERMISSIONS = {
     ARCHIVE: {
       VIEW: "secretariat.archive.view",
     },
+
+    LETTER: {
+      CREATE: "secretariat.letter.create",
+
+      DELETE: "secretariat.letter.delete",
+    },
   },
 
   TWK: {

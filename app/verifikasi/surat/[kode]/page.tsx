@@ -1,0 +1,140 @@
+import Link from "next/link";
+import { BadgeCheck, ShieldAlert, ScanLine, CalendarDays, Stamp } from "lucide-react";
+
+import { getLetterTypeLabel } from "@/config/letter-types";
+import { getVerifiedLetterByCode } from "@/modules/secretariat/queries/secretariat.query";
+
+interface VerifyLetterPageProps {
+  params: Promise<{ kode: string }>;
+}
+
+export default async function VerifyLetterPage({
+  params,
+}: VerifyLetterPageProps) {
+  const { kode } = await params;
+  const letter = await getVerifiedLetterByCode(kode);
+
+  const pdfUrl =
+    letter && letter.processedPdfUrl.endsWith(".pdf")
+      ? letter.processedPdfUrl
+      : null;
+
+  const formatDate = (date: Date | string) =>
+    new Intl.DateTimeFormat("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(date));
+
+  return (
+    <div className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
+      <div className="text-center">
+        <Link
+          href="/"
+          className="text-sm font-semibold tracking-tight text-foreground"
+        >
+          LIM Digital Platform
+        </Link>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Layanan verifikasi keaslian surat
+        </p>
+      </div>
+
+      {letter ? (
+        <div className="mt-8 overflow-hidden rounded-2xl border bg-card shadow-sm">
+          <div className="flex items-center justify-between border-b bg-emerald-50 px-6 py-4 dark:bg-emerald-950/30">
+            <div className="flex items-center gap-2">
+              <BadgeCheck className="size-5 text-emerald-600" />
+              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                Surat Sah
+              </span>
+            </div>
+            <span className="font-mono text-xs text-muted-foreground">
+              {letter.verificationCode}
+            </span>
+          </div>
+
+          <dl className="divide-y">
+            {[
+              ["Jenis Surat", getLetterTypeLabel(letter.letterType)],
+              ["Nomor Surat", letter.registrationNumber],
+              ["Perihal", letter.subject],
+              ["Tanggal Surat", formatDate(letter.date)],
+              ["Penerbit", letter.issuer ?? "—"],
+              ["Diterbitkan", formatDate(letter.verifiedAt)],
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                className="grid grid-cols-[140px_1fr] gap-4 px-6 py-3"
+              >
+                <dt className="text-sm text-muted-foreground">{label}</dt>
+                <dd className="min-w-0 break-words text-sm font-medium">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="flex items-center gap-3 border-t bg-muted/40 px-6 py-4">
+            <ScanLine className="size-4 shrink-0 text-muted-foreground" />
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              Dokumen di bawah ini adalah hasil cetak resmi yang diberi tanda
+              QR. Harap bandingkan QR pada lembar cetak dengan pemindaian
+              halaman ini.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-8 overflow-hidden rounded-2xl border border-destructive/30 bg-card shadow-sm">
+          <div className="flex items-center justify-between border-b border-destructive/20 bg-destructive/5 px-6 py-4">
+            <div className="flex items-center gap-2">
+              <ShieldAlert className="size-5 text-destructive" />
+              <span className="text-sm font-semibold text-destructive">
+                Surat Tidak Ditemukan
+              </span>
+            </div>
+            <span className="font-mono text-xs text-muted-foreground">{kode}</span>
+          </div>
+          <div className="px-6 py-6">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Kode verifikasi <span className="font-mono">{kode}</span> tidak
+              ditemukan pada sistem kami. Kemungkinan kode salah ketik, surat
+              telah dihapus, atau dokumen tersebut memang tidak diterbitkan
+              melalui platform ini. Hubungi sekretariat untuk klarifikasi.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {letter && pdfUrl && (
+        <div className="mt-8">
+          <div className="flex items-center gap-2">
+            <Stamp className="size-4 text-muted-foreground" />
+            <h2 className="text-sm font-semibold">Pratinjau Dokumen</h2>
+          </div>
+          <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
+            <iframe
+              src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+              title={`Pratinjau ${letter.registrationNumber}`}
+              className="pointer-events-none h-full w-full select-none"
+            />
+            <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
+              <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase tracking-[0.3em] text-foreground/15 select-none">
+                Salinan Digital
+              </span>
+            </div>
+          </div>
+          <p className="mt-2 text-center text-[11px] text-muted-foreground">
+            Pratinjau ini bersifat read-only dan dilindungi tanda air untuk
+            mencegah penyalahgunaan.
+          </p>
+        </div>
+      )}
+
+      <div className="mt-10 flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
+        <CalendarDays className="size-3.5" />
+        Sistem Verifikasi Surat LIM
+      </div>
+    </div>
+  );
+}

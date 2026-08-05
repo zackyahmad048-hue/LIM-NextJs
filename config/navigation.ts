@@ -171,8 +171,20 @@ const rawNav: (NavigationItem | false | undefined)[] = [
   FEATURES.SECRETARIAT && {
     title: "Sekretariat",
     icon: Mail,
-    href: "/admin/secretariat",
-    permissions: ["secretariat.view"],
+    items: [
+      {
+        title: "Dashboard",
+        icon: LayoutDashboard,
+        href: "/admin/secretariat",
+        permissions: ["secretariat.view"],
+      },
+      {
+        title: "Surat-menyurat",
+        icon: Mail,
+        href: "/admin/secretariat/surat-menyurat",
+        permissions: ["secretariat.view"],
+      },
+    ],
   },
 
   FEATURES.TWK && {
