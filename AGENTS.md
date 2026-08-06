@@ -13,10 +13,12 @@ Indonesian organizational platform ("LIM Digital Platform"): public website + ad
 
 ```bash
 npm run dev          # Dev server (localhost:3000)
-npm run check        # lint + typecheck — the verification gate (no test suite exists)
+npm run check        # lint + typecheck — the verification gate
 npm run build        # prisma generate && next build (deploy regenerates the client)
 npm run format       # Prettier write
 npm run format:check # Prettier check only
+npm run e2e          # vitest run tests/e2e — Playwright E2E against production
+npm run e2e:watch    # vitest tests/e2e (watch)
 
 npm run prisma:generate  # Regenerate client → ../generated/client
 npm run prisma:migrate   # Create & apply migration
@@ -71,7 +73,7 @@ docs/                      # Master docs (Indonesian); docs/README.md is the map
 - `.env.example` is stale: it shows a SQLite `file:...` URL, but the schema is PostgreSQL/Neon. Set a real Neon `DATABASE_URL` in `.env`
 - Neon driver needs `ws` — `neonConfig.webSocketConstructor = ws` is already wired in `prisma.ts`
 - `tailwind.config.ts` AND `postcss.config.mjs` both exist (Tailwind v4 uses the PostCSS plugin)
-- No `.prettierrc` (Prettier defaults); no test framework configured; husky/commitlint/lint-staged installed but unconfigured (no hooks)
+- No `.prettierrc` (Prettier defaults); vitest + Playwright (E2E in `tests/e2e/`, `npm run e2e`); husky/commitlint/lint-staged installed but unconfigured (no hooks)
 - ESLint ignores `.next/`, `out/`, `build/`, `next-env.d.ts`
 - `docs/` describes 14 domains, but only the modules above are implemented — organization, knowledge, certificate, notification are spec/roadmap-only (letter lives in `modules/secretariat`)
 

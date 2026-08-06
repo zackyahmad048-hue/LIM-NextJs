@@ -5,6 +5,7 @@ import { requireSessionWithPermissions } from "@/modules/authorization/applicati
 import {
   createVerifiedLetter,
   deleteVerifiedLetter,
+  UnsupportedFileTypeError,
 } from "../application/verified-letter.service";
 import { createVerifiedLetterSchema } from "../validations/schema";
 
@@ -62,6 +63,9 @@ export async function createVerifiedLetterAction(
     return { success: true };
   } catch (error) {
     console.error("[createVerifiedLetterAction]", error);
+    if (error instanceof UnsupportedFileTypeError) {
+      return { error: error.message };
+    }
     return {
       error:
         "Gagal memproses surat. Pastikan file PDF/gambar valid dan penyimpanan file (Vercel Blob) terkonfigurasi.",

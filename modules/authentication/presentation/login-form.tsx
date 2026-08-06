@@ -41,7 +41,7 @@ export default function LoginForm() {
     }
 
     toast.success("Selamat datang kembali.");
-    window.location.href = "/admin";
+    window.location.assign("/admin");
   };
 
   return (

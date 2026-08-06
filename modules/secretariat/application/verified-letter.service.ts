@@ -8,6 +8,7 @@ import {
   verifiedLetterRepository,
   type CreateVerifiedLetterInput,
 } from "../infrastructure/verified-letter.repository";
+import { SecretariatError } from "../domain/secretariat.errors";
 
 const QR_WIDTH = 256;
 const QR_SIZE_PX = 240;
@@ -105,6 +106,61 @@ export function isProcessableMime(mimeType: string): boolean {
   return isPdfMime(mimeType) || isImageMime(mimeType);
 }
 
+const MIME_DOC = "application/msword";
+const MIME_DOCX =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+export class UnsupportedFileTypeError extends SecretariatError {
+  constructor() {
+    super(
+      "File harus berupa PDF, gambar (PNG/JPG/WebP), atau dokumen Word (.doc/.docx).",
+    );
+    this.name = "UnsupportedFileTypeError";
+  }
+}
+
+function hasMagic(buffer: Buffer, magic: number[]): boolean {
+  if (buffer.length < magic.length) return false;
+  for (let i = 0; i < magic.length; i++) {
+    if (buffer[i] !== magic[i]) return false;
+  }
+  return true;
+}
+
+export function detectFileMime(buffer: Buffer): string | null {
+  if (hasMagic(buffer, [0x25, 0x50, 0x44, 0x46])) return "application/pdf";
+  if (hasMagic(buffer, [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
+    return "image/png";
+  if (hasMagic(buffer, [0xff, 0xd8, 0xff])) return "image/jpeg";
+  if (
+    buffer.length >= 12 &&
+    buffer.subarray(0, 4).toString("latin1") === "RIFF" &&
+    buffer.subarray(8, 12).toString("latin1") === "WEBP"
+  )
+    return "image/webp";
+  if (hasMagic(buffer, [0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]))
+    return MIME_DOC;
+  if (hasMagic(buffer, [0x50, 0x4b, 0x03, 0x04])) return MIME_DOCX;
+  return null;
+}
+
+export function resolveUploadMimeType(
+  fileBuffer: Buffer,
+  fileName: string,
+  declaredMimeType: string,
+): string {
+  const detected = detectFileMime(fileBuffer);
+  if (detected === MIME_DOCX) {
+    const ext = fileName.toLowerCase().split(".").pop() ?? "";
+    const declared = declaredMimeType.toLowerCase();
+    const docxDeclared = declared === MIME_DOCX || declared.includes("word");
+    if (docxDeclared || ext === "docx") return MIME_DOCX;
+    throw new UnsupportedFileTypeError();
+  }
+  if (detected) return detected;
+  throw new UnsupportedFileTypeError();
+}
+
 export interface VerifiedLetterArtifacts {
   originalFileUrl: string;
   processedPdfUrl: string;
@@ -125,39 +181,52 @@ export async function processAndUploadLetter(
   const originalDest = `${base}/original/${fileName.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
   const qrDest = `${base}/qr.png`;
 
-  const originalFileUrl = await blobStorage.upload(
-    fileBuffer,
-    originalDest,
-    mimeType,
-  );
-  const qrPngUrl = await blobStorage.upload(qrPng, qrDest, "image/png");
+  const uploaded: string[] = [];
+  try {
+    const originalFileUrl = await blobStorage.upload(
+      fileBuffer,
+      originalDest,
+      mimeType,
+    );
+    uploaded.push(originalFileUrl);
 
-  let processedPdfUrl = originalFileUrl;
-  let processedDest = originalDest;
-  if (isPdfMime(mimeType)) {
-    const processed = await embedQrIntoPdf(fileBuffer, qrPng);
-    processedDest = `${base}/processed.pdf`;
-    processedPdfUrl = await blobStorage.upload(
-      processed,
-      processedDest,
-      "application/pdf",
+    const qrPngUrl = await blobStorage.upload(qrPng, qrDest, "image/png");
+    uploaded.push(qrPngUrl);
+
+    let processedPdfUrl = originalFileUrl;
+    let processedDest = originalDest;
+    if (isPdfMime(mimeType)) {
+      const processed = await embedQrIntoPdf(fileBuffer, qrPng);
+      processedDest = `${base}/processed.pdf`;
+      processedPdfUrl = await blobStorage.upload(
+        processed,
+        processedDest,
+        "application/pdf",
+      );
+      uploaded.push(processedPdfUrl);
+    } else if (isImageMime(mimeType)) {
+      const processed = await embedQrIntoImage(fileBuffer, qrPng, mimeType);
+      const ext = mimeType.includes("jpeg") ? "jpg" : "png";
+      processedDest = `${base}/processed.${ext}`;
+      processedPdfUrl = await blobStorage.upload(
+        processed,
+        processedDest,
+        mimeType.includes("jpeg") ? "image/jpeg" : "image/png",
+      );
+      uploaded.push(processedPdfUrl);
+    }
+
+    return {
+      originalFileUrl,
+      processedPdfUrl,
+      qrPngUrl,
+    };
+  } catch (error) {
+    await Promise.allSettled(
+      uploaded.map((url) => blobStorage.delete(url)),
     );
-  } else if (isImageMime(mimeType)) {
-    const processed = await embedQrIntoImage(fileBuffer, qrPng, mimeType);
-    const ext = mimeType.includes("jpeg") ? "jpg" : "png";
-    processedDest = `${base}/processed.${ext}`;
-    processedPdfUrl = await blobStorage.upload(
-      processed,
-      processedDest,
-      mimeType.includes("jpeg") ? "image/jpeg" : "image/png",
-    );
+    throw error;
   }
-
-  return {
-    originalFileUrl,
-    processedPdfUrl,
-    qrPngUrl,
-  };
 }
 
 export interface CreateVerifiedLetterParams {
@@ -175,12 +244,17 @@ export async function createVerifiedLetter(
   params: CreateVerifiedLetterParams,
 ) {
   const verificationCode = generateVerificationCode();
+  const mimeType = resolveUploadMimeType(
+    params.fileBuffer,
+    params.fileName,
+    params.mimeType,
+  );
 
   const artifacts = await processAndUploadLetter(
     verificationCode,
     params.fileBuffer,
     params.fileName,
-    params.mimeType,
+    mimeType,
     verificationCode,
   );
 

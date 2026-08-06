@@ -14,10 +14,10 @@ export default async function VerifyLetterPage({
   const { kode } = await params;
   const letter = await getVerifiedLetterByCode(kode);
 
-  const pdfUrl =
-    letter && letter.processedPdfUrl.endsWith(".pdf")
-      ? letter.processedPdfUrl
-      : null;
+  const processedUrl = letter?.processedPdfUrl ?? null;
+  const isPdfPreview = processedUrl !== null && processedUrl.endsWith(".pdf");
+  const isImagePreview =
+    processedUrl !== null && /\.(png|jpe?g|webp)$/i.test(processedUrl);
 
   const formatDate = (date: Date | string) =>
     new Intl.DateTimeFormat("id-ID", {
@@ -106,18 +106,27 @@ export default async function VerifyLetterPage({
         </div>
       )}
 
-      {letter && pdfUrl && (
+      {letter && (isPdfPreview || isImagePreview) && (
         <div className="mt-8">
           <div className="flex items-center gap-2">
             <Stamp className="size-4 text-muted-foreground" />
             <h2 className="text-sm font-semibold">Pratinjau Dokumen</h2>
           </div>
           <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
-            <iframe
-              src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-              title={`Pratinjau ${letter.registrationNumber}`}
-              className="pointer-events-none h-full w-full select-none"
-            />
+            {isPdfPreview ? (
+              <iframe
+                src={`${processedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                title={`Pratinjau ${letter.registrationNumber}`}
+                className="pointer-events-none h-full w-full select-none"
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={processedUrl!}
+                alt={`Pratinjau ${letter.registrationNumber}`}
+                className="h-full w-full select-none object-contain"
+              />
+            )}
             <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
               <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase tracking-[0.3em] text-foreground/15 select-none">
                 Salinan Digital
