@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AgendaForm } from "../agenda-form";
+import { AgendaForm } from "../../agenda-form";
 import {
   getAgendaBookById,
 } from "@/modules/secretariat/queries/secretariat.query";

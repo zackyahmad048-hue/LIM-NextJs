@@ -356,7 +356,7 @@ export async function createAgendaBook(formData: FormData) {
   try {
     await requireSessionWithPermissions(PERMISSION_AGENDA_CREATE);
     await secretariatService.createAgendaBook({
-      date: parsed.data.date,
+      date: new Date(parsed.data.date),
       title: parsed.data.title,
       description: parsed.data.description || null,
       location: parsed.data.location || null,

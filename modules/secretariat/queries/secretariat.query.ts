@@ -173,7 +173,7 @@ export async function getCalendarEvents(params: { from: Date; to: Date }) {
         startTime: true,
         endTime: true,
         description: true,
-        program: { select: { title: true } },
+        program: { select: { name: true } },
       },
       orderBy: { startTime: "asc" },
     }),
