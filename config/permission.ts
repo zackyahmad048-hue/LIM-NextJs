@@ -190,6 +190,12 @@ export const PERMISSIONS = {
 
     AGENDA: {
       VIEW: "secretariat.agenda.view",
+
+      CREATE: "secretariat.agenda.create",
+
+      UPDATE: "secretariat.agenda.update",
+
+      DELETE: "secretariat.agenda.delete",
     },
 
     ARCHIVE: {
@@ -200,6 +206,28 @@ export const PERMISSIONS = {
       CREATE: "secretariat.letter.create",
 
       DELETE: "secretariat.letter.delete",
+    },
+  },
+
+  ORGANIZATION: {
+    UNIT: {
+      VIEW: "organization.unit.view",
+
+      CREATE: "organization.unit.create",
+
+      UPDATE: "organization.unit.update",
+
+      DELETE: "organization.unit.delete",
+    },
+
+    OFFICER: {
+      VIEW: "organization.officer.view",
+
+      CREATE: "organization.officer.create",
+
+      UPDATE: "organization.officer.update",
+
+      DELETE: "organization.officer.delete",
     },
   },
 

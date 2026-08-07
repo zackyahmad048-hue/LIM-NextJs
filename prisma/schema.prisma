@@ -309,7 +309,11 @@ enum IncomingMailStatus {
 
 enum OutgoingMailStatus {
   DRAFT
+  SUBMITTED
+  REVIEWED
   APPROVED
+  REJECTED
+  SIGNED
   SENT
   ARCHIVED
 }
@@ -546,6 +550,7 @@ model IncomingMail {
   category           String?
   notes              String?
   attachmentUrl      String?
+  archivedAt         DateTime?
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
   deletedAt          DateTime?
@@ -565,16 +570,34 @@ model OutgoingMail {
   senderName         String?
   mailDate           DateTime
   status             OutgoingMailStatus @default(DRAFT)
-  documentNumber     String?
   documentType       DocumentType?
+  categoryCode       String?
   content            String?
+  submittedById      String?
+  submittedAt        DateTime?
+  reviewedById       String?
+  reviewedAt         DateTime?
   approvedById       String?
   approvedAt         DateTime?
+  signedById         String?
+  signedAt           DateTime?
+  sentAt             DateTime?
+  archivedAt         DateTime?
+  sequence           Int?
+  levelCode          String?
+  romanMonth         String?
+  periodYear         Int?
+  fullNumber         String?
+  verificationCode   String?
+  qrFileId           String?
   attachmentUrl      String?
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
   deletedAt          DateTime?
 
+  @@unique([periodYear, sequence])
+  @@unique([fullNumber])
+  @@unique([verificationCode])
   @@index([status])
   @@index([mailDate])
   @@index([registrationNumber])
@@ -613,6 +636,7 @@ model AdministrativeDocument {
   submittedAt    DateTime?
   approvedById   String?
   approvedAt     DateTime?
+  archivedAt     DateTime?
   createdAt      DateTime                     @default(now())
   updatedAt      DateTime                     @updatedAt
   deletedAt      DateTime?
@@ -686,22 +710,86 @@ enum MediaAccess {
   PRIVATE
 }
 
+enum StorageProvider {
+  BLOB
+  GOOGLE_DRIVE
+}
+
 model Media {
-  id           String      @id @default(cuid())
-  originalName String
-  mimeType     String
-  size         Int
-  checksum     String?
-  fileId       String      @unique
-  access       MediaAccess @default(PRIVATE)
-  folder       String
-  uploadedById String?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  deletedAt    DateTime?
-  uploadedBy   User?       @relation(fields: [uploadedById], references: [id])
+  id              String          @id @default(cuid())
+  originalName    String
+  mimeType        String
+  size            Int
+  checksum        String?
+  fileId          String          @unique
+  access          MediaAccess     @default(PRIVATE)
+  folder          String
+  storageProvider StorageProvider @default(BLOB)
+  storageKey      String?
+  uploadedById    String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  uploadedBy      User?           @relation(fields: [uploadedById], references: [id])
 
   @@index([folder])
   @@index([uploadedById])
   @@map("media")
+}
+
+model GoogleDriveConnection {
+  id              String    @id @default(cuid())
+  email           String
+  refreshToken    String
+  driveFolderId   String?
+  driveFolderName String?
+  connectedAt     DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("google_drive_connection")
+}
+
+enum UnitLevel {
+  PP
+  PW
+  PC
+}
+
+model OrganizationUnit {
+  id        String             @id @default(cuid())
+  code      String             @unique
+  name      String
+  level     UnitLevel
+  parentId  String?
+  parent    OrganizationUnit?  @relation("UnitTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  OrganizationUnit[] @relation("UnitTree")
+  sortOrder Int                @default(0)
+  officers  Officer[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+
+  @@index([parentId])
+  @@index([level])
+  @@index([deletedAt])
+  @@map("organization_unit")
+}
+
+model Officer {
+  id        String           @id @default(cuid())
+  unitId    String
+  unit      OrganizationUnit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  name      String
+  position  String
+  isLeader  Boolean          @default(false)
+  phone     String?
+  email     String?
+  sortOrder Int              @default(0)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  deletedAt DateTime?
+
+  @@index([unitId])
+  @@index([deletedAt])
+  @@map("officer")
 }

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { LetterPlate } from "@/components/admin/shared/letter-plate";
 
 import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
@@ -26,7 +27,11 @@ const statusLabels: Record<
   }
 > = {
   DRAFT: { label: "Draft", variant: "outline" },
+  SUBMITTED: { label: "Diajukan", variant: "secondary" },
+  REVIEWED: { label: "Direview", variant: "secondary" },
   APPROVED: { label: "Disetujui", variant: "default" },
+  REJECTED: { label: "Ditolak", variant: "destructive" },
+  SIGNED: { label: "Ditandatangani", variant: "secondary" },
   SENT: { label: "Terkirim", variant: "secondary" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
@@ -63,13 +68,16 @@ export default async function OutgoingMailListPage({
         description={`${total} surat keluar ditemukan.`}
         columns={[
           {
-            key: "registrationNumber",
-            label: "No. Registrasi",
-            render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">
-                {item.registrationNumber}
-              </span>
-            ),
+            key: "fullNumber",
+            label: "Nomor Surat",
+            render: (item) =>
+              item.fullNumber ? (
+                <LetterPlate fullNumber={item.fullNumber} size="sm" />
+              ) : (
+                <span className="text-xs text-muted-foreground">
+                  Belum bernomor
+                </span>
+              ),
           },
           {
             key: "recipient",

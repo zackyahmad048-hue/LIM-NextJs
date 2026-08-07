@@ -1,6 +1,16 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Archive, CheckCircle, FileDown, Printer, Send } from "lucide-react";
+import {
+  Archive,
+  Check,
+  CheckCircle,
+  FileSignature,
+  Printer,
+  RotateCcw,
+  Send,
+  X,
+  QrCode,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,24 +29,20 @@ import {
   updateOutgoingMail,
   transitionOutgoingMailStatus,
 } from "@/modules/secretariat/presentation/secretariat.action";
+import { getLetterLevelOptions } from "@/modules/organization";
+import { LETTER_TYPES } from "@/config/letter-types";
+import { LetterPlate } from "@/components/admin/shared/letter-plate";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
+  SUBMITTED: "Diajukan",
+  REVIEWED: "Direview",
   APPROVED: "Disetujui",
+  REJECTED: "Ditolak",
+  SIGNED: "Ditandatangani",
   SENT: "Terkirim",
   ARCHIVED: "Diarsipkan",
 };
-
-const letterTypes = [
-  { value: "UNDANGAN", label: "Undangan" },
-  { value: "PERMOHONAN", label: "Permohonan" },
-  { value: "PEMBERITAHUAN", label: "Pemberitahuan" },
-  { value: "INSTRUKSI", label: "Instruksi" },
-  { value: "KETERANGAN", label: "Keterangan" },
-  { value: "KEPUTUSAN", label: "Keputusan" },
-  { value: "TERIMA_KASIH", label: "Terima Kasih" },
-  { value: "LAINNYA", label: "Lain-lain" },
-];
 
 function formatDateInput(date: Date | string | null) {
   if (!date) return "";
@@ -49,7 +55,10 @@ export default async function EditOutgoingMailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const mail = await getOutgoingMailById(id);
+  const [mail, levels] = await Promise.all([
+    getOutgoingMailById(id),
+    getLetterLevelOptions(),
+  ]);
 
   if (!mail) notFound();
 
@@ -61,46 +70,88 @@ export default async function EditOutgoingMailPage({
   }[] = [];
   if (mail.status === "DRAFT")
     statusActions.push({
-      label: "Setujui",
-      status: "APPROVED",
-      icon: CheckCircle,
+      label: "Ajukan",
+      status: "SUBMITTED",
+      icon: Send,
       variant: "default",
     });
+  if (mail.status === "SUBMITTED")
+    statusActions.push({
+      label: "Tandai Direview",
+      status: "REVIEWED",
+      icon: Check,
+      variant: "default",
+    });
+  if (mail.status === "REVIEWED") {
+    statusActions.push({
+      label: "Setujui",
+      status: "APPROVED",
+      icon: Check,
+      variant: "default",
+    });
+    statusActions.push({
+      label: "Tolak",
+      status: "REJECTED",
+      icon: X,
+      variant: "destructive",
+    });
+  }
   if (mail.status === "APPROVED")
     statusActions.push({
-      label: "Kirim",
+      label: "Tandatangani",
+      status: "SIGNED",
+      icon: FileSignature,
+      variant: "default",
+    });
+  if (mail.status === "SIGNED")
+    statusActions.push({
+      label: "Tandai Terkirim",
       status: "SENT",
       icon: Send,
       variant: "default",
     });
-  if (["SENT", "APPROVED"].includes(mail.status))
+  if (mail.status === "SENT")
     statusActions.push({
       label: "Arsipkan",
       status: "ARCHIVED",
       icon: Archive,
       variant: "outline",
     });
-
-  const validationUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/verify/surat/${mail.id}`;
+  if (mail.status === "REJECTED")
+    statusActions.push({
+      label: "Kembalikan ke Draft",
+      status: "DRAFT",
+      icon: RotateCcw,
+      variant: "outline",
+    });
 
   return (
     <PageContainer>
       <PageHeader
-        title={`Surat Keluar - ${mail.registrationNumber}`}
+        title={
+          mail.fullNumber
+            ? `Surat Keluar — ${mail.fullNumber}`
+            : "Surat Keluar"
+        }
         description={`Status: ${statusLabels[mail.status] ?? mail.status}`}
       />
 
-      <div className="flex flex-wrap gap-2">
+      {mail.fullNumber && (
+        <div className="mt-2">
+          <LetterPlate fullNumber={mail.fullNumber} />
+        </div>
+      )}
+
+      <div className="mt-4 flex flex-wrap gap-2">
         {statusActions.map((action) => {
           const Icon = action.icon;
           return (
             <form
               key={action.status}
-              action={transitionOutgoingMailStatus.bind(
-                null,
-                mail.id,
-                action.status,
-              )}
+              action={async () => {
+                "use server";
+                await transitionOutgoingMailStatus(mail.id, action.status);
+              }}
             >
               <Button type="submit" variant={action.variant} size="sm">
                 <Icon className="size-3.5" />
@@ -123,7 +174,7 @@ export default async function EditOutgoingMailPage({
 
       <form
         action={updateOutgoingMail.bind(null, mail.id)}
-        className="max-w-2xl space-y-3"
+        className="mt-4 max-w-2xl space-y-3"
       >
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
@@ -132,16 +183,43 @@ export default async function EditOutgoingMailPage({
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="registrationNumber" className="text-xs">
-                Nomor Surat
+              <Label htmlFor="levelCode" className="text-xs">
+                Tingkat Kepengurusan
               </Label>
-              <Input
-                id="registrationNumber"
-                name="registrationNumber"
-                required
-                defaultValue={mail.registrationNumber}
-                className="rounded-md text-xs"
-              />
+              <NativeSelect
+                id="levelCode"
+                name="levelCode"
+                className="w-full"
+                defaultValue={mail.levelCode ?? ""}
+              >
+                <NativeSelectOption value="">
+                  Pilih tingkat
+                </NativeSelectOption>
+                {levels.map((level) => (
+                  <NativeSelectOption key={level.code} value={level.code}>
+                    {level.label}
+                  </NativeSelectOption>
+                ))}
+              </NativeSelect>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="categoryCode" className="text-xs">
+                Kategori Surat
+              </Label>
+              <NativeSelect
+                id="categoryCode"
+                name="categoryCode"
+                className="w-full"
+                defaultValue={mail.categoryCode ?? ""}
+              >
+                <NativeSelectOption value="">Pilih kategori</NativeSelectOption>
+                {LETTER_TYPES.map((type) => (
+                  <NativeSelectOption key={type.key} value={type.key}>
+                    {type.key} — {type.label}
+                  </NativeSelectOption>
+                ))}
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5">
@@ -158,7 +236,7 @@ export default async function EditOutgoingMailPage({
               />
             </div>
 
-            <div className="space-y-1.5 md:col-span-2">
+            <div className="space-y-1.5">
               <Label htmlFor="recipient" className="text-xs">
                 Penerima
               </Label>
@@ -181,27 +259,6 @@ export default async function EditOutgoingMailPage({
                 defaultValue={mail.subject}
                 className="rounded-md text-xs"
               />
-            </div>
-
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="documentType" className="text-xs">
-                Jenis Surat
-              </Label>
-              <NativeSelect
-                id="documentType"
-                name="documentType"
-                className="w-full"
-                defaultValue={mail.documentType ?? ""}
-              >
-                <NativeSelectOption value="">
-                  Pilih jenis surat
-                </NativeSelectOption>
-                {letterTypes.map((t) => (
-                  <NativeSelectOption key={t.value} value={t.value}>
-                    {t.label}
-                  </NativeSelectOption>
-                ))}
-              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
@@ -235,44 +292,59 @@ export default async function EditOutgoingMailPage({
               name="content"
               rows={16}
               defaultValue={mail.content ?? ""}
-              className="rounded-md text-xs font-mono leading-relaxed"
+              className="rounded-md text-xs leading-relaxed"
             />
           </div>
         </SectionCard>
 
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">QR Code Validasi</h2>
+            <h2 className="text-base font-semibold">QR Verifikasi</h2>
             <p className="text-xs text-muted-foreground">
-              Scan QR untuk memvalidasi keaslian surat.
+              QR diterbitkan otomatis saat surat ditandatangani. Pihak luar bisa
+              memverifikasi dengan scan QR atau memasukkan nomor surat.
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <div className="flex size-32 items-center justify-center rounded-lg border bg-white p-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(validationUrl)}`}
-                alt="QR Code Validasi"
-                className="size-full"
-              />
-            </div>
-            <div className="text-center sm:text-left">
-              <p className="text-sm font-medium">URL Validasi</p>
-              <p className="mt-0.5 break-all text-xs text-muted-foreground">
-                {validationUrl}
-              </p>
-              <Button variant="outline" size="sm" className="mt-2" asChild>
-                <Link
-                  href={`/admin/secretariat/outgoing-mail/${mail.id}/cetak`}
-                  target="_blank"
+          {mail.qrFileId && mail.verificationCode ? (
+            <div className="flex flex-col items-center gap-3 sm:flex-row">
+              <div className="flex size-32 items-center justify-center rounded-lg border bg-white p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/api/media/${mail.qrFileId}?mime=image/png`}
+                  alt="QR Verifikasi"
+                  className="size-full"
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="text-sm font-medium">Nomor verifikasi</p>
+                <p className="mt-0.5 break-all text-xs text-muted-foreground">
+                  {mail.verificationCode}
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2"
+                  asChild
                 >
-                  <FileDown className="size-3.5" />
-                  Cetak / PDF
-                </Link>
-              </Button>
+                  <Link
+                    href={`/verifikasi/surat/${encodeURIComponent(mail.verificationCode)}`}
+                    target="_blank"
+                  >
+                    Lihat halaman verifikasi
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex items-center gap-3 rounded-lg border border-dashed px-4 py-6">
+              <QrCode className="size-6 text-muted-foreground/50" />
+              <p className="text-sm text-muted-foreground">
+                QR belum tersedia. Tandatangani surat untuk menerbitkan QR
+                verifikasi.
+              </p>
+            </div>
+          )}
         </SectionCard>
 
         <div className="sticky bottom-4 flex justify-end">

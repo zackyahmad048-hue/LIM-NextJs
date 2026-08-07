@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import {
-  isImageMime,
-  isPdfMime,
-} from "@/modules/secretariat/application/verified-letter.service";
-import { getVerifiedLetterByCode } from "@/modules/secretariat/queries/secretariat.query";
+import { getOutgoingMailByVerificationCode } from "@/modules/secretariat/queries/secretariat.query";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { storage } from "@/modules/shared/infrastructure/storage";
 
 export async function GET(
@@ -12,9 +9,11 @@ export async function GET(
   context: { params: Promise<{ kode: string }> },
 ) {
   const { kode } = await context.params;
-  const letter = await getVerifiedLetterByCode(kode);
+  const letter = await getOutgoingMailByVerificationCode(kode);
 
-  const fileId = letter?.processedFileId ?? letter?.originalFileId;
+  const fileId = letter?.attachmentUrl
+    ? extractFileIdFromMediaUrl(letter.attachmentUrl)
+    : null;
   if (!letter || !fileId) {
     return NextResponse.json(
       { success: false, message: "Surat tidak ditemukan." },
@@ -22,18 +21,11 @@ export async function GET(
     );
   }
 
-  let mime = "application/pdf";
-  if (isPdfMime(letter.mimeType)) {
-    mime = "application/pdf";
-  } else if (isImageMime(letter.mimeType)) {
-    mime = letter.mimeType.includes("jpeg") ? "image/jpeg" : "image/png";
-  }
-
   try {
     const buffer = await storage.read(fileId);
     return new NextResponse(new Uint8Array(buffer), {
       headers: {
-        "Content-Type": mime,
+        "Content-Type": "application/pdf",
         "Content-Length": String(buffer.byteLength),
         "Cache-Control": "public, max-age=3600, must-revalidate",
         "X-Content-Type-Options": "nosniff",

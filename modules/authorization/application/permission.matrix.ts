@@ -16,6 +16,7 @@ const FALAK = flattenPermissions(PERMISSIONS.FALAK);
 const PROGRAM = flattenPermissions(PERMISSIONS.PROGRAM);
 const TWK = flattenPermissions(PERMISSIONS.TWK);
 const SECRETARIAT = flattenPermissions(PERMISSIONS.SECRETARIAT);
+const ORGANIZATION = flattenPermissions(PERMISSIONS.ORGANIZATION);
 const REPORTS = flattenPermissions(PERMISSIONS.REPORTS);
 
 const READ_ONLY: PermissionSlug[] = [
@@ -36,6 +37,8 @@ const READ_ONLY: PermissionSlug[] = [
   "secretariat.view",
   "secretariat.agenda.view",
   "secretariat.archive.view",
+  "organization.unit.view",
+  "organization.officer.view",
   "twk.member.view",
 ];
 
@@ -44,6 +47,6 @@ export const DEFAULT_PERMISSION_MATRIX: PermissionMatrix = {
   administrator: ALL,
   editor: CONTENT,
   operator: [...FALAK, ...PROGRAM, ...TWK],
-  sekretaris: [...SECRETARIAT, ...REPORTS],
+  sekretaris: [...SECRETARIAT, ...ORGANIZATION, ...REPORTS],
   viewer: READ_ONLY,
 };

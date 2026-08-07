@@ -179,9 +179,21 @@ const rawNav: (NavigationItem | false | undefined)[] = [
         permissions: ["secretariat.view"],
       },
       {
-        title: "Surat-menyurat",
+        title: "Surat Menyurat",
         icon: Mail,
         href: "/admin/secretariat/surat-menyurat",
+        permissions: ["secretariat.view"],
+      },
+      {
+        title: "Pendataan",
+        icon: UsersRound,
+        href: "/admin/secretariat/pendataan",
+        permissions: ["secretariat.view"],
+      },
+      {
+        title: "Arsip",
+        icon: FolderOpen,
+        href: "/admin/secretariat/arsip",
         permissions: ["secretariat.view"],
       },
     ],

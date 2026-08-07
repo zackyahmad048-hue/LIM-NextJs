@@ -1,17 +1,21 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  FileUp,
-  Trash2,
-  QrCode,
-  BadgeCheck,
-  FileText,
+  ArrowRight,
   Archive,
+  FileSignature,
   Inbox,
+  PenLine,
+  QrCode,
   Send,
+  Check,
+  X,
+  RotateCcw,
+  Cloud,
+  CloudOff,
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -20,38 +24,33 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { LETTER_TYPES } from "@/config/letter-types";
-import { getLetterTypeLabel } from "@/config/letter-types";
+import { SectionCard } from "@/components/admin/shared/section-card";
+import { ConfirmDialog } from "@/components/admin/shared/confirm-dialog";
+import { LetterPlate } from "@/components/admin/shared/letter-plate";
 
-function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(date));
-}
+import { transitionOutgoingMailStatus } from "@/modules/secretariat/presentation/secretariat.action";
 
-const statusLabels: Record<string, { label: string; variant: any }> = {
-  RECEIVED: { label: "Diterima", variant: "default" },
-  PROCESSED: { label: "Diproses", variant: "secondary" },
-  ARCHIVED: { label: "Diarsipkan", variant: "outline" },
-  DRAFT: { label: "Draft", variant: "outline" },
-  APPROVED: { label: "Disetujui", variant: "default" },
-  SENT: { label: "Terkirim", variant: "secondary" },
-};
+type OutgoingStatus =
+  | "DRAFT"
+  | "SUBMITTED"
+  | "REVIEWED"
+  | "APPROVED"
+  | "REJECTED"
+  | "SIGNED"
+  | "SENT"
+  | "ARCHIVED";
 
-interface VerifiedLetterItem {
+interface OutgoingItem {
   id: string;
-  verificationCode: string;
-  registrationNumber: string;
   subject: string;
-  letterType: string;
-  date: Date | string;
-  issuer: string | null;
-  qrPngUrl: string;
-  processedPdfUrl: string;
-  fileName: string;
-  createdAt: Date | string;
+  recipient: string | null;
+  mailDate: Date | string;
+  status: OutgoingStatus;
+  fullNumber: string | null;
+  levelCode: string | null;
+  categoryCode: string | null;
+  verificationCode: string | null;
+  qrFileId: string | null;
 }
 
 interface IncomingItem {
@@ -63,481 +62,543 @@ interface IncomingItem {
   status: string;
 }
 
-interface OutgoingItem {
+interface LatestIssued {
   id: string;
-  registrationNumber: string;
-  recipient: string;
+  fullNumber: string | null;
   subject: string;
   mailDate: Date | string;
-  status: string;
+  levelCode: string | null;
+  categoryCode: string | null;
 }
 
-interface ArchiveItem {
-  id: string;
-  archiveNumber: string;
-  title: string;
-  documentType: string;
-  category: string | null;
-  archivedAt: Date | string;
+interface Stats {
+  outgoingTotal: number;
+  incomingTotal: number;
+  archivedTotal: number;
+  pendingCount: number;
 }
 
 interface SuratMenyuratClientProps {
-  verifiedLetters: VerifiedLetterItem[];
-  verifiedTotal: number;
+  stats: Stats;
+  latestIssued: LatestIssued | null;
   outgoingItems: OutgoingItem[];
   outgoingTotal: number;
   incomingItems: IncomingItem[];
   incomingTotal: number;
-  archives: ArchiveItem[];
-  archivesTotal: number;
+  driveEmail: string | null;
+  canApprove: boolean;
 }
 
-const sectionLinks = [
-  { href: "#buat", label: "Buat Surat", icon: FileUp },
-  { href: "#keluar", label: "Surat Keluar", icon: Send },
-  { href: "#masuk", label: "Surat Masuk", icon: Inbox },
-  { href: "#arsip", label: "Arsip", icon: Archive },
-];
+function formatDate(date: Date | string) {
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(date));
+}
 
-function SectionHeading({
-  id,
-  index,
-  title,
-  count,
-  children,
-}: {
-  id: string;
-  index: string;
+function formatDateLong(date: Date | string) {
+  return new Intl.DateTimeFormat("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(date));
+}
+
+const statusConfig: Record<
+  OutgoingStatus,
+  { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
+> = {
+  DRAFT: { label: "Draft", variant: "outline" },
+  SUBMITTED: { label: "Diajukan", variant: "secondary" },
+  REVIEWED: { label: "Direview", variant: "secondary" },
+  APPROVED: { label: "Disetujui", variant: "default" },
+  REJECTED: { label: "Ditolak", variant: "destructive" },
+  SIGNED: { label: "Ditandatangani", variant: "secondary" },
+  SENT: { label: "Terkirim", variant: "secondary" },
+  ARCHIVED: { label: "Diarsipkan", variant: "outline" },
+};
+
+const incomingStatusConfig: Record<string, { label: string; variant: any }> = {
+  RECEIVED: { label: "Diterima", variant: "secondary" },
+  ARCHIVED: { label: "Diarsipkan", variant: "outline" },
+};
+
+interface ConfirmState {
   title: string;
-  count: number;
-  children?: ReactNode;
-}) {
-  return (
-    <section id={id} className="scroll-mt-24 border-t border-dashed pt-8">
-      <div className="flex items-end justify-between gap-4 border-b pb-4">
-        <div className="flex items-baseline gap-3">
-          <span className="font-mono text-xs text-muted-foreground">
-            {index}
-          </span>
-          <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
-          <span className="font-mono text-sm tabular-nums text-muted-foreground">
-            {count}
-          </span>
-        </div>
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function Row({
-  left,
-  right,
-}: {
-  left: { line1: string; line2?: string; mono?: boolean };
-  right?: ReactNode;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-4 px-4 py-3">
-      <div className="min-w-0">
-        <p
-          className={`truncate text-sm ${left.mono ? "font-mono text-xs tabular-nums text-muted-foreground" : "font-medium"}`}
-        >
-          {left.line1}
-        </p>
-        {left.line2 && (
-          <p className="truncate text-xs text-muted-foreground">{left.line2}</p>
-        )}
-      </div>
-      {right}
-    </div>
-  );
-}
-
-function useVerifiedLetterDelete(router: ReturnType<typeof useRouter>) {
-  return async function handleDelete(id: string) {
-    const confirmDelete = window.confirm("Hapus surat beserta QR-nya?");
-    if (!confirmDelete) return;
-
-    const { deleteVerifiedLetterAction } = await import(
-      "@/modules/secretariat/presentation/verified-letter.action"
-    );
-    const result = await deleteVerifiedLetterAction(id);
-    if (result.success) {
-      toast.success("Surat berhasil dihapus.");
-    } else {
-      toast.error(result.error ?? "Gagal menghapus surat.");
-    }
-    router.refresh();
-  };
+  description: string;
+  onConfirm: () => Promise<void>;
 }
 
 export function SuratMenyuratClient({
-  verifiedLetters,
-  verifiedTotal,
+  stats,
+  latestIssued,
   outgoingItems,
   outgoingTotal,
   incomingItems,
   incomingTotal,
-  archives,
-  archivesTotal,
+  driveEmail,
+  canApprove,
 }: SuratMenyuratClientProps) {
   const router = useRouter();
-  const deleteVerifiedLetter = useVerifiedLetterDelete(router);
+  const [pendingAction, setPendingAction] = useState<string | null>(null);
+  const [confirm, setConfirm] = useState<ConfirmState | null>(null);
 
-  const [submitting, setSubmitting] = useState(false);
-  const [fileName, setFileName] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  async function handleSubmit(formData: FormData) {
-    setSubmitting(true);
-    try {
-      const { createVerifiedLetterAction } = await import(
-        "@/modules/secretariat/presentation/verified-letter.action"
-      );
-      const result = await createVerifiedLetterAction(formData);
-      if (result.success) {
-        toast.success("Surat diproses. QR berhasil dibuat.");
-        setFileName("");
-        if (fileInputRef.current) fileInputRef.current.value = "";
-        router.refresh();
-      } else {
-        toast.error(result.error ?? "Gagal membuat surat.");
-      }
-    } finally {
-      setSubmitting(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("drive") === "connected") {
+      toast.success("Google Drive berhasil dihubungkan.");
+      window.history.replaceState({}, "", "/admin/secretariat/surat-menyurat");
+    } else if (params.get("drive") === "error") {
+      toast.error("Gagal menghubungkan Google Drive. Coba lagi.");
+      window.history.replaceState({}, "", "/admin/secretariat/surat-menyurat");
     }
+  }, []);
+
+  async function runTransition(
+    id: string,
+    status: OutgoingStatus,
+    confirmMessage?: { title: string; description: string },
+  ) {
+    const execute = async () => {
+      setPendingAction(`${id}:${status}`);
+      try {
+        const result = await transitionOutgoingMailStatus(id, status);
+        if (result?.success) {
+          toast.success(
+            statusConfig[status]?.label
+              ? `Surat ditandai ${statusConfig[status].label.toLowerCase()}.`
+              : "Status diperbarui.",
+          );
+          router.refresh();
+        } else {
+          toast.error(result?.message ?? "Gagal memperbarui status.");
+        }
+      } finally {
+        setPendingAction(null);
+        setConfirm(null);
+      }
+    };
+
+    if (confirmMessage) {
+      setConfirm({
+        title: confirmMessage.title,
+        description: confirmMessage.description,
+        onConfirm: execute,
+      });
+      return;
+    }
+    await execute();
   }
+
+  const isPending = (id: string, status: OutgoingStatus) =>
+    pendingAction === `${id}:${status}`;
+
+  const nextActions = (item: OutgoingItem) => {
+    const actions: { status: OutgoingStatus; label: string; icon: any }[] = [];
+    switch (item.status) {
+      case "DRAFT":
+        actions.push({ status: "SUBMITTED", label: "Ajukan", icon: Send });
+        break;
+      case "SUBMITTED":
+        actions.push({ status: "REVIEWED", label: "Tandai Direview", icon: Check });
+        break;
+      case "REVIEWED":
+        if (canApprove) {
+          actions.push({ status: "APPROVED", label: "Setujui", icon: Check });
+          actions.push({ status: "REJECTED", label: "Tolak", icon: X });
+        }
+        break;
+      case "APPROVED":
+        actions.push({
+          status: "SIGNED",
+          label: "Tandatangani",
+          icon: FileSignature,
+        });
+        break;
+      case "SIGNED":
+        actions.push({ status: "SENT", label: "Tandai Terkirim", icon: Send });
+        break;
+      case "SENT":
+        actions.push({ status: "ARCHIVED", label: "Arsipkan", icon: Archive });
+        break;
+      case "REJECTED":
+        actions.push({ status: "DRAFT", label: "Kembalikan ke Draft", icon: RotateCcw });
+        break;
+    }
+    return actions;
+  };
+
+  const confirmFor = (status: OutgoingStatus) => {
+    switch (status) {
+      case "APPROVED":
+        return {
+          title: "Setujui surat?",
+          description:
+            "Nomor surat resmi akan diterbitkan sesuai format organisasi. Tindakan ini tidak dapat dibatalkan.",
+        };
+      case "REJECTED":
+        return {
+          title: "Tolak surat?",
+          description:
+            "Surat kembali ke status Draft dan tidak mendapat nomor resmi.",
+        };
+      case "ARCHIVED":
+        return {
+          title: "Arsipkan surat?",
+          description:
+            "Surat masuk arsip dan tidak dapat diubah lagi. Lampiran dipindah ke penyimpanan arsip.",
+        };
+      default:
+        return null;
+    }
+  };
 
   return (
     <PageContainer>
       <PageHeader
-        title="Surat-menyurat"
-        description="Terbitkan surat dengan QR verifikasi, pantau surat masuk & keluar, dan kelola arsip."
+        title="Surat Menyurat"
+        description="Terbitkan nomor, pantau alur persetujuan, dan catat surat masuk."
       />
 
-      <nav className="sticky top-0 z-10 -mx-4 mt-6 border-y bg-background/95 px-4 backdrop-blur">
-        <ul className="flex gap-1 overflow-x-auto py-2">
-          {sectionLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="flex items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <link.icon className="size-3.5" />
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {/* Buat Surat */}
-      <SectionHeading id="buat" index="01" title="Buat Surat" count={verifiedTotal}>
-        <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
-          <QrCode className="size-3.5" />
-          QR otomatis disematkan di footer
-        </span>
-      </SectionHeading>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-5">
-        <form
-          action={handleSubmit}
-          className="space-y-4 rounded-xl border bg-card p-5 shadow-sm lg:col-span-2"
-        >
-          <div>
-            <label className="text-sm font-medium" htmlFor="letterType">
-              Jenis Surat
-            </label>
-            <select
-              id="letterType"
-              name="letterType"
-              required
-              className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="">Pilih jenis surat…</option>
-              {LETTER_TYPES.map((type) => (
-                <option key={type.key} value={type.key}>
-                  {type.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="text-sm font-medium" htmlFor="registrationNumber">
-                Nomor Surat
-              </label>
-              <input
-                id="registrationNumber"
-                name="registrationNumber"
-                required
-                placeholder="0000/PP/X/MM/XXXX"
-                className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 font-mono text-sm outline-none focus:ring-2 focus:ring-ring"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium" htmlFor="date">
-                Tanggal Surat
-              </label>
-              <input
-                id="date"
-                name="date"
-                type="date"
-                required
-                className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium" htmlFor="subject">
-              Perihal
-            </label>
-            <input
-              id="subject"
-              name="subject"
-              required
-              placeholder="Permohonan izin kegiatan…"
-              className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium" htmlFor="issuer">
-              Penerbit <span className="text-muted-foreground">(opsional)</span>
-            </label>
-            <input
-              id="issuer"
-              name="issuer"
-              placeholder="Dewan Pimpinan Pusat LIM"
-              className="mt-1.5 w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium" htmlFor="file">
-              File Surat
-            </label>
-            <p className="mt-1 text-xs text-muted-foreground">
-              PDF/gambar (maks. 2 MB): QR disematkan langsung. DOC/DOCX:
-              disimpan sebagai arsip mentah.
-            </p>
-            <input
-              ref={fileInputRef}
-              id="file"
-              name="file"
-              type="file"
-              required
-              accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx"
-              onChange={(event) =>
-                setFileName(event.target.files?.[0]?.name ?? "")
-              }
-              className="mt-1.5 block w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-2 file:text-sm file:font-medium file:text-foreground hover:file:bg-muted/70"
-            />
-            {fileName && (
-              <p className="mt-1.5 truncate font-mono text-xs text-muted-foreground">
-                {fileName}
-              </p>
-            )}
-          </div>
-
-          <Button type="submit" disabled={submitting} className="w-full">
-            {submitting ? (
-              <>
-                <Loader2 className="size-4 animate-spin" />
-                Memproses…
-              </>
-            ) : (
-              <>
-                <FileUp className="size-4" />
-                Terbitkan & Buat QR
-              </>
-            )}
-          </Button>
-        </form>
-
-        <div className="lg:col-span-3">
-          <div className="overflow-hidden rounded-xl border shadow-sm">
-            {verifiedLetters.length === 0 ? (
-              <div className="flex flex-col items-center gap-2 px-6 py-12 text-center">
-                <QrCode className="size-8 text-muted-foreground/50" />
-                <p className="text-sm font-medium">Belum ada surat diterbitkan</p>
-                <p className="max-w-xs text-xs text-muted-foreground">
-                  Surat yang diterbitkan akan muncul di sini beserta kode
-                  verifikasi dan QR-nya.
-                </p>
+      {/* Plat nomor terakhir + statistik */}
+      <div className="mt-6 grid gap-4 lg:grid-cols-5">
+        <SectionCard className="lg:col-span-3">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            Nomor Terbit Terakhir
+          </p>
+          {latestIssued?.fullNumber ? (
+            <div className="mt-3 space-y-3">
+              <LetterPlate fullNumber={latestIssued.fullNumber} size="md" />
+              <div className="flex flex-wrap items-end justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">
+                    {latestIssued.subject}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatDateLong(latestIssued.mailDate)}
+                  </p>
+                </div>
+                <div className="flex shrink-0 items-center gap-1.5 rounded-md border border-primary/25 bg-primary/5 px-2 py-1">
+                  <QrCode className="size-3.5 text-primary" />
+                  <span className="text-[11px] font-medium text-primary">
+                    QR verifikasi otomatis
+                  </span>
+                </div>
               </div>
-            ) : (
-              <ul className="divide-y">
-                {verifiedLetters.map((letter) => (
-                  <li
-                    key={letter.id}
-                    className="flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/40"
-                  >
-                    <a
-                      href={letter.qrPngUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="shrink-0"
-                      title="Lihat QR"
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={letter.qrPngUrl}
-                        alt={`QR ${letter.registrationNumber}`}
-                        className="size-10 rounded border object-contain"
-                      />
-                    </a>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <p className="truncate text-sm font-medium">
-                          {letter.subject}
-                        </p>
-                        <Badge className="h-5 shrink-0 gap-1 bg-emerald-600 px-2 text-[11px] text-white">
-                          <BadgeCheck className="size-3" />
-                          Surat Sah
-                        </Badge>
-                      </div>
-                      <p className="mt-0.5 truncate font-mono text-xs text-muted-foreground">
-                        {letter.registrationNumber} · {getLetterTypeLabel(letter.letterType)} ·{" "}
-                        {formatDate(letter.date)}
+            </div>
+          ) : (
+            <div className="mt-3 rounded-lg border border-dashed px-4 py-6 text-center">
+              <p className="text-sm font-medium text-muted-foreground">
+                Belum ada nomor terbit
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground/80">
+                Nomor diterbitkan otomatis saat surat keluar disetujui.
+              </p>
+            </div>
+          )}
+        </SectionCard>
+
+        <SectionCard className="lg:col-span-2">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            Sekilas
+          </p>
+          <dl className="mt-3 divide-y">
+            {[
+              { label: "Surat keluar", value: stats.outgoingTotal },
+              { label: "Surat masuk", value: stats.incomingTotal },
+              { label: "Diarsipkan", value: stats.archivedTotal },
+              {
+                label: "Perlu tindakan",
+                value: stats.pendingCount,
+                highlight: stats.pendingCount > 0,
+              },
+            ].map((row) => (
+              <div
+                key={row.label}
+                className="flex items-center justify-between py-2"
+              >
+                <dt className="text-sm text-muted-foreground">{row.label}</dt>
+                <dd
+                  className={`text-lg font-bold tabular-nums ${
+                    row.highlight ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {row.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </SectionCard>
+      </div>
+
+      {/* Pita kerja: Tulis & Terima */}
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Link
+          href="/admin/secretariat/outgoing-mail/new"
+          className="group flex items-start justify-between gap-4 rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+              <PenLine className="size-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-base font-semibold">Tulis surat keluar</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Buat draft atau ajukan langsung. Nomor terbit saat disetujui.
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+        </Link>
+
+        <Link
+          href="/admin/secretariat/incoming-mail/new"
+          className="group flex items-start justify-between gap-4 rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+              <Inbox className="size-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-base font-semibold">Catat surat masuk</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Dicatat lalu langsung diarsipkan.
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+        </Link>
+      </div>
+
+      {/* Status penyimpanan */}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 shadow-sm">
+        <div className="flex items-center gap-2.5">
+          {driveEmail ? (
+            <>
+              <Cloud className="size-4 text-primary" />
+              <p className="text-sm">
+                Google Drive terhubung —{" "}
+                <span className="font-medium">{driveEmail}</span>
+              </p>
+            </>
+          ) : (
+            <>
+              <CloudOff className="size-4 text-muted-foreground" />
+              <p className="text-sm text-muted-foreground">
+                Penyimpanan aktif di Vercel Blob. Hubungkan Google Drive agar
+                arsip otomatis dipindah saat kuota penuh.
+              </p>
+            </>
+          )}
+        </div>
+        {driveEmail ? (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={async () => {
+              await fetch("/api/admin/google-drive/disconnect", {
+                method: "POST",
+              });
+              toast.success("Google Drive diputuskan.");
+              router.refresh();
+            }}
+          >
+            Putuskan koneksi
+          </Button>
+        ) : (
+          <Button asChild size="sm" variant="outline">
+            <Link href="/api/admin/google-drive/connect">
+              <Cloud className="size-4" />
+              Hubungkan Google Drive
+            </Link>
+          </Button>
+        )}
+      </div>
+
+      {/* Surat keluar terbaru */}
+      <div className="mt-6 overflow-hidden rounded-xl border shadow-sm">
+        <div className="flex items-center justify-between border-b bg-card px-4 py-3">
+          <div className="flex items-baseline gap-2">
+            <h2 className="text-base font-semibold">Surat keluar terbaru</h2>
+            <span className="text-sm tabular-nums text-muted-foreground">
+              {outgoingTotal}
+            </span>
+          </div>
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/admin/secretariat/outgoing-mail/list">
+              Kelola semua
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </Button>
+        </div>
+
+        {outgoingItems.length === 0 ? (
+          <div className="flex flex-col items-center gap-2 px-6 py-12 text-center">
+            <PenLine className="size-8 text-muted-foreground/50" />
+            <p className="text-sm font-medium">Belum ada surat keluar</p>
+            <p className="max-w-xs text-xs text-muted-foreground">
+              Mulai dari Tulis surat keluar di atas — draft dan pengajuan akan
+              muncul di sini.
+            </p>
+          </div>
+        ) : (
+          <ul className="divide-y bg-card">
+            {outgoingItems.map((item) => {
+              const status = statusConfig[item.status] ?? {
+                label: item.status,
+                variant: "outline" as const,
+              };
+              const actions = nextActions(item);
+              return (
+                <li
+                  key={item.id}
+                  className="flex flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between"
+                >
+                  <div className="flex min-w-0 items-center gap-3">
+                    {item.fullNumber ? (
+                      <LetterPlate fullNumber={item.fullNumber} size="sm" />
+                    ) : (
+                      <span className="rounded-lg border border-dashed px-2.5 py-1 text-sm font-medium tabular-nums text-muted-foreground">
+                        — / — / — / — / —
+                      </span>
+                    )}
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">
+                        {item.subject}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">
+                        {item.recipient ?? "Tanpa penerima"} ·{" "}
+                        {formatDate(item.mailDate)}
                       </p>
                     </div>
-                    <div className="hidden shrink-0 flex-col items-end gap-0.5 sm:flex">
-                      <span className="font-mono text-[11px] text-muted-foreground">
-                        Kode: {letter.verificationCode}
-                      </span>
-                      <a
-                        href={`/verifikasi/surat/${letter.verificationCode}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[11px] font-medium text-primary hover:underline"
-                      >
-                        Lihat hasil
-                      </a>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="shrink-0 text-destructive hover:text-destructive"
-                      onClick={() => deleteVerifiedLetter(letter.id)}
-                      title="Hapus surat"
+                  </div>
+
+                  <div className="flex shrink-0 items-center gap-1.5">
+                    <Badge
+                      variant={status.variant}
+                      className="h-5 px-2 text-[11px]"
                     >
-                      <Trash2 className="size-3.5" />
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            )}
+                      {status.label}
+                    </Badge>
+
+                    {item.status === "SIGNED" &&
+                      item.verificationCode &&
+                      item.qrFileId && (
+                        <Button asChild variant="ghost" size="icon-sm" title="Lihat QR">
+                          <Link
+                            href={`/api/media/${item.qrFileId}?mime=image/png`}
+                            target="_blank"
+                          >
+                            <QrCode className="size-3.5" />
+                          </Link>
+                        </Button>
+                      )}
+
+                    {actions.map((action) => {
+                      const needsConfirm = confirmFor(action.status) !== null;
+                      return (
+                        <Button
+                          key={action.status}
+                          variant={
+                            action.status === "APPROVED"
+                              ? "default"
+                              : action.status === "REJECTED"
+                                ? "destructive"
+                                : "outline"
+                          }
+                          size="sm"
+                          disabled={isPending(item.id, action.status)}
+                          onClick={() =>
+                            runTransition(
+                              item.id,
+                              action.status,
+                              needsConfirm
+                                ? (confirmFor(action.status) as {
+                                    title: string;
+                                    description: string;
+                                  })
+                                : undefined,
+                            )
+                          }
+                        >
+                          {isPending(item.id, action.status) ? (
+                            <Loader2 className="size-3.5 animate-spin" />
+                          ) : (
+                            <action.icon className="size-3.5" />
+                          )}
+                          {action.label}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+
+      {/* Surat masuk terbaru */}
+      <div className="mt-6 overflow-hidden rounded-xl border shadow-sm">
+        <div className="flex items-center justify-between border-b bg-card px-4 py-3">
+          <div className="flex items-baseline gap-2">
+            <h2 className="text-base font-semibold">Surat masuk terbaru</h2>
+            <span className="text-sm tabular-nums text-muted-foreground">
+              {incomingTotal}
+            </span>
           </div>
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/admin/secretariat/incoming-mail/list">
+              Kelola semua
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </Button>
         </div>
-      </div>
 
-      {/* Surat Keluar */}
-      <SectionHeading
-        id="keluar"
-        index="02"
-        title="Surat Keluar"
-        count={outgoingTotal}
-      >
-        <Button asChild size="sm" variant="outline">
-          <Link href="/admin/secretariat/outgoing-mail/new">
-            <FileText className="size-3.5" />
-            Buat di alur lama
-          </Link>
-        </Button>
-      </SectionHeading>
-
-      <div className="mt-4 overflow-hidden rounded-xl border shadow-sm">
-        {outgoingItems.length === 0 ? (
-          <p className="px-4 py-8 text-center text-sm text-muted-foreground">
-            Belum ada surat keluar.
-          </p>
-        ) : (
-          <ul className="divide-y">
-            {outgoingItems.map((item) => {
-              const s = statusLabels[item.status] ?? {
-                label: item.status,
-                variant: "outline",
-              };
-              return (
-                <li key={item.id}>
-                  <Row
-                    left={{
-                      line1: item.subject,
-                      line2: `${item.registrationNumber} · ${item.recipient} · ${formatDate(item.mailDate)}`,
-                      mono: true,
-                    }}
-                    right={
-                      <div className="flex shrink-0 items-center gap-2">
-                        <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
-                          {s.label}
-                        </Badge>
-                        <Button asChild variant="ghost" size="sm">
-                          <Link href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}>
-                            Edit
-                          </Link>
-                        </Button>
-                      </div>
-                    }
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-
-      {/* Surat Masuk */}
-      <SectionHeading
-        id="masuk"
-        index="03"
-        title="Surat Masuk"
-        count={incomingTotal}
-      >
-        <Button asChild size="sm" variant="outline">
-          <Link href="/admin/secretariat/incoming-mail/new">
-            <FileText className="size-3.5" />
-            Agenda surat masuk
-          </Link>
-        </Button>
-      </SectionHeading>
-
-      <div className="mt-4 overflow-hidden rounded-xl border shadow-sm">
         {incomingItems.length === 0 ? (
-          <p className="px-4 py-8 text-center text-sm text-muted-foreground">
-            Belum ada surat masuk.
-          </p>
+          <div className="flex flex-col items-center gap-2 px-6 py-12 text-center">
+            <Inbox className="size-8 text-muted-foreground/50" />
+            <p className="text-sm font-medium">Belum ada surat masuk</p>
+            <p className="max-w-xs text-xs text-muted-foreground">
+              Surat masuk dicatat dengan nomor asli pengirim lalu langsung
+              diarsipkan.
+            </p>
+          </div>
         ) : (
-          <ul className="divide-y">
+          <ul className="divide-y bg-card">
             {incomingItems.map((item) => {
-              const s = statusLabels[item.status] ?? {
+              const status = incomingStatusConfig[item.status] ?? {
                 label: item.status,
-                variant: "outline",
+                variant: "outline" as const,
               };
               return (
-                <li key={item.id}>
-                  <Row
-                    left={{
-                      line1: item.subject,
-                      line2: `${item.registrationNumber} · ${item.sender} · ${formatDate(item.receivedDate)}`,
-                      mono: true,
-                    }}
-                    right={
-                      <div className="flex shrink-0 items-center gap-2">
-                        <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
-                          {s.label}
-                        </Badge>
-                        <Button asChild variant="ghost" size="sm">
-                          <Link href={`/admin/secretariat/incoming-mail/${item.id}/edit`}>
-                            Edit
-                          </Link>
-                        </Button>
-                      </div>
-                    }
-                  />
+                <li
+                  key={item.id}
+                  className="flex items-center justify-between gap-3 px-4 py-3"
+                >
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="shrink-0 rounded-md bg-muted px-2 py-1">
+                      <p className="font-mono text-[11px] tabular-nums text-muted-foreground">
+                        {item.registrationNumber}
+                      </p>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">
+                        {item.subject}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">
+                        {item.sender} · {formatDate(item.receivedDate)}
+                      </p>
+                    </div>
+                  </div>
+                  <Badge
+                    variant={status.variant}
+                    className="h-5 shrink-0 px-2 text-[11px]"
+                  >
+                    {status.label}
+                  </Badge>
                 </li>
               );
             })}
@@ -545,47 +606,15 @@ export function SuratMenyuratClient({
         )}
       </div>
 
-      {/* Arsip */}
-      <SectionHeading
-        id="arsip"
-        index="04"
-        title="Arsip"
-        count={archivesTotal}
-      >
-        <Button asChild size="sm" variant="outline">
-          <Link href="/admin/secretariat/archive">
-            <Archive className="size-3.5" />
-            Kelola arsip
-          </Link>
-        </Button>
-      </SectionHeading>
-
-      <div className="mt-4 overflow-hidden rounded-xl border shadow-sm">
-        {archives.length === 0 ? (
-          <p className="px-4 py-8 text-center text-sm text-muted-foreground">
-            Belum ada arsip.
-          </p>
-        ) : (
-          <ul className="divide-y">
-            {archives.map((item) => (
-              <li key={item.id}>
-                <Row
-                  left={{
-                    line1: item.title,
-                    line2: `${item.archiveNumber} · ${item.documentType} · ${formatDate(item.archivedAt)}`,
-                    mono: true,
-                  }}
-                  right={
-                    <span className="shrink-0 font-mono text-[11px] text-muted-foreground">
-                      {item.category ?? "—"}
-                    </span>
-                  }
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <ConfirmDialog
+        open={confirm !== null}
+        onOpenChange={(open) => {
+          if (!open) setConfirm(null);
+        }}
+        onConfirm={() => confirm?.onConfirm()}
+        title={confirm?.title ?? ""}
+        description={confirm?.description ?? ""}
+      />
     </PageContainer>
   );
 }

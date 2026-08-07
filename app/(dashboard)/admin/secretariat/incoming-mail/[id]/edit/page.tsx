@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Archive, CheckCircle, Pencil, Send } from "lucide-react";
+import { Pencil } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,14 +10,10 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
 
 import { getIncomingMailById } from "@/modules/secretariat/queries/secretariat.query";
-import {
-  updateIncomingMail,
-  transitionIncomingMailStatus,
-} from "@/modules/secretariat/presentation/secretariat.action";
+import { updateIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
 
 const statusLabels: Record<string, string> = {
   RECEIVED: "Diterima",
-  PROCESSED: "Diproses",
   ARCHIVED: "Diarsipkan",
 };
 
@@ -36,54 +32,12 @@ export default async function EditIncomingMailPage({
 
   if (!mail) notFound();
 
-  const statusActions: {
-    label: string;
-    status: string;
-    icon: typeof Send;
-    variant: "default" | "secondary" | "destructive" | "outline";
-  }[] = [];
-  if (mail.status === "RECEIVED")
-    statusActions.push({
-      label: "Proses",
-      status: "PROCESSED",
-      icon: CheckCircle,
-      variant: "default",
-    });
-  if (mail.status === "PROCESSED")
-    statusActions.push({
-      label: "Arsipkan",
-      status: "ARCHIVED",
-      icon: Archive,
-      variant: "outline",
-    });
-
   return (
     <PageContainer>
       <PageHeader
         title={`Surat Masuk - ${mail.registrationNumber}`}
         description={`Pengirim: ${mail.sender} · Status: ${statusLabels[mail.status] ?? mail.status}`}
       />
-
-      <div className="flex flex-wrap gap-2">
-        {statusActions.map((action) => {
-          const Icon = action.icon;
-          return (
-            <form
-              key={action.status}
-              action={transitionIncomingMailStatus.bind(
-                null,
-                mail.id,
-                action.status,
-              )}
-            >
-              <Button type="submit" variant={action.variant} size="sm">
-                <Icon className="size-3.5" />
-                {action.label}
-              </Button>
-            </form>
-          );
-        })}
-      </div>
 
       <form
         action={updateIncomingMail.bind(null, mail.id)}
@@ -92,12 +46,15 @@ export default async function EditIncomingMailPage({
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Surat Masuk</h2>
+            <p className="text-xs text-muted-foreground">
+              Surat masuk otomatis diarsipkan saat disimpan.
+            </p>
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="registrationNumber" className="text-xs">
-                Nomor Registrasi
+                Nomor Surat Pengirim
               </Label>
               <Input
                 id="registrationNumber"

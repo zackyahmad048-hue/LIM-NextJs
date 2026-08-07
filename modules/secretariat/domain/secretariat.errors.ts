@@ -46,3 +46,17 @@ export class ArchiveNotFoundError extends SecretariatError {
     this.name = "ArchiveNotFoundError";
   }
 }
+
+export class ForbiddenActionError extends SecretariatError {
+  constructor(message: string) {
+    super(message);
+    this.name = "ForbiddenActionError";
+  }
+}
+
+export class MissingLetterNumberError extends SecretariatError {
+  constructor() {
+    super("Surat belum memiliki nomor resmi. Setujui surat terlebih dahulu.");
+    this.name = "MissingLetterNumberError";
+  }
+}

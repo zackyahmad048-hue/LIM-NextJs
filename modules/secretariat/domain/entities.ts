@@ -21,6 +21,7 @@ export interface IncomingMailEntity {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
+  archivedAt: Date | null;
 }
 
 export interface OutgoingMailEntity {
@@ -31,11 +32,25 @@ export interface OutgoingMailEntity {
   senderName: string | null;
   mailDate: Date;
   status: OutgoingMailStatus;
-  documentNumber: string | null;
-  documentType: DocumentType | null;
+  categoryCode: string | null;
   content: string | null;
+  submittedById: string | null;
+  submittedAt: Date | null;
+  reviewedById: string | null;
+  reviewedAt: Date | null;
   approvedById: string | null;
   approvedAt: Date | null;
+  signedById: string | null;
+  signedAt: Date | null;
+  sentAt: Date | null;
+  archivedAt: Date | null;
+  sequence: number | null;
+  levelCode: string | null;
+  romanMonth: string | null;
+  periodYear: number | null;
+  fullNumber: string | null;
+  verificationCode: string | null;
+  qrFileId: string | null;
   attachmentUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
@@ -68,6 +83,7 @@ export interface AdministrativeDocumentEntity {
   submittedAt: Date | null;
   approvedById: string | null;
   approvedAt: Date | null;
+  archivedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

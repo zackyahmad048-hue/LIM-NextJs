@@ -23,22 +23,25 @@ export default function NewIncomingMailPage() {
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Surat Masuk</h2>
             <p className="text-xs text-muted-foreground">
-              Data utama surat masuk.
+              Surat masuk otomatis diarsipkan saat disimpan.
             </p>
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="registrationNumber" className="text-xs">
-                Nomor Registrasi
+                Nomor Surat Pengirim
               </Label>
               <Input
                 id="registrationNumber"
                 name="registrationNumber"
                 required
-                placeholder="SM-2027-001"
+                placeholder="Contoh: 12/B/UM/2026"
                 className="rounded-md text-xs"
               />
+              <p className="text-[11px] text-muted-foreground">
+                Nomor sesuai lembar asli yang dikirim pihak luar.
+              </p>
             </div>
 
             <div className="space-y-1.5">

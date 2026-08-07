@@ -26,7 +26,6 @@ const statusLabels: Record<
   }
 > = {
   RECEIVED: { label: "Diterima", variant: "default" },
-  PROCESSED: { label: "Diproses", variant: "secondary" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
 
@@ -63,9 +62,9 @@ export default async function IncomingMailListPage({
         columns={[
           {
             key: "registrationNumber",
-            label: "No. Agenda",
+            label: "No. Surat Pengirim",
             render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">
+              <span className="text-xs text-muted-foreground">
                 {item.registrationNumber}
               </span>
             ),
@@ -74,7 +73,7 @@ export default async function IncomingMailListPage({
             key: "sender",
             label: "Pengirim",
             render: (item) => (
-              <div className="max-w-[200px]">
+              <div className="max-w-50">
                 <p className="truncate text-sm font-medium">{item.sender}</p>
                 {item.senderAddress && (
                   <p className="truncate text-xs text-muted-foreground">

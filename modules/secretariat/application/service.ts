@@ -6,18 +6,22 @@ import type {
 } from "@/generated/client";
 import type { SecretariatRepository } from "../domain/repository";
 import { secretariatRepository as repo } from "../infrastructure/repository";
+import { assignLetterNumber } from "./letter-number.service";
+import { signOutgoingMail } from "./signing.service";
+import { archiveOutgoingMailFile } from "./drive-archive.service";
 import {
   EntityNotFoundError,
   DuplicateNumberError,
   InvalidStatusTransitionError,
+  ForbiddenActionError,
 } from "../domain/secretariat.errors";
 
 const VALID_INCOMING_MAIL_TRANSITIONS: Record<
   IncomingMailStatus,
   IncomingMailStatus[]
 > = {
-  RECEIVED: ["PROCESSED"],
-  PROCESSED: ["ARCHIVED"],
+  RECEIVED: [],
+  PROCESSED: [],
   ARCHIVED: [],
 };
 
@@ -25,8 +29,12 @@ const VALID_OUTGOING_MAIL_TRANSITIONS: Record<
   OutgoingMailStatus,
   OutgoingMailStatus[]
 > = {
-  DRAFT: ["APPROVED"],
-  APPROVED: ["SENT"],
+  DRAFT: ["SUBMITTED"],
+  SUBMITTED: ["REVIEWED"],
+  REVIEWED: ["APPROVED", "REJECTED"],
+  APPROVED: ["SIGNED"],
+  REJECTED: ["DRAFT"],
+  SIGNED: ["SENT"],
   SENT: ["ARCHIVED"],
   ARCHIVED: [],
 };
@@ -92,7 +100,10 @@ export const secretariatService = {
       data.registrationNumber,
     );
     if (existing) throw new DuplicateNumberError(data.registrationNumber);
-    return repo.createIncomingMail({ ...data, status: "RECEIVED" });
+    return repo.createIncomingMail({
+      ...data,
+      status: "ARCHIVED",
+    });
   },
 
   async updateIncomingMail(
@@ -152,6 +163,20 @@ export const secretariatService = {
     });
   },
 
+  async listArchivedOutgoingMails(params: { search?: string; limit?: number }) {
+    return repo.findArchivedOutgoingMails({
+      search: params.search,
+      limit: params.limit,
+    });
+  },
+
+  async listArchivedIncomingMails(params: { search?: string; limit?: number }) {
+    return repo.findArchivedIncomingMails({
+      search: params.search,
+      limit: params.limit,
+    });
+  },
+
   async getOutgoingMailById(id: string) {
     const mail = await repo.findOutgoingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Keluar", id);
@@ -161,18 +186,54 @@ export const secretariatService = {
   async createOutgoingMail(
     data: Omit<
       Parameters<SecretariatRepository["createOutgoingMail"]>[0],
-      "status" | "approvedById" | "approvedAt"
-    >,
+      | "status"
+      | "approvedById"
+      | "approvedAt"
+      | "registrationNumber"
+      | "submittedById"
+      | "submittedAt"
+      | "reviewedById"
+      | "reviewedAt"
+      | "signedById"
+      | "signedAt"
+      | "sentAt"
+      | "archivedAt"
+      | "sequence"
+      | "levelCode"
+      | "categoryCode"
+      | "romanMonth"
+      | "periodYear"
+      | "fullNumber"
+      | "verificationCode"
+      | "qrFileId"
+    > & { levelCode: string; categoryCode: string },
   ) {
-    const existing = await repo.findOutgoingMailByNumber(
-      data.registrationNumber,
-    );
-    if (existing) throw new DuplicateNumberError(data.registrationNumber);
+    const registrationNumber = `DRAFT-${Date.now()}-${Math.random()
+      .toString(36)
+      .slice(2, 6)
+      .toUpperCase()}`;
     return repo.createOutgoingMail({
       ...data,
+      registrationNumber,
+      levelCode: data.levelCode,
+      categoryCode: data.categoryCode,
       status: "DRAFT",
       approvedById: null,
       approvedAt: null,
+      submittedById: null,
+      submittedAt: null,
+      reviewedById: null,
+      reviewedAt: null,
+      signedById: null,
+      signedAt: null,
+      sentAt: null,
+      archivedAt: null,
+      sequence: null,
+      romanMonth: null,
+      periodYear: null,
+      fullNumber: null,
+      verificationCode: null,
+      qrFileId: null,
     });
   },
 
@@ -205,6 +266,7 @@ export const secretariatService = {
   async transitionOutgoingMailStatus(
     id: string,
     newStatus: OutgoingMailStatus,
+    actor: { userId: string; roleSlugs: string[] },
   ) {
     const mail = await repo.findOutgoingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Keluar", id);
@@ -215,12 +277,55 @@ export const secretariatService = {
       throw new InvalidStatusTransitionError(mail.status, newStatus);
     }
 
-    const updateData: Record<string, unknown> = { status: newStatus };
-    if (newStatus === "APPROVED") {
-      updateData.approvedAt = new Date();
+    const isApprovalAction =
+      newStatus === "APPROVED" || newStatus === "REJECTED";
+    const isAdministrator =
+      actor.roleSlugs.includes("administrator") ||
+      actor.roleSlugs.includes("super-admin");
+    if (isApprovalAction && !isAdministrator) {
+      throw new ForbiddenActionError(
+        "Hanya Administrator yang dapat menyetujui atau menolak surat.",
+      );
     }
 
-    return repo.updateOutgoingMail(id, updateData);
+    const updateData: Record<string, unknown> = { status: newStatus };
+
+    if (newStatus === "SUBMITTED") {
+      updateData.submittedAt = new Date();
+      updateData.submittedById = actor.userId;
+    } else if (newStatus === "REVIEWED") {
+      updateData.reviewedAt = new Date();
+      updateData.reviewedById = actor.userId;
+    } else if (newStatus === "APPROVED") {
+      await assignLetterNumber(id, {
+        levelCode: mail.levelCode ?? "PP",
+        categoryCode: mail.categoryCode ?? "A",
+        mailDate: mail.mailDate,
+      });
+      updateData.approvedAt = new Date();
+      updateData.approvedById = actor.userId;
+    } else if (newStatus === "REJECTED") {
+      updateData.approvedAt = null;
+      updateData.approvedById = null;
+    } else if (newStatus === "SIGNED") {
+      const signed = await signOutgoingMail(mail);
+      updateData.verificationCode = signed.verificationCode;
+      updateData.qrFileId = signed.qrFileId;
+      updateData.signedAt = new Date();
+      updateData.signedById = actor.userId;
+    } else if (newStatus === "SENT") {
+      updateData.sentAt = new Date();
+    } else if (newStatus === "ARCHIVED") {
+      updateData.archivedAt = new Date();
+    }
+
+    const updated = await repo.updateOutgoingMail(id, updateData);
+
+    if (newStatus === "ARCHIVED") {
+      await archiveOutgoingMailFile(mail).catch(() => undefined);
+    }
+
+    return updated;
   },
 
   // Disposition
@@ -378,12 +483,17 @@ export const secretariatService = {
       updateData.submittedAt = new Date();
     } else if (newStatus === "APPROVED") {
       updateData.approvedAt = new Date();
+    } else if (newStatus === "ARCHIVED") {
+      updateData.archivedAt = new Date();
+    } else if (newStatus === "REJECTED" || newStatus === "DRAFT") {
+      updateData.approvedAt = null;
+      updateData.approvedById = null;
     }
 
     return repo.updateAdministrativeDocument(id, updateData);
   },
 
-  // Agenda Book (read-only)
+  // Agenda Book
   async listAgendaBooks(params: {
     search?: string;
     page?: number;
@@ -400,6 +510,53 @@ export const secretariatService = {
     const agenda = await repo.findAgendaBookById(id);
     if (!agenda) throw new EntityNotFoundError("Buku Agenda", id);
     return agenda;
+  },
+
+  async createAgendaBook(
+    data: Parameters<SecretariatRepository["createAgendaBook"]>[0],
+  ) {
+    return repo.createAgendaBook({ ...data, date: new Date(data.date) });
+  },
+
+  async updateAgendaBook(
+    id: string,
+    data: Parameters<SecretariatRepository["updateAgendaBook"]>[1],
+  ) {
+    const agenda = await repo.findAgendaBookById(id);
+    if (!agenda) throw new EntityNotFoundError("Buku Agenda", id);
+    const payload: Record<string, unknown> = { ...data };
+    if (payload.date) payload.date = new Date(payload.date as string);
+    return repo.updateAgendaBook(id, payload as any);
+  },
+
+  async deleteAgendaBook(id: string) {
+    const agenda = await repo.findAgendaBookById(id);
+    if (!agenda) throw new EntityNotFoundError("Buku Agenda", id);
+    await repo.softDeleteAgendaBook(id);
+  },
+
+  async listAgendasInRange(params: { from: Date; to: Date }) {
+    return repo.findAgendasInRange(params);
+  },
+
+  async listRecentOutgoingMails(limit: number) {
+    return repo.findRecentOutgoingMails(limit);
+  },
+
+  async listRecentIncomingMails(limit: number) {
+    return repo.findRecentIncomingMails(limit);
+  },
+
+  async listUpcomingAgendas(params: { from: Date; limit: number }) {
+    return repo.findUpcomingAgendas(params);
+  },
+
+  async countIncomingMailsByMonth(year: number) {
+    return repo.countIncomingMailsByMonth(year);
+  },
+
+  async countOutgoingMailsByMonth(year: number) {
+    return repo.countOutgoingMailsByMonth(year);
   },
 
   // Document Archive (read-only)

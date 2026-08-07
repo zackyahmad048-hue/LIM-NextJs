@@ -1,34 +1,54 @@
 import Link from "next/link";
-import { BadgeCheck, ShieldAlert, ScanLine, CalendarDays, Stamp } from "lucide-react";
-
-import { getLetterTypeLabel } from "@/config/letter-types";
 import {
-  isImageMime,
-  isPdfMime,
-} from "@/modules/secretariat/application/verified-letter.service";
-import { getVerifiedLetterByCode } from "@/modules/secretariat/queries/secretariat.query";
+  BadgeCheck,
+  ShieldAlert,
+  CalendarDays,
+  Stamp,
+  FileSearch,
+} from "lucide-react";
+
+import { LETTER_TYPES } from "@/config/letter-types";
+import { getOutgoingMailByVerificationCode } from "@/modules/secretariat/queries/secretariat.query";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
+import { LetterPlate } from "@/components/admin/shared/letter-plate";
 
 interface VerifyLetterPageProps {
   params: Promise<{ kode: string }>;
 }
 
+const statusLabels: Record<string, string> = {
+  DRAFT: "Draft",
+  SUBMITTED: "Diajukan",
+  REVIEWED: "Direview",
+  APPROVED: "Disetujui",
+  REJECTED: "Ditolak",
+  SIGNED: "Ditandatangani",
+  SENT: "Terkirim",
+  ARCHIVED: "Diarsipkan",
+};
+
 export default async function VerifyLetterPage({
   params,
 }: VerifyLetterPageProps) {
   const { kode } = await params;
-  const letter = await getVerifiedLetterByCode(kode);
+  const letter = await getOutgoingMailByVerificationCode(kode);
 
-  const processedUrl = letter?.processedPdfUrl ?? null;
-  const isPdfPreview = letter !== null && isPdfMime(letter.mimeType);
-  const isImagePreview =
-    letter !== null && isImageMime(letter.mimeType) && !isPdfPreview;
-
-  const formatDate = (date: Date | string) =>
-    new Intl.DateTimeFormat("id-ID", {
+  const formatDate = (date: Date | string | null) => {
+    if (!date) return "—";
+    return new Intl.DateTimeFormat("id-ID", {
       day: "2-digit",
       month: "long",
       year: "numeric",
     }).format(new Date(date));
+  };
+
+  const category = LETTER_TYPES.find(
+    (type) => type.key === letter?.categoryCode,
+  );
+  const attachmentFileId = letter?.attachmentUrl
+    ? extractFileIdFromMediaUrl(letter.attachmentUrl)
+    : null;
+  const hasPreview = letter !== null && attachmentFileId !== null;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
@@ -46,33 +66,71 @@ export default async function VerifyLetterPage({
 
       {letter ? (
         <div className="mt-8 overflow-hidden rounded-2xl border bg-card shadow-sm">
-          <div className="flex items-center justify-between border-b bg-emerald-50 px-6 py-4 dark:bg-emerald-950/30">
+          <div
+            className={`flex items-center justify-between border-b px-6 py-4 ${
+              letter.status === "REJECTED"
+                ? "border-destructive/20 bg-destructive/5"
+                : "border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/30"
+            }`}
+          >
             <div className="flex items-center gap-2">
-              <BadgeCheck className="size-5 text-emerald-600" />
-              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
-                Surat Sah
+              {letter.status === "REJECTED" ? (
+                <ShieldAlert className="size-5 text-destructive" />
+              ) : (
+                <BadgeCheck className="size-5 text-emerald-600 dark:text-emerald-400" />
+              )}
+              <span
+                className={`text-sm font-semibold ${
+                  letter.status === "REJECTED"
+                    ? "text-destructive"
+                    : "text-emerald-700 dark:text-emerald-400"
+                }`}
+              >
+                {letter.status === "REJECTED"
+                  ? "Surat Tidak Sah"
+                  : "Surat Sah"}
               </span>
             </div>
-            <span className="font-mono text-xs text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               {letter.verificationCode}
             </span>
           </div>
 
+          {letter.fullNumber && (
+            <div className="border-b px-6 py-5">
+              <div className="flex flex-col items-center gap-3">
+                <LetterPlate fullNumber={letter.fullNumber} />
+                <p className="text-xs text-muted-foreground">
+                  Nomor terdaftar di sistem penomoran LIM
+                </p>
+              </div>
+            </div>
+          )}
+
           <dl className="divide-y">
             {[
-              ["Jenis Surat", getLetterTypeLabel(letter.letterType)],
-              ["Nomor Surat", letter.registrationNumber],
+              [
+                "Jenis Surat",
+                category
+                  ? `${category.key} — ${category.label}`
+                  : letter.categoryCode ?? "—",
+              ],
               ["Perihal", letter.subject],
-              ["Tanggal Surat", formatDate(letter.date)],
-              ["Penerbit", letter.issuer ?? "—"],
-              ["Diterbitkan", formatDate(letter.verifiedAt)],
+              ["Tanggal Surat", formatDate(letter.mailDate)],
+              ["Penerima", letter.recipient ?? "—"],
+              ["Penanda Tangan", letter.senderName ?? "—"],
+              ["Status Terkini", statusLabels[letter.status] ?? letter.status],
+              [
+                "Ditandatangani",
+                formatDate(letter.signedAt ?? letter.approvedAt),
+              ],
             ].map(([label, value]) => (
               <div
                 key={label}
-                className="grid grid-cols-[140px_1fr] gap-4 px-6 py-3"
+                className="grid grid-cols-[150px_1fr] gap-4 px-6 py-3"
               >
                 <dt className="text-sm text-muted-foreground">{label}</dt>
-                <dd className="min-w-0 break-words text-sm font-medium">
+                <dd className="min-w-0 wrap-break-words text-sm font-medium">
                   {value}
                 </dd>
               </div>
@@ -80,11 +138,10 @@ export default async function VerifyLetterPage({
           </dl>
 
           <div className="flex items-center gap-3 border-t bg-muted/40 px-6 py-4">
-            <ScanLine className="size-4 shrink-0 text-muted-foreground" />
+            <Stamp className="size-4 shrink-0 text-muted-foreground" />
             <p className="text-xs leading-relaxed text-muted-foreground">
-              Dokumen di bawah ini adalah hasil cetak resmi yang diberi tanda
-              QR. Harap bandingkan QR pada lembar cetak dengan pemindaian
-              halaman ini.
+              Lembar ini adalah pengesahan digital dari sekretariat LIM.
+              Bandingkan QR pada lembar cetak surat Anda dengan kode di atas.
             </p>
           </div>
         </div>
@@ -97,40 +154,34 @@ export default async function VerifyLetterPage({
                 Surat Tidak Ditemukan
               </span>
             </div>
-            <span className="font-mono text-xs text-muted-foreground">{kode}</span>
+            <span className="font-mono text-xs text-muted-foreground">
+              {kode}
+            </span>
           </div>
           <div className="px-6 py-6">
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Kode verifikasi <span className="font-mono">{kode}</span> tidak
-              ditemukan pada sistem kami. Kemungkinan kode salah ketik, surat
-              telah dihapus, atau dokumen tersebut memang tidak diterbitkan
+              Kode verifikasi{" "}
+              <span className="font-mono">{kode}</span> tidak ditemukan pada
+              sistem kami. Kemungkinan kode salah ketik, surat belum
+              ditandatangani, atau dokumen tersebut memang tidak diterbitkan
               melalui platform ini. Hubungi sekretariat untuk klarifikasi.
             </p>
           </div>
         </div>
       )}
 
-      {letter && (isPdfPreview || isImagePreview) && (
+      {hasPreview && (
         <div className="mt-8">
           <div className="flex items-center gap-2">
-            <Stamp className="size-4 text-muted-foreground" />
-            <h2 className="text-sm font-semibold">Pratinjau Dokumen</h2>
+            <FileSearch className="size-4 text-muted-foreground" />
+            <h2 className="text-sm font-semibold">Dokumen Asli</h2>
           </div>
           <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
-            {isPdfPreview ? (
-              <iframe
-                src={`${processedUrl}#toolbar=0&navpanes=0&scrollbar=0`}
-                title={`Pratinjau ${letter.registrationNumber}`}
-                className="pointer-events-none h-full w-full select-none"
-              />
-            ) : (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={processedUrl!}
-                alt={`Pratinjau ${letter.registrationNumber}`}
-                className="h-full w-full select-none object-contain"
-              />
-            )}
+            <iframe
+              src={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}/file`}
+              title={`Dokumen ${letter?.fullNumber ?? letter?.subject}`}
+              className="h-full w-full"
+            />
             <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
               <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase tracking-[0.3em] text-foreground/15 select-none">
                 Salinan Digital
@@ -138,7 +189,7 @@ export default async function VerifyLetterPage({
             </div>
           </div>
           <p className="mt-2 text-center text-[11px] text-muted-foreground">
-            Pratinjau ini bersifat read-only dan dilindungi tanda air untuk
+            Dokumen ini adalah salinan digital yang dibubuhi tanda air untuk
             mencegah penyalahgunaan.
           </p>
         </div>

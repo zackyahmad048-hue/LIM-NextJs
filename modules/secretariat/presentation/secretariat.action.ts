@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { secretariatService } from "../application/service";
-import type { DocumentType } from "@/generated/client";
 import {
   createIncomingMailSchema,
   updateIncomingMailSchema,
@@ -14,6 +13,8 @@ import {
   updateDispositionSchema,
   createAdministrativeDocumentSchema,
   updateAdministrativeDocumentSchema,
+  createAgendaBookSchema,
+  updateAgendaBookSchema,
 } from "../validations/schema";
 import {
   SecretariatError,
@@ -32,6 +33,9 @@ const PERMISSION_DISPOSITION_DELETE = ["secretariat.disposition.delete"];
 const PERMISSION_DOCUMENT_CREATE = ["secretariat.document.create"];
 const PERMISSION_DOCUMENT_UPDATE = ["secretariat.document.update"];
 const PERMISSION_DOCUMENT_DELETE = ["secretariat.document.delete"];
+const PERMISSION_AGENDA_CREATE = ["secretariat.agenda.create"];
+const PERMISSION_AGENDA_UPDATE = ["secretariat.agenda.update"];
+const PERMISSION_AGENDA_DELETE = ["secretariat.agenda.delete"];
 
 export async function createIncomingMail(formData: FormData) {
   const raw = Object.fromEntries(formData);
@@ -51,7 +55,7 @@ export async function createIncomingMail(formData: FormData) {
       notes: parsed.data.notes || null,
       attachmentUrl: parsed.data.attachmentUrl || null,
     });
-    revalidatePath("/admin/secretariat/incoming-mails");
+    revalidatePath("/admin/secretariat/surat-menyurat");
   } catch (e) {
     if (e instanceof DuplicateNumberError) return;
     return;
@@ -83,7 +87,7 @@ export async function updateIncomingMail(id: string, formData: FormData) {
       data.attachmentUrl = parsed.data.attachmentUrl || null;
 
     await secretariatService.updateIncomingMail(id, data);
-    revalidatePath("/admin/secretariat/incoming-mails");
+    revalidatePath("/admin/secretariat/surat-menyurat");
   } catch (e) {
     if (e instanceof SecretariatError) return;
     return;
@@ -94,7 +98,7 @@ export async function deleteIncomingMail(id: string) {
   try {
     await requireSessionWithPermissions(PERMISSION_INCOMING_DELETE);
     await secretariatService.deleteIncomingMail(id);
-    revalidatePath("/admin/secretariat/incoming-mails");
+    revalidatePath("/admin/secretariat/surat-menyurat");
   } catch {
     return;
   }
@@ -104,7 +108,7 @@ export async function transitionIncomingMailStatus(id: string, status: string) {
   try {
     await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
     await secretariatService.transitionIncomingMailStatus(id, status as any);
-    revalidatePath("/admin/secretariat/incoming-mails");
+    revalidatePath("/admin/secretariat/surat-menyurat");
   } catch {
     return;
   }
@@ -115,26 +119,35 @@ export async function createOutgoingMail(formData: FormData) {
   const parsed = createOutgoingMailSchema.safeParse(raw);
   if (!parsed.success) return;
 
+  const intent = String(raw.action ?? "draft");
+
   try {
-    await requireSessionWithPermissions(PERMISSION_OUTGOING_CREATE);
-    await secretariatService.createOutgoingMail({
-      registrationNumber: parsed.data.registrationNumber,
+    const auth = await requireSessionWithPermissions(PERMISSION_OUTGOING_CREATE);
+    const mail = await secretariatService.createOutgoingMail({
       recipient: parsed.data.recipient || null,
       subject: parsed.data.subject,
       senderName: parsed.data.senderName || null,
       mailDate: new Date(parsed.data.mailDate),
-      documentNumber: parsed.data.documentNumber || null,
-      documentType: (parsed.data.documentType || null) as DocumentType | null,
+      levelCode: parsed.data.levelCode,
+      categoryCode: parsed.data.categoryCode,
       content: parsed.data.content || null,
       attachmentUrl: parsed.data.attachmentUrl || null,
     });
+
+    if (intent === "submit") {
+      await secretariatService.transitionOutgoingMailStatus(mail.id, "SUBMITTED", {
+        userId: auth.user.id,
+        roleSlugs: auth.roleSlugs,
+      });
+    }
+
+    revalidatePath("/admin/secretariat/surat-menyurat");
     revalidatePath("/admin/secretariat/outgoing-mail/list");
   } catch (e) {
-    if (e instanceof DuplicateNumberError) return;
     console.error("[createOutgoingMail]", e);
     return;
   }
-  redirect("/admin/secretariat/outgoing-mail/list");
+  redirect("/admin/secretariat/surat-menyurat");
 }
 
 export async function updateOutgoingMail(id: string, formData: FormData) {
@@ -145,8 +158,6 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
   try {
     await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
     const data: Record<string, unknown> = {};
-    if (parsed.data.registrationNumber)
-      data.registrationNumber = parsed.data.registrationNumber;
     if (parsed.data.recipient) data.recipient = parsed.data.recipient;
     if (parsed.data.subject) data.subject = parsed.data.subject;
     if (parsed.data.content !== undefined)
@@ -154,16 +165,14 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
     if (parsed.data.senderName !== undefined)
       data.senderName = parsed.data.senderName || null;
     if (parsed.data.mailDate) data.mailDate = new Date(parsed.data.mailDate);
-    if (parsed.data.documentNumber !== undefined)
-      data.documentNumber = parsed.data.documentNumber || null;
-    if (parsed.data.documentType !== undefined)
-      data.documentType = (parsed.data.documentType ||
-        null) as DocumentType | null;
+    if (parsed.data.levelCode) data.levelCode = parsed.data.levelCode;
+    if (parsed.data.categoryCode) data.categoryCode = parsed.data.categoryCode;
     if (parsed.data.attachmentUrl !== undefined)
       data.attachmentUrl = parsed.data.attachmentUrl || null;
 
     await secretariatService.updateOutgoingMail(id, data);
     revalidatePath("/admin/secretariat/outgoing-mail/list");
+    revalidatePath("/admin/secretariat/surat-menyurat");
   } catch (e) {
     if (e instanceof SecretariatError) return;
     return;
@@ -182,11 +191,19 @@ export async function deleteOutgoingMail(id: string) {
 
 export async function transitionOutgoingMailStatus(id: string, status: string) {
   try {
-    await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
-    await secretariatService.transitionOutgoingMailStatus(id, status as any);
+    const auth = await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
+    await secretariatService.transitionOutgoingMailStatus(id, status as any, {
+      userId: auth.user.id,
+      roleSlugs: auth.roleSlugs,
+    });
     revalidatePath("/admin/secretariat/outgoing-mail/list");
-  } catch {
-    return;
+    revalidatePath("/admin/secretariat/surat-menyurat");
+    return { success: true };
+  } catch (e) {
+    if (e instanceof SecretariatError) {
+      return { success: false, message: e.message };
+    }
+    return { success: false, message: "Terjadi kesalahan." };
   }
 }
 
@@ -326,6 +343,63 @@ export async function transitionAdministrativeDocumentStatus(
       status as any,
     );
     revalidatePath("/admin/secretariat/administrative-documents");
+  } catch {
+    return;
+  }
+}
+
+export async function createAgendaBook(formData: FormData) {
+  const raw = Object.fromEntries(formData);
+  const parsed = createAgendaBookSchema.safeParse(raw);
+  if (!parsed.success) return;
+
+  try {
+    await requireSessionWithPermissions(PERMISSION_AGENDA_CREATE);
+    await secretariatService.createAgendaBook({
+      date: parsed.data.date,
+      title: parsed.data.title,
+      description: parsed.data.description || null,
+      location: parsed.data.location || null,
+      participants: parsed.data.participants || null,
+      notes: parsed.data.notes || null,
+    });
+    revalidatePath("/admin/secretariat/agenda");
+  } catch {
+    return;
+  }
+}
+
+export async function updateAgendaBook(id: string, formData: FormData) {
+  const raw = Object.fromEntries(formData);
+  const parsed = updateAgendaBookSchema.safeParse(raw);
+  if (!parsed.success) return;
+
+  try {
+    await requireSessionWithPermissions(PERMISSION_AGENDA_UPDATE);
+    const data: Record<string, unknown> = {};
+    if (parsed.data.date) data.date = parsed.data.date;
+    if (parsed.data.title) data.title = parsed.data.title;
+    if (parsed.data.description !== undefined)
+      data.description = parsed.data.description || null;
+    if (parsed.data.location !== undefined)
+      data.location = parsed.data.location || null;
+    if (parsed.data.participants !== undefined)
+      data.participants = parsed.data.participants || null;
+    if (parsed.data.notes !== undefined)
+      data.notes = parsed.data.notes || null;
+
+    await secretariatService.updateAgendaBook(id, data as any);
+    revalidatePath("/admin/secretariat/agenda");
+  } catch {
+    return;
+  }
+}
+
+export async function deleteAgendaBook(id: string) {
+  try {
+    await requireSessionWithPermissions(PERMISSION_AGENDA_DELETE);
+    await secretariatService.deleteAgendaBook(id);
+    revalidatePath("/admin/secretariat/agenda");
   } catch {
     return;
   }

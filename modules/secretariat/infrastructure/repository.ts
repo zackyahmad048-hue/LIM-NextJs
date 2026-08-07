@@ -49,7 +49,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async createIncomingMail(data) {
-    const item = await prisma.incomingMail.create({ data: data as any });
+    const item = await prisma.incomingMail.create({
+      data: {
+        ...data,
+        archivedAt: data.status === "ARCHIVED" ? new Date() : null,
+      } as any,
+    });
     return item as IncomingMailEntity;
   },
 
@@ -66,6 +71,26 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       where: { id },
       data: { deletedAt: new Date() },
     });
+  },
+
+  async findArchivedIncomingMails({ search, limit = 100 }) {
+    const where: Record<string, unknown> = {
+      status: "ARCHIVED",
+      deletedAt: null,
+    };
+    if (search)
+      where.OR = [
+        { subject: { contains: search } },
+        { registrationNumber: { contains: search } },
+        { sender: { contains: search } },
+      ];
+
+    const items = await prisma.incomingMail.findMany({
+      where: where as any,
+      orderBy: { archivedAt: "desc" },
+      take: limit,
+    });
+    return items as unknown as IncomingMailEntity[];
   },
 
   // Outgoing Mail
@@ -106,6 +131,13 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     return item as OutgoingMailEntity | null;
   },
 
+  async findOutgoingMailByVerificationCode(code) {
+    const item = await prisma.outgoingMail.findFirst({
+      where: { verificationCode: code, deletedAt: null },
+    });
+    return item as OutgoingMailEntity | null;
+  },
+
   async createOutgoingMail(data) {
     const item = await prisma.outgoingMail.create({ data: data as any });
     return item as OutgoingMailEntity;
@@ -124,6 +156,26 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       where: { id },
       data: { deletedAt: new Date() },
     });
+  },
+
+  async findArchivedOutgoingMails({ search, limit = 100 }) {
+    const where: Record<string, unknown> = {
+      status: "ARCHIVED",
+      deletedAt: null,
+    };
+    if (search)
+      where.OR = [
+        { subject: { contains: search } },
+        { fullNumber: { contains: search } },
+        { recipient: { contains: search } },
+      ];
+
+    const items = await prisma.outgoingMail.findMany({
+      where: where as any,
+      orderBy: { archivedAt: "desc" },
+      take: limit,
+    });
+    return items as unknown as OutgoingMailEntity[];
   },
 
   // Disposition
@@ -228,7 +280,10 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   async createAdministrativeDocument(data) {
     const item = await prisma.administrativeDocument.create({
-      data: data as any,
+      data: {
+        ...data,
+        archivedAt: data.status === "ARCHIVED" ? new Date() : null,
+      } as any,
     });
     return item as AdministrativeDocumentEntity;
   },
@@ -277,6 +332,34 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     return item as AgendaBookEntity | null;
   },
 
+  async createAgendaBook(data) {
+    const item = await prisma.agendaBook.create({ data: data as any });
+    return item as AgendaBookEntity;
+  },
+
+  async updateAgendaBook(id, data) {
+    const item = await prisma.agendaBook.update({
+      where: { id },
+      data: data as any,
+    });
+    return item as AgendaBookEntity;
+  },
+
+  async softDeleteAgendaBook(id) {
+    await prisma.agendaBook.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
+  },
+
+  async findAgendasInRange({ from, to }) {
+    const items = await prisma.agendaBook.findMany({
+      where: { deletedAt: null, date: { gte: from, lte: to } },
+      orderBy: { date: "asc" },
+    });
+    return items as unknown as AgendaBookEntity[];
+  },
+
   // Document Archive (read-only)
   async findManyDocumentArchives({ search, documentType, page, limit }) {
     const where: Record<string, unknown> = { deletedAt: null };
@@ -314,11 +397,13 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       totalOutgoingMails,
       pendingDispositions,
       totalAdministrativeDocuments,
+      totalAgenda,
     ] = await Promise.all([
       prisma.incomingMail.count({ where: { deletedAt: null } }),
       prisma.outgoingMail.count({ where: { deletedAt: null } }),
       prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
       prisma.administrativeDocument.count({ where: { deletedAt: null } }),
+      prisma.agendaBook.count({ where: { deletedAt: null } }),
     ]);
 
     return {
@@ -326,7 +411,35 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       totalOutgoingMails,
       pendingDispositions,
       totalAdministrativeDocuments,
+      totalAgenda,
     };
+  },
+
+  async findRecentOutgoingMails(limit) {
+    const items = await prisma.outgoingMail.findMany({
+      where: { deletedAt: null },
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+    return items as unknown as OutgoingMailEntity[];
+  },
+
+  async findRecentIncomingMails(limit) {
+    const items = await prisma.incomingMail.findMany({
+      where: { deletedAt: null },
+      orderBy: { createdAt: "desc" },
+      take: limit,
+    });
+    return items as unknown as IncomingMailEntity[];
+  },
+
+  async findUpcomingAgendas({ from, limit }) {
+    const items = await prisma.agendaBook.findMany({
+      where: { deletedAt: null, date: { gte: from } },
+      orderBy: { date: "asc" },
+      take: limit,
+    });
+    return items as unknown as AgendaBookEntity[];
   },
 
   async countIncomingMailsByStatus() {
@@ -346,12 +459,33 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async countOutgoingMailsByStatus() {
-    const [draft, approved, sent, archived] = await Promise.all([
+    const [
+      draft,
+      submitted,
+      reviewed,
+      approved,
+      rejected,
+      signed,
+      sent,
+      archived,
+    ] = await Promise.all([
       prisma.outgoingMail.count({
         where: { status: "DRAFT", deletedAt: null },
       }),
       prisma.outgoingMail.count({
+        where: { status: "SUBMITTED", deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: { status: "REVIEWED", deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
         where: { status: "APPROVED", deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: { status: "REJECTED", deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: { status: "SIGNED", deletedAt: null },
       }),
       prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
       prisma.outgoingMail.count({
@@ -359,7 +493,72 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       }),
     ]);
 
-    return { draft, approved, sent, archived };
+    return {
+      draft,
+      submitted,
+      reviewed,
+      approved,
+      rejected,
+      signed,
+      sent,
+      archived,
+    };
+  },
+
+  async getSuratMenyuratStats() {
+    const [outgoingTotal, incomingTotal, archivedTotal, latestIssued] =
+      await Promise.all([
+        prisma.outgoingMail.count({ where: { deletedAt: null } }),
+        prisma.incomingMail.count({ where: { deletedAt: null } }),
+        prisma.outgoingMail.count({
+          where: { status: "ARCHIVED", deletedAt: null },
+        }),
+        prisma.outgoingMail.findFirst({
+          where: { fullNumber: { not: null }, deletedAt: null },
+          orderBy: { approvedAt: "desc" },
+        }),
+      ]);
+
+    const pendingCount = await prisma.outgoingMail.count({
+      where: {
+        status: { in: ["DRAFT", "SUBMITTED", "REVIEWED"] },
+        deletedAt: null,
+      },
+    });
+
+    return {
+      outgoingTotal,
+      incomingTotal,
+      archivedTotal,
+      pendingCount,
+      latestIssued: latestIssued as OutgoingMailEntity | null,
+    };
+  },
+
+  async countIncomingMailsByMonth(year) {
+    const rows = await prisma.$queryRaw<
+      Array<{ month: number; count: number }>
+    >`SELECT EXTRACT(MONTH FROM "receivedDate")::int AS month, COUNT(*)::int AS count
+       FROM incoming_mail
+       WHERE "receivedDate" >= ${new Date(`${year}-01-01`)}::date
+         AND "receivedDate" < ${new Date(`${year + 1}-01-01`)}::date
+         AND "deletedAt" IS NULL
+       GROUP BY 1
+       ORDER BY 1`;
+    return rows;
+  },
+
+  async countOutgoingMailsByMonth(year) {
+    const rows = await prisma.$queryRaw<
+      Array<{ month: number; count: number }>
+    >`SELECT EXTRACT(MONTH FROM "createdAt")::int AS month, COUNT(*)::int AS count
+       FROM outgoing_mail
+       WHERE "createdAt" >= ${new Date(`${year}-01-01`)}::date
+         AND "createdAt" < ${new Date(`${year + 1}-01-01`)}::date
+         AND "deletedAt" IS NULL
+       GROUP BY 1
+       ORDER BY 1`;
+    return rows;
   },
 };
 

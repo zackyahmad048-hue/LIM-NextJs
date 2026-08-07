@@ -4,24 +4,19 @@ import { Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { getOutgoingMailById } from "@/modules/secretariat/queries/secretariat.query";
+import { getLetterTypeLabel } from "@/config/letter-types";
+import { getLetterVerificationUrl } from "@/modules/secretariat/application/signing.service";
 import { SITE } from "@/config/site";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
+  SUBMITTED: "Diajukan",
+  REVIEWED: "Direview",
   APPROVED: "Disetujui",
+  REJECTED: "Ditolak",
+  SIGNED: "Ditandatangani",
   SENT: "Terkirim",
   ARCHIVED: "Diarsipkan",
-};
-
-const typeLabels: Record<string, string> = {
-  UNDANGAN: "Undangan",
-  PERMOHONAN: "Permohonan",
-  PEMBERITAHUAN: "Pemberitahuan",
-  INSTRUKSI: "Instruksi",
-  KETERANGAN: "Keterangan",
-  KEPUTUSAN: "Keputusan",
-  TERIMA_KASIH: "Terima Kasih",
-  LAINNYA: "Lain-lain",
 };
 
 export default async function CetakOutgoingMailPage({
@@ -34,15 +29,17 @@ export default async function CetakOutgoingMailPage({
 
   if (!mail) notFound();
 
-  const validationUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/verify/surat/${mail.id}`;
+  const officialNumber = mail.fullNumber ?? mail.registrationNumber;
+  const validationUrl = mail.fullNumber
+    ? getLetterVerificationUrl(mail.fullNumber)
+    : null;
 
   return (
     <div className="min-h-screen bg-neutral-100 print:bg-white">
       {/* Toolbar */}
       <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-6 py-3 print:hidden">
         <p className="text-sm text-muted-foreground">
-          {mail.registrationNumber} &middot;{" "}
-          {statusLabels[mail.status] ?? mail.status}
+          {officialNumber} &middot; {statusLabels[mail.status] ?? mail.status}
         </p>
         <div className="flex gap-2">
           <Button size="sm" onClick={() => window.print()}>
@@ -69,7 +66,7 @@ export default async function CetakOutgoingMailPage({
         <div className="mt-6 space-y-1 text-sm">
           <div className="flex">
             <span className="w-28 shrink-0 font-semibold">Nomor</span>
-            <span>: {mail.registrationNumber}</span>
+            <span>: {officialNumber}</span>
           </div>
           <div className="flex">
             <span className="w-28 shrink-0 font-semibold">Lampiran</span>
@@ -79,12 +76,16 @@ export default async function CetakOutgoingMailPage({
             <span className="w-28 shrink-0 font-semibold">Perihal</span>
             <span>: {mail.subject}</span>
           </div>
-          {mail.documentType && (
+          {mail.categoryCode && (
             <div className="flex">
               <span className="w-28 shrink-0 font-semibold">Jenis Surat</span>
-              <span>
-                : {typeLabels[mail.documentType] ?? mail.documentType}
-              </span>
+              <span>: {getLetterTypeLabel(mail.categoryCode)}</span>
+            </div>
+          )}
+          {mail.levelCode && (
+            <div className="flex">
+              <span className="w-28 shrink-0 font-semibold">Tingkat</span>
+              <span>: {mail.levelCode}</span>
             </div>
           )}
         </div>
@@ -95,19 +96,21 @@ export default async function CetakOutgoingMailPage({
         </div>
 
         {/* QR Code */}
-        <div className="mt-10 flex flex-col items-end border-t pt-4">
-          <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(validationUrl)}`}
-              alt="QR Code Validasi"
-              className="size-full"
-            />
+        {validationUrl && (
+          <div className="mt-10 flex flex-col items-end border-t pt-4">
+            <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(validationUrl)}`}
+                alt="QR Code Verifikasi"
+                className="size-full"
+              />
+            </div>
+            <p className="mt-1 text-[9px] text-muted-foreground">
+              Scan QR atau kunjungi halaman verifikasi dengan nomor surat
+            </p>
           </div>
-          <p className="mt-1 text-[9px] text-muted-foreground">
-            Scan untuk verifikasi
-          </p>
-        </div>
+        )}
       </div>
     </div>
   );

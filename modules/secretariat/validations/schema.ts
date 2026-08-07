@@ -8,7 +8,11 @@ export const incomingMailStatusEnum = z.enum([
 
 export const outgoingMailStatusEnum = z.enum([
   "DRAFT",
+  "SUBMITTED",
+  "REVIEWED",
   "APPROVED",
+  "REJECTED",
+  "SIGNED",
   "SENT",
   "ARCHIVED",
 ]);
@@ -89,21 +93,18 @@ export const updateIncomingMailSchema = createIncomingMailBase
 
 // Outgoing Mail
 export const createOutgoingMailBase = z.object({
-  registrationNumber: z
-    .string()
-    .min(1, "Nomor surat wajib diisi.")
-    .max(50, "Nomor surat maksimal 50 karakter."),
   mailDate: z.string().min(1, "Tanggal surat wajib diisi."),
   subject: z
     .string()
     .min(1, "Perihal surat wajib diisi.")
     .max(500, "Perihal surat maksimal 500 karakter."),
+  levelCode: z.string().min(1, "Tingkat kepengurusan wajib dipilih."),
+  categoryCode: z.string().min(1, "Kategori surat wajib dipilih."),
   content: z
     .string()
     .max(10000, "Isi surat maksimal 10000 karakter.")
     .optional()
     .or(z.literal("")),
-  documentType: documentTypeEnum.optional().or(z.literal("")),
   recipient: z
     .string()
     .max(255, "Nama penerima maksimal 255 karakter.")
@@ -112,11 +113,6 @@ export const createOutgoingMailBase = z.object({
   senderName: z
     .string()
     .max(255, "Nama pengirim maksimal 255 karakter.")
-    .optional()
-    .or(z.literal("")),
-  documentNumber: z
-    .string()
-    .max(50, "Nomor dokumen maksimal 50 karakter.")
     .optional()
     .or(z.literal("")),
   attachmentUrl: z.string().optional().or(z.literal("")),
@@ -256,7 +252,10 @@ export type CreateAdministrativeDocumentInput = z.infer<
 export type UpdateAdministrativeDocumentInput = z.infer<
   typeof updateAdministrativeDocumentSchema
 >;
+export const updateAgendaBookSchema = createAgendaBookSchema.partial();
+
 export type CreateAgendaBookInput = z.infer<typeof createAgendaBookSchema>;
+export type UpdateAgendaBookInput = z.infer<typeof updateAgendaBookSchema>;
 export type CreateDocumentArchiveInput = z.infer<
   typeof createDocumentArchiveSchema
 >;

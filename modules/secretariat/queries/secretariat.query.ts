@@ -1,5 +1,7 @@
+import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { verifiedLetterRepository } from "../infrastructure/verified-letter.repository";
+import { secretariatService } from "../application/service";
 
 export async function getIncomingMails(params: {
   search?: string;
@@ -85,6 +87,31 @@ export async function getAdministrativeDocuments(params: {
   });
 }
 
+export async function getArchiveData(params: { search?: string }) {
+  const [outgoing, incoming, documents] = await Promise.all([
+    secretariatService.listArchivedOutgoingMails({
+      search: params.search,
+      limit: 100,
+    }),
+    secretariatService.listArchivedIncomingMails({
+      search: params.search,
+      limit: 100,
+    }),
+    secretariatService.listAdministrativeDocuments({
+      search: params.search,
+      status: "ARCHIVED",
+      page: 1,
+      limit: 100,
+    }),
+  ]);
+
+  return {
+    outgoing,
+    incoming,
+    documents: documents.items,
+  };
+}
+
 export async function getAdministrativeDocumentById(id: string) {
   return repo.findAdministrativeDocumentById(id);
 }
@@ -127,6 +154,62 @@ export async function getSecretariatStats() {
   return repo.getDashboardStats();
 }
 
+export async function getSuratMenyuratStats() {
+  return repo.getSuratMenyuratStats();
+}
+
+export async function getCalendarEvents(params: { from: Date; to: Date }) {
+  const [agendas, schedules] = await Promise.all([
+    secretariatService.listAgendasInRange(params),
+    prisma.programSchedule.findMany({
+      where: {
+        deletedAt: null,
+        startTime: { gte: params.from },
+        endTime: { lte: params.to },
+      },
+      select: {
+        id: true,
+        title: true,
+        startTime: true,
+        endTime: true,
+        description: true,
+        program: { select: { title: true } },
+      },
+      orderBy: { startTime: "asc" },
+    }),
+  ]);
+
+  return {
+    agendas,
+    schedules,
+  };
+}
+
+export async function getSecretariatDashboardData(limit = 5) {
+  const now = new Date();
+  const [stats, recentOutgoing, recentIncoming, upcomingAgendas] =
+    await Promise.all([
+      repo.getDashboardStats(),
+      secretariatService.listRecentOutgoingMails(limit),
+      secretariatService.listRecentIncomingMails(limit),
+      secretariatService.listUpcomingAgendas({ from: now, limit }),
+    ]);
+
+  return { stats, recentOutgoing, recentIncoming, upcomingAgendas };
+}
+
+export async function getSecretariatReportData(year: number) {
+  const [incomingByStatus, outgoingByStatus, incomingByMonth, outgoingByMonth] =
+    await Promise.all([
+      repo.countIncomingMailsByStatus(),
+      repo.countOutgoingMailsByStatus(),
+      secretariatService.countIncomingMailsByMonth(year),
+      secretariatService.countOutgoingMailsByMonth(year),
+    ]);
+
+  return { incomingByStatus, outgoingByStatus, incomingByMonth, outgoingByMonth };
+}
+
 export async function getIncomingMailsByStatus() {
   return repo.countIncomingMailsByStatus();
 }
@@ -150,4 +233,8 @@ export async function getVerifiedLetters(params: {
 
 export async function getVerifiedLetterByCode(code: string) {
   return verifiedLetterRepository.findByCode(code);
+}
+
+export async function getOutgoingMailByVerificationCode(code: string) {
+  return repo.findOutgoingMailByVerificationCode(code);
 }

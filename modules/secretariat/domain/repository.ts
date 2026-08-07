@@ -32,7 +32,7 @@ export interface SecretariatRepository {
   createIncomingMail(
     data: Omit<
       IncomingMailEntity,
-      "id" | "createdAt" | "updatedAt" | "deletedAt"
+      "id" | "createdAt" | "updatedAt" | "deletedAt" | "archivedAt"
     >,
   ): Promise<IncomingMailEntity>;
 
@@ -44,6 +44,11 @@ export interface SecretariatRepository {
   ): Promise<IncomingMailEntity>;
 
   softDeleteIncomingMail(id: string): Promise<void>;
+
+  findArchivedIncomingMails(params: {
+    search?: string;
+    limit?: number;
+  }): Promise<IncomingMailEntity[]>;
 
   // Outgoing Mail
   findManyOutgoingMails(params: {
@@ -57,6 +62,10 @@ export interface SecretariatRepository {
 
   findOutgoingMailByNumber(
     registrationNumber: string,
+  ): Promise<OutgoingMailEntity | null>;
+
+  findOutgoingMailByVerificationCode(
+    code: string,
   ): Promise<OutgoingMailEntity | null>;
 
   createOutgoingMail(
@@ -74,6 +83,11 @@ export interface SecretariatRepository {
   ): Promise<OutgoingMailEntity>;
 
   softDeleteOutgoingMail(id: string): Promise<void>;
+
+  findArchivedOutgoingMails(params: {
+    search?: string;
+    limit?: number;
+  }): Promise<OutgoingMailEntity[]>;
 
   // Disposition
   findManyDispositions(params: {
@@ -124,7 +138,7 @@ export interface SecretariatRepository {
   createAdministrativeDocument(
     data: Omit<
       AdministrativeDocumentEntity,
-      "id" | "createdAt" | "updatedAt" | "deletedAt"
+      "id" | "createdAt" | "updatedAt" | "deletedAt" | "archivedAt"
     >,
   ): Promise<AdministrativeDocumentEntity>;
 
@@ -140,7 +154,7 @@ export interface SecretariatRepository {
 
   softDeleteAdministrativeDocument(id: string): Promise<void>;
 
-  // Agenda Book (read-only)
+  // Agenda Book
   findManyAgendaBooks(params: {
     search?: string;
     page: number;
@@ -148,6 +162,24 @@ export interface SecretariatRepository {
   }): Promise<{ items: AgendaBookEntity[]; total: number }>;
 
   findAgendaBookById(id: string): Promise<AgendaBookEntity | null>;
+
+  createAgendaBook(
+    data: Omit<AgendaBookEntity, "id" | "createdAt" | "deletedAt">,
+  ): Promise<AgendaBookEntity>;
+
+  updateAgendaBook(
+    id: string,
+    data: Partial<
+      Omit<AgendaBookEntity, "id" | "createdAt" | "deletedAt">
+    >,
+  ): Promise<AgendaBookEntity>;
+
+  softDeleteAgendaBook(id: string): Promise<void>;
+
+  findAgendasInRange(params: {
+    from: Date;
+    to: Date;
+  }): Promise<AgendaBookEntity[]>;
 
   // Document Archive (read-only)
   findManyDocumentArchives(params: {
@@ -165,7 +197,17 @@ export interface SecretariatRepository {
     totalOutgoingMails: number;
     pendingDispositions: number;
     totalAdministrativeDocuments: number;
+    totalAgenda: number;
   }>;
+
+  findRecentOutgoingMails(limit: number): Promise<OutgoingMailEntity[]>;
+
+  findRecentIncomingMails(limit: number): Promise<IncomingMailEntity[]>;
+
+  findUpcomingAgendas(params: {
+    from: Date;
+    limit: number;
+  }): Promise<AgendaBookEntity[]>;
 
   countIncomingMailsByStatus(): Promise<{
     received: number;
@@ -175,8 +217,24 @@ export interface SecretariatRepository {
 
   countOutgoingMailsByStatus(): Promise<{
     draft: number;
+    submitted: number;
+    reviewed: number;
     approved: number;
+    rejected: number;
+    signed: number;
     sent: number;
     archived: number;
   }>;
+
+  getSuratMenyuratStats(): Promise<{
+    outgoingTotal: number;
+    incomingTotal: number;
+    archivedTotal: number;
+    pendingCount: number;
+    latestIssued: OutgoingMailEntity | null;
+  }>;
+
+  countIncomingMailsByMonth(year: number): Promise<Array<{ month: number; count: number }>>;
+
+  countOutgoingMailsByMonth(year: number): Promise<Array<{ month: number; count: number }>>;
 }
