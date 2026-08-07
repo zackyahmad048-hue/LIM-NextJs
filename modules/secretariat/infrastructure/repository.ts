@@ -8,7 +8,6 @@ import type {
   DocumentArchiveEntity,
 } from "../domain/entities";
 import type { SecretariatRepository } from "../domain/repository";
-import { SheetsSecretariatRepository } from "./repository.sheets";
 
 export const prismaSecretariatRepository: SecretariatRepository = {
   // Incoming Mail
@@ -135,7 +134,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     page,
     limit,
   }) {
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { deletedAt: null };
     if (incomingMailId) where.incomingMailId = incomingMailId;
     if (assignedToId) where.assignedToId = assignedToId;
     if (status) where.status = status;
@@ -157,7 +156,9 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findDispositionById(id) {
-    const item = await prisma.disposition.findUnique({ where: { id } });
+    const item = await prisma.disposition.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as DispositionEntity | null;
   },
 
@@ -175,7 +176,10 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async deleteDisposition(id) {
-    await prisma.disposition.delete({ where: { id } });
+    await prisma.disposition.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   },
 
   // Administrative Document
@@ -246,7 +250,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   // Agenda Book (read-only)
   async findManyAgendaBooks({ search, page, limit }) {
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { deletedAt: null };
     if (search)
       where.OR = [
         { title: { contains: search } },
@@ -267,13 +271,15 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findAgendaBookById(id) {
-    const item = await prisma.agendaBook.findUnique({ where: { id } });
+    const item = await prisma.agendaBook.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as AgendaBookEntity | null;
   },
 
   // Document Archive (read-only)
   async findManyDocumentArchives({ search, documentType, page, limit }) {
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { deletedAt: null };
     if (search)
       where.OR = [
         { title: { contains: search } },
@@ -295,7 +301,9 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findDocumentArchiveById(id) {
-    const item = await prisma.documentArchive.findUnique({ where: { id } });
+    const item = await prisma.documentArchive.findFirst({
+      where: { id, deletedAt: null },
+    });
     return item as DocumentArchiveEntity | null;
   },
 
@@ -309,7 +317,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     ] = await Promise.all([
       prisma.incomingMail.count({ where: { deletedAt: null } }),
       prisma.outgoingMail.count({ where: { deletedAt: null } }),
-      prisma.disposition.count({ where: { status: "PENDING" } }),
+      prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
       prisma.administrativeDocument.count({ where: { deletedAt: null } }),
     ]);
 
@@ -355,8 +363,4 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 };
 
-const useSheets = process.env.DATA_SOURCE === "sheets";
-
-export const secretariatRepository: SecretariatRepository = useSheets
-  ? new SheetsSecretariatRepository()
-  : prismaSecretariatRepository;
+export const secretariatRepository: SecretariatRepository = prismaSecretariatRepository;

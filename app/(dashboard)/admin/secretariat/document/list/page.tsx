@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, FileText, Pencil, Plus, Trash2 } from "lucide-react";
+import { FileText, Pencil, Plus, Trash2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,7 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { getAdministrativeDocuments } from "@/modules/secretariat/queries/secretariat.query";
-import {
-  deleteAdministrativeDocument,
-  generateAdministrativeDocument,
-} from "@/modules/secretariat/presentation/secretariat.action";
+import { deleteAdministrativeDocument } from "@/modules/secretariat/presentation/secretariat.action";
 
 const statusLabels: Record<
   string,
@@ -108,33 +105,11 @@ export default async function DocumentListPage({
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
-                {item.googleDocUrl && (
-                  <Button
-                    asChild
-                    variant="ghost"
-                    size="sm"
-                    title="Buka di Google Docs"
-                  >
-                    <a
-                      href={item.googleDocUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="size-3.5" />
-                    </a>
-                  </Button>
-                )}
-                <form
-                  action={generateAdministrativeDocument.bind(null, item.id)}
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    title="Buat dokumen di Google Docs"
-                  >
+                <Button asChild variant="ghost" size="sm" title="Cetak / PDF">
+                  <Link href={`/admin/secretariat/document/${item.id}/cetak`}>
                     <FileText className="size-3.5" />
-                  </Button>
-                </form>
+                  </Link>
+                </Button>
                 <Button asChild variant="ghost" size="sm">
                   <Link href={`/admin/secretariat/document/${item.id}/edit`}>
                     <Pencil className="size-3.5" />

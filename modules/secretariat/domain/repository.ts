@@ -92,12 +92,14 @@ export interface SecretariatRepository {
   findDispositionById(id: string): Promise<DispositionEntity | null>;
 
   createDisposition(
-    data: Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">,
+    data: Omit<DispositionEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">,
   ): Promise<DispositionEntity>;
 
   updateDisposition(
     id: string,
-    data: Partial<Omit<DispositionEntity, "id" | "createdAt" | "updatedAt">>,
+    data: Partial<
+      Omit<DispositionEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">
+    >,
   ): Promise<DispositionEntity>;
 
   deleteDisposition(id: string): Promise<void>;

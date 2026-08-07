@@ -4,9 +4,6 @@ export const googleConfig = {
     process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY ?? null,
   spreadsheetPendataanId: process.env.GOOGLE_SPREADSHEET_PENDATAAN_ID ?? null,
   spreadsheetFalakId: process.env.GOOGLE_SPREADSHEET_FALAK_ID ?? null,
-  templateSuratKeluarId:
-    process.env.GOOGLE_DOC_TEMPLATE_SURAT_KELUAR_ID ?? null,
-  templateDokAdminId: process.env.GOOGLE_DOC_TEMPLATE_DOK_ADMIN_ID ?? null,
 } as const;
 
 export function isGoogleConfigured(): boolean {

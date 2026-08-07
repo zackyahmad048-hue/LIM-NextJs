@@ -1,12 +1,10 @@
 import { google } from "googleapis";
-import type { docs_v1, drive_v3, sheets_v4 } from "googleapis";
+import type { sheets_v4 } from "googleapis";
 import { googleConfig } from "./config";
 import { GoogleApiError } from "./errors";
 
 export interface GoogleClients {
   sheets: sheets_v4.Sheets;
-  docs: docs_v1.Docs;
-  drive: drive_v3.Drive;
 }
 
 let cachedClients: GoogleClients | null = null;
@@ -23,11 +21,7 @@ function getAuth() {
   return new google.auth.JWT({
     email: serviceAccountEmail,
     key: serviceAccountPrivateKey.replace(/\\n/g, "\n"),
-    scopes: [
-      "https://www.googleapis.com/auth/spreadsheets",
-      "https://www.googleapis.com/auth/documents",
-      "https://www.googleapis.com/auth/drive.file",
-    ],
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
 }
 
@@ -37,8 +31,6 @@ export function getGoogleClients(): GoogleClients {
   const auth = getAuth();
   cachedClients = {
     sheets: google.sheets({ version: "v4", auth }),
-    docs: google.docs({ version: "v1", auth }),
-    drive: google.drive({ version: "v3", auth }),
   };
   return cachedClients;
 }

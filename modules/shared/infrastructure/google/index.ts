@@ -13,11 +13,7 @@ export {
   appendRow,
   updateRowById,
   findRowIndexById,
+  ensureSheetTab,
+  overwriteSheetValues,
   type SheetSchema,
 } from "./spreadsheet";
-export { SheetsBaseRepository } from "./sheet-repository";
-export {
-  createDocumentFromTemplate,
-  extractPlaceholders,
-  type GoogleDocResult,
-} from "./google-doc";

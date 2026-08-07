@@ -37,8 +37,6 @@ export interface OutgoingMailEntity {
   approvedById: string | null;
   approvedAt: Date | null;
   attachmentUrl: string | null;
-  googleDocId: string | null;
-  googleDocUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -55,6 +53,7 @@ export interface DispositionEntity {
   notes: string | null;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt: Date | null;
 }
 
 export interface AdministrativeDocumentEntity {
@@ -69,8 +68,6 @@ export interface AdministrativeDocumentEntity {
   submittedAt: Date | null;
   approvedById: string | null;
   approvedAt: Date | null;
-  googleDocId: string | null;
-  googleDocUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
@@ -85,6 +82,7 @@ export interface AgendaBookEntity {
   participants: string | null;
   notes: string | null;
   createdAt: Date;
+  deletedAt: Date | null;
 }
 
 export interface DocumentArchiveEntity {
@@ -96,4 +94,5 @@ export interface DocumentArchiveEntity {
   retentionYear: number | null;
   archivedAt: Date;
   createdAt: Date;
+  deletedAt: Date | null;
 }

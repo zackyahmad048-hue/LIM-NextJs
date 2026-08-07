@@ -1,13 +1,6 @@
 import { Prisma } from "@/generated/client";
 
 import { BaseRepository } from "@/modules/shared/infrastructure/base.repository";
-import {
-  SheetsFalakEclipseRepository,
-  SheetsFalakHijriCalendarRepository,
-  SheetsFalakPrayerTimeRepository,
-  SheetsFalakQiblaRepository,
-  SheetsFalakRukyatRepository,
-} from "./repository.sheets";
 import type {
   FalakPrayerTimeRepository,
   FalakQiblaRepository,
@@ -379,21 +372,13 @@ export const prismaFalakEclipseRepository = new PrismaFalakEclipseRepository();
 
 export const falakHisabRepository = prismaFalakHisabRepository;
 
-const useSheets = process.env.DATA_SOURCE === "sheets";
-
-export const falakPrayerTimeRepository: FalakPrayerTimeRepository = useSheets
-  ? new SheetsFalakPrayerTimeRepository()
-  : prismaFalakPrayerTimeRepository;
-export const falakQiblaRepository: FalakQiblaRepository = useSheets
-  ? new SheetsFalakQiblaRepository()
-  : prismaFalakQiblaRepository;
+export const falakPrayerTimeRepository: FalakPrayerTimeRepository =
+  prismaFalakPrayerTimeRepository;
+export const falakQiblaRepository: FalakQiblaRepository =
+  prismaFalakQiblaRepository;
 export const falakHijriCalendarRepository: FalakHijriCalendarRepository =
-  useSheets
-    ? new SheetsFalakHijriCalendarRepository()
-    : prismaFalakHijriCalendarRepository;
-export const falakRukyatRepository: FalakRukyatRepository = useSheets
-  ? new SheetsFalakRukyatRepository()
-  : prismaFalakRukyatRepository;
-export const falakEclipseRepository: FalakEclipseRepository = useSheets
-  ? new SheetsFalakEclipseRepository()
-  : prismaFalakEclipseRepository;
+  prismaFalakHijriCalendarRepository;
+export const falakRukyatRepository: FalakRukyatRepository =
+  prismaFalakRukyatRepository;
+export const falakEclipseRepository: FalakEclipseRepository =
+  prismaFalakEclipseRepository;

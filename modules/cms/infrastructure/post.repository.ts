@@ -8,15 +8,18 @@ export class PrismaPostRepository
   implements PostRepository
 {
   async countAll(): Promise<number> {
-    return this.db.post.count();
+    return this.db.post.count({ where: { deletedAt: null } });
   }
 
   async countPublished(): Promise<number> {
-    return this.db.post.count({ where: { published: true } });
+    return this.db.post.count({
+      where: { published: true, deletedAt: null },
+    });
   }
 
   async findRecent(limit = 20) {
     return this.db.post.findMany({
+      where: { deletedAt: null },
       include: { author: true, category: true },
       orderBy: { updatedAt: "desc" },
       take: limit,
@@ -28,6 +31,7 @@ export class PrismaPostRepository
       where: {
         published: true,
         publishedAt: { not: null },
+        deletedAt: null,
         category: { slug: categorySlug },
       },
       include: { author: true, category: true },
@@ -38,13 +42,15 @@ export class PrismaPostRepository
 
   async findPublishedBySlug(slug: string) {
     return this.db.post.findFirst({
-      where: { slug, published: true, publishedAt: { not: null } },
+      where: { slug, published: true, publishedAt: { not: null }, deletedAt: null },
       include: { author: true, category: true },
     });
   }
 
   async findById(id: string) {
-    return this.db.post.findUnique({ where: { id } });
+    return this.db.post.findFirst({
+      where: { id, deletedAt: null },
+    });
   }
 
   async findPaginated({
@@ -60,7 +66,7 @@ export class PrismaPostRepository
     status?: "draft" | "published" | "archived";
     categoryId?: string;
   }) {
-    const where: Prisma.PostWhereInput = {};
+    const where: Prisma.PostWhereInput = { deletedAt: null };
 
     if (search) {
       where.OR = [
@@ -98,6 +104,7 @@ export class PrismaPostRepository
     const existing = await this.db.post.findFirst({
       where: {
         slug,
+        deletedAt: null,
         ...(excludeId ? { NOT: { id: excludeId } } : {}),
       },
     });
@@ -152,7 +159,10 @@ export class PrismaPostRepository
   }
 
   async delete(id: string) {
-    await this.db.post.delete({ where: { id } });
+    await this.db.post.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   }
 }
 

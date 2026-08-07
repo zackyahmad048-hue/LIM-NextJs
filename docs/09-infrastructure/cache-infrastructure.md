@@ -37,11 +37,21 @@ Cache Infrastructure bertujuan untuk:
 
 # Cache Platform
 
-Platform utama:
+Platform awal:
+
+- Next.js Data Cache (`unstable_cache` + `revalidateTag`) sebagai layer cache serverless utama.
+
+Platform roadmap (diperlukan saat ada background job, queue, atau rate-limit skala besar):
 
 - Redis
 
-Fitur yang digunakan:
+Fitur yang digunakan (Next.js Data Cache):
+
+- Server-side memoization dengan TTL (revalidate)
+- Cache invalidation berbasis tag
+- Tanpa infrastruktur tambahan di Vercel serverless
+
+Fitur yang direncanakan di Redis:
 
 - Key-Value Storage
 - TTL (Time To Live)
@@ -268,8 +278,8 @@ Namun, konfigurasi Redis tetap didokumentasikan dan dicadangkan sesuai kebutuhan
 
 # Acceptance Criteria
 
-- Redis menjadi layanan Cache utama.
+- Layer cache aktif memakai Next.js Data Cache (unstable_cache + revalidateTag).
 - Cache menggunakan TTL yang sesuai.
-- Queue dan Session berjalan melalui Redis.
+- Redis dijadwalkan sebagai roadmap ketika queue/background job/rate-limit dibutuhkan.
 - Monitoring Cache aktif.
 - Cache Infrastructure menjadi acuan resmi implementasi cache LIM Digital Platform.

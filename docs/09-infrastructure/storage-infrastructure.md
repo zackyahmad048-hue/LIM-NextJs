@@ -6,7 +6,7 @@
 
 **Document:** `storage-infrastructure.md`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
 
@@ -36,18 +36,16 @@ Storage Infrastructure bertujuan untuk:
 
 # Storage Platform
 
-Storage utama menggunakan:
+Storage diakses melalui **Storage Port** abstrak (lihat ADR-006).
 
-- S3 Compatible Object Storage
+Implementasi awal:
 
-Contoh implementasi:
-
-- MinIO
-- AWS S3
-- Cloudflare R2
-- DigitalOcean Spaces
+- Vercel Blob (melalui Storage Port) sebagai penyimpanan utama file & media.
+- Adapter tambahan (S3-Compatible, MinIO, Google Drive) dapat ditambahkan tanpa mengubah Business Rules.
 
 Implementasi dapat disesuaikan tanpa mengubah aplikasi.
+
+> Catatan: Google Drive awalnya dipilih (ADR-006, 2026-08-06), tetapi service account tidak memiliki storage quota di Drive konsumen (kebijakan Google April 2025) sehingga pembuatan file selalu gagal. Diganti Vercel Blob pada 2026-08-07.
 
 ---
 
@@ -159,7 +157,7 @@ Metadata disimpan pada Database melalui Media Domain.
 
 Jenis akses:
 
-## Private
+## Private (Default)
 
 Digunakan untuk:
 
@@ -168,7 +166,8 @@ Digunakan untuk:
 - Internal Document
 - Backup
 
----
+File privat TIDAK pernah diberikan URL langsung. Diserve lewat **proxy route aplikasi**
+yang memvalidasi session + RBAC, lalu streaming dari Vercel Blob.
 
 ## Public
 
@@ -178,17 +177,17 @@ Digunakan untuk:
 - Public CMS Media
 - Public Images
 
----
+Diserve lewat route proxy aplikasi (media publik) dan/atau akses langsung dari store.
 
-## Signed URL
+## Code-Gated (Verifikasi)
 
 Digunakan untuk:
 
-- Download sementara.
-- File privat.
-- Dokumen sensitif.
+- Artefak verifikasi surat (PDF/gambar ber-QR)
 
-URL memiliki masa berlaku (Expiration).
+Kode verifikasi berperan sebagai bearer credential. Route publik
+`/api/v1/verifikasi/surat/[kode]/file` memvalidasi kode ke database lalu streaming
+dari Vercel Blob. Berlaku akses terbatas (Expiration) sesuai kebijakan.
 
 ---
 

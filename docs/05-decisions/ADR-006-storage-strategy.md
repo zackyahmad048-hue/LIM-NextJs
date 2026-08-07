@@ -261,6 +261,31 @@ Konsekuensi:
 
 ---
 
+# Amendments
+
+**Tanggal:** 2026-08-06
+
+Hasil grilling backend/database/storage disepakati sebagai berikut:
+
+1. **Implementasi awal Object Storage = Google Drive** (bukan S3/MinIO). Provider diakses melalui **Storage Port** abstrak sehingga tetap bisa diganti tanpa mengubah Business Rules.
+2. **Metadata file disimpan di PostgreSQL** melalui tabel `media` (Media Domain): originalName, mimeType, size, checksum, storageKey, driveFileId, access, uploadedBy, deletedAt.
+3. **File privat default**: file privat (surat, sertifikat, lampiran) diserve lewat **proxy route aplikasi** dengan session + RBAC. File publik (media situs, logo, avatar) diserve lewat link share Drive "anyone with link".
+4. **Artefak verifikasi surat** diserve lewat **route code-gated** (`/api/v1/verifikasi/surat/[kode]/file`): kode verifikasi berperan sebagai bearer credential; file asli tetap privat di belakang RBAC.
+5. **Penamaan file = UUID** + folder per entitas; nama asli disimpan di metadata.
+6. **Cache**: implementasi awal memakai Next.js Data Cache (`unstable_cache` + `revalidateTag`). Redis ditunda ke roadmap (hanya diperlukan saat ada queue/background job/rate-limit skala besar).
+
+---
+
+**Tanggal:** 2026-08-07
+
+1. **Provider Object Storage diganti dari Google Drive → Vercel Blob.** Service account tidak punya storage quota di Google Drive konsumen (kebijakan Google April 2025), sehingga `files.create` selalu gagal 403. Adapter Blob dipakai via Storage Port yang sama (`modules/shared/infrastructure/storage/`).
+2. **Blob disimpan `access: "private"` + `addRandomSuffix: true`.** `fileId` yang tersimpan di DB = pathname blob (mis. `nama_xxxx.pdf`). Seluruh baca/unduh lewat proxy route aplikasi (media + verifikasi), tidak pernah akses publik ke store.
+3. **Template Google Docs dihapus.** Pembuatan doc = `files.copy` = membuat file → ikut terblokir kuota. Penggantinya **tampilan cetak in-app** (`/admin/secretariat/.../[id]/cetak`, `print:` CSS + `window.print()`).
+4. **Google tersisa hanya Sheets** untuk reporting (`reporting-sync`): tulis `values.update`/`addSheet` ke spreadsheet yang di-share, tidak membuat file baru → tetap berfungsi dengan SA.
+5. **Kolom `*DriveFileId` di-rename menjadi `*FileId`** (`originalFileId`, `processedFileId`, `qrFileId`); kolom `googleDocId`/`googleDocUrl` dihapus dari `OutgoingMail` & `AdministrativeDocument`.
+
+---
+
 # Acceptance Criteria
 
 - Data relasional disimpan di PostgreSQL.

@@ -1,5 +1,12 @@
 # Desain — Integrasi Google Sheets & Docs (LIM Digital Platform)
 
+> **STATUS: SUPERSEDED** — Spesifikasi ini menggambarkan pendekatan lama (Google Sheets sebagai
+> penyimpanan operasional via `DATA_SOURCE=sheets`). Keputusan arsitektur terbaru tercatat di
+> `docs/05-decisions/ADR-006-storage-strategy.md`: PostgreSQL adalah sumber data tunggal, Google
+> Sheets hanya berperan sebagai reporting projection satu arah (PG → Sheets) oleh modul
+> `reporting-sync`, dan file disimpan di Google Drive via Storage Port
+> (`modules/shared/infrastructure/storage/`). Lapisan `repository.sheets.ts` sudah dihapus.
+
 **Tanggal:** 2026-07-31
 **Status:** Draft untuk review
 **Modul terdampak:** `modules/secretariat`, `modules/falak`, `modules/shared`, `app/(dashboard)/admin/secretariat`, `app/(dashboard)/admin/falak`

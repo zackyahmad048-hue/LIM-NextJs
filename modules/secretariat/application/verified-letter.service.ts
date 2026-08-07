@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import { PDFDocument, rgb } from "pdf-lib";
 import sharp from "sharp";
 
-import { blobStorage } from "../infrastructure/blob-storage";
+import { storage } from "@/modules/shared/infrastructure/storage";
 import {
   verifiedLetterRepository,
   type CreateVerifiedLetterInput,
@@ -26,8 +26,7 @@ export function generateVerificationCode(): string {
 }
 
 export function getVerificationUrl(code: string): string {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   return `${baseUrl}/verifikasi/surat/${code}`;
 }
 
@@ -77,14 +76,13 @@ export async function embedQrIntoImage(
   const left = Math.round(((width ?? 1000) - qrSize) / 2);
   const top = Math.max(0, (height ?? 1000) - qrSize - QR_BOTTOM_MARGIN_PX);
 
-  const composited = image
-    .composite([
-      {
-        input: qrPng,
-        left,
-        top,
-      },
-    ]);
+  const composited = image.composite([
+    {
+      input: qrPng,
+      left,
+      top,
+    },
+  ]);
 
   if (mimeType === "image/jpeg" || mimeType === "image/jpg") {
     return composited.jpeg({ quality: 90 }).toBuffer();
@@ -165,6 +163,13 @@ export interface VerifiedLetterArtifacts {
   originalFileUrl: string;
   processedPdfUrl: string;
   qrPngUrl: string;
+  originalFileId: string;
+  processedFileId: string;
+  qrFileId: string;
+}
+
+function mediaRoute(fileId: string, mimeType: string): string {
+  return `/api/media/${encodeURIComponent(fileId)}?mime=${encodeURIComponent(mimeType)}`;
 }
 
 export async function processAndUploadLetter(
@@ -174,57 +179,53 @@ export async function processAndUploadLetter(
   mimeType: string,
   verificationCode: string,
 ): Promise<VerifiedLetterArtifacts> {
-  const base = `verified-letters/${folderKey}`;
   const qrUrl = getVerificationUrl(verificationCode);
   const qrPng = await renderQrPng(qrUrl);
 
-  const originalDest = `${base}/original/${fileName.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
-  const qrDest = `${base}/qr.png`;
+  const sanitizedName = fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
 
-  const uploaded: string[] = [];
+  const uploadedFileIds: string[] = [];
   try {
-    const originalFileUrl = await blobStorage.upload(
+    const originalFileId = await storage.save(
       fileBuffer,
-      originalDest,
+      sanitizedName,
       mimeType,
     );
-    uploaded.push(originalFileUrl);
+    uploadedFileIds.push(originalFileId);
 
-    const qrPngUrl = await blobStorage.upload(qrPng, qrDest, "image/png");
-    uploaded.push(qrPngUrl);
+    const qrFileId = await storage.save(qrPng, "qr.png", "image/png");
+    uploadedFileIds.push(qrFileId);
 
-    let processedPdfUrl = originalFileUrl;
-    let processedDest = originalDest;
+    let processedFileId = originalFileId;
     if (isPdfMime(mimeType)) {
       const processed = await embedQrIntoPdf(fileBuffer, qrPng);
-      processedDest = `${base}/processed.pdf`;
-      processedPdfUrl = await blobStorage.upload(
+      processedFileId = await storage.save(
         processed,
-        processedDest,
+        "processed.pdf",
         "application/pdf",
       );
-      uploaded.push(processedPdfUrl);
+      uploadedFileIds.push(processedFileId);
     } else if (isImageMime(mimeType)) {
       const processed = await embedQrIntoImage(fileBuffer, qrPng, mimeType);
       const ext = mimeType.includes("jpeg") ? "jpg" : "png";
-      processedDest = `${base}/processed.${ext}`;
-      processedPdfUrl = await blobStorage.upload(
+      processedFileId = await storage.save(
         processed,
-        processedDest,
+        `processed.${ext}`,
         mimeType.includes("jpeg") ? "image/jpeg" : "image/png",
       );
-      uploaded.push(processedPdfUrl);
+      uploadedFileIds.push(processedFileId);
     }
 
     return {
-      originalFileUrl,
-      processedPdfUrl,
-      qrPngUrl,
+      originalFileUrl: mediaRoute(originalFileId, mimeType),
+      processedPdfUrl: `/api/v1/verifikasi/surat/${verificationCode}/file`,
+      qrPngUrl: mediaRoute(qrFileId, "image/png"),
+      originalFileId,
+      processedFileId,
+      qrFileId,
     };
   } catch (error) {
-    await Promise.allSettled(
-      uploaded.map((url) => blobStorage.delete(url)),
-    );
+    await Promise.allSettled(uploadedFileIds.map((id) => storage.remove(id)));
     throw error;
   }
 }
@@ -240,9 +241,7 @@ export interface CreateVerifiedLetterParams {
   issuer: string | null;
 }
 
-export async function createVerifiedLetter(
-  params: CreateVerifiedLetterParams,
-) {
+export async function createVerifiedLetter(params: CreateVerifiedLetterParams) {
   const verificationCode = generateVerificationCode();
   const mimeType = resolveUploadMimeType(
     params.fileBuffer,
@@ -267,6 +266,9 @@ export async function createVerifiedLetter(
     originalFileUrl: artifacts.originalFileUrl,
     processedPdfUrl: artifacts.processedPdfUrl,
     qrPngUrl: artifacts.qrPngUrl,
+    originalFileId: artifacts.originalFileId,
+    processedFileId: artifacts.processedFileId,
+    qrFileId: artifacts.qrFileId,
     fileName: params.fileName,
     mimeType: params.mimeType,
     verificationCode,
@@ -276,9 +278,9 @@ export async function createVerifiedLetter(
     return await verifiedLetterRepository.create(record);
   } catch (error) {
     await Promise.allSettled([
-      blobStorage.delete(artifacts.originalFileUrl),
-      blobStorage.delete(artifacts.processedPdfUrl),
-      blobStorage.delete(artifacts.qrPngUrl),
+      storage.remove(artifacts.originalFileId),
+      storage.remove(artifacts.processedFileId),
+      storage.remove(artifacts.qrFileId),
     ]);
     throw error;
   }
@@ -291,8 +293,12 @@ export async function deleteVerifiedLetter(id: string) {
   await verifiedLetterRepository.delete(id);
 
   await Promise.allSettled([
-    blobStorage.delete(record.originalFileUrl),
-    blobStorage.delete(record.processedPdfUrl),
-    blobStorage.delete(record.qrPngUrl),
+    record.originalFileId
+      ? storage.remove(record.originalFileId)
+      : Promise.resolve(),
+    record.processedFileId
+      ? storage.remove(record.processedFileId)
+      : Promise.resolve(),
+    record.qrFileId ? storage.remove(record.qrFileId) : Promise.resolve(),
   ]);
 }

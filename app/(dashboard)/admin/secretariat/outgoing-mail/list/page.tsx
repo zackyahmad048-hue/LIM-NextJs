@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, FileText, Pencil, Plus, Trash2 } from "lucide-react";
+import { FileText, Pencil, Plus, Trash2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,7 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
-import {
-  deleteOutgoingMail,
-  generateOutgoingMailDocument,
-} from "@/modules/secretariat/presentation/secretariat.action";
+import { deleteOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
 
 function formatDate(date: Date | string) {
   return new Intl.DateTimeFormat("id-ID", {
@@ -125,31 +122,13 @@ export default async function OutgoingMailListPage({
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
-                {item.googleDocUrl && (
-                  <Button
-                    asChild
-                    variant="ghost"
-                    size="sm"
-                    title="Buka di Google Docs"
-                  >
-                    <a
-                      href={item.googleDocUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="size-3.5" />
-                    </a>
-                  </Button>
-                )}
-                <form action={generateOutgoingMailDocument.bind(null, item.id)}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    title="Buat dokumen di Google Docs"
+                <Button asChild variant="ghost" size="sm" title="Cetak / PDF">
+                  <Link
+                    href={`/admin/secretariat/outgoing-mail/${item.id}/cetak`}
                   >
                     <FileText className="size-3.5" />
-                  </Button>
-                </form>
+                  </Link>
+                </Button>
                 <Button asChild variant="ghost" size="sm">
                   <Link
                     href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}

@@ -2,6 +2,10 @@ import Link from "next/link";
 import { BadgeCheck, ShieldAlert, ScanLine, CalendarDays, Stamp } from "lucide-react";
 
 import { getLetterTypeLabel } from "@/config/letter-types";
+import {
+  isImageMime,
+  isPdfMime,
+} from "@/modules/secretariat/application/verified-letter.service";
 import { getVerifiedLetterByCode } from "@/modules/secretariat/queries/secretariat.query";
 
 interface VerifyLetterPageProps {
@@ -15,9 +19,9 @@ export default async function VerifyLetterPage({
   const letter = await getVerifiedLetterByCode(kode);
 
   const processedUrl = letter?.processedPdfUrl ?? null;
-  const isPdfPreview = processedUrl !== null && processedUrl.endsWith(".pdf");
+  const isPdfPreview = letter !== null && isPdfMime(letter.mimeType);
   const isImagePreview =
-    processedUrl !== null && /\.(png|jpe?g|webp)$/i.test(processedUrl);
+    letter !== null && isImageMime(letter.mimeType) && !isPdfPreview;
 
   const formatDate = (date: Date | string) =>
     new Intl.DateTimeFormat("id-ID", {

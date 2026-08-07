@@ -11,6 +11,9 @@ export interface CreateVerifiedLetterInput {
   originalFileUrl: string;
   processedPdfUrl: string;
   qrPngUrl: string;
+  originalFileId: string | null;
+  processedFileId: string | null;
+  qrFileId: string | null;
   fileName: string;
   mimeType: string;
   verificationCode: string;
@@ -32,13 +35,19 @@ export class VerifiedLetterRepository {
 
     const where = search
       ? {
+          deletedAt: null,
           OR: [
-            { registrationNumber: { contains: search, mode: "insensitive" as const } },
+            {
+              registrationNumber: {
+                contains: search,
+                mode: "insensitive" as const,
+              },
+            },
             { subject: { contains: search, mode: "insensitive" as const } },
             { letterType: { contains: search, mode: "insensitive" as const } },
           ],
         }
-      : undefined;
+      : { deletedAt: null };
 
     const [items, total] = await Promise.all([
       prisma.verifiedLetter.findMany({
@@ -54,17 +63,22 @@ export class VerifiedLetterRepository {
   }
 
   async findByCode(code: string): Promise<VerifiedLetter | null> {
-    return prisma.verifiedLetter.findUnique({
-      where: { verificationCode: code },
+    return prisma.verifiedLetter.findFirst({
+      where: { verificationCode: code, deletedAt: null },
     });
   }
 
   async findById(id: string): Promise<VerifiedLetter | null> {
-    return prisma.verifiedLetter.findUnique({ where: { id } });
+    return prisma.verifiedLetter.findFirst({
+      where: { id, deletedAt: null },
+    });
   }
 
   async delete(id: string): Promise<VerifiedLetter> {
-    return prisma.verifiedLetter.delete({ where: { id } });
+    return prisma.verifiedLetter.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   }
 }
 

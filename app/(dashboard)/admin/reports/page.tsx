@@ -4,8 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ReportingSyncButton } from "@/components/admin/reporting-sync-button";
 
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
 
 export default async function ReportsPage() {
   const [
@@ -16,17 +18,24 @@ export default async function ReportsPage() {
     totalUsers,
     postsByCategory,
   ] = await Promise.all([
-    prisma.post.count(),
-    prisma.post.count({ where: { published: true } }),
-    prisma.post.count({ where: { published: false, publishedAt: null } }),
+    prisma.post.count({ where: { deletedAt: null } }),
+    prisma.post.count({ where: { published: true, deletedAt: null } }),
+    prisma.post.count({
+      where: { published: false, publishedAt: null, deletedAt: null },
+    }),
     prisma.category.count({ where: { deletedAt: null } }),
     prisma.user.count(),
     prisma.category.findMany({
       where: { deletedAt: null },
-      include: { _count: { select: { posts: true } } },
+      include: {
+        _count: { select: { posts: { where: { deletedAt: null } } } },
+      },
       orderBy: { posts: { _count: "desc" } },
     }),
   ]);
+
+  const { permissionSlugs } = await getCurrentUserPermissions();
+  const canSync = permissionSlugs.includes("reports.sync");
 
   const archivedPosts = totalPosts - publishedPosts - draftPosts;
 
@@ -170,6 +179,12 @@ export default async function ReportsPage() {
           )}
         </div>
       </SectionCard>
+      {/* Reporting sync */}
+      {canSync && (
+        <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+          <ReportingSyncButton />
+        </SectionCard>
+      )}
     </PageContainer>
   );
 }

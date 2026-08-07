@@ -267,6 +267,8 @@ export const PERMISSIONS = {
 
   REPORTS: {
     VIEW: "reports.view",
+
+    SYNC: "reports.sync",
   },
 
   SYSTEM: {
