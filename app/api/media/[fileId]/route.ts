@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { requireSession } from "@/modules/shared/infrastructure/require-session";
-import {
-  driveStorage,
-  storage,
-} from "@/modules/shared/infrastructure/storage";
+import { driveStorage, storage } from "@/modules/shared/infrastructure/storage";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 
 export async function GET(
@@ -21,12 +18,14 @@ export async function GET(
   }
 
   const { fileId } = await context.params;
-  const mime =
-    request.nextUrl.searchParams.get("mime") ?? "application/octet-stream";
 
   try {
     const media = await prisma.media.findUnique({ where: { fileId } });
     const isDrive = media?.storageProvider === "GOOGLE_DRIVE";
+    const mime =
+      request.nextUrl.searchParams.get("mime") ??
+      media?.mimeType ??
+      "application/octet-stream";
 
     const buffer = isDrive
       ? await driveStorage.read(media.storageKey ?? fileId)

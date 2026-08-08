@@ -34,9 +34,14 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
   async function handleSubmit(formData: FormData) {
     setSubmitting(true);
     try {
-      await createOutgoingMail(formData);
-      toast.success("Surat berhasil disimpan.");
-      router.refresh();
+      const result = await createOutgoingMail(formData);
+      if (result.success) {
+        toast.success("Surat berhasil disimpan.");
+        router.push("/admin/secretariat/surat-menyurat");
+      } else {
+        toast.error(result.message ?? "Gagal menyimpan surat.");
+        router.refresh();
+      }
     } catch {
       toast.error("Gagal menyimpan surat. Periksa kembali isian.");
     } finally {

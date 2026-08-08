@@ -1,10 +1,22 @@
 import { notFound } from "next/navigation";
 
-import { getOutgoingMailById } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getOutgoingMailById,
+  getMediaByFileId,
+} from "@/modules/secretariat/queries/secretariat.query";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { getLetterTypeLabel } from "@/config/letter-types";
 import { getLetterVerificationUrl } from "@/modules/secretariat/application/qr-code";
 import { SITE } from "@/config/site";
 import { PrintButton } from "./print-button";
+
+const INLINE_VIEWABLE_MIME = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+]);
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
@@ -21,6 +33,18 @@ export default async function CetakOutgoingMailPage({
   const mail = await getOutgoingMailById(id);
 
   if (!mail) notFound();
+
+  const attachmentFileId = mail.attachmentUrl
+    ? extractFileIdFromMediaUrl(mail.attachmentUrl)
+    : null;
+  const attachmentMedia = attachmentFileId
+    ? await getMediaByFileId(attachmentFileId)
+    : null;
+  const canRenderInline =
+    !!mail.attachmentUrl &&
+    (attachmentMedia?.mimeType
+      ? INLINE_VIEWABLE_MIME.has(attachmentMedia.mimeType)
+      : true);
 
   const officialNumber = mail.fullNumber ?? mail.registrationNumber;
   const validationUrl = mail.fullNumber
@@ -41,11 +65,11 @@ export default async function CetakOutgoingMailPage({
       </div>
 
       {/* Letter */}
-      {mail.attachmentUrl ? (
+      {canRenderInline ? (
         <div className="mx-auto max-w-[210mm] bg-white p-4 shadow-sm print:shadow-none print:p-0">
           <div className="overflow-hidden rounded border">
             <iframe
-              src={mail.attachmentUrl}
+              src={mail.attachmentUrl ?? undefined}
               title={`Dokumen ${officialNumber}`}
               className="h-[1200px] w-full print:h-[auto] print:min-h-[900mm]"
             />

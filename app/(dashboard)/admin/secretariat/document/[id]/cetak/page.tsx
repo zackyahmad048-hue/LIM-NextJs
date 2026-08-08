@@ -3,8 +3,20 @@ import { Printer } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-import { getAdministrativeDocumentById } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getAdministrativeDocumentById,
+  getMediaByFileId,
+} from "@/modules/secretariat/queries/secretariat.query";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { SITE } from "@/config/site";
+
+const INLINE_VIEWABLE_MIME = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+]);
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
@@ -32,6 +44,18 @@ export default async function CetakDocumentPage({
 
   if (!doc) notFound();
 
+  const attachmentFileId = doc.attachmentUrl
+    ? extractFileIdFromMediaUrl(doc.attachmentUrl)
+    : null;
+  const attachmentMedia = attachmentFileId
+    ? await getMediaByFileId(attachmentFileId)
+    : null;
+  const canRenderInline =
+    !!doc.attachmentUrl &&
+    (attachmentMedia?.mimeType
+      ? INLINE_VIEWABLE_MIME.has(attachmentMedia.mimeType)
+      : true);
+
   return (
     <div className="min-h-screen bg-neutral-100 print:bg-white">
       {/* Toolbar */}
@@ -48,11 +72,11 @@ export default async function CetakDocumentPage({
       </div>
 
       {/* Document */}
-      {doc.attachmentUrl ? (
+      {canRenderInline ? (
         <div className="mx-auto max-w-[210mm] bg-white p-4 shadow-sm print:shadow-none print:p-0">
           <div className="overflow-hidden rounded border">
             <iframe
-              src={doc.attachmentUrl}
+              src={doc.attachmentUrl ?? undefined}
               title={`Dokumen ${doc.documentNumber}`}
               className="h-[1200px] w-full print:h-[auto] print:min-h-[900mm]"
             />

@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { after } from "next/server";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { secretariatService } from "../application/service";
@@ -123,10 +122,14 @@ export async function transitionIncomingMailStatus(id: string, status: string) {
   }
 }
 
-export async function createOutgoingMail(formData: FormData) {
+export async function createOutgoingMail(
+  formData: FormData,
+): Promise<{ success: boolean; message?: string }> {
   const raw = Object.fromEntries(formData);
   const parsed = createOutgoingMailSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { success: false, message: "Periksa kembali isian form." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_OUTGOING_CREATE);
@@ -143,11 +146,11 @@ export async function createOutgoingMail(formData: FormData) {
 
     revalidatePath("/admin/secretariat/surat-menyurat");
     revalidatePath("/admin/secretariat/outgoing-mail/list");
+    return { success: true };
   } catch (e) {
     console.error("[createOutgoingMail]", e);
-    return;
+    return { success: false, message: "Gagal menyimpan surat." };
   }
-  redirect("/admin/secretariat/surat-menyurat");
 }
 
 export async function updateOutgoingMail(id: string, formData: FormData) {

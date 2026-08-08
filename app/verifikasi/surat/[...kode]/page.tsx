@@ -5,13 +5,27 @@ import {
   CalendarDays,
   Stamp,
   FileSearch,
+  Download,
+  FileText,
 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { LETTER_TYPES } from "@/config/letter-types";
-import { getOutgoingMailByVerificationCode } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getOutgoingMailByVerificationCode,
+  getMediaByFileId,
+} from "@/modules/secretariat/queries/secretariat.query";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { VerificationForm } from "../verification-form";
+
+const INLINE_VIEWABLE_MIME = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+]);
 
 interface VerifyLetterPageProps {
   params: Promise<{ kode: string[] }>;
@@ -48,7 +62,15 @@ export default async function VerifyLetterPage({
   const fileSrc = attachmentFileId
     ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`
     : null;
+  const attachmentMedia = attachmentFileId
+    ? await getMediaByFileId(attachmentFileId)
+    : null;
   const hasPreview = letter !== null && fileSrc !== null;
+  const canPreviewInline =
+    hasPreview &&
+    (attachmentMedia?.mimeType
+      ? INLINE_VIEWABLE_MIME.has(attachmentMedia.mimeType)
+      : true);
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
@@ -106,10 +128,7 @@ export default async function VerifyLetterPage({
               ["Penerima", letter.recipient ?? "—"],
               ["Penanda Tangan", letter.senderName ?? "—"],
               ["Status Terkini", statusLabels[letter.status] ?? letter.status],
-              [
-                "Diterbitkan",
-                formatDate(letter.sentAt ?? letter.mailDate),
-              ],
+              ["Diterbitkan", formatDate(letter.sentAt ?? letter.mailDate)],
             ].map(([label, value]) => (
               <div
                 key={label}
@@ -162,18 +181,43 @@ export default async function VerifyLetterPage({
             <FileSearch className="size-4 text-muted-foreground" />
             <h2 className="text-sm font-semibold">Dokumen Asli</h2>
           </div>
-          <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
-            <iframe
-              src={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`}
-              title={`Dokumen ${letter?.fullNumber ?? letter?.subject}`}
-              className="h-full w-full"
-            />
-            <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
-              <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase tracking-[0.3em] text-foreground/15 select-none">
-                Salinan Digital
-              </span>
+          {canPreviewInline ? (
+            <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
+              <iframe
+                src={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`}
+                title={`Dokumen ${letter?.fullNumber ?? letter?.subject}`}
+                className="h-full w-full"
+              />
+              <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
+                <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase tracking-[0.3em] text-foreground/15 select-none">
+                  Salinan Digital
+                </span>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="mt-3 flex flex-col items-center justify-center gap-3 rounded-lg border bg-muted/40 px-6 py-10 text-center">
+              <FileText className="size-8 text-muted-foreground" />
+              <div>
+                <p className="text-sm font-medium">
+                  {attachmentMedia?.originalName ?? "Dokumen asli"}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Format dokumen ini tidak dapat ditampilkan langsung di
+                  halaman. Unduh untuk membuka.
+                </p>
+              </div>
+              <Button asChild variant="outline" size="sm">
+                <a
+                  href={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Download className="size-3.5" />
+                  Unduh Dokumen
+                </a>
+              </Button>
+            </div>
+          )}
           <p className="mt-2 text-center text-[11px] text-muted-foreground">
             Dokumen ini adalah salinan digital yang dibubuhi tanda air untuk
             mencegah penyalahgunaan.
