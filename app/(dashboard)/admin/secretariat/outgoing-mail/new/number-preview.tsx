@@ -51,7 +51,7 @@ export function NumberPreview({
         ))}
       </div>
       <p className="hidden text-xs text-muted-foreground sm:block">
-        Nomor terbit otomatis saat disetujui
+        Nomor terbit otomatis saat ditandai terkirim
       </p>
     </div>
   );

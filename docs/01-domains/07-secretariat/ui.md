@@ -61,18 +61,33 @@ Action:
 
 List:
 
-- Letter Number
-- Recipient
-- Subject
-- Signed By
-- Status
+- Nomor Surat (fullNumber) / "Belum bernomor"
+- Penerima
+- Perihal
+- Tanggal Surat
+- Status (Draft / Terkirim / Diarsipkan)
 
 Action:
 
-- Create
-- Send
-- Edit
-- Archive
+- Create (simpan sekali, status awal Draft)
+- Edit (tidak tersedia untuk surat Diarsipkan)
+- Tandai Terkirim (menerbitkan nomor & QR otomatis)
+- Kembalikan ke Draft (dari Terkirim)
+- Archive (dari Terkirim)
+- Cetak / PDF
+- Delete (Soft Delete)
+
+---
+
+# Penomoran Surat (Super Admin)
+
+Halaman `/admin/secretariat/penomoran` (khusus super admin):
+
+- Format template (placeholder: `{seq}`, `{level}`, `{category}`, `{bulan}`, `{tahun}`)
+- Jumlah digit nomor urut
+- Periode kepengurusan (rentang tahun)
+- Kode tingkat kepengurusan
+- Koreksi manual nomor urut berikutnya per periode
 
 ---
 

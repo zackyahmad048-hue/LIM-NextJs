@@ -208,8 +208,6 @@ secretariat.export
 
 secretariat.import
 
-secretariat.approval
-
 secretariat.signature
 
 secretariat.audit

@@ -43,6 +43,7 @@ Domain Secretariat mencakup:
 - Administrative Services
 - Agenda Book
 - Document Tracking
+- Letter Numbering Configuration (Super Admin)
 
 ---
 

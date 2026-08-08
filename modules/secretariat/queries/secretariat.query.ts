@@ -1,5 +1,6 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { secretariatRepository as repo } from "../infrastructure/repository";
+import { getLetterNumberingConfig as getLetterNumberingConfigSetting } from "../infrastructure/letter-numbering.config";
 import { secretariatService } from "../application/service";
 
 export async function getIncomingMails(params: {
@@ -36,6 +37,10 @@ export async function getOutgoingMails(params: {
 
 export async function getOutgoingMailById(id: string) {
   return repo.findOutgoingMailById(id);
+}
+
+export async function getLetterNumberingConfig() {
+  return getLetterNumberingConfigSetting();
 }
 
 export async function getDispositions(params: {

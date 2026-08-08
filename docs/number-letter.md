@@ -1,4 +1,27 @@
 
+# Implementasi Platform (Catatan Teknis)
+
+> Dokumen di bawah adalah ketentuan resmi organisasi. Bagian ini mencatat
+> bagaimana ketentuan tersebut diimplementasikan di LIM Digital Platform.
+
+- Format nomor **konfigurable** melalui halaman Penomoran Surat
+  (`/admin/secretariat/penomoran`, khusus super admin) dan tersimpan di tabel
+  `Setting` (prefiks `secretariat.numbering.*`). Default:
+  `{seq}/{level}/{category}/{bulan}/{tahun}` dengan digit urut 3.
+- Placeholder yang dikenali: `{seq}`, `{level}`, `{category}`, `{bulan}`, `{tahun}`.
+- Nomor urut berjalan **per periode kepengurusan** (kolom 5 memakai tahun awal
+  periode aktif, bukan tahun kalender). Periode dapat dikonfigurasi.
+- Nomor urut di-pad dengan nol di depan sesuai `sequenceDigits`.
+- Nomor surat dan QR verifikasi diterbitkan **otomatis saat surat keluar
+  ditandai terkirim** (status `SENT`), bukan saat persetujuan.
+- Kode indeks tingkat (PP, PP.I–PP.IX, PW.*, PC.*) dapat dikelola sebagai opsi
+  pada pengaturan penomoran.
+- Logika format berada di `modules/secretariat/application/letter-number.rules.ts`
+  (murni, tanpa akses data) dan dikonfigurasi via
+  `modules/secretariat/infrastructure/letter-numbering.config.ts`.
+
+---
+
 
 NOMOR SURAT
 Nomor surat adalah nomor urut pada buku agenda surat keluar beserta kode-kode yang telah ditetapkan;

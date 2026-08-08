@@ -19,12 +19,10 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
     incomingArchived,
     outgoingTotal,
     outgoingDraft,
-    outgoingApproved,
     outgoingSent,
     outgoingArchived,
     pendingDispositions,
     adminDocs,
-    verifiedLetters,
   ] = await Promise.all([
     prisma.incomingMail.count({ where: { deletedAt: null } }),
     prisma.incomingMail.count({ where: { status: "RECEIVED", deletedAt: null } }),
@@ -32,14 +30,10 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
     prisma.incomingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
     prisma.outgoingMail.count({ where: { deletedAt: null } }),
     prisma.outgoingMail.count({ where: { status: "DRAFT", deletedAt: null } }),
-    prisma.outgoingMail.count({ where: { status: "APPROVED", deletedAt: null } }),
     prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
     prisma.outgoingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
     prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
     prisma.administrativeDocument.count({ where: { deletedAt: null } }),
-    prisma.outgoingMail.count({
-      where: { verificationCode: { not: null }, deletedAt: null },
-    }),
   ]);
 
   const updatedAt = new Date().toISOString();
@@ -50,12 +44,10 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
     { kode: "im.archived", indikator: "Surat Masuk · Diarsipkan", nilai: fmt(incomingArchived), diperbarui: updatedAt },
     { kode: "om.total", indikator: "Surat Keluar", nilai: fmt(outgoingTotal), diperbarui: updatedAt },
     { kode: "om.draft", indikator: "Surat Keluar · Draf", nilai: fmt(outgoingDraft), diperbarui: updatedAt },
-    { kode: "om.approved", indikator: "Surat Keluar · Disetujui", nilai: fmt(outgoingApproved), diperbarui: updatedAt },
     { kode: "om.sent", indikator: "Surat Keluar · Terkirim", nilai: fmt(outgoingSent), diperbarui: updatedAt },
     { kode: "om.archived", indikator: "Surat Keluar · Diarsipkan", nilai: fmt(outgoingArchived), diperbarui: updatedAt },
     { kode: "disposition.pending", indikator: "Disposisi · Pending", nilai: fmt(pendingDispositions), diperbarui: updatedAt },
     { kode: "doc.total", indikator: "Dokumen Administrasi", nilai: fmt(adminDocs), diperbarui: updatedAt },
-    { kode: "letter.total", indikator: "Surat Terverifikasi (QR)", nilai: fmt(verifiedLetters), diperbarui: updatedAt },
   ];
 }
 

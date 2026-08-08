@@ -309,11 +309,6 @@ enum IncomingMailStatus {
 
 enum OutgoingMailStatus {
   DRAFT
-  SUBMITTED
-  REVIEWED
-  APPROVED
-  REJECTED
-  SIGNED
   SENT
   ARCHIVED
 }
@@ -573,14 +568,6 @@ model OutgoingMail {
   documentType       DocumentType?
   categoryCode       String?
   content            String?
-  submittedById      String?
-  submittedAt        DateTime?
-  reviewedById       String?
-  reviewedAt         DateTime?
-  approvedById       String?
-  approvedAt         DateTime?
-  signedById         String?
-  signedAt           DateTime?
   sentAt             DateTime?
   archivedAt         DateTime?
   sequence           Int?
@@ -602,7 +589,6 @@ model OutgoingMail {
   @@index([mailDate])
   @@index([registrationNumber])
   @@index([createdAt])
-  @@index([approvedAt])
   @@index([archivedAt])
   @@map("outgoing_mail")
 }

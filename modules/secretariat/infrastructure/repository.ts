@@ -459,33 +459,9 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async countOutgoingMailsByStatus() {
-    const [
-      draft,
-      submitted,
-      reviewed,
-      approved,
-      rejected,
-      signed,
-      sent,
-      archived,
-    ] = await Promise.all([
+    const [draft, sent, archived] = await Promise.all([
       prisma.outgoingMail.count({
         where: { status: "DRAFT", deletedAt: null },
-      }),
-      prisma.outgoingMail.count({
-        where: { status: "SUBMITTED", deletedAt: null },
-      }),
-      prisma.outgoingMail.count({
-        where: { status: "REVIEWED", deletedAt: null },
-      }),
-      prisma.outgoingMail.count({
-        where: { status: "APPROVED", deletedAt: null },
-      }),
-      prisma.outgoingMail.count({
-        where: { status: "REJECTED", deletedAt: null },
-      }),
-      prisma.outgoingMail.count({
-        where: { status: "SIGNED", deletedAt: null },
       }),
       prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
       prisma.outgoingMail.count({
@@ -493,16 +469,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       }),
     ]);
 
-    return {
-      draft,
-      submitted,
-      reviewed,
-      approved,
-      rejected,
-      signed,
-      sent,
-      archived,
-    };
+    return { draft, sent, archived };
   },
 
   async getSuratMenyuratStats() {
@@ -519,14 +486,11 @@ export const prismaSecretariatRepository: SecretariatRepository = {
         where: { status: "ARCHIVED", deletedAt: null },
       }),
       prisma.outgoingMail.count({
-        where: {
-          status: { in: ["DRAFT", "SUBMITTED", "REVIEWED"] },
-          deletedAt: null,
-        },
+        where: { status: "DRAFT", deletedAt: null },
       }),
       prisma.outgoingMail.findFirst({
         where: { fullNumber: { not: null }, deletedAt: null },
-        orderBy: { approvedAt: "desc" },
+        orderBy: { createdAt: "desc" },
       }),
     ]);
 

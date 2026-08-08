@@ -77,10 +77,9 @@ Mengelola:
 Mengelola:
 
 - Draft
-- Approval
-- Penomoran
-- Pengiriman
-- Arsip
+- Penomoran & QR (otomatis saat ditandai terkirim)
+- Pengiriman (SENT)
+- Arsip (ARCHIVED)
 
 ---
 
@@ -182,11 +181,7 @@ Save Draft
 
 ↓
 
-Review
-
-↓
-
-Approve
+Send
 
 ↓
 
@@ -244,11 +239,7 @@ Draft
 
 ↓
 
-Submitted
-
-↓
-
-Approved
+Sent
 
 ↓
 
@@ -288,7 +279,7 @@ agendas
 
 incoming_mails
 
-outgoing_mails
+outgoing_mail
 
 dispositions
 
@@ -330,7 +321,7 @@ archives
 | View    |  ✅   |     ✅      | Limited |
 | Create  |  ✅   |     ✅      |   ❌    |
 | Update  |  ✅   |     ✅      |   ❌    |
-| Approve |  ✅   |     ❌      |   ❌    |
+| Send    |  ✅   |     ✅      |   ❌    |
 | Archive |  ✅   |     ✅      |   ❌    |
 
 ---
@@ -352,7 +343,7 @@ archives
 | Event                  | Notification         |
 | ---------------------- | -------------------- |
 | Incoming Mail Received | Secretariat          |
-| Outgoing Mail Approved | Administrator        |
+| Outgoing Mail Sent     | Administrator        |
 | Disposition Assigned   | Assigned User        |
 | Agenda Created         | Related Participants |
 
@@ -365,7 +356,7 @@ AgendaCreated
 
 IncomingMailRegistered
 
-OutgoingMailApproved
+OutgoingMailSent
 
 DispositionAssigned
 
@@ -378,7 +369,7 @@ ArchiveCreated
 
 - Agenda berhasil dibuat.
 - Surat masuk berhasil diregistrasi.
-- Surat keluar berhasil disetujui.
+- Surat keluar berhasil dikirim.
 - Disposisi berhasil diberikan.
 - Arsip berhasil dibuat.
 - Notification terkirim.

@@ -19,11 +19,6 @@ interface VerifyLetterPageProps {
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
-  SUBMITTED: "Diajukan",
-  REVIEWED: "Direview",
-  APPROVED: "Disetujui",
-  REJECTED: "Ditolak",
-  SIGNED: "Ditandatangani",
   SENT: "Terkirim",
   ARCHIVED: "Diarsipkan",
 };
@@ -74,27 +69,11 @@ export default async function VerifyLetterPage({
 
       {letter ? (
         <div className="mt-8 overflow-hidden rounded-2xl border bg-card shadow-sm">
-          <div
-            className={`flex items-center justify-between border-b px-6 py-4 ${
-              letter.status === "REJECTED"
-                ? "border-destructive/20 bg-destructive/5"
-                : "border-emerald-500/20 bg-emerald-50 dark:bg-emerald-950/30"
-            }`}
-          >
+          <div className="flex items-center justify-between border-b border-emerald-500/20 bg-emerald-50 px-6 py-4 dark:bg-emerald-950/30">
             <div className="flex items-center gap-2">
-              {letter.status === "REJECTED" ? (
-                <ShieldAlert className="size-5 text-destructive" />
-              ) : (
-                <BadgeCheck className="size-5 text-emerald-600 dark:text-emerald-400" />
-              )}
-              <span
-                className={`text-sm font-semibold ${
-                  letter.status === "REJECTED"
-                    ? "text-destructive"
-                    : "text-emerald-700 dark:text-emerald-400"
-                }`}
-              >
-                {letter.status === "REJECTED" ? "Surat Tidak Sah" : "Surat Sah"}
+              <BadgeCheck className="size-5 text-emerald-600 dark:text-emerald-400" />
+              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                Surat Sah
               </span>
             </div>
             <span className="text-xs text-muted-foreground">
@@ -127,8 +106,8 @@ export default async function VerifyLetterPage({
               ["Penanda Tangan", letter.senderName ?? "—"],
               ["Status Terkini", statusLabels[letter.status] ?? letter.status],
               [
-                "Ditandatangani",
-                formatDate(letter.signedAt ?? letter.approvedAt),
+                "Diterbitkan",
+                formatDate(letter.sentAt ?? letter.mailDate),
               ],
             ].map(([label, value]) => (
               <div

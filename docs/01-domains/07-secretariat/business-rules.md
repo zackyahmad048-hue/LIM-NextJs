@@ -46,14 +46,21 @@ Setiap Surat Masuk wajib memiliki:
 
 Setiap Surat Keluar wajib memiliki:
 
-- Nomor Surat
-- Tanggal Surat
-- Tujuan
 - Perihal
-- Penandatangan
+- Tanggal Surat
+- Penerima (Opsional)
+- Penandatangan (Opsional)
 - Status
 
 Nomor surat mengikuti format penomoran organisasi.
+
+Penomoran & QR:
+
+- Nomor surat dan QR verifikasi diterbitkan **otomatis** saat surat ditandai terkirim (`DRAFT → SENT`).
+- Format nomor, jumlah digit urut, periode kepengurusan, dan kode tingkat bersifat **konfigurable** dan dikelola super admin (halaman Penomoran Surat).
+- Nomor urut berjalan per periode kepengurusan dan dapat dikoreksi manual oleh super admin.
+- Mengubah tingkat/kategori surat yang sudah bernomor akan memutakhirkan nomor surat otomatis.
+- Surat yang diarsipkan tidak dapat diubah.
 
 ---
 

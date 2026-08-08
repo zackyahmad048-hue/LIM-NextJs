@@ -24,6 +24,7 @@ import {
   UsersRound,
   BookOpen,
   Grid3X3,
+  Hash,
 } from "lucide-react";
 
 import type { NavigationItem } from "@/types/navigation";
@@ -182,6 +183,12 @@ const rawNav: (NavigationItem | false | undefined)[] = [
         title: "Surat Menyurat",
         icon: Mail,
         href: "/admin/secretariat/surat-menyurat",
+        permissions: ["secretariat.view"],
+      },
+      {
+        title: "Penomoran Surat",
+        icon: Hash,
+        href: "/admin/secretariat/penomoran",
         permissions: ["secretariat.view"],
       },
       {

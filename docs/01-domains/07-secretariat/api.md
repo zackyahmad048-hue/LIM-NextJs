@@ -146,6 +146,19 @@ DELETE /api/v1/secretariat/outgoing-mails/{id}
 
 ---
 
+# Outgoing Mail Transition & Numbering
+
+Implementasi saat ini menggunakan **Server Actions** (bukan REST) di
+`modules/secretariat/presentation/secretariat.action.ts`:
+
+- `transitionOutgoingMailStatus(id, status)` — transisi `DRAFT → SENT`, `SENT → DRAFT | ARCHIVED`. Nomor & QR diterbitkan saat transisi ke `SENT`.
+- `createOutgoingMail(formData)` — simpan surat (status awal `DRAFT`).
+- `updateOutgoingMail(id, formData)` — ubah surat (ditunda untuk `ARCHIVED`).
+- `updateLetterNumberingSettings(prevState, formData)` — pengaturan penomoran (khusus super admin).
+- `setLetterNextSequence(formData)` — koreksi manual nomor urut berikutnya per periode.
+
+Status surat keluar yang berlaku: `DRAFT`, `SENT`, `ARCHIVED`.
+
 # Disposition Endpoints
 
 ## Get Dispositions

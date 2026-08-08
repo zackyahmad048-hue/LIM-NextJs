@@ -47,16 +47,18 @@ Aturan:
 
 Wajib:
 
-- Letter Number
-- Recipient
 - Subject
-- Signed By
+- Level Code
+- Category Code
 - Letter Date
 
 Aturan:
 
-- Nomor Surat unik.
-- Penandatangan harus aktif.
+- Nomor surat lengkap (fullNumber) unik saat diterbitkan.
+- Nomor & QR hanya diterbitkan pada transisi ke status **SENT**.
+- Template format nomor wajib memuat `{seq}` dan hanya boleh memakai placeholder: `{seq}`, `{level}`, `{category}`, `{bulan}`, `{tahun}`.
+- Digit urut penomoran harus bilangan bulat 2–6.
+- Periode kepengurusan tidak boleh tumpang tindih.
 
 ---
 

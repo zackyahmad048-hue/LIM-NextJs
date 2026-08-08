@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PenLine, Send, Loader2 } from "lucide-react";
+import { Save, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -26,27 +26,21 @@ export interface LetterLevelOption {
 
 export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
   const router = useRouter();
-  const [submitting, setSubmitting] = useState<"draft" | "submit" | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [levelCode, setLevelCode] = useState("");
   const [categoryCode, setCategoryCode] = useState("");
   const [mailDate, setMailDate] = useState("");
 
   async function handleSubmit(formData: FormData) {
-    const intent =
-      (formData.get("action") as string) === "submit" ? "submit" : "draft";
-    setSubmitting(intent);
+    setSubmitting(true);
     try {
       await createOutgoingMail(formData);
-      toast.success(
-        intent === "submit"
-          ? "Surat diajukan untuk direview."
-          : "Draft surat tersimpan.",
-      );
+      toast.success("Surat berhasil disimpan.");
       router.refresh();
     } catch {
       toast.error("Gagal menyimpan surat. Periksa kembali isian.");
     } finally {
-      setSubmitting(null);
+      setSubmitting(false);
     }
   }
 
@@ -56,7 +50,8 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Informasi Surat</h2>
           <p className="text-xs text-muted-foreground">
-            Tingkat dan kategori menentukan nomor surat resmi.
+            Tingkat dan kategori menentukan nomor surat resmi. Nomor dan QR
+            verifikasi diterbitkan otomatis saat surat ditandai terkirim.
           </p>
         </div>
 
@@ -174,35 +169,14 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
         <AttachmentUpload />
       </SectionCard>
 
-      <div className="sticky bottom-4 flex justify-end gap-2">
-        <Button
-          type="submit"
-          name="action"
-          value="draft"
-          variant="outline"
-          size="sm"
-          disabled={submitting !== null}
-        >
-          {submitting === "draft" ? (
+      <div className="sticky bottom-4 flex justify-end">
+        <Button type="submit" size="sm" disabled={submitting}>
+          {submitting ? (
             <Loader2 className="size-4 animate-spin" />
           ) : (
-            <PenLine className="size-4" />
+            <Save className="size-4" />
           )}
-          Simpan Draft
-        </Button>
-        <Button
-          type="submit"
-          name="action"
-          value="submit"
-          size="sm"
-          disabled={submitting !== null}
-        >
-          {submitting === "submit" ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            <Send className="size-4" />
-          )}
-          Ajukan
+          Simpan Surat
         </Button>
       </div>
     </form>

@@ -26,7 +26,7 @@ Seluruh aktivitas administrasi harus melalui proses validasi, otorisasi, dan pen
 
 ---
 
-# Administrative Lifecycle
+# Administrative Lifecycle (Dokumen Administrasi)
 
 ```text id="secwf01"
 Draft
@@ -37,10 +37,6 @@ Submitted
 
 ↓
 
-Reviewed
-
-↓
-
 Approved
 
 ↓
@@ -48,7 +44,8 @@ Approved
 Archived
 ```
 
-Apabila dokumen tidak disetujui, status berubah menjadi **Rejected**.
+Apabila dokumen tidak disetujui, status berubah menjadi **Rejected** dan dapat
+dikembalikan ke **Draft** untuk diperbaiki.
 
 ---
 
@@ -84,27 +81,32 @@ Audit Log
 
 ```text id="secwf03"
 Create Mail
-
-↓
-
-Validation
-
-↓
-
-Generate Mail Number
-
-↓
-
-Approval
-
-↓
-
-Send Mail
-
-↓
-
-Audit Log
+    │
+    ▼
+Validate & Save (Draft)
+    │
+    ▼
+Tandai Terkirim (SENT)
+    ├── terbit nomor surat otomatis
+    ├── terbit QR verifikasi otomatis
+    └── catat sentAt
+    │
+    ▼
+Arsipkan (ARCHIVED) — Read Only
 ```
+
+**State Machine Outgoing Mail:**
+
+```text id="secwf03b"
+DRAFT ──Tandai Terkirim──▶ SENT ──Arsipkan──▶ ARCHIVED
+  ▲                        │
+  └─────Kembalikan ke Draft┘        (ARCHIVED: terminal)
+```
+
+- Nomor surat dan QR verifikasi **hanya** diterbitkan saat transisi `DRAFT → SENT`.
+- Transisi `SENT → DRAFT` membatalkan status terkirim (nomor & QR dipertahankan untuk dipakai ulang).
+- `ARCHIVED` bersifat terminal: surat tidak dapat diubah atau dihapus.
+- Pengaturan format penomoran, digit urut, periode, dan kode tingkat dikelola super admin di halaman **Penomoran Surat**.
 
 ---
 
@@ -169,15 +171,11 @@ Validation
 
 ↓
 
-Review
+Submit (Submitted)
 
 ↓
 
 Approval
-
-↓
-
-Publish
 
 ↓
 
@@ -321,6 +319,8 @@ Retry
 # Workflow Rules
 
 - Seluruh surat memperoleh nomor agenda atau nomor surat secara otomatis.
+- Nomor surat keluar dan QR verifikasi diterbitkan otomatis saat surat ditandai terkirim.
+- Surat keluar yang diarsipkan bersifat Read Only.
 - Disposisi hanya dapat dibuat dari Surat Masuk.
 - Arsip bersifat Read Only.
 - Penghapusan menggunakan Soft Delete.
@@ -346,7 +346,7 @@ Retry
 Workflow Secretariat dianggap selesai apabila:
 
 - Surat masuk mengikuti alur penerimaan.
-- Surat keluar mengikuti proses persetujuan.
+- Surat keluar diterbitkan nomor & QR saat ditandai terkirim, lalu dapat diarsipkan.
 - Disposisi berjalan sesuai alur.
 - Arsip bersifat Read Only.
 - Seluruh aktivitas mengikuti Business Rules dan tercatat pada Audit Log.

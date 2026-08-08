@@ -28,13 +28,8 @@ const VALID_OUTGOING_MAIL_TRANSITIONS: Record<
   OutgoingMailStatus,
   OutgoingMailStatus[]
 > = {
-  DRAFT: ["SUBMITTED"],
-  SUBMITTED: ["REVIEWED"],
-  REVIEWED: ["APPROVED", "REJECTED"],
-  APPROVED: ["SIGNED"],
-  REJECTED: ["DRAFT"],
-  SIGNED: ["SENT"],
-  SENT: ["ARCHIVED"],
+  DRAFT: ["SENT", "ARCHIVED"],
+  SENT: ["DRAFT", "ARCHIVED"],
   ARCHIVED: [],
 };
 
@@ -186,15 +181,7 @@ export const secretariatService = {
     data: Omit<
       Parameters<SecretariatRepository["createOutgoingMail"]>[0],
       | "status"
-      | "approvedById"
-      | "approvedAt"
       | "registrationNumber"
-      | "submittedById"
-      | "submittedAt"
-      | "reviewedById"
-      | "reviewedAt"
-      | "signedById"
-      | "signedAt"
       | "sentAt"
       | "archivedAt"
       | "sequence"
@@ -211,20 +198,12 @@ export const secretariatService = {
       .toString(36)
       .slice(2, 6)
       .toUpperCase()}`;
-    return repo.createOutgoingMail({
+    const created = await repo.createOutgoingMail({
       ...data,
       registrationNumber,
       levelCode: data.levelCode,
       categoryCode: data.categoryCode,
       status: "DRAFT",
-      approvedById: null,
-      approvedAt: null,
-      submittedById: null,
-      submittedAt: null,
-      reviewedById: null,
-      reviewedAt: null,
-      signedById: null,
-      signedAt: null,
       sentAt: null,
       archivedAt: null,
       sequence: null,
@@ -234,6 +213,8 @@ export const secretariatService = {
       verificationCode: null,
       qrFileId: null,
     });
+
+    return created;
   },
 
   async updateOutgoingMail(
@@ -242,6 +223,12 @@ export const secretariatService = {
   ) {
     const mail = await repo.findOutgoingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Keluar", id);
+
+    if (mail.status === "ARCHIVED") {
+      throw new ForbiddenActionError(
+        "Surat yang sudah diarsipkan tidak dapat diubah.",
+      );
+    }
 
     if (
       data.registrationNumber &&
@@ -253,7 +240,33 @@ export const secretariatService = {
       if (existing) throw new DuplicateNumberError(data.registrationNumber);
     }
 
-    return repo.updateOutgoingMail(id, data);
+    const updated = await repo.updateOutgoingMail(id, data);
+
+    // Surat yang sudah terkirim — jika level/kategori berubah, nomor diterbitkan ulang.
+    const levelChanged =
+      data.levelCode && data.levelCode !== mail.levelCode;
+    const categoryChanged =
+      data.categoryCode && data.categoryCode !== mail.categoryCode;
+    if (mail.status === "SENT" && (levelChanged || categoryChanged)) {
+      const number = await assignLetterNumber(id, {
+        levelCode: data.levelCode ?? mail.levelCode,
+        categoryCode: data.categoryCode ?? mail.categoryCode,
+        mailDate: data.mailDate ?? mail.mailDate,
+      });
+
+      const signed = await signOutgoingMail({
+        ...mail,
+        fullNumber: number.fullNumber,
+      });
+
+      return repo.updateOutgoingMail(id, {
+        fullNumber: number.fullNumber,
+        verificationCode: signed.verificationCode,
+        qrFileId: signed.qrFileId,
+      });
+    }
+
+    return updated;
   },
 
   async deleteOutgoingMail(id: string) {
@@ -265,7 +278,6 @@ export const secretariatService = {
   async transitionOutgoingMailStatus(
     id: string,
     newStatus: OutgoingMailStatus,
-    actor: { userId: string; roleSlugs: string[] },
   ) {
     const mail = await repo.findOutgoingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Keluar", id);
@@ -276,44 +288,33 @@ export const secretariatService = {
       throw new InvalidStatusTransitionError(mail.status, newStatus);
     }
 
-    const isApprovalAction =
-      newStatus === "APPROVED" || newStatus === "REJECTED";
-    const isAdministrator =
-      actor.roleSlugs.includes("administrator") ||
-      actor.roleSlugs.includes("super-admin");
-    if (isApprovalAction && !isAdministrator) {
-      throw new ForbiddenActionError(
-        "Hanya Administrator yang dapat menyetujui atau menolak surat.",
-      );
-    }
+    const updateData: Partial<
+      Parameters<SecretariatRepository["updateOutgoingMail"]>[1]
+    > = { status: newStatus };
 
-    const updateData: Record<string, unknown> = { status: newStatus };
-
-    if (newStatus === "SUBMITTED") {
-      updateData.submittedAt = new Date();
-      updateData.submittedById = actor.userId;
-    } else if (newStatus === "REVIEWED") {
-      updateData.reviewedAt = new Date();
-      updateData.reviewedById = actor.userId;
-    } else if (newStatus === "APPROVED") {
-      await assignLetterNumber(id, {
-        levelCode: mail.levelCode ?? "PP",
-        categoryCode: mail.categoryCode ?? "A",
-        mailDate: mail.mailDate,
-      });
-      updateData.approvedAt = new Date();
-      updateData.approvedById = actor.userId;
-    } else if (newStatus === "REJECTED") {
-      updateData.approvedAt = null;
-      updateData.approvedById = null;
-    } else if (newStatus === "SIGNED") {
-      const signed = await signOutgoingMail(mail);
-      updateData.verificationCode = signed.verificationCode;
-      updateData.qrFileId = signed.qrFileId;
-      updateData.signedAt = new Date();
-      updateData.signedById = actor.userId;
-    } else if (newStatus === "SENT") {
+    if (newStatus === "SENT") {
       updateData.sentAt = new Date();
+
+      // Nomor resmi + QR verifikasi diterbitkan otomatis saat surat ditandai terkirim.
+      if (!mail.fullNumber) {
+        const number = await assignLetterNumber(mail.id, {
+          levelCode: mail.levelCode,
+          categoryCode: mail.categoryCode,
+          mailDate: mail.mailDate,
+        });
+
+        const signed = await signOutgoingMail({
+          ...mail,
+          fullNumber: number.fullNumber,
+        });
+
+        updateData.fullNumber = number.fullNumber;
+        updateData.verificationCode = signed.verificationCode;
+        updateData.qrFileId = signed.qrFileId;
+      }
+    } else if (newStatus === "DRAFT") {
+      // Membatalkan "terkirim" kembali ke draft.
+      updateData.sentAt = null;
     } else if (newStatus === "ARCHIVED") {
       updateData.archivedAt = new Date();
     }

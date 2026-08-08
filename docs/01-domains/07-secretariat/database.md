@@ -77,19 +77,34 @@ Menyimpan data surat masuk.
 
 Menyimpan data surat keluar.
 
-| Field        | Type      |
-| ------------ | --------- |
-| id           | UUID      |
-| letterNumber | String    |
-| recipient    | String    |
-| subject      | String    |
-| signedBy     | UUID      |
-| letterDate   | Date      |
-| attachmentId | UUID      |
-| status       | Enum      |
-| createdAt    | Timestamp |
-| updatedAt    | Timestamp |
-| deletedAt    | Timestamp |
+| Field              | Type       | Description                          |
+| ------------------ | ---------- | ------------------------------------ |
+| id                 | UUID       | Primary Key                          |
+| registrationNumber | String     | Nomor Register (internal, otomatis)  |
+| recipient          | String?    | Penerima                             |
+| subject            | String     | Perihal                              |
+| senderName         | String?    | Penanda Tangan                       |
+| mailDate           | Date       | Tanggal Surat                        |
+| status             | Enum       | Status Surat (DRAFT/SENT/ARCHIVED)   |
+| categoryCode       | String?    | Kode Kategori Surat                  |
+| content            | Text?      | Isi Surat                            |
+| sequence           | Int?       | Nomor urut (kolom 1 nomor surat)     |
+| levelCode          | String?    | Kode indeks tingkat kepengurusan     |
+| romanMonth         | String?    | Bulan angka Romawi (kolom 4)         |
+| periodYear         | Int?       | Tahun awal periode aktif (kolom 5)   |
+| fullNumber         | String?    | Nomor surat lengkap (unik)           |
+| verificationCode   | String?    | Kode verifikasi QR                   |
+| qrFileId           | String?    | File QR verifikasi (Domain Media)    |
+| sentAt             | Timestamp? | Waktu ditandai terkirim              |
+| archivedAt         | Timestamp? | Waktu diarsipkan                     |
+| attachmentUrl      | String?    | Lampiran (Domain Media)              |
+| createdAt          | Timestamp  | Dibuat                               |
+| updatedAt          | Timestamp  | Diubah                               |
+| deletedAt          | Timestamp  | Soft Delete                          |
+
+> Kolom persetujuan lama (`submittedAt`, `reviewedAt`, `approvedAt`, `signedAt`
+> beserta penanda `*ById`) dihapus karena alur persetujuan tidak dipakai.
+> Nomor & QR kini diterbitkan langsung saat transisi ke status **SENT**.
 
 ---
 
@@ -165,7 +180,7 @@ Arsip dokumen.
 | Administrative Document | 1 : 1    | Attachment                |
 | Media                   | 1 : N    | Attachment                |
 | User                    | 1 : N    | Disposition               |
-| User                    | 1 : N    | Outgoing Mail (Signed By) |
+| Media                   | 1 : 1    | Outgoing Mail (QR File)   |
 
 ---
 
@@ -178,7 +193,9 @@ incoming_mail.agendaNumber
 
 incoming_mail.letterNumber
 
-outgoing_mail.letterNumber
+outgoing_mail.fullNumber
+
+outgoing_mail.registrationNumber
 
 administrative_document.documentNumber
 
@@ -200,8 +217,8 @@ agenda_book.agendaNumber
 
 ## Outgoing Mail
 
-- letterNumber wajib unik.
-- recipient wajib diisi.
+- fullNumber (nomor surat lengkap) wajib unik saat diterbitkan.
+- registrationNumber wajib unik (dibuat otomatis).
 
 ---
 
@@ -250,11 +267,17 @@ Archived
 ```text id="secdb04"
 Draft
 
-Approved
-
 Sent
 
 Archived
+```
+
+Transisi sah:
+
+```text id="secdb04b"
+DRAFT ──▶ SENT ──▶ ARCHIVED
+
+SENT  ──▶ DRAFT (pembatalan, reversible)
 ```
 
 ---

@@ -5,22 +5,16 @@ import {
   getSuratMenyuratStats,
 } from "@/modules/secretariat/queries/secretariat.query";
 import { getDriveConnection } from "@/modules/shared/infrastructure/storage/google-drive.storage";
-import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
 
 export const dynamic = "force-dynamic";
 
 export default async function SuratMenyuratPage() {
-  const [stats, outgoing, incoming, drive, permissions] = await Promise.all([
+  const [stats, outgoing, incoming, drive] = await Promise.all([
     getSuratMenyuratStats(),
     getOutgoingMails({ page: 1, limit: 6 }),
     getIncomingMails({ page: 1, limit: 5 }),
     getDriveConnection(),
-    getCurrentUserPermissions(),
   ]);
-
-  const canApprove =
-    permissions.roleSlugs.includes("administrator") ||
-    permissions.roleSlugs.includes("super-admin");
 
   return (
     <SuratMenyuratClient
@@ -47,7 +41,6 @@ export default async function SuratMenyuratPage() {
       incomingItems={incoming.items}
       incomingTotal={incoming.total}
       driveEmail={drive?.email ?? null}
-      canApprove={canApprove}
     />
   );
 }

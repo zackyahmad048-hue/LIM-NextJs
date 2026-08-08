@@ -8,11 +8,6 @@ export const incomingMailStatusEnum = z.enum([
 
 export const outgoingMailStatusEnum = z.enum([
   "DRAFT",
-  "SUBMITTED",
-  "REVIEWED",
-  "APPROVED",
-  "REJECTED",
-  "SIGNED",
   "SENT",
   "ARCHIVED",
 ]);

@@ -8,11 +8,6 @@ import { PrintButton } from "./print-button";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
-  SUBMITTED: "Diajukan",
-  REVIEWED: "Direview",
-  APPROVED: "Disetujui",
-  REJECTED: "Ditolak",
-  SIGNED: "Ditandatangani",
   SENT: "Terkirim",
   ARCHIVED: "Diarsipkan",
 };

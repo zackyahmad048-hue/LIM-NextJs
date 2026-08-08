@@ -13,7 +13,7 @@ export default async function NewOutgoingMailPage() {
     <PageContainer>
       <PageHeader
         title="Surat Keluar Baru"
-        description="Nomor surat diterbitkan otomatis saat surat disetujui."
+        description="Nomor dan QR verifikasi diterbitkan otomatis saat surat ditandai terkirim."
       />
 
       <div className="mt-4">

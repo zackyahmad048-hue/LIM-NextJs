@@ -32,9 +32,9 @@ Menjadi pusat administrasi digital organisasi.
 
 # Version 1.1
 
-- QR Document
-- Digital Signature
-- Approval Workflow
+- QR Document ✅ (diterbitkan otomatis saat surat ditandai terkirim)
+- Digital Signature (Deferred — digantikan QR verifikasi)
+- Approval Workflow ❌ (dihapus — alur surat keluar menjadi DRAFT → SENT → ARCHIVED)
 - Email Integration
 - WhatsApp Notification
 
@@ -43,7 +43,7 @@ Menjadi pusat administrasi digital organisasi.
 # Version 1.2
 
 - Template Surat
-- Auto Numbering
+- Auto Numbering ✅ (konfigurable: format, digit, periode, kode tingkat)
 - Document Versioning
 - OCR Document
 

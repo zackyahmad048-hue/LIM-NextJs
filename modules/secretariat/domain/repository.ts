@@ -217,11 +217,6 @@ export interface SecretariatRepository {
 
   countOutgoingMailsByStatus(): Promise<{
     draft: number;
-    submitted: number;
-    reviewed: number;
-    approved: number;
-    rejected: number;
-    signed: number;
     sent: number;
     archived: number;
   }>;

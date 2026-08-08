@@ -2,13 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   Archive,
-  Check,
   CheckCircle,
-  FileSignature,
+  Lock,
   Printer,
   RotateCcw,
   Send,
-  X,
   QrCode,
 } from "lucide-react";
 
@@ -39,11 +37,6 @@ import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/dri
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
-  SUBMITTED: "Diajukan",
-  REVIEWED: "Direview",
-  APPROVED: "Disetujui",
-  REJECTED: "Ditolak",
-  SIGNED: "Ditandatangani",
   SENT: "Terkirim",
   ARCHIVED: "Diarsipkan",
 };
@@ -73,6 +66,9 @@ export default async function EditOutgoingMailPage({
     ? await getMediaByFileId(attachmentFileId)
     : null;
 
+  const hasQr = Boolean(mail.qrFileId && mail.verificationCode);
+  const isArchived = mail.status === "ARCHIVED";
+
   const statusActions: {
     label: string;
     status: string;
@@ -81,60 +77,25 @@ export default async function EditOutgoingMailPage({
   }[] = [];
   if (mail.status === "DRAFT")
     statusActions.push({
-      label: "Ajukan",
-      status: "SUBMITTED",
-      icon: Send,
-      variant: "default",
-    });
-  if (mail.status === "SUBMITTED")
-    statusActions.push({
-      label: "Tandai Direview",
-      status: "REVIEWED",
-      icon: Check,
-      variant: "default",
-    });
-  if (mail.status === "REVIEWED") {
-    statusActions.push({
-      label: "Setujui",
-      status: "APPROVED",
-      icon: Check,
-      variant: "default",
-    });
-    statusActions.push({
-      label: "Tolak",
-      status: "REJECTED",
-      icon: X,
-      variant: "destructive",
-    });
-  }
-  if (mail.status === "APPROVED")
-    statusActions.push({
-      label: "Tandatangani",
-      status: "SIGNED",
-      icon: FileSignature,
-      variant: "default",
-    });
-  if (mail.status === "SIGNED")
-    statusActions.push({
       label: "Tandai Terkirim",
       status: "SENT",
       icon: Send,
       variant: "default",
     });
-  if (mail.status === "SENT")
+  if (mail.status === "SENT") {
     statusActions.push({
       label: "Arsipkan",
       status: "ARCHIVED",
       icon: Archive,
       variant: "outline",
     });
-  if (mail.status === "REJECTED")
     statusActions.push({
       label: "Kembalikan ke Draft",
       status: "DRAFT",
       icon: RotateCcw,
-      variant: "outline",
+      variant: "secondary",
     });
+  }
 
   return (
     <PageContainer>
@@ -181,131 +142,157 @@ export default async function EditOutgoingMailPage({
         </Button>
       </div>
 
-      <form
-        action={updateOutgoingMail.bind(null, mail.id)}
-        className="mt-4 max-w-2xl space-y-3"
-      >
-        <SectionCard className="rounded-lg p-4">
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Informasi Surat</h2>
-          </div>
+      {isArchived && (
+        <div className="mt-4 flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/30 dark:text-amber-200">
+          <Lock className="size-4 shrink-0" />
+          Surat telah diarsipkan dan tidak dapat diubah.
+        </div>
+      )}
 
-          <div className="grid gap-3 md:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="levelCode" className="text-xs">
-                Tingkat Kepengurusan
-              </Label>
-              <NativeSelect
-                id="levelCode"
-                name="levelCode"
-                className="w-full"
-                defaultValue={mail.levelCode ?? ""}
-              >
-                <NativeSelectOption value="">Pilih tingkat</NativeSelectOption>
-                {levels.map((level) => (
-                  <NativeSelectOption key={level.code} value={level.code}>
-                    {level.label}
+      {!isArchived && (
+        <form
+          action={updateOutgoingMail.bind(null, mail.id)}
+          className="mt-4 max-w-2xl space-y-3"
+        >
+          <SectionCard className="rounded-lg p-4">
+            <div className="mb-4 border-b pb-3">
+              <h2 className="text-base font-semibold">Informasi Surat</h2>
+              <p className="text-xs text-muted-foreground">
+                Mengubah tingkat atau kategori akan memutakhirkan nomor surat
+                otomatis.
+              </p>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label htmlFor="levelCode" className="text-xs">
+                  Tingkat Kepengurusan
+                </Label>
+                <NativeSelect
+                  id="levelCode"
+                  name="levelCode"
+                  className="w-full"
+                  defaultValue={mail.levelCode ?? ""}
+                >
+                  <NativeSelectOption value="">
+                    Pilih tingkat
                   </NativeSelectOption>
-                ))}
-              </NativeSelect>
-            </div>
+                  {levels.map((level) => (
+                    <NativeSelectOption key={level.code} value={level.code}>
+                      {level.label}
+                    </NativeSelectOption>
+                  ))}
+                </NativeSelect>
+              </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="categoryCode" className="text-xs">
-                Kategori Surat
-              </Label>
-              <NativeSelect
-                id="categoryCode"
-                name="categoryCode"
-                className="w-full"
-                defaultValue={mail.categoryCode ?? ""}
-              >
-                <NativeSelectOption value="">Pilih kategori</NativeSelectOption>
-                {LETTER_TYPES.map((type) => (
-                  <NativeSelectOption key={type.key} value={type.key}>
-                    {type.key} — {type.label}
+              <div className="space-y-1.5">
+                <Label htmlFor="categoryCode" className="text-xs">
+                  Kategori Surat
+                </Label>
+                <NativeSelect
+                  id="categoryCode"
+                  name="categoryCode"
+                  className="w-full"
+                  defaultValue={mail.categoryCode ?? ""}
+                >
+                  <NativeSelectOption value="">
+                    Pilih kategori
                   </NativeSelectOption>
-                ))}
-              </NativeSelect>
+                  {LETTER_TYPES.map((type) => (
+                    <NativeSelectOption key={type.key} value={type.key}>
+                      {type.key} — {type.label}
+                    </NativeSelectOption>
+                  ))}
+                </NativeSelect>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="mailDate" className="text-xs">
+                  Tanggal Surat
+                </Label>
+                <Input
+                  id="mailDate"
+                  name="mailDate"
+                  type="date"
+                  required
+                  defaultValue={formatDateInput(mail.mailDate)}
+                  className="rounded-md text-xs"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="recipient" className="text-xs">
+                  Penerima
+                </Label>
+                <Input
+                  id="recipient"
+                  name="recipient"
+                  defaultValue={mail.recipient ?? ""}
+                  className="rounded-md text-xs"
+                />
+              </div>
+
+              <div className="space-y-1.5 md:col-span-2">
+                <Label htmlFor="subject" className="text-xs">
+                  Perihal Surat
+                </Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  required
+                  defaultValue={mail.subject}
+                  className="rounded-md text-xs"
+                />
+              </div>
+
+              <div className="space-y-1.5 md:col-span-2">
+                <Label htmlFor="senderName" className="text-xs">
+                  Penanda Tangan
+                </Label>
+                <Input
+                  id="senderName"
+                  name="senderName"
+                  defaultValue={mail.senderName ?? ""}
+                  className="rounded-md text-xs"
+                />
+              </div>
+            </div>
+          </SectionCard>
+
+          <SectionCard className="rounded-lg p-4">
+            <div className="mb-4 border-b pb-3">
+              <h2 className="text-base font-semibold">Dokumen Surat</h2>
+              <p className="text-xs text-muted-foreground">
+                Unggah dokumen surat yang akan dicetak.
+              </p>
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="mailDate" className="text-xs">
-                Tanggal Surat
-              </Label>
-              <Input
-                id="mailDate"
-                name="mailDate"
-                type="date"
-                required
-                defaultValue={formatDateInput(mail.mailDate)}
-                className="rounded-md text-xs"
-              />
-            </div>
+            <AttachmentUpload
+              initialAttachmentUrl={mail.attachmentUrl ?? null}
+              initialFileName={attachmentMedia?.originalName ?? null}
+            />
+          </SectionCard>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="recipient" className="text-xs">
-                Penerima
-              </Label>
-              <Input
-                id="recipient"
-                name="recipient"
-                defaultValue={mail.recipient ?? ""}
-                className="rounded-md text-xs"
-              />
-            </div>
-
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="subject" className="text-xs">
-                Perihal Surat
-              </Label>
-              <Input
-                id="subject"
-                name="subject"
-                required
-                defaultValue={mail.subject}
-                className="rounded-md text-xs"
-              />
-            </div>
-
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="senderName" className="text-xs">
-                Penanda Tangan
-              </Label>
-              <Input
-                id="senderName"
-                name="senderName"
-                defaultValue={mail.senderName ?? ""}
-                className="rounded-md text-xs"
-              />
-            </div>
+          <div className="sticky bottom-4 flex justify-end">
+            <Button type="submit" size="sm">
+              <CheckCircle className="size-4" />
+              Simpan Perubahan
+            </Button>
           </div>
-        </SectionCard>
+        </form>
+      )}
 
-        <SectionCard className="rounded-lg p-4">
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Dokumen Surat</h2>
-            <p className="text-xs text-muted-foreground">
-              Unggah dokumen surat yang akan dicetak.
-            </p>
-          </div>
-
-          <AttachmentUpload
-            initialAttachmentUrl={mail.attachmentUrl ?? null}
-            initialFileName={attachmentMedia?.originalName ?? null}
-          />
-        </SectionCard>
-
+      <div className="mt-4 max-w-2xl">
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">QR Verifikasi</h2>
             <p className="text-xs text-muted-foreground">
-              QR diterbitkan otomatis saat surat ditandatangani. Pihak luar bisa
-              memverifikasi dengan scan QR atau memasukkan nomor surat.
+              QR diterbitkan otomatis saat surat ditandai terkirim. Pihak luar
+              bisa memverifikasi dengan scan QR atau memasukkan nomor surat.
             </p>
           </div>
 
-          {mail.qrFileId && mail.verificationCode ? (
+          {hasQr ? (
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <div className="flex size-32 items-center justify-center rounded-lg border bg-white p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -322,7 +309,7 @@ export default async function EditOutgoingMailPage({
                 </p>
                 <Button variant="outline" size="sm" className="mt-2" asChild>
                   <Link
-                    href={`/verifikasi/surat/${encodeURIComponent(mail.verificationCode)}`}
+                    href={`/verifikasi/surat/${encodeURIComponent(mail.verificationCode ?? "")}`}
                     target="_blank"
                   >
                     Lihat halaman verifikasi
@@ -334,20 +321,13 @@ export default async function EditOutgoingMailPage({
             <div className="flex items-center gap-3 rounded-lg border border-dashed px-4 py-6">
               <QrCode className="size-6 text-muted-foreground/50" />
               <p className="text-sm text-muted-foreground">
-                QR belum tersedia. Tandatangani surat untuk menerbitkan QR
-                verifikasi.
+                QR belum tersedia. Tandai surat sebagai terkirim untuk
+                menerbitkan nomor dan QR verifikasi.
               </p>
             </div>
           )}
         </SectionCard>
-
-        <div className="sticky bottom-4 flex justify-end">
-          <Button type="submit" size="sm">
-            <CheckCircle className="size-4" />
-            Simpan Perubahan
-          </Button>
-        </div>
-      </form>
+      </div>
     </PageContainer>
   );
 }

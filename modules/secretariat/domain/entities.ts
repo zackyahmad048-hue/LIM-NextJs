@@ -34,14 +34,6 @@ export interface OutgoingMailEntity {
   status: OutgoingMailStatus;
   categoryCode: string | null;
   content: string | null;
-  submittedById: string | null;
-  submittedAt: Date | null;
-  reviewedById: string | null;
-  reviewedAt: Date | null;
-  approvedById: string | null;
-  approvedAt: Date | null;
-  signedById: string | null;
-  signedAt: Date | null;
   sentAt: Date | null;
   archivedAt: Date | null;
   sequence: number | null;

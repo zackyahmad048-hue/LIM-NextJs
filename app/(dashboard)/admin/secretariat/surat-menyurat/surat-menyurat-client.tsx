@@ -6,13 +6,10 @@ import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Archive,
-  FileSignature,
   Inbox,
   PenLine,
   QrCode,
   Send,
-  Check,
-  X,
   RotateCcw,
   Cloud,
   CloudOff,
@@ -30,15 +27,7 @@ import { LetterPlate } from "@/components/admin/shared/letter-plate";
 
 import { transitionOutgoingMailStatus } from "@/modules/secretariat/presentation/secretariat.action";
 
-type OutgoingStatus =
-  | "DRAFT"
-  | "SUBMITTED"
-  | "REVIEWED"
-  | "APPROVED"
-  | "REJECTED"
-  | "SIGNED"
-  | "SENT"
-  | "ARCHIVED";
+type OutgoingStatus = "DRAFT" | "SENT" | "ARCHIVED";
 
 interface OutgoingItem {
   id: string;
@@ -86,7 +75,6 @@ interface SuratMenyuratClientProps {
   incomingItems: IncomingItem[];
   incomingTotal: number;
   driveEmail: string | null;
-  canApprove: boolean;
 }
 
 function formatDate(date: Date | string) {
@@ -111,12 +99,7 @@ const statusConfig: Record<
   { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
 > = {
   DRAFT: { label: "Draft", variant: "outline" },
-  SUBMITTED: { label: "Diajukan", variant: "secondary" },
-  REVIEWED: { label: "Direview", variant: "secondary" },
-  APPROVED: { label: "Disetujui", variant: "default" },
-  REJECTED: { label: "Ditolak", variant: "destructive" },
-  SIGNED: { label: "Ditandatangani", variant: "secondary" },
-  SENT: { label: "Terkirim", variant: "secondary" },
+  SENT: { label: "Terkirim", variant: "default" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
 
@@ -139,7 +122,6 @@ export function SuratMenyuratClient({
   incomingItems,
   incomingTotal,
   driveEmail,
-  canApprove,
 }: SuratMenyuratClientProps) {
   const router = useRouter();
   const [pendingAction, setPendingAction] = useState<string | null>(null);
@@ -199,32 +181,17 @@ export function SuratMenyuratClient({
     const actions: { status: OutgoingStatus; label: string; icon: any }[] = [];
     switch (item.status) {
       case "DRAFT":
-        actions.push({ status: "SUBMITTED", label: "Ajukan", icon: Send });
-        break;
-      case "SUBMITTED":
-        actions.push({ status: "REVIEWED", label: "Tandai Direview", icon: Check });
-        break;
-      case "REVIEWED":
-        if (canApprove) {
-          actions.push({ status: "APPROVED", label: "Setujui", icon: Check });
-          actions.push({ status: "REJECTED", label: "Tolak", icon: X });
-        }
-        break;
-      case "APPROVED":
-        actions.push({
-          status: "SIGNED",
-          label: "Tandatangani",
-          icon: FileSignature,
-        });
-        break;
-      case "SIGNED":
         actions.push({ status: "SENT", label: "Tandai Terkirim", icon: Send });
         break;
       case "SENT":
         actions.push({ status: "ARCHIVED", label: "Arsipkan", icon: Archive });
+        actions.push({
+          status: "DRAFT",
+          label: "Kembalikan ke Draft",
+          icon: RotateCcw,
+        });
         break;
-      case "REJECTED":
-        actions.push({ status: "DRAFT", label: "Kembalikan ke Draft", icon: RotateCcw });
+      case "ARCHIVED":
         break;
     }
     return actions;
@@ -232,18 +199,6 @@ export function SuratMenyuratClient({
 
   const confirmFor = (status: OutgoingStatus) => {
     switch (status) {
-      case "APPROVED":
-        return {
-          title: "Setujui surat?",
-          description:
-            "Nomor surat resmi akan diterbitkan sesuai format organisasi. Tindakan ini tidak dapat dibatalkan.",
-        };
-      case "REJECTED":
-        return {
-          title: "Tolak surat?",
-          description:
-            "Surat kembali ke status Draft dan tidak mendapat nomor resmi.",
-        };
       case "ARCHIVED":
         return {
           title: "Arsipkan surat?",
@@ -259,7 +214,7 @@ export function SuratMenyuratClient({
     <PageContainer>
       <PageHeader
         title="Surat Menyurat"
-        description="Terbitkan nomor, pantau alur persetujuan, dan catat surat masuk."
+        description="Terbitkan nomor & QR verifikasi, pantau status surat keluar, dan catat surat masuk."
       />
 
       {/* Plat nomor terakhir + statistik */}
@@ -294,7 +249,7 @@ export function SuratMenyuratClient({
                 Belum ada nomor terbit
               </p>
               <p className="mt-1 text-xs text-muted-foreground/80">
-                Nomor diterbitkan otomatis saat surat keluar disetujui.
+                Nomor diterbitkan otomatis saat surat keluar ditandai terkirim.
               </p>
             </div>
           )}
@@ -346,7 +301,8 @@ export function SuratMenyuratClient({
             <div>
               <p className="text-base font-semibold">Tulis surat keluar</p>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                Buat draft atau ajukan langsung. Nomor terbit saat disetujui.
+                Simpan surat, lalu tandai terkirim untuk menerbitkan nomor dan
+                QR verifikasi.
               </p>
             </div>
           </div>
@@ -483,7 +439,7 @@ export function SuratMenyuratClient({
                       {status.label}
                     </Badge>
 
-                    {item.status === "SIGNED" &&
+                    {item.status !== "DRAFT" &&
                       item.verificationCode &&
                       item.qrFileId && (
                         <Button asChild variant="ghost" size="icon-sm" title="Lihat QR">
@@ -502,11 +458,9 @@ export function SuratMenyuratClient({
                         <Button
                           key={action.status}
                           variant={
-                            action.status === "APPROVED"
+                            action.status === "SENT"
                               ? "default"
-                              : action.status === "REJECTED"
-                                ? "destructive"
-                                : "outline"
+                              : "outline"
                           }
                           size="sm"
                           disabled={isPending(item.id, action.status)}

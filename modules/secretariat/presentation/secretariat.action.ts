@@ -23,6 +23,9 @@ import {
   DuplicateNumberError,
 } from "../domain/secretariat.errors";
 import { uploadOutgoingMailAttachmentFile } from "../application/attachment.service";
+import { letterNumberingService } from "../application/letter-numbering.service";
+import type { NumberingPeriod } from "../application/letter-number.rules";
+import type { LevelCodeOption } from "../infrastructure/letter-numbering.config";
 
 const PERMISSION_INCOMING_CREATE = ["secretariat.incoming-mail.create"];
 const PERMISSION_INCOMING_UPDATE = ["secretariat.incoming-mail.update"];
@@ -122,13 +125,9 @@ export async function createOutgoingMail(formData: FormData) {
   const parsed = createOutgoingMailSchema.safeParse(raw);
   if (!parsed.success) return;
 
-  const intent = String(raw.action ?? "draft");
-
   try {
-    const auth = await requireSessionWithPermissions(
-      PERMISSION_OUTGOING_CREATE,
-    );
-    const mail = await secretariatService.createOutgoingMail({
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_CREATE);
+    await secretariatService.createOutgoingMail({
       recipient: parsed.data.recipient || null,
       subject: parsed.data.subject,
       senderName: parsed.data.senderName || null,
@@ -138,17 +137,6 @@ export async function createOutgoingMail(formData: FormData) {
       content: parsed.data.content || null,
       attachmentUrl: parsed.data.attachmentUrl || null,
     });
-
-    if (intent === "submit") {
-      await secretariatService.transitionOutgoingMailStatus(
-        mail.id,
-        "SUBMITTED",
-        {
-          userId: auth.user.id,
-          roleSlugs: auth.roleSlugs,
-        },
-      );
-    }
 
     revalidatePath("/admin/secretariat/surat-menyurat");
     revalidatePath("/admin/secretariat/outgoing-mail/list");
@@ -200,16 +188,10 @@ export async function deleteOutgoingMail(id: string) {
 
 export async function transitionOutgoingMailStatus(id: string, status: string) {
   try {
-    const auth = await requireSessionWithPermissions(
-      PERMISSION_OUTGOING_UPDATE,
-    );
+    await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
     const mail = await secretariatService.transitionOutgoingMailStatus(
       id,
       status as any,
-      {
-        userId: auth.user.id,
-        roleSlugs: auth.roleSlugs,
-      },
     );
     revalidatePath("/admin/secretariat/outgoing-mail/list");
     revalidatePath("/admin/secretariat/surat-menyurat");
@@ -454,5 +436,81 @@ export async function deleteAgendaBook(id: string) {
     revalidatePath("/admin/secretariat/agenda");
   } catch {
     return;
+  }
+}
+
+function parseJsonArray<T>(value: string, fallback: T[]): T[] {
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? (parsed as T[]) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+export type UpdateNumberingSettingsState = {
+  success: boolean;
+  message?: string;
+};
+
+export async function updateLetterNumberingSettings(
+  prevState: UpdateNumberingSettingsState | null,
+  formData: FormData,
+): Promise<UpdateNumberingSettingsState> {
+  try {
+    const auth = await requireSessionWithPermissions(
+      PERMISSION_OUTGOING_UPDATE,
+    );
+    if (!auth.roleSlugs.includes("super-admin")) {
+      throw new Error("FORBIDDEN");
+    }
+
+    const formatTemplate = String(formData.get("formatTemplate") ?? "").trim();
+    const sequenceDigits = Number(formData.get("sequenceDigits") ?? "3");
+    const periods = parseJsonArray<NumberingPeriod>(
+      String(formData.get("periods") ?? ""),
+      [],
+    );
+    const levelCodes = parseJsonArray<LevelCodeOption>(
+      String(formData.get("levelCodes") ?? ""),
+      [],
+    );
+
+    await letterNumberingService.updateSettings({
+      formatTemplate,
+      sequenceDigits,
+      periods,
+      levelCodes,
+    });
+
+    revalidatePath("/admin/secretariat/penomoran");
+    return { success: true, message: "Pengaturan penomoran disimpan." };
+  } catch (e) {
+    if (e instanceof SecretariatError) {
+      return { success: false, message: e.message };
+    }
+    console.error("[updateLetterNumberingSettings]", e);
+    return { success: false, message: "Terjadi kesalahan." };
+  }
+}
+
+export async function setLetterNextSequence(formData: FormData) {
+  try {
+    const auth = await requireSessionWithPermissions(
+      PERMISSION_OUTGOING_UPDATE,
+    );
+    if (!auth.roleSlugs.includes("super-admin")) {
+      throw new Error("FORBIDDEN");
+    }
+    const periodYear = Number(formData.get("periodYear"));
+    const sequence = Number(formData.get("sequence"));
+    await letterNumberingService.setNextSequence(periodYear, sequence);
+    revalidatePath("/admin/secretariat/penomoran");
+    return { success: true, message: "Nomor urut berikutnya diatur." };
+  } catch (e) {
+    if (e instanceof SecretariatError) {
+      return { success: false, message: e.message };
+    }
+    return { success: false, message: "Terjadi kesalahan." };
   }
 }
