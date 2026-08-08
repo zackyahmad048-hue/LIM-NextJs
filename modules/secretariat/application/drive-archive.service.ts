@@ -13,6 +13,16 @@ export function extractFileIdFromMediaUrl(url: string): string | null {
   }
 }
 
+export function extractMimeFromMediaUrl(url: string): string | null {
+  const match = url.match(/[?&]mime=([^&]+)/);
+  if (!match) return null;
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Memindahkan lampiran surat yang telah diarsipkan ke Google Drive
  * (jika sudah terhubung). File dihapus dari Vercel Blob agar kuota

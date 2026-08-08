@@ -11,6 +11,7 @@ import { LETTER_TYPES } from "@/config/letter-types";
 import { getOutgoingMailByVerificationCode } from "@/modules/secretariat/queries/secretariat.query";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { VerificationForm } from "../verification-form";
 
 interface VerifyLetterPageProps {
   params: Promise<{ kode: string }>;
@@ -48,7 +49,10 @@ export default async function VerifyLetterPage({
   const attachmentFileId = letter?.attachmentUrl
     ? extractFileIdFromMediaUrl(letter.attachmentUrl)
     : null;
-  const hasPreview = letter !== null && attachmentFileId !== null;
+  const fileSrc = attachmentFileId
+    ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}/file`
+    : null;
+  const hasPreview = letter !== null && fileSrc !== null;
 
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
@@ -62,6 +66,10 @@ export default async function VerifyLetterPage({
         <p className="mt-1 text-xs text-muted-foreground">
           Layanan verifikasi keaslian surat
         </p>
+      </div>
+
+      <div className="mt-6 rounded-xl border bg-card p-3">
+        <VerificationForm />
       </div>
 
       {letter ? (
@@ -86,9 +94,7 @@ export default async function VerifyLetterPage({
                     : "text-emerald-700 dark:text-emerald-400"
                 }`}
               >
-                {letter.status === "REJECTED"
-                  ? "Surat Tidak Sah"
-                  : "Surat Sah"}
+                {letter.status === "REJECTED" ? "Surat Tidak Sah" : "Surat Sah"}
               </span>
             </div>
             <span className="text-xs text-muted-foreground">
@@ -113,7 +119,7 @@ export default async function VerifyLetterPage({
                 "Jenis Surat",
                 category
                   ? `${category.key} — ${category.label}`
-                  : letter.categoryCode ?? "—",
+                  : (letter.categoryCode ?? "—"),
               ],
               ["Perihal", letter.subject],
               ["Tanggal Surat", formatDate(letter.mailDate)],
@@ -160,11 +166,11 @@ export default async function VerifyLetterPage({
           </div>
           <div className="px-6 py-6">
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Kode verifikasi{" "}
-              <span className="font-mono">{kode}</span> tidak ditemukan pada
-              sistem kami. Kemungkinan kode salah ketik, surat belum
-              ditandatangani, atau dokumen tersebut memang tidak diterbitkan
-              melalui platform ini. Hubungi sekretariat untuk klarifikasi.
+              Kode verifikasi <span className="font-mono">{kode}</span> tidak
+              ditemukan pada sistem kami. Kemungkinan kode salah ketik, surat
+              belum ditandatangani, atau dokumen tersebut memang tidak
+              diterbitkan melalui platform ini. Hubungi sekretariat untuk
+              klarifikasi.
             </p>
           </div>
         </div>

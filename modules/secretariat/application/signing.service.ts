@@ -4,12 +4,7 @@ import {
   MissingLetterNumberError,
   SecretariatError,
 } from "../domain/secretariat.errors";
-import { renderQrPng } from "./verified-letter.service";
-
-export function getLetterVerificationUrl(fullNumber: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-  return `${baseUrl}/verifikasi/surat/${encodeURIComponent(fullNumber)}`;
-}
+import { getLetterVerificationUrl, renderQrPng } from "./qr-code";
 
 export interface SignedLetterArtifacts {
   verificationCode: string;

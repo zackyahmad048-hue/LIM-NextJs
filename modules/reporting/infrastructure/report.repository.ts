@@ -37,7 +37,9 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
     prisma.outgoingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
     prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
     prisma.administrativeDocument.count({ where: { deletedAt: null } }),
-    prisma.verifiedLetter.count({ where: { deletedAt: null } }),
+    prisma.outgoingMail.count({
+      where: { verificationCode: { not: null }, deletedAt: null },
+    }),
   ]);
 
   const updatedAt = new Date().toISOString();

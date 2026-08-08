@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getOutgoingMailByVerificationCode } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getMediaByFileId,
+  getOutgoingMailByVerificationCode,
+} from "@/modules/secretariat/queries/secretariat.query";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { storage } from "@/modules/shared/infrastructure/storage";
 
@@ -21,11 +24,14 @@ export async function GET(
     );
   }
 
+  const media = await getMediaByFileId(fileId);
+  const mimeType = media?.mimeType ?? "application/pdf";
+
   try {
     const buffer = await storage.read(fileId);
     return new NextResponse(new Uint8Array(buffer), {
       headers: {
-        "Content-Type": "application/pdf",
+        "Content-Type": mimeType,
         "Content-Length": String(buffer.byteLength),
         "Cache-Control": "public, max-age=3600, must-revalidate",
         "X-Content-Type-Options": "nosniff",

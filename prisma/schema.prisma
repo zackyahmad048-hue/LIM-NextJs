@@ -678,33 +678,6 @@ model DocumentArchive {
   @@map("document_archive")
 }
 
-model VerifiedLetter {
-  id                   String   @id @default(cuid())
-  letterType           String
-  registrationNumber   String
-  subject              String
-  date                 DateTime
-  issuer               String?
-  originalFileUrl  String
-  processedPdfUrl  String
-  qrPngUrl         String
-  originalFileId   String?
-  processedFileId  String?
-  qrFileId         String?
-  fileName         String
-  mimeType         String
-  verificationCode     String   @unique
-  verifiedAt           DateTime @default(now())
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
-  deletedAt            DateTime?
-
-  @@index([letterType])
-  @@index([registrationNumber])
-  @@index([verifiedAt])
-  @@map("verified_letter")
-}
-
 enum MediaAccess {
   PUBLIC
   PRIVATE

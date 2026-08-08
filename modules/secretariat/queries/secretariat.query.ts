@@ -1,6 +1,5 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { secretariatRepository as repo } from "../infrastructure/repository";
-import { verifiedLetterRepository } from "../infrastructure/verified-letter.repository";
 import { secretariatService } from "../application/service";
 
 export async function getIncomingMails(params: {
@@ -207,7 +206,12 @@ export async function getSecretariatReportData(year: number) {
       secretariatService.countOutgoingMailsByMonth(year),
     ]);
 
-  return { incomingByStatus, outgoingByStatus, incomingByMonth, outgoingByMonth };
+  return {
+    incomingByStatus,
+    outgoingByStatus,
+    incomingByMonth,
+    outgoingByMonth,
+  };
 }
 
 export async function getIncomingMailsByStatus() {
@@ -218,23 +222,10 @@ export async function getOutgoingMailsByStatus() {
   return repo.countOutgoingMailsByStatus();
 }
 
-// Verified Letter (QR)
-export async function getVerifiedLetters(params: {
-  page?: number;
-  limit?: number;
-  search?: string;
-}) {
-  return verifiedLetterRepository.findMany({
-    page: params.page ?? 1,
-    limit: params.limit ?? 10,
-    search: params.search,
-  });
-}
-
-export async function getVerifiedLetterByCode(code: string) {
-  return verifiedLetterRepository.findByCode(code);
-}
-
 export async function getOutgoingMailByVerificationCode(code: string) {
   return repo.findOutgoingMailByVerificationCode(code);
+}
+
+export async function getMediaByFileId(fileId: string) {
+  return prisma.media.findUnique({ where: { fileId } });
 }

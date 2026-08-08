@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
-import { Printer } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 
 import { getOutgoingMailById } from "@/modules/secretariat/queries/secretariat.query";
 import { getLetterTypeLabel } from "@/config/letter-types";
-import { getLetterVerificationUrl } from "@/modules/secretariat/application/signing.service";
+import {
+  getLetterVerificationUrl,
+  renderQrPng,
+} from "@/modules/secretariat/application/qr-code";
 import { SITE } from "@/config/site";
+import { PrintButton } from "./print-button";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
@@ -33,6 +34,9 @@ export default async function CetakOutgoingMailPage({
   const validationUrl = mail.fullNumber
     ? getLetterVerificationUrl(mail.fullNumber)
     : null;
+  const qrDataUrl = validationUrl
+    ? `data:image/png;base64,${(await renderQrPng(validationUrl)).toString("base64")}`
+    : null;
 
   return (
     <div className="min-h-screen bg-neutral-100 print:bg-white">
@@ -41,12 +45,7 @@ export default async function CetakOutgoingMailPage({
         <p className="text-sm text-muted-foreground">
           {officialNumber} &middot; {statusLabels[mail.status] ?? mail.status}
         </p>
-        <div className="flex gap-2">
-          <Button size="sm" onClick={() => window.print()}>
-            <Printer className="size-3.5" />
-            Cetak / PDF
-          </Button>
-        </div>
+        <PrintButton />
       </div>
 
       {/* Letter */}
@@ -96,12 +95,12 @@ export default async function CetakOutgoingMailPage({
         </div>
 
         {/* QR Code */}
-        {validationUrl && (
+        {qrDataUrl && (
           <div className="mt-10 flex flex-col items-end border-t pt-4">
             <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(validationUrl)}`}
+                src={qrDataUrl}
                 alt="QR Code Verifikasi"
                 className="size-full"
               />

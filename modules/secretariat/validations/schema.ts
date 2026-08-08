@@ -259,26 +259,3 @@ export type UpdateAgendaBookInput = z.infer<typeof updateAgendaBookSchema>;
 export type CreateDocumentArchiveInput = z.infer<
   typeof createDocumentArchiveSchema
 >;
-
-// Verified Letter (QR)
-export const createVerifiedLetterSchema = z.object({
-  letterType: z
-    .string()
-    .min(1, "Jenis surat wajib dipilih."),
-  registrationNumber: z
-    .string()
-    .min(1, "Nomor surat wajib diisi.")
-    .max(100, "Nomor surat maksimal 100 karakter."),
-  subject: z
-    .string()
-    .min(1, "Perihal wajib diisi.")
-    .max(500, "Perihal maksimal 500 karakter."),
-  date: z
-    .string()
-    .min(1, "Tanggal surat wajib diisi."),
-  issuer: z
-    .string()
-    .max(255, "Penerbit maksimal 255 karakter.")
-    .optional()
-    .or(z.literal("")),
-});
