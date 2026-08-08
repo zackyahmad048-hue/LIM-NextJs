@@ -9,9 +9,10 @@ import { driveStorage, storage } from "@/modules/shared/infrastructure/storage";
 
 export async function GET(
   _request: NextRequest,
-  context: { params: Promise<{ kode: string }> },
+  context: { params: Promise<{ kode: string[] }> },
 ) {
-  const { kode } = await context.params;
+  const { kode: kodeSegments } = await context.params;
+  const kode = decodeURIComponent(kodeSegments.join("/"));
   const letter = await getOutgoingMailByVerificationCode(kode);
 
   const fileId = letter?.attachmentUrl

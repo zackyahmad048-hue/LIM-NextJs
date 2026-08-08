@@ -186,8 +186,9 @@ Digunakan untuk:
 - Artefak verifikasi surat (PDF/gambar ber-QR)
 
 Kode verifikasi berperan sebagai bearer credential. Route publik
-`/api/v1/verifikasi/surat/[kode]/file` memvalidasi kode ke database lalu streaming
-dari Vercel Blob. Berlaku akses terbatas (Expiration) sesuai kebijakan.
+`/api/v1/verifikasi/surat/[...kode]` memvalidasi kode (kode verifikasi atau nomor
+surat lengkap) ke database lalu streaming dari Vercel Blob. Berlaku akses
+terbatas (Expiration) sesuai kebijakan.
 
 ---
 

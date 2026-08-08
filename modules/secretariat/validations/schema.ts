@@ -6,11 +6,7 @@ export const incomingMailStatusEnum = z.enum([
   "ARCHIVED",
 ]);
 
-export const outgoingMailStatusEnum = z.enum([
-  "DRAFT",
-  "SENT",
-  "ARCHIVED",
-]);
+export const outgoingMailStatusEnum = z.enum(["DRAFT", "SENT", "ARCHIVED"]);
 
 export const dispositionStatusEnum = z.enum([
   "PENDING",
@@ -175,6 +171,7 @@ export const createAdministrativeDocumentBase = z.object({
     .max(10000, "Konten maksimal 10000 karakter.")
     .optional()
     .or(z.literal("")),
+  attachmentUrl: z.string().optional().or(z.literal("")),
 });
 
 export const createAdministrativeDocumentSchema =

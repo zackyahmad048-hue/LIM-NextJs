@@ -8,11 +8,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 
-import { getAdministrativeDocumentById } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getAdministrativeDocumentById,
+  getMediaByFileId,
+} from "@/modules/secretariat/queries/secretariat.query";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import {
   updateAdministrativeDocument,
   transitionAdministrativeDocumentStatus,
+  uploadAdministrativeDocumentAttachment,
 } from "@/modules/secretariat/presentation/secretariat.action";
 
 const statusLabels: Record<string, string> = {
@@ -40,6 +46,13 @@ export default async function EditDocumentPage({
   const doc = await getAdministrativeDocumentById(id);
 
   if (!doc) notFound();
+
+  const attachmentFileId = doc.attachmentUrl
+    ? extractFileIdFromMediaUrl(doc.attachmentUrl)
+    : null;
+  const attachmentMedia = attachmentFileId
+    ? await getMediaByFileId(attachmentFileId)
+    : null;
 
   const statusActions: {
     label: string;
@@ -176,6 +189,22 @@ export default async function EditDocumentPage({
               />
             </div>
           </div>
+        </SectionCard>
+
+        <SectionCard className="rounded-lg p-4">
+          <div className="mb-4 border-b pb-3">
+            <h2 className="text-base font-semibold">Dokumen File</h2>
+            <p className="text-xs text-muted-foreground">
+              Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file
+              ini.
+            </p>
+          </div>
+
+          <AttachmentUpload
+            uploadAction={uploadAdministrativeDocumentAttachment}
+            initialAttachmentUrl={doc.attachmentUrl}
+            initialFileName={attachmentMedia?.originalName}
+          />
         </SectionCard>
 
         <div className="sticky bottom-4 flex justify-end">

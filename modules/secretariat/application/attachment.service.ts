@@ -19,13 +19,17 @@ export interface UploadedAttachment {
   size: number;
 }
 
+export type AttachmentFolder =
+  "surat-masuk" | "surat-keluar" | "dokumen-administrasi";
+
 /**
- * Mengunggah dokumen lampiran surat keluar ke Vercel Blob dan
- * mencatatnya di tabel Media. Batas ukuran 2 MB.
+ * Mengunggah dokumen lampiran ke Vercel Blob dan mencatatnya di tabel
+ * Media. Batas ukuran 2 MB. `folder` menentukan pengelompokan media.
  */
-export async function uploadOutgoingMailAttachmentFile(
+export async function uploadSecretariatAttachmentFile(
   file: File,
   uploadedById: string,
+  folder: AttachmentFolder,
 ): Promise<UploadedAttachment> {
   if (!file || file.size === 0) {
     throw new SecretariatError("Pilih dokumen untuk diunggah.");
@@ -49,7 +53,7 @@ export async function uploadOutgoingMailAttachmentFile(
       size: file.size,
       fileId,
       access: "PRIVATE",
-      folder: "surat-keluar",
+      folder,
       storageProvider: "BLOB",
       storageKey: fileId,
       uploadedById,

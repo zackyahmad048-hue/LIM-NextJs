@@ -14,7 +14,7 @@ import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { VerificationForm } from "../verification-form";
 
 interface VerifyLetterPageProps {
-  params: Promise<{ kode: string }>;
+  params: Promise<{ kode: string[] }>;
 }
 
 const statusLabels: Record<string, string> = {
@@ -26,7 +26,8 @@ const statusLabels: Record<string, string> = {
 export default async function VerifyLetterPage({
   params,
 }: VerifyLetterPageProps) {
-  const { kode } = await params;
+  const { kode: kodeSegments } = await params;
+  const kode = decodeURIComponent(kodeSegments.join("/"));
   const letter = await getOutgoingMailByVerificationCode(kode);
 
   const formatDate = (date: Date | string | null) => {
@@ -45,7 +46,7 @@ export default async function VerifyLetterPage({
     ? extractFileIdFromMediaUrl(letter.attachmentUrl)
     : null;
   const fileSrc = attachmentFileId
-    ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}/file`
+    ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`
     : null;
   const hasPreview = letter !== null && fileSrc !== null;
 
@@ -163,7 +164,7 @@ export default async function VerifyLetterPage({
           </div>
           <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
             <iframe
-              src={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}/file`}
+              src={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`}
               title={`Dokumen ${letter?.fullNumber ?? letter?.subject}`}
               className="h-full w-full"
             />

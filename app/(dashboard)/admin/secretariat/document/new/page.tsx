@@ -7,8 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 
 import { createAdministrativeDocument } from "@/modules/secretariat/presentation/secretariat.action";
+import { uploadAdministrativeDocumentAttachment } from "@/modules/secretariat/presentation/secretariat.action";
 
 const documentTypes = [
   { value: "SURAT_KETERANGAN", label: "Surat Keterangan" },
@@ -108,6 +110,20 @@ export default function NewDocumentPage() {
               />
             </div>
           </div>
+        </SectionCard>
+
+        <SectionCard className="rounded-lg p-4">
+          <div className="mb-4 border-b pb-3">
+            <h2 className="text-base font-semibold">Dokumen File</h2>
+            <p className="text-xs text-muted-foreground">
+              Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file
+              ini.
+            </p>
+          </div>
+
+          <AttachmentUpload
+            uploadAction={uploadAdministrativeDocumentAttachment}
+          />
         </SectionCard>
 
         <div className="sticky bottom-4 flex justify-end">

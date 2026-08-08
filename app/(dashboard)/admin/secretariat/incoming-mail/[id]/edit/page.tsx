@@ -8,9 +8,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 
-import { getIncomingMailById } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getIncomingMailById,
+  getMediaByFileId,
+} from "@/modules/secretariat/queries/secretariat.query";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { updateIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
+import { uploadIncomingMailAttachment } from "@/modules/secretariat/presentation/secretariat.action";
 
 const statusLabels: Record<string, string> = {
   RECEIVED: "Diterima",
@@ -31,6 +37,13 @@ export default async function EditIncomingMailPage({
   const mail = await getIncomingMailById(id);
 
   if (!mail) notFound();
+
+  const attachmentFileId = mail.attachmentUrl
+    ? extractFileIdFromMediaUrl(mail.attachmentUrl)
+    : null;
+  const attachmentMedia = attachmentFileId
+    ? await getMediaByFileId(attachmentFileId)
+    : null;
 
   return (
     <PageContainer>
@@ -152,19 +165,22 @@ export default async function EditIncomingMailPage({
                 className="min-h-20 rounded-md text-xs"
               />
             </div>
-
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="attachmentUrl" className="text-xs">
-                URL Lampiran
-              </Label>
-              <Input
-                id="attachmentUrl"
-                name="attachmentUrl"
-                defaultValue={mail.attachmentUrl ?? ""}
-                className="rounded-md text-xs"
-              />
-            </div>
           </div>
+        </SectionCard>
+
+        <SectionCard className="rounded-lg p-4">
+          <div className="mb-4 border-b pb-3">
+            <h2 className="text-base font-semibold">Dokumen Surat Masuk</h2>
+            <p className="text-xs text-muted-foreground">
+              Unggah dokumen surat masuk.
+            </p>
+          </div>
+
+          <AttachmentUpload
+            uploadAction={uploadIncomingMailAttachment}
+            initialAttachmentUrl={mail.attachmentUrl}
+            initialFileName={attachmentMedia?.originalName}
+          />
         </SectionCard>
 
         <div className="sticky bottom-4 flex justify-end">

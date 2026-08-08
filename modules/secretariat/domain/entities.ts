@@ -70,6 +70,7 @@ export interface AdministrativeDocumentEntity {
   title: string;
   description: string | null;
   content: string | null;
+  attachmentUrl: string | null;
   status: AdministrativeDocumentStatus;
   submittedById: string | null;
   submittedAt: Date | null;

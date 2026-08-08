@@ -133,7 +133,10 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   async findOutgoingMailByVerificationCode(code) {
     const item = await prisma.outgoingMail.findFirst({
-      where: { verificationCode: code, deletedAt: null },
+      where: {
+        deletedAt: null,
+        OR: [{ verificationCode: code }, { fullNumber: code }],
+      },
     });
     return item as OutgoingMailEntity | null;
   },
@@ -401,7 +404,9 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     ] = await Promise.all([
       prisma.incomingMail.count({ where: { deletedAt: null } }),
       prisma.outgoingMail.count({ where: { deletedAt: null } }),
-      prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
+      prisma.disposition.count({
+        where: { status: "PENDING", deletedAt: null },
+      }),
       prisma.administrativeDocument.count({ where: { deletedAt: null } }),
       prisma.agendaBook.count({ where: { deletedAt: null } }),
     ]);
@@ -530,4 +535,5 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 };
 
-export const secretariatRepository: SecretariatRepository = prismaSecretariatRepository;
+export const secretariatRepository: SecretariatRepository =
+  prismaSecretariatRepository;

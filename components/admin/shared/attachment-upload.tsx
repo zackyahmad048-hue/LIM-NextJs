@@ -16,6 +16,16 @@ const ALLOWED_MIME_TYPES = new Set([
   "image/png",
 ]);
 
+type UploadActionResult =
+  | {
+      success: true;
+      fileId: string;
+      attachmentUrl: string;
+      originalName: string;
+      size: number;
+    }
+  | { success: false; message: string };
+
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -26,12 +36,14 @@ interface AttachmentUploadProps {
   name?: string;
   initialAttachmentUrl?: string | null;
   initialFileName?: string | null;
+  uploadAction?: (formData: FormData) => Promise<UploadActionResult>;
 }
 
 export function AttachmentUpload({
   name = "attachmentUrl",
   initialAttachmentUrl,
   initialFileName,
+  uploadAction = uploadOutgoingMailAttachment,
 }: AttachmentUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -69,7 +81,7 @@ export function AttachmentUpload({
     setUploading(true);
     const formData = new FormData();
     formData.append("attachment", selected);
-    const result = await uploadOutgoingMailAttachment(formData);
+    const result = await uploadAction(formData);
     setUploading(false);
 
     if (!result.success) {

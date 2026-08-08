@@ -620,6 +620,7 @@ model AdministrativeDocument {
   title          String
   description    String?
   content        String?
+  attachmentUrl  String?
   status         AdministrativeDocumentStatus @default(DRAFT)
   submittedById  String?
   submittedAt    DateTime?

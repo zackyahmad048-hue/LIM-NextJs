@@ -40,6 +40,7 @@ Aturan:
 
 - Nomor Surat unik.
 - Received Date ≥ Letter Date.
+- Lampiran (opsional) hanya dari hasil unggah Domain Media (`media.fileId`).
 
 ---
 
@@ -89,6 +90,7 @@ Aturan:
 
 - Nomor Dokumen unik.
 - Document Type harus valid.
+- Lampiran (opsional) hanya dari hasil unggah Domain Media (`media.fileId`).
 
 ---
 

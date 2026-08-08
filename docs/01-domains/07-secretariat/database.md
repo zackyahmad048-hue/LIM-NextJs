@@ -77,30 +77,30 @@ Menyimpan data surat masuk.
 
 Menyimpan data surat keluar.
 
-| Field              | Type       | Description                          |
-| ------------------ | ---------- | ------------------------------------ |
-| id                 | UUID       | Primary Key                          |
-| registrationNumber | String     | Nomor Register (internal, otomatis)  |
-| recipient          | String?    | Penerima                             |
-| subject            | String     | Perihal                              |
-| senderName         | String?    | Penanda Tangan                       |
-| mailDate           | Date       | Tanggal Surat                        |
-| status             | Enum       | Status Surat (DRAFT/SENT/ARCHIVED)   |
-| categoryCode       | String?    | Kode Kategori Surat                  |
-| content            | Text?      | Isi Surat                            |
-| sequence           | Int?       | Nomor urut (kolom 1 nomor surat)     |
-| levelCode          | String?    | Kode indeks tingkat kepengurusan     |
-| romanMonth         | String?    | Bulan angka Romawi (kolom 4)         |
-| periodYear         | Int?       | Tahun awal periode aktif (kolom 5)   |
-| fullNumber         | String?    | Nomor surat lengkap (unik)           |
-| verificationCode   | String?    | Kode verifikasi QR                   |
-| qrFileId           | String?    | File QR verifikasi (Domain Media)    |
-| sentAt             | Timestamp? | Waktu ditandai terkirim              |
-| archivedAt         | Timestamp? | Waktu diarsipkan                     |
-| attachmentUrl      | String?    | Lampiran (Domain Media)              |
-| createdAt          | Timestamp  | Dibuat                               |
-| updatedAt          | Timestamp  | Diubah                               |
-| deletedAt          | Timestamp  | Soft Delete                          |
+| Field              | Type       | Description                         |
+| ------------------ | ---------- | ----------------------------------- |
+| id                 | UUID       | Primary Key                         |
+| registrationNumber | String     | Nomor Register (internal, otomatis) |
+| recipient          | String?    | Penerima                            |
+| subject            | String     | Perihal                             |
+| senderName         | String?    | Penanda Tangan                      |
+| mailDate           | Date       | Tanggal Surat                       |
+| status             | Enum       | Status Surat (DRAFT/SENT/ARCHIVED)  |
+| categoryCode       | String?    | Kode Kategori Surat                 |
+| content            | Text?      | Isi Surat                           |
+| sequence           | Int?       | Nomor urut (kolom 1 nomor surat)    |
+| levelCode          | String?    | Kode indeks tingkat kepengurusan    |
+| romanMonth         | String?    | Bulan angka Romawi (kolom 4)        |
+| periodYear         | Int?       | Tahun awal periode aktif (kolom 5)  |
+| fullNumber         | String?    | Nomor surat lengkap (unik)          |
+| verificationCode   | String?    | Kode verifikasi QR                  |
+| qrFileId           | String?    | File QR verifikasi (Domain Media)   |
+| sentAt             | Timestamp? | Waktu ditandai terkirim             |
+| archivedAt         | Timestamp? | Waktu diarsipkan                    |
+| attachmentUrl      | String?    | Lampiran (Domain Media)             |
+| createdAt          | Timestamp  | Dibuat                              |
+| updatedAt          | Timestamp  | Diubah                              |
+| deletedAt          | Timestamp  | Soft Delete                         |
 
 > Kolom persetujuan lama (`submittedAt`, `reviewedAt`, `approvedAt`, `signedAt`
 > beserta penanda `*ById`) dihapus karena alur persetujuan tidak dipakai.
@@ -127,18 +127,24 @@ Menyimpan disposisi surat.
 
 Dokumen administrasi organisasi.
 
-| Field          | Type      |
-| -------------- | --------- |
-| id             | UUID      |
-| documentNumber | String    |
-| documentType   | String    |
-| title          | String    |
-| description    | Text      |
-| attachmentId   | UUID      |
-| status         | Enum      |
+| Field          | Type      | Description                         |
+| -------------- | --------- | ----------------------------------- |
+| id             | UUID      | Primary Key                         |
+| documentNumber | String    | Nomor Dokumen (unik)                |
+| documentType   | String    | Jenis Dokumen                       |
+| title          | String    | Judul / Perihal                     |
+| description    | Text      | Deskripsi                           |
+| content        | Text      | Konten dokumen (teks)               |
+| attachmentUrl  | String?   | Lampiran (Domain Media)             |
+| status         | Enum      | Status (DRAFT/SUBMITTED/APPROVED/…) |
 | createdAt      | Timestamp |
 | updatedAt      | Timestamp |
 | deletedAt      | Timestamp |
+
+> Lampiran dokumen memakai **Domain Media** (`media.fileId`); `attachmentUrl`
+> berisi URL file yang dihasilkan `MediaUploadService`. Jika file diunggah,
+> halaman cetak menampilkan file tersebut (iframe); jika tidak, konten teks
+> ditampilkan.
 
 ---
 
@@ -172,15 +178,15 @@ Arsip dokumen.
 
 # Relationships
 
-| Source                  | Relation | Target                    |
-| ----------------------- | -------- | ------------------------- |
-| Incoming Mail           | 1 : N    | Disposition               |
-| Incoming Mail           | 1 : 1    | Agenda Book               |
-| Outgoing Mail           | 1 : 1    | Agenda Book               |
-| Administrative Document | 1 : 1    | Attachment                |
-| Media                   | 1 : N    | Attachment                |
-| User                    | 1 : N    | Disposition               |
-| Media                   | 1 : 1    | Outgoing Mail (QR File)   |
+| Source                  | Relation | Target                  |
+| ----------------------- | -------- | ----------------------- |
+| Incoming Mail           | 1 : N    | Disposition             |
+| Incoming Mail           | 1 : 1    | Agenda Book             |
+| Outgoing Mail           | 1 : 1    | Agenda Book             |
+| Administrative Document | 1 : 1    | Attachment              |
+| Media                   | 1 : N    | Attachment              |
+| User                    | 1 : N    | Disposition             |
+| Media                   | 1 : 1    | Outgoing Mail (QR File) |
 
 ---
 

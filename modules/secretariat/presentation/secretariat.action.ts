@@ -22,7 +22,10 @@ import {
   SecretariatError,
   DuplicateNumberError,
 } from "../domain/secretariat.errors";
-import { uploadOutgoingMailAttachmentFile } from "../application/attachment.service";
+import {
+  uploadSecretariatAttachmentFile,
+  type AttachmentFolder,
+} from "../application/attachment.service";
 import { letterNumberingService } from "../application/letter-numbering.service";
 import type { NumberingPeriod } from "../application/letter-number.rules";
 import type { LevelCodeOption } from "../infrastructure/letter-numbering.config";
@@ -222,22 +225,54 @@ export type UploadOutgoingMailAttachmentResult =
 export async function uploadOutgoingMailAttachment(
   formData: FormData,
 ): Promise<UploadOutgoingMailAttachmentResult> {
+  return uploadSecretariatAttachment(formData, [
+    "surat-keluar",
+    ...PERMISSION_OUTGOING_CREATE,
+    ...PERMISSION_OUTGOING_UPDATE,
+  ]);
+}
+
+export async function uploadIncomingMailAttachment(
+  formData: FormData,
+): Promise<UploadOutgoingMailAttachmentResult> {
+  return uploadSecretariatAttachment(formData, [
+    "surat-masuk",
+    ...PERMISSION_INCOMING_CREATE,
+    ...PERMISSION_INCOMING_UPDATE,
+  ]);
+}
+
+export async function uploadAdministrativeDocumentAttachment(
+  formData: FormData,
+): Promise<UploadOutgoingMailAttachmentResult> {
+  return uploadSecretariatAttachment(formData, [
+    "dokumen-administrasi",
+    ...PERMISSION_DOCUMENT_CREATE,
+    ...PERMISSION_DOCUMENT_UPDATE,
+  ]);
+}
+
+async function uploadSecretariatAttachment(
+  formData: FormData,
+  [folder, ...permissions]: [AttachmentFolder, ...string[]],
+): Promise<UploadOutgoingMailAttachmentResult> {
   try {
-    const auth = await requireSessionWithPermissions([
-      ...PERMISSION_OUTGOING_CREATE,
-      ...PERMISSION_OUTGOING_UPDATE,
-    ]);
+    const auth = await requireSessionWithPermissions(permissions);
     const file = formData.get("attachment");
     if (!(file instanceof File)) {
       return { success: false, message: "Pilih dokumen untuk diunggah." };
     }
-    const uploaded = await uploadOutgoingMailAttachmentFile(file, auth.user.id);
+    const uploaded = await uploadSecretariatAttachmentFile(
+      file,
+      auth.user.id,
+      folder,
+    );
     return { success: true, ...uploaded };
   } catch (e) {
     if (e instanceof SecretariatError) {
       return { success: false, message: e.message };
     }
-    console.error("[uploadOutgoingMailAttachment]", e);
+    console.error("[uploadSecretariatAttachment]", e);
     return { success: false, message: "Gagal mengunggah dokumen." };
   }
 }
@@ -321,6 +356,7 @@ export async function createAdministrativeDocument(formData: FormData) {
       title: parsed.data.title,
       description: parsed.data.description || null,
       content: parsed.data.content || null,
+      attachmentUrl: parsed.data.attachmentUrl || null,
     });
     revalidatePath("/admin/secretariat/administrative-documents");
   } catch (e) {
@@ -348,6 +384,8 @@ export async function updateAdministrativeDocument(
       data.description = parsed.data.description || null;
     if (parsed.data.content !== undefined)
       data.content = parsed.data.content || null;
+    if (parsed.data.attachmentUrl !== undefined)
+      data.attachmentUrl = parsed.data.attachmentUrl || null;
 
     await secretariatService.updateAdministrativeDocument(id, data);
     revalidatePath("/admin/secretariat/administrative-documents");
