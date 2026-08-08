@@ -2,10 +2,7 @@ import { notFound } from "next/navigation";
 
 import { getOutgoingMailById } from "@/modules/secretariat/queries/secretariat.query";
 import { getLetterTypeLabel } from "@/config/letter-types";
-import {
-  getLetterVerificationUrl,
-  renderQrPng,
-} from "@/modules/secretariat/application/qr-code";
+import { getLetterVerificationUrl } from "@/modules/secretariat/application/qr-code";
 import { SITE } from "@/config/site";
 import { PrintButton } from "./print-button";
 
@@ -34,8 +31,8 @@ export default async function CetakOutgoingMailPage({
   const validationUrl = mail.fullNumber
     ? getLetterVerificationUrl(mail.fullNumber)
     : null;
-  const qrDataUrl = validationUrl
-    ? `data:image/png;base64,${(await renderQrPng(validationUrl)).toString("base64")}`
+  const qrDataUrl = mail.qrFileId
+    ? `/api/media/${mail.qrFileId}?mime=image/png`
     : null;
 
   return (
@@ -49,68 +46,104 @@ export default async function CetakOutgoingMailPage({
       </div>
 
       {/* Letter */}
-      <div className="mx-auto max-w-[210mm] bg-white px-8 py-10 shadow-sm print:shadow-none print:px-6 print:py-8">
-        {/* Kop Surat */}
-        <div className="border-b-2 border-black pb-4 text-center">
-          <h1 className="text-lg font-bold uppercase tracking-wide">
-            {SITE.title}
-          </h1>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {SITE.email}
-            {SITE.phone ? ` · ${SITE.phone}` : ""}
-          </p>
-        </div>
+      {mail.attachmentUrl ? (
+        <div className="mx-auto max-w-[210mm] bg-white p-4 shadow-sm print:shadow-none print:p-0">
+          <div className="overflow-hidden rounded border">
+            <iframe
+              src={mail.attachmentUrl}
+              title={`Dokumen ${officialNumber}`}
+              className="h-[1200px] w-full print:h-[auto] print:min-h-[900mm]"
+            />
+          </div>
 
-        {/* Meta */}
-        <div className="mt-6 space-y-1 text-sm">
-          <div className="flex">
-            <span className="w-28 shrink-0 font-semibold">Nomor</span>
-            <span>: {officialNumber}</span>
-          </div>
-          <div className="flex">
-            <span className="w-28 shrink-0 font-semibold">Lampiran</span>
-            <span>: -</span>
-          </div>
-          <div className="flex">
-            <span className="w-28 shrink-0 font-semibold">Perihal</span>
-            <span>: {mail.subject}</span>
-          </div>
-          {mail.categoryCode && (
-            <div className="flex">
-              <span className="w-28 shrink-0 font-semibold">Jenis Surat</span>
-              <span>: {getLetterTypeLabel(mail.categoryCode)}</span>
-            </div>
-          )}
-          {mail.levelCode && (
-            <div className="flex">
-              <span className="w-28 shrink-0 font-semibold">Tingkat</span>
-              <span>: {mail.levelCode}</span>
+          {/* QR Code */}
+          {qrDataUrl && (
+            <div className="mt-6 flex items-center justify-between gap-4 rounded border p-4 print:break-inside-avoid">
+              <div className="text-xs text-muted-foreground">
+                <p className="text-sm font-semibold text-foreground">
+                  {officialNumber}
+                </p>
+                {validationUrl && (
+                  <p className="mt-1 max-w-[420px] break-all">
+                    Verifikasi: {validationUrl}
+                  </p>
+                )}
+              </div>
+              <div className="flex size-24 shrink-0 items-center justify-center rounded border bg-white p-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={qrDataUrl}
+                  alt="QR Code Verifikasi"
+                  className="size-full"
+                />
+              </div>
             </div>
           )}
         </div>
-
-        {/* Body */}
-        <div className="mt-8 whitespace-pre-line text-sm leading-relaxed">
-          {mail.content || "[Belum ada konten surat]"}
-        </div>
-
-        {/* QR Code */}
-        {qrDataUrl && (
-          <div className="mt-10 flex flex-col items-end border-t pt-4">
-            <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={qrDataUrl}
-                alt="QR Code Verifikasi"
-                className="size-full"
-              />
-            </div>
-            <p className="mt-1 text-[9px] text-muted-foreground">
-              Scan QR atau kunjungi halaman verifikasi dengan nomor surat
+      ) : (
+        <div className="mx-auto max-w-[210mm] bg-white px-8 py-10 shadow-sm print:shadow-none print:px-6 print:py-8">
+          {/* Kop Surat */}
+          <div className="border-b-2 border-black pb-4 text-center">
+            <h1 className="text-lg font-bold uppercase tracking-wide">
+              {SITE.title}
+            </h1>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {SITE.email}
+              {SITE.phone ? ` · ${SITE.phone}` : ""}
             </p>
           </div>
-        )}
-      </div>
+
+          {/* Meta */}
+          <div className="mt-6 space-y-1 text-sm">
+            <div className="flex">
+              <span className="w-28 shrink-0 font-semibold">Nomor</span>
+              <span>: {officialNumber}</span>
+            </div>
+            <div className="flex">
+              <span className="w-28 shrink-0 font-semibold">Lampiran</span>
+              <span>: -</span>
+            </div>
+            <div className="flex">
+              <span className="w-28 shrink-0 font-semibold">Perihal</span>
+              <span>: {mail.subject}</span>
+            </div>
+            {mail.categoryCode && (
+              <div className="flex">
+                <span className="w-28 shrink-0 font-semibold">Jenis Surat</span>
+                <span>: {getLetterTypeLabel(mail.categoryCode)}</span>
+              </div>
+            )}
+            {mail.levelCode && (
+              <div className="flex">
+                <span className="w-28 shrink-0 font-semibold">Tingkat</span>
+                <span>: {mail.levelCode}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Body */}
+          <div className="mt-8 whitespace-pre-line text-sm leading-relaxed">
+            {mail.content || "[Belum ada dokumen surat]"}
+          </div>
+
+          {/* QR Code */}
+          {qrDataUrl && (
+            <div className="mt-10 flex flex-col items-end border-t pt-4">
+              <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={qrDataUrl}
+                  alt="QR Code Verifikasi"
+                  className="size-full"
+                />
+              </div>
+              <p className="mt-1 text-[9px] text-muted-foreground">
+                Scan QR atau kunjungi halaman verifikasi dengan nomor surat
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

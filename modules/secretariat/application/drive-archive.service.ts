@@ -1,6 +1,9 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { driveStorage, storage } from "@/modules/shared/infrastructure/storage";
-import { getDriveConnection } from "@/modules/shared/infrastructure/storage/google-drive.storage";
+import {
+  getDriveConnection,
+  GoogleDriveStorage,
+} from "@/modules/shared/infrastructure/storage/google-drive.storage";
 import type { OutgoingMailEntity } from "../domain/entities";
 
 export function extractFileIdFromMediaUrl(url: string): string | null {
@@ -45,10 +48,11 @@ export async function archiveOutgoingMailFile(
 
   try {
     const buffer = await storage.read(fileId);
-    const driveFileId = await driveStorage.save(
+    const driveFileId = await (driveStorage as GoogleDriveStorage).save(
       buffer,
       media.originalName,
       media.mimeType,
+      connection,
     );
 
     await storage.remove(fileId);

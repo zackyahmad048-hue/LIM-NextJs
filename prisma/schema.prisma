@@ -601,6 +601,9 @@ model OutgoingMail {
   @@index([status])
   @@index([mailDate])
   @@index([registrationNumber])
+  @@index([createdAt])
+  @@index([approvedAt])
+  @@index([archivedAt])
   @@map("outgoing_mail")
 }
 

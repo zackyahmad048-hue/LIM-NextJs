@@ -15,7 +15,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   NativeSelect,
   NativeSelectOption,
@@ -23,8 +22,12 @@ import {
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 
-import { getOutgoingMailById } from "@/modules/secretariat/queries/secretariat.query";
+import {
+  getOutgoingMailById,
+  getMediaByFileId,
+} from "@/modules/secretariat/queries/secretariat.query";
 import {
   updateOutgoingMail,
   transitionOutgoingMailStatus,
@@ -32,6 +35,7 @@ import {
 import { getLetterLevelOptions } from "@/modules/organization";
 import { LETTER_TYPES } from "@/config/letter-types";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
@@ -61,6 +65,13 @@ export default async function EditOutgoingMailPage({
   ]);
 
   if (!mail) notFound();
+
+  const attachmentFileId = mail.attachmentUrl
+    ? extractFileIdFromMediaUrl(mail.attachmentUrl)
+    : null;
+  const attachmentMedia = attachmentFileId
+    ? await getMediaByFileId(attachmentFileId)
+    : null;
 
   const statusActions: {
     label: string;
@@ -129,9 +140,7 @@ export default async function EditOutgoingMailPage({
     <PageContainer>
       <PageHeader
         title={
-          mail.fullNumber
-            ? `Surat Keluar — ${mail.fullNumber}`
-            : "Surat Keluar"
+          mail.fullNumber ? `Surat Keluar — ${mail.fullNumber}` : "Surat Keluar"
         }
         description={`Status: ${statusLabels[mail.status] ?? mail.status}`}
       />
@@ -192,9 +201,7 @@ export default async function EditOutgoingMailPage({
                 className="w-full"
                 defaultValue={mail.levelCode ?? ""}
               >
-                <NativeSelectOption value="">
-                  Pilih tingkat
-                </NativeSelectOption>
+                <NativeSelectOption value="">Pilih tingkat</NativeSelectOption>
                 {levels.map((level) => (
                   <NativeSelectOption key={level.code} value={level.code}>
                     {level.label}
@@ -277,24 +284,16 @@ export default async function EditOutgoingMailPage({
 
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Isi Surat</h2>
+            <h2 className="text-base font-semibold">Dokumen Surat</h2>
             <p className="text-xs text-muted-foreground">
-              Edit konten template surat keluar.
+              Unggah dokumen surat yang akan dicetak.
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="content" className="text-xs">
-              Konten Surat
-            </Label>
-            <Textarea
-              id="content"
-              name="content"
-              rows={16}
-              defaultValue={mail.content ?? ""}
-              className="rounded-md text-xs leading-relaxed"
-            />
-          </div>
+          <AttachmentUpload
+            initialAttachmentUrl={mail.attachmentUrl ?? null}
+            initialFileName={attachmentMedia?.originalName ?? null}
+          />
         </SectionCard>
 
         <SectionCard className="rounded-lg p-4">
@@ -321,12 +320,7 @@ export default async function EditOutgoingMailPage({
                 <p className="mt-0.5 break-all text-xs text-muted-foreground">
                   {mail.verificationCode}
                 </p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="mt-2"
-                  asChild
-                >
+                <Button variant="outline" size="sm" className="mt-2" asChild>
                   <Link
                     href={`/verifikasi/surat/${encodeURIComponent(mail.verificationCode)}`}
                     target="_blank"

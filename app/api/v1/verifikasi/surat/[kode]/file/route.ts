@@ -5,7 +5,7 @@ import {
   getOutgoingMailByVerificationCode,
 } from "@/modules/secretariat/queries/secretariat.query";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
-import { storage } from "@/modules/shared/infrastructure/storage";
+import { driveStorage, storage } from "@/modules/shared/infrastructure/storage";
 
 export async function GET(
   _request: NextRequest,
@@ -26,9 +26,12 @@ export async function GET(
 
   const media = await getMediaByFileId(fileId);
   const mimeType = media?.mimeType ?? "application/pdf";
+  const isDrive = media?.storageProvider === "GOOGLE_DRIVE";
 
   try {
-    const buffer = await storage.read(fileId);
+    const buffer = isDrive
+      ? await driveStorage.read(media.storageKey ?? fileId)
+      : await storage.read(fileId);
     return new NextResponse(new Uint8Array(buffer), {
       headers: {
         "Content-Type": mimeType,

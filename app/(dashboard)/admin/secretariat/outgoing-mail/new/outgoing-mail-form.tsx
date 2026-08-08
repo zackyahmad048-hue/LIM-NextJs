@@ -8,12 +8,12 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 
 import { LETTER_TYPES } from "@/config/letter-types";
 import { createOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
@@ -32,7 +32,8 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
   const [mailDate, setMailDate] = useState("");
 
   async function handleSubmit(formData: FormData) {
-    const intent = (formData.get("action") as string) === "submit" ? "submit" : "draft";
+    const intent =
+      (formData.get("action") as string) === "submit" ? "submit" : "draft";
     setSubmitting(intent);
     try {
       await createOutgoingMail(formData);
@@ -78,9 +79,7 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
               onChange={(event) => setLevelCode(event.target.value)}
               className="w-full"
             >
-              <NativeSelectOption value="">
-                Pilih tingkat
-              </NativeSelectOption>
+              <NativeSelectOption value="">Pilih tingkat</NativeSelectOption>
               {levels.map((level) => (
                 <NativeSelectOption key={level.code} value={level.code}>
                   {level.label}
@@ -166,24 +165,13 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
 
       <SectionCard className="rounded-lg p-4">
         <div className="mb-4 border-b pb-3">
-          <h2 className="text-base font-semibold">Isi Surat</h2>
+          <h2 className="text-base font-semibold">Dokumen Surat</h2>
           <p className="text-xs text-muted-foreground">
-            Konten surat yang akan dicetak.
+            Unggah dokumen surat yang akan dicetak.
           </p>
         </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="content" className="text-xs">
-            Konten Surat
-          </Label>
-          <Textarea
-            id="content"
-            name="content"
-            rows={16}
-            placeholder="Isi surat..."
-            className="rounded-md text-xs leading-relaxed"
-          />
-        </div>
+        <AttachmentUpload />
       </SectionCard>
 
       <div className="sticky bottom-4 flex justify-end gap-2">

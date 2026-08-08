@@ -2,8 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { secretariatService } from "../application/service";
+import { archiveOutgoingMailFile } from "../application/drive-archive.service";
 import {
   createIncomingMailSchema,
   updateIncomingMailSchema,
@@ -20,6 +22,7 @@ import {
   SecretariatError,
   DuplicateNumberError,
 } from "../domain/secretariat.errors";
+import { uploadOutgoingMailAttachmentFile } from "../application/attachment.service";
 
 const PERMISSION_INCOMING_CREATE = ["secretariat.incoming-mail.create"];
 const PERMISSION_INCOMING_UPDATE = ["secretariat.incoming-mail.update"];
@@ -122,7 +125,9 @@ export async function createOutgoingMail(formData: FormData) {
   const intent = String(raw.action ?? "draft");
 
   try {
-    const auth = await requireSessionWithPermissions(PERMISSION_OUTGOING_CREATE);
+    const auth = await requireSessionWithPermissions(
+      PERMISSION_OUTGOING_CREATE,
+    );
     const mail = await secretariatService.createOutgoingMail({
       recipient: parsed.data.recipient || null,
       subject: parsed.data.subject,
@@ -135,10 +140,14 @@ export async function createOutgoingMail(formData: FormData) {
     });
 
     if (intent === "submit") {
-      await secretariatService.transitionOutgoingMailStatus(mail.id, "SUBMITTED", {
-        userId: auth.user.id,
-        roleSlugs: auth.roleSlugs,
-      });
+      await secretariatService.transitionOutgoingMailStatus(
+        mail.id,
+        "SUBMITTED",
+        {
+          userId: auth.user.id,
+          roleSlugs: auth.roleSlugs,
+        },
+      );
     }
 
     revalidatePath("/admin/secretariat/surat-menyurat");
@@ -191,19 +200,63 @@ export async function deleteOutgoingMail(id: string) {
 
 export async function transitionOutgoingMailStatus(id: string, status: string) {
   try {
-    const auth = await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
-    await secretariatService.transitionOutgoingMailStatus(id, status as any, {
-      userId: auth.user.id,
-      roleSlugs: auth.roleSlugs,
-    });
+    const auth = await requireSessionWithPermissions(
+      PERMISSION_OUTGOING_UPDATE,
+    );
+    const mail = await secretariatService.transitionOutgoingMailStatus(
+      id,
+      status as any,
+      {
+        userId: auth.user.id,
+        roleSlugs: auth.roleSlugs,
+      },
+    );
     revalidatePath("/admin/secretariat/outgoing-mail/list");
     revalidatePath("/admin/secretariat/surat-menyurat");
+
+    if (status === "ARCHIVED") {
+      after(() => archiveOutgoingMailFile(mail).catch(() => undefined));
+    }
+
     return { success: true };
   } catch (e) {
     if (e instanceof SecretariatError) {
       return { success: false, message: e.message };
     }
     return { success: false, message: "Terjadi kesalahan." };
+  }
+}
+
+export type UploadOutgoingMailAttachmentResult =
+  | {
+      success: true;
+      fileId: string;
+      attachmentUrl: string;
+      originalName: string;
+      size: number;
+    }
+  | { success: false; message: string };
+
+export async function uploadOutgoingMailAttachment(
+  formData: FormData,
+): Promise<UploadOutgoingMailAttachmentResult> {
+  try {
+    const auth = await requireSessionWithPermissions([
+      ...PERMISSION_OUTGOING_CREATE,
+      ...PERMISSION_OUTGOING_UPDATE,
+    ]);
+    const file = formData.get("attachment");
+    if (!(file instanceof File)) {
+      return { success: false, message: "Pilih dokumen untuk diunggah." };
+    }
+    const uploaded = await uploadOutgoingMailAttachmentFile(file, auth.user.id);
+    return { success: true, ...uploaded };
+  } catch (e) {
+    if (e instanceof SecretariatError) {
+      return { success: false, message: e.message };
+    }
+    console.error("[uploadOutgoingMailAttachment]", e);
+    return { success: false, message: "Gagal mengunggah dokumen." };
   }
 }
 
@@ -385,8 +438,7 @@ export async function updateAgendaBook(id: string, formData: FormData) {
       data.location = parsed.data.location || null;
     if (parsed.data.participants !== undefined)
       data.participants = parsed.data.participants || null;
-    if (parsed.data.notes !== undefined)
-      data.notes = parsed.data.notes || null;
+    if (parsed.data.notes !== undefined) data.notes = parsed.data.notes || null;
 
     await secretariatService.updateAgendaBook(id, data as any);
     revalidatePath("/admin/secretariat/agenda");

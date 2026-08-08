@@ -506,25 +506,29 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async getSuratMenyuratStats() {
-    const [outgoingTotal, incomingTotal, archivedTotal, latestIssued] =
-      await Promise.all([
-        prisma.outgoingMail.count({ where: { deletedAt: null } }),
-        prisma.incomingMail.count({ where: { deletedAt: null } }),
-        prisma.outgoingMail.count({
-          where: { status: "ARCHIVED", deletedAt: null },
-        }),
-        prisma.outgoingMail.findFirst({
-          where: { fullNumber: { not: null }, deletedAt: null },
-          orderBy: { approvedAt: "desc" },
-        }),
-      ]);
-
-    const pendingCount = await prisma.outgoingMail.count({
-      where: {
-        status: { in: ["DRAFT", "SUBMITTED", "REVIEWED"] },
-        deletedAt: null,
-      },
-    });
+    const [
+      outgoingTotal,
+      incomingTotal,
+      archivedTotal,
+      pendingCount,
+      latestIssued,
+    ] = await Promise.all([
+      prisma.outgoingMail.count({ where: { deletedAt: null } }),
+      prisma.incomingMail.count({ where: { deletedAt: null } }),
+      prisma.outgoingMail.count({
+        where: { status: "ARCHIVED", deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: {
+          status: { in: ["DRAFT", "SUBMITTED", "REVIEWED"] },
+          deletedAt: null,
+        },
+      }),
+      prisma.outgoingMail.findFirst({
+        where: { fullNumber: { not: null }, deletedAt: null },
+        orderBy: { approvedAt: "desc" },
+      }),
+    ]);
 
     return {
       outgoingTotal,

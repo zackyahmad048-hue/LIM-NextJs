@@ -8,7 +8,6 @@ import type { SecretariatRepository } from "../domain/repository";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { assignLetterNumber } from "./letter-number.service";
 import { signOutgoingMail } from "./signing.service";
-import { archiveOutgoingMailFile } from "./drive-archive.service";
 import {
   EntityNotFoundError,
   DuplicateNumberError,
@@ -320,10 +319,6 @@ export const secretariatService = {
     }
 
     const updated = await repo.updateOutgoingMail(id, updateData);
-
-    if (newStatus === "ARCHIVED") {
-      await archiveOutgoingMailFile(mail).catch(() => undefined);
-    }
 
     return updated;
   },

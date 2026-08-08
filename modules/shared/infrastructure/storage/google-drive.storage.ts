@@ -39,6 +39,16 @@ export async function getDriveConnection() {
   return prisma.googleDriveConnection.findFirst();
 }
 
+type DriveConnection = NonNullable<
+  Awaited<ReturnType<typeof getDriveConnection>>
+>;
+
+function driveFromConnection(connection: DriveConnection) {
+  const client = requireClient();
+  client.setCredentials({ refresh_token: connection.refreshToken });
+  return google.drive({ version: "v3", auth: client }) as drive_v3.Drive;
+}
+
 export function getDriveAuthUrl(): string {
   const client = requireClient();
   return client.generateAuthUrl({
@@ -92,12 +102,7 @@ export async function createDriveClient() {
   const connection = await getDriveConnection();
   if (!connection) throw new GoogleDriveNotConnectedError();
 
-  const client = requireClient();
-  client.setCredentials({ refresh_token: connection.refreshToken });
-
-  const drive = google.drive({ version: "v3", auth: client }) as drive_v3.Drive;
-
-  return { drive, connection };
+  return { drive: driveFromConnection(connection), connection };
 }
 
 /**
@@ -105,14 +110,21 @@ export async function createDriveClient() {
  * di folder Drive organisasi; akses lewat aplikasi memakai token.
  */
 export class GoogleDriveStorage implements FileStorage {
-  async save(buffer: Buffer, name: string, mimeType: string): Promise<string> {
-    const { drive, connection } = await createDriveClient();
+  async save(
+    buffer: Buffer,
+    name: string,
+    mimeType: string,
+    connection?: DriveConnection,
+  ): Promise<string> {
+    const drive = connection
+      ? driveFromConnection(connection)
+      : (await createDriveClient()).drive;
 
     const folderId =
-      connection.driveFolderId ??
+      connection?.driveFolderId ??
       (await ensureDriveFolder(
         drive,
-        connection.driveFolderName ?? undefined,
+        connection?.driveFolderName ?? undefined,
       ));
 
     const response = await drive.files.create({
