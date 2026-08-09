@@ -193,16 +193,29 @@ model Post {
   @@map("posts")
 }
 
+enum WajibKhidmahStatus {
+  AKTIF
+  GUGUR
+  BEBAS_TUGAS
+  QODLO
+}
+
 model WajibKhidmahMember {
-  id                 String   @id @default(cuid())
+  id                 String             @id @default(cuid())
   nama               String
-  alamat             String?
-  kelas              String?
+  asalDaerah         String?
+  alamatLembaga      String?
   posWajibKhidmah    String?
   tempatWajibKhidmah String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  tugasKhidmah       String?
+  status             WajibKhidmahStatus @default(AKTIF)
+  keterangan         String?
+  catatan            String?
+  absensi            String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
 
+  @@index([status])
   @@map("wajib_khidmah_members")
 }
 

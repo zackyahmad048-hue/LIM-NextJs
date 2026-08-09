@@ -13,3 +13,7 @@ export async function getTwkReport() {
   const members = await twkService.findAllMembers();
   return { members, stats: buildReportStats(members) };
 }
+
+export async function getTwkMemberById(id: string) {
+  return twkService.findMemberById(id);
+}

@@ -22,10 +22,15 @@ import { Label } from "@/components/ui/label";
 
 interface PreviewRow {
   nama: string;
-  alamat: string;
-  kelas: string;
+  asalDaerah: string;
+  alamatLembaga: string;
   posWajibKhidmah: string;
   tempatWajibKhidmah: string;
+  tugasKhidmah: string;
+  status: string;
+  keterangan: string;
+  catatan: string;
+  absensi: string;
 }
 
 interface PreviewDialogProps {
@@ -85,10 +90,15 @@ export function PreviewDialog({
         setRows(
           parsed.map((m) => ({
             nama: m.nama,
-            alamat: m.alamat ?? "",
-            kelas: m.kelas ?? "",
+            asalDaerah: m.asalDaerah ?? "",
+            alamatLembaga: m.alamatLembaga ?? "",
             posWajibKhidmah: m.posWajibKhidmah ?? "",
             tempatWajibKhidmah: m.tempatWajibKhidmah ?? "",
+            tugasKhidmah: m.tugasKhidmah ?? "",
+            status: m.status ?? "AKTIF",
+            keterangan: m.keterangan ?? "",
+            catatan: m.catatan ?? "",
+            absensi: m.absensi ?? "",
           })),
         );
       })
@@ -181,20 +191,14 @@ export function PreviewDialog({
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-muted">
                     <tr>
+                      <th className="px-3 py-2 text-left font-medium">No</th>
+                      <th className="px-3 py-2 text-left font-medium">Nama</th>
                       <th className="px-3 py-2 text-left font-medium">
-                        No
+                        Asal Daerah
                       </th>
+                      <th className="px-3 py-2 text-left font-medium">Pos</th>
                       <th className="px-3 py-2 text-left font-medium">
-                        Nama
-                      </th>
-                      <th className="px-3 py-2 text-left font-medium">
-                        Alamat
-                      </th>
-                      <th className="px-3 py-2 text-left font-medium">
-                        Kelas
-                      </th>
-                      <th className="px-3 py-2 text-left font-medium">
-                        Pos
+                        Status
                       </th>
                       <th className="px-3 py-2 text-left font-medium">
                         Tempat
@@ -209,13 +213,13 @@ export function PreviewDialog({
                         </td>
                         <td className="px-3 py-2">{row.nama}</td>
                         <td className="px-3 py-2 text-muted-foreground">
-                          {row.alamat || "—"}
-                        </td>
-                        <td className="px-3 py-2 text-muted-foreground">
-                          {row.kelas || "—"}
+                          {row.asalDaerah || "—"}
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
                           {row.posWajibKhidmah || "—"}
+                        </td>
+                        <td className="px-3 py-2 text-muted-foreground">
+                          {row.status || "—"}
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
                           {row.tempatWajibKhidmah || "—"}

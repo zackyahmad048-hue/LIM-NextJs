@@ -5,6 +5,8 @@ import { revalidatePath } from "next/cache";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { parseCsv } from "../application/service";
 import { twkService } from "../application/twk.service";
+import { DEACTIVATED_STATUSES } from "../domain/entities";
+import type { WajibKhidmahStatus } from "../domain/entities";
 import { MemberNotFoundError } from "../domain/twk.errors";
 import {
   createWajibKhidmahMemberSchema,
@@ -31,16 +33,40 @@ function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : "Terjadi kesalahan.";
 }
 
+function readString(formData: FormData, key: string): string | undefined {
+  const value = formData.get(key);
+  if (value === null) return undefined;
+  const trimmed = String(value).trim();
+  return trimmed ? trimmed : undefined;
+}
+
+function readStatus(formData: FormData): WajibKhidmahStatus | undefined {
+  const raw = readString(formData, "status");
+  if (!raw) return undefined;
+  const normalized = raw.toUpperCase().replace(/[\s-]/g, "_");
+  const valid = ["AKTIF", "GUGUR", "BEBAS_TUGAS", "QODLO"] as const;
+  if ((valid as readonly string[]).includes(normalized)) {
+    return normalized as WajibKhidmahStatus;
+  }
+  return undefined;
+}
+
 export async function createWajibKhidmahMember(formData: FormData) {
   try {
     await requireSessionWithPermissions(PERMISSION_CREATE);
 
+    const status = readStatus(formData);
     const parsed = createWajibKhidmahMemberSchema.parse({
-      nama: formData.get("nama"),
-      alamat: formData.get("alamat") || undefined,
-      kelas: formData.get("kelas") || undefined,
-      posWajibKhidmah: formData.get("posWajibKhidmah") || undefined,
-      tempatWajibKhidmah: formData.get("tempatWajibKhidmah") || undefined,
+      nama: formData.get("nama") ?? "",
+      asalDaerah: readString(formData, "asalDaerah"),
+      alamatLembaga: readString(formData, "alamatLembaga"),
+      posWajibKhidmah: readString(formData, "posWajibKhidmah"),
+      tempatWajibKhidmah: readString(formData, "tempatWajibKhidmah"),
+      tugasKhidmah: readString(formData, "tugasKhidmah"),
+      status: status ?? "AKTIF",
+      keterangan: readString(formData, "keterangan"),
+      catatan: readString(formData, "catatan"),
+      absensi: readString(formData, "absensi"),
     });
 
     await twkService.create(parsed);
@@ -59,13 +85,40 @@ export async function updateWajibKhidmahMember(
   try {
     await requireSessionWithPermissions(PERMISSION_UPDATE);
 
-    const parsed = updateWajibKhidmahMemberSchema.parse({
-      nama: formData.get("nama"),
-      alamat: formData.get("alamat") ?? undefined,
-      kelas: formData.get("kelas") ?? undefined,
-      posWajibKhidmah: formData.get("posWajibKhidmah") ?? undefined,
-      tempatWajibKhidmah: formData.get("tempatWajibKhidmah") ?? undefined,
-    });
+    const data: Record<string, unknown> = {};
+
+    const nama = readString(formData, "nama");
+    if (nama !== undefined) data.nama = nama;
+
+    const asalDaerah = readString(formData, "asalDaerah");
+    if (asalDaerah !== undefined) data.asalDaerah = asalDaerah;
+
+    const alamatLembaga = readString(formData, "alamatLembaga");
+    if (alamatLembaga !== undefined) data.alamatLembaga = alamatLembaga;
+
+    const posWajibKhidmah = readString(formData, "posWajibKhidmah");
+    if (posWajibKhidmah !== undefined) data.posWajibKhidmah = posWajibKhidmah;
+
+    const tempatWajibKhidmah = readString(formData, "tempatWajibKhidmah");
+    if (tempatWajibKhidmah !== undefined)
+      data.tempatWajibKhidmah = tempatWajibKhidmah;
+
+    const tugasKhidmah = readString(formData, "tugasKhidmah");
+    if (tugasKhidmah !== undefined) data.tugasKhidmah = tugasKhidmah;
+
+    const status = readStatus(formData);
+    if (status !== undefined) data.status = status;
+
+    const keterangan = readString(formData, "keterangan");
+    if (keterangan !== undefined) data.keterangan = keterangan;
+
+    const catatan = readString(formData, "catatan");
+    if (catatan !== undefined) data.catatan = catatan;
+
+    const absensi = readString(formData, "absensi");
+    if (absensi !== undefined) data.absensi = absensi;
+
+    const parsed = updateWajibKhidmahMemberSchema.parse(data);
 
     await twkService.update(id, parsed);
 
@@ -81,6 +134,58 @@ export async function deleteWajibKhidmahMember(id: string) {
     await requireSessionWithPermissions(PERMISSION_DELETE);
 
     await twkService.delete(id);
+
+    revalidatePath(TWK_PATH);
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: getErrorMessage(error) };
+  }
+}
+
+export async function deactivateWajibKhidmahMember(formData: FormData) {
+  try {
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
+
+    const id = String(formData.get("id") ?? "").trim();
+    if (!id) {
+      return { ok: false, message: "ID anggota tidak ditemukan." };
+    }
+
+    const statusRaw = String(formData.get("status") ?? "").trim();
+    const normalized = statusRaw.toUpperCase().replace(/[\s-]/g, "_");
+    if (!(DEACTIVATED_STATUSES as readonly string[]).includes(normalized)) {
+      return {
+        ok: false,
+        message: `Status non-aktif tidak valid. Pilih: ${DEACTIVATED_STATUSES.join(", ")}.`,
+      };
+    }
+
+    const reason = String(formData.get("reason") ?? "").trim();
+    if (!reason) {
+      return {
+        ok: false,
+        message: "Alasan penonaktifan wajib diisi.",
+      };
+    }
+
+    await twkService.deactivate(
+      id,
+      normalized as WajibKhidmahStatus,
+      reason,
+    );
+
+    revalidatePath(TWK_PATH);
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: getErrorMessage(error) };
+  }
+}
+
+export async function reactivateWajibKhidmahMember(id: string) {
+  try {
+    await requireSessionWithPermissions(PERMISSION_UPDATE);
+
+    await twkService.reactivate(id);
 
     revalidatePath(TWK_PATH);
     return { ok: true };

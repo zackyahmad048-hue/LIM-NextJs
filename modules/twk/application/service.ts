@@ -1,37 +1,63 @@
+import type { WajibKhidmahStatus } from "../domain/entities";
+import { POS_WAJIB_KHIDMAH } from "../domain/entities";
 import type { WajibKhidmahMemberInput } from "../validations/schema";
 
 export interface MemberForReport {
   nama: string;
-  alamat?: string | null;
-  kelas?: string | null;
+  asalDaerah?: string | null;
+  alamatLembaga?: string | null;
   posWajibKhidmah?: string | null;
   tempatWajibKhidmah?: string | null;
+  tugasKhidmah?: string | null;
+  status?: WajibKhidmahStatus;
+  keterangan?: string | null;
+  catatan?: string | null;
+  absensi?: string | null;
 }
 
 export const LABEL_BELUM_DIISI = "Belum diisi";
 
 export interface ReportStats {
   total: number;
-  perKelas: Record<string, number>;
+  perStatus: Record<string, number>;
   perPos: Record<string, number>;
   perTempat: Record<string, number>;
+  perTugas: Record<string, number>;
 }
 
-type MemberField = "nama" | "alamat" | "kelas" | "posWajibKhidmah" | "tempatWajibKhidmah";
+type MemberField =
+  | "nama"
+  | "asalDaerah"
+  | "alamatLembaga"
+  | "posWajibKhidmah"
+  | "tempatWajibKhidmah"
+  | "tugasKhidmah"
+  | "status"
+  | "keterangan"
+  | "catatan"
+  | "absensi";
 
 const HEADER_ALIASES: Record<string, MemberField> = {
   nama: "nama",
   name: "nama",
-  alamat: "alamat",
-  address: "alamat",
-  kelas: "kelas",
-  class: "kelas",
+  asaldaerah: "asalDaerah",
+  asal: "asalDaerah",
+  daerah: "asalDaerah",
+  alamatlembaga: "alamatLembaga",
+  alamat: "alamatLembaga",
+  lembaga: "alamatLembaga",
   poswajibkhidmah: "posWajibKhidmah",
   poswajib: "posWajibKhidmah",
   pos: "posWajibKhidmah",
   tempatwajibkhidmah: "tempatWajibKhidmah",
   tempatwajib: "tempatWajibKhidmah",
   tempat: "tempatWajibKhidmah",
+  tugaskhidmah: "tugasKhidmah",
+  tugas: "tugasKhidmah",
+  status: "status",
+  keterangan: "keterangan",
+  catatan: "catatan",
+  absensi: "absensi",
 };
 
 function normalizeHeader(value: string): string {
@@ -77,6 +103,21 @@ function splitCsvLine(line: string, delimiter: "," | ";"): string[] {
   return cells;
 }
 
+const VALID_STATUSES: readonly WajibKhidmahStatus[] = [
+  "AKTIF",
+  "GUGUR",
+  "BEBAS_TUGAS",
+  "QODLO",
+];
+
+function normalizeStatus(raw: string): WajibKhidmahStatus {
+  const normalized = raw.trim().toUpperCase().replace(/[\s-]/g, "_");
+  if (VALID_STATUSES.includes(normalized as WajibKhidmahStatus)) {
+    return normalized as WajibKhidmahStatus;
+  }
+  return "AKTIF";
+}
+
 export function parseCsv(csv: string): WajibKhidmahMemberInput[] {
   const text = csv.replace(/\r\n/g, "\n").replace(/\r/g, "\n").trim();
   if (!text) return [];
@@ -109,18 +150,36 @@ export function parseCsv(csv: string): WajibKhidmahMemberInput[] {
     const nama = read("nama");
     if (!nama) continue;
 
-    const alamat = read("alamat");
-    const kelas = read("kelas");
+    const asalDaerah = read("asalDaerah");
+    const alamatLembaga = read("alamatLembaga");
     const posWajibKhidmah = read("posWajibKhidmah");
     const tempatWajibKhidmah = read("tempatWajibKhidmah");
+    const tugasKhidmah = read("tugasKhidmah");
+    const statusRaw = read("status");
+    const keterangan = read("keterangan");
+    const catatan = read("catatan");
+    const absensi = read("absensi");
 
-    members.push({
+    const member: WajibKhidmahMemberInput = {
       nama,
-      ...(alamat ? { alamat } : {}),
-      ...(kelas ? { kelas } : {}),
-      ...(posWajibKhidmah ? { posWajibKhidmah } : {}),
-      ...(tempatWajibKhidmah ? { tempatWajibKhidmah } : {}),
-    });
+      status: normalizeStatus(statusRaw),
+    };
+
+    if (asalDaerah) member.asalDaerah = asalDaerah;
+    if (alamatLembaga) member.alamatLembaga = alamatLembaga;
+    if (posWajibKhidmah) {
+      const posValues = POS_WAJIB_KHIDMAH as readonly string[];
+      if (posValues.includes(posWajibKhidmah)) {
+        member.posWajibKhidmah = posWajibKhidmah as (typeof POS_WAJIB_KHIDMAH)[number];
+      }
+    }
+    if (tempatWajibKhidmah) member.tempatWajibKhidmah = tempatWajibKhidmah;
+    if (tugasKhidmah) member.tugasKhidmah = tugasKhidmah;
+    if (keterangan) member.keterangan = keterangan;
+    if (catatan) member.catatan = catatan;
+    if (absensi) member.absensi = absensi;
+
+    members.push(member);
   }
 
   return members;
@@ -144,9 +203,10 @@ function countBy(
 export function buildReportStats(members: MemberForReport[]): ReportStats {
   return {
     total: members.length,
-    perKelas: countBy(members, (m) => m.kelas),
+    perStatus: countBy(members, (m) => m.status),
     perPos: countBy(members, (m) => m.posWajibKhidmah),
     perTempat: countBy(members, (m) => m.tempatWajibKhidmah),
+    perTugas: countBy(members, (m) => m.tugasKhidmah),
   };
 }
 
@@ -158,10 +218,15 @@ export function toCsvExport(members: MemberForReport[]): string {
   const header = [
     "no",
     "nama",
-    "alamat",
-    "kelas",
+    "asalDaerah",
+    "alamatLembaga",
     "posWajibKhidmah",
     "tempatWajibKhidmah",
+    "tugasKhidmah",
+    "status",
+    "keterangan",
+    "catatan",
+    "absensi",
   ]
     .map(csvCell)
     .join(",");
@@ -170,10 +235,15 @@ export function toCsvExport(members: MemberForReport[]): string {
     [
       String(index + 1),
       member.nama,
-      member.alamat ?? "",
-      member.kelas ?? "",
+      member.asalDaerah ?? "",
+      member.alamatLembaga ?? "",
       member.posWajibKhidmah ?? "",
       member.tempatWajibKhidmah ?? "",
+      member.tugasKhidmah ?? "",
+      member.status ?? "",
+      member.keterangan ?? "",
+      member.catatan ?? "",
+      member.absensi ?? "",
     ]
       .map(csvCell)
       .join(","),

@@ -8,10 +8,14 @@ import type { TwkRepository } from "../domain/repository";
 
 const SEARCHABLE_FIELDS = [
   "nama",
-  "alamat",
-  "kelas",
+  "asalDaerah",
+  "alamatLembaga",
   "posWajibKhidmah",
   "tempatWajibKhidmah",
+  "tugasKhidmah",
+  "keterangan",
+  "catatan",
+  "absensi",
 ] as const;
 
 export const twkRepository: TwkRepository = {

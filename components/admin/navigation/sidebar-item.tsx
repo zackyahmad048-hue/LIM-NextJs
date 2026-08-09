@@ -23,7 +23,7 @@ export function SidebarItem({
 }: SidebarItemProps) {
   const pathname = usePathname();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const Icon = item.icon;
 

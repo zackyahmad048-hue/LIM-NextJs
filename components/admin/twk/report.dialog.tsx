@@ -5,6 +5,10 @@ import { useMemo, useState } from "react";
 import { Download, Printer } from "lucide-react";
 
 import { toCsvExport } from "@/modules/twk/application/service";
+import {
+  WAJIB_KHIDMAH_STATUS_LABELS,
+  type WajibKhidmahStatus,
+} from "@/modules/twk/domain/entities";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NativeSelect } from "@/components/ui/native-select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import type { MemberRow, TwkReportStats } from "./types";
@@ -27,6 +32,14 @@ interface Props {
   members: MemberRow[];
   stats: TwkReportStats;
 }
+
+const STATUS_FILTER_OPTIONS = [
+  { value: "ALL", label: "Semua status" },
+  ...Object.entries(WAJIB_KHIDMAH_STATUS_LABELS).map(([value, label]) => ({
+    value,
+    label,
+  })),
+] as const;
 
 function BreakdownSection({
   title,
@@ -61,21 +74,40 @@ function BreakdownSection({
 
 export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
   const [filter, setFilter] = useState("");
+  const [statusFilter, setStatusFilter] =
+    useState<"ALL" | WajibKhidmahStatus>("ALL");
 
   const filtered = useMemo(() => {
     const query = filter.trim().toLowerCase();
-    if (!query) return members;
+    return members.filter((member) => {
+      if (statusFilter !== "ALL" && member.status !== statusFilter) {
+        return false;
+      }
+      if (!query) return true;
 
-    return members.filter((member) =>
-      [member.nama, member.kelas, member.posWajibKhidmah, member.tempatWajibKhidmah]
-        .filter(Boolean)
-        .some((value) => value!.toLowerCase().includes(query)),
-    );
-  }, [members, filter]);
+      const haystack = [
+        member.nama,
+        member.asalDaerah,
+        member.posWajibKhidmah,
+        member.tempatWajibKhidmah,
+        member.tugasKhidmah,
+        member.status,
+        member.keterangan,
+        member.catatan,
+        member.absensi,
+      ]
+        .filter((value): value is string => Boolean(value))
+        .map((value) => value.toLowerCase());
+
+      return haystack.some((value) => value.includes(query));
+    });
+  }, [members, filter, statusFilter]);
 
   function handleExportCsv() {
     const csv = toCsvExport(filtered);
-    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+    const blob = new Blob(["\uFEFF" + csv], {
+      type: "text/csv;charset=utf-8",
+    });
     const url = URL.createObjectURL(blob);
 
     const anchor = document.createElement("a");
@@ -90,7 +122,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle>Laporan Wajib Khidmah</DialogTitle>
 
@@ -120,9 +152,9 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
             </div>
 
             <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Kelas</p>
+              <p className="text-sm text-muted-foreground">Status</p>
               <p className="mt-1 text-3xl font-bold">
-                {Object.keys(stats.perKelas).length}
+                {Object.keys(stats.perStatus).length}
               </p>
             </div>
 
@@ -142,8 +174,8 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
           </div>
 
           <div className="space-y-3">
-            <Label>Per Kelas</Label>
-            <BreakdownSection title="Kelas" counts={stats.perKelas} />
+            <Label>Per Status</Label>
+            <BreakdownSection title="Status" counts={stats.perStatus} />
           </div>
 
           <div className="space-y-3">
@@ -157,14 +189,36 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center justify-between gap-4">
+            <Label>Per Tugas</Label>
+            <BreakdownSection title="Tugas" counts={stats.perTugas} />
+          </div>
+
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-4">
               <Label>Daftar Anggota</Label>
-              <Input
-                className="w-full max-w-xs"
-                placeholder="Cari anggota..."
-                value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-              />
+              <div className="flex flex-wrap items-center gap-2">
+                <NativeSelect
+                  value={statusFilter}
+                  onChange={(event) =>
+                    setStatusFilter(
+                      event.target.value as "ALL" | WajibKhidmahStatus,
+                    )
+                  }
+                  className="w-44"
+                >
+                  {STATUS_FILTER_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </NativeSelect>
+                <Input
+                  className="w-full max-w-xs"
+                  placeholder="Cari anggota..."
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                />
+              </div>
             </div>
 
             <ScrollArea className="h-72 rounded-lg border">
@@ -173,15 +227,22 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                   <tr>
                     <th className="px-3 py-2 text-left font-medium">No.</th>
                     <th className="px-3 py-2 text-left font-medium">Nama</th>
-                    <th className="px-3 py-2 text-left font-medium">Kelas</th>
                     <th className="px-3 py-2 text-left font-medium">Pos</th>
-                    <th className="px-3 py-2 text-left font-medium">Tempat</th>
+                    <th className="px-3 py-2 text-left font-medium">
+                      Status
+                    </th>
+                    <th className="px-3 py-2 text-left font-medium">
+                      Tempat
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {filtered.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-3 py-8 text-center text-muted-foreground">
+                      <td
+                        colSpan={5}
+                        className="px-3 py-8 text-center text-muted-foreground"
+                      >
                         Tidak ada data.
                       </td>
                     </tr>
@@ -191,16 +252,18 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                         <td className="px-3 py-2 text-muted-foreground">
                           {index + 1}
                         </td>
-                        <td className="px-3 py-2 font-medium">{member.nama}</td>
-                        <td className="px-3 py-2">
-                          {member.kelas ?? (
-                            <span className="text-muted-foreground">-</span>
-                          )}
+                        <td className="px-3 py-2 font-medium">
+                          {member.nama}
                         </td>
                         <td className="px-3 py-2">
                           {member.posWajibKhidmah ?? (
                             <span className="text-muted-foreground">-</span>
                           )}
+                        </td>
+                        <td className="px-3 py-2">
+                          <Badge variant="secondary">
+                            {WAJIB_KHIDMAH_STATUS_LABELS[member.status]}
+                          </Badge>
                         </td>
                         <td className="px-3 py-2">
                           {member.tempatWajibKhidmah ?? (

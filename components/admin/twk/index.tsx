@@ -1,18 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import {
   BarChart3,
   Briefcase,
-  House,
-  School,
   Upload,
+  UserCheck,
   UserPlus,
+  UserX,
   UsersRound,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 import { SectionCard } from "@/components/admin/shared/section-card";
 import { StatCard } from "@/components/admin/shared/stat-card";
@@ -33,6 +35,18 @@ export function TwkModule({ members, stats }: Props) {
   const [selectedMember, setSelectedMember] = useState<MemberRow>();
   const [importOpen, setImportOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
+  const [hideNonActive, setHideNonActive] = useState(false);
+
+  const visibleMembers = useMemo(() => {
+    if (!hideNonActive) return members;
+    return members.filter((m) => m.status === "AKTIF");
+  }, [members, hideNonActive]);
+
+  const activeCount = useMemo(
+    () => members.filter((m) => m.status === "AKTIF").length,
+    [members],
+  );
+  const inactiveCount = members.length - activeCount;
 
   function handleCreate() {
     setSelectedMember(undefined);
@@ -51,21 +65,29 @@ export function TwkModule({ members, stats }: Props) {
           title="Total Anggota"
           value={stats.total}
           icon={UsersRound}
+          description={
+            hideNonActive
+              ? `${visibleMembers.length} ditampilkan`
+              : "Termasuk anggota non-aktif"
+          }
         />
         <StatCard
-          title="Kelas"
-          value={Object.keys(stats.perKelas).length}
-          icon={School}
+          title="Aktif"
+          value={activeCount}
+          icon={UserCheck}
+          description="Sedang berjalan"
         />
         <StatCard
-          title="Pos"
+          title="Non-aktif"
+          value={inactiveCount}
+          icon={UserX}
+          description="Gugur / Bebas Tugas / Qodlo"
+        />
+        <StatCard
+          title="Pos Khidmah"
           value={Object.keys(stats.perPos).length}
           icon={Briefcase}
-        />
-        <StatCard
-          title="Tempat"
-          value={Object.keys(stats.perTempat).length}
-          icon={House}
+          description="Pos unik yang tercatat"
         />
       </div>
 
@@ -78,18 +100,43 @@ export function TwkModule({ members, stats }: Props) {
             <div>
               <h2 className="text-base font-semibold">Daftar anggota</h2>
               <p className="mt-1 text-xs text-muted-foreground">
-                {members.length} anggota Wajib Khidmah tercatat.
+                {visibleMembers.length} dari {members.length} anggota
+                ditampilkan.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            <Button size="sm" variant="outline" onClick={() => setReportOpen(true)}>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-2 px-1">
+              <Checkbox
+                id="hide-non-active"
+                checked={hideNonActive}
+                onCheckedChange={(checked) =>
+                  setHideNonActive(checked === true)
+                }
+              />
+              <Label
+                htmlFor="hide-non-active"
+                className="text-xs text-muted-foreground"
+              >
+                Sembunyikan non-aktif
+              </Label>
+            </div>
+
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setReportOpen(true)}
+            >
               <BarChart3 className="size-4" />
               Laporan
             </Button>
 
-            <Button size="sm" variant="outline" onClick={() => setImportOpen(true)}>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setImportOpen(true)}
+            >
               <Upload className="size-4" />
               Impor
             </Button>
@@ -103,7 +150,7 @@ export function TwkModule({ members, stats }: Props) {
       </SectionCard>
 
       <SectionCard className="rounded-lg bg-background p-0 shadow-none">
-        <MemberTable data={members} onEdit={handleEdit} />
+        <MemberTable data={visibleMembers} onEdit={handleEdit} />
       </SectionCard>
 
       <MemberDialog
