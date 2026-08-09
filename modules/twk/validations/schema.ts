@@ -33,7 +33,7 @@ const asalDaerahSchema = z
   .optional()
   .or(z.literal(""));
 
-const baseSchema = z.object({
+const baseShape = z.object({
   nama: z
     .string()
     .trim()
@@ -82,41 +82,53 @@ const baseSchema = z.object({
     .or(z.literal("")),
 });
 
-export const wajibKhidmahMemberSchema = baseSchema.superRefine(
-  (data, ctx) => {
-    const keteranganValue = data.keterangan?.trim();
-    const isPlaceholderKeterangan =
-      !keteranganValue || keteranganValue === "-";
-    const isAktif = data.status === "AKTIF";
-    const isDeactivated = DEACTIVATED_STATUSES.includes(
-      data.status as (typeof DEACTIVATED_STATUSES)[number],
-    );
+type WajibKhidmahMemberShape = z.infer<typeof baseShape>;
 
-    if (isAktif && !isPlaceholderKeterangan) {
-      ctx.addIssue({
-        path: ["keterangan"],
-        code: z.ZodIssueCode.custom,
-        message: "Keterangan harus '-' jika Status Aktif.",
-      });
-    }
+function applyConditionalKeterangan(
+  data: WajibKhidmahMemberShape,
+  ctx: z.RefinementCtx,
+  fieldPath: string[],
+): void {
+  const keteranganValue = data.keterangan?.trim();
+  const isPlaceholderKeterangan =
+    !keteranganValue || keteranganValue === "-";
+  const isAktif = data.status === "AKTIF";
+  const isDeactivated = DEACTIVATED_STATUSES.includes(
+    data.status as (typeof DEACTIVATED_STATUSES)[number],
+  );
 
-    if (isDeactivated && isPlaceholderKeterangan) {
-      ctx.addIssue({
-        path: ["keterangan"],
-        code: z.ZodIssueCode.custom,
-        message:
-          "Keterangan wajib diisi dengan alasan jika Status bukan Aktif.",
-      });
-    }
-  },
+  if (isAktif && !isPlaceholderKeterangan) {
+    ctx.addIssue({
+      path: fieldPath,
+      code: z.ZodIssueCode.custom,
+      message: "Keterangan harus '-' jika Status Aktif.",
+    });
+  }
+
+  if (isDeactivated && isPlaceholderKeterangan) {
+    ctx.addIssue({
+      path: fieldPath,
+      code: z.ZodIssueCode.custom,
+      message:
+        "Keterangan wajib diisi dengan alasan jika Status bukan Aktif.",
+    });
+  }
+}
+
+export const wajibKhidmahMemberSchema = baseShape.superRefine((data, ctx) =>
+  applyConditionalKeterangan(data, ctx, ["keterangan"]),
 );
 
 export const createWajibKhidmahMemberSchema = wajibKhidmahMemberSchema;
 
-export const updateWajibKhidmahMemberSchema = wajibKhidmahMemberSchema
+export const updateWajibKhidmahMemberSchema = baseShape
   .partial()
-  .refine((data) => Object.keys(data).length > 0, {
-    message: "Minimal satu kolom harus diisi.",
+  .superRefine((data, ctx) => {
+    applyConditionalKeterangan(
+      data as WajibKhidmahMemberShape,
+      ctx,
+      ["keterangan"],
+    );
   });
 
 export type WajibKhidmahMemberInput = z.infer<

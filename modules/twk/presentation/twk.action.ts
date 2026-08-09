@@ -118,6 +118,13 @@ export async function updateWajibKhidmahMember(
     const absensi = readString(formData, "absensi");
     if (absensi !== undefined) data.absensi = absensi;
 
+    if (Object.keys(data).length === 0) {
+      return {
+        ok: false,
+        message: "Minimal satu kolom harus diisi untuk pembaruan.",
+      };
+    }
+
     const parsed = updateWajibKhidmahMemberSchema.parse(data);
 
     await twkService.update(id, parsed);
