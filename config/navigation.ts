@@ -186,12 +186,6 @@ const rawNav: (NavigationItem | false | undefined)[] = [
         permissions: ["secretariat.view"],
       },
       {
-        title: "Penomoran Surat",
-        icon: Hash,
-        href: "/admin/secretariat/penomoran",
-        permissions: ["secretariat.view"],
-      },
-      {
         title: "Pendataan",
         icon: UsersRound,
         href: "/admin/secretariat/pendataan",
@@ -264,6 +258,11 @@ const rawNav: (NavigationItem | false | undefined)[] = [
         icon: Shield,
         href: "/admin/system/roles",
         permissions: ["system.role.view"],
+      },
+      {
+        title: "Penomoran Surat",
+        icon: Hash,
+        href: "/admin/system/penomoran",
       },
     ],
   },

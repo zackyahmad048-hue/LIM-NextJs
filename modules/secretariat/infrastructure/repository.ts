@@ -533,6 +533,117 @@ export const prismaSecretariatRepository: SecretariatRepository = {
        ORDER BY 1`;
     return rows;
   },
+
+  async findDashboardDispositions(limit) {
+    const items = await prisma.disposition.findMany({
+      where: {
+        status: { in: ["PENDING", "IN_PROGRESS"] },
+        deletedAt: null,
+      },
+      include: {
+        incomingMail: { select: { registrationNumber: true, subject: true } },
+      },
+      orderBy: { dueDate: "asc" },
+      take: limit,
+    });
+
+    const userIds = [
+      ...new Set(items.map((item) => item.assignedToId).filter(Boolean)),
+    ];
+    const users = await prisma.user.findMany({
+      where: { id: { in: userIds } },
+      select: { id: true, name: true },
+    });
+    const userNames = new Map(users.map((user) => [user.id, user.name]));
+
+    const now = new Date();
+    return items
+      .map((item) => ({
+        ...item,
+        assignedTo: userNames.has(item.assignedToId)
+          ? { id: item.assignedToId, name: userNames.get(item.assignedToId)! }
+          : null,
+        overdue: item.dueDate !== null && item.dueDate < now,
+      }))
+      .sort(
+        (a, b) =>
+          Number(b.overdue) - Number(a.overdue) ||
+          (a.dueDate?.getTime() ?? Number.MAX_SAFE_INTEGER) -
+            (b.dueDate?.getTime() ?? Number.MAX_SAFE_INTEGER),
+      );
+  },
+
+  async countDashboardActionItems() {
+    const [
+      pendingDispositions,
+      draftOutgoing,
+      receivedIncoming,
+      submittedDocuments,
+    ] = await Promise.all([
+      prisma.disposition.count({
+        where: { status: { in: ["PENDING", "IN_PROGRESS"] }, deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: { status: "DRAFT", deletedAt: null },
+      }),
+      prisma.incomingMail.count({
+        where: { status: "RECEIVED", deletedAt: null },
+      }),
+      prisma.administrativeDocument.count({
+        where: { status: "SUBMITTED", deletedAt: null },
+      }),
+    ]);
+
+    return {
+      pendingDispositions,
+      draftOutgoing,
+      receivedIncoming,
+      submittedDocuments,
+    };
+  },
+
+  async countIncomingMailsByMonthRange(from, to) {
+    const rows = await prisma.$queryRaw<
+      Array<{ year: number; month: number; count: number }>
+    >`SELECT EXTRACT(YEAR FROM "receivedDate")::int AS year,
+              EXTRACT(MONTH FROM "receivedDate")::int AS month,
+              COUNT(*)::int AS count
+       FROM incoming_mail
+       WHERE "receivedDate" >= ${from} AND "receivedDate" < ${to}
+         AND "deletedAt" IS NULL
+       GROUP BY 1, 2
+       ORDER BY 1, 2`;
+    return rows;
+  },
+
+  async countOutgoingMailsByMonthRange(from, to) {
+    const rows = await prisma.$queryRaw<
+      Array<{ year: number; month: number; count: number }>
+    >`SELECT EXTRACT(YEAR FROM "createdAt")::int AS year,
+              EXTRACT(MONTH FROM "createdAt")::int AS month,
+              COUNT(*)::int AS count
+       FROM outgoing_mail
+       WHERE "createdAt" >= ${from} AND "createdAt" < ${to}
+         AND "deletedAt" IS NULL
+       GROUP BY 1, 2
+       ORDER BY 1, 2`;
+    return rows;
+  },
+
+  async countMissingAttachments() {
+    const [outgoing, incoming, documents] = await Promise.all([
+      prisma.outgoingMail.count({
+        where: { attachmentUrl: null, deletedAt: null },
+      }),
+      prisma.incomingMail.count({
+        where: { attachmentUrl: null, deletedAt: null },
+      }),
+      prisma.administrativeDocument.count({
+        where: { attachmentUrl: null, deletedAt: null },
+      }),
+    ]);
+    return { outgoing, incoming, documents };
+  },
 };
 
 export const secretariatRepository: SecretariatRepository =

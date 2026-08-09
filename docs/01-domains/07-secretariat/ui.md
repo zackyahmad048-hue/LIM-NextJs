@@ -81,7 +81,7 @@ Action:
 
 # Penomoran Surat (Super Admin)
 
-Halaman `/admin/secretariat/penomoran` (khusus super admin):
+Halaman `/admin/system/penomoran` (khusus super admin):
 
 - Format template (placeholder: `{seq}`, `{level}`, `{category}`, `{bulan}`, `{tahun}`)
 - Jumlah digit nomor urut

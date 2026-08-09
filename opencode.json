@@ -1,16 +1,19 @@
 {
   "$schema": "https://opencode.ai/config.json",
+
   "lsp": {
     "typescript": {
       "command": ["npx", "-y", "typescript-language-server", "--stdio"]
     }
   },
+
   "mcp": {
     "context7": {
       "type": "local",
       "command": ["npx", "-y", "@upstash/context7-mcp"],
       "enabled": true
     },
+
     "github": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
@@ -19,6 +22,7 @@
         "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
       }
     },
+
     "filesystem": {
       "type": "local",
       "command": [
@@ -29,14 +33,71 @@
       ],
       "enabled": true
     },
-      "shadcn": {
+
+    "shadcn": {
       "type": "local",
-      "command": [
-        "npx",
-        "shadcn@latest",
-        "mcp"
-      ],
+      "command": ["npx", "shadcn@latest", "mcp"],
       "enabled": true
+    }
+  },
+
+  "provider": {
+    "opencode": {
+      "models": {
+        "deepseek-v4-flash-free": {
+          "limit": {
+            "context": 1000000,
+            "output": 384000
+          },
+          "variants": {
+            "high": {
+              "options": {
+                "reasoningEffort": "high"
+              }
+            }
+          }
+        },
+
+        "mimo-v2.5-free": {
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          }
+        },
+
+        "north-mini-code-free": {
+          "limit": {
+            "context": 256000,
+            "output": 64000
+          }
+        },
+
+        "nemotron-3-ultra-free": {
+          "limit": {
+            "context": 1000000,
+            "output": 128000
+          }
+        },
+
+        "big-pickle": {
+          "limit": {
+            "context": 1000000,
+            "output": 131072
+          }
+        }
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen2.5-coder:3b": {
+          "name": "Qwen2.5 Coder 3B"
+        }
+      }
     }
   }
 }

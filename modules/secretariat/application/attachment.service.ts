@@ -4,13 +4,7 @@ import { SecretariatError } from "../domain/secretariat.errors";
 
 export const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
 
-const ALLOWED_MIME_TYPES = new Set([
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "image/jpeg",
-  "image/png",
-]);
+const PDF_MAGIC = Buffer.from("%PDF-", "latin1");
 
 export interface UploadedAttachment {
   fileId: string;
@@ -34,16 +28,18 @@ export async function uploadSecretariatAttachmentFile(
   if (!file || file.size === 0) {
     throw new SecretariatError("Pilih dokumen untuk diunggah.");
   }
-  if (!ALLOWED_MIME_TYPES.has(file.type)) {
-    throw new SecretariatError(
-      "Jenis file tidak didukung. Gunakan PDF, DOC/DOCX, atau gambar.",
-    );
-  }
   if (file.size > MAX_ATTACHMENT_BYTES) {
     throw new SecretariatError("Ukuran file maksimal 2 MB.");
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
+  const isPdf =
+    file.type === "application/pdf" &&
+    buffer.subarray(0, PDF_MAGIC.length).equals(PDF_MAGIC);
+  if (!isPdf) {
+    throw new SecretariatError("Hanya file PDF yang diperbolehkan.");
+  }
+
   const fileId = await storage.save(buffer, file.name, file.type);
 
   const media = await prisma.media.create({

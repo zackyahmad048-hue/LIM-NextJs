@@ -232,4 +232,38 @@ export interface SecretariatRepository {
   countIncomingMailsByMonth(year: number): Promise<Array<{ month: number; count: number }>>;
 
   countOutgoingMailsByMonth(year: number): Promise<Array<{ month: number; count: number }>>;
+
+  // Dashboard (action queue)
+  findDashboardDispositions(limit: number): Promise<
+    Array<
+      DispositionEntity & {
+        incomingMail: { registrationNumber: string; subject: string };
+        assignedTo: { id: string; name: string } | null;
+        overdue: boolean;
+      }
+    >
+  >;
+
+  countDashboardActionItems(): Promise<{
+    pendingDispositions: number;
+    draftOutgoing: number;
+    receivedIncoming: number;
+    submittedDocuments: number;
+  }>;
+
+  countIncomingMailsByMonthRange(
+    from: Date,
+    to: Date,
+  ): Promise<Array<{ year: number; month: number; count: number }>>;
+
+  countOutgoingMailsByMonthRange(
+    from: Date,
+    to: Date,
+  ): Promise<Array<{ year: number; month: number; count: number }>>;
+
+  countMissingAttachments(): Promise<{
+    outgoing: number;
+    incoming: number;
+    documents: number;
+  }>;
 }

@@ -18,7 +18,7 @@ export default async function PenomoranSettingsPage() {
   ]);
 
   if (!permissions.roleSlugs.includes("super-admin")) {
-    redirect("/admin/secretariat/surat-menyurat");
+    redirect("/admin");
   }
 
   return (

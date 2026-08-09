@@ -104,10 +104,13 @@ Tahapan:
 
 Surat mendukung:
 
-- PDF
-- DOCX
-- Image
+- PDF (satu-satunya format yang dapat diunggah)
 - Lampiran Tambahan
+
+Pratinjau publik di halaman verifikasi di-render server-side menjadi gambar
+PNG ber-tanda air "SALINAN DIGITAL". Dokumen asli tidak pernah disajikan ke
+publik (route verifikasi wajib `?preview=1`, selain itu menolak akses).
+DOC/DOCX/gambar tidak lagi dapat diunggah.
 
 ---
 

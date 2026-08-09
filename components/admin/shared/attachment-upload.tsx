@@ -8,13 +8,7 @@ import { Label } from "@/components/ui/label";
 import { uploadOutgoingMailAttachment } from "@/modules/secretariat/presentation/secretariat.action";
 
 const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
-const ALLOWED_MIME_TYPES = new Set([
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "image/jpeg",
-  "image/png",
-]);
+const ALLOWED_MIME_TYPES = new Set(["application/pdf"]);
 
 type UploadActionResult =
   | {
@@ -68,9 +62,7 @@ export function AttachmentUpload({
     setError(null);
 
     if (!ALLOWED_MIME_TYPES.has(selected.type)) {
-      setError(
-        "Jenis file tidak didukung. Gunakan PDF, DOC/DOCX, atau gambar.",
-      );
+      setError("Hanya file PDF yang diperbolehkan.");
       return;
     }
     if (selected.size > MAX_ATTACHMENT_BYTES) {
@@ -153,7 +145,7 @@ export function AttachmentUpload({
             {uploading ? "Mengunggah..." : "Pilih dokumen surat"}
           </span>
           <span className="text-[11px] text-muted-foreground">
-            PDF, DOC/DOCX, atau gambar &middot; maksimal 2 MB
+            PDF &middot; maksimal 2 MB
           </span>
         </label>
       )}
@@ -162,7 +154,7 @@ export function AttachmentUpload({
         ref={inputRef}
         id="attachment"
         type="file"
-        accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png"
+        accept="application/pdf"
         className="hidden"
         onChange={handleSelect}
         disabled={uploading}

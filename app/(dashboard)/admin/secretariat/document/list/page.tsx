@@ -1,5 +1,14 @@
 import Link from "next/link";
-import { FileText, Pencil, Plus, Trash2 } from "lucide-react";
+import {
+  Archive,
+  CheckCircle,
+  FileText,
+  Pencil,
+  Plus,
+  Send,
+  Trash2,
+  XCircle,
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,7 +17,10 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { getAdministrativeDocuments } from "@/modules/secretariat/queries/secretariat.query";
-import { deleteAdministrativeDocument } from "@/modules/secretariat/presentation/secretariat.action";
+import {
+  deleteAdministrativeDocument,
+  transitionAdministrativeDocumentStatus,
+} from "@/modules/secretariat/presentation/secretariat.action";
 
 const statusLabels: Record<
   string,
@@ -30,6 +42,26 @@ const documentTypeLabels: Record<string, string> = {
   SURAT_KEPUTUSAN: "Surat Keputusan",
   SURAT_UNDANGAN: "Surat Undangan",
   LAINNYA: "Lainnya",
+};
+
+const statusActions: Record<
+  string,
+  {
+    label: string;
+    status: string;
+    icon: typeof Send;
+    variant: "default" | "secondary" | "destructive" | "outline";
+  }[]
+> = {
+  DRAFT: [{ label: "Ajukan", status: "SUBMITTED", icon: Send, variant: "default" }],
+  SUBMITTED: [
+    { label: "Setujui", status: "APPROVED", icon: CheckCircle, variant: "default" },
+    { label: "Tolak", status: "REJECTED", icon: XCircle, variant: "destructive" },
+  ],
+  APPROVED: [
+    { label: "Arsipkan", status: "ARCHIVED", icon: Archive, variant: "outline" },
+  ],
+  REJECTED: [],
 };
 
 export default async function DocumentListPage({
@@ -105,6 +137,29 @@ export default async function DocumentListPage({
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
+                {(statusActions[item.status] ?? []).map((action) => {
+                  const Icon = action.icon;
+                  return (
+                    <form
+                      key={action.status}
+                      action={transitionAdministrativeDocumentStatus.bind(
+                        null,
+                        item.id,
+                        action.status,
+                      )}
+                    >
+                      <Button
+                        type="submit"
+                        variant="ghost"
+                        size="sm"
+                        title={action.label}
+                      >
+                        <Icon className="size-3.5" />
+                        <span className="hidden xl:inline">{action.label}</span>
+                      </Button>
+                    </form>
+                  );
+                })}
                 <Button asChild variant="ghost" size="sm" title="Cetak / PDF">
                   <Link href={`/admin/secretariat/document/${item.id}/cetak`}>
                     <FileText className="size-3.5" />

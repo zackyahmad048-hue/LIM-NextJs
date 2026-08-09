@@ -2,6 +2,7 @@ import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { getLetterNumberingConfig as getLetterNumberingConfigSetting } from "../infrastructure/letter-numbering.config";
 import { secretariatService } from "../application/service";
+import { getDriveConnection } from "@/modules/shared/infrastructure/storage/google-drive.storage";
 
 export async function getIncomingMails(params: {
   search?: string;
@@ -233,4 +234,75 @@ export async function getOutgoingMailByVerificationCode(code: string) {
 
 export async function getMediaByFileId(fileId: string) {
   return prisma.media.findUnique({ where: { fileId } });
+}
+
+export async function getDashboardActionQueue(limit = 8) {
+  const [dispositions, counts] = await Promise.all([
+    repo.findDashboardDispositions(limit),
+    repo.countDashboardActionItems(),
+  ]);
+
+  return { dispositions, counts };
+}
+
+export async function getDashboardTrend(months = 12) {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth() - (months - 1), 1);
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+  const [incomingRows, outgoingRows] = await Promise.all([
+    repo.countIncomingMailsByMonthRange(start, end),
+    repo.countOutgoingMailsByMonthRange(start, end),
+  ]);
+
+  const labelFormatter = new Intl.DateTimeFormat("id-ID", {
+    month: "short",
+    year: "2-digit",
+  });
+
+  const series: Array<{
+    label: string;
+    incoming: number;
+    outgoing: number;
+  }> = [];
+  for (let index = 0; index < months; index++) {
+    const date = new Date(start.getFullYear(), start.getMonth() + index, 1);
+    const key = `${date.getFullYear()}-${date.getMonth()}`;
+    series.push({
+      label: labelFormatter.format(date),
+      incoming:
+        incomingRows.find((row) => `${row.year}-${row.month - 1}` === key)
+          ?.count ?? 0,
+      outgoing:
+        outgoingRows.find((row) => `${row.year}-${row.month - 1}` === key)
+          ?.count ?? 0,
+    });
+  }
+
+  const thisMonth = series[series.length - 1];
+  const previousMonth = series[series.length - 2];
+
+  return {
+    series,
+    thisMonth: {
+      incoming: thisMonth?.incoming ?? 0,
+      outgoing: thisMonth?.outgoing ?? 0,
+    },
+    previousMonth: {
+      incoming: previousMonth?.incoming ?? 0,
+      outgoing: previousMonth?.outgoing ?? 0,
+    },
+  };
+}
+
+export async function getDashboardHealth() {
+  const [drive, missingAttachments] = await Promise.all([
+    getDriveConnection(),
+    repo.countMissingAttachments(),
+  ]);
+
+  return {
+    driveEmail: drive?.email ?? null,
+    missingAttachments,
+  };
 }

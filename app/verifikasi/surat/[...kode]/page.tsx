@@ -5,11 +5,9 @@ import {
   CalendarDays,
   Stamp,
   FileSearch,
-  Download,
   FileText,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { LETTER_TYPES } from "@/config/letter-types";
 import {
   getOutgoingMailByVerificationCode,
@@ -23,8 +21,6 @@ const INLINE_VIEWABLE_MIME = new Set([
   "application/pdf",
   "image/jpeg",
   "image/png",
-  "image/gif",
-  "image/webp",
 ]);
 
 interface VerifyLetterPageProps {
@@ -60,7 +56,7 @@ export default async function VerifyLetterPage({
     ? extractFileIdFromMediaUrl(letter.attachmentUrl)
     : null;
   const fileSrc = attachmentFileId
-    ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`
+    ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}?preview=1`
     : null;
   const attachmentMedia = attachmentFileId
     ? await getMediaByFileId(attachmentFileId)
@@ -184,7 +180,7 @@ export default async function VerifyLetterPage({
           {canPreviewInline ? (
             <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
               <iframe
-                src={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`}
+                src={fileSrc ?? undefined}
                 title={`Dokumen ${letter?.fullNumber ?? letter?.subject}`}
                 className="h-full w-full"
               />
@@ -202,20 +198,10 @@ export default async function VerifyLetterPage({
                   {attachmentMedia?.originalName ?? "Dokumen asli"}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Format dokumen ini tidak dapat ditampilkan langsung di
-                  halaman. Unduh untuk membuka.
+                  Dokumen asli tidak dapat ditampilkan di halaman ini.
+                  Hubungi sekretariat untuk salinan resmi.
                 </p>
               </div>
-              <Button asChild variant="outline" size="sm">
-                <a
-                  href={`/api/v1/verifikasi/surat/${encodeURIComponent(kode)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Download className="size-3.5" />
-                  Unduh Dokumen
-                </a>
-              </Button>
             </div>
           )}
           <p className="mt-2 text-center text-[11px] text-muted-foreground">

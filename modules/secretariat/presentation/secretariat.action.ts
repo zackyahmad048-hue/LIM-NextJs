@@ -524,7 +524,7 @@ export async function updateLetterNumberingSettings(
       levelCodes,
     });
 
-    revalidatePath("/admin/secretariat/penomoran");
+    revalidatePath("/admin/system/penomoran");
     return { success: true, message: "Pengaturan penomoran disimpan." };
   } catch (e) {
     if (e instanceof SecretariatError) {
@@ -546,7 +546,7 @@ export async function setLetterNextSequence(formData: FormData) {
     const periodYear = Number(formData.get("periodYear"));
     const sequence = Number(formData.get("sequence"));
     await letterNumberingService.setNextSequence(periodYear, sequence);
-    revalidatePath("/admin/secretariat/penomoran");
+    revalidatePath("/admin/system/penomoran");
     return { success: true, message: "Nomor urut berikutnya diatur." };
   } catch (e) {
     if (e instanceof SecretariatError) {

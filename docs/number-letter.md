@@ -5,7 +5,7 @@
 > bagaimana ketentuan tersebut diimplementasikan di LIM Digital Platform.
 
 - Format nomor **konfigurable** melalui halaman Penomoran Surat
-  (`/admin/secretariat/penomoran`, khusus super admin) dan tersimpan di tabel
+  (`/admin/system/penomoran`, khusus super admin) dan tersimpan di tabel
   `Setting` (prefiks `secretariat.numbering.*`). Default:
   `{seq}/{level}/{category}/{bulan}/{tahun}` dengan digit urut 3.
 - Placeholder yang dikenali: `{seq}`, `{level}`, `{category}`, `{bulan}`, `{tahun}`.
