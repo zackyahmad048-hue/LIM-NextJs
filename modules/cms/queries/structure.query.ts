@@ -100,3 +100,25 @@ export async function saveStructure(data: OrgStructure) {
     },
   });
 }
+
+export interface CentralBoardSigners {
+  ketua: BoardMember[];
+  sekretaris: BoardMember[];
+}
+
+/**
+ * Kandidat penanda tangan dari struktur Pengurus Pusat (centralBoard).
+ * Ketua = posisi mengandung "Ketua"; Sekretaris = posisi mengandung
+ * "Sekretaris". Dipakai untuk select penanda tangan pada surat keluar.
+ */
+export async function getCentralBoardSigners(): Promise<CentralBoardSigners> {
+  const structure = await getStructure();
+  return {
+    ketua: structure.centralBoard.filter((member) =>
+      /ketua/i.test(member.position),
+    ),
+    sekretaris: structure.centralBoard.filter((member) =>
+      /sekretaris/i.test(member.position),
+    ),
+  };
+}

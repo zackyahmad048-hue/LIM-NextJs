@@ -2,12 +2,16 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 
 import { getLetterLevelOptions } from "@/modules/organization";
+import { getCentralBoardSigners } from "@/modules/cms/queries/structure.query";
 import { OutgoingMailForm } from "./outgoing-mail-form";
 
 export const dynamic = "force-dynamic";
 
 export default async function NewOutgoingMailPage() {
-  const levels = await getLetterLevelOptions();
+  const [levels, pengurus] = await Promise.all([
+    getLetterLevelOptions(),
+    getCentralBoardSigners(),
+  ]);
 
   return (
     <PageContainer>
@@ -17,7 +21,7 @@ export default async function NewOutgoingMailPage() {
       />
 
       <div className="mt-4">
-        <OutgoingMailForm levels={levels} />
+        <OutgoingMailForm levels={levels} pengurus={pengurus} />
       </div>
     </PageContainer>
   );

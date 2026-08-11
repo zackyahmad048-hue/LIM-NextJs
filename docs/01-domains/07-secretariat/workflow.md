@@ -88,7 +88,11 @@ Validate & Save (Draft)
     ▼
 Tandai Terkirim (SENT)
     ├── terbit nomor surat otomatis
-    ├── terbit QR verifikasi otomatis
+    ├── terbit QR verifikasi otomatis (kode = nomor surat resmi)
+    ├── deteksi simbol fiducial di lampiran (Ketua/Sekretaris/Verifikasi)
+    ├── komposisi QR Ketua & Sekretaris ke lampiran PDF
+    ├── komposisi QR verifikasi ke semua halaman lampiran PDF
+    ├── lampiran diganti versi ber-QR (Media lama dihapus)
     └── catat sentAt
     │
     ▼
@@ -104,6 +108,10 @@ DRAFT ──Tandai Terkirim──▶ SENT ──Arsipkan──▶ ARCHIVED
 ```
 
 - Nomor surat dan QR verifikasi **hanya** diterbitkan saat transisi `DRAFT → SENT`.
+- Nomor urut **tidak dipakai ulang**: perhitungan sequence berikutnya memperhitungkan seluruh riwayat surat termasuk yang sudah dihapus (soft delete), agar tidak bentrok dengan constraint unik `(periodYear, sequence)`.
+- **Posisi QR presisi via simbol fiducial**: user menempel kotak solid 8×8 mm di template — magenta `#FF00FF` (Ketua), cyan `#00FFFF` (Sekretaris), orange `#FF8C00` (Verifikasi). Saat terkirim, `findFiducialPositions` mendeteksi **centroid** kotak, lalu QR (25 mm) menutupinya **di tengah** (posisi corner digeser setengah ukuran QR via `centerFiducialQr`). Prioritas: deteksi simbol → posisi editor → default.
+- Komposisi QR ke lampiran bersifat **best-effort**: jika gagal (mis. lampiran bukan PDF), surat tetap terbit dengan QR verifikasi mandiri tanpa mengubah lampiran.
+- Perubahan level/kategori pada surat `SENT` menerbitkan ulang nomor & QR (`re-sign`), termasuk menimpa QR pada lampiran ber-QR.
 - Transisi `SENT → DRAFT` membatalkan status terkirim (nomor & QR dipertahankan untuk dipakai ulang).
 - `ARCHIVED` bersifat terminal: surat tidak dapat diubah atau dihapus.
 - Pengaturan format penomoran, digit urut, periode, dan kode tingkat dikelola super admin di halaman **Penomoran Surat**.

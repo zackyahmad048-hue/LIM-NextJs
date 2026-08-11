@@ -11,8 +11,8 @@ export default async function Page() {
   return (
     <PageContainer>
       <PageHeader
-        title="TWK"
-        description="Kelola data anggota Wajib Khidmah: tambah, edit, impor, dan cetak laporan."
+        title="Tim Wajib Khidmah"
+        description="Kelola data Peserta Wajib Khidmah: tambah, edit, impor, dan cetak laporan."
       />
       <TwkModule members={members} stats={stats} />
     </PageContainer>

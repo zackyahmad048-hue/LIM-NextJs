@@ -6,6 +6,7 @@ import { toHijri } from "hijri-converter";
 import {
   calculatePrayerTimes,
   formatTime,
+  getNextPrayer,
   type LocationInfo,
   type PrayerTimes,
 } from "@/lib/astroCalc";
@@ -104,16 +105,10 @@ export function PrayerScheduleCard() {
 
   const currentDec = isIstiwa ? istiwaDec : wibDec;
 
-  let nextIndex = 0;
-  for (let i = 0; i < PRAYERS.length; i++) {
-    if (timesNumeric[PRAYERS[i].key] > currentDec) {
-      nextIndex = i;
-      break;
-    }
-  }
+  const next = getNextPrayer(timesNumeric, currentDec);
+  const nextIndex = PRAYERS.findIndex((prayer) => prayer.key === next.key);
+  const diff = next.diffHours;
 
-  let diff = timesNumeric[PRAYERS[nextIndex].key] - currentDec;
-  if (diff < 0) diff += 24;
   const dh = Math.floor(diff);
   const dm = Math.floor((diff - dh) * 60);
   const ds = Math.floor(((diff - dh) * 60 - dm) * 60);

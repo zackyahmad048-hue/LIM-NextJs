@@ -122,7 +122,19 @@ export default async function VerifyLetterPage({
               ["Perihal", letter.subject],
               ["Tanggal Surat", formatDate(letter.mailDate)],
               ["Penerima", letter.recipient ?? "—"],
-              ["Penanda Tangan", letter.senderName ?? "—"],
+              ["Penandatangan       :"],
+              [
+                "Ketua",
+                letter.ketuaName
+                  ? `${letter.ketuaName}${letter.ketuaPosition ? ` (${letter.ketuaPosition})` : ""}`
+                  : "—",
+              ],
+              [
+                "Sekretaris",
+                letter.sekretarisName
+                  ? `${letter.sekretarisName}${letter.sekretarisPosition ? ` (${letter.sekretarisPosition})` : ""}`
+                  : "—",
+              ],
               ["Status Terkini", statusLabels[letter.status] ?? letter.status],
               ["Diterbitkan", formatDate(letter.sentAt ?? letter.mailDate)],
             ].map(([label, value]) => (

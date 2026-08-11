@@ -45,6 +45,25 @@ function errorMessage(
   return errors[key]?.message;
 }
 
+function buildDefaultValues(
+  member: MemberRow | undefined,
+): WajibKhidmahMemberInput {
+  return {
+    nama: member?.nama ?? "",
+    asalDaerah: member?.asalDaerah ?? "",
+    alamatLembaga: member?.alamatLembaga ?? "",
+    posWajibKhidmah: (member?.posWajibKhidmah ?? "") as
+      | (typeof POS_WAJIB_KHIDMAH)[number]
+      | "",
+    tempatWajibKhidmah: member?.tempatWajibKhidmah ?? "",
+    tugasKhidmah: member?.tugasKhidmah ?? "",
+    status: member?.status ?? "AKTIF",
+    keterangan: member?.keterangan ?? "",
+    catatan: member?.catatan ?? "",
+    absensi: member?.absensi ?? "",
+  };
+}
+
 export function MemberForm({ member, onSuccess }: Props) {
   const router = useRouter();
 
@@ -52,37 +71,11 @@ export function MemberForm({ member, onSuccess }: Props) {
     resolver: zodResolver(
       wajibKhidmahMemberSchema,
     ) as Resolver<WajibKhidmahMemberInput>,
-    defaultValues: {
-      nama: member?.nama ?? "",
-      asalDaerah: member?.asalDaerah ?? "",
-      alamatLembaga: member?.alamatLembaga ?? "",
-      posWajibKhidmah: (member?.posWajibKhidmah ?? "") as
-        | (typeof POS_WAJIB_KHIDMAH)[number]
-        | "",
-      tempatWajibKhidmah: member?.tempatWajibKhidmah ?? "",
-      tugasKhidmah: member?.tugasKhidmah ?? "",
-      status: member?.status ?? "AKTIF",
-      keterangan: member?.keterangan ?? "-",
-      catatan: member?.catatan ?? "",
-      absensi: member?.absensi ?? "",
-    },
+    defaultValues: buildDefaultValues(member),
   });
 
   useEffect(() => {
-    form.reset({
-      nama: member?.nama ?? "",
-      asalDaerah: member?.asalDaerah ?? "",
-      alamatLembaga: member?.alamatLembaga ?? "",
-      posWajibKhidmah: (member?.posWajibKhidmah ?? "") as
-        | (typeof POS_WAJIB_KHIDMAH)[number]
-        | "",
-      tempatWajibKhidmah: member?.tempatWajibKhidmah ?? "",
-      tugasKhidmah: member?.tugasKhidmah ?? "",
-      status: member?.status ?? "AKTIF",
-      keterangan: member?.keterangan ?? "-",
-      catatan: member?.catatan ?? "",
-      absensi: member?.absensi ?? "",
-    });
+    form.reset(buildDefaultValues(member));
   }, [member, form]);
 
   const status = form.watch("status");
@@ -249,13 +242,18 @@ export function MemberForm({ member, onSuccess }: Props) {
         <Textarea
           id="keterangan"
           rows={2}
-          placeholder={
-            status === "AKTIF"
-              ? "Wajib diisi '-' jika status Aktif."
-              : "Alasan penonaktifan (wajib diisi)."
-          }
+          placeholder="-"
+          aria-describedby="keterangan-helper"
           {...form.register("keterangan")}
         />
+        <p
+          id="keterangan-helper"
+          className="text-xs text-muted-foreground"
+        >
+          {status === "AKTIF"
+            ? "Isi dengan tanda '-' untuk anggota Aktif."
+            : "Wajib diisi dengan alasan penonaktifan."}
+        </p>
         {errorMessage(errors, "keterangan") && (
           <p className="text-sm text-destructive">
             {errorMessage(errors, "keterangan")}

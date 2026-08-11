@@ -263,6 +263,7 @@ export const secretariatService = {
         fullNumber: number.fullNumber,
         verificationCode: signed.verificationCode,
         qrFileId: signed.qrFileId,
+        attachmentUrl: signed.attachmentUrl ?? mail.attachmentUrl,
       });
     }
 
@@ -311,6 +312,7 @@ export const secretariatService = {
         updateData.fullNumber = number.fullNumber;
         updateData.verificationCode = signed.verificationCode;
         updateData.qrFileId = signed.qrFileId;
+        updateData.attachmentUrl = signed.attachmentUrl ?? mail.attachmentUrl;
       }
     } else if (newStatus === "DRAFT") {
       // Membatalkan "terkirim" kembali ke draft.

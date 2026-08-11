@@ -1,27 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
-import LiquidEther from "@/components/LiquidEther";
+import AuroraBackground from "@/components/motion/aurora-background";
 import LoginForm from "@/modules/authentication/presentation/login-form";
 
 export default function LoginPage() {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
     <main className="login-aurora relative flex min-h-screen min-w-full flex-col items-center justify-center px-4 py-10">
-      {!prefersReducedMotion && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-        >
-          <LiquidEther
-            colors={["#7C2D12", "#C2410C", "#F59E0B"]}
-            autoIntensity={1.2}
-          />
-        </div>
-      )}
+      <AuroraBackground colors={["#7C2D12", "#C2410C", "#F59E0B"]} autoIntensity={1.2} />
 
       <div className="relative z-10 w-full max-w-sm">
         <motion.div

@@ -9,8 +9,12 @@ const QR_WIDTH = 256;
 const QR_DARK_COLOR = "#056BB0";
 const QR_LIGHT_COLOR = "#FFFFFF";
 
-export async function renderQrPng(url: string): Promise<Buffer> {
-  return QRCode.toBuffer(url, {
+/**
+ * Merender teks menjadi gambar QR PNG. Mendukung teks multi-baris
+ * (misal identitas penanda tangan: nama + jabatan).
+ */
+export async function renderQrPng(text: string): Promise<Buffer> {
+  return QRCode.toBuffer(text, {
     type: "png",
     width: QR_WIDTH,
     margin: 2,

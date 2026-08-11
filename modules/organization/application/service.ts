@@ -161,6 +161,10 @@ export const organizationService = {
     return repo.findOfficersByUnit(unitId);
   },
 
+  async listOfficersByUnitCodes(codes: string[]) {
+    return repo.findOfficersByUnitCodes(codes);
+  },
+
   async getOfficerById(id: string): Promise<OfficerEntity> {
     const officer = await repo.findOfficerById(id);
     if (!officer) throw new OfficerNotFoundError(id);

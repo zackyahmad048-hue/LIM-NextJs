@@ -591,6 +591,13 @@ model OutgoingMail {
   verificationCode   String?
   qrFileId           String?
   attachmentUrl      String?
+  ketuaName          String?
+  ketuaPosition      String?
+  sekretarisName     String?
+  sekretarisPosition String?
+  qrKetuaPosition    Json?
+  qrSekretarisPosition Json?
+  qrVerifikasiPosition Json?
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
   deletedAt          DateTime?

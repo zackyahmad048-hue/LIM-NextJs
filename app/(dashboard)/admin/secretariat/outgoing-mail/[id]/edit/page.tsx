@@ -20,7 +20,8 @@ import {
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
-import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
+import { SigningEditor } from "@/components/admin/secretariat/signing-editor";
+import { SignerFields } from "@/components/admin/secretariat/signer-fields";
 
 import {
   getOutgoingMailById,
@@ -31,6 +32,7 @@ import {
   transitionOutgoingMailStatus,
 } from "@/modules/secretariat/presentation/secretariat.action";
 import { getLetterLevelOptions } from "@/modules/organization";
+import { getCentralBoardSigners } from "@/modules/cms/queries/structure.query";
 import { LETTER_TYPES } from "@/config/letter-types";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
@@ -52,9 +54,10 @@ export default async function EditOutgoingMailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [mail, levels] = await Promise.all([
+  const [mail, levels, pengurus] = await Promise.all([
     getOutgoingMailById(id),
     getLetterLevelOptions(),
+    getCentralBoardSigners(),
   ]);
 
   if (!mail) notFound();
@@ -244,32 +247,43 @@ export default async function EditOutgoingMailPage({
                   className="rounded-md text-xs"
                 />
               </div>
-
-              <div className="space-y-1.5 md:col-span-2">
-                <Label htmlFor="senderName" className="text-xs">
-                  Penanda Tangan
-                </Label>
-                <Input
-                  id="senderName"
-                  name="senderName"
-                  defaultValue={mail.senderName ?? ""}
-                  className="rounded-md text-xs"
-                />
-              </div>
             </div>
+          </SectionCard>
+
+          <SectionCard className="rounded-lg p-4">
+            <div className="mb-4 border-b pb-3">
+              <h2 className="text-base font-semibold">QR Penanda Tangan</h2>
+              <p className="text-xs text-muted-foreground">
+                Nama & jabatan Ketua dan Sekretaris diambil dari struktur
+                Pengurus Pusat dan dijadikan konten QR yang ditempel pada
+                dokumen saat surat ditandai terkirim.
+              </p>
+            </div>
+
+            <SignerFields
+              pengurus={pengurus}
+              initialKetuaName={mail.ketuaName}
+              initialKetuaPosition={mail.ketuaPosition}
+              initialSekretarisName={mail.sekretarisName}
+              initialSekretarisPosition={mail.sekretarisPosition}
+            />
           </SectionCard>
 
           <SectionCard className="rounded-lg p-4">
             <div className="mb-4 border-b pb-3">
               <h2 className="text-base font-semibold">Dokumen Surat</h2>
               <p className="text-xs text-muted-foreground">
-                Unggah dokumen surat yang akan dicetak.
+                Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris,
+                dan Verifikasi pada halaman dokumen.
               </p>
             </div>
 
-            <AttachmentUpload
+            <SigningEditor
               initialAttachmentUrl={mail.attachmentUrl ?? null}
               initialFileName={attachmentMedia?.originalName ?? null}
+              initialKetuaPosition={mail.qrKetuaPosition}
+              initialSekretarisPosition={mail.qrSekretarisPosition}
+              initialVerifikasiPosition={mail.qrVerifikasiPosition}
             />
           </SectionCard>
 

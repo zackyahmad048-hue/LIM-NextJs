@@ -24,6 +24,18 @@ export interface IncomingMailEntity {
   archivedAt: Date | null;
 }
 
+/** Posisi QR dalam milimeter (sudut kiri-bawah halaman), origin di poin. */
+export interface QrPagePositionMm {
+  page: number;
+  x: number;
+  y: number;
+}
+
+export interface QrPositionMm {
+  x: number;
+  y: number;
+}
+
 export interface OutgoingMailEntity {
   id: string;
   registrationNumber: string;
@@ -44,6 +56,13 @@ export interface OutgoingMailEntity {
   verificationCode: string | null;
   qrFileId: string | null;
   attachmentUrl: string | null;
+  ketuaName: string | null;
+  ketuaPosition: string | null;
+  sekretarisName: string | null;
+  sekretarisPosition: string | null;
+  qrKetuaPosition: QrPagePositionMm | null;
+  qrSekretarisPosition: QrPagePositionMm | null;
+  qrVerifikasiPosition: QrPositionMm | null;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;

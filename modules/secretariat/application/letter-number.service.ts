@@ -74,11 +74,13 @@ export async function assignLetterNumber(
           throw new LetterNumberAlreadyIssuedError();
         }
 
+        // Nomor surat tidak boleh dipakai ulang, termasuk yang sudah
+        // dihapus (soft delete) — constraint unique (periodYear, sequence)
+        // tetap berlaku untuk semua baris.
         const latest = await tx.outgoingMail.findFirst({
           where: {
             periodYear,
             sequence: { not: null },
-            deletedAt: null,
           },
           orderBy: { sequence: "desc" },
           select: { sequence: true },

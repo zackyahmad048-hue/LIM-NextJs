@@ -60,6 +60,31 @@ export const prismaOrganizationRepository: OrganizationRepository = {
     return items as unknown as OfficerEntity[];
   },
 
+  async findOfficersByUnitCodes(codes) {
+    const items = await prisma.officer.findMany({
+      where: { deletedAt: null, unit: { code: { in: codes } } },
+      select: {
+        unit: { select: { code: true } },
+        id: true,
+        unitId: true,
+        name: true,
+        position: true,
+        isLeader: true,
+        phone: true,
+        email: true,
+        sortOrder: true,
+        createdAt: true,
+        updatedAt: true,
+        deletedAt: true,
+      },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+    });
+    return items.map((item) => ({
+      officer: item as unknown as OfficerEntity,
+      unitCode: item.unit.code,
+    }));
+  },
+
   async findOfficerById(id) {
     const item = await prisma.officer.findFirst({
       where: { id, deletedAt: null },

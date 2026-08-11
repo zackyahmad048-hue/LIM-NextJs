@@ -87,9 +87,9 @@ export default async function OutgoingMailListPage({
                   <p className="truncate text-sm font-medium">
                     {item.recipient || "-"}
                   </p>
-                  {item.senderName && (
+                  {item.ketuaName && (
                     <p className="truncate text-xs text-muted-foreground">
-                      {item.senderName}
+                      Ketua: {item.ketuaName}
                     </p>
                   )}
                 </div>

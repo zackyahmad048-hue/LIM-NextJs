@@ -27,6 +27,9 @@ export interface OrganizationRepository {
 
   findOfficersByUnit(unitId: string): Promise<OfficerEntity[]>;
   findOfficerById(id: string): Promise<OfficerEntity | null>;
+  findOfficersByUnitCodes(codes: string[]): Promise<
+    { officer: OfficerEntity; unitCode: string }[]
+  >;
   createOfficer(
     data: Omit<OfficerEntity, "id" | "createdAt" | "updatedAt" | "deletedAt">,
   ): Promise<OfficerEntity>;

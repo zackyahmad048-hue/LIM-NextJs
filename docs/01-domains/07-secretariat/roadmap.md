@@ -33,7 +33,10 @@ Menjadi pusat administrasi digital organisasi.
 # Version 1.1
 
 - QR Document ✅ (diterbitkan otomatis saat surat ditandai terkirim)
-- Digital Signature (Deferred — digantikan QR verifikasi)
+- Digital Signature ✅ (QR multi-pihak: Ketua, Sekretaris, Verifikasi dikomposisi ke lampiran PDF)
+- QR Position Editor ✅ (atur posisi QR Ketua/Sekretaris/Verifikasi pada halaman dokumen di form Create/Edit)
+- Simbol Fiducial ✅ (QR presisi: deteksi kotak magenta/cyan/orange di template, QR menutupi simbol di tengah)
+- Signer Select Pengurus Pusat ✅ (Nama/Jabatan Ketua & Sekretaris via select dari struktur Pengurus Pusat, jabatan terisi otomatis)
 - Approval Workflow ❌ (dihapus — alur surat keluar menjadi DRAFT → SENT → ARCHIVED)
 - Email Integration
 - WhatsApp Notification

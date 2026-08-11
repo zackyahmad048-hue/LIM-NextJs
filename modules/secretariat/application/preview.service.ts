@@ -25,7 +25,7 @@ function resolveDataUrl(relativeDir: string): string | undefined {
 const cMapUrl = resolveDataUrl("cmaps");
 const standardFontDataUrl = resolveDataUrl("standard_fonts");
 
-interface CanvasAndContext {
+export interface CanvasAndContext {
   canvas: any;
   context: any;
 }
@@ -34,7 +34,7 @@ interface CanvasAndContext {
  * CanvasFactory berbasis @napi-rs/canvas agar pdf.js dapat merender
  * tanpa DOM di runtime Node.js (Vercel serverless).
  */
-class NodeCanvasFactory {
+export class NodeCanvasFactory {
   create(width: number, height: number): CanvasAndContext {
     const canvas = createCanvas(width, height);
     const context = canvas.getContext("2d");

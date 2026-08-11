@@ -250,6 +250,43 @@ export function calculatePrayerTimes(
 }
 
 /**
+ * The five obligatory prayers, in chronological order. Sunrise (Thulu') is
+ * excluded: it is not a prayer, matching the jadwal shalat page behaviour.
+ */
+export const PRAYER_KEYS: ReadonlyArray<keyof PrayerTimes> = [
+  "fajr",
+  "dhuhr",
+  "asr",
+  "maghrib",
+  "isha",
+];
+
+/**
+ * Determine the next prayer relative to a given time (in decimal hours).
+ *
+ * Uses the smallest circular forward distance so the countdown rolls over
+ * midnight correctly: after Isya the next prayer is Subuh, never Dzuhur.
+ */
+export function getNextPrayer(
+  timesNumeric: PrayerTimesNumeric,
+  currentDec: number,
+): { key: keyof PrayerTimes; diffHours: number } {
+  let key: keyof PrayerTimes = "fajr";
+  let diffHours = Infinity;
+
+  for (const prayerKey of PRAYER_KEYS) {
+    let diff = timesNumeric[prayerKey] - currentDec;
+    if (diff <= 0) diff += 24;
+    if (diff < diffHours) {
+      diffHours = diff;
+      key = prayerKey;
+    }
+  }
+
+  return { key, diffHours };
+}
+
+/**
  * Convert Current Standard Date/Time into Live Istiwa Time string (HH:MM:SS)
  */
 export function convertToIstiwaClock(

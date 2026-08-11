@@ -83,7 +83,7 @@ Menyimpan data surat keluar.
 | registrationNumber | String     | Nomor Register (internal, otomatis) |
 | recipient          | String?    | Penerima                            |
 | subject            | String     | Perihal                             |
-| senderName         | String?    | Penanda Tangan                      |
+| senderName         | String?    | Penanda Tangan (tidak lagi diisi dari form — legacy) |
 | mailDate           | Date       | Tanggal Surat                       |
 | status             | Enum       | Status Surat (DRAFT/SENT/ARCHIVED)  |
 | categoryCode       | String?    | Kode Kategori Surat                 |
@@ -95,6 +95,13 @@ Menyimpan data surat keluar.
 | fullNumber         | String?    | Nomor surat lengkap (unik)          |
 | verificationCode   | String?    | Kode verifikasi QR                  |
 | qrFileId           | String?    | File QR verifikasi (Domain Media)   |
+| ketuaName          | String?    | Nama Ketua (QR penanda tangan)      |
+| ketuaPosition      | String?    | Jabatan Ketua (QR penanda tangan)   |
+| sekretarisName     | String?    | Nama Sekretaris (QR penanda tangan) |
+| sekretarisPosition | String?    | Jabatan Sekretaris (QR)             |
+| qrKetuaPosition    | Json?      | Posisi QR Ketua (mm, halaman)       |
+| qrSekretarisPosition | Json?    | Posisi QR Sekretaris (mm, halaman)  |
+| qrVerifikasiPosition | Json?    | Posisi QR Verifikasi (mm)           |
 | sentAt             | Timestamp? | Waktu ditandai terkirim             |
 | archivedAt         | Timestamp? | Waktu diarsipkan                    |
 | attachmentUrl      | String?    | Lampiran (Domain Media)             |
@@ -105,6 +112,17 @@ Menyimpan data surat keluar.
 > Kolom persetujuan lama (`submittedAt`, `reviewedAt`, `approvedAt`, `signedAt`
 > beserta penanda `*ById`) dihapus karena alur persetujuan tidak dipakai.
 > Nomor & QR kini diterbitkan langsung saat transisi ke status **SENT**.
+>
+> `qr*Position` menyimpan koordinat dalam **mm** dengan titik asal pojok
+> kiri-bawah halaman (sesuai sistem koordinat pdf-lib). `qrKetuaPosition` dan
+> `qrSekretarisPosition` menyertakan nomor halaman; `qrVerifikasiPosition`
+> ditempel di semua halaman. Posisi default diambil dari `example-surat.pdf`.
+>
+> `senderName` dipertahankan sebagai kolom legacy namun tidak lagi diisi
+> melalui form Create/Edit — penanda tangan kini berasal dari
+> `ketuaName`/`sekretarisName` yang diisi via select Pengurus Pusat
+> (`getCentralBoardSigners`). Tampilan list & halaman verifikasi menampilkan
+> **Ketua** dan **Sekretaris** sebagai pengganti `senderName`.
 
 ---
 

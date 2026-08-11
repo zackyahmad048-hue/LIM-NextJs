@@ -31,6 +31,7 @@ interface AttachmentUploadProps {
   initialAttachmentUrl?: string | null;
   initialFileName?: string | null;
   uploadAction?: (formData: FormData) => Promise<UploadActionResult>;
+  onUrlChange?: (url: string | null) => void;
 }
 
 export function AttachmentUpload({
@@ -38,6 +39,7 @@ export function AttachmentUpload({
   initialAttachmentUrl,
   initialFileName,
   uploadAction = uploadOutgoingMailAttachment,
+  onUrlChange,
 }: AttachmentUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -86,12 +88,14 @@ export function AttachmentUpload({
       name: result.originalName,
       size: result.size,
     });
+    onUrlChange?.(result.attachmentUrl);
   }
 
   function handleRemove() {
     setFile(null);
     setError(null);
     if (inputRef.current) inputRef.current.value = "";
+    onUrlChange?.(null);
   }
 
   return (

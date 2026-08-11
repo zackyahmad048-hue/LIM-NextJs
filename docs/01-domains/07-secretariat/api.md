@@ -152,12 +152,51 @@ Implementasi saat ini menggunakan **Server Actions** (bukan REST) di
 `modules/secretariat/presentation/secretariat.action.ts`:
 
 - `transitionOutgoingMailStatus(id, status)` — transisi `DRAFT → SENT`, `SENT → DRAFT | ARCHIVED`. Nomor & QR diterbitkan saat transisi ke `SENT`.
-- `createOutgoingMail(formData)` — simpan surat (status awal `DRAFT`).
-- `updateOutgoingMail(id, formData)` — ubah surat (ditunda untuk `ARCHIVED`).
+- `createOutgoingMail(formData)` — simpan surat (status awal `DRAFT`). Menyimpan penanda tangan (ketua/sekretaris) dan posisi QR (mm).
+- `updateOutgoingMail(id, formData)` — ubah surat (ditunda untuk `ARCHIVED`). Saat level/kategori berubah pada surat `SENT`, nomor & QR diterbitkan ulang (`re-sign`).
 - `updateLetterNumberingSettings(prevState, formData)` — pengaturan penomoran (khusus super admin).
 - `setLetterNextSequence(formData)` — koreksi manual nomor urut berikutnya per periode.
 
 Status surat keluar yang berlaku: `DRAFT`, `SENT`, `ARCHIVED`.
+
+## QR Position Editor Endpoint
+
+```http
+GET /api/admin/secretariat/qr-editor?fileId={fileId}
+GET /api/admin/secretariat/qr-editor?fileId={fileId}&detect=1
+```
+
+Merender setiap halaman dokumen (PDF) menjadi gambar PNG untuk editor posisi
+QR. Memerlukan sesi admin dengan izin `secretariat.outgoing-mail.update`.
+Query param `detect=1` juga menjalankan **deteksi simbol fiducial** dan
+mengembalikan posisinya. Respon:
+
+```json
+{
+  "success": true,
+  "pages": [
+    {
+      "page": 1,
+      "widthPt": 595.28,
+      "heightPt": 841.89,
+      "width": 893,
+      "height": 1263,
+      "dataUrl": "data:image/png;base64,..."
+    }
+  ],
+  "fiducial": {
+    "ketua": { "page": 1, "x": 78.5, "y": 71.5 },
+    "sekretaris": { "page": 1, "x": 118.5, "y": 71.5 },
+    "verifikasi": { "x": 162.5, "y": 0 }
+  }
+}
+```
+
+`fiducial` hanya ada bila `detect=1`; setiap nilai `null` berarti simbol tidak
+terdeteksi pada halaman mana pun. Posisi hasil deteksi sudah **di-center** ke
+pojok kiri-bawah QR (centroid simbol digeser setengah ukuran QR), sehingga QR
+menutupi simbol di tengah. Koordinat disimpan dalam **mm** dari pojok kiri-bawah
+halaman.
 
 # Disposition Endpoints
 

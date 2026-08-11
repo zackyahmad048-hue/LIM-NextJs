@@ -48,19 +48,20 @@ describe("createWajibKhidmahMemberSchema", () => {
     }
   });
 
-  it("rejects when status GUGUR but keterangan is empty", () => {
-    const result = createWajibKhidmahMemberSchema.safeParse({
+  it("rejects when status GUGUR but keterangan is empty or placeholder", () => {
+    const emptyResult = createWajibKhidmahMemberSchema.safeParse({
       nama: "Abdullah",
       status: "GUGUR",
       keterangan: "",
     });
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      const keteranganIssue = result.error.issues.find(
-        (i) => i.path[0] === "keterangan",
-      );
-      expect(keteranganIssue?.message).toContain("bukan Aktif");
-    }
+    expect(emptyResult.success).toBe(false);
+
+    const placeholderResult = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Abdullah",
+      status: "GUGUR",
+      keterangan: "-",
+    });
+    expect(placeholderResult.success).toBe(false);
   });
 
   it("accepts when status GUGUR with reason", () => {
@@ -115,6 +116,58 @@ describe("createWajibKhidmahMemberSchema", () => {
       keterangan: "-",
     });
     expect(result.success).toBe(false);
+  });
+
+  it("rejects status AKTIF with empty string keterangan", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      status: "AKTIF",
+      keterangan: "",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects status AKTIF with undefined keterangan", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      status: "AKTIF",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects status GUGUR with literal '-' (placeholder not allowed for non-active)", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      status: "GUGUR",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects asalDaerah with trailing/leading strip ('Kota - -', '- Jawa Timur', 'Kediri -')", () => {
+    const bad = ["Kota - -", "- Jawa Timur", "Kediri -"];
+    for (const value of bad) {
+      const result = createWajibKhidmahMemberSchema.safeParse({
+        nama: "Test",
+        asalDaerah: value,
+        status: "AKTIF",
+        keterangan: "-",
+      });
+      expect(result.success, `value: ${value}`).toBe(false);
+    }
+  });
+
+  it("trims leading/trailing whitespace from asalDaerah before regex match", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      asalDaerah: "   Kediri - Jawa Timur   ",
+      status: "AKTIF",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.asalDaerah).toBe("Kediri - Jawa Timur");
+    }
   });
 });
 

@@ -1,5 +1,73 @@
 import { z } from "zod";
 
+import type { QrPagePositionMm, QrPositionMm } from "../domain/entities";
+
+/**
+ * Parsing nilai input `type="date"` (`YYYY-MM-DD`) sebagai tanggal lokal
+ * (tengah malam zona waktu server). `new Date("YYYY-MM-DD")` diparse sebagai
+ * UTC, sehingga di zona UTC+ ke timur tanggal hari ini bisa dianggap
+ * "masa depan" dan menolak penyimpanan surat.
+ */
+export function parseLocalDateInput(value: string): Date {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+/** Awal hari ini pada zona waktu lokal. */
+function startOfTodayLocal(): Date {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+/** `true` bila `date` pada tanggal yang sama atau sebelum hari ini. */
+function isSameOrBeforeToday(value: string): boolean {
+  return parseLocalDateInput(value) <= startOfTodayLocal();
+}
+
+/** `true` bila `date` pada tanggal yang sama atau sesudah hari ini. */
+function isSameOrAfterToday(value: string): boolean {
+  return parseLocalDateInput(value) >= startOfTodayLocal();
+}
+
+export const qrPagePositionSchema = z.object({
+  page: z.number().int().min(1),
+  x: z.number().min(0),
+  y: z.number().min(0),
+});
+
+export const qrPositionSchema = z.object({
+  x: z.number().min(0),
+  y: z.number().min(0),
+});
+
+function isValidQrPagePositionJson(value: string): boolean {
+  try {
+    return qrPagePositionSchema.safeParse(JSON.parse(value)).success;
+  } catch {
+    return false;
+  }
+}
+
+function isValidQrPositionJson(value: string): boolean {
+  try {
+    return qrPositionSchema.safeParse(JSON.parse(value)).success;
+  } catch {
+    return false;
+  }
+}
+
+export function parseQrPagePosition(value: string): QrPagePositionMm | null {
+  if (!value) return null;
+  const parsed = qrPagePositionSchema.safeParse(JSON.parse(value));
+  return parsed.success ? parsed.data : null;
+}
+
+export function parseQrPosition(value: string): QrPositionMm | null {
+  if (!value) return null;
+  const parsed = qrPositionSchema.safeParse(JSON.parse(value));
+  return parsed.success ? parsed.data : null;
+}
+
 export const incomingMailStatusEnum = z.enum([
   "RECEIVED",
   "PROCESSED",
@@ -65,7 +133,7 @@ export const createIncomingMailBase = z.object({
 });
 
 export const createIncomingMailSchema = createIncomingMailBase.refine(
-  (data) => !data.receivedDate || new Date(data.receivedDate) <= new Date(),
+  (data) => !data.receivedDate || isSameOrBeforeToday(data.receivedDate),
   {
     message: "Tanggal diterima tidak boleh di masa depan.",
     path: ["receivedDate"],
@@ -75,7 +143,7 @@ export const createIncomingMailSchema = createIncomingMailBase.refine(
 export const updateIncomingMailSchema = createIncomingMailBase
   .partial()
   .refine(
-    (data) => !data.receivedDate || new Date(data.receivedDate) <= new Date(),
+    (data) => !data.receivedDate || isSameOrBeforeToday(data.receivedDate),
     {
       message: "Tanggal diterima tidak boleh di masa depan.",
       path: ["receivedDate"],
@@ -107,16 +175,60 @@ export const createOutgoingMailBase = z.object({
     .optional()
     .or(z.literal("")),
   attachmentUrl: z.string().optional().or(z.literal("")),
+  ketuaName: z
+    .string()
+    .max(255, "Nama ketua maksimal 255 karakter.")
+    .optional()
+    .or(z.literal("")),
+  ketuaPosition: z
+    .string()
+    .max(255, "Jabatan ketua maksimal 255 karakter.")
+    .optional()
+    .or(z.literal("")),
+  sekretarisName: z
+    .string()
+    .max(255, "Nama sekretaris maksimal 255 karakter.")
+    .optional()
+    .or(z.literal("")),
+  sekretarisPosition: z
+    .string()
+    .max(255, "Jabatan sekretaris maksimal 255 karakter.")
+    .optional()
+    .or(z.literal("")),
+  qrKetuaPosition: z
+    .string()
+    .optional()
+    .refine(
+      (value) => !value || isValidQrPagePositionJson(value),
+      { message: "Posisi QR ketua tidak valid." },
+    )
+    .or(z.literal("")),
+  qrSekretarisPosition: z
+    .string()
+    .optional()
+    .refine(
+      (value) => !value || isValidQrPagePositionJson(value),
+      { message: "Posisi QR sekretaris tidak valid." },
+    )
+    .or(z.literal("")),
+  qrVerifikasiPosition: z
+    .string()
+    .optional()
+    .refine(
+      (value) => !value || isValidQrPositionJson(value),
+      { message: "Posisi QR verifikasi tidak valid." },
+    )
+    .or(z.literal("")),
 });
 
 export const createOutgoingMailSchema = createOutgoingMailBase.refine(
-  (data) => !data.mailDate || new Date(data.mailDate) <= new Date(),
+  (data) => !data.mailDate || isSameOrBeforeToday(data.mailDate),
   { message: "Tanggal surat tidak boleh di masa depan.", path: ["mailDate"] },
 );
 
 export const updateOutgoingMailSchema = createOutgoingMailBase
   .partial()
-  .refine((data) => !data.mailDate || new Date(data.mailDate) <= new Date(), {
+  .refine((data) => !data.mailDate || isSameOrBeforeToday(data.mailDate), {
     message: "Tanggal surat tidak boleh di masa depan.",
     path: ["mailDate"],
   });
@@ -139,13 +251,13 @@ export const createDispositionBase = z.object({
 });
 
 export const createDispositionSchema = createDispositionBase.refine(
-  (data) => !data.dueDate || new Date(data.dueDate) >= new Date(),
+  (data) => !data.dueDate || isSameOrAfterToday(data.dueDate),
   { message: "Batas waktu tidak boleh di masa lalu.", path: ["dueDate"] },
 );
 
 export const updateDispositionSchema = createDispositionBase
   .partial()
-  .refine((data) => !data.dueDate || new Date(data.dueDate) >= new Date(), {
+  .refine((data) => !data.dueDate || isSameOrAfterToday(data.dueDate), {
     message: "Batas waktu tidak boleh di masa lalu.",
     path: ["dueDate"],
   });

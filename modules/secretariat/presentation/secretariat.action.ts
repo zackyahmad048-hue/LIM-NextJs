@@ -16,6 +16,8 @@ import {
   updateAdministrativeDocumentSchema,
   createAgendaBookSchema,
   updateAgendaBookSchema,
+  parseQrPagePosition,
+  parseQrPosition,
 } from "../validations/schema";
 import {
   SecretariatError,
@@ -142,6 +144,19 @@ export async function createOutgoingMail(
       categoryCode: parsed.data.categoryCode,
       content: parsed.data.content || null,
       attachmentUrl: parsed.data.attachmentUrl || null,
+      ketuaName: parsed.data.ketuaName || null,
+      ketuaPosition: parsed.data.ketuaPosition || null,
+      sekretarisName: parsed.data.sekretarisName || null,
+      sekretarisPosition: parsed.data.sekretarisPosition || null,
+      qrKetuaPosition: parsed.data.qrKetuaPosition
+        ? parseQrPagePosition(parsed.data.qrKetuaPosition)
+        : null,
+      qrSekretarisPosition: parsed.data.qrSekretarisPosition
+        ? parseQrPagePosition(parsed.data.qrSekretarisPosition)
+        : null,
+      qrVerifikasiPosition: parsed.data.qrVerifikasiPosition
+        ? parseQrPosition(parsed.data.qrVerifikasiPosition)
+        : null,
     });
 
     revalidatePath("/admin/secretariat/surat-menyurat");
@@ -172,6 +187,26 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
     if (parsed.data.categoryCode) data.categoryCode = parsed.data.categoryCode;
     if (parsed.data.attachmentUrl !== undefined)
       data.attachmentUrl = parsed.data.attachmentUrl || null;
+    if (parsed.data.ketuaName !== undefined)
+      data.ketuaName = parsed.data.ketuaName || null;
+    if (parsed.data.ketuaPosition !== undefined)
+      data.ketuaPosition = parsed.data.ketuaPosition || null;
+    if (parsed.data.sekretarisName !== undefined)
+      data.sekretarisName = parsed.data.sekretarisName || null;
+    if (parsed.data.sekretarisPosition !== undefined)
+      data.sekretarisPosition = parsed.data.sekretarisPosition || null;
+    if (parsed.data.qrKetuaPosition !== undefined)
+      data.qrKetuaPosition = parsed.data.qrKetuaPosition
+        ? parseQrPagePosition(parsed.data.qrKetuaPosition)
+        : null;
+    if (parsed.data.qrSekretarisPosition !== undefined)
+      data.qrSekretarisPosition = parsed.data.qrSekretarisPosition
+        ? parseQrPagePosition(parsed.data.qrSekretarisPosition)
+        : null;
+    if (parsed.data.qrVerifikasiPosition !== undefined)
+      data.qrVerifikasiPosition = parsed.data.qrVerifikasiPosition
+        ? parseQrPosition(parsed.data.qrVerifikasiPosition)
+        : null;
 
     await secretariatService.updateOutgoingMail(id, data);
     revalidatePath("/admin/secretariat/outgoing-mail/list");

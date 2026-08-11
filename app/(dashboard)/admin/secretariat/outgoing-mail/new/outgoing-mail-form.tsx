@@ -13,10 +13,12 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { SectionCard } from "@/components/admin/shared/section-card";
-import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
+import { SigningEditor } from "@/components/admin/secretariat/signing-editor";
+import { SignerFields } from "@/components/admin/secretariat/signer-fields";
 
 import { LETTER_TYPES } from "@/config/letter-types";
 import { createOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
+import type { CentralBoardSigners } from "@/modules/cms/queries/structure.query";
 import { NumberPreview } from "./number-preview";
 
 export interface LetterLevelOption {
@@ -24,7 +26,13 @@ export interface LetterLevelOption {
   label: string;
 }
 
-export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
+export function OutgoingMailForm({
+  levels,
+  pengurus,
+}: {
+  levels: LetterLevelOption[];
+  pengurus: CentralBoardSigners;
+}) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [levelCode, setLevelCode] = useState("");
@@ -148,30 +156,32 @@ export function OutgoingMailForm({ levels }: { levels: LetterLevelOption[] }) {
               className="rounded-md text-xs"
             />
           </div>
-
-          <div className="space-y-1.5 md:col-span-2">
-            <Label htmlFor="senderName" className="text-xs">
-              Penanda Tangan
-            </Label>
-            <Input
-              id="senderName"
-              name="senderName"
-              placeholder="Nama penanda tangan surat"
-              className="rounded-md text-xs"
-            />
-          </div>
         </div>
+      </SectionCard>
+
+      <SectionCard className="rounded-lg p-4">
+        <div className="mb-4 border-b pb-3">
+          <h2 className="text-base font-semibold">QR Penanda Tangan</h2>
+          <p className="text-xs text-muted-foreground">
+            Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus
+            Pusat dan dijadikan konten QR yang ditempel pada dokumen saat
+            surat ditandai terkirim.
+          </p>
+        </div>
+
+        <SignerFields pengurus={pengurus} />
       </SectionCard>
 
       <SectionCard className="rounded-lg p-4">
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Dokumen Surat</h2>
           <p className="text-xs text-muted-foreground">
-            Unggah dokumen surat yang akan dicetak.
+            Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan
+            Verifikasi pada halaman dokumen.
           </p>
         </div>
 
-        <AttachmentUpload />
+        <SigningEditor />
       </SectionCard>
 
       <div className="sticky bottom-4 flex justify-end">

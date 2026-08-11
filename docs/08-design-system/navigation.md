@@ -10,7 +10,7 @@
 
 **Status:** Approved
 
-Perubahan pada 3.0: logo tanpa lingkaran (warna asli), pill aktif oranye, bar blur, Prayer Strip di atas navbar, mobile menggunakan Sheet shadcn.
+Perubahan pada 3.0: logo tanpa lingkaran (warna asli), pill aktif oranye, bar blur, mobile menggunakan Sheet shadcn.
 
 ---
 
@@ -159,24 +159,8 @@ Detail visual:
 Contoh:
 
 ```text
-Jadwal Shalat:  Subuh 04:12  Dzuhur 11:37  Ashar 14:58  Maghrib 17:43  Isya 18:53   [Selengkapnya]   ← Prayer Strip
-Logo  Beranda  Profil ▼  Artikel  Media  Kontak  🌙  Admin                                    ← Navbar
+Logo  Beranda  Profil ▼  Artikel  Media  Kontak  🌙  Admin   ← Navbar
 ```
-
----
-
-## Prayer Strip
-
-Strip jadwal shalat adalah signature dari Public Website, diletakkan di atas Navbar (bukan di dalam Navbar).
-
-- Posisi: bar penuh di atas Navbar; ikut scroll (tidak sticky), Navbar tetap sticky.
-- Isi: label `Jadwal Shalat` + kelima waktu shalat (`Subuh, Dzuhur, Ashar, Maghrib, Isya`) + link `Selengkapnya`; shalat berikutnya di-highlight `text-primary font-semibold`.
-- Sumber data: `calculatePrayerTimes` dari `@/lib/astroCalc` (lokasi Kediri/Lirboyo, WIB), dihitung client-side dengan interval 60 detik; highlight bergeser otomatis setelah waktu shalat lewat.
-- Fallback sebelum hydration: `--:--`.
-- Style: `h-9 bg-muted/40 border-b border-border/10`, konten `max-w-6xl`; entri scrollable horizontal (`no-scrollbar`) di layar sempit.
-- Label dan link menuju `/falak/jadwal-shalat`.
-
----
 
 ---
 
@@ -189,12 +173,10 @@ Mobile menggunakan Sheet shadcn (side right, `w-80 sm:w-96`, overlay `bg-black/1
 - Profil dan Bidang sebagai accordion (ChevronDown untuk Profil, ChevronRight untuk Bidang).
 - Login Admin di bagian bawah.
 - Sheet menutup otomatis setelah memilih menu.
-- Jadwal shalat tersedia di Prayer Strip di atas Navbar (tidak digandakan di Sheet).
 
 Contoh:
 
 ```text
-Subuh 04:12  Dzuhur 11:37  Ashar 14:58  Maghrib 17:43  Isya 18:53   ← Prayer Strip
 [Logo LIM Digital Platform]
 
 Beranda
