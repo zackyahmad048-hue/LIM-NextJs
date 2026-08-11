@@ -197,6 +197,43 @@
 }
 
 /*
+ * Mobile (≤767px) — aurora yang sama seperti desktop (posisi & bentuk blob
+ * sama), tapi dikurangi: opacity lebih rendah, lapisan lebih sedikit, gerakan
+ * lebih lambat. Ringan di ponsel, terutama dengan refresh rate rendah.
+ */
+@media (max-width: 767px) {
+  .site::before {
+    background-image:
+      radial-gradient(
+        120vw 70vw at 82% -6%,
+        oklch(0.9 0.04 160 / 0.3),
+        transparent 62%
+      ),
+      radial-gradient(
+        95vw 60vw at -8% 68%,
+        oklch(0.95 0.025 165 / 0.22),
+        transparent 60%
+      );
+    animation: nu-aurora 40s ease-in-out infinite alternate;
+  }
+
+  .dark .site::before {
+    background-image:
+      radial-gradient(
+        130vw 80vw at 82% -6%,
+        oklch(0.36 0.07 158 / 0.3),
+        transparent 62%
+      ),
+      radial-gradient(
+        110vw 70vw at -6% 42%,
+        oklch(0.3 0.055 165 / 0.22),
+        transparent 60%
+      );
+    animation: nu-aurora 36s ease-in-out infinite alternate;
+  }
+}
+
+/*
  * Login admin — background liquid (LiquidEther) bergerak di kedua mode.
  * Kelas ini memastikan wadah tertutup (clip) dan tidak tembus kertas kartu.
  */

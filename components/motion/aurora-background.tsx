@@ -2,7 +2,6 @@
 
 import { useSyncExternalStore } from "react";
 import { useReducedMotion } from "motion/react";
-import { MeshGradient } from "@paper-design/shaders-react";
 import LiquidEther from "@/components/LiquidEther";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -27,22 +26,11 @@ export default function AuroraBackground({
     () => false,
   );
 
-  if (!isHydrated || prefersReducedMotion) return null;
+  if (!isHydrated || prefersReducedMotion || isMobile) return null;
 
   return (
     <div aria-hidden="true" className={`pointer-events-none absolute inset-0 ${className ?? ""}`}>
-      {isMobile ? (
-        <MeshGradient
-          colors={colors}
-          speed={0.6}
-          distortion={0.35}
-          swirl={0.3}
-          fit="cover"
-          className="h-full w-full"
-        />
-      ) : (
-        <LiquidEther colors={colors} autoIntensity={autoIntensity} />
-      )}
+      <LiquidEther colors={colors} autoIntensity={autoIntensity} />
     </div>
   );
 }
