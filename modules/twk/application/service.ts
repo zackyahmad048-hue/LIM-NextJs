@@ -7,7 +7,7 @@ export interface MemberForReport {
   asalDaerah?: string | null;
   alamatLembaga?: string | null;
   posWajibKhidmah?: string | null;
-  tempatWajibKhidmah?: string | null;
+  tempatWajibKhidmah?: string[];
   tugasKhidmah?: string | null;
   status?: WajibKhidmahStatus;
   keterangan?: string | null;
@@ -173,7 +173,12 @@ export function parseCsv(csv: string): WajibKhidmahMemberInput[] {
         member.posWajibKhidmah = posWajibKhidmah as (typeof POS_WAJIB_KHIDMAH)[number];
       }
     }
-    if (tempatWajibKhidmah) member.tempatWajibKhidmah = tempatWajibKhidmah;
+    if (tempatWajibKhidmah) {
+      member.tempatWajibKhidmah = tempatWajibKhidmah
+        .split(/[\n;|]/)
+        .map((value) => value.trim())
+        .filter((value) => value.length > 0);
+    }
     if (tugasKhidmah) member.tugasKhidmah = tugasKhidmah;
     if (keterangan) member.keterangan = keterangan;
     if (catatan) member.catatan = catatan;
@@ -200,12 +205,34 @@ function countBy(
   return counts;
 }
 
+function countByList(
+  members: MemberForReport[],
+  field: (member: MemberForReport) => string[] | null | undefined,
+): Record<string, number> {
+  const counts: Record<string, number> = {};
+
+  for (const member of members) {
+    const values = (field(member) ?? [])
+      .map((value) => value.trim())
+      .filter((value) => value.length > 0);
+    if (values.length === 0) {
+      counts[LABEL_BELUM_DIISI] = (counts[LABEL_BELUM_DIISI] ?? 0) + 1;
+      continue;
+    }
+    for (const value of values) {
+      counts[value] = (counts[value] ?? 0) + 1;
+    }
+  }
+
+  return counts;
+}
+
 export function buildReportStats(members: MemberForReport[]): ReportStats {
   return {
     total: members.length,
     perStatus: countBy(members, (m) => m.status),
     perPos: countBy(members, (m) => m.posWajibKhidmah),
-    perTempat: countBy(members, (m) => m.tempatWajibKhidmah),
+    perTempat: countByList(members, (m) => m.tempatWajibKhidmah),
     perTugas: countBy(members, (m) => m.tugasKhidmah),
   };
 }
@@ -238,7 +265,7 @@ export function toCsvExport(members: MemberForReport[]): string {
       member.asalDaerah ?? "",
       member.alamatLembaga ?? "",
       member.posWajibKhidmah ?? "",
-      member.tempatWajibKhidmah ?? "",
+      member.tempatWajibKhidmah?.join("; ") ?? "",
       member.tugasKhidmah ?? "",
       member.status ?? "",
       member.keterangan ?? "",

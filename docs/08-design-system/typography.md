@@ -16,6 +16,30 @@
 
 Dokumen ini mendefinisikan standar tipografi yang digunakan pada LIM Digital Platform.
 
+---
+
+# Public Website — Empat Peran Tipografi ("Taqwim")
+
+Situs publik (`app/(public)/`) memakai empat keluarga font via `next/font/google`, masing-masing satu peran spesifik:
+
+| Peran     | Font           | Penggunaan                                                              |
+| --------- | -------------- | ----------------------------------------------------------------------- |
+| Display   | Newsreader     | Judul (h1/h2), tagline italic — suara "kitab" yang tenang               |
+| Body/UI   | Hanken Grotesk | Teks isi, kontrol, label — tetap menjadi suara antarmuka                 |
+| Data      | Spline Sans Mono | Jam, waktu shalat, derajat, koordinat, angka tabel — "instrument readout" |
+| Arab      | Reem Kufi      | Eyebrow marginalia (`الفجر`), kolofon (`تم بحمد الله`), baris Hijriah   |
+
+Pemetaan token:
+
+```text id="typo-public"
+font-display → Newsreader     (variabel --fx-display)
+font-sans    → Hanken Grotesk (--f-site)
+font-data    → Spline Sans Mono (--fx-mono)
+font-ar      → Reem Kufi      (--fx-ar)
+```
+
+Catatan peran: kaidah "maksimal dua keluarga font" di bawah sengaja dilonggarkan hanya untuk situs publik karena setiap keluarga punya satu pekerjaan nyata — angka/data membaca sebagai alat hisab, bukan dekorasi.
+
 Typography memastikan seluruh aplikasi memiliki hierarki visual yang jelas, mudah dibaca, konsisten, dan mendukung berbagai ukuran layar.
 
 ---

@@ -12,7 +12,7 @@ describe("createWajibKhidmahMemberSchema", () => {
       asalDaerah: "Kediri - Jawa Timur",
       alamatLembaga: "Lirboyo",
       posWajibKhidmah: "1. Pondok Induk",
-      tempatWajibKhidmah: "Asrama Sunan Ampel",
+      tempatWajibKhidmah: ["Asrama Sunan Ampel"],
       tugasKhidmah: "Pengajar",
       status: "AKTIF",
       keterangan: "-",
@@ -168,6 +168,71 @@ describe("createWajibKhidmahMemberSchema", () => {
     if (result.success) {
       expect(result.data.asalDaerah).toBe("Kediri - Jawa Timur");
     }
+  });
+
+  it("accepts multiple tempatWajibKhidmah values", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      tempatWajibKhidmah: ["Seksi", "Mudarris", "Wali Asuh"],
+      status: "AKTIF",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(true);
+  });
+});
+
+describe("conditional tugasKhidmah", () => {
+  it("requires tugasKhidmah for pos '6. Lembaga Pemohon'", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      posWajibKhidmah: "6. Lembaga Pemohon",
+      status: "AKTIF",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issue = result.error.issues.find(
+        (i) => i.path[0] === "tugasKhidmah",
+      );
+      expect(issue?.message).toContain("Tugas Khidmah wajib diisi");
+    }
+  });
+
+  it("requires tugasKhidmah for pos '4. Pondok Cabang non Zonasi'", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      posWajibKhidmah: "4. Pondok Cabang non Zonasi",
+      status: "AKTIF",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issue = result.error.issues.find(
+        (i) => i.path[0] === "tugasKhidmah",
+      );
+      expect(issue?.message).toBeDefined();
+    }
+  });
+
+  it("accepts tugasKhidmah when pos is eligible and filled", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      posWajibKhidmah: "6. Lembaga Pemohon",
+      tugasKhidmah: "Guru Bantu",
+      status: "AKTIF",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("does not require tugasKhidmah for other pos", () => {
+    const result = createWajibKhidmahMemberSchema.safeParse({
+      nama: "Test",
+      posWajibKhidmah: "1. Pondok Induk",
+      status: "AKTIF",
+      keterangan: "-",
+    });
+    expect(result.success).toBe(true);
   });
 });
 

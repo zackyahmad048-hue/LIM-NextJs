@@ -22,6 +22,13 @@ export const DEACTIVATED_STATUSES = [
   "QODLO",
 ] as const satisfies readonly WajibKhidmahStatus[];
 
+export const TUGAS_POS_ELIGIBLE = [
+  "4. Pondok Cabang non Zonasi",
+  "6. Lembaga Pemohon",
+] as const;
+
+export type TugasPos = (typeof TUGAS_POS_ELIGIBLE)[number];
+
 export const WAJIB_KHIDMAH_STATUS_LABELS: Record<WajibKhidmahStatus, string> = {
   AKTIF: "Aktif",
   GUGUR: "Gugur",
@@ -35,12 +42,13 @@ export interface WajibKhidmahMemberEntity {
   asalDaerah: string | null;
   alamatLembaga: string | null;
   posWajibKhidmah: string | null;
-  tempatWajibKhidmah: string | null;
+  tempatWajibKhidmah: string[];
   tugasKhidmah: string | null;
   status: WajibKhidmahStatus;
   keterangan: string | null;
   catatan: string | null;
   absensi: string | null;
+  lembagaId: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -50,12 +58,13 @@ export interface WajibKhidmahMemberCreateInput {
   asalDaerah?: string | null;
   alamatLembaga?: string | null;
   posWajibKhidmah?: string | null;
-  tempatWajibKhidmah?: string | null;
+  tempatWajibKhidmah?: string[];
   tugasKhidmah?: string | null;
   status?: WajibKhidmahStatus;
   keterangan?: string | null;
   catatan?: string | null;
   absensi?: string | null;
+  lembagaId?: string | null;
 }
 
 export interface WajibKhidmahMemberUpdateInput {
@@ -63,10 +72,11 @@ export interface WajibKhidmahMemberUpdateInput {
   asalDaerah?: string | null;
   alamatLembaga?: string | null;
   posWajibKhidmah?: string | null;
-  tempatWajibKhidmah?: string | null;
+  tempatWajibKhidmah?: string[];
   tugasKhidmah?: string | null;
   status?: WajibKhidmahStatus;
   keterangan?: string | null;
   catatan?: string | null;
   absensi?: string | null;
+  lembagaId?: string | null;
 }

@@ -1,15 +1,17 @@
+
 import { Save } from "lucide-react";
 
 import { DEFAULT_HERO_CONFIG } from "@/config/hero";
 import { getHeroConfig } from "@/modules/cms/queries/hero.query";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionForm } from "@/components/admin/shared/action-form";
+import { ImagePathField } from "@/components/admin/shared/image-path-field";
 
 import { updateHeroConfig } from "./actions";
 
@@ -24,7 +26,7 @@ export default async function HeroSettingsPage() {
         description="Kelola teks, gambar, dan tombol pada hero landing page."
       />
 
-      <form action={updateHeroConfig} className="space-y-3">
+      <ActionForm action={updateHeroConfig} submitLabel="Simpan hero" submitIcon={<Save className="size-4" />}>
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Konten Teks</h2>
@@ -47,16 +49,7 @@ export default async function HeroSettingsPage() {
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="image" className="text-xs">
-                Path gambar
-              </Label>
-              <Input
-                id="image"
-                name="image"
-                defaultValue={config.image}
-                placeholder="/images/nama-file.jpg"
-                className="rounded-md text-xs"
-              />
+              <ImagePathField defaultValue={config.image} />
             </div>
 
             <div className="space-y-1.5">
@@ -188,13 +181,7 @@ export default async function HeroSettingsPage() {
           </div>
         </SectionCard>
 
-        <div className="sticky bottom-4 flex justify-end">
-          <Button type="submit" size="sm">
-            <Save className="size-4" />
-            Simpan hero
-          </Button>
-        </div>
-      </form>
+      </ActionForm>
     </PageContainer>
   );
 }

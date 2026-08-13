@@ -40,6 +40,14 @@ function readString(formData: FormData, key: string): string | undefined {
   return trimmed ? trimmed : undefined;
 }
 
+function readStringArray(formData: FormData, key: string): string[] | undefined {
+  const values = formData.getAll(key);
+  if (values.length === 0) return undefined;
+  return values
+    .map((value) => String(value).trim())
+    .filter((value) => value.length > 0);
+}
+
 function readStatus(formData: FormData): WajibKhidmahStatus | undefined {
   const raw = readString(formData, "status");
   if (!raw) return undefined;
@@ -61,7 +69,7 @@ export async function createWajibKhidmahMember(formData: FormData) {
       asalDaerah: readString(formData, "asalDaerah"),
       alamatLembaga: readString(formData, "alamatLembaga"),
       posWajibKhidmah: readString(formData, "posWajibKhidmah"),
-      tempatWajibKhidmah: readString(formData, "tempatWajibKhidmah"),
+      tempatWajibKhidmah: readStringArray(formData, "tempatWajibKhidmah"),
       tugasKhidmah: readString(formData, "tugasKhidmah"),
       status: status ?? "AKTIF",
       keterangan: readString(formData, "keterangan"),
@@ -99,7 +107,10 @@ export async function updateWajibKhidmahMember(
     const posWajibKhidmah = readString(formData, "posWajibKhidmah");
     if (posWajibKhidmah !== undefined) data.posWajibKhidmah = posWajibKhidmah;
 
-    const tempatWajibKhidmah = readString(formData, "tempatWajibKhidmah");
+    const tempatWajibKhidmah = readStringArray(
+      formData,
+      "tempatWajibKhidmah",
+    );
     if (tempatWajibKhidmah !== undefined)
       data.tempatWajibKhidmah = tempatWajibKhidmah;
 

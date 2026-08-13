@@ -1,12 +1,12 @@
 import { Plus } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionForm } from "@/components/admin/shared/action-form";
 
 import { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { getUsers } from "@/modules/authorization/queries/user.query";
@@ -32,7 +32,7 @@ export default async function NewDispositionPage() {
         description="Buat disposisi baru untuk surat masuk."
       />
 
-      <form action={createDisposition} className="max-w-2xl space-y-3">
+      <ActionForm action={createDisposition} submitLabel="Simpan Disposisi" submitIcon={<Plus className="size-4" />}>
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Disposisi</h2>
@@ -137,14 +137,7 @@ export default async function NewDispositionPage() {
             </div>
           </div>
         </SectionCard>
-
-        <div className="sticky bottom-4 flex justify-end">
-          <Button type="submit" size="sm">
-            <Plus className="size-4" />
-            Simpan Disposisi
-          </Button>
-        </div>
-      </form>
+      </ActionForm>
     </PageContainer>
   );
 }

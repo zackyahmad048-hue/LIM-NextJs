@@ -55,7 +55,7 @@ export default async function FalakPage() {
                   <Icon className="h-5 w-5 text-primary" />
                 </div>
 
-                <h3 className="mt-8 font-display text-xl font-semibold text-foreground">
+                <h3 className="mt-8 font-display text-xl font-semibold text-balance text-foreground">
                   {tool.title}
                 </h3>
 

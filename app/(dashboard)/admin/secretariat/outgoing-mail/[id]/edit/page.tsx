@@ -20,6 +20,7 @@ import {
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionForm } from "@/components/admin/shared/action-form";
 import { SigningEditor } from "@/components/admin/secretariat/signing-editor";
 import { SignerFields } from "@/components/admin/secretariat/signer-fields";
 
@@ -153,9 +154,10 @@ export default async function EditOutgoingMailPage({
       )}
 
       {!isArchived && (
-        <form
+        <ActionForm
           action={updateOutgoingMail.bind(null, mail.id)}
-          className="mt-4 max-w-2xl space-y-3"
+          submitLabel="Simpan Perubahan"
+          submitIcon={<CheckCircle className="size-4" />}
         >
           <SectionCard className="rounded-lg p-4">
             <div className="mb-4 border-b pb-3">
@@ -285,16 +287,9 @@ export default async function EditOutgoingMailPage({
               initialSekretarisPosition={mail.qrSekretarisPosition}
               initialVerifikasiPosition={mail.qrVerifikasiPosition}
             />
-          </SectionCard>
-
-          <div className="sticky bottom-4 flex justify-end">
-            <Button type="submit" size="sm">
-              <CheckCircle className="size-4" />
-              Simpan Perubahan
-            </Button>
-          </div>
-        </form>
-      )}
+            </SectionCard>
+          </ActionForm>
+        )}
 
       <div className="mt-4 max-w-2xl">
         <SectionCard className="rounded-lg p-4">

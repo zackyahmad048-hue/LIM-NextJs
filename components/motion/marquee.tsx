@@ -53,8 +53,8 @@ export function Marquee({
           className={cn(
             "flex shrink-0 items-center",
             vertical
-              ? "flex-col animate-marquee-vertical"
-              : "flex-row animate-marquee",
+              ? "flex-col animate-marquee-vertical motion-reduce:animate-none"
+              : "flex-row animate-marquee motion-reduce:animate-none",
             pauseOnHover && "group-hover:[animation-play-state:paused]",
           )}
         >

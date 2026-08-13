@@ -83,7 +83,7 @@ export function QiblaCompass() {
                     <path d="M24 4l4 4v16l-4-4z" opacity=".5" />
                     <path d="M8 14h16" strokeWidth="2" />
                   </svg>
-                  <span className="mt-1 text-xs font-medium text-primary">
+                  <span className="mt-1 text-xs font-medium tabular-nums text-primary">
                     {direction.toFixed(1)}°
                   </span>
                 </div>

@@ -169,6 +169,12 @@ Peserta suatu Program.
 
 ---
 
+## WajibKhidmahLembaga
+
+Lembaga eksternal pemohon guru bantu dalam Program Wajib Khidmah. Menyimpan identitas lembaga, identitas pemohon (pengasuh & penanggung jawab), kondisi lembaga pendidikan, dan permohonan guru bantu. Relasi `1 : N` ke anggota Wajib Khidmah melalui `lembagaId`.
+
+---
+
 ## Schedule
 
 Jadwal pelaksanaan Program.

@@ -30,6 +30,7 @@ import {
 import { letterNumberingService } from "../application/letter-numbering.service";
 import type { NumberingPeriod } from "../application/letter-number.rules";
 import type { LevelCodeOption } from "../infrastructure/letter-numbering.config";
+import type { ActionResult } from "@/modules/shared/presentation/action-result";
 
 const PERMISSION_INCOMING_CREATE = ["secretariat.incoming-mail.create"];
 const PERMISSION_INCOMING_UPDATE = ["secretariat.incoming-mail.update"];
@@ -47,10 +48,15 @@ const PERMISSION_AGENDA_CREATE = ["secretariat.agenda.create"];
 const PERMISSION_AGENDA_UPDATE = ["secretariat.agenda.update"];
 const PERMISSION_AGENDA_DELETE = ["secretariat.agenda.delete"];
 
-export async function createIncomingMail(formData: FormData) {
+export async function createIncomingMail(
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = createIncomingMailSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian surat." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_INCOMING_CREATE);
@@ -66,16 +72,25 @@ export async function createIncomingMail(formData: FormData) {
       attachmentUrl: parsed.data.attachmentUrl || null,
     });
     revalidatePath("/admin/secretariat/surat-menyurat");
+    return { ok: true, message: "Surat masuk berhasil disimpan." };
   } catch (e) {
-    if (e instanceof DuplicateNumberError) return;
-    return;
+    if (e instanceof DuplicateNumberError) {
+      return { ok: false, message: "Nomor surat sudah pernah tercatat." };
+    }
+    return { ok: false, message: "Gagal menyimpan surat masuk." };
   }
 }
 
-export async function updateIncomingMail(id: string, formData: FormData) {
+export async function updateIncomingMail(
+  id: string,
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = updateIncomingMailSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian surat." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
@@ -98,9 +113,12 @@ export async function updateIncomingMail(id: string, formData: FormData) {
 
     await secretariatService.updateIncomingMail(id, data);
     revalidatePath("/admin/secretariat/surat-menyurat");
+    return { ok: true, message: "Perubahan surat masuk disimpan." };
   } catch (e) {
-    if (e instanceof SecretariatError) return;
-    return;
+    if (e instanceof SecretariatError) {
+      return { ok: false, message: e.message };
+    }
+    return { ok: false, message: "Gagal menyimpan perubahan surat masuk." };
   }
 }
 
@@ -125,12 +143,13 @@ export async function transitionIncomingMailStatus(id: string, status: string) {
 }
 
 export async function createOutgoingMail(
+  _prevState: ActionResult,
   formData: FormData,
-): Promise<{ success: boolean; message?: string }> {
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = createOutgoingMailSchema.safeParse(raw);
   if (!parsed.success) {
-    return { success: false, message: "Periksa kembali isian form." };
+    return { ok: false, message: "Periksa kembali isian form." };
   }
 
   try {
@@ -161,17 +180,23 @@ export async function createOutgoingMail(
 
     revalidatePath("/admin/secretariat/surat-menyurat");
     revalidatePath("/admin/secretariat/outgoing-mail/list");
-    return { success: true };
+    return { ok: true };
   } catch (e) {
     console.error("[createOutgoingMail]", e);
-    return { success: false, message: "Gagal menyimpan surat." };
+    return { ok: false, message: "Gagal menyimpan surat." };
   }
 }
 
-export async function updateOutgoingMail(id: string, formData: FormData) {
+export async function updateOutgoingMail(
+  id: string,
+  _prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = updateOutgoingMailSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian form." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
@@ -211,9 +236,12 @@ export async function updateOutgoingMail(id: string, formData: FormData) {
     await secretariatService.updateOutgoingMail(id, data);
     revalidatePath("/admin/secretariat/outgoing-mail/list");
     revalidatePath("/admin/secretariat/surat-menyurat");
+    return { ok: true };
   } catch (e) {
-    if (e instanceof SecretariatError) return;
-    return;
+    if (e instanceof SecretariatError) {
+      return { ok: false, message: e.message };
+    }
+    return { ok: false, message: "Gagal memperbarui surat." };
   }
 }
 
@@ -315,10 +343,15 @@ async function uploadSecretariatAttachment(
   }
 }
 
-export async function createDisposition(formData: FormData) {
+export async function createDisposition(
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = createDispositionSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian disposisi." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_DISPOSITION_CREATE);
@@ -331,15 +364,22 @@ export async function createDisposition(formData: FormData) {
       notes: parsed.data.notes || null,
     });
     revalidatePath("/admin/secretariat/dispositions");
+    return { ok: true, message: "Disposisi berhasil dibuat." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan disposisi." };
   }
 }
 
-export async function updateDisposition(id: string, formData: FormData) {
+export async function updateDisposition(
+  id: string,
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = updateDispositionSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian disposisi." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_DISPOSITION_UPDATE);
@@ -355,9 +395,12 @@ export async function updateDisposition(id: string, formData: FormData) {
 
     await secretariatService.updateDisposition(id, data);
     revalidatePath("/admin/secretariat/dispositions");
+    return { ok: true, message: "Perubahan disposisi disimpan." };
   } catch (e) {
-    if (e instanceof SecretariatError) return;
-    return;
+    if (e instanceof SecretariatError) {
+      return { ok: false, message: e.message };
+    }
+    return { ok: false, message: "Gagal menyimpan perubahan disposisi." };
   }
 }
 
@@ -381,10 +424,15 @@ export async function transitionDispositionStatus(id: string, status: string) {
   }
 }
 
-export async function createAdministrativeDocument(formData: FormData) {
+export async function createAdministrativeDocument(
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = createAdministrativeDocumentSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian dokumen." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_DOCUMENT_CREATE);
@@ -397,19 +445,25 @@ export async function createAdministrativeDocument(formData: FormData) {
       attachmentUrl: parsed.data.attachmentUrl || null,
     });
     revalidatePath("/admin/secretariat/administrative-documents");
+    return { ok: true, message: "Dokumen berhasil dibuat." };
   } catch (e) {
-    if (e instanceof DuplicateNumberError) return;
-    return;
+    if (e instanceof DuplicateNumberError) {
+      return { ok: false, message: "Nomor dokumen sudah pernah dipakai." };
+    }
+    return { ok: false, message: "Gagal menyimpan dokumen." };
   }
 }
 
 export async function updateAdministrativeDocument(
   id: string,
+  prevState: ActionResult,
   formData: FormData,
-) {
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = updateAdministrativeDocumentSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian dokumen." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_DOCUMENT_UPDATE);
@@ -427,9 +481,12 @@ export async function updateAdministrativeDocument(
 
     await secretariatService.updateAdministrativeDocument(id, data);
     revalidatePath("/admin/secretariat/administrative-documents");
+    return { ok: true, message: "Perubahan dokumen disimpan." };
   } catch (e) {
-    if (e instanceof SecretariatError) return;
-    return;
+    if (e instanceof SecretariatError) {
+      return { ok: false, message: e.message };
+    }
+    return { ok: false, message: "Gagal menyimpan perubahan dokumen." };
   }
 }
 
@@ -459,10 +516,15 @@ export async function transitionAdministrativeDocumentStatus(
   }
 }
 
-export async function createAgendaBook(formData: FormData) {
+export async function createAgendaBook(
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = createAgendaBookSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian agenda." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_AGENDA_CREATE);
@@ -475,15 +537,22 @@ export async function createAgendaBook(formData: FormData) {
       notes: parsed.data.notes || null,
     });
     revalidatePath("/admin/secretariat/agenda");
+    return { ok: true, message: "Agenda berhasil disimpan." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan agenda." };
   }
 }
 
-export async function updateAgendaBook(id: string, formData: FormData) {
+export async function updateAgendaBook(
+  id: string,
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = updateAgendaBookSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian agenda." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_AGENDA_UPDATE);
@@ -500,8 +569,9 @@ export async function updateAgendaBook(id: string, formData: FormData) {
 
     await secretariatService.updateAgendaBook(id, data as any);
     revalidatePath("/admin/secretariat/agenda");
+    return { ok: true, message: "Perubahan agenda disimpan." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan perubahan agenda." };
   }
 }
 

@@ -36,7 +36,7 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen bg-transparent">
+      <div className="flex min-h-dvh bg-transparent">
         <Sidebar roleSlugs={roleSlugs} />
         <MobileSidebar roleSlugs={roleSlugs} />
 

@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionForm } from "@/components/admin/shared/action-form";
 
 import {
   getProgramById,
@@ -189,9 +190,10 @@ export default async function EditProgramPage({
         })}
       </div>
 
-      <form
+      <ActionForm
         action={updateProgram.bind(null, program.id)}
-        className="max-w-2xl space-y-3"
+        submitLabel="Simpan Perubahan"
+        submitIcon={<Pencil className="size-4" />}
       >
         <input type="hidden" name="code" value={program.code} />
 
@@ -242,6 +244,7 @@ export default async function EditProgramPage({
                 id="name"
                 name="name"
                 required
+                autoComplete="off"
                 defaultValue={program.name}
                 className="rounded-md text-xs"
               />
@@ -340,13 +343,7 @@ export default async function EditProgramPage({
           </div>
         </SectionCard>
 
-        <div className="sticky bottom-4 flex justify-end gap-2">
-          <Button type="submit" size="sm">
-            <Pencil className="size-4" />
-            Simpan Perubahan
-          </Button>
-        </div>
-      </form>
+      </ActionForm>
     </PageContainer>
   );
 }

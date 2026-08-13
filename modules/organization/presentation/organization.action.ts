@@ -9,6 +9,7 @@ import {
   updateOfficerSchema,
   updateUnitSchema,
 } from "../validations/schema";
+import type { ActionResult } from "@/modules/shared/presentation/action-result";
 
 const PERMISSION_UNIT_CREATE = ["organization.unit.create"];
 const PERMISSION_UNIT_UPDATE = ["organization.unit.update"];
@@ -21,9 +22,28 @@ function revalidatePendataan() {
   revalidatePath("/admin/secretariat/pendataan");
 }
 
-export async function createUnitAction(formData: FormData) {
+function firstIssueMessage(error: unknown) {
+  if (
+    error &&
+    typeof error === "object" &&
+    "issues" in error &&
+    Array.isArray((error as { issues?: { message?: string }[] }).issues)
+  ) {
+    const message = (error as { issues: { message?: string }[] }).issues[0]
+      ?.message;
+    if (message) return message;
+  }
+  return "Periksa kembali isian formulir.";
+}
+
+export async function createUnitAction(
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const parsed = createUnitSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: firstIssueMessage(parsed.error) };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_UNIT_CREATE);
@@ -35,14 +55,21 @@ export async function createUnitAction(formData: FormData) {
       sortOrder: parsed.data.sortOrder,
     });
     revalidatePendataan();
+    return { ok: true, message: "Unit berhasil disimpan." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan unit." };
   }
 }
 
-export async function updateUnitAction(id: string, formData: FormData) {
+export async function updateUnitAction(
+  id: string,
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const parsed = updateUnitSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: firstIssueMessage(parsed.error) };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_UNIT_UPDATE);
@@ -54,8 +81,9 @@ export async function updateUnitAction(id: string, formData: FormData) {
       sortOrder: parsed.data.sortOrder,
     });
     revalidatePendataan();
+    return { ok: true, message: "Perubahan unit disimpan." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan perubahan unit." };
   }
 }
 
@@ -69,9 +97,14 @@ export async function deleteUnitAction(id: string) {
   }
 }
 
-export async function createOfficerAction(formData: FormData) {
+export async function createOfficerAction(
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const parsed = createOfficerSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: firstIssueMessage(parsed.error) };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_OFFICER_CREATE);
@@ -85,14 +118,21 @@ export async function createOfficerAction(formData: FormData) {
       sortOrder: parsed.data.sortOrder,
     });
     revalidatePendataan();
+    return { ok: true, message: "Pengurus berhasil disimpan." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan pengurus." };
   }
 }
 
-export async function updateOfficerAction(id: string, formData: FormData) {
+export async function updateOfficerAction(
+  id: string,
+  prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const parsed = updateOfficerSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: firstIssueMessage(parsed.error) };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_OFFICER_UPDATE);
@@ -105,8 +145,9 @@ export async function updateOfficerAction(id: string, formData: FormData) {
       sortOrder: parsed.data.sortOrder,
     });
     revalidatePendataan();
+    return { ok: true, message: "Perubahan pengurus disimpan." };
   } catch {
-    return;
+    return { ok: false, message: "Gagal menyimpan perubahan pengurus." };
   }
 }
 

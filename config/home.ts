@@ -5,6 +5,7 @@ export interface HomeGridConfig {
   limit: number;
   href: string;
   hrefLabel: string;
+  arabic?: string;
 }
 
 export const HOME_GRIDS: HomeGridConfig[] = [
@@ -15,6 +16,7 @@ export const HOME_GRIDS: HomeGridConfig[] = [
     limit: 6,
     href: "/artikel",
     hrefLabel: "Lihat Semua",
+    arabic: "أخبار",
   },
   {
     title: "Kajian & Artikel",
@@ -23,5 +25,6 @@ export const HOME_GRIDS: HomeGridConfig[] = [
     limit: 6,
     href: "/artikel",
     hrefLabel: "Lihat Semua",
+    arabic: "مقالات",
   },
 ];

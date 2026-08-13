@@ -20,7 +20,7 @@ export function DataPagination<TData>({ table }: Props<TData>) {
         Sebelumnya
       </Button>
 
-      <span className="text-sm text-muted-foreground">
+      <span className="text-sm tabular-nums text-muted-foreground">
         Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
         {table.getPageCount()}
       </span>

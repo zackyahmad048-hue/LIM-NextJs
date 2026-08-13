@@ -14,7 +14,7 @@ function member(overrides: Partial<MemberForReport> = {}): MemberForReport {
     asalDaerah: null,
     alamatLembaga: null,
     posWajibKhidmah: null,
-    tempatWajibKhidmah: null,
+    tempatWajibKhidmah: [],
     ...overrides,
   };
 }
@@ -43,7 +43,7 @@ describe("parseCsv", () => {
         asalDaerah: "Kediri - Jawa Timur",
         alamatLembaga: "Lirboyo",
         posWajibKhidmah: "1. Pondok Induk",
-        tempatWajibKhidmah: "Asrama Sunan Ampel",
+        tempatWajibKhidmah: ["Asrama Sunan Ampel"],
         status: "AKTIF",
       },
       {
@@ -51,7 +51,7 @@ describe("parseCsv", () => {
         asalDaerah: "Demak - Jawa Tengah",
         alamatLembaga: "Demak Kota",
         posWajibKhidmah: "3. Pondok Cabang Zonasi",
-        tempatWajibKhidmah: "PP. Demak",
+        tempatWajibKhidmah: ["PP. Demak"],
         status: "AKTIF",
       },
     ]);
@@ -69,7 +69,7 @@ describe("parseCsv", () => {
         asalDaerah: "Surabaya - Jatim",
         alamatLembaga: "Masjid Agung",
         posWajibKhidmah: "3. Pondok Cabang Zonasi",
-        tempatWajibKhidmah: "Masjid Agung",
+        tempatWajibKhidmah: ["Masjid Agung"],
         catatan: "bebas",
         status: "AKTIF",
       },
@@ -86,7 +86,7 @@ describe("parseCsv", () => {
       {
         nama: "Ali",
         posWajibKhidmah: "1. Pondok Induk",
-        tempatWajibKhidmah: "Tempat B",
+        tempatWajibKhidmah: ["Tempat B"],
         asalDaerah: "Kediri - Jatim",
         status: "AKTIF",
       },
@@ -115,7 +115,7 @@ describe("parseCsv", () => {
       {
         nama: "Ali, M.",
         alamatLembaga: 'Jl. "Merdeka" No. 1',
-        tempatWajibKhidmah: "PP. X",
+        tempatWajibKhidmah: ["PP. X"],
         status: "AKTIF",
       },
     ]);
@@ -132,13 +132,13 @@ describe("parseCsv", () => {
       {
         nama: "Ali",
         asalDaerah: "Jakarta - DKI Jakarta",
-        tempatWajibKhidmah: "PP. A",
+        tempatWajibKhidmah: ["PP. A"],
         status: "AKTIF",
       },
       {
         nama: "Budi",
         asalDaerah: "Bandung - Jawa Barat",
-        tempatWajibKhidmah: "PP. B",
+        tempatWajibKhidmah: ["PP. B"],
         status: "AKTIF",
       },
     ]);
@@ -151,7 +151,22 @@ describe("parseCsv", () => {
       {
         nama: "Ali",
         asalDaerah: "Kediri - Jatim",
-        tempatWajibKhidmah: "PP. A",
+        tempatWajibKhidmah: ["PP. A"],
+        status: "AKTIF",
+      },
+    ]);
+  });
+
+  it("splits multiple tempatWajibKhidmah values by ';' into an array", () => {
+    const csv = [
+      "nama,tempatWajibKhidmah",
+      "Ali,Seksi; Mudarris; Wali Asuh",
+    ].join("\n");
+
+    expect(parseCsv(csv)).toEqual([
+      {
+        nama: "Ali",
+        tempatWajibKhidmah: ["Seksi", "Mudarris", "Wali Asuh"],
         status: "AKTIF",
       },
     ]);
@@ -197,21 +212,21 @@ describe("buildReportStats", () => {
       member({
         nama: "A",
         posWajibKhidmah: "1. Pondok Induk",
-        tempatWajibKhidmah: "Masjid A",
+        tempatWajibKhidmah: ["Masjid A"],
         tugasKhidmah: "Pengajar",
         status: "AKTIF",
       }),
       member({
         nama: "B",
         posWajibKhidmah: "1. Pondok Induk",
-        tempatWajibKhidmah: "Masjid A",
+        tempatWajibKhidmah: ["Masjid A"],
         tugasKhidmah: "Pengajar",
         status: "AKTIF",
       }),
       member({
         nama: "C",
         posWajibKhidmah: "2. Pondok Unit",
-        tempatWajibKhidmah: "Masjid B",
+        tempatWajibKhidmah: ["Masjid B"],
         tugasKhidmah: "Keamanan",
         status: "GUGUR",
       }),
@@ -223,6 +238,29 @@ describe("buildReportStats", () => {
       perPos: { "1. Pondok Induk": 2, "2. Pondok Unit": 1 },
       perTempat: { "Masjid A": 2, "Masjid B": 1 },
       perTugas: { Pengajar: 2, Keamanan: 1 },
+    });
+  });
+
+  it("counts each tempatWajibKhidmah value across members", () => {
+    const members = [
+      member({
+        nama: "A",
+        tempatWajibKhidmah: ["Masjid A", "Seksi"],
+      }),
+      member({
+        nama: "B",
+        tempatWajibKhidmah: ["Masjid A"],
+      }),
+      member({
+        nama: "C",
+        tempatWajibKhidmah: [],
+      }),
+    ];
+
+    expect(buildReportStats(members).perTempat).toEqual({
+      "Masjid A": 2,
+      Seksi: 1,
+      [LABEL_BELUM_DIISI]: 1,
     });
   });
 

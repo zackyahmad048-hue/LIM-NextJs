@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { cn } from "@/lib/utils";
 
 interface Column<T> {
   key: string;
@@ -47,7 +48,7 @@ export function AdminTable<T extends { id: string }>({
             {columns.map((col) => (
               <TableHead
                 key={col.key}
-                className={`h-10 text-xs ${col.align === "right" ? "text-right" : ""}`}
+                className={cn("h-10 text-xs", col.align === "right" && "text-right")}
               >
                 {col.label}
               </TableHead>

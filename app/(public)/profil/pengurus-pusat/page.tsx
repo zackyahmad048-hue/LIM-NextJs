@@ -31,9 +31,11 @@ export default async function PengurusPusatPage() {
       />
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {pengurus.length === 0 ? (
-          <p className="text-center text-sm text-muted-foreground">
-            Belum ada data Pengurus Pusat.
-          </p>
+          <div className="rounded-2xl border border-dashed border-primary/20 bg-card p-12 text-center">
+            <p className="text-center text-sm text-muted-foreground">
+              Belum ada data Pengurus Pusat.
+            </p>
+          </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
             {pengurus.map((orang) => (
@@ -53,10 +55,10 @@ export default async function PengurusPusatPage() {
                     initials(orang.name)
                   )}
                 </div>
-                <h3 className="mt-4 font-display text-sm font-semibold text-foreground">
+                <h3 className="mt-4 font-display text-sm font-semibold text-balance text-foreground">
                   {orang.name}
                 </h3>
-                <p className="mt-1 font-sans text-[10px] uppercase tracking-[0.18em] text-primary">
+                <p className="mt-1 font-sans text-[10px] uppercase text-primary">
                   {orang.position}
                 </p>
               </div>

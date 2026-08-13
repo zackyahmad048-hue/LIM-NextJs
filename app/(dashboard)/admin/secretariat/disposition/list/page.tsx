@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getDispositions } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteDisposition } from "@/modules/secretariat/presentation/secretariat.action";
@@ -113,7 +114,7 @@ export default async function DispositionListPage({
             key: "dueDate",
             label: "Batas Waktu",
             render: (item) => (
-              <span className="text-xs">
+              <span className="text-xs tabular-nums">
                 {item.dueDate ? formatDate(item.dueDate) : "-"}
               </span>
             ),
@@ -139,20 +140,18 @@ export default async function DispositionListPage({
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="ghost" size="sm" aria-label="Edit disposisi">
                   <Link href={`/admin/secretariat/disposition/${item.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
-                <form action={deleteDisposition.bind(null, item.id)}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="size-3.5" />
-                  </Button>
-                </form>
+                <ConfirmDelete
+                  onConfirm={deleteDisposition}
+                  args={[item.id]}
+                  title="Hapus disposisi"
+                  description={`Disposisi "${item.title}" akan dihapus permanen.`}
+                  label="Hapus disposisi"
+                />
               </div>
             ),
           },

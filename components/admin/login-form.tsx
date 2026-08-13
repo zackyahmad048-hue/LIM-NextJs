@@ -49,7 +49,7 @@ export default function LoginForm() {
 
   return (
     <div className="rounded-lg border border-border bg-card p-4 shadow-lg">
-      <h2 className="text-center text-xl font-semibold tracking-tight text-foreground">
+      <h2 className="text-center text-xl font-semibold text-balance text-foreground">
         Masuk
       </h2>
 
@@ -66,6 +66,7 @@ export default function LoginForm() {
 
             <input
               type="email"
+              autoComplete="email"
               {...register("email")}
               placeholder="admin@email.com"
               className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
@@ -87,6 +88,7 @@ export default function LoginForm() {
 
             <input
               type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
               {...register("password")}
               placeholder="********"
               className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"

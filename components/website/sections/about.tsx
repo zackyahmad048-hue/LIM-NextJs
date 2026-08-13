@@ -10,7 +10,7 @@ import {
   fadeRight,
   staggerContainer,
 } from "@/modules/shared/utils/motion";
-import SectionHeading from "@/components/shared/section-heading";
+import FolioSection from "@/components/website/taqwim/folio-section";
 import AboutCard from "@/components/website/cards/about-card";
 import { Button } from "@/components/ui/button";
 
@@ -35,20 +35,29 @@ export default function About({
   features,
 }: AboutSectionProps) {
   return (
-    <section className="py-10 sm:py-12">
+    <FolioSection
+      arabic="نبذة"
+      label="Selayang Pandang"
+      contentClassName="py-8 sm:py-10 lg:py-14"
+    >
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="mx-auto max-w-6xl px-4 sm:px-6"
       >
-        <SectionHeading
-          title={title}
-          description={subtitle}
-        />
+        <div className="max-w-2xl">
+          <h2 className="font-display text-3xl font-medium text-balance text-foreground md:text-4xl">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-pretty text-muted-foreground md:text-base">
+              {subtitle}
+            </p>
+          )}
+        </div>
 
-        <div className="mt-8 grid items-center gap-10 lg:grid-cols-2">
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
           <motion.div
             variants={fadeLeft}
             initial="hidden"
@@ -58,7 +67,7 @@ export default function About({
           >
             <div className="relative mx-auto max-w-md">
               <div
-                className="absolute -inset-3 border border-border/10 bg-muted/60"
+                className="absolute -inset-3 border border-border bg-muted/40"
                 aria-hidden
               />
               <div className="relative aspect-[4/3] overflow-hidden lg:aspect-[4/5]">
@@ -68,7 +77,7 @@ export default function About({
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-200 hover:scale-105"
                 />
               </div>
             </div>
@@ -80,11 +89,11 @@ export default function About({
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h3 className="font-display text-2xl font-semibold text-foreground">
+            <h3 className="font-display text-2xl font-medium text-balance text-primary">
               Siapa Kami?
             </h3>
 
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
+            <p className="mt-4 text-sm leading-7 text-pretty text-muted-foreground">
               {description}
             </p>
 
@@ -115,6 +124,6 @@ export default function About({
           </motion.div>
         </div>
       </motion.div>
-    </section>
+    </FolioSection>
   );
 }

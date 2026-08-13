@@ -47,13 +47,20 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label className="mb-1.5 block text-xs font-medium">Email</label>
+        <label
+          htmlFor="login-email"
+          className="mb-1.5 block text-xs font-medium"
+        >
+          Email
+        </label>
 
         <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
           <Mail size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
 
           <input
+            id="login-email"
             type="email"
+            autoComplete="email"
             {...register("email")}
             placeholder="admin@email.com"
             className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
@@ -68,13 +75,20 @@ export default function LoginForm() {
       </div>
 
       <div>
-        <label className="mb-1.5 block text-xs font-medium">Password</label>
+        <label
+          htmlFor="login-password"
+          className="mb-1.5 block text-xs font-medium"
+        >
+          Password
+        </label>
 
         <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
           <Lock size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
 
           <input
+            id="login-password"
             type={showPassword ? "text" : "password"}
+            autoComplete="current-password"
             {...register("password")}
             placeholder="********"
             className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
@@ -83,6 +97,9 @@ export default function LoginForm() {
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
+            aria-label={
+              showPassword ? "Sembunyikan password" : "Tampilkan password"
+            }
             className="ml-2 rounded-md p-1 text-muted-foreground transition hover:text-primary"
           >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}

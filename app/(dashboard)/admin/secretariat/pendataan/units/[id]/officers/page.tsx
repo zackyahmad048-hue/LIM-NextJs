@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Crown, Pencil, Plus, Trash2, UsersRound } from "lucide-react";
+import { Crown, Pencil, Plus, UsersRound } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
   getOfficers,
@@ -93,22 +94,20 @@ export default async function OfficersPage({
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="ghost" size="sm" aria-label="Edit pengurus">
                   <Link
                     href={`/admin/secretariat/pendataan/officers/${item.id}/edit`}
                   >
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
-                <form action={deleteOfficerAction.bind(null, item.id)}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="size-3.5" />
-                  </Button>
-                </form>
+                <ConfirmDelete
+                  onConfirm={deleteOfficerAction}
+                  args={[item.id]}
+                  title="Hapus pengurus"
+                  description={`Pengurus "${item.name}" akan dihapus dari unit.`}
+                  label="Hapus pengurus"
+                />
               </div>
             ),
           },

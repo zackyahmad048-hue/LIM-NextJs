@@ -41,6 +41,7 @@ import {
   Sunset,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const PRAYER_CARDS: Array<{
   key: keyof PrayerTimes;
@@ -279,11 +280,12 @@ export function PrayerTimeTable() {
                         selectCity(city);
                         setIsDialogOpen(false);
                       }}
-                      className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-accent ${
+                      className={cn(
+                        "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-accent",
                         city.name === locationName
                           ? "bg-accent font-semibold"
-                          : ""
-                      }`}
+                          : "",
+                      )}
                     >
                       <div>
                         <div className="font-medium text-foreground">
@@ -368,11 +370,12 @@ export function PrayerTimeTable() {
         <CardHeader className="pb-2 text-center">
           <div className="mx-auto mb-3 flex items-center justify-center gap-3 rounded-full border border-border/10 bg-muted px-4 py-1.5">
             <span
-              className={`text-xs sm:text-sm font-medium transition-colors ${
+              className={cn(
+                "text-xs sm:text-sm font-medium transition-colors",
                 !isIstiwaMode
                   ? "font-bold text-primary"
-                  : "text-muted-foreground"
-              }`}
+                  : "text-muted-foreground",
+              )}
             >
               Waktu Standar ({location.timezoneName || "WIB"})
             </span>
@@ -384,17 +387,18 @@ export function PrayerTimeTable() {
             />
 
             <span
-              className={`text-xs sm:text-sm font-medium transition-colors ${
+              className={cn(
+                "text-xs sm:text-sm font-medium transition-colors",
                 isIstiwaMode
                   ? "font-bold text-amber-400"
-                  : "text-muted-foreground"
-              }`}
+                  : "text-muted-foreground",
+              )}
             >
               Waktu Istiwa
             </span>
           </div>
 
-          <CardTitle className="font-mono text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground tabular-nums">
+          <CardTitle className="font-mono text-4xl sm:text-5xl font-extrabold text-balance text-foreground tabular-nums">
             {isIstiwaMode
               ? `${istiwaClockInfo.istiwaTimeStr} WIS`
               : `${standardClockStr} ${location.timezoneName || "WIB"}`}
@@ -426,7 +430,7 @@ export function PrayerTimeTable() {
       {/* Prayer Schedule Cards Grid */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+          <h3 className="text-lg font-bold text-balance text-foreground flex items-center gap-2">
             Jadwal Shalat (
             {isIstiwaMode
               ? "Waktu Istiwa"
@@ -446,11 +450,12 @@ export function PrayerTimeTable() {
             return (
               <Card
                 key={p.key}
-                className={`transition-all hover:scale-[1.02] ${
+                className={cn(
+                  "transition-all duration-200 hover:scale-[1.02]",
                   isNext
                     ? "border-primary bg-primary/10 shadow-md shadow-primary/10"
-                    : "border-border"
-                }`}
+                    : "border-border",
+                )}
               >
                 <CardContent className="flex flex-col items-center justify-center p-4 text-center">
                   <div className="mb-2 rounded-full bg-muted p-2">{p.icon}</div>
@@ -460,7 +465,7 @@ export function PrayerTimeTable() {
                   <div className="mt-1 font-mono text-xl font-bold text-foreground tabular-nums">
                     {prayerTimesFormatted[p.key]}
                   </div>
-                  <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wider">
+                  <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground uppercase">
                     <span>
                       {isIstiwaMode ? "WIS" : location.timezoneName || "WIB"}
                     </span>
@@ -482,7 +487,7 @@ export function PrayerTimeTable() {
         </CardHeader>
         <CardContent className="grid gap-4 text-xs sm:text-sm text-muted-foreground sm:grid-cols-3">
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-foreground flex items-center gap-1.5">
+            <h4 className="font-semibold text-balance text-foreground flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-primary" />
               Waktu Ihtiyat (Hati-Hati)
             </h4>
@@ -493,7 +498,7 @@ export function PrayerTimeTable() {
             </p>
           </div>
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-foreground">
+            <h4 className="font-semibold text-balance text-foreground">
               Kulminasi Matahari (Transit)
             </h4>
             <p className="mt-1">
@@ -502,7 +507,7 @@ export function PrayerTimeTable() {
             </p>
           </div>
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-foreground">
+            <h4 className="font-semibold text-balance text-foreground">
               Selisih Bujur & EQT
             </h4>
             <p className="mt-1">

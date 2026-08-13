@@ -1,9 +1,14 @@
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { PageContainer } from "@/components/admin/shared/page-container";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="flex flex-1 items-center justify-center p-12">
-      <LoadingSpinner />
-    </div>
+    <PageContainer>
+      <div className="space-y-4">
+        <Skeleton className="h-8 w-48" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-96 w-full" />
+      </div>
+    </PageContainer>
   );
 }

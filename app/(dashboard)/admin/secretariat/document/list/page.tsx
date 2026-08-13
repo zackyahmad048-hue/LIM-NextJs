@@ -6,7 +6,6 @@ import {
   Pencil,
   Plus,
   Send,
-  Trash2,
   XCircle,
 } from "lucide-react";
 
@@ -15,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getAdministrativeDocuments } from "@/modules/secretariat/queries/secretariat.query";
 import {
@@ -152,6 +152,7 @@ export default async function DocumentListPage({
                         type="submit"
                         variant="ghost"
                         size="sm"
+                        aria-label={action.label}
                         title={action.label}
                       >
                         <Icon className="size-3.5" />
@@ -160,25 +161,23 @@ export default async function DocumentListPage({
                     </form>
                   );
                 })}
-                <Button asChild variant="ghost" size="sm" title="Cetak / PDF">
+                <Button asChild variant="ghost" size="sm" aria-label="Cetak / PDF">
                   <Link href={`/admin/secretariat/document/${item.id}/cetak`}>
                     <FileText className="size-3.5" />
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="ghost" size="sm" aria-label="Edit dokumen">
                   <Link href={`/admin/secretariat/document/${item.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
-                <form action={deleteAdministrativeDocument.bind(null, item.id)}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="size-3.5" />
-                  </Button>
-                </form>
+                <ConfirmDelete
+                  onConfirm={deleteAdministrativeDocument}
+                  args={[item.id]}
+                  title="Hapus dokumen"
+                  description={`Dokumen "${item.title}" akan dihapus permanen.`}
+                  label="Hapus dokumen"
+                />
               </div>
             ),
           },

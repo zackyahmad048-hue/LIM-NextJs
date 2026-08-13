@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { Pencil } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +8,7 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
+import { ActionForm } from "@/components/admin/shared/action-form";
 
 import {
   getIncomingMailById,
@@ -52,9 +52,10 @@ export default async function EditIncomingMailPage({
         description={`Pengirim: ${mail.sender} · Status: ${statusLabels[mail.status] ?? mail.status}`}
       />
 
-      <form
+      <ActionForm
         action={updateIncomingMail.bind(null, mail.id)}
-        className="max-w-2xl space-y-3"
+        submitLabel="Simpan Perubahan"
+        submitIcon={<Pencil className="size-4" />}
       >
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
@@ -182,14 +183,7 @@ export default async function EditIncomingMailPage({
             initialFileName={attachmentMedia?.originalName}
           />
         </SectionCard>
-
-        <div className="sticky bottom-4 flex justify-end">
-          <Button type="submit" size="sm">
-            <Pencil className="size-4" />
-            Simpan Perubahan
-          </Button>
-        </div>
-      </form>
+      </ActionForm>
     </PageContainer>
   );
 }

@@ -24,6 +24,7 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
 import { ConfirmDialog } from "@/components/admin/shared/confirm-dialog";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { cn } from "@/lib/utils";
 
 import { transitionOutgoingMailStatus } from "@/modules/secretariat/presentation/secretariat.action";
 
@@ -220,7 +221,7 @@ export function SuratMenyuratClient({
       {/* Plat nomor terakhir + statistik */}
       <div className="mt-6 grid gap-4 lg:grid-cols-5">
         <SectionCard className="lg:col-span-3">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <p className="text-xs font-medium uppercase text-muted-foreground">
             Nomor Terbit Terakhir
           </p>
           {latestIssued?.fullNumber ? (
@@ -256,7 +257,7 @@ export function SuratMenyuratClient({
         </SectionCard>
 
         <SectionCard className="lg:col-span-2">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <p className="text-xs font-medium uppercase text-muted-foreground">
             Sekilas
           </p>
           <dl className="mt-3 divide-y">
@@ -276,9 +277,10 @@ export function SuratMenyuratClient({
               >
                 <dt className="text-sm text-muted-foreground">{row.label}</dt>
                 <dd
-                  className={`text-lg font-bold tabular-nums ${
-                    row.highlight ? "text-primary" : "text-foreground"
-                  }`}
+                  className={cn(
+                    "text-lg font-bold tabular-nums",
+                    row.highlight ? "text-primary" : "text-foreground",
+                  )}
                 >
                   {row.value}
                 </dd>
@@ -442,7 +444,7 @@ export function SuratMenyuratClient({
                     {item.status !== "DRAFT" &&
                       item.verificationCode &&
                       item.qrFileId && (
-                        <Button asChild variant="ghost" size="icon-sm" title="Lihat QR">
+                        <Button asChild variant="ghost" size="icon-sm" aria-label="Lihat QR" title="Lihat QR">
                           <Link
                             href={`/api/media/${item.qrFileId}?mime=image/png`}
                             target="_blank"

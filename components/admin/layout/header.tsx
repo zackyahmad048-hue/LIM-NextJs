@@ -28,6 +28,7 @@ export function Header({ user }: Props) {
           variant="ghost"
           size="icon-sm"
           onClick={isMobile ? toggleMobile : toggle}
+          aria-label={isMobile ? "Buka menu" : "Tutup sidebar"}
         >
           <PanelLeft className="h-4 w-4" />
         </Button>

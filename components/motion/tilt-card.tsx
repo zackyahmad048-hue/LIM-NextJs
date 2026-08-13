@@ -23,7 +23,7 @@ export interface TiltCardProps {
 export function TiltCard({
   children,
   max = 12,
-  glare = true,
+  glare = false,
   className,
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -66,7 +66,7 @@ export function TiltCard({
       onMouseLeave={onLeave}
       style={{ transform, transformStyle: "preserve-3d" }}
       className={cn(
-        "relative overflow-hidden rounded-2xl will-change-transform",
+        "relative overflow-hidden rounded-2xl",
         className,
       )}
     >

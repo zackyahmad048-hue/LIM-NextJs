@@ -525,6 +525,7 @@ export function StructureEditor({ initial }: Props) {
                       size="icon"
                       className="size-7"
                       onClick={() => setEditingMember(m.id)}
+                      aria-label="Edit anggota"
                     >
                       <Pencil className="size-3" />
                     </Button>
@@ -637,6 +638,7 @@ export function StructureEditor({ initial }: Props) {
                       size="icon"
                       className="size-7"
                       onClick={() => setEditingRegional(r.id)}
+                      aria-label="Edit regional"
                     >
                       <Pencil className="size-3" />
                     </Button>
@@ -808,6 +810,7 @@ export function StructureEditor({ initial }: Props) {
                       size="icon"
                       className="size-7"
                       onClick={() => setEditingBranch(b.id)}
+                      aria-label="Edit cabang"
                     >
                       <Pencil className="size-3" />
                     </Button>
@@ -953,6 +956,7 @@ export function StructureEditor({ initial }: Props) {
                       size="icon"
                       className="size-7"
                       onClick={() => setEditingMember(m.id)}
+                      aria-label="Edit anggota"
                     >
                       <Pencil className="size-3" />
                     </Button>

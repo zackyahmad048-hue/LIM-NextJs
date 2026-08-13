@@ -25,7 +25,7 @@ export function LetterPlate({
   return (
     <div
       className={cn(
-        "inline-flex items-stretch overflow-hidden rounded-lg border bg-[#FAFAFA] dark:bg-[#1F1F1F]",
+        "inline-flex items-stretch overflow-hidden rounded-lg border bg-muted",
         size === "md" ? "border-border/80" : "border-border/60",
         className,
       )}
@@ -35,7 +35,7 @@ export function LetterPlate({
         <span
           key={`${segment}-${index}`}
           className={cn(
-            "flex items-center px-2.5 font-semibold tabular-nums tracking-tight text-foreground",
+            "flex items-center px-2.5 font-semibold tabular-nums text-foreground",
             size === "md" ? "py-2 text-xl md:text-2xl" : "py-1 text-sm",
             index > 0 ? "border-l border-border" : "",
           )}

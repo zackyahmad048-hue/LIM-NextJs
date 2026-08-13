@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Calendar, Pencil, Plus, Trash2 } from "lucide-react";
+import { Calendar, Pencil, Plus } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getPrograms } from "@/modules/program/queries/program.query";
 import { deleteProgram } from "@/modules/program/presentation/program.action";
@@ -98,14 +99,14 @@ export default async function ProgramListPage({
             key: "startDate",
             label: "Mulai",
             render: (item) => (
-              <span className="text-xs">{formatDate(item.startDate)}</span>
+              <span className="text-xs tabular-nums">{formatDate(item.startDate)}</span>
             ),
           },
           {
             key: "endDate",
             label: "Selesai",
             render: (item) => (
-              <span className="text-xs">{formatDate(item.endDate)}</span>
+              <span className="text-xs tabular-nums">{formatDate(item.endDate)}</span>
             ),
           },
           {
@@ -129,31 +130,36 @@ export default async function ProgramListPage({
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="ghost" size="sm" aria-label="Edit program">
                   <Link href={`/admin/program/${item.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="ghost" size="sm" aria-label="Jadwal program">
                   <Link href={`/admin/program/${item.id}/schedules`}>
                     <Calendar className="size-3.5" />
                   </Link>
                 </Button>
-                <form action={deleteProgram.bind(null, item.id)}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="size-3.5" />
-                  </Button>
-                </form>
+                <ConfirmDelete
+                  onConfirm={deleteProgram}
+                  args={[item.id]}
+                  title="Hapus program"
+                  description={`Program "${item.title}" beserta seluruh datanya akan dihapus permanen.`}
+                  label="Hapus program"
+                />
               </div>
             ),
           },
         ]}
         data={items as any[]}
-        emptyMessage="Belum ada program. Buat program pertama Anda."
+        emptyMessage={
+          <>
+            Belum ada program.{" "}
+            <Button variant="link" size="sm" className="p-0" asChild>
+              <Link href="/admin/program/new">Buat program pertama</Link>
+            </Button>
+          </>
+        }
       />
     </PageContainer>
   );

@@ -79,7 +79,7 @@ export default async function UsersPage() {
             key: "bergabung",
             label: "Bergabung",
             render: (user) => (
-              <span className="text-muted-foreground">
+              <span className="tabular-nums text-muted-foreground">
                 {new Date(user.createdAt).toLocaleDateString("id-ID")}
               </span>
             ),

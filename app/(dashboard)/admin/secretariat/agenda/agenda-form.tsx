@@ -1,3 +1,6 @@
+"use client";
+
+import { useActionState } from "react";
 import { CalendarPlus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -5,9 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
+import {
+  INITIAL_ACTION_RESULT,
+  type ActionResult,
+} from "@/modules/shared/presentation/action-result";
 
 interface AgendaFormProps {
-  action: (formData: FormData) => void;
+  action: (prevState: ActionResult, formData: FormData) => Promise<ActionResult>;
   submitLabel: string;
   initial?: {
     date: string;
@@ -20,8 +28,13 @@ interface AgendaFormProps {
 }
 
 export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
+  const [state, formAction, pending] = useActionState(
+    action,
+    INITIAL_ACTION_RESULT,
+  );
+
   return (
-    <form action={action} className="max-w-2xl space-y-3">
+    <form action={formAction} className="max-w-2xl space-y-3">
       <SectionCard className="rounded-lg p-4">
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Informasi Agenda</h2>
@@ -113,10 +126,12 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
         </div>
       </SectionCard>
 
+      <ActionResultMessage state={state} />
+
       <div className="sticky bottom-4 flex justify-end">
-        <Button type="submit" size="sm">
+        <Button type="submit" size="sm" disabled={pending}>
           <CalendarPlus className="size-4" />
-          {submitLabel}
+          {pending ? "Menyimpan..." : submitLabel}
         </Button>
       </div>
     </form>

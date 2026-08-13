@@ -124,7 +124,7 @@ export function AttachmentUpload({
             className="size-8"
             asChild
           >
-            <a href={file.url} target="_blank" rel="noreferrer" title="Lihat">
+            <a href={file.url} target="_blank" rel="noreferrer" aria-label="Lihat berkas" title="Lihat">
               <Eye className="size-4" />
             </a>
           </Button>
@@ -134,6 +134,7 @@ export function AttachmentUpload({
             size="icon"
             className="size-8 text-destructive"
             onClick={handleRemove}
+            aria-label="Hapus dokumen"
             title="Hapus dokumen"
           >
             <Trash2 className="size-4" />

@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+
 const ROMAN_MONTHS = [
   "I",
   "II",
@@ -36,15 +38,17 @@ export function NumberPreview({
   return (
     <div className="flex items-center justify-between gap-3">
       <div
-        className="inline-flex items-stretch overflow-hidden rounded-lg border bg-[#FAFAFA] dark:bg-[#1F1F1F]"
+        className="inline-flex items-stretch overflow-hidden rounded-lg border bg-muted"
         aria-label="Pratinjau nomor surat"
       >
         {segments.map((segment, index) => (
           <span
             key={`${segment}-${index}`}
-            className={`px-2.5 py-1.5 text-sm font-semibold tabular-nums tracking-tight ${
-              index > 0 ? "border-l border-border" : ""
-            } ${segment === "—" ? "text-muted-foreground" : "text-foreground"}`}
+            className={cn(
+              "px-2.5 py-1.5 text-sm font-semibold tabular-nums",
+              index > 0 && "border-l border-border",
+              segment === "—" ? "text-muted-foreground" : "text-foreground",
+            )}
           >
             {segment}
           </span>

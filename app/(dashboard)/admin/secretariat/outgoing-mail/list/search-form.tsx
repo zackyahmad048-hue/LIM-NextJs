@@ -24,7 +24,7 @@ export function SearchForm({
         />
       </div>
       {search && (
-        <Button asChild variant="ghost" size="icon-sm">
+        <Button asChild variant="ghost" size="icon-sm" aria-label="Hapus pencarian">
           <a href={status ? `/admin/secretariat/outgoing-mail/list?status=${status}` : "/admin/secretariat/outgoing-mail/list"}>
             <X className="size-3.5" />
           </a>

@@ -17,6 +17,11 @@ function normalizeOptional(value: string | null | undefined): string | null {
   return trimmed;
 }
 
+function normalizeArray(values: string[] | null | undefined): string[] {
+  if (!values) return [];
+  return values.map((value) => value.trim()).filter((value) => value.length > 0);
+}
+
 function normalizePos(value: string | null | undefined): string | null {
   const normalized = normalizeOptional(value);
   if (!normalized) return null;
@@ -29,7 +34,7 @@ function normalizeCreate(data: WajibKhidmahMemberInput) {
     asalDaerah: normalizeOptional(data.asalDaerah),
     alamatLembaga: normalizeOptional(data.alamatLembaga),
     posWajibKhidmah: normalizePos(data.posWajibKhidmah),
-    tempatWajibKhidmah: normalizeOptional(data.tempatWajibKhidmah),
+    tempatWajibKhidmah: normalizeArray(data.tempatWajibKhidmah),
     tugasKhidmah: normalizeOptional(data.tugasKhidmah),
     status: data.status ?? "AKTIF",
     keterangan: normalizeOptional(data.keterangan) ?? "-",
@@ -51,7 +56,7 @@ function normalizeUpdate(
   if (data.posWajibKhidmah !== undefined)
     output.posWajibKhidmah = normalizePos(data.posWajibKhidmah);
   if (data.tempatWajibKhidmah !== undefined)
-    output.tempatWajibKhidmah = normalizeOptional(data.tempatWajibKhidmah);
+    output.tempatWajibKhidmah = normalizeArray(data.tempatWajibKhidmah);
   if (data.tugasKhidmah !== undefined)
     output.tugasKhidmah = normalizeOptional(data.tugasKhidmah);
   if (data.status !== undefined) output.status = data.status;

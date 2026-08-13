@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { Trash2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -7,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
   getProgramById,
@@ -47,8 +47,11 @@ export default async function CommitteesPage({
       >
         <h3 className="text-sm font-semibold">Tambah Panitia</h3>
         <div className="space-y-1.5">
-          <label className="text-xs font-medium">User</label>
+          <label htmlFor="committee-user" className="text-xs font-medium">
+            User
+          </label>
           <select
+            id="committee-user"
             name="userId"
             required
             className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
@@ -64,8 +67,11 @@ export default async function CommitteesPage({
           </select>
         </div>
         <div className="space-y-1.5">
-          <label className="text-xs font-medium">Peran</label>
+          <label htmlFor="committee-role" className="text-xs font-medium">
+            Peran
+          </label>
           <input
+            id="committee-role"
             name="role"
             required
             className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
@@ -122,15 +128,13 @@ export default async function CommitteesPage({
             label: "Aksi",
             align: "right",
             render: (item) => (
-              <form action={removeCommittee.bind(null, item.id, program.id)}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-destructive hover:text-destructive"
-                >
-                  <Trash2 className="size-3.5" />
-                </Button>
-              </form>
+              <ConfirmDelete
+                onConfirm={removeCommittee}
+                args={[item.id, program.id]}
+                title="Hapus panitia"
+                description={`Panitia "${item.user?.name ?? "tersebut"}" akan dihapus dari panitia.`}
+                label="Hapus panitia"
+              />
             ),
           },
         ]}

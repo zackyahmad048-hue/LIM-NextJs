@@ -25,7 +25,7 @@ export function StatCard({
             {title}
           </p>
 
-          <h2 className="text-3xl font-bold tracking-tight">{value}</h2>
+          <h2 className="text-3xl font-bold tabular-nums">{value}</h2>
 
           {description && (
             <p className="text-sm text-muted-foreground">{description}</p>

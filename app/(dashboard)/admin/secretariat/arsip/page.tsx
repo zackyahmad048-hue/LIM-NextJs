@@ -40,7 +40,7 @@ function AttachmentLink({ url, label }: { url: string; label: string }) {
   const fileId = url ? extractFileIdFromMediaUrl(url) : null;
   if (!fileId) return null;
   return (
-    <Button asChild variant="ghost" size="sm" title={label}>
+    <Button asChild variant="ghost" size="sm" aria-label={label} title={label}>
       <a href={`/api/media/${encodeURIComponent(fileId)}`} target="_blank">
         <ExternalLink className="size-3.5" />
       </a>
@@ -154,7 +154,7 @@ export default async function ArsipPage({
                     url={item.attachmentUrl}
                     label="Buka lampiran"
                   />
-                  <Button asChild variant="ghost" size="sm" title="Buka surat">
+                  <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
                     <Link
                       href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
                     >
@@ -218,7 +218,7 @@ export default async function ArsipPage({
                     url={item.attachmentUrl}
                     label="Buka lampiran"
                   />
-                  <Button asChild variant="ghost" size="sm" title="Buka surat">
+                  <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
                     <Link
                       href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
                     >

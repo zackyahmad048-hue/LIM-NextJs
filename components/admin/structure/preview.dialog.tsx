@@ -93,7 +93,7 @@ export function PreviewDialog({
             asalDaerah: m.asalDaerah ?? "",
             alamatLembaga: m.alamatLembaga ?? "",
             posWajibKhidmah: m.posWajibKhidmah ?? "",
-            tempatWajibKhidmah: m.tempatWajibKhidmah ?? "",
+            tempatWajibKhidmah: (m.tempatWajibKhidmah ?? []).join("; "),
             tugasKhidmah: m.tugasKhidmah ?? "",
             status: m.status ?? "AKTIF",
             keterangan: m.keterangan ?? "",

@@ -18,7 +18,7 @@ export function HubDot({ className, pulse = false }: HubDotProps) {
       <span
         className={cn(
           "h-1/2 w-1/2 rounded-full bg-primary",
-          pulse && "animate-pulse",
+          pulse && "animate-pulse motion-reduce:animate-none",
         )}
       />
     </span>

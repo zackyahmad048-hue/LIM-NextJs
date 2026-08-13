@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useActionState } from "react";
 import { Building2, Save } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -11,11 +11,13 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 
 import {
   createUnitAction,
   updateUnitAction,
 } from "@/modules/organization/presentation/organization.action";
+import { INITIAL_ACTION_RESULT } from "@/modules/shared/presentation/action-result";
 import type { UnitLevel } from "@/generated/client";
 
 export interface UnitOption {
@@ -57,8 +59,13 @@ export function UnitForm({ units, mode, id, initial }: UnitFormProps) {
       ? createUnitAction
       : updateUnitAction.bind(null, id as string);
 
+  const [state, formAction, pending] = useActionState(
+    action,
+    INITIAL_ACTION_RESULT,
+  );
+
   return (
-    <form action={action} className="max-w-2xl space-y-3">
+    <form action={formAction} className="max-w-2xl space-y-3">
       <SectionCard className="rounded-lg p-4">
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Informasi Unit</h2>
@@ -113,6 +120,7 @@ export function UnitForm({ units, mode, id, initial }: UnitFormProps) {
               id="name"
               name="name"
               required
+              autoComplete="off"
               defaultValue={initial?.name}
               placeholder="Contoh: Pengurus Wilayah Jawa Timur"
               className="rounded-md text-xs"
@@ -167,14 +175,20 @@ export function UnitForm({ units, mode, id, initial }: UnitFormProps) {
         </div>
       </SectionCard>
 
+      <ActionResultMessage state={state} />
+
       <div className="sticky bottom-4 flex justify-end">
-        <Button type="submit" size="sm">
+        <Button type="submit" size="sm" disabled={pending}>
           {mode === "create" ? (
             <Building2 className="size-4" />
           ) : (
             <Save className="size-4" />
           )}
-          {mode === "create" ? "Simpan Unit" : "Simpan Perubahan"}
+          {pending
+            ? "Menyimpan..."
+            : mode === "create"
+              ? "Simpan Unit"
+              : "Simpan Perubahan"}
         </Button>
       </div>
     </form>

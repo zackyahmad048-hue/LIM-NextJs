@@ -67,7 +67,7 @@ export default async function ContentPage() {
             <p className="text-sm font-medium text-muted-foreground">
               {item.label}
             </p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight">
+            <p className="mt-2 text-2xl font-semibold text-balance">
               {item.value}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">{item.caption}</p>

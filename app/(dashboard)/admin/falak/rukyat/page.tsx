@@ -101,21 +101,21 @@ export default async function RukyatPage() {
               <div className="flex justify-end gap-1">
                 {item.status === "DRAFT" && (
                   <form action={verifyRukyat.bind(null, item.id)}>
-                    <Button variant="ghost" size="sm" title="Verifikasi">
+                    <Button variant="ghost" size="sm" aria-label="Verifikasi" title="Verifikasi">
                       <ShieldCheck className="size-3.5" />
                     </Button>
                   </form>
                 )}
                 {item.status === "VERIFIED" && (
                   <form action={confirmRukyat.bind(null, item.id)}>
-                    <Button variant="ghost" size="sm" title="Konfirmasi">
+                    <Button variant="ghost" size="sm" aria-label="Konfirmasi" title="Konfirmasi">
                       <CheckCircle className="size-3.5" />
                     </Button>
                   </form>
                 )}
                 {item.status === "CONFIRMED" && (
                   <form action={archiveRukyat.bind(null, item.id)}>
-                    <Button variant="ghost" size="sm" title="Arsipkan">
+                    <Button variant="ghost" size="sm" aria-label="Arsipkan" title="Arsipkan">
                       <Archive className="size-3.5" />
                     </Button>
                   </form>

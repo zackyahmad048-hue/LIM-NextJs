@@ -203,8 +203,22 @@ const rawNav: (NavigationItem | false | undefined)[] = [
   FEATURES.TWK && {
     title: "TWK",
     icon: UsersRound,
-    href: "/admin/twk",
     permissions: ["twk.member.view"],
+
+    items: [
+      {
+        title: "Anggota",
+        icon: UsersRound,
+        href: "/admin/twk",
+        permissions: ["twk.member.view"],
+      },
+      {
+        title: "Lembaga Pemohon",
+        icon: Building2,
+        href: "/admin/twk/lembaga",
+        permissions: ["twk.lembaga.view"],
+      },
+    ],
   },
 
   FEATURES.STRUCTURE && {

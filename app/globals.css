@@ -10,8 +10,10 @@
   --font-sans: var(--font-sans);
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --font-heading: var(--font-sans);
-  --font-display: var(--f-site), "Segoe UI", sans-serif;
+  --font-display: var(--fx-display), "Times New Roman", serif;
   --font-site: var(--f-site), "Segoe UI", sans-serif;
+  --font-ar: var(--fx-ar), "Segoe UI", sans-serif;
+  --font-data: var(--fx-mono), "SFMono-Regular", Consolas, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -83,6 +85,7 @@
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
   --radius: 0.625rem;
+
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.646 0.222 41.116);
@@ -129,125 +132,30 @@
 
 /*
  * Website publik — identitas "Oranye LIM".
- * Putih bersih (siang) / neutral gelap (malam) dengan aurora hijau
- * yang bergerak perlahan di kedua mode — lapisan ambient saja.
+ * Putih bersih (siang) / neutral gelap (malam), aksen oranye.
+ * Permukaan solid, tanpa kaca/gradien.
  */
 .site {
   position: relative;
   isolation: isolate;
   overflow-x: clip;
-  background-color: var(--background);
 
   color: var(--foreground);
   font-family: var(--f-site), "Segoe UI", sans-serif;
   min-height: 100dvh;
-}
 
-.site::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -24%;
-  pointer-events: none;
-  background-image:
-    radial-gradient(
-      900px 520px at 82% -6%,
-      oklch(0.9 0.04 160 / 0.4),
-      transparent 62%
-    ),
-    radial-gradient(
-      720px 460px at -8% 68%,
-      oklch(0.95 0.025 165 / 0.3),
-      transparent 60%
-    );
-  animation: nu-aurora 32s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.dark .site::before {
-  background-image:
-    radial-gradient(
-      1000px 620px at 82% -6%,
-      oklch(0.36 0.07 158 / 0.4),
-      transparent 62%
-    ),
-    radial-gradient(
-      820px 520px at -6% 42%,
-      oklch(0.3 0.055 165 / 0.3),
-      transparent 60%
-    ),
-    radial-gradient(
-      700px 480px at 55% 108%,
-      oklch(0.26 0.04 155 / 0.35),
-      transparent 62%
-    );
-  animation: nu-aurora 28s ease-in-out infinite alternate;
-}
-
-@keyframes nu-aurora {
-  0% {
-    transform: translate3d(-1.5%, -1%, 0) rotate(-0.6deg) scale(1);
-  }
-  50% {
-    transform: translate3d(1.8%, 1.2%, 0) rotate(0.4deg) scale(1.05);
-  }
-  100% {
-    transform: translate3d(-0.8%, 1.8%, 0) rotate(-0.2deg) scale(1.03);
-  }
+  /* Tipografi publik: display serif + angka instrument mono. */
+  --font-mono: var(--fx-mono), "SFMono-Regular", Consolas, monospace;
 }
 
 /*
- * Mobile (≤767px) — aurora yang sama seperti desktop (posisi & bentuk blob
- * sama), tapi dikurangi: opacity lebih rendah, lapisan lebih sedikit, gerakan
- * lebih lambat. Ringan di ponsel, terutama dengan refresh rate rendah.
- */
-@media (max-width: 767px) {
-  .site::before {
-    background-image:
-      radial-gradient(
-        120vw 70vw at 82% -6%,
-        oklch(0.9 0.04 160 / 0.3),
-        transparent 62%
-      ),
-      radial-gradient(
-        95vw 60vw at -8% 68%,
-        oklch(0.95 0.025 165 / 0.22),
-        transparent 60%
-      );
-    animation: nu-aurora 40s ease-in-out infinite alternate;
-  }
-
-  .dark .site::before {
-    background-image:
-      radial-gradient(
-        130vw 80vw at 82% -6%,
-        oklch(0.36 0.07 158 / 0.3),
-        transparent 62%
-      ),
-      radial-gradient(
-        110vw 70vw at -6% 42%,
-        oklch(0.3 0.055 165 / 0.22),
-        transparent 60%
-      );
-    animation: nu-aurora 36s ease-in-out infinite alternate;
-  }
-}
-
-/*
- * Login admin — background liquid (LiquidEther) bergerak di kedua mode.
- * Kelas ini memastikan wadah tertutup (clip) dan tidak tembus kertas kartu.
+ * Login admin — wadah tertutup (clip), tidak tembus kertas kartu.
  */
 .login-aurora {
   position: relative;
   isolation: isolate;
   overflow: clip;
   background-color: var(--background);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site::before {
-    animation: none;
-  }
 }
 
 .site ::selection {
@@ -257,9 +165,8 @@
 
 .site h1,
 .site h2 {
-  font-family: var(--f-site), "Segoe UI", sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-weight: 500;
   text-wrap: balance;
 }
 
@@ -282,5 +189,23 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
   }
 }

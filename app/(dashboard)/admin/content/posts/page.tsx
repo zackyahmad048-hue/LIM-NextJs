@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Archive, Pencil, Plus, RotateCcw, Send, Trash2 } from "lucide-react";
+import { Archive, Pencil, Plus, RotateCcw, Send } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getRecentPosts } from "@/modules/cms/queries/post.query";
 
@@ -106,41 +107,39 @@ export default async function PostsPage() {
               const status = getPostStatus(post);
               return (
                 <div className="flex justify-end gap-1">
-                  <Button asChild variant="ghost" size="sm">
+                  <Button asChild variant="ghost" size="sm" aria-label="Edit berita">
                     <Link href={`/admin/content/posts/${post.id}/edit`}>
                       <Pencil className="size-3.5" />
                     </Link>
                   </Button>
                   {status !== "Published" && (
                     <form action={publishPost.bind(null, post.id)}>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" aria-label="Publikasikan berita">
                         <Send className="size-3.5" />
                       </Button>
                     </form>
                   )}
                   {status === "Published" && (
                     <form action={archivePost.bind(null, post.id)}>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" aria-label="Arsipkan berita">
                         <Archive className="size-3.5" />
                       </Button>
                     </form>
                   )}
                   {status === "Archived" && (
                     <form action={restorePostToDraft.bind(null, post.id)}>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" aria-label="Pulihkan ke draft">
                         <RotateCcw className="size-3.5" />
                       </Button>
                     </form>
                   )}
-                  <form action={deletePost.bind(null, post.id)}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-destructive hover:text-destructive"
-                    >
-                      <Trash2 className="size-3.5" />
-                    </Button>
-                  </form>
+                  <ConfirmDelete
+                    onConfirm={deletePost}
+                    args={[post.id]}
+                    title="Hapus berita"
+                    description={`Berita "${post.title}" akan dihapus permanen.`}
+                    label="Hapus berita"
+                  />
                 </div>
               );
             },
@@ -150,7 +149,7 @@ export default async function PostsPage() {
             label: "Update",
             align: "right",
             render: (post) => (
-              <span className="text-right text-xs text-muted-foreground">
+              <span className="text-right text-xs tabular-nums text-muted-foreground">
                 {formatDate(post.updatedAt)}
               </span>
             ),

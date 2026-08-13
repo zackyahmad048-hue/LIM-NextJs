@@ -32,7 +32,7 @@ export default function PostCard({ post }: PostCardProps) {
       <div
         className={cn(
           "relative aspect-video overflow-hidden",
-          !post.thumbnail && "bg-gradient-to-br from-primary/15 via-muted to-muted",
+          !post.thumbnail && "bg-muted",
         )}
       >
         {post.thumbnail && (
@@ -41,23 +41,23 @@ export default function PostCard({ post }: PostCardProps) {
             alt={post.title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-200 group-hover:scale-105"
           />
         )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-center gap-2.5 text-[11px]">
-          <span className="font-sans font-medium uppercase tracking-[0.18em] text-primary">
+          <span className="font-sans font-medium uppercase text-primary">
             {post.category.name}
           </span>
           <span aria-hidden className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50" />
-          <time dateTime={post.publishedAt?.toISOString()} className="text-muted-foreground">
+          <time dateTime={post.publishedAt?.toISOString()} className="tabular-nums text-muted-foreground">
             {formatDate(post.publishedAt)}
           </time>
         </div>
 
-        <h3 className="mt-2.5 font-display text-base font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
+        <h3 className="mt-2.5 font-display text-base font-semibold text-balance leading-snug text-foreground transition-colors group-hover:text-primary">
           {post.title}
         </h3>
 

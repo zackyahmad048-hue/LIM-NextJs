@@ -1,12 +1,12 @@
 import { Plus } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionForm } from "@/components/admin/shared/action-form";
 
 import { getUsers } from "@/modules/program/queries/program.query";
 import { createProgram } from "@/modules/program/presentation/program.action";
@@ -31,7 +31,7 @@ export default async function NewProgramPage() {
         description="Lengkapi informasi program untuk memulai."
       />
 
-      <form action={createProgram} className="max-w-2xl space-y-3">
+      <ActionForm action={createProgram} submitLabel="Simpan Program" submitIcon={<Plus className="size-4" />}>
         <SectionCard className="rounded-lg p-4">
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Program</h2>
@@ -79,6 +79,7 @@ export default async function NewProgramPage() {
                 id="name"
                 name="name"
                 required
+                autoComplete="off"
                 placeholder="Nama lengkap program"
                 className="rounded-md text-xs"
               />
@@ -177,14 +178,7 @@ export default async function NewProgramPage() {
             </div>
           </div>
         </SectionCard>
-
-        <div className="sticky bottom-4 flex justify-end">
-          <Button type="submit" size="sm">
-            <Plus className="size-4" />
-            Simpan Program
-          </Button>
-        </div>
-      </form>
+      </ActionForm>
     </PageContainer>
   );
 }

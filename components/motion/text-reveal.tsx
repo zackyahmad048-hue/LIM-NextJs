@@ -125,7 +125,7 @@ export function TextReveal({
                 initial={initial}
                 animate={animate}
                 transition={transition}
-                className="inline-block will-change-transform"
+                className="inline-block"
               >
                 {unit}
                 {split === "word" && i < units.length - 1 ? (

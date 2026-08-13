@@ -16,6 +16,7 @@ import {
   DEFAULT_VERIFIKASI_POSITION,
   QR_SIZE_MM,
 } from "@/modules/secretariat/application/pdf-sign.service";
+import { cn } from "@/lib/utils";
 
 const MM_PER_PT = 25.4 / 72;
 const MAX_DISPLAY_WIDTH = 720;
@@ -240,9 +241,12 @@ export function QrPositionEditor({
     return (
       <div
         key={type}
-        className={`absolute z-10 flex cursor-grab touch-none select-none items-center justify-center rounded-md border-2 text-[10px] font-semibold text-white active:cursor-grabbing ${palette[type]}`}
+        className={cn(
+          "absolute z-10 flex cursor-grab touch-none select-none items-center justify-center rounded-md border-2 text-[10px] font-semibold text-white active:cursor-grabbing",
+          palette[type],
+        )}
         style={{ left: x, top: y, width: size, height: size }}
-        title={`QR ${labels[type]}`}
+        aria-label={`QR ${labels[type]}`}
         onPointerDown={(event) => {
           event.preventDefault();
           event.stopPropagation();

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Trash2, CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
   getProgramById,
@@ -59,8 +60,14 @@ export default async function ParticipantsPage({
       >
         <h3 className="text-sm font-semibold">Tambah Peserta</h3>
         <div className="space-y-1.5">
-          <label className="text-xs font-medium">Pilih User</label>
+          <label
+            htmlFor="participant-user"
+            className="text-xs font-medium"
+          >
+            Pilih User
+          </label>
           <select
+            id="participant-user"
             name="userId"
             required
             className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
@@ -145,7 +152,7 @@ export default async function ParticipantsPage({
                         "APPROVED",
                       )}
                     >
-                      <Button variant="ghost" size="sm" title="Terima">
+                      <Button variant="ghost" size="sm" aria-label="Terima peserta" title="Terima">
                         <CheckCircle className="size-3.5 text-amber-600" />
                       </Button>
                     </form>
@@ -157,23 +164,19 @@ export default async function ParticipantsPage({
                         "REJECTED",
                       )}
                     >
-                      <Button variant="ghost" size="sm" title="Tolak">
+                      <Button variant="ghost" size="sm" aria-label="Tolak peserta" title="Tolak">
                         <XCircle className="size-3.5 text-destructive" />
                       </Button>
                     </form>
                   </>
                 )}
-                <form
-                  action={removeParticipant.bind(null, item.id, program.id)}
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="size-3.5" />
-                  </Button>
-                </form>
+                <ConfirmDelete
+                  onConfirm={removeParticipant}
+                  args={[item.id, program.id]}
+                  title="Hapus peserta"
+                  description={`Peserta "${item.user?.name ?? "tersebut"}" akan dihapus dari program.`}
+                  label="Hapus peserta"
+                />
               </div>
             ),
           },

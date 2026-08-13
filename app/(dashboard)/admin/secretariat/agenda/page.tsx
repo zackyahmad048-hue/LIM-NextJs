@@ -1,5 +1,7 @@
 import { Calendar, MapPin, Users } from "lucide-react";
+import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
@@ -42,7 +44,7 @@ export default async function AgendaPage({
             render: (item) => (
               <div className="flex items-center gap-1.5">
                 <Calendar className="size-3.5 text-muted-foreground" />
-                <span className="text-xs">{formatDate(item.date)}</span>
+                <span className="text-xs tabular-nums">{formatDate(item.date)}</span>
               </div>
             ),
           },
@@ -97,7 +99,16 @@ export default async function AgendaPage({
           },
         ]}
         data={items as any[]}
-        emptyMessage="Belum ada agenda."
+        emptyMessage={
+          <>
+            Belum ada agenda.{" "}
+            <Button variant="link" size="sm" className="p-0" asChild>
+              <Link href="/admin/secretariat/agenda/new">
+                Tambah agenda pertama
+              </Link>
+            </Button>
+          </>
+        }
       />
     </PageContainer>
   );

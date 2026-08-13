@@ -12,6 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { getPublishedPostBySlug } from "@/modules/cms";
+import Prose from "@/components/website/prose";
 
 export const revalidate = 3600;
 
@@ -83,24 +84,24 @@ export default async function ArtikelDetailPage({
 
       <header className="mt-5">
         <div className="flex items-center gap-2.5 text-xs">
-          <span className="font-sans font-medium uppercase tracking-[0.18em] text-primary">
+          <span className="font-sans font-medium uppercase text-primary">
             {post.category.name}
           </span>
           <span aria-hidden className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50" />
           <time
             dateTime={post.publishedAt?.toISOString()}
-            className="text-muted-foreground"
+            className="tabular-nums text-muted-foreground"
           >
             {post.publishedAt ? dateFormatter.format(post.publishedAt) : ""}
           </time>
         </div>
 
-        <h1 className="mt-4 font-display text-2xl font-bold leading-tight text-foreground sm:text-3xl">
+        <h1 className="mt-4 font-display text-2xl font-bold text-balance leading-tight text-foreground sm:text-3xl">
           {post.title}
         </h1>
 
         {post.excerpt && (
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">
+          <p className="mt-4 text-sm leading-7 text-pretty text-muted-foreground">
             {post.excerpt}
           </p>
         )}
@@ -126,8 +127,8 @@ export default async function ArtikelDetailPage({
         </div>
       )}
 
-      <div className="mt-8 whitespace-pre-wrap border-t border-border/10 pt-8 text-[15px] leading-8 text-foreground/90">
-        {post.content}
+      <div className="mt-8 border-t border-border/10 pt-8">
+        <Prose content={post.content} />
       </div>
     </article>
   );

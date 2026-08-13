@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText, Pencil, Plus, Trash2 } from "lucide-react";
+import { FileText, Pencil, Plus } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
@@ -106,7 +107,7 @@ export default async function OutgoingMailListPage({
               key: "mailDate",
               label: "Tanggal Surat",
               render: (item) => (
-                <span className="text-xs">{formatDate(item.mailDate)}</span>
+                <span className="text-xs tabular-nums">{formatDate(item.mailDate)}</span>
               ),
             },
             {
@@ -130,7 +131,7 @@ export default async function OutgoingMailListPage({
               align: "right",
               render: (item) => (
                 <div className="flex justify-end gap-1">
-                  <Button asChild variant="ghost" size="sm" title="Cetak / PDF">
+                  <Button asChild variant="ghost" size="sm" aria-label="Cetak / PDF">
                     <Link
                       href={`/admin/secretariat/outgoing-mail/${item.id}/cetak`}
                     >
@@ -138,7 +139,7 @@ export default async function OutgoingMailListPage({
                     </Link>
                   </Button>
                   {item.status !== "ARCHIVED" && (
-                    <Button asChild variant="ghost" size="sm">
+                    <Button asChild variant="ghost" size="sm" aria-label="Edit surat keluar">
                       <Link
                         href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
                       >
@@ -146,15 +147,13 @@ export default async function OutgoingMailListPage({
                       </Link>
                     </Button>
                   )}
-                  <form action={deleteOutgoingMail.bind(null, item.id)}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-destructive hover:text-destructive"
-                    >
-                      <Trash2 className="size-3.5" />
-                    </Button>
-                  </form>
+                  <ConfirmDelete
+                    onConfirm={deleteOutgoingMail}
+                    args={[item.id]}
+                    title="Hapus surat keluar"
+                    description={`Surat keluar "${item.subject}" akan dihapus permanen.`}
+                    label="Hapus surat keluar"
+                  />
                 </div>
               ),
             },

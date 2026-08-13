@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   DEACTIVATED_STATUSES,
   POS_WAJIB_KHIDMAH,
+  TUGAS_POS_ELIGIBLE,
   WAJIB_KHIDMAH_STATUS_LABELS,
   type WajibKhidmahStatus,
 } from "../domain/entities";
@@ -56,11 +57,13 @@ const baseShape = z.object({
     .union([posEnum, z.literal(""), z.undefined()])
     .optional(),
   tempatWajibKhidmah: z
-    .string()
-    .trim()
-    .max(100, "Tempat Wajib Khidmah maksimal 100 karakter.")
-    .optional()
-    .or(z.literal("")),
+    .array(
+      z
+        .string()
+        .trim()
+        .max(100, "Tempat Wajib Khidmah maksimal 100 karakter."),
+    )
+    .optional(),
   tugasKhidmah: z
     .string()
     .trim()
@@ -122,9 +125,30 @@ function applyConditionalKeterangan(
   }
 }
 
-export const wajibKhidmahMemberSchema = baseShape.superRefine((data, ctx) =>
-  applyConditionalKeterangan(data, ctx, ["keterangan"]),
-);
+function applyConditionalTugas(
+  data: WajibKhidmahMemberShape,
+  ctx: z.RefinementCtx,
+  fieldPath: string[],
+): void {
+  const pos = data.posWajibKhidmah ?? "";
+  const eligible = (TUGAS_POS_ELIGIBLE as readonly string[]).includes(pos);
+  if (!eligible) return;
+
+  const tugas = data.tugasKhidmah?.trim() ?? "";
+  if (!tugas) {
+    ctx.addIssue({
+      path: fieldPath,
+      code: z.ZodIssueCode.custom,
+      message: "Tugas Khidmah wajib diisi untuk Pos terpilih.",
+    });
+  }
+}
+
+export const wajibKhidmahMemberSchema = baseShape
+  .superRefine((data, ctx) =>
+    applyConditionalKeterangan(data, ctx, ["keterangan"]),
+  )
+  .superRefine((data, ctx) => applyConditionalTugas(data, ctx, ["tugasKhidmah"]));
 
 export const createWajibKhidmahMemberSchema = wajibKhidmahMemberSchema;
 
@@ -139,6 +163,14 @@ export const updateWajibKhidmahMemberSchema = baseShape
       ctx,
       ["keterangan"],
     );
+  })
+  .superRefine((data, ctx) => {
+    if (!("posWajibKhidmah" in data) || !("tugasKhidmah" in data)) {
+      return;
+    }
+    applyConditionalTugas(data as WajibKhidmahMemberShape, ctx, [
+      "tugasKhidmah",
+    ]);
   });
 
 export type WajibKhidmahMemberInput = z.infer<

@@ -4,6 +4,7 @@ import { useSyncExternalStore } from "react";
 import { useReducedMotion } from "motion/react";
 import LiquidEther from "@/components/LiquidEther";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const emptySubscribe = () => () => {};
 
@@ -26,11 +27,19 @@ export default function AuroraBackground({
     () => false,
   );
 
-  if (!isHydrated || prefersReducedMotion || isMobile) return null;
+  if (!isHydrated || prefersReducedMotion) return null;
 
   return (
-    <div aria-hidden="true" className={`pointer-events-none absolute inset-0 ${className ?? ""}`}>
-      <LiquidEther colors={colors} autoIntensity={autoIntensity} />
+    <div
+      aria-hidden="true"
+      className={cn("pointer-events-none absolute inset-0", className)}
+    >
+      <LiquidEther
+        colors={colors}
+        autoIntensity={isMobile ? autoIntensity * 0.5 : autoIntensity}
+        autoSpeed={isMobile ? 0.25 : 0.5}
+        resolution={isMobile ? 0.35 : 0.5}
+      />
     </div>
   );
 }

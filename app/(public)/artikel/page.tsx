@@ -1,6 +1,8 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import PostCard from "@/components/website/cards/post-card";
+import { Button } from "@/components/ui/button";
 import { getPaginatedPosts } from "@/modules/cms";
 
 export const dynamic = "force-dynamic";
@@ -37,6 +39,9 @@ export default async function ArtikelPage() {
             <p className="text-sm text-muted-foreground">
               Belum ada artikel yang dipublikasikan.
             </p>
+            <Button variant="outline" size="sm" className="mt-5" asChild>
+              <Link href="/falak">Lihat Layanan Falak</Link>
+            </Button>
           </div>
         )}
       </section>

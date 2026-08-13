@@ -85,3 +85,38 @@ Pos Khidmah tidak menggunakan referensi (hanya ditulis "Cabang", seharusnya angk
 Logika berbenturan: Status Aktif tapi Keterangan berisi "Cuti sakit". Jika cuti sakit, seharusnya Status diganti menjadi Qodlo (atau status lain yang disepakati), atau jika tetap aktif, keterangannya harus -.
 
 Absensi menggunakan kalender Masehi ("Agustus"), seharusnya Hijriyah.
+
+---
+
+# Lembaga Pemohon Guru Bantu
+
+Lembaga pemohon guru bantu adalah lembaga eksternal yang mengajukan permintaan tenaga guru dari Pondok Pesantren Lirboyo untuk ditugaskan sebagai guru atau pengurus di lembaga tersebut. Alur: **form publik** yang diisi lembaga (via tautan, tanpa login) → data tercatat → **admin/sekretariat** memverifikasi di dashboard.
+
+## Karakteristik
+
+- Form publik diisi tanpa autentikasi, hanya diakses lewat tautan langsung (tidak tampil di navbar/menu publik).
+- Belum ada lifecycle status permohonan (data dicatat, diverifikasi manual oleh admin).
+- Satu lembaga dapat menautkan banyak anggota TWK (relasi `1 : N` ke `WajibKhidmahMember`).
+
+## Entitas & Tabel
+
+Model `WajibKhidmahLembaga` (`wajib_khidmah_lembaga`) berisi:
+
+1. **Identitas Lembaga** — nama, RT/RW, desa/kelurahan, kecamatan, kabupaten/kota, provinsi, telepon, media sosial.
+2. **Identitas Pemohon Guru Bantu** — dua blok pola sama: Pengasuh dan Penanggung Jawab. Masing-masing: nama, status (Alumni Lirboyo / Bukan Alumni / Wali Santri / Yang Lain), angkatan alumni (syarat Alumni), status lainnya (syarat "Yang Lain"), telepon, foto (3×4).
+3. **Kondisi Lembaga** — lokasi madrasah (dalam/luar pesantren), jenis satuan pendidikan (enum), kitab bermakna (multi: Jawa/Madura/Sunda/Lainnya), bahasa pengantar (multi: Indonesia/Lainnya), jumlah pengurus & santri (putra/putri).
+4. **Permohonan Guru Bantu** — jumlah guru bantu dimohon (1 atau 2), tugas yang diamanatkan, kitab yang akan diajarkan, catatan untuk calon guru bantu.
+5. **Upload File** — dokumen permohonan PDF maksimal 5 MB.
+
+Relasi: `WajibKhidmahMember.lembagaId → WajibKhidmahLembaga.id` (opsional, `ON DELETE SET NULL`).
+
+## Route & Modul
+
+- Form publik: `/wajib-khidmah/permohonan` (wizard 5 langkah, animasi, validasi per langkah).
+- Admin: `/admin/twk/lembaga` daftar + `/admin/twk/lembaga/[id]` detail (baca saja).
+- Modul: `modules/twk-lembaga/` (domain, application, infrastructure, validations, presentation, queries).
+- File diunggah via Vercel Blob, metadata di tabel `media`, disajikan privat lewat `/api/media/:fileId`.
+
+## Permission
+
+- `twk.lembaga.view` — melihat daftar & detail lembaga pemohon di dashboard.

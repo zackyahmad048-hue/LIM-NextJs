@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useActionState } from "react";
 import { Save, UserPlus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -11,11 +11,13 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 
 import {
   createOfficerAction,
   updateOfficerAction,
 } from "@/modules/organization/presentation/organization.action";
+import { INITIAL_ACTION_RESULT } from "@/modules/shared/presentation/action-result";
 
 export interface OfficerUnitOption {
   id: string;
@@ -59,8 +61,13 @@ export function OfficerForm({
       ? createOfficerAction
       : updateOfficerAction.bind(null, id as string);
 
+  const [state, formAction, pending] = useActionState(
+    action,
+    INITIAL_ACTION_RESULT,
+  );
+
   return (
-    <form action={action} className="max-w-2xl space-y-3">
+    <form action={formAction} className="max-w-2xl space-y-3">
       <SectionCard className="rounded-lg p-4">
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Data Pengurus</h2>
@@ -100,6 +107,7 @@ export function OfficerForm({
               id="name"
               name="name"
               required
+              autoComplete="name"
               defaultValue={initial?.name}
               placeholder="Nama lengkap pengurus"
               className="rounded-md text-xs"
@@ -133,6 +141,7 @@ export function OfficerForm({
             <Input
               id="phone"
               name="phone"
+              autoComplete="tel"
               defaultValue={initial?.phone ?? ""}
               placeholder="0812xxxx"
               className="rounded-md text-xs"
@@ -147,6 +156,7 @@ export function OfficerForm({
               id="email"
               name="email"
               type="email"
+              autoComplete="email"
               defaultValue={initial?.email ?? ""}
               placeholder="email@contoh.id"
               className="rounded-md text-xs"
@@ -183,14 +193,20 @@ export function OfficerForm({
         </div>
       </SectionCard>
 
+      <ActionResultMessage state={state} />
+
       <div className="sticky bottom-4 flex justify-end">
-        <Button type="submit" size="sm">
+        <Button type="submit" size="sm" disabled={pending}>
           {mode === "create" ? (
             <UserPlus className="size-4" />
           ) : (
             <Save className="size-4" />
           )}
-          {mode === "create" ? "Simpan Pengurus" : "Simpan Perubahan"}
+          {pending
+            ? "Menyimpan..."
+            : mode === "create"
+              ? "Simpan Pengurus"
+              : "Simpan Perubahan"}
         </Button>
       </div>
     </form>

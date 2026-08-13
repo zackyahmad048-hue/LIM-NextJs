@@ -90,7 +90,6 @@
       font-size: 0.8125em;
       line-height: 1.5;
       font-weight: 500;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--typeset-muted);
       margin-block-start: calc(var(--typeset-flow) / 0.8125);
@@ -486,5 +485,15 @@
       )
     ) {
     margin-block-start: 0;
+  }
+}
+
+/* Public surface: typed voices own their roles.
+   Body = Hanken, headings = Newsreader display, data = Spline Sans Mono. */
+@layer components {
+  .site .typeset {
+    --typeset-font-body: var(--f-site), "Segoe UI", sans-serif;
+    --typeset-font-heading: var(--font-display), "Times New Roman", serif;
+    --typeset-font-mono: var(--font-data), "SFMono-Regular", Consolas, monospace;
   }
 }

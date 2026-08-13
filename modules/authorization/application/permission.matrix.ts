@@ -40,6 +40,7 @@ const READ_ONLY: PermissionSlug[] = [
   "organization.unit.view",
   "organization.officer.view",
   "twk.member.view",
+  "twk.lembaga.view",
 ];
 
 export const DEFAULT_PERMISSION_MATRIX: PermissionMatrix = {

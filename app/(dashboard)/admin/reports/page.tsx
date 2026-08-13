@@ -5,6 +5,7 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
 import { ReportingSyncButton } from "@/components/admin/reporting-sync-button";
+import { cn } from "@/lib/utils";
 
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
@@ -92,12 +93,12 @@ export default async function ReportsPage() {
                   {stat.label}
                 </p>
                 <div
-                  className={`flex size-8 items-center justify-center rounded-lg ${stat.color}`}
+                  className={cn("flex size-8 items-center justify-center rounded-lg", stat.color)}
                 >
                   <Icon className="size-4" />
                 </div>
               </div>
-              <p className="mt-3 text-3xl font-bold tracking-tight">
+              <p className="mt-3 text-3xl font-bold tabular-nums">
                 {stat.value}
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
@@ -163,7 +164,7 @@ export default async function ReportsPage() {
                   <div className="flex-1">
                     <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                       <div
-                        className="h-full rounded-full bg-orange-500"
+                        className="h-full rounded-full bg-primary"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>

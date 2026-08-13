@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { Save, Loader2 } from "lucide-react";
+import { useEffect, useRef, useState, useActionState } from "react";
+import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +12,10 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
+import {
+  INITIAL_ACTION_RESULT,
+} from "@/modules/shared/presentation/action-result";
 import { SigningEditor } from "@/components/admin/secretariat/signing-editor";
 import { SignerFields } from "@/components/admin/secretariat/signer-fields";
 
@@ -34,31 +37,24 @@ export function OutgoingMailForm({
   pengurus: CentralBoardSigners;
 }) {
   const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
   const [levelCode, setLevelCode] = useState("");
   const [categoryCode, setCategoryCode] = useState("");
   const [mailDate, setMailDate] = useState("");
+  const [state, formAction, pending] = useActionState(
+    createOutgoingMail,
+    INITIAL_ACTION_RESULT,
+  );
+  const navigated = useRef(false);
 
-  async function handleSubmit(formData: FormData) {
-    setSubmitting(true);
-    try {
-      const result = await createOutgoingMail(formData);
-      if (result.success) {
-        toast.success("Surat berhasil disimpan.");
-        router.push("/admin/secretariat/surat-menyurat");
-      } else {
-        toast.error(result.message ?? "Gagal menyimpan surat.");
-        router.refresh();
-      }
-    } catch {
-      toast.error("Gagal menyimpan surat. Periksa kembali isian.");
-    } finally {
-      setSubmitting(false);
+  useEffect(() => {
+    if (state.ok && !navigated.current) {
+      navigated.current = true;
+      router.push("/admin/secretariat/surat-menyurat");
     }
-  }
+  }, [state, router]);
 
   return (
-    <form action={handleSubmit} className="max-w-2xl space-y-3">
+    <form action={formAction} className="max-w-2xl space-y-3">
       <SectionCard className="rounded-lg p-4">
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Informasi Surat</h2>
@@ -184,13 +180,11 @@ export function OutgoingMailForm({
         <SigningEditor />
       </SectionCard>
 
+      <ActionResultMessage state={state} />
+
       <div className="sticky bottom-4 flex justify-end">
-        <Button type="submit" size="sm" disabled={submitting}>
-          {submitting ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            <Save className="size-4" />
-          )}
+        <Button type="submit" size="sm" disabled={pending}>
+          <Save className="size-4" />
           Simpan Surat
         </Button>
       </div>

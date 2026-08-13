@@ -36,7 +36,7 @@ const navLinks = [
 ];
 
 const linkPill = cn(
-  "flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+  "flex h-8 items-center gap-1.5 border-b-2 px-2 text-sm font-medium transition-colors",
 );
 
 export default function Navbar() {
@@ -48,7 +48,7 @@ export default function Navbar() {
   const profilActive = pathname.startsWith("/profil");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/10 bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-background">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link href="/" className="group flex shrink-0 items-center gap-3">
           <Image
@@ -61,10 +61,10 @@ export default function Navbar() {
           />
 
           <span className="leading-tight">
-            <span className="block text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+            <span className="block text-[10px] font-medium uppercase text-muted-foreground">
               Lembaga
             </span>
-            <span className="block text-[15px] font-semibold tracking-tight text-foreground">
+            <span className="block text-[15px] font-semibold text-foreground">
               Ittihadul Muballighin
             </span>
           </span>
@@ -83,8 +83,8 @@ export default function Navbar() {
                   className={cn(
                     linkPill,
                     pathname === "/"
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground/70 hover:bg-muted/70 hover:text-foreground",
+                      ? "border-primary text-primary"
+                      : "border-transparent text-foreground/70 hover:border-border/60 hover:text-primary",
                   )}
                 >
                   Beranda
@@ -95,10 +95,10 @@ export default function Navbar() {
             <NavigationMenuItem>
               <NavigationMenuTrigger
                 className={cn(
-                  "h-9 rounded-full px-3.5 text-sm font-medium transition-colors",
+                  "h-8 border-b-2 px-2 text-sm font-medium transition-colors",
                   profilActive
-                    ? "bg-primary/10 text-primary data-open:bg-primary/10 data-open:hover:bg-primary/10"
-                    : "text-foreground/70 hover:bg-muted/70 hover:text-foreground data-open:bg-muted/70 data-open:text-foreground",
+                    ? "border-primary text-primary data-open:border-primary data-open:hover:border-primary"
+                    : "border-transparent text-foreground/70 hover:border-border/60 hover:text-primary data-open:border-border/60 data-open:text-foreground",
                 )}
               >
                 Profil
@@ -107,7 +107,7 @@ export default function Navbar() {
                 <div className="w-110 max-w-[calc(100vw-2rem)]">
                   <div className="grid gap-2 p-3 sm:grid-cols-2">
                     <div>
-                      <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                      <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase text-muted-foreground">
                         Profil
                       </p>
                       {profilChildren.map((item) => (
@@ -128,7 +128,7 @@ export default function Navbar() {
                     </div>
 
                     <div>
-                      <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                      <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase text-muted-foreground">
                         Bidang
                       </p>
                       {BIDANG.map((bidang) => (
@@ -157,12 +157,12 @@ export default function Navbar() {
                 <NavigationMenuLink asChild>
                   <Link
                     href={item.href}
-                    className={cn(
-                      linkPill,
-                      pathname === item.href
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground/70 hover:bg-muted/70 hover:text-foreground",
-                    )}
+className={cn(
+                    linkPill,
+                    pathname === item.href
+                      ? "border-primary text-primary"
+                      : "border-transparent text-foreground/70 hover:border-border/60 hover:text-primary",
+                  )}
                   >
                     {item.title}
                   </Link>
@@ -178,7 +178,7 @@ export default function Navbar() {
 
           <Link
             href="/admin/login"
-            className="hidden rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-foreground/70 transition-colors hover:border-primary hover:text-primary lg:inline-flex"
+            className="hidden h-8 items-center border-b-2 border-transparent px-2 text-xs font-medium text-foreground/70 transition-colors hover:border-primary hover:text-primary lg:inline-flex"
           >
             Admin
           </Link>
@@ -207,10 +207,10 @@ export default function Navbar() {
                   className="h-6 w-auto object-contain"
                 />
                 <span className="leading-tight">
-                  <span className="block text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                  <span className="block text-[10px] font-medium uppercase text-muted-foreground">
                     Lembaga
                   </span>
-                  <span className="block text-[15px] font-semibold tracking-tight text-foreground">
+                  <span className="block text-[15px] font-semibold text-foreground">
                     Ittihadul Muballighin
                   </span>
                 </span>

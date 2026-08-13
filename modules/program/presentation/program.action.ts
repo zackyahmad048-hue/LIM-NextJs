@@ -12,6 +12,9 @@ import {
   addDocumentationSchema,
 } from "../validations/schema";
 import { ProgramError, ProgramCodeExistsError } from "../domain/program.errors";
+import {
+  type ActionResult,
+} from "@/modules/shared/presentation/action-result";
 
 const PERMISSION_CREATE = ["program.create"];
 const PERMISSION_UPDATE = ["program.update"];
@@ -42,10 +45,15 @@ const TRANSITION_PERMISSIONS: Record<string, string[]> = {
   ARCHIVED: PERMISSION_ARCHIVE,
 };
 
-export async function createProgram(formData: FormData) {
+export async function createProgram(
+  _prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = createProgramSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian program." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_CREATE);
@@ -67,16 +75,25 @@ export async function createProgram(formData: FormData) {
     };
     await programService.create(data);
     revalidatePath("/admin/program");
+    return { ok: true, message: "Program berhasil dibuat." };
   } catch (e) {
-    if (e instanceof ProgramCodeExistsError) return;
-    return;
+    if (e instanceof ProgramCodeExistsError) {
+      return { ok: false, message: "Kode program sudah pernah dipakai." };
+    }
+    return { ok: false, message: "Gagal menyimpan program." };
   }
 }
 
-export async function updateProgram(id: string, formData: FormData) {
+export async function updateProgram(
+  id: string,
+  _prevState: ActionResult,
+  formData: FormData,
+): Promise<ActionResult> {
   const raw = Object.fromEntries(formData);
   const parsed = updateProgramSchema.safeParse(raw);
-  if (!parsed.success) return;
+  if (!parsed.success) {
+    return { ok: false, message: "Periksa kembali isian program." };
+  }
 
   try {
     await requireSessionWithPermissions(PERMISSION_UPDATE);
@@ -98,9 +115,12 @@ export async function updateProgram(id: string, formData: FormData) {
 
     await programService.update(id, data);
     revalidatePath("/admin/program");
+    return { ok: true, message: "Perubahan program disimpan." };
   } catch (e) {
-    if (e instanceof ProgramError) return;
-    return;
+    if (e instanceof ProgramError) {
+      return { ok: false, message: e.message };
+    }
+    return { ok: false, message: "Gagal menyimpan perubahan program." };
   }
 }
 

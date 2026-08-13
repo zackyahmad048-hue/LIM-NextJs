@@ -34,7 +34,7 @@ interface FieldProps {
 function Field({ label, value }: FieldProps) {
   return (
     <div className="space-y-1">
-      <p className="text-xs uppercase tracking-wide text-muted-foreground">
+      <p className="text-xs uppercase text-muted-foreground">
         {label}
       </p>
       <p className="text-sm">
@@ -44,6 +44,30 @@ function Field({ label, value }: FieldProps) {
           <span className="text-muted-foreground">-</span>
         )}
       </p>
+    </div>
+  );
+}
+
+function FieldList({ label, values }: { label: string; values: string[] }) {
+  const trimmed = (values ?? []).filter((value) => value.trim().length > 0);
+
+  return (
+    <div className="space-y-1">
+      <p className="text-xs uppercase text-muted-foreground">
+        {label}
+      </p>
+      {trimmed.length === 0 ? (
+        <p className="text-sm text-muted-foreground">-</p>
+      ) : (
+        <ul className="space-y-0.5 text-sm">
+          {trimmed.map((value, index) => (
+            <li key={index} className="flex items-start gap-1.5">
+              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-muted-foreground/40" />
+              <span>{value}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -145,7 +169,10 @@ export function TwkDetailView({ member }: Props) {
             <Field label="Nama" value={member.nama} />
             <Field label="Asal Daerah" value={member.asalDaerah} />
             <Field label="Pos Wajib Khidmah" value={member.posWajibKhidmah} />
-            <Field label="Tempat Khidmah" value={member.tempatWajibKhidmah} />
+            <FieldList
+              label="Tempat Khidmah"
+              values={member.tempatWajibKhidmah}
+            />
             <Field label="Alamat Lembaga" value={member.alamatLembaga} />
             <Field label="Tugas Khidmah" value={member.tugasKhidmah} />
             <Field label="Absensi" value={member.absensi} />

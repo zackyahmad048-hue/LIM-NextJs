@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { cn } from "@/lib/utils";
 
 import {
   getProgramStats,
@@ -104,12 +105,12 @@ export default async function ProgramDashboardPage() {
                   {stat.label}
                 </p>
                 <div
-                  className={`flex size-8 items-center justify-center rounded-lg ${stat.color}`}
+                  className={cn("flex size-8 items-center justify-center rounded-lg", stat.color)}
                 >
                   <Icon className="size-4" />
                 </div>
               </div>
-              <p className="mt-3 text-3xl font-bold tracking-tight">
+              <p className="mt-3 text-3xl font-bold tabular-nums">
                 {stat.value}
               </p>
             </SectionCard>

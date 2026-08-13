@@ -188,7 +188,7 @@ export default async function SitePagesPage() {
           return (
             <section key={area} className="flex flex-col gap-2">
               <div className="flex items-baseline gap-3 px-1">
-                <span className="text-sm font-semibold uppercase tracking-wide text-foreground">
+                <span className="text-sm font-semibold uppercase text-foreground">
                   {SITE_PAGE_AREAS[area].label}
                 </span>
                 <span className="text-xs text-muted-foreground">

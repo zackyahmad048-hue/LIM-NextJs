@@ -83,6 +83,7 @@ export function CategoryForm({ category, onSuccess }: Props) {
 
         <Input
           id="name"
+          autoComplete="off"
           // ✅ Fix: pakai register options onChange, bukan override
           {...form.register("name", {
             onChange: (e) => {

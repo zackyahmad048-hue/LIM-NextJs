@@ -1,6 +1,8 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageHeader from "@/components/website/page-header";
+import { Button } from "@/components/ui/button";
 import { getPublicMediaItems } from "@/modules/cms/queries/media.query";
 
 export const revalidate = 3600;
@@ -41,7 +43,7 @@ export default async function MediaPage() {
                   alt={item.name}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-200 group-hover:scale-105"
                 />
               </a>
             ))}
@@ -51,6 +53,9 @@ export default async function MediaPage() {
             <p className="text-sm text-muted-foreground">
               Belum ada dokumentasi.
             </p>
+            <Button variant="outline" size="sm" className="mt-5" asChild>
+              <Link href="/kontak">Hubungi Sekretariat</Link>
+            </Button>
           </div>
         )}
       </section>

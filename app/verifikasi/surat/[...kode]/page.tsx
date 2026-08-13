@@ -73,7 +73,7 @@ export default async function VerifyLetterPage({
       <div className="text-center">
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight text-foreground"
+          className="text-sm font-semibold text-balance text-foreground"
         >
           LIM Digital Platform
         </Link>
@@ -197,7 +197,7 @@ export default async function VerifyLetterPage({
                 className="h-full w-full"
               />
               <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
-                <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase tracking-[0.3em] text-foreground/15 select-none">
+                <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase text-foreground/15 select-none">
                   Salinan Digital
                 </span>
               </div>

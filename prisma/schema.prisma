@@ -200,22 +200,102 @@ enum WajibKhidmahStatus {
   QODLO
 }
 
+enum WajibKhidmahStatusPemohon {
+  ALUMNI_LIRBOYO
+  BUKAN_ALUMNI
+  WALI_SANTRI
+  LAINNYA
+}
+
+enum WajibKhidmahLokasiMadrasah {
+  DALAM_PESANTREN
+  LUAR_PESANTREN
+}
+
+enum WajibKhidmahSatuanPendidikan {
+  TPQ
+  MADRASAH_DINIYAH
+  MI
+  MTS
+  MA
+  SD_PESANTREN
+  SMP_PESANTREN
+  SMA_PESANTREN
+  KMI
+  PDF
+  LAINNYA
+}
+
+model WajibKhidmahLembaga {
+  id                             String                         @id @default(cuid())
+  namaLembagaPendidikan          String
+  rtRw                           String?
+  desaKelurahan                  String?
+  kecamatan                      String?
+  kabupatenKota                  String?
+  provinsi                       String?
+  teleponLembaga                 String?
+  mediaSosialLembaga             String?
+
+  pengasuhNama                   String?
+  pengasuhStatus                 WajibKhidmahStatusPemohon?
+  pengasuhStatusLainnya          String?
+  pengasuhAlumniAngkatan         String?
+  pengasuhTelepon                String?
+  pengasuhFotoFileId             String?
+
+  penanggungJawabNama            String?
+  penanggungJawabStatus          WajibKhidmahStatusPemohon?
+  penanggungJawabStatusLainnya   String?
+  penanggungJawabAlumniAngkatan  String?
+  penanggungJawabTelepon         String?
+  penanggungJawabFotoFileId      String?
+
+  lokasiMadrasah                 WajibKhidmahLokasiMadrasah?
+  jenisSatuanPendidikan          WajibKhidmahSatuanPendidikan?
+  jenisSatuanPendidikanLainnya   String?
+  kitabBermakna                  String[]                       @default([])
+  kitabBermaknaLainnya           String?
+  bahasaPengantar                String[]                       @default([])
+  bahasaPengantarLainnya         String?
+  jumlahPengurusPutra            Int?
+  jumlahPengurusPutri            Int?
+  jumlahSantriPutra              Int?
+  jumlahSantriPutri              Int?
+
+  jumlahGuruBantuDimohon         Int
+  tugasGuruBantu                 String?
+  kitabDiajarkanGuruBantu        String?
+  catatanCalonGuruBantu          String?
+  dokumenPermohonanFileId        String?
+
+  createdAt                      DateTime                       @default(now())
+  updatedAt                      DateTime                       @updatedAt
+
+  members                        WajibKhidmahMember[]
+
+  @@map("wajib_khidmah_lembaga")
+}
+
 model WajibKhidmahMember {
   id                 String             @id @default(cuid())
   nama               String
   asalDaerah         String?
   alamatLembaga      String?
   posWajibKhidmah    String?
-  tempatWajibKhidmah String?
+  tempatWajibKhidmah String[] @default([])
   tugasKhidmah       String?
   status             WajibKhidmahStatus @default(AKTIF)
   keterangan         String?
   catatan            String?
   absensi            String?
+  lembagaId          String?
+  lembaga            WajibKhidmahLembaga? @relation(fields: [lembagaId], references: [id])
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt
 
   @@index([status])
+  @@index([lembagaId])
   @@map("wajib_khidmah_members")
 }
 

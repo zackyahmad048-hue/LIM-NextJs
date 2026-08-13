@@ -7,6 +7,12 @@
       "skillPath": "skills/engineering/ask-matt/SKILL.md",
       "computedHash": "0f843160e34a24f5bd12cdc7de7d40951e77fbdc05ce8f891b37ca32eac2c44d"
     },
+    "baseline-ui": {
+      "source": "ibelick/ui-skills",
+      "sourceType": "github",
+      "skillPath": "skills/baseline-ui/SKILL.md",
+      "computedHash": "dfcb3e778b57ad1cba92375689bb8265fa5aef78fba523a744f5220b3c619901"
+    },
     "brainstorming": {
       "source": "obra/superpowers",
       "sourceType": "github",

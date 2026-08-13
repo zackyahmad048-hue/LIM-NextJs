@@ -1,9 +1,7 @@
-import { Trash2 } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { falakService } from "@/modules/falak/application/service";
 import { deleteHisab } from "@/modules/falak/presentation/falak.action";
@@ -42,7 +40,7 @@ export default async function HisabPage() {
             key: "koordinat",
             label: "Koordinat",
             render: (item) => (
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs tabular-nums text-muted-foreground">
                 {item.latitude.toFixed(4)}, {item.longitude.toFixed(4)}
               </span>
             ),
@@ -51,7 +49,7 @@ export default async function HisabPage() {
             key: "tanggal",
             label: "Tanggal",
             render: (item) => (
-              <span className="text-xs">
+              <span className="text-xs tabular-nums">
                 {formatDate(item.calculationDate)}
               </span>
             ),
@@ -62,15 +60,13 @@ export default async function HisabPage() {
             align: "right",
             render: (item) => (
               <div className="flex justify-end gap-1">
-                <form action={deleteHisab.bind(null, item.id)}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                  >
-                    <Trash2 className="size-3.5" />
-                  </Button>
-                </form>
+                <ConfirmDelete
+                  onConfirm={deleteHisab}
+                  args={[item.id]}
+                  title="Hapus data hisab"
+                  description={`Data hisab untuk "${item.locationName}" akan dihapus permanen.`}
+                  label="Hapus data hisab"
+                />
               </div>
             ),
           },

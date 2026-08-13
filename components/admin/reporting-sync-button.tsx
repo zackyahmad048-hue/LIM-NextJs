@@ -4,6 +4,7 @@ import { useState } from "react";
 import { RefreshCw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { syncReportingAction } from "@/modules/reporting/presentation/reporting.action";
 
 export function ReportingSyncButton() {
@@ -55,7 +56,7 @@ export function ReportingSyncButton() {
         className="shrink-0"
       >
         <RefreshCw
-          className={`size-4 ${status === "loading" ? "animate-spin" : ""}`}
+          className={cn("size-4", status === "loading" && "animate-spin")}
         />
         {status === "loading" ? "Menyinkronkan…" : "Sinkronkan sekarang"}
       </Button>

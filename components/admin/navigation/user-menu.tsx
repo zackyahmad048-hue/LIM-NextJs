@@ -54,6 +54,7 @@ export function UserMenu({ user }: Props) {
         variant="ghost"
         size="icon-sm"
         onClick={handleLogout}
+        aria-label="Logout"
         title="Logout"
       >
         <LogOut className="h-4 w-4" />

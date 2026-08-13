@@ -245,6 +245,10 @@ export const PERMISSIONS = {
 
       EXPORT: "twk.member.export",
     },
+
+    LEMBAGA: {
+      VIEW: "twk.lembaga.view",
+    },
   },
 
   CENTRAL_BOARD: {

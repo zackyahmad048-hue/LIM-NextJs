@@ -53,7 +53,7 @@ export default async function RolesPage() {
             key: "dibuat",
             label: "Dibuat",
             render: (role) => (
-              <span className="text-muted-foreground">
+              <span className="tabular-nums text-muted-foreground">
                 {new Date(role.createdAt).toLocaleDateString("id-ID")}
               </span>
             ),

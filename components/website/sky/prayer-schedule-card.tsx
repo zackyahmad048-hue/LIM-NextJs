@@ -133,13 +133,13 @@ export function PrayerScheduleCard() {
   return (
     <aside className="w-full max-w-md rounded-2xl border border-primary/15 bg-card p-5 shadow-[0_18px_40px_-20px] shadow-black/25 lg:max-w-sm">
       <div className="border-b border-border/10 pb-3 text-center">
-        <p className="flex items-center justify-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.3em] text-foreground">
+        <p className="flex items-center justify-center gap-1.5 text-[10px] font-medium uppercase text-foreground">
           <span className="size-1.5 rounded-full bg-primary" />
           Jadwal Shalat Hari Ini
         </p>
         <p className="mt-2 flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
           <span className="relative flex size-2">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75" />
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-75 motion-reduce:animate-none" />
             <span className="relative inline-flex size-2 rounded-full bg-primary" />
           </span>
           {HOME_NAME}
@@ -174,7 +174,7 @@ export function PrayerScheduleCard() {
       </div>
 
       <div className="mt-4 text-center">
-        <p className="font-mono text-[2rem] font-semibold tabular-nums leading-none tracking-tight text-foreground">
+        <p className="font-mono text-[2rem] font-semibold tabular-nums leading-none text-foreground">
           {isIstiwa ? istiwaClockStr : standardClockStr}
           <span className="ml-2 align-middle text-xs font-medium text-muted-foreground">
             {isIstiwa ? "WIS" : HOME.timezoneName}
@@ -197,8 +197,8 @@ export function PrayerScheduleCard() {
       </div>
 
       <div className="mt-4 border-t border-border/10 pt-3 text-center">
-        <p className="text-[11px] text-muted-foreground">{gregorian}</p>
-        <p className="mt-0.5 font-sans text-xs font-medium text-foreground">
+        <p className="text-[11px] tabular-nums text-muted-foreground">{gregorian}</p>
+        <p className="mt-0.5 font-sans text-xs font-medium tabular-nums text-foreground">
           {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
         </p>
       </div>
@@ -217,7 +217,7 @@ export function PrayerScheduleCard() {
             <span className={cn("mx-auto flex justify-center", i === nextIndex ? "text-primary" : "text-muted-foreground")}>
               {prayer.icon}
             </span>
-            <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+            <p className="mt-1 text-[10px] font-medium uppercase text-muted-foreground">
               {prayer.label}
             </p>
             <p className="mt-0.5 font-mono text-sm font-semibold tabular-nums text-foreground">

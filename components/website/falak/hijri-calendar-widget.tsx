@@ -105,7 +105,7 @@ export function HijriCalendarWidget() {
         {result && (
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 text-center">
             <p className="text-sm text-muted-foreground">Tanggal Hijriah</p>
-            <p className="mt-2 text-3xl font-bold text-primary">
+            <p className="mt-2 text-3xl font-bold tabular-nums text-primary">
               {result.hijriDay} {HIJRI_MONTHS[result.hijriMonth - 1]}{" "}
               {result.hijriYear} H
             </p>

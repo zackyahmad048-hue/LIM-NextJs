@@ -1,114 +1,97 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, BookOpen } from "lucide-react";
-import { TextReveal } from "@/components/motion/text-reveal";
-import AuroraBackground from "@/components/motion/aurora-background";
+import FolioSection from "@/components/website/taqwim/folio-section";
+import { TaqwimFolio } from "@/components/website/taqwim/taqwim-folio";
+import StatRule from "@/components/website/taqwim/stat-rule";
 import { Button } from "@/components/ui/button";
-import { PrayerScheduleCard } from "@/components/website/sky/prayer-schedule-card";
 import RouteMap from "@/components/website/sections/route-map";
 import type { HeroConfig } from "@/types/hero";
 import { EASE_OUT } from "@/lib/ease";
 
 export default function Hero({ hero }: { hero: HeroConfig }) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const leftAnim = prefersReducedMotion
+    ? { initial: false }
+    : { initial: { opacity: 0, x: -28 } };
+  const rightAnim = prefersReducedMotion
+    ? { initial: false }
+    : { initial: { opacity: 0, x: 30 } };
+
   return (
     <section className="relative">
-      <AuroraBackground colors={["#7C2D12", "#C2410C", "#F59E0B"]} autoIntensity={1.2} />
-
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-20">
-        <div>
-          <TextReveal
-            text={hero.title}
-            as="h1"
-            className="font-display text-[2rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-4xl lg:text-5xl"
-            stagger={0.06}
-            delay={0.15}
-          />
-
-          {hero.highlight && (
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45, ease: EASE_OUT }}
-              className="mt-4 font-display text-lg font-medium italic text-primary sm:text-xl"
-            >
-              {hero.highlight}
-            </motion.p>
-          )}
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6, ease: EASE_OUT }}
-            className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base"
-          >
-            {hero.description}
-          </motion.p>
-
+      <FolioSection
+        arabic="الفجر"
+        label="Subuh — awal hari di Lirboyo"
+        contentClassName="pt-1 pb-14 sm:pb-16 lg:pt-4 lg:pb-20"
+      >
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-14">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.75, ease: EASE_OUT }}
-            className="mt-8 flex flex-wrap items-center gap-4"
+            {...leftAnim}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
           >
-            <Button variant="default" size="lg" asChild>
-              <Link href={hero.ctaHref}>
-                {hero.ctaLabel}
-                <ArrowRight size={16} data-icon="inline-end" />
-              </Link>
-            </Button>
+            <h1 className="max-w-2xl font-display text-[2.4rem] font-medium leading-[1.06] text-foreground sm:text-5xl lg:text-[3.4rem]">
+              {hero.title}
+            </h1>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-border text-foreground hover:bg-secondary hover:text-primary"
-              asChild
-            >
-              <Link href={hero.secondaryHref}>
-                <BookOpen size={16} data-icon="inline-start" />
-                {hero.secondaryLabel}
-              </Link>
-            </Button>
+            {hero.highlight && (
+              <p className="mt-4 font-display text-xl font-medium italic text-primary sm:text-2xl">
+                {hero.highlight}
+              </p>
+            )}
+
+            <p className="mt-5 max-w-xl text-sm leading-7 text-pretty text-muted-foreground sm:text-base">
+              {hero.description}
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Button variant="default" size="lg" asChild>
+                <Link href={hero.ctaHref}>
+                  {hero.ctaLabel}
+                  <ArrowRight size={16} data-icon="inline-end" />
+                </Link>
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-border text-foreground hover:bg-secondary hover:text-primary"
+                asChild
+              >
+                <Link href={hero.secondaryHref}>
+                  <BookOpen size={16} data-icon="inline-start" />
+                  {hero.secondaryLabel}
+                </Link>
+              </Button>
+            </div>
+
+            {hero.statCards && hero.statCards.length > 0 && (
+              <div className="mt-10">
+                <StatRule items={hero.statCards} className="max-w-md" />
+              </div>
+            )}
           </motion.div>
 
-          {hero.statCards && hero.statCards.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.9, ease: EASE_OUT }}
-              className="mt-10 max-w-md"
-            >
-              <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                  Capaian Dakwah
-                </p>
-                <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  {hero.statCards.map((card) => (
-                    <li key={card.label}>
-                      <span className="block text-2xl font-bold tabular-nums text-foreground">
-                        {card.value}
-                      </span>
-                      <span className="mt-0.5 block text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                        {card.label}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          )}
+          <motion.div
+            {...rightAnim}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.35, ease: EASE_OUT }}
+            className="relative lg:justify-self-end"
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-10 z-0 rounded-[3rem] bg-primary/5"
+            />
+            <div className="relative z-10">
+              <TaqwimFolio />
+            </div>
+          </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55, ease: EASE_OUT }}
-          className="lg:justify-self-end"
-        >
-          <PrayerScheduleCard />
-        </motion.div>
-      </div>
+      </FolioSection>
 
       <RouteMap />
     </section>

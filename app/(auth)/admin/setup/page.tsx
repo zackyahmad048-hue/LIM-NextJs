@@ -13,7 +13,7 @@ export default function SetupPage() {
   );
 
   return (
-    <main className="login-aurora flex min-h-screen flex-col items-center justify-center gap-6 px-4">
+    <main className="login-aurora flex min-h-dvh flex-col items-center justify-center gap-6 px-4">
       <form
         action={formAction}
         className="flex w-full max-w-sm flex-col items-center gap-4 rounded-md border border-border/10 bg-card p-8 text-center shadow-[0_24px_60px_-24px] shadow-black/20"

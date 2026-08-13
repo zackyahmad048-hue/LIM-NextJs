@@ -57,7 +57,7 @@ export default async function CetakDocumentPage({
       : true);
 
   return (
-    <div className="min-h-screen bg-neutral-100 print:bg-white">
+    <div className="min-h-dvh bg-neutral-100 print:bg-white">
       {/* Toolbar */}
       <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-6 py-3 print:hidden">
         <p className="text-sm text-muted-foreground">
@@ -86,7 +86,7 @@ export default async function CetakDocumentPage({
         <div className="mx-auto max-w-[210mm] bg-white px-8 py-10 shadow-sm print:shadow-none print:px-6 print:py-8">
           {/* Kop Surat */}
           <div className="border-b-2 border-black pb-4 text-center">
-            <h1 className="text-lg font-bold uppercase tracking-wide">
+            <h1 className="text-lg font-bold uppercase">
               {SITE.title}
             </h1>
             <p className="mt-1 text-xs text-muted-foreground">

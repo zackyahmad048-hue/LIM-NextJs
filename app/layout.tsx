@@ -1,17 +1,45 @@
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, Roboto } from "next/font/google";
+import {
+  Hanken_Grotesk,
+  Newsreader,
+  Reem_Kufi,
+  Roboto,
+  Spline_Sans_Mono,
+} from "next/font/google";
 import { Toaster } from "sonner";
 import { AppThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'});
+const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--f-site",
+  display: "swap",
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--fx-display",
+  display: "swap",
+});
+
+const reemKufi = Reem_Kufi({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--fx-ar",
+  display: "swap",
+});
+
+const splineMono = Spline_Sans_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--fx-mono",
   display: "swap",
 });
 
@@ -33,7 +61,16 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={cn("h-full", "antialiased", hanken.variable, "font-sans", roboto.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        hanken.variable,
+        newsreader.variable,
+        reemKufi.variable,
+        splineMono.variable,
+        "font-sans",
+        roboto.variable,
+      )}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background/55 text-foreground transition-colors">
@@ -42,10 +79,10 @@ export default function RootLayout({
           aria-hidden
           dangerouslySetInnerHTML={{
             __html: `<!--
-THESIS: LIM is an official institution of the pesantren world — warm official orange, clean like an official portal, and the proof is the live prayer data pinned to the page.
-OWN-WORLD: Oranye LIM — white surfaces with official orange accents (orange-700/800), neutral zinc tints, solid orange footer band; no glass, no glow, no board textures.
-STORY: a visitor reads today's official schedule, sees what LIM is doing now, and trusts one institution from Kediri that reaches the whole archipelago.
-FIRST VIEWPORT: headline and orange actions left, today's prayer schedule card right, the dakwah route map drawing itself from Kediri below.
+THESIS: LIM is the pesantren institution whose proof is a live almanac — the day's prayer reckoning computed on the page itself; authority shown as demonstrated skill, clean like an official portal, not a decorative billboard.
+OWN-WORLD: Oranye LIM — white / neutral-950 grounds with official orange accents (the semantic tokens), solid orange footer band, no glass on public surfaces; serif display (Newsreader), Hanken Grotesk body, Reem Kufi Arabic marginalia, Spline Sans Mono instrument numerals.
+STORY: a visitor reads today's taqwim for Lirboyo, sees one institution from Kediri reaching the whole archipelago, and trusts it.
+FIRST VIEWPORT: left column headed by the display serif, the hairline "Capaian Dakwah" rule, the live Taqwim folio (glass) entering from the right, the dakwah route map drawing itself from Kediri below; entrance motion comes from the sides.
 FORM: Oranye LIM, seed lim-oranye-2026.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`,

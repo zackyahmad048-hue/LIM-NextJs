@@ -89,7 +89,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
         member.nama,
         member.asalDaerah,
         member.posWajibKhidmah,
-        member.tempatWajibKhidmah,
+        member.tempatWajibKhidmah.join(" "),
         member.tugasKhidmah,
         member.status,
         member.keterangan,
@@ -266,7 +266,9 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                           </Badge>
                         </td>
                         <td className="px-3 py-2">
-                          {member.tempatWajibKhidmah ?? (
+                          {member.tempatWajibKhidmah.length > 0 ? (
+                            member.tempatWajibKhidmah.join("; ")
+                          ) : (
                             <span className="text-muted-foreground">-</span>
                           )}
                         </td>

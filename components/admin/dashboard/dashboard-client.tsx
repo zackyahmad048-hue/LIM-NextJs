@@ -14,8 +14,10 @@ import { FEATURES } from "@/config/feature";
 import { hasAnyPermission } from "@/modules/authorization/application/permission.service";
 import { DEFAULT_PERMISSION_MATRIX } from "@/modules/authorization/application/permission.matrix";
 import { Button } from "@/components/ui/button";
+import { toHijri } from "hijri-converter";
 import { PreviewDialog } from "@/components/admin/structure/preview.dialog";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { cn } from "@/lib/utils";
 
 interface DashboardUser {
   name: string;
@@ -178,13 +180,14 @@ export function DashboardClient({
         </div>
 
         <div>
-          <h1 className="text-xl font-bold tracking-tight">
+          <h1 className="text-xl font-bold">
             Selamat datang, {user.name}
           </h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
             Anda masuk sebagai {user.roleLabel}. Pilih modul
             yang ingin dikelola.
           </p>
+          <DashboardDate />
         </div>
       </div>
 
@@ -198,7 +201,7 @@ export function DashboardClient({
               className="group flex items-start gap-4 rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
             >
               <div
-                className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${mod.color}`}
+                className={cn("flex size-10 shrink-0 items-center justify-center rounded-lg", mod.color)}
               >
                 <Icon className="size-5" />
               </div>
@@ -315,5 +318,36 @@ export function DashboardClient({
         </div>
       </SectionCard>
     </div>
+  );
+}
+
+const HIJRI_MONTHS = [
+  "Muharram",
+  "Safar",
+  "Rabiul Awal",
+  "Rabiul Akhir",
+  "Jumadil Awal",
+  "Jumadil Akhir",
+  "Rajab",
+  "Sya'ban",
+  "Ramadan",
+  "Syawal",
+  "Dzulqa'dah",
+  "Dzulhijjah",
+];
+
+function DashboardDate() {
+  const now = new Date();
+  const hijri = toHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  const gregorian = new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(now);
+
+  return (
+    <p className="mt-1 font-data text-[11px] uppercase tabular-nums text-muted-foreground">
+      {gregorian} · {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
+    </p>
   );
 }

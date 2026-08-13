@@ -2,10 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Resolver } from "react-hook-form";
 import { toast } from "sonner";
+import { Plus, X } from "lucide-react";
 
 import {
   createWajibKhidmahMember,
@@ -13,6 +14,7 @@ import {
 } from "@/modules/twk/presentation/twk.action";
 import {
   POS_WAJIB_KHIDMAH,
+  TUGAS_POS_ELIGIBLE,
   WAJIB_KHIDMAH_STATUS_LABELS,
   type WajibKhidmahStatus,
 } from "@/modules/twk/domain/entities";
@@ -45,9 +47,7 @@ function errorMessage(
   return errors[key]?.message;
 }
 
-function buildDefaultValues(
-  member: MemberRow | undefined,
-): WajibKhidmahMemberInput {
+function buildDefaultValues(member: MemberRow | undefined): WajibKhidmahMemberInput {
   return {
     nama: member?.nama ?? "",
     asalDaerah: member?.asalDaerah ?? "",
@@ -55,7 +55,10 @@ function buildDefaultValues(
     posWajibKhidmah: (member?.posWajibKhidmah ?? "") as
       | (typeof POS_WAJIB_KHIDMAH)[number]
       | "",
-    tempatWajibKhidmah: member?.tempatWajibKhidmah ?? "",
+    tempatWajibKhidmah:
+      member?.tempatWajibKhidmah && member.tempatWajibKhidmah.length > 0
+        ? member.tempatWajibKhidmah
+        : [""],
     tugasKhidmah: member?.tugasKhidmah ?? "",
     status: member?.status ?? "AKTIF",
     keterangan: member?.keterangan ?? "",
@@ -74,11 +77,19 @@ export function MemberForm({ member, onSuccess }: Props) {
     defaultValues: buildDefaultValues(member),
   });
 
+  const [tempatList, setTempatList] = useState<string[]>([]);
+
   useEffect(() => {
-    form.reset(buildDefaultValues(member));
+    const defaults = buildDefaultValues(member);
+    form.reset(defaults);
+    setTempatList(defaults.tempatWajibKhidmah ?? [""]);
   }, [member, form]);
 
   const status = form.watch("status");
+  const pos = form.watch("posWajibKhidmah");
+  const tugasEligible = (TUGAS_POS_ELIGIBLE as readonly string[]).includes(
+    pos ?? "",
+  );
   const errors = form.formState.errors;
 
   async function submit(values: WajibKhidmahMemberInput) {
@@ -89,9 +100,12 @@ export function MemberForm({ member, onSuccess }: Props) {
       formData.append("alamatLembaga", values.alamatLembaga);
     if (values.posWajibKhidmah)
       formData.append("posWajibKhidmah", values.posWajibKhidmah);
-    if (values.tempatWajibKhidmah)
-      formData.append("tempatWajibKhidmah", values.tempatWajibKhidmah);
-    if (values.tugasKhidmah)
+    for (const tempat of tempatList
+      .map((value) => value.trim())
+      .filter((value) => value.length > 0)) {
+      formData.append("tempatWajibKhidmah", tempat);
+    }
+    if (tugasEligible && values.tugasKhidmah)
       formData.append("tugasKhidmah", values.tugasKhidmah);
     formData.append("status", values.status ?? "AKTIF");
     if (values.keterangan) formData.append("keterangan", values.keterangan);
@@ -184,34 +198,74 @@ export function MemberForm({ member, onSuccess }: Props) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="tempatWajibKhidmah">Tempat Khidmah</Label>
-          <Input
-            id="tempatWajibKhidmah"
-            placeholder="Contoh: PP. Lirboyo"
-            {...form.register("tempatWajibKhidmah")}
-          />
-          {errorMessage(errors, "tempatWajibKhidmah") && (
-            <p className="text-sm text-destructive">
-              {errorMessage(errors, "tempatWajibKhidmah")}
-            </p>
-          )}
+          <Label>Tempat Khidmah</Label>
+          <div className="space-y-2">
+            {tempatList.map((place, index) => (
+              <div key={index} className="flex items-start gap-2">
+                <Input
+                  value={place}
+                  maxLength={100}
+                  onChange={(event) => {
+                    const next = [...tempatList];
+                    next[index] = event.target.value;
+                    setTempatList(next);
+                  }}
+                  aria-label={`Tempat Khidmah ${index + 1}`}
+                  placeholder="Contoh: seksi, mustahiq, mudarris, wali asuh"
+                />
+                {tempatList.length > 1 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    aria-label={`Hapus tempat ${index + 1}`}
+                    onClick={() =>
+                      setTempatList(tempatList.filter((_, i) => i !== index))
+                    }
+                  >
+                    <X className="size-4" />
+                  </Button>
+                )}
+              </div>
+            ))}
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setTempatList([...tempatList, ""])}
+          >
+            <Plus className="size-4" />
+            Tambah tempat
+          </Button>
+          <p className="text-xs text-muted-foreground">
+            Isi sub-domain kerja. Tambahkan baris baru bila peserta memiliki
+            lebih dari satu jabatan.
+          </p>
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="tugasKhidmah">Tugas Khidmah</Label>
-          <Input
-            id="tugasKhidmah"
-            placeholder="Contoh: Pengajar"
-            {...form.register("tugasKhidmah")}
-          />
-          {errorMessage(errors, "tugasKhidmah") && (
-            <p className="text-sm text-destructive">
-              {errorMessage(errors, "tugasKhidmah")}
+        {tugasEligible && (
+          <div className="space-y-2">
+            <Label htmlFor="tugasKhidmah">
+              Tugas Khidmah <span className="text-destructive">*</span>
+            </Label>
+            <Input
+              id="tugasKhidmah"
+              placeholder="Contoh: Pengajar"
+              {...form.register("tugasKhidmah")}
+            />
+            <p className="text-xs text-muted-foreground">
+              Diisi dengan job peserta wajib khidmah.
             </p>
-          )}
-        </div>
+            {errorMessage(errors, "tugasKhidmah") && (
+              <p className="text-sm text-destructive">
+                {errorMessage(errors, "tugasKhidmah")}
+              </p>
+            )}
+          </div>
+        )}
 
         <div className="space-y-2">
           <Label htmlFor="status">
@@ -267,7 +321,7 @@ export function MemberForm({ member, onSuccess }: Props) {
           <Textarea
             id="catatan"
             rows={2}
-            placeholder="Catatan progres atau track record khusus."
+            placeholder="Catatan evaluasi dan kinerja peserta."
             {...form.register("catatan")}
           />
           {errorMessage(errors, "catatan") && (
@@ -281,7 +335,7 @@ export function MemberForm({ member, onSuccess }: Props) {
           <Label htmlFor="absensi">Absensi</Label>
           <Input
             id="absensi"
-            placeholder="Contoh: Safar 1448 H"
+            placeholder="Rekapitulasi absensi dari sub-domain."
             {...form.register("absensi")}
           />
           {errorMessage(errors, "absensi") && (
