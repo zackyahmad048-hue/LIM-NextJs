@@ -1,12 +1,11 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
+import { createExamplePdf } from "./example-pdf.fixture";
 import { getLetterVerificationUrl, renderQrPng } from "./qr-code";
 import { composeSignedPdf } from "./pdf-sign.service";
 import { buildSignerQrText } from "./signing.service";
 
-const examplePdf = readFileSync(join(process.cwd(), "example-surat.pdf"));
+const examplePdfPromise = createExamplePdf();
 
 describe("QR generation pipeline", () => {
   it("mengirim URL verifikasi valid tanpa gagal", async () => {
@@ -24,6 +23,7 @@ describe("QR generation pipeline", () => {
   });
 
   it("mengomposisi QR ke lampiran tanpa error", async () => {
+    const examplePdf = await examplePdfPromise;
     const verifikasiPng = await renderQrPng(
       "http://localhost:3000/verifikasi/surat/001/PP/UNDANGAN/VIII/2026",
     );

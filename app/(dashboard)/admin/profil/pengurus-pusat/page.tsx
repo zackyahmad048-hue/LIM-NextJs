@@ -30,7 +30,7 @@ export default async function PengurusPusatPage() {
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-lg border bg-background p-4">
+          <div className="rounded-lg border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-4 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
             <div className="flex items-center gap-2">
               <Building2 className="size-4 text-muted-foreground" />
               <h3 className="text-sm font-semibold">Ringkasan</h3>

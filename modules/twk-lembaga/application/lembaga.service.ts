@@ -14,10 +14,12 @@ function normalizeOptional(value: string | null | undefined): string | null {
   return trimmed;
 }
 
-function normalizeArray(values: string[] | null | undefined): string[] {
+function normalizeArray<T extends string>(
+  values: T[] | null | undefined,
+): T[] {
   if (!values) return [];
   return values
-    .map((value) => value.trim())
+    .map((value) => value.trim() as T)
     .filter((value) => value.length > 0);
 }
 
@@ -53,7 +55,7 @@ function normalizeCreate(data: WajibKhidmahLembagaInput) {
     ),
 
     lokasiMadrasah: toEnum(data.lokasiMadrasah) ?? null,
-    jenisSatuanPendidikan: toEnum(data.jenisSatuanPendidikan) ?? null,
+    jenisSatuanPendidikan: normalizeArray(data.jenisSatuanPendidikan),
     jenisSatuanPendidikanLainnya: normalizeOptional(
       data.jenisSatuanPendidikanLainnya,
     ),

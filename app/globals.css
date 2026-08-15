@@ -94,6 +94,47 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /*
+   * Glassmorphism — "Kaca Kristal" (chrome + kartu).
+   * CSS-only, berlaku global (publik & admin). Blur hanya di permukaan
+   * kecil; tabel/form/teks panjang tetap solid. Nilai turunan dari token
+   * semantik agar valid di light & dark.
+   * - chrome: lebih opak (~80%) — pola Apple (scrim nav hampir opak).
+   * - card:  tipis (~65%) — pola Fey (layering translusen).
+   */
+  --glass-chrome-bg: color-mix(in oklab, var(--background) 80%, transparent);
+  --glass-card-bg: color-mix(in oklab, var(--background) 65%, transparent);
+  --glass-border: color-mix(in oklab, var(--border) 70%, transparent);
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  --glass-blur: 20px;
+  --glass-saturate: 1.8;
+}
+
+/* Dark glass: aksen lebih hangat, scrim chrome lebih pekat. */
+.dark {
+  --glass-chrome-bg: color-mix(in oklab, var(--background) 85%, transparent);
+  --glass-card-bg: color-mix(in oklab, var(--background) 70%, transparent);
+}
+
+/* Mobile low-end: blur lebih tipis untuk menghemat kompositor. */
+@media (max-width: 767px) {
+  :root {
+    --glass-blur: 12px;
+  }
+}
+
+/*
+ * Accessibility: pengguna yang sensitif terhadap transparansi/blur
+ * mendapat permukaan solid tanpa efek kaca.
+ */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-chrome-bg: var(--background);
+    --glass-card-bg: var(--background);
+    --glass-blur: 0px;
+    --glass-saturate: 1;
+  }
 }
 
 .dark {
@@ -147,6 +188,11 @@
   /* Tipografi publik: display serif + angka instrument mono. */
   --font-mono: var(--fx-mono), "SFMono-Regular", Consolas, monospace;
 }
+
+/*
+ * Token glassmorphism ("--glass-*") didefinisikan global di `:root`/`.dark`
+ * sehingga berlaku di situs publik (`.site`) dan admin.
+ */
 
 /*
  * Login admin — wadah tertutup (clip), tidak tembus kertas kartu.

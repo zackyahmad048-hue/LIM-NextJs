@@ -20,7 +20,9 @@ Dokumen ini mendefinisikan standar penggunaan warna pada LIM Digital Platform.
 
 # Public Website — Identitas "Oranye LIM"
 
-Situs publik (`app/(public)/`) memakai tema standar Oranye LIM yang sama dengan seluruh platform: aksen oranye via token semantik (`--primary`) di atas ground putih (siang) dan `neutral-950` (malam). Tidak ada palet terpisah untuk situs publik; identitas visual publik dibangun dari layout, margin rule, dan tipografi, bukan dari warna tambahan. Satu-satunya pengecualian material: kartu glass pada halaman login admin dan widget taqwim di hero (token semantik yang sama, dengan `backdrop-blur`).
+Situs publik (`app/(public)/`) memakai tema standar Oranye LIM yang sama dengan seluruh platform: aksen oranye via token semantik (`--primary`) di atas ground putih (siang) dan `neutral-950` (malam). Tidak ada palet terpisah untuk situs publik; identitas visual publik dibangun dari layout, margin rule, dan tipografi, bukan dari warna tambahan.
+
+Glassmorphism ("Kaca Kristal") dipakai terbatas pada chrome dan kartu, CSS-only. Token glass menurun dari token semantik (`--glass-chrome-bg`, `--glass-card-bg`, `--glass-border`, `--glass-blur`, `--glass-saturate`) sehingga valid di light & dark, dengan fallback `prefers-reduced-transparency` menjadi solid. Detail di `theme.md`.
 
 Color System memastikan seluruh antarmuka menggunakan palet warna yang konsisten sehingga meningkatkan identitas visual, keterbacaan, dan pengalaman pengguna.
 

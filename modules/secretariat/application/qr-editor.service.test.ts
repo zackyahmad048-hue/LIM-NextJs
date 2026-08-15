@@ -1,12 +1,11 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
+import { createExamplePdf } from "./example-pdf.fixture";
 import { renderPdfPagesForEditor } from "./qr-editor.service";
 
 describe("renderPdfPagesForEditor", () => {
-  it("merender halaman example-surat.pdf tanpa error", async () => {
-    const buffer = readFileSync(join(process.cwd(), "example-surat.pdf"));
+  it("merender halaman PDF sample tanpa error", async () => {
+    const buffer = await createExamplePdf();
     const pages = await renderPdfPagesForEditor(buffer);
     expect(pages.length).toBeGreaterThan(0);
     for (const page of pages) {

@@ -92,7 +92,7 @@ export function PrayerTimeTable() {
 
   // Mode Toggle: false = Waktu Standar (WIB/WITA/WIT), true = Waktu Istiwa Hakiki
   const [isIstiwaMode, setIsIstiwaMode] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [citySearch, setCitySearch] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -451,7 +451,7 @@ export function PrayerTimeTable() {
               <Card
                 key={p.key}
                 className={cn(
-                  "transition-all duration-200 hover:scale-[1.02]",
+                  "transition-[border-color,box-shadow,transform,scale] duration-200 hover:scale-[1.02]",
                   isNext
                     ? "border-primary bg-primary/10 shadow-md shadow-primary/10"
                     : "border-border",

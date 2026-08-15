@@ -20,7 +20,7 @@ export function Sidebar({ roleSlugs }: Props) {
   return (
     <aside
       className={cn(
-        "sticky top-0 hidden h-dvh flex-col border-r border-border/60 bg-background transition-all duration-200 lg:flex",
+        "sticky top-0 hidden h-dvh flex-col border-r border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-[width] duration-200 lg:flex",
         collapsed ? "w-16" : "w-56",
       )}
     >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { toHijri } from "hijri-converter";
 import {
@@ -9,7 +9,9 @@ import {
   getNextPrayer,
   type LocationInfo,
   type PrayerTimes,
+  type PrayerTimesNumeric,
 } from "@/lib/astroCalc";
+import { GlassPanel } from "@/components/website/glass/glass-panel";
 import { EASE_OUT } from "@/lib/ease";
 import { cn } from "@/lib/utils";
 
@@ -81,60 +83,162 @@ function wrap24(h: number): number {
   return ((h % 24) + 24) % 24;
 }
 
-export function TaqwimFolio() {
+function computeCurrentDec(
+  now: Date,
+  isIstiwa: boolean,
+  transitStandard: number,
+): number {
+  const wib = new Date(now.getTime() + HOME.timezone * 3600000);
+  const wibDec =
+    wib.getUTCHours() + wib.getUTCMinutes() / 60 + wib.getUTCSeconds() / 3600;
+  return isIstiwa ? wrap24(wibDec - transitStandard + 12) : wibDec;
+}
+
+function computeNextIndex(
+  timesNumeric: PrayerTimesNumeric,
+  now: Date,
+  isIstiwa: boolean,
+  transitStandard: number,
+): number {
+  const next = getNextPrayer(
+    timesNumeric,
+    computeCurrentDec(now, isIstiwa, transitStandard),
+  );
+  return PRAYERS.findIndex((prayer) => prayer.key === next.key);
+}
+
+/**
+ * Ticking clock + countdown. Owns the 1-second interval so only these two
+ * blocks re-render each tick — the surrounding folio stays static.
+ */
+function LiveTaqwim({
+  mode,
+  timesNumeric,
+  transitStandard,
+  deltaMinutes,
+  onNextIndexChange,
+}: {
+  mode: Mode;
+  timesNumeric: PrayerTimesNumeric;
+  transitStandard: number;
+  deltaMinutes: number;
+  onNextIndexChange: (index: number) => void;
+}) {
   const prefersReducedMotion = useReducedMotion();
-  const [now, setNow] = useState<Date | null>(() => new Date());
-  const [mode, setMode] = useState<Mode>("standar");
+  const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  if (!now) return null;
-
   const isIstiwa = mode === "istiwa";
-  const calculation = calculatePrayerTimes(now, HOME, isIstiwa, 3);
-  const timesFormatted = calculation.timesFormatted;
-  const timesNumeric = calculation.timesNumeric;
+  const currentDec = computeCurrentDec(now, isIstiwa, transitStandard);
+  const next = getNextPrayer(timesNumeric, currentDec);
+  const nextIndex = PRAYERS.findIndex((prayer) => prayer.key === next.key);
+  const nextLabel = PRAYERS[nextIndex].label;
+
+  const diff = next.diffHours;
+  const dh = Math.floor(diff);
+  const dm = Math.floor((diff - dh) * 60);
+  const ds = Math.floor(((diff - dh) * 60 - dm) * 60);
 
   const wib = new Date(now.getTime() + HOME.timezone * 3600000);
   const wibDec =
     wib.getUTCHours() + wib.getUTCMinutes() / 60 + wib.getUTCSeconds() / 3600;
-  const istiwaDec = wrap24(wibDec - calculation.transitStandard + 12);
-
-  const currentDec = isIstiwa ? istiwaDec : wibDec;
-
-  const next = getNextPrayer(timesNumeric, currentDec);
-  const nextIndex = PRAYERS.findIndex((prayer) => prayer.key === next.key);
-  const diff = next.diffHours;
-
-  const dh = Math.floor(diff);
-  const dm = Math.floor((diff - dh) * 60);
-  const ds = Math.floor(((diff - dh) * 60 - dm) * 60);
+  const istiwaDec = wrap24(wibDec - transitStandard + 12);
 
   const standardClockStr = `${pad(wib.getUTCHours())}:${pad(
     wib.getUTCMinutes(),
   )}:${pad(wib.getUTCSeconds())}`;
   const istiwaClockStr = formatTime(istiwaDec, true);
 
-  const deltaMinutes = calculation.deltaMinutes;
   const deltaStr = `${deltaMinutes >= 0 ? "+" : ""}${deltaMinutes.toFixed(1)} mnt`;
 
-  const hijri = toHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
-  const hijriDate = `${hijri.hd} ${HIJRI_MONTHS[hijri.hm - 1]} ${hijri.hy} H`;
-  const gregorian = `${DAY_NAMES[now.getDay()]}, ${now.getDate()} ${
-    MONTH_NAMES[now.getMonth()]
-  } ${now.getFullYear()}`;
+  useEffect(() => {
+    onNextIndexChange(nextIndex);
+  }, [nextIndex, onNextIndexChange]);
 
-  const nextLabel = PRAYERS[nextIndex].label;
+  return (
+    <>
+      {/* Clock */}
+      <motion.div
+        {...(prefersReducedMotion ? { initial: false } : { initial: { opacity: 0, y: 10 } })}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.08, ease: EASE_OUT }}
+        className="border-b border-border/70 px-5 py-5 text-center"
+      >
+        <p className="font-data text-[2.6rem] font-semibold leading-none tabular-nums text-foreground">
+          {isIstiwa ? istiwaClockStr : standardClockStr}
+          <span className="ml-2 align-middle font-sans text-xs font-medium text-muted-foreground">
+            {isIstiwa ? "WIS" : HOME.timezoneName}
+          </span>
+        </p>
+        <p className="mt-2 font-data text-[10px] tabular-nums text-muted-foreground">
+          {isIstiwa
+            ? `Waktu Istiwa' · selisih ${deltaStr}`
+            : `Waktu ${HOME.timezoneName} · ihtiyat +3 menit`}
+        </p>
+      </motion.div>
+
+      {/* Menuju */}
+      <motion.div
+        {...(prefersReducedMotion ? { initial: false } : { initial: { opacity: 0, y: 8 } })}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.16, ease: EASE_OUT }}
+        className="flex items-center justify-between border-b border-border/70 bg-secondary/40 px-5 py-3"
+      >
+        <span className="font-sans text-[10px] font-medium uppercase text-muted-foreground">
+          Menuju {nextLabel}
+        </span>
+        <span className="font-data text-sm font-medium tabular-nums text-primary">
+          {pad(dh)}:{pad(dm)}:{pad(ds)}
+        </span>
+      </motion.div>
+    </>
+  );
+}
+
+export function TaqwimFolio() {
+  const prefersReducedMotion = useReducedMotion();
+  const [snapshot] = useState(() => new Date());
+  const [mode, setMode] = useState<Mode>("standar");
+
+  const isIstiwa = mode === "istiwa";
+
+  const calculation = useMemo(
+    () => calculatePrayerTimes(snapshot, HOME, isIstiwa, 3),
+    [snapshot, isIstiwa],
+  );
+  const { timesNumeric, timesFormatted, transitStandard, deltaMinutes } =
+    calculation;
+
+  const [nextIndex, setNextIndex] = useState(() =>
+    computeNextIndex(timesNumeric, snapshot, isIstiwa, transitStandard),
+  );
+  const onNextIndexChange = useCallback((index: number) => {
+    setNextIndex(index);
+  }, []);
+
+  const hijri = toHijri(
+    snapshot.getFullYear(),
+    snapshot.getMonth() + 1,
+    snapshot.getDate(),
+  );
+  const hijriDate = `${hijri.hd} ${HIJRI_MONTHS[hijri.hm - 1]} ${hijri.hy} H`;
+  const gregorian = `${DAY_NAMES[snapshot.getDay()]}, ${snapshot.getDate()} ${
+    MONTH_NAMES[snapshot.getMonth()]
+  } ${snapshot.getFullYear()}`;
 
   const rowAnim = prefersReducedMotion
     ? { initial: false }
     : { initial: { opacity: 0, y: 8 } };
 
   return (
-    <aside className="relative w-full max-w-md overflow-hidden border border-border/60 bg-background/40 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl lg:max-w-none">
+    <GlassPanel
+      as="aside"
+      className="w-full max-w-md overflow-hidden lg:max-w-none"
+    >
       {/* Masthead */}
       <motion.div
         {...(prefersReducedMotion ? { initial: false } : { initial: { opacity: 0 } })}
@@ -155,38 +259,13 @@ export function TaqwimFolio() {
         </span>
       </motion.div>
 
-      {/* Clock */}
-      <motion.div
-        {...(prefersReducedMotion ? { initial: false } : { initial: { opacity: 0, y: 10 } })}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.08, ease: EASE_OUT }}
-        className="border-b border-border/70 px-5 py-5 text-center"
-      >
-        <p className="font-data text-[2.6rem] font-semibold leading-none tabular-nums text-foreground">
-          {isIstiwa ? istiwaClockStr : standardClockStr}
-          <span className="ml-2 align-middle font-sans text-xs font-medium text-muted-foreground">
-            {isIstiwa ? "WIS" : HOME.timezoneName}
-          </span>
-        </p>
-        <p className="mt-2 font-data text-[10px] tabular-nums text-muted-foreground">
-          {isIstiwa ? `Waktu Istiwa' · selisih ${deltaStr}` : `Waktu ${HOME.timezoneName} · ihtiyat +3 menit`}
-        </p>
-      </motion.div>
-
-      {/* Menuju */}
-      <motion.div
-        {...(prefersReducedMotion ? { initial: false } : { initial: { opacity: 0, y: 8 } })}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.16, ease: EASE_OUT }}
-        className="flex items-center justify-between border-b border-border/70 bg-secondary/40 px-5 py-3"
-      >
-        <span className="font-sans text-[10px] font-medium uppercase text-muted-foreground">
-          Menuju {nextLabel}
-        </span>
-        <span className="font-data text-sm font-medium tabular-nums text-primary">
-          {pad(dh)}:{pad(dm)}:{pad(ds)}
-        </span>
-      </motion.div>
+      <LiveTaqwim
+        mode={mode}
+        timesNumeric={timesNumeric}
+        transitStandard={transitStandard}
+        deltaMinutes={deltaMinutes}
+        onNextIndexChange={onNextIndexChange}
+      />
 
       {/* Taqwim table */}
       <table className="w-full border-b border-border/70">
@@ -295,6 +374,6 @@ export function TaqwimFolio() {
           Selesai dihisab · {HOME_NAME} · {HOME.timezoneName}
         </p>
       </div>
-    </aside>
+    </GlassPanel>
   );
 }

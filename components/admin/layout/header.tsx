@@ -22,7 +22,7 @@ export function Header({ user }: Props) {
   const { isMobile, toggle, toggleMobile } = useSidebar();
 
   return (
-    <header className="flex h-12 items-center justify-between border-b border-border/50 bg-background px-4">
+    <header className="flex h-12 items-center justify-between border-b border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] px-4 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
       <div className="flex items-center gap-2">
         <Button
           variant="ghost"

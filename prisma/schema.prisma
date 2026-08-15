@@ -252,7 +252,7 @@ model WajibKhidmahLembaga {
   penanggungJawabFotoFileId      String?
 
   lokasiMadrasah                 WajibKhidmahLokasiMadrasah?
-  jenisSatuanPendidikan          WajibKhidmahSatuanPendidikan?
+  jenisSatuanPendidikan          WajibKhidmahSatuanPendidikan[]  @default([])
   jenisSatuanPendidikanLainnya   String?
   kitabBermakna                  String[]                       @default([])
   kitabBermaknaLainnya           String?

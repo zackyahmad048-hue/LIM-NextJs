@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { EASE_OUT, SPRING_LAYOUT } from "@/lib/ease";
+import { EASE_OUT, PRESS_SCALE, SPRING_LAYOUT } from "@/lib/ease";
 
 import { wajibKhidmahLembagaSchema } from "@/modules/twk-lembaga/validations/schema";
 import type { WajibKhidmahLembagaInput } from "@/modules/twk-lembaga/validations/schema";
@@ -55,7 +55,7 @@ function buildDefaultValues(): FormValues {
     penanggungJawabTelepon: "",
     penanggungJawabFotoFileId: "",
     lokasiMadrasah: "",
-    jenisSatuanPendidikan: "",
+    jenisSatuanPendidikan: [],
     jenisSatuanPendidikanLainnya: "",
     kitabBermakna: [],
     kitabBermaknaLainnya: "",
@@ -69,6 +69,7 @@ function buildDefaultValues(): FormValues {
     tugasGuruBantu: "",
     kitabDiajarkanGuruBantu: "",
     catatanCalonGuruBantu: "",
+    dokumenPermohonanFileId: "",
   };
 }
 
@@ -212,7 +213,7 @@ export function PermohonanWizard() {
                     aria-current={active ? "step" : undefined}
                     aria-label={`${item.label}: ${done ? "selesai" : active ? "sedang berlangsung" : "belum"}`}
                     whileHover={reduce ? undefined : { scale: 1.08 }}
-                    whileTap={reduce ? undefined : { scale: 0.94 }}
+                    whileTap={reduce ? undefined : { scale: PRESS_SCALE }}
                     transition={SPRING_LAYOUT}
                     onClick={() => {
                       if (index < step) setStep(index);
@@ -381,10 +382,8 @@ function appendFormData(formData: FormData, values: FormValues): void {
     "lokasiMadrasah",
     (values.lokasiMadrasah as string | undefined) || undefined,
   );
-  set(
-    "jenisSatuanPendidikan",
-    (values.jenisSatuanPendidikan as string | undefined) || undefined,
-  );
+  for (const v of values.jenisSatuanPendidikan ?? [])
+    formData.append("jenisSatuanPendidikan", v);
   set("jenisSatuanPendidikanLainnya", values.jenisSatuanPendidikanLainnya);
   for (const v of values.kitabBermakna ?? [])
     formData.append("kitabBermakna", v);

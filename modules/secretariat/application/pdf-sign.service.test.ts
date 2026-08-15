@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { PDFDocument, PDFName } from "pdf-lib";
 import { describe, expect, it } from "vitest";
 
@@ -11,8 +9,14 @@ import {
   composeSignedPdf,
 } from "./pdf-sign.service";
 import { renderQrPng } from "./qr-code";
+import { createExamplePdf } from "./example-pdf.fixture";
 
-const examplePdf = readFileSync(join(process.cwd(), "example-surat.pdf"));
+let examplePdf: Buffer | null = null;
+
+async function getExamplePdf(): Promise<Buffer> {
+  if (!examplePdf) examplePdf = await createExamplePdf();
+  return examplePdf;
+}
 
 function countPageXObjects(doc: PDFDocument): number {
   let count = 0;
@@ -29,6 +33,7 @@ function countPageXObjects(doc: PDFDocument): number {
 
 describe("composeSignedPdf", () => {
   it("menghasilkan PDF valid dengan jumlah halaman yang sama", async () => {
+    const examplePdf = await getExamplePdf();
     const source = await PDFDocument.load(examplePdf);
     const pageCountBefore = source.getPageCount();
 
@@ -51,6 +56,7 @@ describe("composeSignedPdf", () => {
   });
 
   it("menggunakan posisi default ketika posisi null", async () => {
+    const examplePdf = await getExamplePdf();
     const verifikasiPng = await renderQrPng("https://example.com/verifikasi");
 
     const output = await composeSignedPdf(examplePdf, {
@@ -65,6 +71,7 @@ describe("composeSignedPdf", () => {
   });
 
   it("menempel QR verifikasi di semua halaman", async () => {
+    const examplePdf = await getExamplePdf();
     const verifikasiPng = await renderQrPng("https://example.com/verifikasi");
 
     const sourceXObjects = countPageXObjects(await PDFDocument.load(examplePdf));

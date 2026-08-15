@@ -109,7 +109,7 @@ function formatDueDate(date: Date | null) {
 
 export function ActionQueue({ dispositions, counts }: ActionQueueProps) {
   return (
-    <SectionCard>
+    <SectionCard variant="glass">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">Perlu Tindakan</h2>

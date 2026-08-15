@@ -148,7 +148,7 @@ Visual emphasis should come primarily from:
 
 ## Public website — identitas "Oranye LIM"
 
-Situs publik memakai palet resmi Oranye LIM (aksen oranye di atas ground putih siang / `neutral-950` malam) — tanpa override token tersendiri. Karakter visualnya lahir dari layout dan tipografi: heading serif display (Newsreader), angka/data memakai font instrument mono (Spline Sans Mono), label Arab memakai Reem Kufi, tautan margin (foliot) dengan label kecil, dan "taqwim" hisab waktu shalat sebagai bukti keahlian di hero. Permukaan publik solid; kaca (glassmorphism) dipakai terbatas pada halaman login admin dan widget taqwim di hero. Detail token di `docs/08-design-system/colors.md` dan `typography.md`.
+Situs publik memakai palet resmi Oranye LIM (aksen oranye di atas ground putih siang / `neutral-950` malam) — tanpa override token tersendiri. Karakter visualnya lahir dari layout dan tipografi: heading serif display (Newsreader), angka/data memakai font instrument mono (Spline Sans Mono), label Arab memakai Reem Kufi, tautan margin (foliot) dengan label kecil, dan "taqwim" hisab waktu shalat sebagai bukti keahlian di hero. Glassmorphism ("Kaca Kristal") dipakai terbatas pada chrome (navbar saat scroll) dan kartu/panel (taqwim hero, kartu konten) — CSS-only, dengan fallback `prefers-reduced-transparency`. Permukaan data padat (tabel, form, teks panjang) tetap solid. Detail token di `docs/08-design-system/colors.md`, `theme.md`, dan `typography.md`.
 
 ---
 

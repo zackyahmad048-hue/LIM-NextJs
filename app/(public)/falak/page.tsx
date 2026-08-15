@@ -49,7 +49,7 @@ export default async function FalakPage() {
               <Link
                 key={tool.href}
                 href={tool.href}
-                className="group relative flex flex-col rounded-2xl border border-primary/15 bg-card p-6 transition-colors hover:border-primary/45"
+                className="group relative flex flex-col rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/45"
               >
                 <div className="flex items-center justify-end">
                   <Icon className="h-5 w-5 text-primary" />
@@ -63,7 +63,7 @@ export default async function FalakPage() {
                   {tool.description}
                 </p>
 
-                <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary transition-all group-hover:gap-3">
+                <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary transition-[gap] group-hover:gap-3">
                   <HubDot className="h-2 w-2" />
                   Buka Instrumen
                   <ArrowRight size={14} />
@@ -73,7 +73,7 @@ export default async function FalakPage() {
           })}
         </div>
 
-        <div className="mt-8 rounded-2xl border border-primary/15 bg-card p-6 sm:p-8">
+        <div className="mt-8 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] sm:p-8">
           <SectionLabel>Metode Perhitungan</SectionLabel>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
             {falak.metode}

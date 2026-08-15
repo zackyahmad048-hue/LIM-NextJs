@@ -88,7 +88,7 @@ function buildPayload(formData: FormData): Record<string, unknown> {
     ),
 
     lokasiMadrasah: readEnum(formData, "lokasiMadrasah"),
-    jenisSatuanPendidikan: readEnum(formData, "jenisSatuanPendidikan"),
+    jenisSatuanPendidikan: readStringArray(formData, "jenisSatuanPendidikan"),
     jenisSatuanPendidikanLainnya: readString(
       formData,
       "jenisSatuanPendidikanLainnya",

@@ -41,7 +41,7 @@ export default async function PengurusPusatPage() {
             {pengurus.map((orang) => (
               <div
                 key={orang.id}
-                className="group rounded-2xl border border-primary/15 bg-card p-5 transition-colors hover:border-primary/40"
+                className="group rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/40"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 font-sans text-sm text-primary">
                   {orang.image ? (

@@ -21,7 +21,7 @@ import {
   type UploadLembagaFileResult,
 } from "@/modules/twk-lembaga/presentation/lembaga.action";
 
-const PHOTO_MAX_BYTES = 2 * 1024 * 1024;
+const PHOTO_MAX_BYTES = 200 * 1024;
 const DOCUMENT_MAX_BYTES = 5 * 1024 * 1024;
 
 const PHOTO_MIME_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -78,7 +78,7 @@ export function FileUploadField({
       return;
     }
     if (selected.size > maxBytes) {
-      setError(`Ukuran file maksimal ${isFoto ? "2 MB" : "5 MB"}.`);
+      setError(`Ukuran file maksimal ${isFoto ? "200 KB" : "5 MB"}.`);
       return;
     }
 
@@ -181,12 +181,12 @@ export function FileUploadField({
             {uploading
               ? "Mengunggah..."
               : isFoto
-                ? "Pilih foto 3×4"
+                ? "Pilih foto format 3:4"
                 : "Pilih dokumen PDF"}
           </span>
           <span className="text-[11px] text-muted-foreground">
             {isFoto ? "JPG/PNG/WebP" : "PDF"} &middot; maksimal{" "}
-            {isFoto ? "2 MB" : "5 MB"}
+            {isFoto ? "200 KB" : "5 MB"}
           </span>
         </label>
       )}

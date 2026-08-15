@@ -26,7 +26,7 @@ export default async function Home() {
     <>
       <HeroClient hero={heroConfig} />
             {HOME_GRIDS.map((grid) => (
-        <PostGrid key={grid.categorySlug} grid={grid} />
+        <PostGrid key={grid.categorySlug} grid={grid} cardVariant="glass" />
       ))}
       <Suspense fallback={<Skeleton className="h-150 w-full rounded-none" />}>
         <About {...about} />

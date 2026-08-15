@@ -117,7 +117,7 @@ export default async function FalakDashboardPage() {
         />
       </div>
 
-      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
         <div className="flex items-start justify-between">
           <div>
             <h3 className="text-base font-semibold">Menu Falak</h3>
@@ -156,7 +156,7 @@ export default async function FalakDashboardPage() {
       </SectionCard>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard className="p-4">
+        <SectionCard variant="glass" className="p-4">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-foreground">
               Observasi Rukyat Terbaru
@@ -212,7 +212,7 @@ export default async function FalakDashboardPage() {
           )}
         </SectionCard>
 
-        <SectionCard className="p-4">
+        <SectionCard variant="glass" className="p-4">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-foreground">
               Eclipse Mendatang

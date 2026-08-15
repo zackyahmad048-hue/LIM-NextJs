@@ -56,7 +56,7 @@ export default async function FalakReportsPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard className="p-4">
+        <SectionCard variant="glass" className="p-4">
           <h3 className="font-semibold text-foreground">
             Statistik Hasil Rukyat
           </h3>
@@ -97,7 +97,7 @@ export default async function FalakReportsPage() {
           </div>
         </SectionCard>
 
-        <SectionCard className="p-4">
+        <SectionCard variant="glass" className="p-4">
           <h3 className="font-semibold text-foreground">Riwayat Eclipse</h3>
           {pastEclipses.length > 0 ? (
             <div className="mt-4 space-y-2">

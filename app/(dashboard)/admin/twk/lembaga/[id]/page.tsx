@@ -202,13 +202,11 @@ export default async function LembagaDetailPage({ params }: PageProps) {
                   : null
               }
             />
-            <Field
+            <FieldList
               label="Jenis Satuan Pendidikan"
-              value={
-                lembaga.jenisSatuanPendidikan
-                  ? SATUAN_PENDIDIKAN_LABELS[lembaga.jenisSatuanPendidikan]
-                  : null
-              }
+              values={lembaga.jenisSatuanPendidikan.map(
+                (value) => SATUAN_PENDIDIKAN_LABELS[value] ?? value,
+              )}
             />
             <Field
               label="Jenis Satuan Lainnya"

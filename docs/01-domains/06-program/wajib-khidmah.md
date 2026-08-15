@@ -102,11 +102,11 @@ Lembaga pemohon guru bantu adalah lembaga eksternal yang mengajukan permintaan t
 
 Model `WajibKhidmahLembaga` (`wajib_khidmah_lembaga`) berisi:
 
-1. **Identitas Lembaga** — nama, RT/RW, desa/kelurahan, kecamatan, kabupaten/kota, provinsi, telepon, media sosial.
-2. **Identitas Pemohon Guru Bantu** — dua blok pola sama: Pengasuh dan Penanggung Jawab. Masing-masing: nama, status (Alumni Lirboyo / Bukan Alumni / Wali Santri / Yang Lain), angkatan alumni (syarat Alumni), status lainnya (syarat "Yang Lain"), telepon, foto (3×4).
-3. **Kondisi Lembaga** — lokasi madrasah (dalam/luar pesantren), jenis satuan pendidikan (enum), kitab bermakna (multi: Jawa/Madura/Sunda/Lainnya), bahasa pengantar (multi: Indonesia/Lainnya), jumlah pengurus & santri (putra/putri).
-4. **Permohonan Guru Bantu** — jumlah guru bantu dimohon (1 atau 2), tugas yang diamanatkan, kitab yang akan diajarkan, catatan untuk calon guru bantu.
-5. **Upload File** — dokumen permohonan PDF maksimal 5 MB.
+1. **Identitas Lembaga** — nama, RT/RW, desa/kelurahan, kecamatan, kabupaten/kota, provinsi, telepon (semua wajib), media sosial (opsional).
+2. **Identitas Pemohon Guru Bantu** — dua blok pola sama: Pengasuh dan Penanggung Jawab (semua wajib). Masing-masing: nama, status (Alumni Lirboyo / Bukan Alumni / Wali Santri / Yang Lain), angkatan alumni (syarat Alumni), status lainnya (syarat "Yang Lain"), telepon, foto (format 3:4, maksimal 200 KB).
+3. **Kondisi Lembaga** — lokasi madrasah (dalam/luar pesantren, wajib), jenis satuan pendidikan (multi-select wajib), kitab bermakna (multi wajib: Jawa/Madura/Sunda/Lainnya), bahasa pengantar (multi wajib: Indonesia/Lainnya), jumlah pengurus & santri (putra/putri, wajib).
+4. **Permohonan Guru Bantu** — jumlah guru bantu dimohon (1 atau 2), tugas yang diamanatkan (wajib), kitab yang akan diajarkan (wajib), catatan untuk calon guru bantu (wajib).
+5. **Upload File** — dokumen permohonan PDF maksimal 5 MB (wajib).
 
 Relasi: `WajibKhidmahMember.lembagaId → WajibKhidmahLembaga.id` (opsional, `ON DELETE SET NULL`).
 

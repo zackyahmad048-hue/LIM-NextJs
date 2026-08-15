@@ -8,7 +8,7 @@ import {
   type Variants,
 } from "motion/react";
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { EASE_OUT, EASE_OUT_CSS, SPRING_PRESS, SPRING_SWAP } from "@/lib/ease";
+import { EASE_OUT, EASE_OUT_CSS, PRESS_SCALE, SPRING_PRESS, SPRING_SWAP } from "@/lib/ease";
 import { cn } from "@/lib/utils";
 
 export type ActionSwapItem = {
@@ -55,7 +55,7 @@ export interface ActionSwapIconProps {
   className?: string;
 }
 
-const BLUR_TRANSITION = { duration: 0.2, ease: "easeInOut" } as const;
+const BLUR_TRANSITION = { duration: 0.2, ease: EASE_OUT } as const;
 const ROLL_TRANSITION = SPRING_SWAP;
 const ROLL_EXIT_TRANSITION = { duration: 0.14, ease: EASE_OUT } as const;
 const SWAP_BLUR = "blur(8px)";
@@ -338,7 +338,7 @@ export function ActionSwapButton({
     <motion.button
       type="button"
       disabled={disabled}
-      whileTap={reduce || disabled ? undefined : { scale: 0.97 }}
+      whileTap={reduce || disabled ? undefined : { scale: PRESS_SCALE }}
       transition={SPRING_PRESS}
       className={cn(
         "inline-flex items-center justify-center overflow-hidden font-medium transition-colors",

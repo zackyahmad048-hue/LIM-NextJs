@@ -21,13 +21,21 @@ interface PostCardProps {
     publishedAt: Date | null;
     category: { name: string; slug: string };
   };
+  variant?: "default" | "glass";
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, variant = "default" }: PostCardProps) {
+  const glass = variant === "glass";
+
   return (
     <Link
       href={`/artikel/${post.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-primary/15 bg-card transition-colors hover:border-primary/40"
+      className={cn(
+        "group flex flex-col overflow-hidden rounded-2xl border transition-colors",
+        glass
+          ? "border-[var(--glass-border)] bg-[var(--glass-card-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] hover:border-primary/40"
+          : "border-primary/15 bg-card hover:border-primary/40",
+      )}
     >
       <div
         className={cn(

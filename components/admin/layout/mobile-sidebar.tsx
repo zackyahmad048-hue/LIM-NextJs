@@ -28,7 +28,7 @@ export function MobileSidebar({ roleSlugs }: Props) {
     <Sheet open={mobileOpen} onOpenChange={closeMobile}>
       <SheetContent
         side="left"
-        className="w-72 bg-background p-0"
+        className="w-72 border-r border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] p-0 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]"
       >
         <SheetHeader className="sr-only">
           <SheetTitle>Menu Admin</SheetTitle>

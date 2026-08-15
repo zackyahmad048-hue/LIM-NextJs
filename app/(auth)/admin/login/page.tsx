@@ -21,7 +21,7 @@ export default function LoginPage() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, ease: EASE_OUT }}
         >
-          <Card className="overflow-hidden border border-border/40 bg-background/55 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-2xl">
+          <Card className="overflow-hidden border border-[var(--glass-border)] bg-[var(--glass-card-bg)] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.5),var(--glass-highlight)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
             <CardContent className="p-6">
               <motion.div
                 initial={{ opacity: 0, y: 14 }}

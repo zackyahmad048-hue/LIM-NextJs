@@ -28,7 +28,7 @@ export default async function LembagaListPage({ searchParams }: PageProps) {
         description="Daftar lembaga eksternal yang mengajukan permohonan guru bantu."
       />
 
-      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
@@ -57,7 +57,7 @@ export default async function LembagaListPage({ searchParams }: PageProps) {
         </div>
       </SectionCard>
 
-      <SectionCard className="rounded-lg bg-background p-0 shadow-none">
+      <SectionCard variant="glass" className="rounded-lg p-0 shadow-none">
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <Building2 className="mb-4 h-12 w-12 text-muted-foreground" />

@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { PRESS_SCALE } from "@/lib/ease";
 
 import { authClient } from "@/modules/authentication/infrastructure/better-auth-client";
 import {
@@ -54,7 +55,7 @@ export default function LoginForm() {
           Email
         </label>
 
-        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-[border-color,box-shadow] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
           <Mail size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
 
           <input
@@ -82,7 +83,7 @@ export default function LoginForm() {
           Password
         </label>
 
-        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
+        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-[border-color,box-shadow] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
           <Lock size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
 
           <input
@@ -128,7 +129,7 @@ export default function LoginForm() {
       </div>
 
       <motion.button
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: PRESS_SCALE }}
         whileHover={{ scale: 1.01 }}
         type="submit"
         disabled={isSubmitting}

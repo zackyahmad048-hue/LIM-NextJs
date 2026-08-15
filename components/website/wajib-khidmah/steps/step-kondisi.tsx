@@ -29,14 +29,16 @@ function NumberField({
   id,
   value,
   onChange,
+  required = false,
 }: {
   label: string;
   id: string;
   value: number | "" | undefined;
   onChange(v: number | ""): void;
+  required?: boolean;
 }) {
   return (
-    <FieldWrapper label={label}>
+    <FieldWrapper label={label} required={required}>
       <input
         id={id}
         type="number"
@@ -61,17 +63,24 @@ function NumberField({
 function MultiCheck({
   label,
   options,
+  labels,
   selected,
   onToggle,
+  required = false,
 }: {
   label: string;
   options: readonly string[];
+  labels?: Record<string, string>;
   selected: string[];
   onToggle(value: string): void;
+  required?: boolean;
 }) {
   return (
     <div className="space-y-2">
-      <div className="text-sm font-medium">{label}</div>
+      <div className="text-sm font-medium">
+        {label}
+        {required && <span className="text-destructive"> *</span>}
+      </div>
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
           const checked = selected.includes(option);
@@ -90,7 +99,7 @@ function MultiCheck({
                 checked={checked}
                 onChange={() => onToggle(option)}
               />
-              {option}
+              {labels?.[option] ?? option}
             </label>
           );
         })}
@@ -104,8 +113,9 @@ export function StepKondisi({ form }: Props) {
 
   const lokasi = (watch("lokasiMadrasah") ?? "") as
     WajibKhidmahLokasiMadrasah | "";
-  const jenis = (watch("jenisSatuanPendidikan") ?? "") as
-    WajibKhidmahSatuanPendidikan | "";
+
+  const jenis = (watch("jenisSatuanPendidikan") ?? []) as
+    WajibKhidmahSatuanPendidikan[];
 
   return (
     <StepCard
@@ -115,7 +125,10 @@ export function StepKondisi({ form }: Props) {
       <div className="space-y-5">
         {/* Lokasi */}
         <div className="space-y-2">
-          <div className="text-sm font-medium">Lokasi Madrasah</div>
+          <div className="text-sm font-medium">
+            Lokasi Madrasah
+            <span className="text-destructive"> *</span>
+          </div>
           <div className="grid gap-2 sm:grid-cols-2">
             {LOKASI_MADRASAH.map((value) => {
               const selected = lokasi === value;
@@ -145,43 +158,37 @@ export function StepKondisi({ form }: Props) {
               );
             })}
           </div>
+          {form.formState.errors.lokasiMadrasah && (
+            <p className="text-xs text-destructive">
+              {form.formState.errors.lokasiMadrasah.message}
+            </p>
+          )}
         </div>
 
         {/* Jenis satuan pendidikan */}
-        <div className="space-y-2">
-          <div className="text-sm font-medium">Jenis Satuan Pendidikan</div>
-          <div className="grid gap-2 sm:grid-cols-2">
-            {SATUAN_PENDIDIKAN.map((value) => {
-              const selected = jenis === value;
-              return (
-                <label
-                  key={value}
-                  className={cn(
-                    "flex cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2 text-sm transition-colors",
-                    selected ? "border-primary bg-primary/5" : "border-input",
-                  )}
-                  aria-checked={selected}
-                >
-                  <input
-                    type="radio"
-                    name="jenisSatuanPendidikan"
-                    value={value}
-                    checked={selected}
-                    onChange={() =>
-                      form.setValue("jenisSatuanPendidikan", value, {
-                        shouldValidate: true,
-                      })
-                    }
-                    className="size-4 accent-primary"
-                  />
-                  {SATUAN_PENDIDIKAN_LABELS[value]}
-                </label>
-              );
-            })}
-          </div>
-        </div>
+        <MultiCheck
+          label="Jenis Satuan Pendidikan"
+          required
+          options={SATUAN_PENDIDIKAN}
+          labels={SATUAN_PENDIDIKAN_LABELS}
+          selected={jenis}
+          onToggle={(value) => {
+            const current = jenis;
+            const next = current.includes(value as never)
+              ? current.filter((v) => v !== value)
+              : [...current, value];
+            form.setValue("jenisSatuanPendidikan", next as never, {
+              shouldValidate: true,
+            });
+          }}
+        />
+        {form.formState.errors.jenisSatuanPendidikan && (
+          <p className="text-xs text-destructive">
+            {form.formState.errors.jenisSatuanPendidikan.message}
+          </p>
+        )}
 
-        <Reveal show={jenis === "LAINNYA"}>
+        <Reveal show={jenis.includes("LAINNYA")}>
           <TextField
             label="Jenis Satuan Pendidikan Lainnya"
             id="jenis-lainnya"
@@ -199,6 +206,7 @@ export function StepKondisi({ form }: Props) {
         {/* Kitab bermakna */}
         <MultiCheck
           label="Kitab yang Diajarkan Bermakna"
+          required
           options={KITAB_BERMAKNA_OPTIONS}
           selected={(form.watch("kitabBermakna") ?? []) as string[]}
           onToggle={(value) => {
@@ -211,6 +219,11 @@ export function StepKondisi({ form }: Props) {
             });
           }}
         />
+        {form.formState.errors.kitabBermakna && (
+          <p className="text-xs text-destructive">
+            {form.formState.errors.kitabBermakna.message}
+          </p>
+        )}
 
         <Reveal show={(form.watch("kitabBermakna") ?? []).includes("Lainnya")}>
           <TextField
@@ -225,6 +238,7 @@ export function StepKondisi({ form }: Props) {
         {/* Bahasa pengantar */}
         <MultiCheck
           label="Bahasa Pengantar dalam Kegiatan Belajar"
+          required
           options={BAHASA_PENGANTAR_OPTIONS}
           selected={(form.watch("bahasaPengantar") ?? []) as string[]}
           onToggle={(value) => {
@@ -237,6 +251,11 @@ export function StepKondisi({ form }: Props) {
             });
           }}
         />
+        {form.formState.errors.bahasaPengantar && (
+          <p className="text-xs text-destructive">
+            {form.formState.errors.bahasaPengantar.message}
+          </p>
+        )}
 
         <Reveal
           show={(form.watch("bahasaPengantar") ?? []).includes("Lainnya")}
@@ -253,17 +272,22 @@ export function StepKondisi({ form }: Props) {
         {/* Jumlah */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-border/60 p-4">
-            <p className="mb-3 text-sm font-semibold">Jumlah Pengurus</p>
+            <p className="mb-3 text-sm font-semibold">
+              Jumlah Pengurus
+              <span className="text-destructive"> *</span>
+            </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <NumberField
                 label="Putra"
                 id="jumlahPengurusPutra"
+                required
                 value={form.watch("jumlahPengurusPutra")}
                 onChange={(v) => form.setValue("jumlahPengurusPutra", v)}
               />
               <NumberField
                 label="Putri"
                 id="jumlahPengurusPutri"
+                required
                 value={form.watch("jumlahPengurusPutri")}
                 onChange={(v) => form.setValue("jumlahPengurusPutri", v)}
               />
@@ -271,17 +295,22 @@ export function StepKondisi({ form }: Props) {
           </div>
 
           <div className="rounded-xl border border-border/60 p-4">
-            <p className="mb-3 text-sm font-semibold">Jumlah Santri</p>
+            <p className="mb-3 text-sm font-semibold">
+              Jumlah Santri
+              <span className="text-destructive"> *</span>
+            </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <NumberField
                 label="Putra"
                 id="jumlahSantriPutra"
+                required
                 value={form.watch("jumlahSantriPutra")}
                 onChange={(v) => form.setValue("jumlahSantriPutra", v)}
               />
               <NumberField
                 label="Putri"
                 id="jumlahSantriPutri"
+                required
                 value={form.watch("jumlahSantriPutri")}
                 onChange={(v) => form.setValue("jumlahSantriPutri", v)}
               />

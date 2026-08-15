@@ -121,6 +121,32 @@ Perubahan Theme harus diterapkan tanpa memuat ulang aplikasi.
 
 ---
 
+# Glassmorphism ("Kaca Kristal")
+
+Glassmorphism dipakai terbatas pada **chrome** dan **kartu**, bukan permukaan luas.
+
+Permukaan yang boleh kaca:
+
+- Navbar (publik) saat scroll.
+- Sidebar & topbar admin.
+- Kartu/panel ringkasan (taqwim hero, kartu dashboard, kartu modul, kartu konten).
+
+Permukaan yang **wajib solid**:
+
+- Tabel, form, teks panjang/artikel, area data padat, kartu media gambar.
+
+Implementasi:
+
+- CSS-only via token `--glass-*` di `app/globals.css` (berlaku global publik & admin).
+- `--glass-chrome-bg`: scrim chrome (~80–85% opak, pola Apple).
+- `--glass-card-bg`: kartu translusen (~65–70%, pola Fey).
+- `--glass-blur`: 20px desktop / 12px mobile.
+- `--glass-saturate`: 1.8 (menjaga keterbacaan teks di atas konten di belakangnya).
+- Fallback `prefers-reduced-transparency` → permukaan menjadi solid.
+- Transisi hanya `transform`/`opacity`/`color` (jalur kompositor).
+
+---
+
 # Theme Scope
 
 Theme diterapkan pada:

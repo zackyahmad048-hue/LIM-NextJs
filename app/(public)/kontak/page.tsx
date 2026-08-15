@@ -46,7 +46,7 @@ export default async function KontakPage() {
           {contacts.map((item) => (
             <div
               key={item.title}
-              className="rounded-2xl border border-primary/15 bg-card p-6 text-center transition-colors hover:border-primary/40"
+              className="rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 text-center backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/40"
             >
               <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10">
                 <item.icon size={18} className="text-primary" />

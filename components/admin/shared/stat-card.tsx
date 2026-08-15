@@ -17,7 +17,7 @@ export function StatCard({
   icon: Icon,
 }: StatCardProps) {
   return (
-    <SectionCard>
+    <SectionCard variant="glass">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <p className="flex items-center gap-1.5 text-sm text-muted-foreground">

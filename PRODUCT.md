@@ -38,14 +38,15 @@ Kredibilitas Lirboyo — otoritas pesantren salaf terkemuka. Yang membedakan: na
 - Situs publik: beranda, profil (tentang, visi-misi, pengurus pusat), artikel, media, kontak, layanan falak (jadwal shalat, kiblat, kalender Hijriah, hisab, rukyat, eclipse) dengan REST API publik.
 - Admin CMS: konten (posts, kategori, halaman, media), homepage (hero, about), falak, program, sekretariat (surat, disposisi, agenda, arsip), sistem (users, roles).
 - Mobile-first; dark mode default dengan toggle; dual-mode untuk seluruh permukaan (keputusan yang sudah dikonfirmasi sebelumnya — detail visual dipertanyakan lagi oleh pemilik).
-- Font Hanken Grotesk (situs) + Reem Kufi (label) sudah dimuat via next/font.
+- Font Hanken Grotesk (situs) + Newsreader (display) + Spline Sans Mono (data) + Reem Kufi (Arab). Catatan deviasi: `layout.tsx` juga memuat Roboto sebagai `--font-sans` — perlu dibersihkan.
+- Glassmorphism ("Kaca Kristal") dipakai terbatas pada **chrome** (navbar, sidebar admin, topbar) dan **kartu/panel** (taqwim hero, kartu dashboard, kartu konten), CSS-only dengan fallback `prefers-reduced-transparency`. Tabel, form, dan teks panjang tetap solid.
 - Aset: logo.png, orangelim.png, iksadari.JPG (foto hero saat ini).
 - Konten artikel/media saat ini masih placeholder di beberapa halaman (dummy).
 
 ## Brand Commitments
 
 - Nama organisasi: Lembaga Ittihadul Muballighin (LIM); tagline "Menebar Dakwah, Memasyarakatkan Pesantren".
-- Keputusan terdahulu (grilling): mobile-first, glassmorphism, dual-mode, default dark, hamburger nav — **pemilik menyatakan tampilan hasilnya "jelek banget" dan meminta dunia visual baru dari nol**; keputusan warna/aksen/bahan boleh diganti, keputusan fungsional (mobile-first, dual-mode, default dark, hamburger) tetap berlaku.
+- Keputusan terdahulu (grilling): mobile-first, glassmorphism, dual-mode, default dark, hamburger nav — **pemilik menyatakan tampilan hasilnya "jelek banget" dan meminta dunia visual baru dari nol**; keputusan warna/aksen/bahan boleh diganti, keputusan fungsional (mobile-first, dual-mode, default dark, hamburger) tetap berlaku. Glassmorphism kini dikembalikan secara terbatas ("Kaca Kristal"): hanya chrome + kartu, bukan permukaan luas/aurora.
 - Bahasa situs: Indonesia; slug rute Bahasa Indonesia.
 - Narasi dan copy ditulis sendiri oleh pemilik untuk tahap lanjut.
 

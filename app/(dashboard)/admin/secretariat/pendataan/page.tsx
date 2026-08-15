@@ -86,25 +86,25 @@ export default async function PendataanPage() {
       />
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <SectionCard className="rounded-lg p-4">
+        <SectionCard variant="glass" className="rounded-lg p-4">
           <p className="text-xs text-muted-foreground">Pengurus Pusat</p>
           <p className="mt-1 text-2xl font-semibold tabular-nums">
             {stats.unitCount.PP}
           </p>
         </SectionCard>
-        <SectionCard className="rounded-lg p-4">
+        <SectionCard variant="glass" className="rounded-lg p-4">
           <p className="text-xs text-muted-foreground">Pengurus Wilayah</p>
           <p className="mt-1 text-2xl font-semibold tabular-nums">
             {stats.unitCount.PW}
           </p>
         </SectionCard>
-        <SectionCard className="rounded-lg p-4">
+        <SectionCard variant="glass" className="rounded-lg p-4">
           <p className="text-xs text-muted-foreground">Pengurus Cabang</p>
           <p className="mt-1 text-2xl font-semibold tabular-nums">
             {stats.unitCount.PC}
           </p>
         </SectionCard>
-        <SectionCard className="rounded-lg p-4">
+        <SectionCard variant="glass" className="rounded-lg p-4">
           <p className="text-xs text-muted-foreground">Pengurus Terdata</p>
           <p className="mt-1 text-2xl font-semibold tabular-nums">
             {stats.totalOfficers}

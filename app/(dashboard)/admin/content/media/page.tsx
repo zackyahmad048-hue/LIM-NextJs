@@ -58,7 +58,7 @@ export default async function MediaPage() {
       </div>
 
       {mediaItems.length === 0 && (
-        <SectionCard className="rounded-lg bg-background p-8 text-center shadow-none">
+        <SectionCard variant="glass" className="rounded-lg p-8 text-center shadow-none">
           <div className="mx-auto flex size-10 items-center justify-center rounded-md bg-muted text-muted-foreground">
             <ImageIcon className="size-5" />
           </div>

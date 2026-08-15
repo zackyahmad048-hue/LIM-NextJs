@@ -52,20 +52,30 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
     label: STATUS_PEMOHON_LABELS[value],
   }));
 
+  const statusError = form.formState.errors[statusKey];
+  const namaError = form.formState.errors[namaKey];
+  const teleponError = form.formState.errors[teleponKey];
+
   return (
     <div className="space-y-5">
-      <TextField
-        label={`Nama ${title}`}
-        id={`${prefix}-nama`}
-        required
-        value={nama}
-        onChange={(v) => form.setValue(namaKey, v, { shouldValidate: true })}
-        placeholder={`Nama lengkap ${title.toLowerCase()}`}
-      />
+      <div className="space-y-1.5">
+        <TextField
+          label={`Nama ${title}`}
+          id={`${prefix}-nama`}
+          required
+          value={nama}
+          onChange={(v) => form.setValue(namaKey, v, { shouldValidate: true })}
+          placeholder={`Nama lengkap ${title.toLowerCase()}`}
+        />
+        {namaError && (
+          <p className="text-xs text-destructive">{namaError.message}</p>
+        )}
+      </div>
 
       <div className="space-y-2">
         <div id={`${prefix}-status-label`} className="text-sm font-medium">
           Status {title}
+          <span className="text-destructive"> *</span>
         </div>
         <div
           role="radiogroup"
@@ -97,6 +107,9 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
             );
           })}
         </div>
+        {statusError && (
+          <p className="text-xs text-destructive">{statusError.message}</p>
+        )}
 
         <Reveal show={isAlumni}>
           <TextField
@@ -129,19 +142,26 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-3">
+        <div className="space-y-1.5">
           <TextField
             label={`Nomor Telepon ${title}`}
             id={`${prefix}-telepon`}
+            required
             value={telepon}
-            onChange={(v) => form.setValue(teleponKey, v)}
+            onChange={(v) =>
+              form.setValue(teleponKey, v, { shouldValidate: true })
+            }
             placeholder="08xxxxxxxxxx"
           />
+          {teleponError && (
+            <p className="text-xs text-destructive">{teleponError.message}</p>
+          )}
         </div>
         <FileUploadField
           label={`Foto ${title}`}
-          description="Pas foto 3×4."
+          description="Format 3:4, maksimal 200 KB."
           kind="foto"
+          required
           onChange={(v) => form.setValue(fotoKey, v ?? "")}
         />
       </div>

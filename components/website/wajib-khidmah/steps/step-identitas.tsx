@@ -37,54 +37,100 @@ export function StepIdentitas({ form }: Props) {
         )}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <TextField
-            label="RT/RW"
-            id="rtRw"
-            value={form.watch("rtRw") ?? ""}
-            onChange={(v) => form.setValue("rtRw", v)}
-            placeholder="Contoh: 001/003"
-          />
-          <TextField
-            label="Desa/Kelurahan"
-            id="desaKelurahan"
-            value={form.watch("desaKelurahan") ?? ""}
-            onChange={(v) => form.setValue("desaKelurahan", v)}
-            placeholder="Nama desa/kelurahan"
-          />
+          <div className="space-y-1.5">
+            <TextField
+              label="RT/RW"
+              id="rtRw"
+              required
+              value={form.watch("rtRw") ?? ""}
+              onChange={(v) => form.setValue("rtRw", v, { shouldValidate: true })}
+              placeholder="Contoh: 001/003"
+            />
+            {e.rtRw && (
+              <p className="text-xs text-destructive">{e.rtRw.message}</p>
+            )}
+          </div>
+          <div className="space-y-1.5">
+            <TextField
+              label="Desa/Kelurahan"
+              id="desaKelurahan"
+              required
+              value={form.watch("desaKelurahan") ?? ""}
+              onChange={(v) =>
+                form.setValue("desaKelurahan", v, { shouldValidate: true })
+              }
+              placeholder="Nama desa/kelurahan"
+            />
+            {e.desaKelurahan && (
+              <p className="text-xs text-destructive">{e.desaKelurahan.message}</p>
+            )}
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <TextField
-            label="Kecamatan"
-            id="kecamatan"
-            value={form.watch("kecamatan") ?? ""}
-            onChange={(v) => form.setValue("kecamatan", v)}
-            placeholder="Nama kecamatan"
-          />
-          <TextField
-            label="Kabupaten/Kota"
-            id="kabupatenKota"
-            value={form.watch("kabupatenKota") ?? ""}
-            onChange={(v) => form.setValue("kabupatenKota", v)}
-            placeholder="Nama kabupaten/kota"
-          />
+          <div className="space-y-1.5">
+            <TextField
+              label="Kecamatan"
+              id="kecamatan"
+              required
+              value={form.watch("kecamatan") ?? ""}
+              onChange={(v) =>
+                form.setValue("kecamatan", v, { shouldValidate: true })
+              }
+              placeholder="Nama kecamatan"
+            />
+            {e.kecamatan && (
+              <p className="text-xs text-destructive">{e.kecamatan.message}</p>
+            )}
+          </div>
+          <div className="space-y-1.5">
+            <TextField
+              label="Kabupaten/Kota"
+              id="kabupatenKota"
+              required
+              value={form.watch("kabupatenKota") ?? ""}
+              onChange={(v) =>
+                form.setValue("kabupatenKota", v, { shouldValidate: true })
+              }
+              placeholder="Nama kabupaten/kota"
+            />
+            {e.kabupatenKota && (
+              <p className="text-xs text-destructive">{e.kabupatenKota.message}</p>
+            )}
+          </div>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <TextField
-            label="Provinsi"
-            id="provinsi"
-            value={form.watch("provinsi") ?? ""}
-            onChange={(v) => form.setValue("provinsi", v)}
-            placeholder="Nama provinsi"
-          />
-          <TextField
-            label="Nomor Telepon Lembaga"
-            id="teleponLembaga"
-            value={form.watch("teleponLembaga") ?? ""}
-            onChange={(v) => form.setValue("teleponLembaga", v)}
-            placeholder="08xxxxxxxxxx"
-          />
+          <div className="space-y-1.5">
+            <TextField
+              label="Provinsi"
+              id="provinsi"
+              required
+              value={form.watch("provinsi") ?? ""}
+              onChange={(v) =>
+                form.setValue("provinsi", v, { shouldValidate: true })
+              }
+              placeholder="Nama provinsi"
+            />
+            {e.provinsi && (
+              <p className="text-xs text-destructive">{e.provinsi.message}</p>
+            )}
+          </div>
+          <div className="space-y-1.5">
+            <TextField
+              label="Nomor Telepon Lembaga"
+              id="teleponLembaga"
+              required
+              value={form.watch("teleponLembaga") ?? ""}
+              onChange={(v) =>
+                form.setValue("teleponLembaga", v, { shouldValidate: true })
+              }
+              placeholder="08xxxxxxxxxx"
+            />
+            {e.teleponLembaga && (
+              <p className="text-xs text-destructive">{e.teleponLembaga.message}</p>
+            )}
+          </div>
         </div>
 
         <FieldWrapper label="Akun Media Sosial Lembaga (jika ada)">

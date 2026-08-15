@@ -7,7 +7,13 @@ import { Button } from "@/components/ui/button";
 import { getPublishedPostsByCategorySlug } from "@/modules/cms";
 import type { HomeGridConfig } from "@/config/home";
 
-export default async function PostGrid({ grid }: { grid: HomeGridConfig }) {
+export default async function PostGrid({
+  grid,
+  cardVariant = "default",
+}: {
+  grid: HomeGridConfig;
+  cardVariant?: "default" | "glass";
+}) {
   const posts = await getPublishedPostsByCategorySlug(
     grid.categorySlug,
     grid.limit,
@@ -39,7 +45,7 @@ export default async function PostGrid({ grid }: { grid: HomeGridConfig }) {
         {posts.length > 0 ? (
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard key={post.id} post={post} variant={cardVariant} />
             ))}
           </div>
         ) : (

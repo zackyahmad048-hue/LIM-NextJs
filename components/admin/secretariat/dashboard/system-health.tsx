@@ -25,7 +25,7 @@ export function SystemHealth({
     missingAttachments.documents;
 
   return (
-    <SectionCard>
+    <SectionCard variant="glass">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">Kesehatan Sistem</h2>

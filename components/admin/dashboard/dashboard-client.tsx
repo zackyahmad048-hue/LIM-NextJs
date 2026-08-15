@@ -165,7 +165,7 @@ export function DashboardClient({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4 rounded-xl border bg-card p-5">
+      <div className="flex items-center gap-4 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
         <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
           {user.image ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -198,7 +198,7 @@ export function DashboardClient({
             <Link
               key={mod.href}
               href={mod.href}
-              className="group flex items-start gap-4 rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+              className="group flex items-start gap-4 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 shadow-sm backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/30 hover:bg-primary/5"
             >
               <div
                 className={cn("flex size-10 shrink-0 items-center justify-center rounded-lg", mod.color)}
@@ -219,7 +219,7 @@ export function DashboardClient({
         })}
       </div>
 
-      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
         <div className="flex items-center gap-3">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-sky-100 text-sky-600 dark:bg-sky-950/50">
             <Building2 className="size-4" />
@@ -258,7 +258,7 @@ export function DashboardClient({
         )}
       </SectionCard>
 
-      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
         <div className="flex items-center gap-3">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-orange-100 text-orange-600 dark:bg-orange-950/50">
             <Building2 className="size-4" />

@@ -72,8 +72,8 @@ export default function RouteMap() {
                 fill="var(--card)"
                 stroke="var(--primary)"
                 strokeWidth={1.5}
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
+                initial={{ scale: 0.4, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: 1.15, ease: EASE_OUT }}
                 style={{ transformBox: "fill-box", transformOrigin: "center" }}

@@ -54,6 +54,7 @@ export function StepPermohonan({ form }: Props) {
         <TextField
           label="Tugas yang Diamanatkan kepada Guru Bantu"
           id="tugas"
+          required
           value={form.watch("tugasGuruBantu") ?? ""}
           onChange={(v) => form.setValue("tugasGuruBantu", v)}
           placeholder="Contoh: Mengajar TPQ, membantu pengurus madrasah"
@@ -62,12 +63,13 @@ export function StepPermohonan({ form }: Props) {
         <TextField
           label="Kitab yang Akan Diajarkan oleh Guru Bantu"
           id="kitab"
+          required
           value={form.watch("kitabDiajarkanGuruBantu") ?? ""}
           onChange={(v) => form.setValue("kitabDiajarkanGuruBantu", v)}
           placeholder="Contoh: Tashrif, Nahwu Shorof, Fiqh"
         />
 
-        <FieldWrapper label="Catatan untuk Calon Guru Bantu">
+        <FieldWrapper label="Catatan untuk Calon Guru Bantu" required>
           <textarea
             id="catatan"
             rows={4}
@@ -75,7 +77,7 @@ export function StepPermohonan({ form }: Props) {
             onChange={(event) =>
               form.setValue("catatanCalonGuruBantu", event.target.value)
             }
-            placeholder="Catatan tambahan bagi calon guru bantu (opsional)."
+            placeholder="Catatan tambahan bagi calon guru bantu."
             className="min-h-24 w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
           />
         </FieldWrapper>
@@ -84,6 +86,7 @@ export function StepPermohonan({ form }: Props) {
           label="Dokumen Permohonan"
           description="Surat permohonan dalam format PDF, maksimal 5 MB."
           kind="dokumen"
+          required
           onChange={(v) => form.setValue("dokumenPermohonanFileId", v ?? "")}
         />
       </div>

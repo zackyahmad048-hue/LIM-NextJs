@@ -121,7 +121,7 @@ export interface WajibKhidmahLembagaEntity {
   penanggungJawabFotoFileId: string | null;
 
   lokasiMadrasah: WajibKhidmahLokasiMadrasah | null;
-  jenisSatuanPendidikan: WajibKhidmahSatuanPendidikan | null;
+  jenisSatuanPendidikan: WajibKhidmahSatuanPendidikan[];
   jenisSatuanPendidikanLainnya: string | null;
   kitabBermakna: string[];
   kitabBermaknaLainnya: string | null;
@@ -167,7 +167,7 @@ export interface WajibKhidmahLembagaCreateInput {
   penanggungJawabFotoFileId?: string | null;
 
   lokasiMadrasah?: WajibKhidmahLokasiMadrasah | null;
-  jenisSatuanPendidikan?: WajibKhidmahSatuanPendidikan | null;
+  jenisSatuanPendidikan?: WajibKhidmahSatuanPendidikan[];
   jenisSatuanPendidikanLainnya?: string | null;
   kitabBermakna?: string[];
   kitabBermaknaLainnya?: string | null;

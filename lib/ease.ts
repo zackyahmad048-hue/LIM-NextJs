@@ -6,6 +6,8 @@ export const EASE_DRAWER = "easeOut" as const;
 export const EASE_OUT_CSS = "ease-out";
 
 /** Press feedback on buttons and other tappable surfaces. */
+export const PRESS_SCALE = 0.97 as const;
+
 export const SPRING_PRESS = {
   type: "spring",
   stiffness: 500,

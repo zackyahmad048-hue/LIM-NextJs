@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import { ChevronDown, ChevronRight, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -44,11 +45,28 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [profilOpen, setProfilOpen] = useState(false);
   const [bidangOpen, setBidangOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 8);
+  });
+
+  const glassActive =
+    !prefersReducedMotion && scrolled && typeof window !== "undefined";
 
   const profilActive = pathname.startsWith("/profil");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b transition-colors duration-300",
+        glassActive
+          ? "border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]"
+          : "border-border bg-background",
+      )}
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link href="/" className="group flex shrink-0 items-center gap-3">
           <Image

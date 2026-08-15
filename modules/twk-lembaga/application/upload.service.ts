@@ -2,7 +2,7 @@ import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { storage } from "@/modules/shared/infrastructure/storage";
 import { LembagaValidationError } from "../domain/lembaga.errors";
 
-export const MAX_PHOTO_BYTES = 2 * 1024 * 1024;
+export const MAX_PHOTO_BYTES = 200 * 1024;
 export const MAX_DOCUMENT_BYTES = 5 * 1024 * 1024;
 
 const PDF_MAGIC = Buffer.from("%PDF-", "latin1");
@@ -38,7 +38,7 @@ async function validate(file: File, kind: LembagaUploadKind): Promise<Buffer> {
     }
   } else {
     if (file.size > MAX_PHOTO_BYTES) {
-      throw new LembagaValidationError("Ukuran foto maksimal 2 MB.");
+      throw new LembagaValidationError("Ukuran foto maksimal 200 KB.");
     }
     if (!IMAGE_MIME_TYPES.has(file.type)) {
       throw new LembagaValidationError(
