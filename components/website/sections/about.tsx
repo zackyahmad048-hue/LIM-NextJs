@@ -1,18 +1,18 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { motion } from "motion/react";
+import { Button } from "@/components/ui/button";
+import AboutCard from "@/components/website/cards/about-card";
+import FolioSection from "@/components/website/taqwim/folio-section";
 import {
-  fadeUp,
   fadeLeft,
   fadeRight,
+  fadeUp,
   staggerContainer,
 } from "@/modules/shared/utils/motion";
-import FolioSection from "@/components/website/taqwim/folio-section";
-import AboutCard from "@/components/website/cards/about-card";
-import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface AboutFeature {
   title: string;
@@ -70,7 +70,7 @@ export default function About({
                 className="absolute -inset-3 border border-border bg-muted/40"
                 aria-hidden
               />
-              <div className="relative aspect-[4/3] overflow-hidden lg:aspect-[4/5]">
+              <div className="relative aspect-4/3 overflow-hidden lg:aspect-4/5">
                 <Image
                   src={image}
                   alt={title}

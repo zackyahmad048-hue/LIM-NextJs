@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect } from "react";
+import { motion, useAnimationControls, useReducedMotion } from "motion/react";
 import { EASE_OUT } from "@/lib/ease";
 
 interface RevealProps {
@@ -17,17 +18,21 @@ export default function Reveal({
   className,
 }: RevealProps) {
   const reduced = useReducedMotion();
+  const controls = useAnimationControls();
   const x = from === "left" ? -28 : 28;
 
-  if (reduced) {
-    return <div className={className}>{children}</div>;
-  }
+  useEffect(() => {
+    if (reduced) {
+      controls.set({ opacity: 1, x: 0 });
+    }
+  }, [reduced, controls]);
 
   return (
     <motion.div
       initial={{ opacity: 0, x }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      animate={controls}
+      whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+      viewport={reduced ? undefined : { once: true, amount: 0.2 }}
       transition={{ duration: 0.6, delay, ease: EASE_OUT }}
       className={className}
     >

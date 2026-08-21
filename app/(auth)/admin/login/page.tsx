@@ -1,19 +1,43 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { useSyncExternalStore } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
-import AuroraBackground from "@/components/motion/aurora-background";
+import LiquidEther from "@/components/LiquidEther";
 import LoginForm from "@/modules/authentication/presentation/login-form";
 import { EASE_OUT } from "@/lib/ease";
+import {
+  MOTION_QUALITY_SCALE,
+  useMotionQuality,
+} from "@/hooks/use-motion-quality";
+
+const emptySubscribe = () => () => {};
 
 export default function LoginPage() {
+  const prefersReducedMotion = useReducedMotion();
+  const quality = useMotionQuality();
+  const isHydrated = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
+  const shaderScale = MOTION_QUALITY_SCALE[quality];
+
   return (
     <main className="login-aurora relative flex min-h-dvh min-w-full flex-col items-center justify-center px-4 py-10">
-      <AuroraBackground
-        colors={["#7C2D12", "#C2410C", "#F59E0B"]}
-        autoIntensity={1.2}
-      />
+      {isHydrated && !prefersReducedMotion && (
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <LiquidEther
+            colors={["#7C2D12", "#C2410C", "#F59E0B"]}
+            resolution={0.5 * shaderScale.resolution}
+            autoSpeed={0.5 * shaderScale.speed}
+            autoIntensity={1.2 * shaderScale.intensity}
+            iterationsPoisson={Math.round(32 * shaderScale.poisson)}
+          />
+        </div>
+      )}
 
       <div className="relative z-10 w-full max-w-sm">
         <motion.div

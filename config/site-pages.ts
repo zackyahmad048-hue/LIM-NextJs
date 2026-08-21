@@ -77,7 +77,7 @@ export const SITE_PAGES: Record<string, SitePageDefinition> = {
         "Membangun generasi muballigh yang berilmu, berakhlak, dan berkontribusi bagi umat.",
       description:
         "Lembaga Ittihadul Muballighin merupakan organisasi yang bergerak dalam bidang dakwah, pendidikan, pembinaan muballigh, serta pengabdian kepada masyarakat. Kami berkomitmen untuk menghadirkan dakwah yang moderat, mencerahkan, dan memberikan manfaat nyata bagi umat.",
-      image: "/images/iksadari.jpg",
+      image: "/images/iksadari.JPG",
       features: [
         {
           title: "Dakwah",

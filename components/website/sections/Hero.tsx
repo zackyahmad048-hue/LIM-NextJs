@@ -1,18 +1,34 @@
 "use client";
 
 import Link from "next/link";
+import { useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import FolioSection from "@/components/website/taqwim/folio-section";
 import { TaqwimFolio } from "@/components/website/taqwim/taqwim-folio";
 import StatRule from "@/components/website/taqwim/stat-rule";
 import { Button } from "@/components/ui/button";
+import LiquidEther from "@/components/LiquidEther";
 import RouteMap from "@/components/website/sections/route-map";
 import type { HeroConfig } from "@/types/hero";
 import { EASE_OUT } from "@/lib/ease";
+import {
+  MOTION_QUALITY_SCALE,
+  useMotionQuality,
+} from "@/hooks/use-motion-quality";
+
+const emptySubscribe = () => () => {};
 
 export default function Hero({ hero }: { hero: HeroConfig }) {
   const prefersReducedMotion = useReducedMotion();
+  const quality = useMotionQuality();
+  const isHydrated = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
+  const shaderScale = MOTION_QUALITY_SCALE[quality];
 
   const leftAnim = prefersReducedMotion
     ? { initial: false }
@@ -23,6 +39,18 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
 
   return (
     <section className="relative">
+      {isHydrated && !prefersReducedMotion && (
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <LiquidEther
+            colors={["#7C2D12", "#C2410C", "#F59E0B"]}
+            resolution={0.5 * shaderScale.resolution}
+            autoSpeed={0.5 * shaderScale.speed}
+            autoIntensity={1.2 * shaderScale.intensity}
+            iterationsPoisson={Math.round(32 * shaderScale.poisson)}
+          />
+        </div>
+      )}
+
       <FolioSection
         arabic="الفجر"
         label="Subuh — awal hari di Lirboyo"
