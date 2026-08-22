@@ -10,7 +10,7 @@ export default function AuthLayout({
     <main className="relative flex min-h-dvh items-center justify-center bg-muted/30">
       <Link
         href="/"
-        className="absolute left-4 top-4 z-20 inline-flex h-10 items-center gap-1.5 rounded-full border border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] px-3.5 text-sm font-medium text-foreground/80 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary hover:text-primary"
+        className="absolute left-4 top-4 z-20 inline-flex h-10 items-center gap-1.5 rounded-full border border-(--glass-border) bg-(--glass-chrome-bg) px-3.5 text-sm font-medium text-foreground/80 backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate) transition-colors hover:border-primary hover:text-primary"
       >
         <House size={15} />
         Kembali ke beranda
