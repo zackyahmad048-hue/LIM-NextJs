@@ -1,3 +1,5 @@
+import { formatDateInput } from "@/lib/format";
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -52,11 +54,6 @@ const statusLabels: Record<string, string> = {
   CANCELLED: "Dibatalkan",
   ARCHIVED: "Diarsipkan",
 };
-
-function formatDate(date: Date | string | null) {
-  if (!date) return "";
-  return new Date(date).toISOString().split("T")[0];
-}
 
 export default async function EditProgramPage({
   params,
@@ -221,19 +218,19 @@ export default async function EditProgramPage({
               <Label htmlFor="type" className="text-xs">
                 Jenis Program
               </Label>
-              <select
+              <NativeSelect
                 id="type"
                 name="type"
                 required
                 defaultValue={program.type}
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
                 {programTypes.map((t) => (
-                  <option key={t} value={t}>
+                  <NativeSelectOption key={t} value={t}>
                     {t}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
@@ -266,20 +263,20 @@ export default async function EditProgramPage({
               <Label htmlFor="personInChargeId" className="text-xs">
                 Penanggung Jawab
               </Label>
-              <select
+              <NativeSelect
                 id="personInChargeId"
                 name="personInChargeId"
                 required
                 defaultValue={program.personInChargeId ?? ""}
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih PIC</option>
+                <NativeSelectOption value="">Pilih PIC</NativeSelectOption>
                 {users.map((u) => (
-                  <option key={u.id} value={u.id}>
+                  <NativeSelectOption key={u.id} value={u.id}>
                     {u.name}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
           </div>
         </SectionCard>
@@ -299,7 +296,7 @@ export default async function EditProgramPage({
                 name="startDate"
                 type="date"
                 required
-                defaultValue={formatDate(program.startDate)}
+                defaultValue={formatDateInput(program.startDate)}
                 className="rounded-md text-xs"
               />
             </div>
@@ -312,7 +309,7 @@ export default async function EditProgramPage({
                 name="endDate"
                 type="date"
                 required
-                defaultValue={formatDate(program.endDate)}
+                defaultValue={formatDateInput(program.endDate)}
                 className="rounded-md text-xs"
               />
             </div>
@@ -324,7 +321,7 @@ export default async function EditProgramPage({
                 id="registrationOpen"
                 name="registrationOpen"
                 type="date"
-                defaultValue={formatDate(program.registrationOpen)}
+                defaultValue={formatDateInput(program.registrationOpen)}
                 className="rounded-md text-xs"
               />
             </div>
@@ -336,7 +333,7 @@ export default async function EditProgramPage({
                 id="registrationClose"
                 name="registrationClose"
                 type="date"
-                defaultValue={formatDate(program.registrationClose)}
+                defaultValue={formatDateInput(program.registrationClose)}
                 className="rounded-md text-xs"
               />
             </div>

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { programService } from "../application/service";
+import type { ProgramStatus, RegistrationStatus } from "@/generated/client";
 import {
   createProgramSchema,
   updateProgramSchema,
@@ -139,7 +140,7 @@ export async function transitionProgramStatus(id: string, status: string) {
     const required =
       TRANSITION_PERMISSIONS[status] ?? PERMISSION_UPDATE;
     await requireSessionWithPermissions(required);
-    await programService.transitionStatus(id, status as any);
+    await programService.transitionStatus(id, status as ProgramStatus);
     revalidatePath("/admin/program");
   } catch {
     return;
@@ -225,7 +226,7 @@ export async function updateParticipantStatus(
   try {
     await requireSessionWithPermissions(PERMISSION_PARTICIPANT_UPDATE);
     await programService.updateParticipant(id, {
-      registrationStatus: status as any,
+      registrationStatus: status as RegistrationStatus,
     });
     revalidatePath(`/admin/program/${programId}/participants`);
   } catch {

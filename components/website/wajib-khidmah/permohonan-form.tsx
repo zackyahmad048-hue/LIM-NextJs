@@ -24,6 +24,33 @@ import { SuccessScreen } from "./success-screen";
 
 type FormValues = WajibKhidmahLembagaInput;
 
+/**
+ * Field yang DOM id-nya berbeda dari nama field-nya (sisa pakai nama field
+ * sebagai id). Radio group dan upload ditangani lewat selector khusus.
+ */
+const FIELD_DOM_ID: Partial<Record<keyof FormValues, string>> = {
+  pengasuhNama: "pengasuh-nama",
+  pengasuhStatusLainnya: "pengasuh-lainnya",
+  pengasuhAlumniAngkatan: "pengasuh-alumni",
+  pengasuhTelepon: "pengasuh-telepon",
+  penanggungJawabNama: "penanggungJawab-nama",
+  penanggungJawabStatusLainnya: "penanggungJawab-lainnya",
+  penanggungJawabAlumniAngkatan: "penanggungJawab-alumni",
+  penanggungJawabTelepon: "penanggungJawab-telepon",
+  jenisSatuanPendidikanLainnya: "jenis-lainnya",
+  kitabBermaknaLainnya: "kitab-lainnya",
+  bahasaPengantarLainnya: "bahasa-lainnya",
+  tugasGuruBantu: "tugas",
+  kitabDiajarkanGuruBantu: "kitab",
+  catatanCalonGuruBantu: "catatan",
+};
+
+const RADIO_FIELDS = new Set<keyof FormValues>([
+  "pengasuhStatus",
+  "penanggungJawabStatus",
+  "lokasiMadrasah",
+]);
+
 const STEPS = [
   { key: "identitas", label: "Identitas Lembaga" },
   { key: "pengasuh", label: "Pengasuh" },
@@ -78,6 +105,7 @@ export function PermohonanWizard() {
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(wajibKhidmahLembagaSchema) as Resolver<FormValues>,
@@ -137,10 +165,34 @@ export function PermohonanWizard() {
     ],
   };
 
+  function focusFirstInvalid(fields: Array<keyof FormValues>): void {
+    const errors = form.formState.errors;
+    const first = fields.find((f) => errors[f]);
+    if (!first) return;
+
+    let el: HTMLElement | null = null;
+    const domId = FIELD_DOM_ID[first];
+    if (domId) {
+      el = document.getElementById(domId);
+    } else if (RADIO_FIELDS.has(first)) {
+      el = document.querySelector<HTMLInputElement>(
+        `input[name="${first}"]`,
+      );
+    }
+    if (!el) return;
+
+    el.scrollIntoView({
+      block: "center",
+      behavior: reduce ? "auto" : "smooth",
+    });
+    el.focus({ preventScroll: true });
+  }
+
   async function handleNext() {
     const fields = stepFields[STEPS[step].key];
     const valid = await form.trigger(fields as (keyof FormValues)[]);
     if (!valid) {
+      focusFirstInvalid(fields);
       const firstError = Object.values(form.formState.errors)[0]?.message;
       if (firstError) toast.error(String(firstError));
       return;
@@ -149,10 +201,25 @@ export function PermohonanWizard() {
   }
 
   async function handleSubmit() {
+    setServerError(null);
     const valid = await form.trigger();
     if (!valid) {
+      focusFirstInvalid(Object.keys(stepFields).flatMap((k) => stepFields[k as keyof typeof stepFields]));
       const firstError = Object.values(form.formState.errors)[0]?.message;
       if (firstError) toast.error(String(firstError));
+      return;
+    }
+
+    // Validasi lintas-langkah: jika langkah sebelumnya masih punya error
+    // (mis. field opsional yang terisi tidak valid), kembali ke langkah pertama
+    // yang bermasalah agar pengguna melihat konteksnya.
+    const firstBrokenStep = STEPS.findIndex((s) => {
+      const errs = form.formState.errors;
+      return stepFields[s.key].some((f) => errs[f]);
+    });
+    if (firstBrokenStep !== -1 && firstBrokenStep !== step) {
+      setStep(firstBrokenStep);
+      toast.error("Periksa kembali data pada langkah sebelumnya.");
       return;
     }
 
@@ -165,6 +232,7 @@ export function PermohonanWizard() {
     setSubmitting(false);
 
     if (!result.success) {
+      setServerError(result.message ?? "Gagal mengirim permohonan.");
       toast.error(result.message ?? "Gagal mengirim permohonan.");
       return;
     }
@@ -274,6 +342,16 @@ export function PermohonanWizard() {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Server error inline */}
+      {serverError && (
+        <p
+          role="alert"
+          className="mt-6 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive"
+        >
+          {serverError}
+        </p>
+      )}
 
       {/* Actions */}
       <div className="mt-8 flex items-center justify-between pt-6">

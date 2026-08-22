@@ -3,6 +3,7 @@ import type {
   OutgoingMailStatus,
   DispositionStatus,
   AdministrativeDocumentStatus,
+  DocumentType,
 } from "@/generated/client";
 import type { SecretariatRepository } from "../domain/repository";
 import { secretariatRepository as repo } from "../infrastructure/repository";
@@ -404,7 +405,7 @@ export const secretariatService = {
     return repo.findManyAdministrativeDocuments({
       search: params.search,
       status: params.status,
-      documentType: params.documentType as any,
+      documentType: params.documentType as DocumentType,
       page: params.page ?? 1,
       limit: params.limit ?? 20,
     });
@@ -566,7 +567,7 @@ export const secretariatService = {
   }) {
     return repo.findManyDocumentArchives({
       search: params.search,
-      documentType: params.documentType as any,
+      documentType: params.documentType as DocumentType,
       page: params.page ?? 1,
       limit: params.limit ?? 20,
     });

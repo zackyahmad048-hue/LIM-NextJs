@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import { CheckCircle, Archive, ShieldCheck } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -5,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import { falakService } from "@/modules/falak/application/service";
 import {
@@ -12,14 +15,6 @@ import {
   confirmRukyat,
   archiveRukyat,
 } from "@/modules/falak/presentation/falak.action";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 function StatusBadge({ status }: { status: string }) {
   const variant =
@@ -47,8 +42,14 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export default async function RukyatPage() {
-  const result = await falakService.getRukyatPaginated(1, 50);
+export default async function RukyatPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string; page?: string }>;
+}) {
+  const params = await searchParams;
+  const page = params.page ? Number(params.page) : 1;
+  const result = await falakService.getRukyatPaginated(page, 20, params.search);
   const items = result.items;
 
   return (
@@ -60,7 +61,23 @@ export default async function RukyatPage() {
 
       <AdminTable
         title="Daftar Observasi Rukyat"
-        description={`${items.length} observasi tercatat.`}
+        description={`${result.total} observasi tercatat.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/falak/rukyat"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari lokasi..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={page}
+            pageSize={20}
+            total={result.total}
+            basePath="/admin/falak/rukyat"
+            queryParams={{ search: params.search }}
+          />
+        }
         columns={[
           {
             key: "lokasi",
@@ -74,7 +91,7 @@ export default async function RukyatPage() {
             label: "Tanggal",
             render: (item) => (
               <span className="text-xs">
-                {formatDate(item.observationDate)}
+                {formatDateId(item.observationDate)}
               </span>
             ),
           },

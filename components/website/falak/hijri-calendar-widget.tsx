@@ -42,9 +42,11 @@ export function HijriCalendarWidget() {
     hijriDay: number;
   } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function convert() {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch(
         `/api/v1/falak/hijri-calendar?date=${date}&method=${method}`,
@@ -56,9 +58,15 @@ export function HijriCalendarWidget() {
           hijriMonth: json.data.hijriMonth,
           hijriDay: json.data.hijriDay,
         });
+      } else {
+        setResult(null);
+        setError(
+          json.message ?? "Konversi gagal. Periksa tanggal dan coba lagi.",
+        );
       }
     } catch {
       setResult(null);
+      setError("Tidak dapat menghubungi server konversi. Coba lagi nanti.");
     }
     setLoading(false);
   }
@@ -83,9 +91,9 @@ export function HijriCalendarWidget() {
             />
           </div>
           <div className="space-y-2">
-            <Label>Metode</Label>
+            <Label htmlFor="hijri-method">Metode</Label>
             <Select value={method} onValueChange={setMethod}>
-              <SelectTrigger>
+              <SelectTrigger id="hijri-method">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -101,6 +109,12 @@ export function HijriCalendarWidget() {
         <Button onClick={convert} disabled={loading} className="w-full">
           {loading ? "Mengkonversi..." : "Konversi"}
         </Button>
+
+        {error && (
+          <p role="alert" className="text-sm text-destructive">
+            {error}
+          </p>
+        )}
 
         {result && (
           <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 text-center">

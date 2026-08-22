@@ -1,3 +1,4 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Plus } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -59,19 +60,19 @@ export default function NewDocumentPage() {
               <Label htmlFor="documentType" className="text-xs">
                 Jenis Dokumen
               </Label>
-              <select
+              <NativeSelect
                 id="documentType"
                 name="documentType"
                 required
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih jenis</option>
+                <NativeSelectOption value="">Pilih jenis</NativeSelectOption>
                 {documentTypes.map((t) => (
-                  <option key={t.value} value={t.value}>
+                  <NativeSelectOption key={t.value} value={t.value}>
                     {t.label}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">

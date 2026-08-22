@@ -330,6 +330,12 @@ Artikel
 Judul Artikel
 ```
 
+Implementasi breadcrumb admin (`components/admin/navigation/breadcrumb.tsx`):
+
+- Merender `<nav aria-label="Breadcrumb">` berisi trail `Link` — BUKAN judul halaman; setiap halaman admin memiliki `h1` sendiri melalui `PageHeader`.
+- Label segmen mengikuti kamus resmi di komponen (mis. `incoming-mail` → "Surat Masuk"); segmen dinamis (`[id]`, UUID) ditampilkan sebagai "Detail".
+- Jangan menambahkan `h1` duplikat di header layout.
+
 ---
 
 # URL Structure

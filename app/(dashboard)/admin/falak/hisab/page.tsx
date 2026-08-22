@@ -1,21 +1,25 @@
+import { formatDateId } from "@/lib/format";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { falakService } from "@/modules/falak/application/service";
 import { deleteHisab } from "@/modules/falak/presentation/falak.action";
 
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
-
-export default async function HisabPage() {
-  const result = await falakService.getHisabPaginated(1, 50);
+export default async function HisabPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string; page?: string }>;
+}) {
+  const params = await searchParams;
+  const result = await falakService.getHisabPaginated(
+    params.page ? Number(params.page) : 1,
+    20,
+    params.search
+  );
   const hisabItems = result.items;
 
   return (
@@ -27,7 +31,23 @@ export default async function HisabPage() {
 
       <AdminTable
         title="Daftar Hisab"
-        description={`${hisabItems.length} data hisab tercatat.`}
+        description={`${result.total} data hisab tercatat.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/falak/hisab"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari lokasi..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={result.total}
+            basePath="/admin/falak/hisab"
+            queryParams={{ search: params.search }}
+          />
+        }
         columns={[
           {
             key: "lokasi",
@@ -50,7 +70,7 @@ export default async function HisabPage() {
             label: "Tanggal",
             render: (item) => (
               <span className="text-xs tabular-nums">
-                {formatDate(item.calculationDate)}
+                {formatDateId(item.calculationDate)}
               </span>
             ),
           },

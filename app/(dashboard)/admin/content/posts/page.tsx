@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import { Archive, Pencil, Plus, RotateCcw, Send } from "lucide-react";
 
@@ -8,7 +9,9 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
-import { getRecentPosts } from "@/modules/cms/queries/post.query";
+import { getPaginatedPosts } from "@/modules/cms/queries/post.query";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import {
   publishPost,
@@ -16,14 +19,6 @@ import {
   restorePostToDraft,
   deletePost,
 } from "./_actions";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 function getPostStatus(post: { published: boolean; publishedAt: Date | null }) {
   if (post.published) return "Published";
@@ -46,8 +41,16 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-export default async function PostsPage() {
-  const posts = await getRecentPosts(50);
+export default async function PostsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string; page?: string }>;
+}) {
+  const params = await searchParams;
+  const { posts, total } = await getPaginatedPosts({
+    page: params.page ? Number(params.page) : 1,
+    search: params.search,
+  });
 
   return (
     <PageContainer>
@@ -66,7 +69,23 @@ export default async function PostsPage() {
 
       <AdminTable
         title="Daftar berita"
-        description={`${posts.length} berita terbaru.`}
+        description={`${total} berita ditemukan.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/content/posts"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari judul berita..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={total}
+            basePath="/admin/content/posts"
+            queryParams={{ search: params.search }}
+          />
+        }
         columns={[
           {
             key: "judul",
@@ -150,7 +169,7 @@ export default async function PostsPage() {
             align: "right",
             render: (post) => (
               <span className="text-right text-xs tabular-nums text-muted-foreground">
-                {formatDate(post.updatedAt)}
+                {formatDateId(post.updatedAt)}
               </span>
             ),
           },

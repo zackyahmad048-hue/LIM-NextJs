@@ -87,8 +87,7 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
             return (
               <label
                 key={option.value}
-                className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-input px-3 py-2 text-sm transition-colors hover:bg-muted/50 aria-checked:border-primary aria-checked:bg-primary/5"
-                aria-checked={selected}
+                className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-input px-3 py-2 text-sm transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5"
               >
                 <input
                   type="radio"
@@ -147,6 +146,9 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
             label={`Nomor Telepon ${title}`}
             id={`${prefix}-telepon`}
             required
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
             value={telepon}
             onChange={(v) =>
               form.setValue(teleponKey, v, { shouldValidate: true })

@@ -1,3 +1,4 @@
+import { formatDateInput } from "@/lib/format";
 import { notFound } from "next/navigation";
 import { Pencil } from "lucide-react";
 
@@ -22,11 +23,6 @@ const statusLabels: Record<string, string> = {
   RECEIVED: "Diterima",
   ARCHIVED: "Diarsipkan",
 };
-
-function formatDateInput(date: Date | string | null) {
-  if (!date) return "";
-  return new Date(date).toISOString().split("T")[0];
-}
 
 export default async function EditIncomingMailPage({
   params,

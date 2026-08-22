@@ -28,9 +28,9 @@ export default function BidangIndexPage() {
               href={`/profil/bidang/${bidang.slug}`}
               className="group rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/40"
             >
-              <h3 className="text-sm font-semibold text-balance text-foreground">
+              <h2 className="text-sm font-semibold text-balance text-foreground">
                 {bidang.title}
-              </h3>
+              </h2>
               <p className="mt-1 text-xs text-muted-foreground">
                 {bidang.tagline}
               </p>

@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import {
   Clock,
@@ -15,18 +16,9 @@ import { SectionCard } from "@/components/admin/shared/section-card";
 import { StatCard } from "@/components/admin/shared/stat-card";
 
 import { falakService } from "@/modules/falak/application/service";
-import { getAllRukyat } from "@/modules/falak/queries/rukyat.query";
 import { getUpcomingEclipses } from "@/modules/falak/queries/eclipse.query";
 import { getAllPrayerTimes } from "@/modules/falak/queries/prayer-time.query";
 import { DEFAULT_CITY } from "@/lib/cities";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 const QUICK_LINKS = [
   {
@@ -68,20 +60,21 @@ const QUICK_LINKS = [
 ];
 
 export default async function FalakDashboardPage() {
-  const [prayerTimes, hisabResult, rukyatData, eclipses] = await Promise.all([
-    getAllPrayerTimes(
-      DEFAULT_CITY.latitude,
-      DEFAULT_CITY.longitude,
-      "KEMENAG",
-    ),
-    falakService.getHisabPaginated(1, 1),
-    getAllRukyat(100),
-    getUpcomingEclipses(),
-  ]);
+  const [prayerTimes, hisabResult, recentRukyat, rukyatPending, eclipses] =
+    await Promise.all([
+      getAllPrayerTimes(
+        DEFAULT_CITY.latitude,
+        DEFAULT_CITY.longitude,
+        "KEMENAG",
+      ),
+      falakService.getHisabPaginated(1, 1),
+      falakService.getRukyatPaginated(1, 5),
+      falakService.getRukyatPaginated(1, 1, undefined, "DRAFT"),
+      getUpcomingEclipses(),
+    ]);
 
-  const pendingVerifications = rukyatData.filter(
-    (r) => r.status === "DRAFT",
-  ).length;
+  const rukyatData = recentRukyat.items;
+  const pendingVerifications = rukyatPending.total;
 
   return (
     <PageContainer>
@@ -100,7 +93,7 @@ export default async function FalakDashboardPage() {
         <StatCard
           title="Observasi Rukyat"
           icon={Eye}
-          value={rukyatData.length.toString()}
+          value={recentRukyat.total.toString()}
           description={`${pendingVerifications} menunggu verifikasi`}
         />
         <StatCard
@@ -179,7 +172,7 @@ export default async function FalakDashboardPage() {
                   <div>
                     <p className="font-medium">{r.locationName}</p>
                     <p className="text-xs text-muted-foreground">
-                      {formatDate(r.observationDate)}
+                      {formatDateId(r.observationDate)}
                     </p>
                   </div>
 
@@ -239,7 +232,7 @@ export default async function FalakDashboardPage() {
                         : "Gerhana Bulan"}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {formatDate(e.eclipseDate)}
+                      {formatDateId(e.eclipseDate)}
                     </p>
                   </div>
                 </div>

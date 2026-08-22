@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
@@ -5,14 +6,6 @@ import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { getRukyatByStatus } from "@/modules/falak/queries/rukyat.query";
 import { falakHisabRepository } from "@/modules/falak/infrastructure/repository";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 export default async function FalakArchivePage() {
   const [archivedRukyat, hisabResult] = await Promise.all([
@@ -44,7 +37,7 @@ export default async function FalakArchivePage() {
             label: "Tanggal",
             render: (item) => (
               <span className="text-xs">
-                {formatDate(item.observationDate)}
+                {formatDateId(item.observationDate)}
               </span>
             ),
           },
@@ -83,7 +76,7 @@ export default async function FalakArchivePage() {
             label: "Tanggal",
             render: (item) => (
               <span className="text-xs">
-                {formatDate(item.calculationDate)}
+                {formatDateId(item.calculationDate)}
               </span>
             ),
           },

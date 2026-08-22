@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import { Calendar, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 
@@ -5,16 +6,10 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import { getAgendaBooks } from "@/modules/secretariat/queries/secretariat.query";
-
-function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(date));
-}
 
 export default async function AgendaPage({
   searchParams,
@@ -37,6 +32,22 @@ export default async function AgendaPage({
       <AdminTable
         title="Agenda"
         description={`${total} agenda ditemukan.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/secretariat/agenda"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari judul agenda..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={total}
+            basePath="/admin/secretariat/agenda"
+            queryParams={{ search: params.search }}
+          />
+        }
         columns={[
           {
             key: "date",
@@ -44,7 +55,7 @@ export default async function AgendaPage({
             render: (item) => (
               <div className="flex items-center gap-1.5">
                 <Calendar className="size-3.5 text-muted-foreground" />
-                <span className="text-xs tabular-nums">{formatDate(item.date)}</span>
+                <span className="text-xs tabular-nums">{formatDateId(item.date, { long: true })}</span>
               </div>
             ),
           },

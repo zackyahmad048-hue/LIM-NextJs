@@ -1,3 +1,4 @@
+import { Prisma } from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import type {
   ProgramEntity,
@@ -15,7 +16,7 @@ const includeUser = {
 
 export const programRepository: ProgramRepository = {
   async findMany({ search, status, type, page, limit }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.ProgramWhereInput = { deletedAt: null };
     if (search)
       where.OR = [
         { name: { contains: search } },
@@ -26,12 +27,12 @@ export const programRepository: ProgramRepository = {
 
     const [items, total] = await Promise.all([
       prisma.program.findMany({
-        where: where as any,
+        where,
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.program.count({ where: where as any }),
+      prisma.program.count({ where }),
     ]);
 
     return { items: items as unknown as ProgramEntity[], total };

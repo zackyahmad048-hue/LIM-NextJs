@@ -25,6 +25,10 @@ interface AdminTableProps<T> {
   data: T[];
   emptyMessage?: ReactNode;
   onRowClick?: (item: T) => void;
+  /** Rendered at the right side of the card header (e.g. search form). */
+  toolbar?: ReactNode;
+  /** Rendered as a footer below the table (e.g. TablePagination). */
+  pagination?: ReactNode;
 }
 
 export function AdminTable<T extends { id: string }>({
@@ -34,12 +38,22 @@ export function AdminTable<T extends { id: string }>({
   data,
   emptyMessage = "Belum ada data.",
   onRowClick,
+  toolbar,
+  pagination,
 }: AdminTableProps<T>) {
   return (
     <SectionCard className="rounded-lg bg-background p-0 shadow-none">
-      <div className="border-b p-4">
-        <h2 className="text-base font-semibold">{title}</h2>
-        <p className="text-xs text-muted-foreground">{description}</p>
+      <div
+        className={cn(
+          "border-b p-4",
+          toolbar && "flex flex-wrap items-start justify-between gap-3"
+        )}
+      >
+        <div>
+          <h2 className="text-base font-semibold">{title}</h2>
+          <p className="text-xs text-muted-foreground">{description}</p>
+        </div>
+        {toolbar && <div className="shrink-0">{toolbar}</div>}
       </div>
 
       <Table>
@@ -86,6 +100,7 @@ export function AdminTable<T extends { id: string }>({
           )}
         </TableBody>
       </Table>
+      {pagination}
     </SectionCard>
   );
 }

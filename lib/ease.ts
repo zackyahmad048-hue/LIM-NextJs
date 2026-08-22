@@ -45,3 +45,34 @@ export const SPRING_MOUSE = {
   damping: 15,
   mass: 0.3,
 } as const;
+
+/*
+ * Apple fluid-interface presets (WWDC18 "Designing Fluid Interfaces"),
+ * expressed as damping ratio (ζ) + response (τ, seconds), converted to
+ * stiffness/damping at mass 1 via k = (2π/τ)², c = 2ζ·(2π/τ).
+ * Default to ζ 1.0; reserve ζ < 1 for interactions that carried momentum.
+ */
+
+/** General move/reposition — critically damped, no overshoot (ζ 1.0, τ 0.4). */
+export const SPRING_MOVE = {
+  type: "spring",
+  stiffness: 250,
+  damping: 31.5,
+  mass: 1,
+} as const;
+
+/** Rotation — slight life without wobble (ζ 0.8, τ 0.4). */
+export const SPRING_ROTATE = {
+  type: "spring",
+  stiffness: 250,
+  damping: 25,
+  mass: 1,
+} as const;
+
+/** Drawer/sheet entrances — fast with gentle settle (ζ 0.8, τ 0.3). */
+export const SPRING_SHEET = {
+  type: "spring",
+  stiffness: 440,
+  damping: 33.5,
+  mass: 1,
+} as const;

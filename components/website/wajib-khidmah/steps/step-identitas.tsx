@@ -121,6 +121,9 @@ export function StepIdentitas({ form }: Props) {
               label="Nomor Telepon Lembaga"
               id="teleponLembaga"
               required
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
               value={form.watch("teleponLembaga") ?? ""}
               onChange={(v) =>
                 form.setValue("teleponLembaga", v, { shouldValidate: true })
@@ -133,7 +136,10 @@ export function StepIdentitas({ form }: Props) {
           </div>
         </div>
 
-        <FieldWrapper label="Akun Media Sosial Lembaga (jika ada)">
+        <FieldWrapper
+          label="Akun Media Sosial Lembaga (jika ada)"
+          htmlFor="mediaSosialLembaga"
+        >
           <input
             id="mediaSosialLembaga"
             className="h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"

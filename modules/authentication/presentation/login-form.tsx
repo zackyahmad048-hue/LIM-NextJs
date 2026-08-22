@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import {
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const {
     register,
@@ -31,12 +32,14 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginSchema) => {
+    setAuthError(null);
     const { error } = await authClient.signIn.email({
       email: data.email,
       password: data.password,
     });
 
     if (error) {
+      setAuthError(error.message ?? "Gagal masuk. Periksa email dan password.");
       toast.error(error.message);
       return;
     }
@@ -114,19 +117,14 @@ export default function LoginForm() {
         )}
       </div>
 
-      <div className="flex items-center justify-between">
-        <label className="flex items-center gap-2 text-xs text-muted-foreground">
-          <input type="checkbox" className="rounded border-input" />
-          Ingat Saya
-        </label>
-
-        <Link
-          href="#"
-          className="text-xs font-medium text-primary hover:opacity-80"
+      {authError && (
+        <p
+          role="alert"
+          className="rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive"
         >
-          Lupa Password?
-        </Link>
-      </div>
+          {authError}
+        </p>
+      )}
 
       <motion.button
         whileTap={{ scale: PRESS_SCALE }}

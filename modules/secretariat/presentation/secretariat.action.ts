@@ -4,6 +4,12 @@ import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { secretariatService } from "../application/service";
+import type {
+  IncomingMailStatus,
+  OutgoingMailStatus,
+  DispositionStatus,
+  AdministrativeDocumentStatus,
+} from "@/generated/client";
 import { archiveOutgoingMailFile } from "../application/drive-archive.service";
 import {
   createIncomingMailSchema,
@@ -135,7 +141,7 @@ export async function deleteIncomingMail(id: string) {
 export async function transitionIncomingMailStatus(id: string, status: string) {
   try {
     await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
-    await secretariatService.transitionIncomingMailStatus(id, status as any);
+    await secretariatService.transitionIncomingMailStatus(id, status as IncomingMailStatus);
     revalidatePath("/admin/secretariat/surat-menyurat");
   } catch {
     return;
@@ -260,7 +266,7 @@ export async function transitionOutgoingMailStatus(id: string, status: string) {
     await requireSessionWithPermissions(PERMISSION_OUTGOING_UPDATE);
     const mail = await secretariatService.transitionOutgoingMailStatus(
       id,
-      status as any,
+      status as OutgoingMailStatus,
     );
     revalidatePath("/admin/secretariat/outgoing-mail/list");
     revalidatePath("/admin/secretariat/surat-menyurat");
@@ -417,7 +423,7 @@ export async function deleteDisposition(id: string) {
 export async function transitionDispositionStatus(id: string, status: string) {
   try {
     await requireSessionWithPermissions(PERMISSION_DISPOSITION_UPDATE);
-    await secretariatService.transitionDispositionStatus(id, status as any);
+    await secretariatService.transitionDispositionStatus(id, status as DispositionStatus);
     revalidatePath("/admin/secretariat/dispositions");
   } catch {
     return;
@@ -508,7 +514,7 @@ export async function transitionAdministrativeDocumentStatus(
     await requireSessionWithPermissions(PERMISSION_DOCUMENT_UPDATE);
     await secretariatService.transitionAdministrativeDocumentStatus(
       id,
-      status as any,
+      status as AdministrativeDocumentStatus,
     );
     revalidatePath("/admin/secretariat/administrative-documents");
   } catch {

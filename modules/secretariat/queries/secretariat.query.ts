@@ -1,3 +1,10 @@
+import type {
+  IncomingMailStatus,
+  OutgoingMailStatus,
+  DispositionStatus,
+  AdministrativeDocumentStatus,
+  DocumentType,
+} from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { getLetterNumberingConfig as getLetterNumberingConfigSetting } from "../infrastructure/letter-numbering.config";
@@ -12,7 +19,7 @@ export async function getIncomingMails(params: {
 }) {
   return repo.findManyIncomingMails({
     search: params.search,
-    status: params.status as any,
+    status: params.status as IncomingMailStatus,
     page: params.page ?? 1,
     limit: params.limit ?? 20,
   });
@@ -30,7 +37,7 @@ export async function getOutgoingMails(params: {
 }) {
   return repo.findManyOutgoingMails({
     search: params.search,
-    status: params.status as any,
+    status: params.status as OutgoingMailStatus,
     page: params.page ?? 1,
     limit: params.limit ?? 20,
   });
@@ -54,7 +61,7 @@ export async function getDispositions(params: {
   return repo.findManyDispositions({
     incomingMailId: params.incomingMailId,
     assignedToId: params.assignedToId,
-    status: params.status as any,
+    status: params.status as DispositionStatus,
     page: params.page ?? 1,
     limit: params.limit ?? 20,
   });
@@ -85,8 +92,8 @@ export async function getAdministrativeDocuments(params: {
 }) {
   return repo.findManyAdministrativeDocuments({
     search: params.search,
-    status: params.status as any,
-    documentType: params.documentType as any,
+    status: params.status as AdministrativeDocumentStatus,
+    documentType: params.documentType as DocumentType,
     page: params.page ?? 1,
     limit: params.limit ?? 20,
   });
@@ -145,7 +152,7 @@ export async function getDocumentArchives(params: {
 }) {
   return repo.findManyDocumentArchives({
     search: params.search,
-    documentType: params.documentType as any,
+    documentType: params.documentType as DocumentType,
     page: params.page ?? 1,
     limit: params.limit ?? 20,
   });

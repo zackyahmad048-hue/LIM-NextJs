@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import {
   BadgeCheck,
@@ -40,15 +41,6 @@ export default async function VerifyLetterPage({
   const kode = decodeURIComponent(kodeSegments.join("/"));
   const letter = await getOutgoingMailByVerificationCode(kode);
 
-  const formatDate = (date: Date | string | null) => {
-    if (!date) return "—";
-    return new Intl.DateTimeFormat("id-ID", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(new Date(date));
-  };
-
   const category = LETTER_TYPES.find(
     (type) => type.key === letter?.categoryCode,
   );
@@ -77,9 +69,9 @@ export default async function VerifyLetterPage({
         >
           LIM Digital Platform
         </Link>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <h1 className="mt-1 text-xs font-semibold text-muted-foreground">
           Layanan verifikasi keaslian surat
-        </p>
+        </h1>
       </div>
 
       <div className="mt-6 rounded-xl border bg-card p-3">
@@ -120,9 +112,8 @@ export default async function VerifyLetterPage({
                   : (letter.categoryCode ?? "—"),
               ],
               ["Perihal", letter.subject],
-              ["Tanggal Surat", formatDate(letter.mailDate)],
+              ["Tanggal Surat", formatDateId(letter.mailDate, { long: true })],
               ["Penerima", letter.recipient ?? "—"],
-              ["Penandatangan       :"],
               [
                 "Ketua",
                 letter.ketuaName
@@ -136,7 +127,7 @@ export default async function VerifyLetterPage({
                   : "—",
               ],
               ["Status Terkini", statusLabels[letter.status] ?? letter.status],
-              ["Diterbitkan", formatDate(letter.sentAt ?? letter.mailDate)],
+              ["Diterbitkan", formatDateId(letter.sentAt ?? letter.mailDate, { long: true })],
             ].map(([label, value]) => (
               <div
                 key={label}

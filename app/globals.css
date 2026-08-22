@@ -213,6 +213,8 @@
 .site h2 {
   font-family: var(--font-display), "Times New Roman", serif;
   font-weight: 500;
+  /* Tracking negatif khusus ukuran besar (optical sizing manual). */
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -253,5 +255,23 @@
   }
   to {
     transform: translateY(-100%);
+  }
+}
+
+/*
+ * Safety net a11y: hormati preferensi reduced-motion untuk SEMUA animasi CSS
+ * (keyframes marquee, tw-animate-css, transisi utilitas). Animasi berbasis JS
+ * (motion/react) sudah ditangani useReducedMotion di masing-masing komponen.
+ * Catatan: varian hover Tailwind v4 sudah otomatis digate @media (hover:hover),
+ * sehingga tidak perlu varian khusus anti-sticky-hover.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

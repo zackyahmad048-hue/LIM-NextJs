@@ -1,3 +1,4 @@
+import { formatDateInput } from "@/lib/format";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -43,11 +44,6 @@ const statusLabels: Record<string, string> = {
   SENT: "Terkirim",
   ARCHIVED: "Diarsipkan",
 };
-
-function formatDateInput(date: Date | string | null) {
-  if (!date) return "";
-  return new Date(date).toISOString().split("T")[0];
-}
 
 export default async function EditOutgoingMailPage({
   params,

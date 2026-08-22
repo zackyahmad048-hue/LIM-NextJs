@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element -- Blob object URLs preview cannot use next/image */
 
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import {
   Eye,
   FileText,
@@ -55,6 +55,7 @@ export function FileUploadField({
   required = false,
 }: FileUploadFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputId = useId();
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [file, setFile] = useState<UploadedFile | null>(null);
@@ -116,7 +117,7 @@ export function FileUploadField({
 
   return (
     <div className="space-y-1.5">
-      <Label className="text-sm font-medium">
+      <Label className="text-sm font-medium" htmlFor={inputId}>
         {label}
         {required && <span className="text-destructive"> *</span>}
       </Label>
@@ -169,7 +170,7 @@ export function FileUploadField({
         </div>
       ) : (
         <label
-          htmlFor={label}
+          htmlFor={inputId}
           className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed px-4 py-7 text-center transition-colors hover:bg-muted/50"
         >
           {isFoto ? (
@@ -197,7 +198,7 @@ export function FileUploadField({
 
       <input
         ref={inputRef}
-        id={label}
+        id={inputId}
         type="file"
         accept={accept}
         className="hidden"

@@ -41,9 +41,9 @@ export default async function VisiMisiPage() {
                     {roman[index] ?? String(index + 1)}
                   </span>
                   <div>
-                    <h4 className="text-sm font-semibold text-balance text-foreground">
+                    <h2 className="text-sm font-semibold text-balance text-foreground">
                       {item.title}
-                    </h4>
+                    </h2>
                     <p className="mt-1 text-xs leading-6 text-muted-foreground">
                       {item.description}
                     </p>

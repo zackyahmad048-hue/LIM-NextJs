@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Compass, MapPin } from "lucide-react";
 
+import { SPRING_ROTATE } from "@/lib/ease";
+
 export function QiblaCompass() {
   const [direction, setDirection] = useState<number | null>(null);
   const [location, setLocation] = useState("");
@@ -66,7 +68,7 @@ export function QiblaCompass() {
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                 initial={{ rotate: 0 }}
                 animate={{ rotate: direction }}
-                transition={{ type: "spring", stiffness: 50, damping: 15 }}
+                transition={SPRING_ROTATE}
               >
                 <div className="flex flex-col items-center">
                   <svg

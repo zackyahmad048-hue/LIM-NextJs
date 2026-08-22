@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import { FileText, Pencil, Plus } from "lucide-react";
 
@@ -6,20 +7,13 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
 import { SearchForm } from "./search-form";
-
-function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(date));
-}
 
 const statusLabels: Record<
   string,
@@ -67,6 +61,15 @@ export default async function OutgoingMailListPage({
         <AdminTable
           title="Surat Keluar"
           description={`${total} surat keluar ditemukan.`}
+          pagination={
+            <TablePagination
+              page={params.page ? Number(params.page) : 1}
+              pageSize={20}
+              total={total}
+              basePath="/admin/secretariat/outgoing-mail/list"
+              queryParams={{ search: params.search, status: params.status }}
+            />
+          }
           columns={[
             {
               key: "fullNumber",
@@ -107,7 +110,7 @@ export default async function OutgoingMailListPage({
               key: "mailDate",
               label: "Tanggal Surat",
               render: (item) => (
-                <span className="text-xs tabular-nums">{formatDate(item.mailDate)}</span>
+                <span className="text-xs tabular-nums">{formatDateId(item.mailDate)}</span>
               ),
             },
             {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { toHijri } from "hijri-converter";
 import {
@@ -79,6 +79,21 @@ type Mode = "standar" | "istiwa";
 
 const pad = (n: number) => n.toString().padStart(2, "0");
 
+const emptySubscribe = () => () => {};
+
+/**
+ * Hydration-safe mount flag: server snapshot is always false, client snapshot
+ * true. Volatile local-time output stays a stable placeholder until mounted,
+ * preventing SSR/client text mismatches.
+ */
+function useHasMounted(): boolean {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 function wrap24(h: number): number {
   return ((h % 24) + 24) % 24;
 }
@@ -126,6 +141,7 @@ function LiveTaqwim({
 }) {
   const prefersReducedMotion = useReducedMotion();
   const [now, setNow] = useState(() => new Date());
+  const mounted = useHasMounted();
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
@@ -169,7 +185,7 @@ function LiveTaqwim({
         className="border-b border-border/70 px-5 py-5 text-center"
       >
         <p className="font-data text-[2.6rem] font-semibold leading-none tabular-nums text-foreground">
-          {isIstiwa ? istiwaClockStr : standardClockStr}
+          {mounted ? (isIstiwa ? istiwaClockStr : standardClockStr) : "--:--:--"}
           <span className="ml-2 align-middle font-sans text-xs font-medium text-muted-foreground">
             {isIstiwa ? "WIS" : HOME.timezoneName}
           </span>
@@ -189,10 +205,10 @@ function LiveTaqwim({
         className="flex items-center justify-between border-b border-border/70 bg-secondary/40 px-5 py-3"
       >
         <span className="font-sans text-[10px] font-medium uppercase text-muted-foreground">
-          Menuju {nextLabel}
+          Menuju {mounted ? nextLabel : "—"}
         </span>
         <span className="font-data text-sm font-medium tabular-nums text-primary">
-          {pad(dh)}:{pad(dm)}:{pad(ds)}
+          {mounted ? `${pad(dh)}:${pad(dm)}:${pad(ds)}` : "--:--:--"}
         </span>
       </motion.div>
     </>
@@ -203,6 +219,7 @@ export function TaqwimFolio() {
   const prefersReducedMotion = useReducedMotion();
   const [snapshot] = useState(() => new Date());
   const [mode, setMode] = useState<Mode>("standar");
+  const mounted = useHasMounted();
 
   const isIstiwa = mode === "istiwa";
 
@@ -271,7 +288,7 @@ export function TaqwimFolio() {
       <table className="w-full border-b border-border/70">
         <tbody>
           {PRAYERS.map((prayer, i) => {
-            const isNext = i === nextIndex;
+            const isNext = mounted && i === nextIndex;
             return (
               <motion.tr
                 key={prayer.key}
@@ -308,7 +325,7 @@ export function TaqwimFolio() {
                 </td>
                 <td className="border-b border-border/60 py-3 pl-5 pr-5 text-right last:border-b-0">
                   <span className="font-data text-base font-medium tabular-nums">
-                    {timesFormatted[prayer.key]}
+                    {mounted ? timesFormatted[prayer.key] : "--:--"}
                   </span>
                 </td>
               </motion.tr>
@@ -325,10 +342,10 @@ export function TaqwimFolio() {
         className="flex items-center justify-between gap-3 border-b border-border/70 px-5 py-3"
       >
         <span className="font-data text-[11px] tabular-nums text-muted-foreground">
-          {gregorian}
+          {mounted ? gregorian : "—"}
         </span>
         <span className="font-data text-[11px] tabular-nums text-foreground">
-          {hijriDate}
+          {mounted ? hijriDate : "—"}
         </span>
       </motion.div>
 
@@ -341,6 +358,7 @@ export function TaqwimFolio() {
           <button
             type="button"
             onClick={() => setMode("standar")}
+            aria-pressed={!isIstiwa}
             className={cn(
               "px-3 py-1.5 font-sans text-[11px] font-medium transition-colors",
               !isIstiwa
@@ -353,6 +371,7 @@ export function TaqwimFolio() {
           <button
             type="button"
             onClick={() => setMode("istiwa")}
+            aria-pressed={isIstiwa}
             className={cn(
               "px-3 py-1.5 font-sans text-[11px] font-medium transition-colors",
               isIstiwa

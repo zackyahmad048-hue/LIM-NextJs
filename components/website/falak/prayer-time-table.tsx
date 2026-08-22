@@ -30,6 +30,7 @@ import { INDONESIA_CITIES } from "@/lib/cities";
 import {
   Clock,
   Info,
+  Loader2,
   MapPin,
   Moon,
   Navigation,
@@ -85,6 +86,7 @@ export function PrayerTimeTable() {
     location,
     locationName,
     isGPS,
+    status,
     errorMessage,
     requestGPSLocation,
     selectCity,
@@ -242,9 +244,14 @@ export function PrayerTimeTable() {
             variant="outline"
             size="sm"
             onClick={requestGPSLocation}
+            disabled={status === "loading"}
             className="gap-1.5"
           >
-            <Navigation className="h-4 w-4 text-primary" />
+            {status === "loading" ? (
+              <Loader2 className="h-4 w-4 animate-spin text-primary" />
+            ) : (
+              <Navigation className="h-4 w-4 text-primary" />
+            )}
             Lacak GPS Device
           </Button>
 
@@ -265,6 +272,8 @@ export function PrayerTimeTable() {
                 <div className="relative">
                   <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input
+                    type="search"
+                    aria-label="Cari kota atau provinsi"
                     placeholder="Cari nama kota atau provinsi di Seluruh Indonesia..."
                     value={citySearch}
                     onChange={(e) => setCitySearch(e.target.value)}
@@ -315,6 +324,7 @@ export function PrayerTimeTable() {
                   </div>
                   <form onSubmit={handleApplyCustomCoord} className="space-y-2">
                     <Input
+                      aria-label="Nama lokasi kustom"
                       placeholder="Nama Lokasi (misal: Pesantren Al-Falah)"
                       value={customName}
                       onChange={(e) => setCustomName(e.target.value)}
@@ -322,10 +332,15 @@ export function PrayerTimeTable() {
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <Label className="text-[10px] text-muted-foreground">
+                        <Label
+                          htmlFor="custom-lat"
+                          className="text-[10px] text-muted-foreground"
+                        >
                           Latitude (Lintang)
                         </Label>
                         <Input
+                          id="custom-lat"
+                          inputMode="decimal"
                           placeholder="-6.2088"
                           value={customLat}
                           onChange={(e) => setCustomLat(e.target.value)}
@@ -333,10 +348,15 @@ export function PrayerTimeTable() {
                         />
                       </div>
                       <div>
-                        <Label className="text-[10px] text-muted-foreground">
+                        <Label
+                          htmlFor="custom-lon"
+                          className="text-[10px] text-muted-foreground"
+                        >
                           Longitude (Bujur)
                         </Label>
                         <Input
+                          id="custom-lon"
+                          inputMode="decimal"
                           placeholder="106.8456"
                           value={customLon}
                           onChange={(e) => setCustomLon(e.target.value)}

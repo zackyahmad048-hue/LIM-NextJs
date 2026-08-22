@@ -1,3 +1,4 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Plus } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -46,38 +47,38 @@ export default async function NewDispositionPage() {
               <Label htmlFor="incomingMailId" className="text-xs">
                 Surat Masuk
               </Label>
-              <select
+              <NativeSelect
                 id="incomingMailId"
                 name="incomingMailId"
                 required
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih surat masuk</option>
+                <NativeSelectOption value="">Pilih surat masuk</NativeSelectOption>
                 {incomingMails.items.map((m) => (
-                  <option key={m.id} value={m.id}>
+                  <NativeSelectOption key={m.id} value={m.id}>
                     {m.registrationNumber} - {m.subject}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
               <Label htmlFor="assignedToId" className="text-xs">
                 Tujuan Disposisi
               </Label>
-              <select
+              <NativeSelect
                 id="assignedToId"
                 name="assignedToId"
                 required
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih tujuan</option>
+                <NativeSelectOption value="">Pilih tujuan</NativeSelectOption>
                 {users.map((u) => (
-                  <option key={u.id} value={u.id}>
+                  <NativeSelectOption key={u.id} value={u.id}>
                     {u.name}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
@@ -97,19 +98,19 @@ export default async function NewDispositionPage() {
               <Label htmlFor="priority" className="text-xs">
                 Prioritas
               </Label>
-              <select
+              <NativeSelect
                 id="priority"
                 name="priority"
                 required
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih prioritas</option>
+                <NativeSelectOption value="">Pilih prioritas</NativeSelectOption>
                 {priorities.map((p) => (
-                  <option key={p.value} value={p.value}>
+                  <NativeSelectOption key={p.value} value={p.value}>
                     {p.label}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5">

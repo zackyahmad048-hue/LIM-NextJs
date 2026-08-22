@@ -130,6 +130,7 @@ export default function Footer() {
               <Link
                 href="https://wa.me/6281367891910"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="mt-4 inline-flex h-11 items-center gap-2 bg-primary-foreground px-5 text-xs font-semibold text-primary transition hover:bg-primary-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground"
               >
                 <FaWhatsapp className="h-4 w-4" />
@@ -145,6 +146,7 @@ export default function Footer() {
                       key={item.label}
                       href={item.href}
                       target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={item.label}
                       className="flex h-11 w-11 items-center justify-center text-primary-foreground/80 transition hover:text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground"
                     >

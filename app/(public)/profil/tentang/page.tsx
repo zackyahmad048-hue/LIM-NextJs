@@ -28,9 +28,9 @@ export default async function TentangPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="space-y-8">
           <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <h3 className="font-display text-xl font-semibold text-balance text-foreground">
+            <h2 className="font-display text-xl font-semibold text-balance text-foreground">
               Sejarah
-            </h3>
+            </h2>
             {sejarah.map((paragraph) => (
               <p
                 key={paragraph}
@@ -42,9 +42,9 @@ export default async function TentangPage() {
           </div>
 
           <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <h3 className="font-display text-xl font-semibold text-balance text-foreground">
+            <h2 className="font-display text-xl font-semibold text-balance text-foreground">
               Keunggulan
-            </h3>
+            </h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {tentang.keunggulan.map((item) => (
                 <div key={item.title} className="rounded-xl bg-muted/50 p-5">
@@ -60,9 +60,9 @@ export default async function TentangPage() {
           </div>
 
           <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <h3 className="font-display text-xl font-semibold text-balance text-foreground">
+            <h2 className="font-display text-xl font-semibold text-balance text-foreground">
               Tujuan
-            </h3>
+            </h2>
             <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
               {tentang.tujuan.map((item) => (
                 <li key={item} className="flex items-start gap-3">

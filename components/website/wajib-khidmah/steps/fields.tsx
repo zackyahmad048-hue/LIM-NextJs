@@ -14,6 +14,8 @@ interface FieldProps {
   children: ReactNode;
   className?: string;
   hint?: string;
+  /** id kontrol yang di-label agar asosiasi label–input programatik valid. */
+  htmlFor?: string;
 }
 
 export function FieldWrapper({
@@ -23,10 +25,11 @@ export function FieldWrapper({
   children,
   className,
   hint,
+  htmlFor,
 }: FieldProps) {
   return (
     <div className={cn("space-y-1.5", className)}>
-      <Label className="text-sm font-medium">
+      <Label className="text-sm font-medium" htmlFor={htmlFor}>
         {label}
         {required && <span className="text-destructive"> *</span>}
       </Label>
@@ -51,6 +54,9 @@ interface TextFieldProps {
   disabled?: boolean;
   maxLength?: number;
   required?: boolean;
+  type?: "text" | "tel" | "email" | "url" | "number";
+  inputMode?: "text" | "tel" | "numeric" | "decimal";
+  autoComplete?: string;
 }
 
 export function TextField({
@@ -65,6 +71,9 @@ export function TextField({
   disabled = false,
   maxLength,
   required = false,
+  type = "text",
+  inputMode,
+  autoComplete,
 }: TextFieldProps) {
   return (
     <FieldWrapper
@@ -72,6 +81,7 @@ export function TextField({
       required={required}
       hint={hint}
       className={className}
+      htmlFor={id}
     >
       <Input
         id={id}
@@ -82,6 +92,9 @@ export function TextField({
         onBlur={onBlur}
         placeholder={placeholder}
         disabled={disabled}
+        type={type}
+        inputMode={inputMode}
+        autoComplete={autoComplete}
         className="rounded-lg text-sm"
       />
     </FieldWrapper>

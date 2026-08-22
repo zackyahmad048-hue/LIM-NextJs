@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import type { UseFormReturn } from "react-hook-form";
 
 import {
@@ -38,7 +39,7 @@ function NumberField({
   required?: boolean;
 }) {
   return (
-    <FieldWrapper label={label} required={required}>
+    <FieldWrapper label={label} required={required} htmlFor={id}>
       <input
         id={id}
         type="number"
@@ -75,23 +76,31 @@ function MultiCheck({
   onToggle(value: string): void;
   required?: boolean;
 }) {
+  const groupId = useId();
+
   return (
     <div className="space-y-2">
-      <div className="text-sm font-medium">
+      <div id={groupId} className="text-sm font-medium">
         {label}
         {required && <span className="text-destructive"> *</span>}
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div
+        role="group"
+        aria-labelledby={groupId}
+        className="flex flex-wrap gap-2"
+      >
         {options.map((option) => {
           const checked = selected.includes(option);
           return (
             <label
               key={option}
-              className={`flex cursor-pointer select-none items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={cn(
+                "flex cursor-pointer select-none items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+                "has-[:focus-visible]:border-ring has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50",
                 checked
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-input hover:bg-muted/60"
-              }`}
+                  : "border-input hover:bg-muted/60",
+              )}
             >
               <input
                 type="checkbox"
@@ -125,11 +134,15 @@ export function StepKondisi({ form }: Props) {
       <div className="space-y-5">
         {/* Lokasi */}
         <div className="space-y-2">
-          <div className="text-sm font-medium">
+          <div id="lokasi-madrasah-label" className="text-sm font-medium">
             Lokasi Madrasah
             <span className="text-destructive"> *</span>
           </div>
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div
+            role="radiogroup"
+            aria-labelledby="lokasi-madrasah-label"
+            className="grid gap-2 sm:grid-cols-2"
+          >
             {LOKASI_MADRASAH.map((value) => {
               const selected = lokasi === value;
               return (
@@ -138,8 +151,8 @@ export function StepKondisi({ form }: Props) {
                   className={cn(
                     "flex cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2 text-sm transition-colors",
                     selected ? "border-primary bg-primary/5" : "border-input",
+                    "has-[:focus-visible]:border-ring has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50",
                   )}
-                  aria-checked={selected}
                 >
                   <input
                     type="radio"

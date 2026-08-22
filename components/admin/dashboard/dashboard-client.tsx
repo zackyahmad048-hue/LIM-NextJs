@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -168,10 +169,11 @@ export function DashboardClient({
       <div className="flex items-center gap-4 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
         <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
           {user.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={user.image}
               alt={user.name}
+              width={44}
+              height={44}
               className="size-11 rounded-full object-cover"
             />
           ) : (

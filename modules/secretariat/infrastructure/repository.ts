@@ -1,3 +1,4 @@
+import { Prisma } from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 import type {
   IncomingMailEntity,
@@ -12,7 +13,7 @@ import type { SecretariatRepository } from "../domain/repository";
 export const prismaSecretariatRepository: SecretariatRepository = {
   // Incoming Mail
   async findManyIncomingMails({ search, status, page, limit }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.IncomingMailWhereInput = { deletedAt: null };
     if (search)
       where.OR = [
         { subject: { contains: search } },
@@ -23,12 +24,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
     const [items, total] = await Promise.all([
       prisma.incomingMail.findMany({
-        where: where as any,
+        where,
         orderBy: { receivedDate: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.incomingMail.count({ where: where as any }),
+      prisma.incomingMail.count({ where }),
     ]);
 
     return { items: items as unknown as IncomingMailEntity[], total };
@@ -74,7 +75,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findArchivedIncomingMails({ search, limit = 100 }) {
-    const where: Record<string, unknown> = {
+    const where: Prisma.IncomingMailWhereInput = {
       status: "ARCHIVED",
       deletedAt: null,
     };
@@ -86,7 +87,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       ];
 
     const items = await prisma.incomingMail.findMany({
-      where: where as any,
+      where,
       orderBy: { archivedAt: "desc" },
       take: limit,
     });
@@ -95,7 +96,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   // Outgoing Mail
   async findManyOutgoingMails({ search, status, page, limit }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.OutgoingMailWhereInput = { deletedAt: null };
     if (search)
       where.OR = [
         { subject: { contains: search } },
@@ -106,12 +107,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
     const [items, total] = await Promise.all([
       prisma.outgoingMail.findMany({
-        where: where as any,
+        where,
         orderBy: { mailDate: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.outgoingMail.count({ where: where as any }),
+      prisma.outgoingMail.count({ where }),
     ]);
 
     return { items: items as unknown as OutgoingMailEntity[], total };
@@ -162,7 +163,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
   },
 
   async findArchivedOutgoingMails({ search, limit = 100 }) {
-    const where: Record<string, unknown> = {
+    const where: Prisma.OutgoingMailWhereInput = {
       status: "ARCHIVED",
       deletedAt: null,
     };
@@ -174,7 +175,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
       ];
 
     const items = await prisma.outgoingMail.findMany({
-      where: where as any,
+      where,
       orderBy: { archivedAt: "desc" },
       take: limit,
     });
@@ -189,14 +190,14 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     page,
     limit,
   }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.DispositionWhereInput = { deletedAt: null };
     if (incomingMailId) where.incomingMailId = incomingMailId;
     if (assignedToId) where.assignedToId = assignedToId;
     if (status) where.status = status;
 
     const [items, total] = await Promise.all([
       prisma.disposition.findMany({
-        where: where as any,
+        where,
         include: {
           incomingMail: { select: { registrationNumber: true, subject: true } },
         },
@@ -204,7 +205,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.disposition.count({ where: where as any }),
+      prisma.disposition.count({ where }),
     ]);
 
     return { items: items as any, total };
@@ -245,7 +246,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
     page,
     limit,
   }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.AdministrativeDocumentWhereInput = { deletedAt: null };
     if (search)
       where.OR = [
         { title: { contains: search } },
@@ -256,12 +257,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
     const [items, total] = await Promise.all([
       prisma.administrativeDocument.findMany({
-        where: where as any,
+        where,
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.administrativeDocument.count({ where: where as any }),
+      prisma.administrativeDocument.count({ where }),
     ]);
 
     return { items: items as unknown as AdministrativeDocumentEntity[], total };
@@ -308,7 +309,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   // Agenda Book (read-only)
   async findManyAgendaBooks({ search, page, limit }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.AgendaBookWhereInput = { deletedAt: null };
     if (search)
       where.OR = [
         { title: { contains: search } },
@@ -317,12 +318,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
     const [items, total] = await Promise.all([
       prisma.agendaBook.findMany({
-        where: where as any,
+        where,
         orderBy: { date: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.agendaBook.count({ where: where as any }),
+      prisma.agendaBook.count({ where }),
     ]);
 
     return { items: items as unknown as AgendaBookEntity[], total };
@@ -365,7 +366,7 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
   // Document Archive (read-only)
   async findManyDocumentArchives({ search, documentType, page, limit }) {
-    const where: Record<string, unknown> = { deletedAt: null };
+    const where: Prisma.DocumentArchiveWhereInput = { deletedAt: null };
     if (search)
       where.OR = [
         { title: { contains: search } },
@@ -375,12 +376,12 @@ export const prismaSecretariatRepository: SecretariatRepository = {
 
     const [items, total] = await Promise.all([
       prisma.documentArchive.findMany({
-        where: where as any,
+        where,
         orderBy: { archivedAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       }),
-      prisma.documentArchive.count({ where: where as any }),
+      prisma.documentArchive.count({ where }),
     ]);
 
     return { items: items as unknown as DocumentArchiveEntity[], total };

@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import {
   Archive,
@@ -27,15 +28,6 @@ const documentTypeLabels: Record<string, string> = {
   LAINNYA: "Lainnya",
 };
 
-function formatDate(date: Date | string | null) {
-  if (!date) return "—";
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(date));
-}
-
 function AttachmentLink({ url, label }: { url: string; label: string }) {
   const fileId = url ? extractFileIdFromMediaUrl(url) : null;
   if (!fileId) return null;
@@ -64,7 +56,7 @@ export default async function ArsipPage({
     <PageContainer>
       <PageHeader
         title="Arsip"
-        description="Kumpulan surat dan dokumen terarsip — hanya baca, diagregasi otomatis dari surat menyurat."
+        description="Kumpulan surat dan dokumen terarsip â hanya baca, diagregasi otomatis dari surat menyurat."
       />
 
       <div className="grid gap-3 sm:grid-cols-3">
@@ -122,7 +114,7 @@ export default async function ArsipPage({
                 item.fullNumber ? (
                   <LetterPlate fullNumber={item.fullNumber} size="sm" />
                 ) : (
-                  <span className="text-xs text-muted-foreground">—</span>
+                  <span className="text-xs text-muted-foreground">â</span>
                 ),
             },
             {
@@ -141,7 +133,7 @@ export default async function ArsipPage({
               key: "archivedAt",
               label: "Tanggal Arsip",
               render: (item) => (
-                <span className="text-xs">{formatDate(item.archivedAt)}</span>
+                <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
               ),
             },
             {
@@ -205,7 +197,7 @@ export default async function ArsipPage({
               key: "archivedAt",
               label: "Tanggal Arsip",
               render: (item) => (
-                <span className="text-xs">{formatDate(item.archivedAt)}</span>
+                <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
               ),
             },
             {
@@ -274,7 +266,7 @@ export default async function ArsipPage({
               label: "Tanggal Arsip",
               render: (item) => (
                 <span className="text-xs">
-                  {formatDate(item.archivedAt ?? item.approvedAt)}
+                  {formatDateId(item.archivedAt ?? item.approvedAt, { fallback: "—" })}
                 </span>
               ),
             },

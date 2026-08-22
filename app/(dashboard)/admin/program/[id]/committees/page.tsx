@@ -1,3 +1,4 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { notFound } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
@@ -50,21 +51,21 @@ export default async function CommitteesPage({
           <label htmlFor="committee-user" className="text-xs font-medium">
             User
           </label>
-          <select
+          <NativeSelect
             id="committee-user"
             name="userId"
             required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+            className="h-9 w-full text-xs"
           >
-            <option value="">Pilih user</option>
+            <NativeSelectOption value="">Pilih user</NativeSelectOption>
             {users
               .filter((u) => !existingUserIds.has(u.id))
               .map((u) => (
-                <option key={u.id} value={u.id}>
+                <NativeSelectOption key={u.id} value={u.id}>
                   {u.name}
-                </option>
+                </NativeSelectOption>
               ))}
-          </select>
+          </NativeSelect>
         </div>
         <div className="space-y-1.5">
           <label htmlFor="committee-role" className="text-xs font-medium">
@@ -74,7 +75,7 @@ export default async function CommitteesPage({
             id="committee-role"
             name="role"
             required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+            className="h-9 w-full text-xs"
             placeholder="Ketua, Sekretaris, dll"
           />
         </div>

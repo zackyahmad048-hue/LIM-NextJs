@@ -51,9 +51,9 @@ export default async function KontakPage() {
               <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10">
                 <item.icon size={18} className="text-primary" />
               </div>
-              <h3 className="mt-4 font-display text-base font-semibold text-balance text-foreground">
+              <h2 className="mt-4 font-display text-base font-semibold text-balance text-foreground">
                 {item.title}
-              </h3>
+              </h2>
               <p className="mt-2 whitespace-pre-line text-sm leading-6 text-muted-foreground">
                 {item.value}
               </p>

@@ -1,17 +1,10 @@
+import { formatDateId } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { falakService } from "@/modules/falak/application/service";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 export default async function EclipsePage() {
   const result = await falakService.getEclipsePaginated(1, 50);
@@ -43,7 +36,7 @@ export default async function EclipsePage() {
             key: "tanggal",
             label: "Tanggal",
             render: (item) => (
-              <span className="text-xs">{formatDate(item.eclipseDate)}</span>
+              <span className="text-xs">{formatDateId(item.eclipseDate)}</span>
             ),
           },
           {

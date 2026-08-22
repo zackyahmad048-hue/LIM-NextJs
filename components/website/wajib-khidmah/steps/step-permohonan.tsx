@@ -69,7 +69,7 @@ export function StepPermohonan({ form }: Props) {
           placeholder="Contoh: Tashrif, Nahwu Shorof, Fiqh"
         />
 
-        <FieldWrapper label="Catatan untuk Calon Guru Bantu" required>
+        <FieldWrapper label="Catatan untuk Calon Guru Bantu" required htmlFor="catatan">
           <textarea
             id="catatan"
             rows={4}

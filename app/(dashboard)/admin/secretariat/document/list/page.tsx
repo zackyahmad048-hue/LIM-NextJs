@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getAdministrativeDocuments } from "@/modules/secretariat/queries/secretariat.query";
@@ -94,6 +96,22 @@ export default async function DocumentListPage({
       <AdminTable
         title="Dokumen Administrasi"
         description={`${total} dokumen ditemukan.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/secretariat/document/list"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari dokumen..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={total}
+            basePath="/admin/secretariat/document/list"
+            queryParams={{ search: params.search, status: params.status }}
+          />
+        }
         columns={[
           {
             key: "documentNumber",

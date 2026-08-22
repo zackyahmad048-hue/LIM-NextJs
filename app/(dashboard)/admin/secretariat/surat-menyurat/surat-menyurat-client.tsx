@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { formatDateId } from "@/lib/format";
 import {
   ArrowRight,
   Archive,
@@ -76,14 +77,6 @@ interface SuratMenyuratClientProps {
   incomingItems: IncomingItem[];
   incomingTotal: number;
   driveEmail: string | null;
-}
-
-function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(date));
 }
 
 function formatDateLong(date: Date | string) {
@@ -428,7 +421,7 @@ export function SuratMenyuratClient({
                       </p>
                       <p className="truncate text-xs text-muted-foreground">
                         {item.recipient ?? "Tanpa penerima"} ·{" "}
-                        {formatDate(item.mailDate)}
+                        {formatDateId(item.mailDate)}
                       </p>
                     </div>
                   </div>
@@ -545,7 +538,7 @@ export function SuratMenyuratClient({
                         {item.subject}
                       </p>
                       <p className="truncate text-xs text-muted-foreground">
-                        {item.sender} · {formatDate(item.receivedDate)}
+                        {item.sender} · {formatDateId(item.receivedDate)}
                       </p>
                     </div>
                   </div>

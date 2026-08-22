@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import { Calendar, ClipboardList, FileText, Plus, Users } from "lucide-react";
 
@@ -12,14 +13,6 @@ import {
   getProgramStats,
   getUpcomingPrograms,
 } from "@/modules/program/queries/program.query";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 const statusLabels: Record<
   string,
@@ -136,7 +129,7 @@ export default async function ProgramDashboardPage() {
                   <div>
                     <p className="font-medium">{program.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {formatDate(program.startDate)}
+                      {formatDateId(program.startDate)}
                     </p>
                   </div>
                   <Badge variant="outline" className="text-[11px]">

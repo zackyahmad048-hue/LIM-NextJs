@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { LocationInfo } from "@/lib/astroCalc";
 import { DEFAULT_CITY, City } from "@/lib/cities";
 
@@ -108,10 +108,6 @@ export function useGeolocation() {
       errorMessage: null,
     });
   }, []);
-
-  useEffect(() => {
-    requestGPSLocation(); // eslint-disable-line react-hooks/set-state-in-effect
-  }, [requestGPSLocation]);
 
   return {
     ...state,

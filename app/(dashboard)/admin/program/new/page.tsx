@@ -1,3 +1,4 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Plus } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -56,19 +57,19 @@ export default async function NewProgramPage() {
               <Label htmlFor="type" className="text-xs">
                 Jenis Program
               </Label>
-              <select
+              <NativeSelect
                 id="type"
                 name="type"
                 required
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih jenis</option>
+                <NativeSelectOption value="">Pilih jenis</NativeSelectOption>
                 {programTypes.map((t) => (
-                  <option key={t} value={t}>
+                  <NativeSelectOption key={t} value={t}>
                     {t}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
@@ -101,19 +102,19 @@ export default async function NewProgramPage() {
               <Label htmlFor="personInChargeId" className="text-xs">
                 Penanggung Jawab
               </Label>
-              <select
+              <NativeSelect
                 id="personInChargeId"
                 name="personInChargeId"
                 required
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
-                <option value="">Pilih PIC</option>
+                <NativeSelectOption value="">Pilih PIC</NativeSelectOption>
                 {users.map((u) => (
-                  <option key={u.id} value={u.id}>
+                  <NativeSelectOption key={u.id} value={u.id}>
                     {u.name}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
           </div>
         </SectionCard>

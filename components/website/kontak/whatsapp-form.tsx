@@ -36,6 +36,7 @@ export default function WhatsAppForm({
           value={nama}
           onChange={(event) => setNama(event.target.value)}
           placeholder="Nama Anda"
+          autoComplete="name"
           required
         />
       </div>

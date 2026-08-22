@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import { Calendar, Pencil, Plus } from "lucide-react";
 
@@ -6,18 +7,12 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getPrograms } from "@/modules/program/queries/program.query";
 import { deleteProgram } from "@/modules/program/presentation/program.action";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 const statusLabels: Record<
   string,
@@ -66,6 +61,22 @@ export default async function ProgramListPage({
       <AdminTable
         title="Program"
         description={`${total} program ditemukan.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/program/list"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari nama/kode program..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={total}
+            basePath="/admin/program/list"
+            queryParams={{ search: params.search, status: params.status }}
+          />
+        }
         columns={[
           {
             key: "code",
@@ -99,14 +110,14 @@ export default async function ProgramListPage({
             key: "startDate",
             label: "Mulai",
             render: (item) => (
-              <span className="text-xs tabular-nums">{formatDate(item.startDate)}</span>
+              <span className="text-xs tabular-nums">{formatDateId(item.startDate)}</span>
             ),
           },
           {
             key: "endDate",
             label: "Selesai",
             render: (item) => (
-              <span className="text-xs tabular-nums">{formatDate(item.endDate)}</span>
+              <span className="text-xs tabular-nums">{formatDateId(item.endDate)}</span>
             ),
           },
           {

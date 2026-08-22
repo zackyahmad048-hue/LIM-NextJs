@@ -15,6 +15,14 @@ export const metadata: Metadata = {
 
 const IGNORED_FILES = new Set(["logo.png", "orangelim.png"]);
 
+/** Ubah nama file menjadi teks alt yang layak dibaca: "DSC_4021.jpg" -> "DSC 4021". */
+function humanizeFileName(name: string): string {
+  return name
+    .replace(/\.[^.]+$/, "")
+    .replace(/[-_]+/g, " ")
+    .trim();
+}
+
 export default async function MediaPage() {
   const items = (await getPublicMediaItems()).filter(
     (item) => !IGNORED_FILES.has(item.name),
@@ -40,7 +48,7 @@ export default async function MediaPage() {
               >
                 <Image
                   src={item.href}
-                  alt={item.name}
+                  alt={humanizeFileName(item.name)}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                   className="object-cover transition-transform duration-200 group-hover:scale-105"

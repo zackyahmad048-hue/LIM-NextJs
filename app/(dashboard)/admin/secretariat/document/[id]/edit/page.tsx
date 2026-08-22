@@ -1,3 +1,4 @@
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { notFound } from "next/navigation";
 import { CheckCircle, Pencil, Send, XCircle } from "lucide-react";
 
@@ -139,19 +140,19 @@ export default async function EditDocumentPage({
               <Label htmlFor="documentType" className="text-xs">
                 Jenis Dokumen
               </Label>
-              <select
+              <NativeSelect
                 id="documentType"
                 name="documentType"
                 required
                 defaultValue={doc.documentType}
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+                className="h-9 w-full text-xs"
               >
                 {documentTypes.map((t) => (
-                  <option key={t.value} value={t.value}>
+                  <NativeSelectOption key={t.value} value={t.value}>
                     {t.label}
-                  </option>
+                  </NativeSelectOption>
                 ))}
-              </select>
+              </NativeSelect>
             </div>
 
             <div className="space-y-1.5 md:col-span-2">

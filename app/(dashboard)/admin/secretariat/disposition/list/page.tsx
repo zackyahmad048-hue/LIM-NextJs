@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import { Pencil, Plus } from "lucide-react";
 
@@ -6,18 +7,11 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getDispositions } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteDisposition } from "@/modules/secretariat/presentation/secretariat.action";
-
-function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(date));
-}
 
 const statusLabels: Record<
   string,
@@ -73,6 +67,14 @@ export default async function DispositionListPage({
       <AdminTable
         title="Disposisi"
         description={`${total} disposisi ditemukan.`}
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={total}
+            basePath="/admin/secretariat/disposition/list"
+          />
+        }
         columns={[
           {
             key: "incomingMail",
@@ -115,7 +117,7 @@ export default async function DispositionListPage({
             label: "Batas Waktu",
             render: (item) => (
               <span className="text-xs tabular-nums">
-                {item.dueDate ? formatDate(item.dueDate) : "-"}
+                {item.dueDate ? formatDateId(item.dueDate) : "-"}
               </span>
             ),
           },

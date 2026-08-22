@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { CheckCircle2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { EASE_OUT } from "@/lib/ease";
+import { EASE_OUT, SPRING_MOVE } from "@/lib/ease";
 
 export function SuccessScreen() {
   const reduce = useReducedMotion();
@@ -20,7 +20,7 @@ export function SuccessScreen() {
       <motion.div
         initial={reduce ? false : { scale: 0.4, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
+        transition={{ ...SPRING_MOVE, delay: 0.1 }}
         className="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"
       >
         <CheckCircle2 className="size-8" />

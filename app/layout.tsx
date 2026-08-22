@@ -23,8 +23,8 @@ const hanken = Hanken_Grotesk({
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
+  axes: ["opsz"],
   variable: "--fx-display",
   display: "swap",
 });

@@ -23,7 +23,7 @@ export default function PageHeader({
       >
         <h1
           className={cn(
-            "max-w-3xl font-display text-[2rem] font-semibold text-balance text-foreground sm:text-4xl md:text-5xl",
+            "max-w-3xl font-display text-[2rem] font-semibold tracking-[-0.02em] text-balance text-foreground sm:text-4xl md:text-5xl",
             centered && "mx-auto",
           )}
         >

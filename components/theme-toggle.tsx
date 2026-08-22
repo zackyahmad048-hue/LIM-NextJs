@@ -20,7 +20,15 @@ export function ThemeToggle() {
   const mounted = useMounted();
   const { theme, setTheme } = useTheme();
 
-  if (!mounted) return null;
+  if (!mounted) {
+    // Placeholder berukuran sama agar navbar tidak bergeser saat tombol mount.
+    return (
+      <span
+        aria-hidden
+        className="inline-block h-9 w-9 rounded-full border border-transparent"
+      />
+    );
+  }
 
   return (
     <button

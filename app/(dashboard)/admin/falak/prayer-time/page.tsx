@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import { Clock } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
@@ -6,14 +7,6 @@ import { AdminTable } from "@/components/admin/shared/admin-table";
 
 import { getRecentPrayerTimes } from "@/modules/falak/queries/prayer-time.query";
 import { DEFAULT_CITY } from "@/lib/cities";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
 
 function formatTime(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {
@@ -47,7 +40,7 @@ export default async function PrayerTimePage() {
             label: "Tanggal",
             render: (item) => (
               <span className="text-sm font-medium">
-                {formatDate(item.prayerDate)}
+                {formatDateId(item.prayerDate)}
               </span>
             ),
           },

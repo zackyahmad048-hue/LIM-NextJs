@@ -1,3 +1,5 @@
+import { Prisma } from "@/generated/client";
+import type { ProgramStatus } from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 
 export async function getPrograms(params: {
@@ -6,26 +8,27 @@ export async function getPrograms(params: {
   page?: number;
   limit?: number;
 }) {
-  const where: Record<string, unknown> = { deletedAt: null };
+  const where: Prisma.ProgramWhereInput = { deletedAt: null };
   if (params.search)
     where.OR = [
       { name: { contains: params.search } },
       { code: { contains: params.search } },
     ];
-  if (params.status) where.status = params.status;
+  if (params.status)
+    where.status = params.status as ProgramStatus;
 
   const [items, total] = await Promise.all([
     prisma.program.findMany({
-      where: where as any,
+      where,
       orderBy: { createdAt: "desc" },
       skip: ((params.page ?? 1) - 1) * (params.limit ?? 20),
       take: params.limit ?? 20,
       include: { personInCharge: { select: { id: true, name: true } } },
     }),
-    prisma.program.count({ where: where as any }),
+    prisma.program.count({ where }),
   ]);
 
-  return { items: items as any[], total: total as number };
+  return { items, total };
 }
 
 export async function getProgramById(id: string) {

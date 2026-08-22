@@ -1,3 +1,4 @@
+import { formatDateId } from "@/lib/format";
 import Link from "next/link";
 import { Pencil, Plus } from "lucide-react";
 
@@ -6,18 +7,12 @@ import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminTable } from "@/components/admin/shared/admin-table";
+import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
-
-function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(date));
-}
 
 const statusLabels: Record<
   string,
@@ -60,6 +55,22 @@ export default async function IncomingMailListPage({
       <AdminTable
         title="Surat Masuk"
         description={`${total} surat masuk ditemukan.`}
+        toolbar={
+          <TableSearchForm
+            basePath="/admin/secretariat/incoming-mail/list"
+            defaultValue={params.search ?? ""}
+            placeholder="Cari perihal/pengirim..."
+          />
+        }
+        pagination={
+          <TablePagination
+            page={params.page ? Number(params.page) : 1}
+            pageSize={20}
+            total={total}
+            basePath="/admin/secretariat/incoming-mail/list"
+            queryParams={{ search: params.search, status: params.status }}
+          />
+        }
         columns={[
           {
             key: "registrationNumber",
@@ -95,7 +106,7 @@ export default async function IncomingMailListPage({
             key: "receivedDate",
             label: "Tanggal Diterima",
             render: (item) => (
-              <span className="text-xs tabular-nums">{formatDate(item.receivedDate)}</span>
+              <span className="text-xs tabular-nums">{formatDateId(item.receivedDate)}</span>
             ),
           },
           {
