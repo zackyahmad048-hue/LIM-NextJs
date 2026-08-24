@@ -6,6 +6,7 @@ export interface HomeGridConfig {
   href: string;
   hrefLabel: string;
   arabic?: string;
+  layout?: "uniform" | "featured";
 }
 
 export const HOME_GRIDS: HomeGridConfig[] = [
@@ -13,10 +14,11 @@ export const HOME_GRIDS: HomeGridConfig[] = [
     title: "Berita Terbaru",
     description: "Kabar dan kegiatan terbaru dari LIM di seluruh Indonesia.",
     categorySlug: "berita",
-    limit: 6,
+    limit: 5,
     href: "/artikel",
-    hrefLabel: "Lihat Semua",
+    hrefLabel: "Semua Berita",
     arabic: "أخبار",
+    layout: "featured",
   },
   {
     title: "Kajian & Artikel",
@@ -24,7 +26,7 @@ export const HOME_GRIDS: HomeGridConfig[] = [
     categorySlug: "artikel",
     limit: 6,
     href: "/artikel",
-    hrefLabel: "Lihat Semua",
+    hrefLabel: "Semua Artikel",
     arabic: "مقالات",
   },
 ];

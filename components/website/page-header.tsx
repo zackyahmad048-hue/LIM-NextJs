@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Reveal from "@/components/website/motion/reveal";
 
 interface PageHeaderProps {
   title: string;
@@ -21,31 +22,39 @@ export default function PageHeader({
           centered && "text-center",
         )}
       >
-        <h1
-          className={cn(
-            "max-w-3xl font-display text-[2rem] font-semibold tracking-[-0.02em] text-balance text-foreground sm:text-4xl md:text-5xl",
-            centered && "mx-auto",
-          )}
-        >
-          {title}
-        </h1>
-
-        {description && (
-          <p
+        <Reveal>
+          <h1
             className={cn(
-              "mt-5 max-w-2xl text-base leading-7 text-pretty text-muted-foreground md:text-lg",
+              "max-w-3xl font-display text-[2rem] font-semibold tracking-[-0.02em] text-balance text-foreground sm:text-4xl md:text-5xl",
               centered && "mx-auto",
             )}
           >
-            {description}
-          </p>
-        )}
+            {title}
+          </h1>
 
-        {children && <div className="mt-8">{children}</div>}
+          {description && (
+            <p
+              className={cn(
+                "mt-5 max-w-2xl text-base leading-7 text-pretty text-muted-foreground md:text-lg",
+                centered && "mx-auto",
+              )}
+            >
+              {description}
+            </p>
+          )}
+        </Reveal>
+
+        {children && (
+          <Reveal delay={0.12}>
+            <div className="mt-8">{children}</div>
+          </Reveal>
+        )}
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="h-px bg-border" aria-hidden />
+        <Reveal from="scale" delay={0.08}>
+          <div className="h-px bg-border" aria-hidden />
+        </Reveal>
       </div>
     </header>
   );

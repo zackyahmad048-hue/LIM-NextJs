@@ -6,4 +6,5 @@ export interface NavigationItem {
   icon?: LucideIcon;
   items?: NavigationItem[];
   permissions?: string[];
+  pin?: "bottom";
 }

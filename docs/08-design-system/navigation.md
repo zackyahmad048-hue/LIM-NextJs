@@ -6,9 +6,11 @@
 
 **Document:** `navigation.md`
 
-**Version:** 3.0
+**Version:** 3.1
 
 **Status:** Approved
+
+Perubahan pada 3.1: navbar desktop & mobile menggunakan kapsul mengambang glass (`rounded-full`, border, blur, shadow) yang tampil sejak awal; saat halaman discroll, kapsul melebar menjadi bar full-width di desktop (radius & padding wrapper transisi mulus); menu berbentuk pill dengan indikator aktif `bg-primary/10 text-primary`; hamburger bulat oranye.
 
 Perubahan pada 3.0: logo tanpa lingkaran (warna asli), pill aktif oranye, bar blur, mobile menggunakan Sheet shadcn.
 
@@ -151,9 +153,13 @@ Desktop menggunakan:
 
 Detail visual:
 
-- Bar: `sticky top-0 z-50 border-b border-border/10 bg-background/80 backdrop-blur-md`, konten `h-16 max-w-6xl`.
+- Kapsul mengambang: `sticky top-0 z-50` (wrapper transparan) berisi kapsul glass `border border-(--glass-border) bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate)` + shadow lembut dan highlight inset (`--glass-highlight`).
+- Di atas halaman: kapsul `mx-auto max-w-6xl rounded-full` dengan wrapper `px-4 pt-3 sm:pt-4`.
+- Saat scroll (> 8px): kapsul melebar `w-full rounded-none border-x-0` (full-width), wrapper padding hilang; transisi `duration-500 ease-out`, dimatikan untuk reduced-motion.
+- Isi kapsul: `flex items-center justify-between px-4 py-2 sm:px-6 sm:py-2.5`.
 - Logo: tampil polos dengan warna aslinya (tanpa lingkaran, tanpa invert di dark mode).
-- Menu aktif: pill oranye `bg-primary/10 text-primary`; idle `text-foreground/70 hover:bg-muted/70 hover:text-foreground`.
+- Menu berbentuk pill `rounded-full px-4 py-2 text-sm`; aktif `bg-primary/10 font-medium text-primary`; idle `text-foreground/70 hover:bg-accent hover:text-primary`.
+- Hamburger mobile: bulat `rounded-full bg-primary/10 p-2 text-primary`.
 - Typography: Hanken Grotesk (kelas `font-display`), tanpa font mixing.
 
 Contoh:

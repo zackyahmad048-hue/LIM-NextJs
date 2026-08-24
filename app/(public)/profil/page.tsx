@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
+import Reveal from "@/components/website/motion/reveal";
 import { getProfilContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -24,24 +25,28 @@ export default async function ProfilPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-8 md:grid-cols-2">
-          <div className="rounded-2xl border border-primary/15 bg-card p-7">
-            <SectionLabel>Visi</SectionLabel>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              {profil.visi}
-            </p>
-          </div>
+          <Reveal>
+            <div className="rounded-2xl border border-primary/15 bg-card p-7">
+              <SectionLabel>Visi</SectionLabel>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                {profil.visi}
+              </p>
+            </div>
+          </Reveal>
 
-          <div className="rounded-2xl border border-primary/15 bg-card p-7">
-            <SectionLabel>Misi</SectionLabel>
-            <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
-              {profil.misi.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <HubDot className="mt-1.5 h-2.5 w-2.5" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Reveal delay={0.08}>
+            <div className="rounded-2xl border border-primary/15 bg-card p-7">
+              <SectionLabel>Misi</SectionLabel>
+              <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+                {profil.misi.map((item) => (
+                  <li key={item} className="flex items-start gap-3">
+                    <HubDot className="mt-1.5 h-2.5 w-2.5" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

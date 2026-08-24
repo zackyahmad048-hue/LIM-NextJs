@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import PostCard from "@/components/website/cards/post-card";
+import Reveal from "@/components/website/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { getPaginatedPosts } from "@/modules/cms";
 
@@ -30,8 +31,10 @@ export default async function ArtikelPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {posts.length > 0 ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+            {posts.map((post, i) => (
+              <Reveal key={post.id} index={i}>
+                <PostCard post={post} />
+              </Reveal>
             ))}
           </div>
         ) : (

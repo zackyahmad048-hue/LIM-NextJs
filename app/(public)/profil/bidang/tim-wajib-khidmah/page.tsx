@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
+import Reveal from "@/components/website/motion/reveal";
 import { getTimWajibKhidmahContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -24,6 +25,7 @@ export default async function TimWajibKhidmahPage() {
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <Reveal>
         <div className="rounded-2xl border border-primary/15 bg-card px-6 py-12 sm:px-10 md:py-16">
           <div className="mx-auto max-w-2xl text-center">
             <SectionLabel>{content.sectionTitle}</SectionLabel>
@@ -54,6 +56,7 @@ export default async function TimWajibKhidmahPage() {
             </div>
           )}
         </div>
+        </Reveal>
       </section>
     </>
   );

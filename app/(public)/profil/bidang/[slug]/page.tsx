@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
+import Reveal from "@/components/website/motion/reveal";
 import { BIDANG, getBidangBySlug } from "@/config/bidang";
 
 interface BidangPageProps {
@@ -51,20 +52,23 @@ export default async function BidangPage({ params }: BidangPageProps) {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="space-y-8">
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <SectionLabel>Cakupan Program</SectionLabel>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
-              {bidang.points.map((point) => (
-                <li key={point} className="flex items-start gap-3">
-                  <HubDot className="mt-1.5 h-2.5 w-2.5" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Reveal>
+            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+              <SectionLabel>Cakupan Program</SectionLabel>
+              <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
+                {bidang.points.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <HubDot className="mt-1.5 h-2.5 w-2.5" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
 
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <SectionLabel>Bidang Lainnya</SectionLabel>
+          <Reveal delay={0.08}>
+            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+              <SectionLabel>Bidang Lainnya</SectionLabel>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {lainnya.map((item) => (
                 <Link
@@ -81,7 +85,8 @@ export default async function BidangPage({ params }: BidangPageProps) {
                 </Link>
               ))}
             </div>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

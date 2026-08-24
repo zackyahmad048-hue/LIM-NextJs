@@ -18,7 +18,7 @@ export function SectionCard({
   return (
     <section
       className={cn(
-        "rounded-xl border p-6 shadow-sm",
+        "rounded-2xl border p-6",
         glass
           ? "border-[var(--glass-border)] bg-[var(--glass-card-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]"
           : "bg-card",

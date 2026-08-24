@@ -9,16 +9,17 @@ import {
   UsersRound,
   Building2,
   FileBarChart,
+  BookOpen,
   Download,
 } from "lucide-react";
 import { FEATURES } from "@/config/feature";
 import { hasAnyPermission } from "@/modules/authorization/application/permission.service";
 import { DEFAULT_PERMISSION_MATRIX } from "@/modules/authorization/application/permission.matrix";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { toHijri } from "hijri-converter";
 import { PreviewDialog } from "@/components/admin/structure/preview.dialog";
 import { SectionCard } from "@/components/admin/shared/section-card";
-import { cn } from "@/lib/utils";
 
 interface DashboardUser {
   name: string;
@@ -67,7 +68,6 @@ interface ModuleCard {
   description: string;
   href: string;
   icon: typeof FolderOpen;
-  color: string;
   permissions: string[];
 }
 
@@ -77,7 +77,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Kelola berita, kategori, halaman, dan media.",
     href: "/admin/content",
     icon: FolderOpen,
-    color: "text-orange-600 bg-orange-100 dark:bg-orange-950/50",
     permissions: ["content.post.read"],
   },
   FEATURES.FALAK && {
@@ -85,7 +84,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Jadwal shalat, hisab, rukyat, dan eclipse.",
     href: "/admin/falak",
     icon: Compass,
-    color: "text-amber-600 bg-amber-100 dark:bg-amber-950/50",
     permissions: ["falak.prayer-time.view"],
   },
   FEATURES.PROGRAM && {
@@ -93,7 +91,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Daftar program, peserta, dan jadwal kegiatan.",
     href: "/admin/program",
     icon: ClipboardList,
-    color: "text-yellow-600 bg-yellow-100 dark:bg-yellow-950/50",
     permissions: ["program.view"],
   },
   FEATURES.TWK && {
@@ -101,7 +98,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Kelola data anggota Wajib Khidmah.",
     href: "/admin/twk",
     icon: UsersRound,
-    color: "text-primary/80 bg-primary/10 dark:bg-primary/20",
     permissions: ["twk.member.view"],
   },
   FEATURES.SECRETARIAT && {
@@ -109,7 +105,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Surat masuk, keluar, disposisi, dan dokumen.",
     href: "/admin/secretariat",
     icon: Mail,
-    color: "text-stone-600 bg-stone-200 dark:bg-stone-800/60",
     permissions: ["secretariat.view"],
   },
   FEATURES.STRUCTURE && {
@@ -117,7 +112,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Kelola profil organisasi dan struktur AD/ART.",
     href: "/admin/profil/pengurus-pusat",
     icon: Building2,
-    color: "text-sky-600 bg-sky-100 dark:bg-sky-950/50",
     permissions: ["structure.view"],
   },
   FEATURES.REPORTS && {
@@ -125,7 +119,6 @@ const modules: (ModuleCard | false)[] = [
     description: "Ringkasan dan laporan organisasi.",
     href: "/admin/reports",
     icon: FileBarChart,
-    color: "text-violet-600 bg-violet-100 dark:bg-violet-950/50",
     permissions: ["reports.view"],
   },
 ];
@@ -166,45 +159,50 @@ export function DashboardClient({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
-          {user.image ? (
-            <Image
-              src={user.image}
-              alt={user.name}
-              width={44}
-              height={44}
-              className="size-11 rounded-full object-cover"
-            />
-          ) : (
-            user.name.charAt(0).toUpperCase()
-          )}
-        </div>
+      <SectionCard variant="glass" className="rounded-2xl p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="flex min-w-0 flex-1 items-center gap-4">
+            <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
+              {user.image ? (
+                <Image
+                  src={user.image}
+                  alt={user.name}
+                  width={44}
+                  height={44}
+                  className="size-11 rounded-full object-cover"
+                />
+              ) : (
+                user.name.charAt(0).toUpperCase()
+              )}
+            </div>
 
-        <div>
-          <h1 className="text-xl font-bold">
-            Selamat datang, {user.name}
-          </h1>
-          <p className="mt-0.5 text-sm text-muted-foreground">
-            Anda masuk sebagai {user.roleLabel}. Pilih modul
-            yang ingin dikelola.
-          </p>
-          <DashboardDate />
-        </div>
-      </div>
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <h1 className="text-xl font-bold">
+                  Selamat datang, {user.name}
+                </h1>
+                <Badge variant="secondary">{user.roleLabel}</Badge>
+              </div>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Pilih modul yang ingin dikelola.
+              </p>
+            </div>
+          </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <DashboardDate className="shrink-0 border-t border-[var(--glass-border)] pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0 sm:text-right" />
+        </div>
+      </SectionCard>
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {enabled.map((mod) => {
           const Icon = mod.icon;
           return (
             <Link
               key={mod.href}
               href={mod.href}
-              className="group flex items-start gap-4 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 shadow-sm backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/30 hover:bg-primary/5"
+              className="group flex items-start gap-4 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:border-primary/30 hover:bg-primary/5 motion-safe:hover:-translate-y-0.5"
             >
-              <div
-                className={cn("flex size-10 shrink-0 items-center justify-center rounded-lg", mod.color)}
-              >
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Icon className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
@@ -221,35 +219,31 @@ export function DashboardClient({
         })}
       </div>
 
-      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+      <SectionCard variant="glass" className="p-5">
         <div className="flex items-center gap-3">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-sky-100 text-sky-600 dark:bg-sky-950/50">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Building2 className="size-4" />
           </div>
           <div className="min-w-0 flex-1">
             <h2 className="text-base font-semibold">
               Struktur & Anggota
             </h2>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              {totalCentralBoard} Pengurus Pusat ·{" "}
-              {totalRegionalBoards} Wilayah ·{" "}
-              {totalBranchBoards} Cabang · {totalMembers}{" "}
-              Anggota
-            </p>
           </div>
-          <Button
-            size="sm"
-            variant="outline"
-            className="rounded-full"
-            asChild
-          >
+          <Button size="sm" variant="outline" asChild>
             <Link href="/admin/profil/pengurus-pusat">Kelola</Link>
           </Button>
         </div>
 
+        <div className="mt-5 grid grid-cols-2 gap-y-4 sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-[var(--glass-border)]">
+          <MiniStat value={totalCentralBoard} label="Pengurus Pusat" />
+          <MiniStat value={totalRegionalBoards} label="Wilayah" />
+          <MiniStat value={totalBranchBoards} label="Cabang" />
+          <MiniStat value={totalMembers} label="Anggota" />
+        </div>
+
         {structure.googleSheetUrl && (
           <div className="mt-3 flex items-center gap-2">
-            <div className="flex h-7 flex-1 items-center gap-2 rounded-md bg-muted/50 px-3">
+            <div className="flex h-7 flex-1 items-center gap-2 rounded-lg bg-muted/50 px-3">
               <Download className="size-3.5 shrink-0 text-muted-foreground" />
               <span className="truncate text-xs text-muted-foreground">
                 {structure.googleSheetUrl}
@@ -260,23 +254,18 @@ export function DashboardClient({
         )}
       </SectionCard>
 
-      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+      <SectionCard variant="glass" className="p-5">
         <div className="flex items-center gap-3">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-orange-100 text-orange-600 dark:bg-orange-950/50">
-            <Building2 className="size-4" />
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <BookOpen className="size-4" />
           </div>
           <div className="min-w-0 flex-1">
             <h2 className="text-base font-semibold">Profil</h2>
-            <p className="mt-0.5 text-xs text-muted-foreground">
-              {profil.misi.length} poin misi · visi diperbarui
+            <p className="mt-0.5 text-xs tabular-nums text-muted-foreground">
+              {profil.misi.length} poin misi
             </p>
           </div>
-          <Button
-            size="sm"
-            variant="outline"
-            className="rounded-full"
-            asChild
-          >
+          <Button size="sm" variant="outline" asChild>
             <Link href="/admin/content/pages/page:profil">
               Kelola
             </Link>
@@ -338,18 +327,33 @@ const HIJRI_MONTHS = [
   "Dzulhijjah",
 ];
 
-function DashboardDate() {
+function DashboardDate({ className }: { className?: string }) {
   const now = new Date();
   const hijri = toHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
   const gregorian = new Intl.DateTimeFormat("id-ID", {
+    weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(now);
 
   return (
-    <p className="mt-1 font-data text-[11px] uppercase tabular-nums text-muted-foreground">
-      {gregorian} · {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
-    </p>
+    <div className={className}>
+      <p className="text-sm font-semibold text-foreground">{gregorian}</p>
+      <p className="mt-1 font-data text-xs uppercase tabular-nums tracking-wide text-muted-foreground">
+        {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
+      </p>
+    </div>
+  );
+}
+
+function MiniStat({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="pr-4 sm:px-4 sm:first:pl-0">
+      <p className="text-xl font-bold tabular-nums text-card-foreground">
+        {value}
+      </p>
+      <p className="mt-0.5 truncate text-xs text-muted-foreground">{label}</p>
+    </div>
   );
 }

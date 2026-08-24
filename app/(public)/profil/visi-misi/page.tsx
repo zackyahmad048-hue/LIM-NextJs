@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
+import Reveal from "@/components/website/motion/reveal";
 import { getVisiMisiContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -25,14 +26,17 @@ export default async function VisiMisiPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="space-y-8">
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-            <SectionLabel>Visi</SectionLabel>
-            <p className="mt-5 font-display text-lg italic leading-8 text-foreground">
-              {visiMisi.visi}
-            </p>
-          </div>
+          <Reveal>
+            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+              <SectionLabel>Visi</SectionLabel>
+              <p className="mt-5 font-display text-lg italic leading-8 text-foreground">
+                {visiMisi.visi}
+              </p>
+            </div>
+          </Reveal>
 
-          <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+          <Reveal delay={0.08}>
+            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
             <SectionLabel>Misi</SectionLabel>
             <ul className="mt-5 space-y-5">
               {visiMisi.misi.map((item, index) => (
@@ -50,8 +54,9 @@ export default async function VisiMisiPage() {
                   </div>
                 </li>
               ))}
-            </ul>
-          </div>
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

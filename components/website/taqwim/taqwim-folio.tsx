@@ -24,7 +24,7 @@ const HOME: LocationInfo = {
   timezoneName: "WIB",
 };
 
-const COORDS = "7°51' LS · 112°01' BT";
+const COORDS = "7°51' LS, 112°01' BT";
 
 const HIJRI_MONTHS = [
   "Muharram",
@@ -205,7 +205,7 @@ function LiveTaqwim({
         className="flex items-center justify-between border-b border-border/70 bg-secondary/40 px-5 py-3"
       >
         <span className="font-sans text-[10px] font-medium uppercase text-muted-foreground">
-          Menuju {mounted ? nextLabel : "—"}
+          Menuju {mounted ? nextLabel : "--"}
         </span>
         <span className="font-data text-sm font-medium tabular-nums text-primary">
           {mounted ? `${pad(dh)}:${pad(dm)}:${pad(ds)}` : "--:--:--"}
@@ -342,10 +342,10 @@ export function TaqwimFolio() {
         className="flex items-center justify-between gap-3 border-b border-border/70 px-5 py-3"
       >
         <span className="font-data text-[11px] tabular-nums text-muted-foreground">
-          {mounted ? gregorian : "—"}
+          {mounted ? gregorian : "--"}
         </span>
         <span className="font-data text-[11px] tabular-nums text-foreground">
-          {mounted ? hijriDate : "—"}
+          {mounted ? hijriDate : "--"}
         </span>
       </motion.div>
 
@@ -390,7 +390,7 @@ export function TaqwimFolio() {
           تم بحمد الله
         </p>
         <p className="mt-2 font-data text-[10px] uppercase tabular-nums text-muted-foreground">
-          Selesai dihisab · {HOME_NAME} · {HOME.timezoneName}
+          Selesai dihisab · {HOME_NAME}
         </p>
       </div>
     </GlassPanel>

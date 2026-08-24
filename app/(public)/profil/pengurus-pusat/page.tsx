@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
+import Reveal from "@/components/website/motion/reveal";
 import { getStructure } from "@/modules/cms/queries/structure.query";
 
 export const dynamic = "force-dynamic";
@@ -38,11 +39,11 @@ export default async function PengurusPusatPage() {
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
-            {pengurus.map((orang) => (
-              <div
-                key={orang.id}
-                className="group rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/40"
-              >
+            {pengurus.map((orang, i) => (
+              <Reveal key={orang.id} index={i} className="h-full">
+                <div
+                  className="group h-full rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 font-sans text-sm text-primary">
                   {orang.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -61,7 +62,8 @@ export default async function PengurusPusatPage() {
                 <p className="mt-1 font-sans text-[10px] uppercase text-primary">
                   {orang.position}
                 </p>
-              </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         )}

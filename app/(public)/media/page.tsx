@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import PageHeader from "@/components/website/page-header";
 import { Button } from "@/components/ui/button";
+import Reveal from "@/components/website/motion/reveal";
 import { getPublicMediaItems } from "@/modules/cms/queries/media.query";
 
 export const revalidate = 3600;
@@ -38,22 +39,23 @@ export default async function MediaPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {items.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {items.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative aspect-square overflow-hidden rounded-xl border border-primary/10 bg-card transition hover:border-primary/35"
-              >
-                <Image
-                  src={item.href}
-                  alt={humanizeFileName(item.name)}
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                  className="object-cover transition-transform duration-200 group-hover:scale-105"
-                />
-              </a>
+            {items.map((item, i) => (
+              <Reveal key={item.href} index={i}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group relative block aspect-square overflow-hidden rounded-xl border border-primary/10 bg-card transition hover:border-primary/35"
+                >
+                  <Image
+                    src={item.href}
+                    alt={humanizeFileName(item.name)}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                    className="object-cover transition-transform duration-200 group-hover:scale-105"
+                  />
+                </a>
+              </Reveal>
             ))}
           </div>
         ) : (

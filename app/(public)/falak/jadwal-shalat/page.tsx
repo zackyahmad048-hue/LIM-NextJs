@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
+import Reveal from "@/components/website/motion/reveal";
 import { PrayerTimeTable } from "@/components/website/falak/prayer-time-table";
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function JadwalShalatPage() {
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <PrayerTimeTable />
+        <Reveal>
+          <PrayerTimeTable />
+        </Reveal>
       </section>
     </>
   );

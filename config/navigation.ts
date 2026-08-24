@@ -258,6 +258,7 @@ const rawNav: (NavigationItem | false | undefined)[] = [
   FEATURES.SYSTEM && {
     title: "Sistem",
     icon: Settings,
+    pin: "bottom",
     permissions: ["system.user.view", "system.role.view"],
 
     items: [

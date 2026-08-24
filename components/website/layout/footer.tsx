@@ -163,7 +163,7 @@ export default function Footer() {
               © 2026 Sekretariat Lembaga Ittihadul Muballighin
             </p>
             <p className="font-data text-[10px] uppercase text-primary-foreground/60">
-              Dicetak di Lirboyo · Kediri · Jawa Timur
+              Dicetak di Lirboyo, Kediri · Jawa Timur
             </p>
           </div>
         </div>

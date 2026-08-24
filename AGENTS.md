@@ -746,6 +746,16 @@ Do not run every possible command for a trivial change if it is unnecessary.
 
 But for significant changes, perform broader validation.
 
+Always run checks via the project's npm scripts (latest project-local versions):
+
+```text
+npm run typecheck   # tsc --noEmit (TypeScript 5.9)
+npm run lint        # eslint . (ESLint 9, flat config eslint.config.mjs)
+npm run build       # prisma generate && next build
+```
+
+Never invoke global `eslint` or `tsc` binaries directly — the system has an outdated global ESLint 6 that cannot read this project's flat config.
+
 ---
 
 # 31. Fix Errors at the Root

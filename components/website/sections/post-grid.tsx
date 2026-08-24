@@ -6,6 +6,16 @@ import PostCard from "@/components/website/cards/post-card";
 import { Button } from "@/components/ui/button";
 import { getPublishedPostsByCategorySlug } from "@/modules/cms";
 import type { HomeGridConfig } from "@/config/home";
+import { cn } from "@/lib/utils";
+
+/**
+ * Featured layout uses one large card spanning 2 columns and 2 rows, so the
+ * remaining cards must fill complete rows of 4 on lg (2 on sm) to avoid gaps:
+ * 1 feature card + a multiple of 4 regular cards.
+ */
+function canUseFeaturedLayout(count: number): boolean {
+  return count >= 5 && (count - 1) % 4 === 0;
+}
 
 export default async function PostGrid({
   grid,
@@ -18,6 +28,9 @@ export default async function PostGrid({
     grid.categorySlug,
     grid.limit,
   );
+
+  const useFeatured =
+    grid.layout === "featured" && canUseFeaturedLayout(posts.length);
 
   return (
     <FolioSection
@@ -43,9 +56,24 @@ export default async function PostGrid({
         </div>
 
         {posts.length > 0 ? (
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} variant={cardVariant} />
+          <div
+            className={cn(
+              "mt-8 grid gap-5 sm:grid-cols-2",
+              useFeatured ? "lg:grid-cols-4" : "lg:grid-cols-3",
+            )}
+          >
+            {posts.map((post, i) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                variant={cardVariant}
+                size={useFeatured && i === 0 ? "feature" : "default"}
+                className={
+                  useFeatured && i === 0
+                    ? "sm:col-span-2 lg:col-span-2 lg:row-span-2"
+                    : undefined
+                }
+              />
             ))}
           </div>
         ) : (

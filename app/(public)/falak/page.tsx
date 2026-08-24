@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, Clock, Compass } from "lucide-react";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
+import Reveal from "@/components/website/motion/reveal";
 import { getFalakContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -43,14 +44,14 @@ export default async function FalakPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
         <div className="grid gap-5 sm:grid-cols-3">
-          {tools.map((tool) => {
+          {tools.map((tool, i) => {
             const Icon = tool.icon;
             return (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="group relative flex flex-col rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/45"
-              >
+              <Reveal key={tool.href} index={i} className="h-full">
+                <Link
+                  href={tool.href}
+                  className="group relative flex h-full flex-col rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                >
                 <div className="flex items-center justify-end">
                   <Icon className="h-5 w-5 text-primary" />
                 </div>
@@ -68,17 +69,20 @@ export default async function FalakPage() {
                   Buka Instrumen
                   <ArrowRight size={14} />
                 </span>
-              </Link>
+                </Link>
+              </Reveal>
             );
           })}
         </div>
 
-        <div className="mt-8 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] sm:p-8">
-          <SectionLabel>Metode Perhitungan</SectionLabel>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-            {falak.metode}
-          </p>
-        </div>
+        <Reveal delay={0.1}>
+          <div className="mt-8 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] sm:p-8">
+            <SectionLabel>Metode Perhitungan</SectionLabel>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+              {falak.metode}
+            </p>
+          </div>
+        </Reveal>
       </section>
     </>
   );

@@ -16,7 +16,7 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
 
       <FolioSection
         arabic="الفجر"
-        label="Subuh — awal hari di Lirboyo"
+        label="Subuh, awal hari di Lirboyo"
         contentClassName="pt-1 pb-14 sm:pb-16 lg:pt-4 lg:pb-20"
       >
         <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-14">

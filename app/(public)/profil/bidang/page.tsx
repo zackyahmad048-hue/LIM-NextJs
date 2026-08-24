@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import { HubDot } from "@/components/shared/hub-dot";
+import Reveal from "@/components/website/motion/reveal";
 import { BIDANG } from "@/config/bidang";
 import Link from "next/link";
 
@@ -22,12 +23,12 @@ export default function BidangIndexPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {BIDANG.map((bidang) => (
-            <Link
-              key={bidang.slug}
-              href={`/profil/bidang/${bidang.slug}`}
-              className="group rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-colors hover:border-primary/40"
-            >
+          {BIDANG.map((bidang, i) => (
+            <Reveal key={bidang.slug} index={i} className="h-full">
+              <Link
+                href={`/profil/bidang/${bidang.slug}`}
+                className="group block h-full rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+              >
               <h2 className="text-sm font-semibold text-balance text-foreground">
                 {bidang.title}
               </h2>
@@ -55,7 +56,8 @@ export default function BidangIndexPage() {
                   </span>
                 )}
               </div>
-            </Link>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>

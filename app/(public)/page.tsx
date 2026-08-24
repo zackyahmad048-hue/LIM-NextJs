@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Lembaga Ittihadul Muballighin - Pondok Pesantren Lirboyo Kota Kediri",
   description:
-    "Platform manajemen organisasi dan dakwah Lembaga Ittihadul Muballighin — profil, artikel, dan media.",
+    "Platform manajemen organisasi dan dakwah Lembaga Ittihadul Muballighin: profil, artikel, dan media.",
 };
 
 export default async function Home() {
