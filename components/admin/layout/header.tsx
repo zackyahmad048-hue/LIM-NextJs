@@ -2,6 +2,9 @@
 
 import { Breadcrumb } from "../navigation/breadcrumb";
 import { UserMenu } from "../navigation/user-menu";
+import { CommandMenu } from "../navigation/command-menu";
+import { DateChip } from "../shared/date-chip";
+import { glassChrome } from "../shared/chrome";
 import { PanelLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -16,9 +19,10 @@ interface HeaderUser {
 
 interface Props {
   user: HeaderUser;
+  roleSlugs: string[];
 }
 
-export function Header({ user }: Props) {
+export function Header({ user, roleSlugs }: Props) {
   const { isMobile, collapsed, mobileOpen, toggle, toggleMobile } =
     useSidebar();
 
@@ -31,8 +35,10 @@ export function Header({ user }: Props) {
       : "Tutup sidebar";
 
   return (
-    <header className="sticky top-0 z-20 flex h-12 items-center justify-between border-b border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] px-4 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]">
-      <div className="flex items-center gap-2">
+    <header
+      className={`sticky top-0 z-20 flex h-14 items-center gap-3 border-b px-4 ${glassChrome}`}
+    >
+      <div className="flex items-center gap-1.5">
         <Button
           variant="ghost"
           size="icon-sm"
@@ -41,10 +47,18 @@ export function Header({ user }: Props) {
         >
           <PanelLeft className="h-4 w-4" />
         </Button>
-        <Breadcrumb />
+
+        <div className="min-w-0 rounded-full bg-muted/40 px-3 py-1">
+          <Breadcrumb />
+        </div>
       </div>
 
-      <UserMenu user={user} />
+      <CommandMenu roleSlugs={roleSlugs} />
+
+      <div className="ml-auto flex items-center gap-2">
+        <DateChip className="hidden lg:flex" />
+        <UserMenu user={user} />
+      </div>
     </header>
   );
 }

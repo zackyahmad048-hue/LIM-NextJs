@@ -37,7 +37,11 @@ export function MemberDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <MemberForm member={member} onSuccess={() => onOpenChange(false)} />
+        <MemberForm
+          key={member?.id ?? "new"}
+          member={member}
+          onSuccess={() => onOpenChange(false)}
+        />
       </DialogContent>
     </Dialog>
   );

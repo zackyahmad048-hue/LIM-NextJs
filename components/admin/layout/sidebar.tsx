@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { SidebarItem } from "../navigation/sidebar-item";
 import { Logo } from "./logo";
 import { useSidebar } from "../providers/sidebar-provider";
+import { glassChrome } from "../shared/chrome";
 import { filterNavigation } from "@/modules/authorization/application/permission-nav";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -24,7 +25,8 @@ export function Sidebar({ roleSlugs }: Props) {
   return (
     <aside
       className={cn(
-        "sticky top-0 hidden h-dvh flex-col border-r border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-[width] duration-300 ease-in-out lg:flex",
+        "sticky top-0 hidden h-dvh flex-col border-r transition-[width] duration-300 ease-in-out lg:flex",
+        glassChrome,
         collapsed ? "w-16" : "w-56",
       )}
     >

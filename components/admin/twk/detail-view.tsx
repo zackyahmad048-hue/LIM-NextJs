@@ -34,9 +34,7 @@ interface FieldProps {
 function Field({ label, value }: FieldProps) {
   return (
     <div className="space-y-1">
-      <p className="text-xs uppercase text-muted-foreground">
-        {label}
-      </p>
+      <p className="text-xs uppercase text-muted-foreground">{label}</p>
       <p className="text-sm">
         {value && value.trim() ? (
           value
@@ -53,9 +51,7 @@ function FieldList({ label, values }: { label: string; values: string[] }) {
 
   return (
     <div className="space-y-1">
-      <p className="text-xs uppercase text-muted-foreground">
-        {label}
-      </p>
+      <p className="text-xs uppercase text-muted-foreground">{label}</p>
       {trimmed.length === 0 ? (
         <p className="text-sm text-muted-foreground">-</p>
       ) : (

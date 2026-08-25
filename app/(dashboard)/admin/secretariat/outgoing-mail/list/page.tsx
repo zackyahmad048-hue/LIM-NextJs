@@ -161,7 +161,7 @@ export default async function OutgoingMailListPage({
               ),
             },
           ]}
-          data={items as any[]}
+          data={items}
           emptyMessage="Belum ada surat keluar. Buat surat keluar pertama Anda."
         />
       </div>

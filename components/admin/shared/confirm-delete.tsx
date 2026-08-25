@@ -10,10 +10,7 @@ import { ConfirmDialog } from "@/components/admin/shared/confirm-dialog";
 import { cn } from "@/lib/utils";
 
 type DeleteResult =
-  | { ok?: boolean; message?: string }
-  | void
-  | undefined
-  | null;
+  { ok?: boolean; message?: string } | void | undefined | null;
 
 interface ConfirmDeleteProps<TArgs extends unknown[]> {
   onConfirm: (...args: TArgs) => Promise<DeleteResult>;

@@ -41,7 +41,7 @@ export default async function DashboardLayout({
         <MobileSidebar roleSlugs={roleSlugs} />
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <Header user={user} />
+          <Header user={user} roleSlugs={roleSlugs} />
 
           <main className="flex-1 overflow-x-hidden">{children}</main>
 

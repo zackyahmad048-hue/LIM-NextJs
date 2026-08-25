@@ -46,7 +46,7 @@ export function AdminTable<T extends { id: string }>({
       <div
         className={cn(
           "border-b p-4",
-          toolbar && "flex flex-wrap items-start justify-between gap-3"
+          toolbar && "flex flex-wrap items-start justify-between gap-3",
         )}
       >
         <div>
@@ -62,7 +62,10 @@ export function AdminTable<T extends { id: string }>({
             {columns.map((col) => (
               <TableHead
                 key={col.key}
-                className={cn("h-10 text-xs", col.align === "right" && "text-right")}
+                className={cn(
+                  "h-10 text-xs",
+                  col.align === "right" && "text-right",
+                )}
               >
                 {col.label}
               </TableHead>

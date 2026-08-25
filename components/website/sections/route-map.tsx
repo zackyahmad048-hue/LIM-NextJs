@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { EASE_OUT } from "@/lib/ease";
 import { HubDot } from "@/components/shared/hub-dot";
-import FolioSection from "@/components/website/taqwim/folio-section";
+import SectionLabel from "@/components/shared/section-label";
 
 const HUB = { x: 62, y: 88, label: "Kediri" };
 
@@ -29,17 +29,13 @@ const REGION_LIST = [
   "Sumatera",
   "Kalimantan",
   "Sulawesi",
-  
 ];
 
 export default function RouteMap() {
   return (
-    <FolioSection
-      arabic="شبكة"
-      label="Jaringan Dakwah"
-      contentClassName="py-8 sm:py-10 lg:py-14"
-    >
+    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-14">
       <div className="border-y border-border pt-8 sm:pt-10">
+        <SectionLabel>Jaringan Dakwah</SectionLabel>
         {/* Desktop fan */}
         <svg
           viewBox="0 0 1060 172"
@@ -134,6 +130,6 @@ export default function RouteMap() {
           penjuru Nusantara.
         </p>
       </div>
-    </FolioSection>
+    </section>
   );
 }

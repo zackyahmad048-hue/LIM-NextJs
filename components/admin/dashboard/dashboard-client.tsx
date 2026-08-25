@@ -17,7 +17,6 @@ import { hasAnyPermission } from "@/modules/authorization/application/permission
 import { DEFAULT_PERMISSION_MATRIX } from "@/modules/authorization/application/permission.matrix";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { toHijri } from "hijri-converter";
 import { PreviewDialog } from "@/components/admin/structure/preview.dialog";
 import { SectionCard } from "@/components/admin/shared/section-card";
 
@@ -137,12 +136,7 @@ interface Props {
   profil: ProfilData;
 }
 
-export function DashboardClient({
-  user,
-  roleSlugs,
-  structure,
-  profil,
-}: Props) {
+export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
   const enabled = modules.filter((mod): mod is ModuleCard => {
     if (!mod) return false;
     return hasAnyPermission(
@@ -188,8 +182,6 @@ export function DashboardClient({
               </p>
             </div>
           </div>
-
-          <DashboardDate className="shrink-0 border-t border-[var(--glass-border)] pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0 sm:text-right" />
         </div>
       </SectionCard>
 
@@ -225,9 +217,7 @@ export function DashboardClient({
             <Building2 className="size-4" />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="text-base font-semibold">
-              Struktur & Anggota
-            </h2>
+            <h2 className="text-base font-semibold">Struktur & Anggota</h2>
           </div>
           <Button size="sm" variant="outline" asChild>
             <Link href="/admin/profil/pengurus-pusat">Kelola</Link>
@@ -266,17 +256,13 @@ export function DashboardClient({
             </p>
           </div>
           <Button size="sm" variant="outline" asChild>
-            <Link href="/admin/content/pages/page:profil">
-              Kelola
-            </Link>
+            <Link href="/admin/content/pages/page:profil">Kelola</Link>
           </Button>
         </div>
 
         <div className="mt-3 space-y-2">
           <div>
-            <p className="text-xs font-medium text-muted-foreground">
-              Visi
-            </p>
+            <p className="text-xs font-medium text-muted-foreground">Visi</p>
             <p className="mt-1 text-sm leading-6 text-foreground">
               {profil.visi.length > 120
                 ? `${profil.visi.slice(0, 120)}...`
@@ -284,9 +270,7 @@ export function DashboardClient({
             </p>
           </div>
           <div>
-            <p className="text-xs font-medium text-muted-foreground">
-              Misi
-            </p>
+            <p className="text-xs font-medium text-muted-foreground">Misi</p>
             <ul className="mt-1 space-y-1">
               {profil.misi.slice(0, 3).map((item) => (
                 <li
@@ -294,9 +278,7 @@ export function DashboardClient({
                   className="flex items-start gap-2 text-xs text-muted-foreground"
                 >
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                  {item.length > 60
-                    ? `${item.slice(0, 60)}...`
-                    : item}
+                  {item.length > 60 ? `${item.slice(0, 60)}...` : item}
                 </li>
               ))}
               {profil.misi.length > 3 && (
@@ -312,45 +294,10 @@ export function DashboardClient({
   );
 }
 
-const HIJRI_MONTHS = [
-  "Muharram",
-  "Safar",
-  "Rabiul Awal",
-  "Rabiul Akhir",
-  "Jumadil Awal",
-  "Jumadil Akhir",
-  "Rajab",
-  "Sya'ban",
-  "Ramadan",
-  "Syawal",
-  "Dzulqa'dah",
-  "Dzulhijjah",
-];
-
-function DashboardDate({ className }: { className?: string }) {
-  const now = new Date();
-  const hijri = toHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
-  const gregorian = new Intl.DateTimeFormat("id-ID", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(now);
-
-  return (
-    <div className={className}>
-      <p className="text-sm font-semibold text-foreground">{gregorian}</p>
-      <p className="mt-1 font-data text-xs uppercase tabular-nums tracking-wide text-muted-foreground">
-        {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
-      </p>
-    </div>
-  );
-}
-
 function MiniStat({ value, label }: { value: number; label: string }) {
   return (
     <div className="pr-4 sm:px-4 sm:first:pl-0">
-      <p className="text-xl font-bold tabular-nums text-card-foreground">
+      <p className="font-display text-xl font-semibold tracking-[-0.01em] tabular-nums text-card-foreground">
         {value}
       </p>
       <p className="mt-0.5 truncate text-xs text-muted-foreground">{label}</p>

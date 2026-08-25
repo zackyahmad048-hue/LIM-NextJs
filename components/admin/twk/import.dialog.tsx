@@ -49,9 +49,7 @@ export function ImportDialog({ open, onOpenChange }: Props) {
         return;
       }
 
-      toast.success(
-        `${result.imported} anggota berhasil diimpor.`,
-      );
+      toast.success(`${result.imported} anggota berhasil diimpor.`);
 
       router.refresh();
       setCsvText("");
@@ -138,15 +136,15 @@ export function ImportDialog({ open, onOpenChange }: Props) {
           )}
 
           <div className="flex justify-end gap-2">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Batal
             </Button>
 
-            <Button
-              type="button"
-              disabled={pending}
-              onClick={handleSubmit}
-            >
+            <Button type="button" disabled={pending} onClick={handleSubmit}>
               {pending ? "Mengimpor..." : "Impor"}
             </Button>
           </div>

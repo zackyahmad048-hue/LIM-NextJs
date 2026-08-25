@@ -139,7 +139,7 @@ export default async function CommitteesPage({
             ),
           },
         ]}
-        data={committees as any[]}
+        data={committees}
         emptyMessage="Belum ada panitia."
       />
     </PageContainer>

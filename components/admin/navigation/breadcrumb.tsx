@@ -60,7 +60,10 @@ const DYNAMIC_SEGMENT = /^\[.+\]$|^[0-9a-f]{8}-[0-9a-f]{4}-/i;
 
 function labelFor(segment: string): string {
   if (DYNAMIC_SEGMENT.test(segment)) return "Detail";
-  return SEGMENT_LABELS[segment] ?? segment.charAt(0).toUpperCase() + segment.slice(1);
+  return (
+    SEGMENT_LABELS[segment] ??
+    segment.charAt(0).toUpperCase() + segment.slice(1)
+  );
 }
 
 export function Breadcrumb() {

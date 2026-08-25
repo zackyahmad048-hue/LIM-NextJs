@@ -148,7 +148,7 @@ export default async function IncomingMailListPage({
             ),
           },
         ]}
-        data={items as any[]}
+        data={items}
         emptyMessage="Belum ada surat masuk. Buat surat masuk pertama Anda."
       />
     </PageContainer>

@@ -146,9 +146,8 @@ export function PreviewDialog({
         <DialogHeader>
           <DialogTitle>Preview Data Google Sheet</DialogTitle>
           <DialogDescription>
-            Tempel URL Google Sheet untuk melihat preview data
-            sebelum diimpor. Pastikan sheet memiliki kolom: nama,
-            alamat, kelas, pos, tempat.
+            Tempel URL Google Sheet untuk melihat preview data sebelum diimpor.
+            Pastikan sheet memiliki kolom: nama, alamat, kelas, pos, tempat.
           </DialogDescription>
         </DialogHeader>
 
@@ -177,9 +176,7 @@ export function PreviewDialog({
             </Button>
           </div>
 
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
-          )}
+          {error && <p className="text-sm text-destructive">{error}</p>}
 
           {rows.length > 0 && (
             <div className="space-y-2">
@@ -239,11 +236,7 @@ export function PreviewDialog({
         </div>
 
         <DialogFooter>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleClose}
-          >
+          <Button type="button" variant="outline" onClick={handleClose}>
             Tutup
           </Button>
           <Button
@@ -252,9 +245,7 @@ export function PreviewDialog({
             onClick={handleImport}
           >
             <Import className="size-4" />
-            {importing
-              ? "Mengimpor..."
-              : `Impor ${rows.length} data`}
+            {importing ? "Mengimpor..." : `Impor ${rows.length} data`}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -6,9 +6,11 @@
 
 **Document:** `layout.md`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
+
+Perubahan pada 1.1: konten CMS tidak lagi dibatasi `max-w-7xl`; `PageContainer` admin melebar penuh mengikuti layar. Tabel container dipecah per konteks publik/admin.
 
 ---
 
@@ -67,15 +69,18 @@ Footer (Optional)
 
 # Container
 
-Gunakan container dengan lebar maksimum:
+## Situs Publik
 
 | Breakpoint                              | Max Width |
 | --------------------------------------- | --------: |
 | Default                                 |      100% |
-| lg                                      |    1024px |
-| xl                                      |    1280px |
-| 2xl                                     |    1400px |
 | `max-w-6xl` (pola utama situs & footer) |    1152px |
+
+Section mandiri (di luar hero) juga memakai `max-w-6xl` agar garis margin konsisten dengan navbar dan footer.
+
+## Admin CMS
+
+`PageContainer` (`components/admin/shared/page-container.tsx`) **tanpa batas lebar**: konten memenuhi seluruh area di kanan sidebar dengan padding `px-4 py-5 lg:px-6 lg:py-8`. Form yang butuh ukuran baca nyaman membatasi dirinya sendiri (misal `max-w-2xl` pada elemen form), bukan pada container.
 
 ---
 

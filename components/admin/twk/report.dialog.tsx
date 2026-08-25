@@ -74,8 +74,9 @@ function BreakdownSection({
 
 export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
   const [filter, setFilter] = useState("");
-  const [statusFilter, setStatusFilter] =
-    useState<"ALL" | WajibKhidmahStatus>("ALL");
+  const [statusFilter, setStatusFilter] = useState<"ALL" | WajibKhidmahStatus>(
+    "ALL",
+  );
 
   const filtered = useMemo(() => {
     const query = filter.trim().toLowerCase();
@@ -127,8 +128,8 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
           <DialogTitle>Laporan Wajib Khidmah</DialogTitle>
 
           <DialogDescription>
-            Ringkasan data anggota dan daftar lengkap. Gunakan tombol cetak
-            atau ekspor CSV untuk mengunduh.
+            Ringkasan data anggota dan daftar lengkap. Gunakan tombol cetak atau
+            ekspor CSV untuk mengunduh.
           </DialogDescription>
         </DialogHeader>
 
@@ -228,12 +229,8 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                     <th className="px-3 py-2 text-left font-medium">No.</th>
                     <th className="px-3 py-2 text-left font-medium">Nama</th>
                     <th className="px-3 py-2 text-left font-medium">Pos</th>
-                    <th className="px-3 py-2 text-left font-medium">
-                      Status
-                    </th>
-                    <th className="px-3 py-2 text-left font-medium">
-                      Tempat
-                    </th>
+                    <th className="px-3 py-2 text-left font-medium">Status</th>
+                    <th className="px-3 py-2 text-left font-medium">Tempat</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -252,9 +249,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                         <td className="px-3 py-2 text-muted-foreground">
                           {index + 1}
                         </td>
-                        <td className="px-3 py-2 font-medium">
-                          {member.nama}
-                        </td>
+                        <td className="px-3 py-2 font-medium">{member.nama}</td>
                         <td className="px-3 py-2">
                           {member.posWajibKhidmah ?? (
                             <span className="text-muted-foreground">-</span>

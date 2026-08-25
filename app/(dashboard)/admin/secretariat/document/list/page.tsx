@@ -200,7 +200,7 @@ export default async function DocumentListPage({
             ),
           },
         ]}
-        data={items as any[]}
+        data={items}
         emptyMessage="Belum ada dokumen administrasi. Buat dokumen pertama Anda."
       />
     </PageContainer>

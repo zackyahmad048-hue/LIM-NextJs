@@ -15,7 +15,7 @@ interface TablePaginationProps {
 function buildHref(
   basePath: string,
   queryParams: Record<string, string | undefined> | undefined,
-  page: number
+  page: number,
 ) {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(queryParams ?? {})) {

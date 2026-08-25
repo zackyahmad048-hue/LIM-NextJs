@@ -6,9 +6,11 @@
 
 **Document:** `components.md`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
+
+Perubahan pada 1.1: ditambahkan seksi "Admin CMS Shell" (primitif bersama kerangka admin) dan rujukan ke `motion.md`.
 
 ---
 
@@ -90,6 +92,24 @@ Card dapat memiliki:
 - Body
 - Footer
 - Action Area
+
+---
+
+# Admin CMS Shell
+
+Primitif bersama kerangka admin. Wajib dipakai ulang; larang duplikasi gaya.
+
+| Komponen                | Lokasi                                             | Keterangan                                                                                                                            |
+| ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `chrome.ts`             | `components/admin/shared/chrome.ts`                | Konstanta `glassChrome`, `glassCard`, `softCard` — satu sumber token glass untuk header/sidebar/kartu                                 |
+| `PageContainer`         | `components/admin/shared/page-container.tsx`       | Wrapper konten halaman, **full-width tanpa max-w**                                                                                    |
+| `PageHeader`            | `components/admin/shared/page-header.tsx`          | Judul `font-display` + hairline bawah (`border-b border-border/60 pb-5`) + slot actions                                               |
+| `SectionCard`           | `components/admin/shared/section-card.tsx`         | Kartu section `rounded-2xl` + shadow konsisten                                                                                        |
+| `StatCard` / `MiniStat` | `components/admin/shared/stat-card.tsx`, dashboard | Angka memakai `font-display font-semibold tracking-[-0.01em] tabular-nums`; MiniStat dipakai saat statistik hidup di dalam kartu lain |
+| `CommandMenu`           | `components/admin/navigation/command-menu.tsx`     | Pencarian menu global (`Ctrl/Cmd+K`) via `CommandDialog`, terfilter permission                                                        |
+| `DateChip`              | `components/admin/shared/date-chip.tsx`            | Chip tanggal Masehi + Hijriah di header (satu-satunya tempat tanggal tampil)                                                          |
+| `Header` toolbar        | `components/admin/layout/header.tsx`               | Toggle + breadcrumb dalam chip + search pill; kanan: DateChip + UserMenu                                                              |
+| Sidebar                 | `components/admin/layout/sidebar.tsx`              | Transisi expand submenu (lihat `motion.md`)                                                                                           |
 
 ---
 
@@ -293,6 +313,7 @@ Seluruh komponen wajib:
 - forms.md
 - navigation.md
 - theme.md
+- motion.md
 - accessibility.md
 
 ---

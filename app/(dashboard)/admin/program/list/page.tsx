@@ -155,14 +155,14 @@ export default async function ProgramListPage({
                   onConfirm={deleteProgram}
                   args={[item.id]}
                   title="Hapus program"
-                  description={`Program "${item.title}" beserta seluruh datanya akan dihapus permanen.`}
+                  description={`Program "${item.name}" beserta seluruh datanya akan dihapus permanen.`}
                   label="Hapus program"
                 />
               </div>
             ),
           },
         ]}
-        data={items as any[]}
+        data={items}
         emptyMessage={
           <>
             Belum ada program.{" "}

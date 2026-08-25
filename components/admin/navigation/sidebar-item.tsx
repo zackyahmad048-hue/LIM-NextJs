@@ -161,11 +161,19 @@ export function SidebarItem({
     <div className="space-y-0.5">
       {trigger}
 
-      {open && (
-        <div className="ml-5 space-y-0.5 border-l border-border/60 pl-2">
-          {renderChildLinks()}
+      <div
+        aria-hidden={!open}
+        className={cn(
+          "grid transition-all duration-300 ease-in-out motion-reduce:transition-none",
+          open
+            ? "grid-rows-[1fr] opacity-100"
+            : "invisible grid-rows-[0fr] opacity-0",
+        )}
+      >
+        <div className="ml-5 overflow-hidden border-l border-border/60 pl-2">
+          <div className="space-y-0.5 py-0.5">{renderChildLinks()}</div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

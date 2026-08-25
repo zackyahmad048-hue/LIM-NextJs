@@ -124,7 +124,13 @@ export function AttachmentUpload({
             className="size-8"
             asChild
           >
-            <a href={file.url} target="_blank" rel="noreferrer" aria-label="Lihat berkas" title="Lihat">
+            <a
+              href={file.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Lihat berkas"
+              title="Lihat"
+            >
               <Eye className="size-4" />
             </a>
           </Button>

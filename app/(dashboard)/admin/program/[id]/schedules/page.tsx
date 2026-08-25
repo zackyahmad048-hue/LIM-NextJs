@@ -143,7 +143,7 @@ export default async function SchedulesPage({
             ),
           },
         ]}
-        data={schedules as any[]}
+        data={schedules}
         emptyMessage="Belum ada jadwal. Tambah jadwal pertama."
       />
     </PageContainer>

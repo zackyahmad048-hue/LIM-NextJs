@@ -109,7 +109,7 @@ export default async function AgendaPage({
             ),
           },
         ]}
-        data={items as any[]}
+        data={items}
         emptyMessage={
           <>
             Belum ada agenda.{" "}

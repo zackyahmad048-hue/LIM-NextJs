@@ -6,10 +6,7 @@ import { toast } from "sonner";
 import { Plus, Save, Trash2 } from "lucide-react";
 
 import { saveSitePageContent } from "@/app/(dashboard)/admin/content/pages/_actions";
-import type {
-  SitePageDefinition,
-  SitePageField,
-} from "@/config/site-pages";
+import type { SitePageDefinition, SitePageField } from "@/config/site-pages";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +27,9 @@ function cloneValues(values: Values): Values {
 
 export function PageEditor({ def, initialValues }: PageEditorProps) {
   const router = useRouter();
-  const [values, setValues] = useState<Values>(() => cloneValues(initialValues));
+  const [values, setValues] = useState<Values>(() =>
+    cloneValues(initialValues),
+  );
   const [saving, setSaving] = useState(false);
 
   const dirty = JSON.stringify(values) !== JSON.stringify(initialValues);
@@ -61,7 +60,9 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
     key: "title" | "description",
     text: string,
   ) {
-    const list = (values[field.key] as { title: string; description: string }[]).slice();
+    const list = (
+      values[field.key] as { title: string; description: string }[]
+    ).slice();
     list[index] = { ...list[index], [key]: text };
     setField(field.key, list);
   }
@@ -74,7 +75,9 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
   }
 
   function removePairItem(field: SitePageField, index: number) {
-    const list = (values[field.key] as { title: string; description: string }[]).slice();
+    const list = (
+      values[field.key] as { title: string; description: string }[]
+    ).slice();
     list.splice(index, 1);
     setField(field.key, list);
   }
@@ -185,8 +188,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
           <div className="space-y-2.5">
             {(
               (values[field.key] as
-                | string[]
-                | { title: string; description: string }[]) ?? []
+                string[] | { title: string; description: string }[]) ?? []
             ).map((item, index) => (
               <div
                 key={index}
@@ -214,7 +216,10 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                 ) : (
                   <div className="grid flex-1 gap-2 sm:grid-cols-2">
                     {(() => {
-                      const pair = item as { title: string; description: string };
+                      const pair = item as {
+                        title: string;
+                        description: string;
+                      };
                       return (
                         <>
                           <Input

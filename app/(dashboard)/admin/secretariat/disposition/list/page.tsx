@@ -151,14 +151,14 @@ export default async function DispositionListPage({
                   onConfirm={deleteDisposition}
                   args={[item.id]}
                   title="Hapus disposisi"
-                  description={`Disposisi "${item.title}" akan dihapus permanen.`}
+                  description={`Disposisi "${item.instruction}" akan dihapus permanen.`}
                   label="Hapus disposisi"
                 />
               </div>
             ),
           },
         ]}
-        data={items as any[]}
+        data={items}
         emptyMessage="Belum ada disposisi. Buat disposisi pertama Anda."
       />
     </PageContainer>

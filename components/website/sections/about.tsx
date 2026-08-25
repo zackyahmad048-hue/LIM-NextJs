@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import AboutCard from "@/components/website/cards/about-card";
-import FolioSection from "@/components/website/taqwim/folio-section";
 import Reveal from "@/components/website/motion/reveal";
+import SectionLabel from "@/components/shared/section-label";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,14 +27,11 @@ export default function About({
   features,
 }: AboutSectionProps) {
   return (
-    <FolioSection
-      arabic="نبذة"
-      label="Selayang Pandang"
-      contentClassName="py-8 sm:py-10 lg:py-14"
-    >
+    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-14">
       <Reveal>
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl font-medium text-balance text-foreground md:text-4xl">
+          <SectionLabel>Selayang Pandang</SectionLabel>
+          <h2 className="mt-3 font-display text-3xl font-medium text-balance text-foreground md:text-4xl">
             {title}
           </h2>
           {subtitle && (
@@ -95,6 +92,6 @@ export default function About({
           </Reveal>
         </Reveal>
       </div>
-    </FolioSection>
+    </section>
   );
 }

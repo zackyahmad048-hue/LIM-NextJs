@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Resolver } from "react-hook-form";
 import { toast } from "sonner";
@@ -47,14 +47,15 @@ function errorMessage(
   return errors[key]?.message;
 }
 
-function buildDefaultValues(member: MemberRow | undefined): WajibKhidmahMemberInput {
+function buildDefaultValues(
+  member: MemberRow | undefined,
+): WajibKhidmahMemberInput {
   return {
     nama: member?.nama ?? "",
     asalDaerah: member?.asalDaerah ?? "",
     alamatLembaga: member?.alamatLembaga ?? "",
     posWajibKhidmah: (member?.posWajibKhidmah ?? "") as
-      | (typeof POS_WAJIB_KHIDMAH)[number]
-      | "",
+      (typeof POS_WAJIB_KHIDMAH)[number] | "",
     tempatWajibKhidmah:
       member?.tempatWajibKhidmah && member.tempatWajibKhidmah.length > 0
         ? member.tempatWajibKhidmah
@@ -77,16 +78,13 @@ export function MemberForm({ member, onSuccess }: Props) {
     defaultValues: buildDefaultValues(member),
   });
 
-  const [tempatList, setTempatList] = useState<string[]>([]);
-
-  useEffect(() => {
+  const [tempatList, setTempatList] = useState<string[]>(() => {
     const defaults = buildDefaultValues(member);
-    form.reset(defaults);
-    setTempatList(defaults.tempatWajibKhidmah ?? [""]);
-  }, [member, form]);
+    return defaults.tempatWajibKhidmah ?? [""];
+  });
 
-  const status = form.watch("status");
-  const pos = form.watch("posWajibKhidmah");
+  const status = useWatch({ control: form.control, name: "status" });
+  const pos = useWatch({ control: form.control, name: "posWajibKhidmah" });
   const tugasEligible = (TUGAS_POS_ELIGIBLE as readonly string[]).includes(
     pos ?? "",
   );
@@ -122,9 +120,7 @@ export function MemberForm({ member, onSuccess }: Props) {
     }
 
     toast.success(
-      member
-        ? "Anggota berhasil diperbarui."
-        : "Anggota berhasil ditambahkan.",
+      member ? "Anggota berhasil diperbarui." : "Anggota berhasil ditambahkan.",
     );
 
     router.refresh();
@@ -289,9 +285,7 @@ export function MemberForm({ member, onSuccess }: Props) {
       <div className="space-y-2">
         <Label htmlFor="keterangan">
           Keterangan{" "}
-          {status !== "AKTIF" && (
-            <span className="text-destructive">*</span>
-          )}
+          {status !== "AKTIF" && <span className="text-destructive">*</span>}
         </Label>
         <Textarea
           id="keterangan"
@@ -300,10 +294,7 @@ export function MemberForm({ member, onSuccess }: Props) {
           aria-describedby="keterangan-helper"
           {...form.register("keterangan")}
         />
-        <p
-          id="keterangan-helper"
-          className="text-xs text-muted-foreground"
-        >
+        <p id="keterangan-helper" className="text-xs text-muted-foreground">
           {status === "AKTIF"
             ? "Isi dengan tanda '-' untuk anggota Aktif."
             : "Wajib diisi dengan alasan penonaktifan."}

@@ -6,9 +6,11 @@
 
 **Document:** `README.md`
 
-**Version:** 2.0
+**Version:** 2.1
 
 **Status:** Approved
+
+Perubahan pada 2.1: struktur dokumentasi disinkronkan dengan isi folder aktual dan ditambahkan rujukan `motion.md`.
 
 ---
 
@@ -149,6 +151,23 @@ Komponen dasar menggunakan:
 
 ---
 
+# Motion
+
+Motion mengikuti:
+
+```
+motion.md
+```
+
+Standar meliputi:
+
+- Token easing & spring (`lib/ease.ts`).
+- Primitif entrance `Reveal`.
+- Pola transisi CMS (expand submenu, chrome).
+- Kewajiban reduced motion.
+
+---
+
 # Navigation
 
 Navigation mengikuti dokumen:
@@ -242,19 +261,31 @@ Komponen harus:
 
 README.md
 
-navigation.md
-
-components.md
+accessibility.md
 
 colors.md
 
-typography.md
+components.md
 
-spacing.md
+forms.md
 
 icons.md
 
+layout.md
+
+motion.md
+
+navigation.md
+
 responsive.md
+
+spacing.md
+
+tables.md
+
+theme.md
+
+typography.md
 ```
 
 ---

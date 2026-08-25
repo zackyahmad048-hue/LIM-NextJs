@@ -112,7 +112,7 @@ export default async function DocumentationPage({
             ),
           },
         ]}
-        data={documentation as any[]}
+        data={documentation}
         emptyMessage="Belum ada dokumentasi."
       />
     </PageContainer>

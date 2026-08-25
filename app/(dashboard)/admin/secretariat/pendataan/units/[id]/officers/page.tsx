@@ -112,7 +112,7 @@ export default async function OfficersPage({
             ),
           },
         ]}
-        data={officers as any[]}
+        data={officers}
         emptyMessage="Belum ada pengurus pada unit ini. Tambahkan pengurus pertama."
       />
 

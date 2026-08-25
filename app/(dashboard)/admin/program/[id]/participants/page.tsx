@@ -182,7 +182,7 @@ export default async function ParticipantsPage({
             ),
           },
         ]}
-        data={participants as any[]}
+        data={participants}
         emptyMessage="Belum ada peserta."
       />
     </PageContainer>

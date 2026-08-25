@@ -12,7 +12,10 @@ import {
 import { cn } from "@/lib/utils";
 
 interface ActionFormProps {
-  action: (prevState: ActionResult, formData: FormData) => Promise<ActionResult>;
+  action: (
+    prevState: ActionResult,
+    formData: FormData,
+  ) => Promise<ActionResult>;
   children: ReactNode;
   submitLabel: string;
   submitIcon?: ReactNode;

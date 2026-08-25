@@ -28,7 +28,13 @@ const documentTypeLabels: Record<string, string> = {
   LAINNYA: "Lainnya",
 };
 
-function AttachmentLink({ url, label }: { url: string; label: string }) {
+function AttachmentLink({
+  url,
+  label,
+}: {
+  url: string | null;
+  label: string;
+}) {
   const fileId = url ? extractFileIdFromMediaUrl(url) : null;
   if (!fileId) return null;
   return (
@@ -157,7 +163,7 @@ export default async function ArsipPage({
               ),
             },
           ]}
-          data={outgoing as any[]}
+          data={outgoing}
           emptyMessage="Belum ada surat keluar yang diarsipkan."
         />
 
@@ -221,7 +227,7 @@ export default async function ArsipPage({
               ),
             },
           ]}
-          data={incoming as any[]}
+          data={incoming}
           emptyMessage="Belum ada surat masuk yang diarsipkan."
         />
 
@@ -271,7 +277,7 @@ export default async function ArsipPage({
               ),
             },
           ]}
-          data={documents as any[]}
+          data={documents}
           emptyMessage="Belum ada dokumen administrasi terarsip."
         />
       </div>

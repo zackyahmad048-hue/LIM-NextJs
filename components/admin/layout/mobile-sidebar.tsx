@@ -13,6 +13,7 @@ import {
 import { SidebarItem } from "../navigation/sidebar-item";
 import { Logo } from "./logo";
 import { useSidebar } from "../providers/sidebar-provider";
+import { glassChrome } from "../shared/chrome";
 import { filterNavigation } from "@/modules/authorization/application/permission-nav";
 
 interface Props {
@@ -26,10 +27,7 @@ export function MobileSidebar({ roleSlugs }: Props) {
 
   return (
     <Sheet open={mobileOpen} onOpenChange={closeMobile}>
-      <SheetContent
-        side="left"
-        className="w-72 border-r border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] p-0 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]"
-      >
+      <SheetContent side="left" className={`w-72 border-r p-0 ${glassChrome}`}>
         <SheetHeader className="sr-only">
           <SheetTitle>Menu Admin</SheetTitle>
           <SheetDescription>Navigasi halaman admin.</SheetDescription>

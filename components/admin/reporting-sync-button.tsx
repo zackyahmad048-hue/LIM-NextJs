@@ -24,14 +24,18 @@ export function ReportingSyncButton() {
       );
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Sinkronisasi gagal.");
+      setMessage(
+        error instanceof Error ? error.message : "Sinkronisasi gagal.",
+      );
     }
   }
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <p className="text-sm font-medium">Sinkronisasi laporan ke Google Sheets</p>
+        <p className="text-sm font-medium">
+          Sinkronisasi laporan ke Google Sheets
+        </p>
         <p className="mt-1 text-xs text-muted-foreground">
           Tulis ulang ringkasan statistik (sekretariat & falak) ke spreadsheet
           proyeksi. Proyeksi satu arah dari PostgreSQL.

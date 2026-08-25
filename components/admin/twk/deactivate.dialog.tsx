@@ -104,8 +104,8 @@ export function DeactivateMemberDialog({
         <DialogHeader>
           <DialogTitle>Nonaktifkan anggota</DialogTitle>
           <DialogDescription>
-            Data &quot;{nama}&quot; akan dipertahankan untuk arsip. Anggota
-            yang Gugur/Bebas Tugas/Qodlo masih bisa dilanjutkan di tahun depan.
+            Data &quot;{nama}&quot; akan dipertahankan untuk arsip. Anggota yang
+            Gugur/Bebas Tugas/Qodlo masih bisa dilanjutkan di tahun depan.
           </DialogDescription>
         </DialogHeader>
 
@@ -220,8 +220,8 @@ export function ReactivateMemberDialog({ id, nama, trigger }: ReactivateProps) {
         <DialogHeader>
           <DialogTitle>Aktifkan kembali anggota</DialogTitle>
           <DialogDescription>
-            Status &quot;{nama}&quot; akan diubah menjadi Aktif. Keterangan
-            akan direset ke &quot;-&quot;.
+            Status &quot;{nama}&quot; akan diubah menjadi Aktif. Keterangan akan
+            direset ke &quot;-&quot;.
           </DialogDescription>
         </DialogHeader>
 

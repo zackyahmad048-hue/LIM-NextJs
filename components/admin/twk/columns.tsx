@@ -31,7 +31,8 @@ interface Props {
 }
 
 const STATUS_TONE: Record<WajibKhidmahStatus, string> = {
-  AKTIF: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300",
+  AKTIF:
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300",
   GUGUR: "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-300",
   BEBAS_TUGAS:
     "bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300",
@@ -54,11 +55,7 @@ function DashText({ value, className }: { value: string; className?: string }) {
   const trimmed = value?.trim();
   return (
     <span className={cn("text-sm", className)}>
-      {trimmed ? (
-        trimmed
-      ) : (
-        <span className="text-muted-foreground">-</span>
-      )}
+      {trimmed ? trimmed : <span className="text-muted-foreground">-</span>}
     </span>
   );
 }
@@ -68,18 +65,16 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
     {
       id: "no",
       accessorKey: "no",
-      header: ({ column }) => (
-        <DataColumnHeader column={column} title="No." />
-      ),
+      header: ({ column }) => <DataColumnHeader column={column} title="No." />,
       cell: ({ row }) => (
-        <span className="text-sm tabular-nums text-muted-foreground">{row.index + 1}</span>
+        <span className="text-sm tabular-nums text-muted-foreground">
+          {row.index + 1}
+        </span>
       ),
     },
     {
       accessorKey: "nama",
-      header: ({ column }) => (
-        <DataColumnHeader column={column} title="Nama" />
-      ),
+      header: ({ column }) => <DataColumnHeader column={column} title="Nama" />,
       cell: ({ row }) => (
         <Link
           href={`/admin/twk/${row.original.id}`}
@@ -209,9 +204,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
               <DropdownMenuSeparator />
 
               <DropdownMenuItem asChild>
-                <Link href={`/admin/twk/${row.original.id}`}>
-                  Lihat detail
-                </Link>
+                <Link href={`/admin/twk/${row.original.id}`}>Lihat detail</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

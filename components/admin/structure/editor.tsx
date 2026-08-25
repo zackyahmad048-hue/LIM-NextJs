@@ -335,8 +335,8 @@ export function StructureEditor({ initial }: Props) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          Atur struktur organisasi LIM: Pengurus Pusat, Pengurus
-          Wilayah, Pengurus Cabang, dan Anggota.
+          Atur struktur organisasi LIM: Pengurus Pusat, Pengurus Wilayah,
+          Pengurus Cabang, dan Anggota.
         </p>
         <Button size="sm" onClick={handleSave} disabled={saving}>
           <Save className="size-4" />
@@ -425,8 +425,8 @@ export function StructureEditor({ initial }: Props) {
             </Button>
           </div>
           <p className="text-[11px] text-muted-foreground">
-            Sheet harus memiliki kolom: nama, alamat, kelas, pos,
-            tempat. Data anggota diimpor dari sheet ini.
+            Sheet harus memiliki kolom: nama, alamat, kelas, pos, tempat. Data
+            anggota diimpor dari sheet ini.
           </p>
         </div>
       </Section>
@@ -442,15 +442,11 @@ export function StructureEditor({ initial }: Props) {
         <div className="space-y-3">
           {data.centralBoard.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Belum ada data Pengurus Pusat. Tambahkan pengurus
-              pusat.
+              Belum ada data Pengurus Pusat. Tambahkan pengurus pusat.
             </p>
           ) : (
             data.centralBoard.map((m) => (
-              <div
-                key={m.id}
-                className="rounded-md border p-3"
-              >
+              <div key={m.id} className="rounded-md border p-3">
                 {editingMember === m.id ? (
                   <div className="space-y-2">
                     <Input
@@ -464,11 +460,7 @@ export function StructureEditor({ initial }: Props) {
                     <Input
                       value={m.position}
                       onChange={(e) =>
-                        updateCentralMember(
-                          m.id,
-                          "position",
-                          e.target.value,
-                        )
+                        updateCentralMember(m.id, "position", e.target.value)
                       }
                       className="h-7 text-xs"
                       placeholder="Jabatan"
@@ -494,9 +486,7 @@ export function StructureEditor({ initial }: Props) {
                         variant="ghost"
                         size="sm"
                         className="h-7 text-xs text-destructive"
-                        onClick={() =>
-                          removeCentralMember(m.id)
-                        }
+                        onClick={() => removeCentralMember(m.id)}
                       >
                         <Trash2 className="size-3" />
                         Hapus
@@ -552,8 +542,7 @@ export function StructureEditor({ initial }: Props) {
         <div className="space-y-3">
           {data.regionalBoards.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Belum ada data Pengurus Wilayah. Tambahkan wilayah
-              (provinsi).
+              Belum ada data Pengurus Wilayah. Tambahkan wilayah (provinsi).
             </p>
           ) : (
             data.regionalBoards.map((r) => (
@@ -577,16 +566,11 @@ export function StructureEditor({ initial }: Props) {
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label className="text-xs">Nama
-                        Pengurus</Label>
+                        <Label className="text-xs">Nama Pengurus</Label>
                         <Input
                           value={r.name}
                           onChange={(e) =>
-                            updateRegionalBoard(
-                              r.id,
-                              "name",
-                              e.target.value,
-                            )
+                            updateRegionalBoard(r.id, "name", e.target.value)
                           }
                           className="h-7 text-xs"
                           placeholder="Nama pengurus wilayah"
@@ -606,9 +590,7 @@ export function StructureEditor({ initial }: Props) {
                         variant="ghost"
                         size="sm"
                         className="h-7 text-xs text-destructive"
-                        onClick={() =>
-                          removeRegionalBoard(r.id)
-                        }
+                        onClick={() => removeRegionalBoard(r.id)}
                       >
                         <Trash2 className="size-3" />
                         Hapus
@@ -629,8 +611,7 @@ export function StructureEditor({ initial }: Props) {
                         )}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {r.name || "Tanpa nama"} ·{" "}
-                        {r.members.length} anggota
+                        {r.name || "Tanpa nama"} · {r.members.length} anggota
                       </p>
                     </div>
                     <Button
@@ -668,9 +649,7 @@ export function StructureEditor({ initial }: Props) {
                           variant="ghost"
                           size="sm"
                           className="h-5 text-[10px] text-destructive"
-                          onClick={() =>
-                            removeRegionalMember(r.id, m.id)
-                          }
+                          onClick={() => removeRegionalMember(r.id, m.id)}
                         >
                           <Trash2 className="size-3" />
                         </Button>
@@ -708,8 +687,7 @@ export function StructureEditor({ initial }: Props) {
         <div className="space-y-3">
           {data.branchBoards.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Belum ada data Pengurus Cabang. Tambahkan cabang
-              (kabupaten/kota).
+              Belum ada data Pengurus Cabang. Tambahkan cabang (kabupaten/kota).
             </p>
           ) : (
             data.branchBoards.map((b) => (
@@ -722,11 +700,7 @@ export function StructureEditor({ initial }: Props) {
                         <Input
                           value={b.province}
                           onChange={(e) =>
-                            updateBranchBoard(
-                              b.id,
-                              "province",
-                              e.target.value,
-                            )
+                            updateBranchBoard(b.id, "province", e.target.value)
                           }
                           className="h-7 text-xs"
                           placeholder="Nama provinsi"
@@ -737,27 +711,18 @@ export function StructureEditor({ initial }: Props) {
                         <Input
                           value={b.regency}
                           onChange={(e) =>
-                            updateBranchBoard(
-                              b.id,
-                              "regency",
-                              e.target.value,
-                            )
+                            updateBranchBoard(b.id, "regency", e.target.value)
                           }
                           className="h-7 text-xs"
                           placeholder="Nama kabupaten/kota"
                         />
                       </div>
                       <div className="space-y-1 sm:col-span-2">
-                        <Label className="text-xs">Nama
-                        Pengurus</Label>
+                        <Label className="text-xs">Nama Pengurus</Label>
                         <Input
                           value={b.name}
                           onChange={(e) =>
-                            updateBranchBoard(
-                              b.id,
-                              "name",
-                              e.target.value,
-                            )
+                            updateBranchBoard(b.id, "name", e.target.value)
                           }
                           className="h-7 text-xs"
                           placeholder="Nama pengurus cabang"
@@ -777,9 +742,7 @@ export function StructureEditor({ initial }: Props) {
                         variant="ghost"
                         size="sm"
                         className="h-7 text-xs text-destructive"
-                        onClick={() =>
-                          removeBranchBoard(b.id)
-                        }
+                        onClick={() => removeBranchBoard(b.id)}
                       >
                         <Trash2 className="size-3" />
                         Hapus
@@ -801,8 +764,7 @@ export function StructureEditor({ initial }: Props) {
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {b.province && `${b.province} · `}
-                        {b.name || "Tanpa nama"} ·{" "}
-                        {b.members.length} anggota
+                        {b.name || "Tanpa nama"} · {b.members.length} anggota
                       </p>
                     </div>
                     <Button
@@ -840,9 +802,7 @@ export function StructureEditor({ initial }: Props) {
                           variant="ghost"
                           size="sm"
                           className="h-5 text-[10px] text-destructive"
-                          onClick={() =>
-                            removeBranchMember(b.id, m.id)
-                          }
+                          onClick={() => removeBranchMember(b.id, m.id)}
                         >
                           <Trash2 className="size-3" />
                         </Button>
@@ -884,10 +844,7 @@ export function StructureEditor({ initial }: Props) {
             </p>
           ) : (
             data.members.map((m) => (
-              <div
-                key={m.id}
-                className="rounded-md border p-3"
-              >
+              <div key={m.id} className="rounded-md border p-3">
                 {editingMember === m.id ? (
                   <div className="space-y-2">
                     <Input

@@ -6,7 +6,7 @@ import {
   getOrganizationTree,
   getUnitById,
 } from "@/modules/organization";
-import { UnitForm } from "../../../unit-form";
+import { UnitForm, type UnitOption } from "../../../unit-form";
 
 export const dynamic = "force-dynamic";
 
@@ -23,9 +23,7 @@ export default async function EditUnitPage({
 
   if (!unit) notFound();
 
-  const flatten = (
-    nodes: typeof tree,
-  ): { id: string; code: string; name: string; level: string }[] =>
+  const flatten = (nodes: typeof tree): UnitOption[] =>
     nodes.flatMap((node) => [
       { id: node.id, code: node.code, name: node.name, level: node.level },
       ...flatten(node.children),
@@ -40,7 +38,7 @@ export default async function EditUnitPage({
 
       <div className="mt-4">
         <UnitForm
-          units={(flatten(tree) as any).filter((u: any) => u.id !== unit.id)}
+          units={flatten(tree).filter((u) => u.id !== unit.id)}
           mode="edit"
           id={unit.id}
           initial={{

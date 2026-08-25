@@ -19,7 +19,7 @@ export function TableSearchForm({
   hiddenParams,
 }: TableSearchFormProps) {
   const activeHidden = Object.entries(hiddenParams ?? {}).filter(
-    ([, value]) => value
+    ([, value]) => value,
   );
 
   return (

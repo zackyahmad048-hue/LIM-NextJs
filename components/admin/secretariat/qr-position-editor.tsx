@@ -196,11 +196,7 @@ export function QrPositionEditor({
       if (result?.ketua) setKetua(result.ketua);
       if (result?.sekretaris) setSekretaris(result.sekretaris);
       if (result?.verifikasi) setVerifikasi(result.verifikasi);
-      if (
-        !result?.ketua &&
-        !result?.sekretaris &&
-        !result?.verifikasi
-      ) {
+      if (!result?.ketua && !result?.sekretaris && !result?.verifikasi) {
         setError(
           "Simbol fiducial tidak ditemukan. Tempel kotak magenta (Ketua), cyan (Sekretaris), dan orange (Verifikasi) di template.",
         );
@@ -378,11 +374,7 @@ export function QrPositionEditor({
                     className="block w-full"
                     draggable={false}
                   />
-                  {renderMarker(
-                    page,
-                    "ketua",
-                    ketua.page === page.page,
-                  )}
+                  {renderMarker(page, "ketua", ketua.page === page.page)}
                   {renderMarker(
                     page,
                     "sekretaris",

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import FolioSection from "@/components/website/taqwim/folio-section";
 import Reveal from "@/components/website/taqwim/reveal";
+import SectionLabel from "@/components/shared/section-label";
 import PostCard from "@/components/website/cards/post-card";
 import { Button } from "@/components/ui/button";
 import { getPublishedPostsByCategorySlug } from "@/modules/cms";
@@ -33,18 +33,17 @@ export default async function PostGrid({
     grid.layout === "featured" && canUseFeaturedLayout(posts.length);
 
   return (
-    <FolioSection
-      arabic={grid.arabic}
-      label={grid.title}
-      contentClassName="py-8 sm:py-10 lg:py-14"
-    >
+    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-14">
       <Reveal from="left">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          {grid.description && (
-            <p className="max-w-lg text-sm leading-6 text-pretty text-muted-foreground">
-              {grid.description}
-            </p>
-          )}
+          <div>
+            <SectionLabel>{grid.title}</SectionLabel>
+            {grid.description && (
+              <p className="mt-2 max-w-lg text-sm leading-6 text-pretty text-muted-foreground">
+                {grid.description}
+              </p>
+            )}
+          </div>
 
           <Link
             href={grid.href}
@@ -54,7 +53,9 @@ export default async function PostGrid({
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
+      </Reveal>
 
+      <Reveal delay={0.08}>
         {posts.length > 0 ? (
           <div
             className={cn(
@@ -87,6 +88,6 @@ export default async function PostGrid({
           </div>
         )}
       </Reveal>
-    </FolioSection>
+    </section>
   );
 }

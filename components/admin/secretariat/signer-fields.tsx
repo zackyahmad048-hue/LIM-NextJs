@@ -37,9 +37,7 @@ export function SignerFields({
   initialSekretarisName,
   initialSekretarisPosition,
 }: SignerFieldsProps) {
-  const [ketuaName, setKetuaName] = useState(
-    initialKetuaName ?? "",
-  );
+  const [ketuaName, setKetuaName] = useState(initialKetuaName ?? "");
   const [ketuaPosition, setKetuaPosition] = useState(
     initialMember(pengurus.ketua, initialKetuaName)?.position ??
       initialKetuaPosition ??
@@ -61,9 +59,7 @@ export function SignerFields({
     setKetuaPosition(member?.position ?? "");
   }
 
-  function handleSekretarisChange(
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) {
+  function handleSekretarisChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const name = event.target.value;
     setSekretarisName(name);
     const member = pengurus.sekretaris.find((item) => item.name === name);

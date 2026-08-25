@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
+import { glassCard, softCard } from "./chrome";
 
 interface SectionCardProps {
   children: ReactNode;
@@ -13,15 +14,11 @@ export function SectionCard({
   className,
   variant = "default",
 }: SectionCardProps) {
-  const glass = variant === "glass";
-
   return (
     <section
       className={cn(
         "rounded-2xl border p-6",
-        glass
-          ? "border-[var(--glass-border)] bg-[var(--glass-card-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]"
-          : "bg-card",
+        variant === "glass" ? `shadow-sm ${glassCard}` : softCard,
         className,
       )}
     >
