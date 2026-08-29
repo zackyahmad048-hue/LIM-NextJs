@@ -40,6 +40,8 @@ font-ar      → Reem Kufi      (--fx-ar)
 
 Catatan peran: kaidah "maksimal dua keluarga font" di bawah sengaja dilonggarkan hanya untuk situs publik karena setiap keluarga punya satu pekerjaan nyata — angka/data membaca sebagai alat hisab, bukan dekorasi.
 
+> **⚠️ Status untuk Situs Publik: Incumbent, menunggu pembaruan.** Per `PRODUCT.md`, keempat font di atas (Newsreader, Hanken Grotesk, Spline Sans Mono, Reem Kufi) secara eksplisit terdaftar sebagai "incumbent visual details (akan diganti)" untuk dunia visual baru situs publik dan **tidak mengikat** untuk build — arah **"Ruang Gelap" (amber darkroom)** yang sempat tercatat sudah dicabut (dinilai kemungkinan AI-generated, tidak direkomendasikan pemilik produk); pengganti: tema gelap (dark mode) dengan keserasian warna, tipografi definitif belum ditentukan. Bagian "Taqwim" ini adalah referensi historis, bukan spesifikasi final.
+
 Typography memastikan seluruh aplikasi memiliki hierarki visual yang jelas, mudah dibaca, konsisten, dan mendukung berbagai ukuran layar.
 
 ---

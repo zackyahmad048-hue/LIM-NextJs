@@ -42,67 +42,80 @@ export function AdminTable<T extends { id: string }>({
   pagination,
 }: AdminTableProps<T>) {
   return (
-    <SectionCard className="rounded-lg bg-background p-0 shadow-none">
+    <SectionCard variant="elevated" className="p-0">
       <div
         className={cn(
-          "border-b p-4",
+          "border-b border-admin-card-border p-4",
           toolbar && "flex flex-wrap items-start justify-between gap-3",
         )}
       >
         <div>
-          <h2 className="text-base font-semibold">{title}</h2>
-          <p className="text-xs text-muted-foreground">{description}</p>
+          <h2 className="text-base font-semibold text-admin-content-fg">{title}</h2>
+          <p className="text-xs text-admin-content-fg/50">{description}</p>
         </div>
         {toolbar && <div className="shrink-0">{toolbar}</div>}
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {columns.map((col) => (
-              <TableHead
-                key={col.key}
-                className={cn(
-                  "h-10 text-xs",
-                  col.align === "right" && "text-right",
-                )}
-              >
-                {col.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.length > 0 ? (
-            data.map((item) => (
-              <TableRow
-                key={item.id}
-                {...(onRowClick
-                  ? {
-                      onClick: () => onRowClick(item),
-                      className: "cursor-pointer",
-                    }
-                  : {})}
-              >
-                {columns.map((col) => (
-                  <TableCell key={col.key} className="py-2">
-                    {col.render(item)}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={columns.length}
-                className="h-32 text-center text-sm text-muted-foreground"
-              >
-                {emptyMessage}
-              </TableCell>
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow className="border-b border-admin-border bg-admin-border/20">
+              {columns.map((col) => (
+                <TableHead
+                  key={col.key}
+                  className={cn(
+                    "h-10 text-xs font-medium text-admin-content-fg/70 px-4",
+                    col.align === "right" && "text-right",
+                  )}
+                >
+                  {col.label}
+                </TableHead>
+              ))}
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {data.length > 0 ? (
+              data.map((item) => (
+                <TableRow
+                  key={item.id}
+                  className={cn(
+                    "border-b border-admin-border/50 transition-colors duration-150",
+                    "hover:bg-admin-border/20",
+                    "even:bg-admin-border/10",
+                    onRowClick && "cursor-pointer",
+                  )}
+                  {...(onRowClick
+                    ? {
+                        onClick: () => onRowClick(item),
+                      }
+                    : {})}
+                >
+                  {columns.map((col) => (
+                    <TableCell
+                      key={col.key}
+                      className={cn(
+                        "py-3 px-4 text-sm text-admin-content-fg",
+                        col.align === "right" && "text-right",
+                      )}
+                    >
+                      {col.render(item)}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-32 text-center text-sm text-admin-content-fg/50"
+                >
+                  {emptyMessage}
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
       {pagination}
     </SectionCard>
   );

@@ -7,11 +7,12 @@ interface PageContainerProps {
   className?: string;
 }
 
+/** Wrapper konten halaman admin — padding & spacing, tanpa background tambahan (sudah di .admin). */
 export function PageContainer({ children, className }: PageContainerProps) {
   return (
     <div
       className={cn(
-        "flex w-full flex-col gap-4 bg-muted/20 px-4 py-5 lg:gap-5 lg:px-6 lg:py-8",
+        "flex w-full flex-col gap-4 px-4 py-5 lg:gap-5 lg:px-6 lg:py-8",
         className,
       )}
     >

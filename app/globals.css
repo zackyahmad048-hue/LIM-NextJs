@@ -43,6 +43,18 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-admin-sidebar-bg: var(--admin-sidebar-bg);
+  --color-admin-sidebar-fg: var(--admin-sidebar-fg);
+  --color-admin-sidebar-border: var(--admin-sidebar-border);
+  --color-admin-sidebar-accent: var(--admin-sidebar-accent);
+  --color-admin-sidebar-accent-fg: var(--admin-sidebar-accent-fg);
+  --color-admin-content-bg: var(--admin-content-bg);
+  --color-admin-content-fg: var(--admin-content-fg);
+  --color-admin-card-bg: var(--admin-card-bg);
+  --color-admin-card-border: var(--admin-card-border);
+  --color-admin-border: var(--admin-border);
+  --color-admin-input-bg: var(--admin-input-bg);
+  --color-admin-input-border: var(--admin-input-border);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -94,6 +106,25 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /*
+   * Admin CMS — Brand-forward shell.
+   * Sidebar: primary orange (--primary) — immediate LIM identity.
+   * Content: amber-100 light / taupe dark — warm paper ground, not glass.
+   * Cards: solid, elevated. No blur on data surfaces.
+   */
+  --admin-sidebar-bg: var(--primary);
+  --admin-sidebar-fg: var(--primary-foreground);
+  --admin-sidebar-border: color-mix(in oklab, var(--primary) 85%, transparent);
+  --admin-sidebar-accent: color-mix(in oklab, var(--primary) 90%, transparent);
+  --admin-sidebar-accent-fg: var(--primary-foreground);
+  --admin-content-bg: oklch(0.95 0.08 85);
+  --admin-content-fg: var(--foreground);
+  --admin-card-bg: oklch(1 0 0);
+  --admin-card-border: oklch(0.88 0.02 85);
+  --admin-border: oklch(0.88 0.02 85);
+  --admin-input-bg: oklch(1 0 0);
+  --admin-input-border: oklch(0.88 0.02 85);
 
   /*
    * Glassmorphism — "Kaca Kristal" (chrome + kartu).
@@ -169,6 +200,35 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Admin CMS dark mode — warm taupe ground */
+  --admin-sidebar-bg: var(--primary);
+  --admin-sidebar-fg: var(--primary-foreground);
+  --admin-sidebar-border: color-mix(in oklab, var(--primary) 80%, transparent);
+  --admin-sidebar-accent: color-mix(in oklab, var(--primary) 85%, transparent);
+  --admin-sidebar-accent-fg: var(--primary-foreground);
+  --admin-content-bg: oklch(0.22 0.015 45);
+  --admin-content-fg: var(--foreground);
+  --admin-card-bg: oklch(0.26 0.01 45);
+  --admin-card-border: oklch(0.35 0.02 45);
+  --admin-border: oklch(0.35 0.02 45);
+  --admin-input-bg: oklch(0.28 0.01 45);
+  --admin-input-border: oklch(0.35 0.02 45);
+}
+
+/*
+ * Admin CMS — Brand-forward shell.
+ * Sidebar: primary orange. Content: warm amber/taupe ground.
+ * Solid surfaces, no glass on data. Sharp radius, hairline borders.
+ */
+.admin {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+
+  color: var(--admin-content-fg);
+  background-color: var(--admin-content-bg);
+  min-height: 100dvh;
 }
 
 /*

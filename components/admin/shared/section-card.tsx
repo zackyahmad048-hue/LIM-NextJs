@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
-import { glassCard, softCard } from "./chrome";
 
 interface SectionCardProps {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "glass";
+  variant?: "default" | "elevated";
 }
 
+/** Kartu section solid — rounded-2xl, border halus, shadow lembut. Tanpa glass. */
 export function SectionCard({
   children,
   className,
@@ -17,8 +17,10 @@ export function SectionCard({
   return (
     <section
       className={cn(
-        "rounded-2xl border p-6",
-        variant === "glass" ? `shadow-sm ${glassCard}` : softCard,
+        "rounded-2xl p-6 transition-shadow duration-200",
+        variant === "elevated"
+          ? "bg-admin-card-bg border-admin-card-border shadow-sm hover:shadow-md"
+          : "bg-admin-card-bg border-admin-card-border",
         className,
       )}
     >

@@ -86,7 +86,7 @@ export default async function ReportsPage() {
           return (
             <SectionCard
               key={stat.label}
-              variant="glass"
+              variant="elevated"
               className="rounded-lg p-4 shadow-none"
             >
               <div className="flex items-center justify-between">
@@ -111,7 +111,7 @@ export default async function ReportsPage() {
       </div>
 
       {/* Status breakdown */}
-      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+      <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
         <div className="flex items-center gap-2">
           <BarChart3 className="size-4 text-muted-foreground" />
           <h2 className="text-base font-semibold">Status berita</h2>
@@ -144,7 +144,7 @@ export default async function ReportsPage() {
       </SectionCard>
 
       {/* Posts per category */}
-      <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+      <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
         <h2 className="text-base font-semibold">Berita per kategori</h2>
         <p className="mt-1 text-xs text-muted-foreground">
           Jumlah berita di setiap kategori.
@@ -183,7 +183,7 @@ export default async function ReportsPage() {
       </SectionCard>
       {/* Reporting sync */}
       {canSync && (
-        <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+        <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
           <ReportingSyncButton />
         </SectionCard>
       )}

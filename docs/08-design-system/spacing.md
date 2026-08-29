@@ -78,6 +78,8 @@ px-4 sm:px-6           /* Horizontal padding */
 gap-6                   /* Gap antar menu items */
 `
 
+> **⚠️ Incumbent.** Nilai-nilai ini mengikuti kapsul navbar glass di `navigation.md` yang berstatus incumbent (menunggu "Ruang Gelap"). Perlu diverifikasi ulang begitu navbar situs publik didesain ulang (arah "Ruang Gelap" dicabut; pengganti: dark-mode-first + palet harmonis).
+
 ### Sidebar
 
 `css

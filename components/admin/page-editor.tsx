@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { cn } from "@/lib/utils";
 
 type Values = Record<string, unknown>;
 
@@ -108,10 +109,10 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
   return (
     <div className="flex flex-col gap-4">
       {textFields.length > 0 && (
-        <SectionCard className="rounded-lg bg-background p-4 shadow-none">
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Konten Teks</h2>
-            <p className="text-xs text-muted-foreground">
+        <SectionCard variant="elevated">
+          <div className="mb-4 border-b border-admin-border pb-3">
+            <h2 className="text-base font-semibold text-admin-content-fg">Konten Teks</h2>
+            <p className="text-xs text-admin-content-fg/50">
               Judul dan paragraf yang ditampilkan pada halaman.
             </p>
           </div>
@@ -120,7 +121,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
             {textFields.map((field) =>
               field.type === "textarea" ? (
                 <div key={field.key} className="space-y-1.5 md:col-span-2">
-                  <Label htmlFor={field.key} className="text-xs">
+                  <Label htmlFor={field.key} className="text-xs text-admin-content-fg/70">
                     {field.label}
                   </Label>
                   <Textarea
@@ -129,17 +130,17 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     value={String(values[field.key] ?? "")}
                     onChange={(e) => setField(field.key, e.target.value)}
                     placeholder={field.placeholder}
-                    className="min-h-0 rounded-md text-xs leading-5"
+                    className="min-h-0 rounded-md text-xs leading-5 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
                   />
                   {field.hint && (
-                    <p className="text-[11px] text-muted-foreground">
+                    <p className="text-[11px] text-admin-content-fg/40">
                       {field.hint}
                     </p>
                   )}
                 </div>
               ) : (
                 <div key={field.key} className="space-y-1.5">
-                  <Label htmlFor={field.key} className="text-xs">
+                  <Label htmlFor={field.key} className="text-xs text-admin-content-fg/70">
                     {field.label}
                   </Label>
                   <Input
@@ -147,7 +148,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     value={String(values[field.key] ?? "")}
                     onChange={(e) => setField(field.key, e.target.value)}
                     placeholder={field.placeholder}
-                    className="rounded-md text-xs"
+                    className="rounded-md text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
                   />
                 </div>
               ),
@@ -157,14 +158,11 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
       )}
 
       {listFields.map((field) => (
-        <SectionCard
-          key={field.key}
-          className="rounded-lg bg-background p-4 shadow-none"
-        >
-          <div className="mb-4 flex items-center justify-between gap-3 border-b pb-3">
+        <SectionCard key={field.key} variant="elevated">
+          <div className="mb-4 flex items-center justify-between gap-3 border-b border-admin-border pb-3">
             <div>
-              <h2 className="text-base font-semibold">{field.label}</h2>
-              <p className="text-xs text-muted-foreground">
+              <h2 className="text-base font-semibold text-admin-content-fg">{field.label}</h2>
+              <p className="text-xs text-admin-content-fg/50">
                 Urutannya sesuai dengan tampilan pada halaman.
               </p>
             </div>
@@ -173,7 +171,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
               type="button"
               size="sm"
               variant="outline"
-              className="shrink-0 rounded-full"
+              className="shrink-0 rounded-full border-admin-border hover:bg-admin-border"
               onClick={() =>
                 field.type === "list-simple"
                   ? addSimpleItem(field)
@@ -192,7 +190,10 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
             ).map((item, index) => (
               <div
                 key={index}
-                className="flex items-start gap-2 rounded-md border bg-muted/30 p-2.5"
+                className={cn(
+                  "flex items-start gap-2 rounded-md border p-2.5",
+                  "bg-admin-border/30 border-admin-border",
+                )}
               >
                 {field.type === "list-simple" ? (
                   <>
@@ -202,12 +203,12 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                         updateSimpleList(field, index, e.target.value)
                       }
                       placeholder={field.itemLabel}
-                      className="h-8 rounded-full text-xs"
+                      className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
                     />
                     <button
                       type="button"
                       onClick={() => removeSimpleItem(field, index)}
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-admin-content-fg/50 transition-colors hover:bg-destructive/10 hover:text-destructive"
                       aria-label={`Hapus ${field.itemLabel} ${index + 1}`}
                     >
                       <Trash2 className="size-4" />
@@ -228,7 +229,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                               updatePair(field, index, "title", e.target.value)
                             }
                             placeholder={field.titleLabel}
-                            className="h-8 rounded-full text-xs"
+                            className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
                           />
                           <Input
                             value={pair.description}
@@ -241,7 +242,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                               )
                             }
                             placeholder={field.descLabel}
-                            className="h-8 rounded-full text-xs"
+                            className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
                           />
                         </>
                       );
@@ -249,7 +250,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     <button
                       type="button"
                       onClick={() => removePairItem(field, index)}
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive sm:col-span-2 sm:justify-self-end"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-admin-content-fg/50 transition-colors hover:bg-destructive/10 hover:text-destructive sm:col-span-2 sm:justify-self-end"
                       aria-label={`Hapus ${field.titleLabel} ${index + 1}`}
                     >
                       <Trash2 className="size-4" />
@@ -260,7 +261,10 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
             ))}
 
             {(values[field.key] as unknown[]).length === 0 && (
-              <p className="rounded-md border border-dashed p-4 text-center text-xs text-muted-foreground">
+              <p className={cn(
+                "rounded-md border p-4 text-center text-xs",
+                "border-admin-border/50 bg-admin-border/30 text-admin-content-fg/50",
+              )}>
                 Belum ada item. Tekan {field.addLabel ?? "Tambah"} untuk
                 menambahkan.
               </p>

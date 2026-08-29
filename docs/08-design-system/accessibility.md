@@ -175,7 +175,7 @@ Kebijakan:
 - Animasi CSS global dijaga oleh safety net `prefers-reduced-motion` pada `app/globals.css` (durasi animasi/transisi dipangkas, marquee berhenti).
 - Animasi berbasis JS (`motion/react`) wajib menggunakan `useReducedMotion()` untuk menonaktifkan gerakan.
 - Efek `hover:` dan `group-hover:` Tailwind v4 sudah otomatis digate `@media (hover: hover)` sehingga tidak terjadi sticky-hover di perangkat sentuh; tidak perlu varian khusus tambahan.
-- Konten yang diturunkan dari waktu nyata (jam live, hitung mundur) wajib merender placeholder stabil saat SSR agar tidak terjadi hydration mismatch; pola acuan: `components/website/taqwim/taqwim-folio.tsx` dengan `useHasMounted()`.
+- Konten yang diturunkan dari waktu nyata (jam live, hitung mundur) wajib merender placeholder stabil saat SSR agar tidak terjadi hydration mismatch; pola acuan: `components/website/taqwim/taqwim-folio.tsx` dengan `useHasMounted()`. **⚠️ Path ini mengikuti penamaan sistem lama ("taqwim") yang berstatus incumbent** (lihat `typography.md`/`colors.md`) -- polanya (placeholder stabil + `useHasMounted()`) tetap berlaku sebagai teknik SSR, tapi path filenya kemungkinan berubah setelah rebuild situs publik (arah "Ruang Gelap" dicabut; pengganti: dark-mode-first + palet harmonis).
 - Komponen yang dimount setelah hidrasi (mis. theme toggle) wajib merender placeholder berukuran sama agar layout tidak bergeser (CLS).
 
 ---

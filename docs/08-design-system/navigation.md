@@ -31,6 +31,10 @@ Navigation dirancang agar:
 
 Dokumen ini menjadi acuan implementasi seluruh navigasi Public Website maupun Admin Dashboard.
 
+> **⚠️ Dua lapisan berbeda status untuk Situs Publik.** Per `PRODUCT.md`, situs publik dibangun ulang total "kecuali menu navigasi yang dipertahankan". Dokumen ini memuat dua jenis informasi dengan status berbeda:
+> - **Dipertahankan (tetap mengikat):** Information Architecture — daftar menu (`Public Navigation`, `Profile Navigation`, jumlah maksimal lima menu utama) dan struktur URL.
+> - **Incumbent, menunggu pembaruan (tidak mengikat):** seluruh detail visual — kapsul glass mengambang, warna pill, gaya logo, Sheet mobile — di bagian `Desktop Navigation` dan `Mobile Navigation` di bawah. Ini adalah tampilan dunia visual lama; arah dunia visual baru belum didokumentasikan di sini — arah "Ruang Gelap" (amber darkroom) sudah dicabut, pengganti: tema gelap (dark mode) dengan keserasian warna, detail final belum ada.
+
 ---
 
 # Navigation Principles
@@ -56,6 +60,7 @@ LIM Digital Platform
 │
 │   ├── Beranda
 │   ├── Profil
+│   │   └── Layanan Falak (proposal — lihat "Rute Belum Terpetakan")
 │   ├── Artikel
 │   ├── Media
 │   └── Kontak
@@ -100,8 +105,15 @@ Profil
 ├── Tentang LIM
 ├── Visi & Misi
 ├── Pengurus Pusat
+├── Layanan Falak         ← proposal, lihat "Rute Belum Terpetakan"
+│   ├── Jadwal Shalat
+│   ├── Arah Kiblat
+│   ├── Kalender Hijriah
+│   ├── Hisab
+│   ├── Rukyat
+│   └── Gerhana
 └── Bidang
-    ├── Tim Wajib Khidmah
+    ├── Tim Wajib Khidmah  ← + link "Permohonan" (rute wajib-khidmah/permohonan)
     ├── Safari Ramadan
     ├── Safari Dakwah Rutin
     ├── Penelitian & Pengembangan
@@ -209,9 +221,23 @@ Visi & Misi
 
 Pengurus Pusat
 
+Layanan Falak
+
+ • Jadwal Shalat
+
+ • Arah Kiblat
+
+ • Kalender Hijriah
+
+ • Hisab
+
+ • Rukyat
+
+ • Gerhana
+
 Bidang
 
- • Tim Wajib Khidmah
+ • Tim Wajib Khidmah (+ Permohonan)
 
  • Safari Ramadan
 
@@ -361,7 +387,15 @@ Contoh URL Public:
 
 /profil/bidang/tim-wajib-khidmah
 
+/profil/bidang/tim-wajib-khidmah/permohonan  ← proposal, belum final
+
 /profil/bidang/safari-ramadan
+
+/profil/falak/jadwal-shalat  ← proposal, belum final
+
+/profil/falak/kiblat  ← proposal, belum final
+
+/profil/falak/kalender-hijriah  ← proposal, belum final
 
 /artikel
 
@@ -410,6 +444,19 @@ Navigation wajib:
 - Mendukung Dark Theme.
 - Menggunakan Design Tokens.
 - Menggunakan komponen shadcn/ui.
+
+---
+
+# Rute Belum Terpetakan — Resolusi
+
+`PRODUCT.md` mengonfirmasi rute publik *layanan falak* dan *wajib-khidmah/permohonan* yang sebelumnya tidak punya slot di Primary Navigation. Keputusan: keduanya menjadi **sub-menu di bawah menu existing**, bukan menu utama baru — aturan "Maximum Five Primary Menus" tidak berubah.
+
+Penempatan (lihat `Profile Navigation` di atas):
+
+- **Layanan Falak** → entri baru sejajar Tentang LIM/Visi & Misi/Pengurus Pusat di dropdown **Profil**, dengan sub-item Jadwal Shalat, Arah Kiblat, Kalender Hijriah, Hisab, Rukyat, Gerhana.
+- **Wajib-khidmah/permohonan** → nempel pada entri **Bidang → Tim Wajib Khidmah** yang sudah ada, sebagai link "Permohonan" di halaman tersebut.
+
+**⚠️ Ini proposal, belum keputusan final** — penempatan "Layanan Falak" di dalam Profil dipilih karena Profil satu-satunya menu existing yang sudah berstruktur dropdown multi-entri, bukan karena kecocokan makna. Perlu diperhatikan: pengguna yang mencari "jadwal shalat hari ini" (kasus pakai frekuensi tinggi, jamaah pengguna falak) kemungkinan tidak akan menduga fitur itu ada di bawah menu "Profil" (yang secara konvensi berarti "Tentang Kami"). Pertimbangkan alternatif seperti CTA/shortcut falak di Beranda atau navbar sebagai pelengkap, bukan pengganti, penempatan struktural ini.
 
 ---
 

@@ -35,20 +35,23 @@ Kredibilitas Lirboyo — otoritas pesantren salaf terkemuka. Yang membedakan: na
 ## Capabilities and Constraints
 
 - Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Prisma 7 (PostgreSQL/Neon) + Better Auth.
-- Situs publik: beranda, profil (tentang, visi-misi, pengurus pusat), artikel, media, kontak, layanan falak (jadwal shalat, kiblat, kalender Hijriah, hisab, rukyat, eclipse) dengan REST API publik.
-- Admin CMS: konten (posts, kategori, halaman, media), homepage (hero, about), falak, program, sekretariat (surat, disposisi, agenda, arsip), sistem (users, roles).
-- Mobile-first; dark mode default dengan toggle; dual-mode untuk seluruh permukaan (keputusan yang sudah dikonfirmasi sebelumnya — detail visual dipertanyakan lagi oleh pemilik).
-- Font Hanken Grotesk (situs) + Newsreader (display) + Spline Sans Mono (data) + Reem Kufi (Arab). Catatan deviasi: `layout.tsx` juga memuat Roboto sebagai `--font-sans` — perlu dibersihkan.
-- Glassmorphism ("Kaca Kristal") dipakai terbatas pada **chrome** (navbar, sidebar admin, topbar) dan **kartu/panel** (taqwim hero, kartu dashboard, kartu konten), CSS-only dengan fallback `prefers-reduced-transparency`. Tabel, form, dan teks panjang tetap solid.
-- Aset: logo.png, orangelim.png, iksadari.JPG (foto hero saat ini).
+- **Situs publik sedang dibangun ulang dari nol** (kecuali menu navigasi yang dipertahankan). Seluruh tampilan, komponen, dan struktur halaman diganti dengan dunia visual baru.
+- Rute publik: beranda, profil (tentang, visi-misi, pengurus pusat, bidang), artikel, media, kontak, layanan falak (jadwal shalat, kiblat, kalender Hijriah, hisab, rukyat, eclipse), wajib-khidmah/permohonan.
+- Admin CMS: konten (posts, kategori, halaman, media), homepage (hero, about), falak, program, sekretariat (surat, disposisi, agenda, arsip), sistem (users, roles). **Admin CMS tidak termasuk dalam rebuild ini.**
+- Mobile-first; dark mode default dengan toggle; dual-mode untuk seluruh permukaan — keputusan fungsional yang dikonfirmasi.
+- Hamburger nav pada mobile — keputusan fungsional yang dikonfirmasi.
+- Aset: logo.png, orangelim.png, iksadari.JPG (foto hero).
 - Konten artikel/media saat ini masih placeholder di beberapa halaman (dummy).
+- **Incumbent visual details (akan diganti):** Font Hanken Grotesk + Newsreader + Spline Sans Mono + Reem Kufi; glassmorphism "Kaca Kristal" (CSS-only, chrome + kartu saja); Roboto sebagai `--font-sans` di `layout.tsx` (perlu dibersihkan). Detail visual ini tidak mengikat untuk dunia baru.
 
 ## Brand Commitments
 
-- Nama organisasi: Lembaga Ittihadul Muballighin (LIM); tagline "Menebar Dakwah, Memasyarakatkan Pesantren".
-- Keputusan terdahulu (grilling): mobile-first, glassmorphism, dual-mode, default dark, hamburger nav — **pemilik menyatakan tampilan hasilnya "jelek banget" dan meminta dunia visual baru dari nol**; keputusan warna/aksen/bahan boleh diganti, keputusan fungsional (mobile-first, dual-mode, default dark, hamburger) tetap berlaku. Glassmorphism kini dikembalikan secara terbatas ("Kaca Kristal"): hanya chrome + kartu, bukan permukaan luas/aurora.
+- Nama organisasi: Lembaga Ittihadul Muballighin (LIM); tagline "Memasyarakatkan Pesantren, Memesantrenkan Masyarakat".
+- **Rebuild total situs publik dari nol** — pemilik menyatakan tampilan sebelumnya "jelek banget" dan meminta dunia visual baru. Keputusan fungsional (mobile-first, dual-mode, default dark, hamburger nav) tetap berlaku. Menu navigasi dipertahankan.
+- Dunia visual: arah **"Ruang Gelap" (amber darkroom) dicabut** — dinilai kemungkinan hasil AI-generated tanpa dasar kuat, tidak direkomendasikan pemilik produk. Arah pengganti yang dikonfirmasi: **tema gelap (dark mode) sebagai basis, dengan keserasian warna** sebagai prinsip utama — belum ada nama/konsep bertema, palet & tipografi definitif masih terbuka.
 - Bahasa situs: Indonesia; slug rute Bahasa Indonesia.
 - Narasi dan copy ditulis sendiri oleh pemilik untuk tahap lanjut.
+- Build path: **code-led** (tidak ada image generation yang tersedia; ambisi tertulis dalam direction contract).
 
 ## Evidence on Hand
 

@@ -43,17 +43,17 @@ export function TablePagination({
   return (
     <nav
       aria-label="Navigasi halaman tabel"
-      className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3"
+      className="flex flex-wrap items-center justify-between gap-3 border-t border-admin-card-border px-4 py-3"
     >
-      <p className="text-xs text-muted-foreground tabular-nums">
+      <p className="text-xs text-admin-content-fg/50 tabular-nums">
         Menampilkan {start}&ndash;{end} dari {total}
       </p>
       <div className="flex items-center gap-2">
-        <span className="text-xs tabular-nums text-muted-foreground">
+        <span className="text-xs tabular-nums text-admin-content-fg/50">
           Halaman {currentPage} dari {totalPages}
         </span>
         {currentPage > 1 ? (
-          <Button asChild variant="outline" size="sm" className="h-8 px-2.5">
+          <Button asChild variant="outline" size="sm" className="h-8 px-2.5 border-admin-border hover:bg-admin-border">
             <Link
               href={buildHref(basePath, queryParams, currentPage - 1)}
               aria-label="Ke halaman sebelumnya"
@@ -69,7 +69,7 @@ export function TablePagination({
           </Button>
         )}
         {currentPage < totalPages ? (
-          <Button asChild variant="outline" size="sm" className="h-8 px-2.5">
+          <Button asChild variant="outline" size="sm" className="h-8 px-2.5 border-admin-border hover:bg-admin-border">
             <Link
               href={buildHref(basePath, queryParams, currentPage + 1)}
               aria-label="Ke halaman berikutnya"

@@ -156,7 +156,7 @@ export function SecretariatDashboard({
         />
       </div>
 
-      <SectionCard variant="glass">
+      <SectionCard variant="elevated">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base font-semibold">Tren 12 Bulan</h2>
@@ -191,7 +191,7 @@ export function SecretariatDashboard({
           driveEmail={health.driveEmail}
           missingAttachments={health.missingAttachments}
         />
-        <SectionCard variant="glass" className="lg:col-span-2">
+        <SectionCard variant="elevated" className="lg:col-span-2">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-semibold">Modul Sekretariat</h2>

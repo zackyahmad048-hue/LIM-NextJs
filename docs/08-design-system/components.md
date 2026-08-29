@@ -20,6 +20,8 @@ Dokumen ini mendefinisikan standar komponen antarmuka (UI Components) yang digun
 
 Seluruh komponen harus bersifat **Reusable**, **Accessible**, **Responsive**, dan **Consistent** sehingga dapat digunakan di seluruh aplikasi tanpa membuat variasi implementasi yang tidak perlu.
 
+> **⚠️ Catatan skop untuk Situs Publik.** Per `PRODUCT.md`, rebuild situs publik mencakup "tampilan, komponen, dan struktur halaman". Jenis/state komponen di bawah ini (Button punya Primary/Secondary/dst, Card punya Header/Body/dst) adalah **requirement abstrak yang kemungkinan tetap berlaku** apa pun dunia visualnya — tapi implementasi visualnya mengikuti `colors.md`/`typography.md`/`theme.md`, yang untuk situs publik berstatus incumbent menunggu arah baru (dark-mode-first + palet harmonis; arah "Ruang Gelap" sebelumnya dicabut). Bagian **Admin CMS Shell** di bawah eksplisit hanya untuk admin (`PRODUCT.md`: "Admin CMS tidak termasuk dalam rebuild ini") dan tetap mengikat apa adanya.
+
 ---
 
 # Objectives

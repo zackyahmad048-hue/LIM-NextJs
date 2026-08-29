@@ -49,11 +49,11 @@ export function CommandMenu({ roleSlugs }: CommandMenuProps) {
         variant="outline"
         aria-label="Cari halaman admin"
         onClick={() => setOpen(true)}
-        className="hidden h-8 w-full max-w-72 justify-start gap-2 rounded-full bg-muted/40 px-3 font-normal text-muted-foreground md:inline-flex"
+        className="hidden h-8 w-full max-w-72 justify-start gap-2 rounded-full bg-admin-border/30 px-3 font-normal text-admin-content-fg/70 md:inline-flex"
       >
-        <Search className="size-3.5 shrink-0" />
+        <Search className="size-3.5 shrink-0 text-admin-content-fg/50" />
         <span className="flex-1 text-left text-sm">Cari menu...</span>
-        <kbd className="pointer-events-none rounded border border-border bg-background px-1.5 font-data text-[10px] text-muted-foreground">
+        <kbd className="pointer-events-none rounded border border-admin-border bg-admin-input-bg px-1.5 font-data text-[10px] text-admin-content-fg/50">
           Ctrl K
         </kbd>
       </Button>
@@ -63,7 +63,7 @@ export function CommandMenu({ roleSlugs }: CommandMenuProps) {
         size="icon-sm"
         aria-label="Cari halaman admin"
         onClick={() => setOpen(true)}
-        className="md:hidden"
+        className="md:hidden text-admin-content-fg hover:bg-admin-border"
       >
         <Search className="size-4" />
       </Button>

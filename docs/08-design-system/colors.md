@@ -24,6 +24,8 @@ Situs publik (`app/(public)/`) memakai tema standar Oranye LIM yang sama dengan 
 
 Glassmorphism ("Kaca Kristal") dipakai terbatas pada chrome dan kartu, CSS-only. Token glass menurun dari token semantik (`--glass-chrome-bg`, `--glass-card-bg`, `--glass-border`, `--glass-blur`, `--glass-saturate`) sehingga valid di light & dark, dengan fallback `prefers-reduced-transparency` menjadi solid. Detail di `theme.md`.
 
+> **⚠️ Status untuk Situs Publik: Incumbent, menunggu pembaruan.** Per `PRODUCT.md`, situs publik sedang dibangun ulang total. Arah **"Ruang Gelap" (amber darkroom)** yang sempat tercatat sudah **dicabut** (dinilai kemungkinan hasil AI-generated, tidak direkomendasikan pemilik produk); arah pengganti: **tema gelap (dark mode) dengan keserasian warna**, tanpa nama/konsep bertema, palet definitif belum ditentukan. Identitas "Oranye LIM" dan glassmorphism di atas eksplisit dinyatakan **tidak mengikat** untuk build baru — bagian ini referensi historis sampai palet baru didokumentasikan. Skala token (Primary-50…900, Neutral, Semantic) di bawah kemungkinan besar tetap relevan sebagai *struktur* token — tapi nilai hue/warna aktualnya belum ditetapkan ulang. **Admin CMS tidak termasuk rebuild ini** dan tetap memakai identitas Oranye LIM di atas.
+
 Color System memastikan seluruh antarmuka menggunakan palet warna yang konsisten sehingga meningkatkan identitas visual, keterbacaan, dan pengalaman pengguna.
 
 ---

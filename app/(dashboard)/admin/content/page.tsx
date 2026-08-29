@@ -62,7 +62,7 @@ export default async function ContentPage() {
         {summaries.map((item) => (
           <SectionCard
             key={item.label}
-            variant="glass"
+            variant="elevated"
             className="rounded-lg p-4 shadow-none"
           >
             <p className="text-sm font-medium text-muted-foreground">
@@ -83,7 +83,7 @@ export default async function ContentPage() {
           return (
             <SectionCard
               key={item.href}
-              variant="glass"
+              variant="elevated"
               className="rounded-lg p-4 shadow-none"
             >
               <div className="flex size-9 items-center justify-center rounded-md bg-muted text-muted-foreground">

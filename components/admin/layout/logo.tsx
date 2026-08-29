@@ -14,11 +14,11 @@ export function Logo({ collapsed = false }: LogoProps) {
       href="/admin"
       aria-label="Beranda admin"
       className={cn(
-        "flex h-12 shrink-0 items-center border-b",
+        "flex h-12 shrink-0 items-center border-b border-admin-sidebar-border/50",
         collapsed ? "justify-center px-0" : "gap-2.5 px-4",
       )}
     >
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-admin-sidebar-accent text-admin-sidebar-accent-fg">
         <Zap className="h-4 w-4" />
       </div>
 
@@ -28,10 +28,10 @@ export function Logo({ collapsed = false }: LogoProps) {
           collapsed ? "w-0 opacity-0" : "flex-1",
         )}
       >
-        <h1 className="truncate text-sm font-bold leading-tight">
+        <h1 className="truncate text-sm font-bold leading-tight text-admin-sidebar-fg">
           {APP.shortName}
         </h1>
-        <p className="truncate text-[10px] text-muted-foreground">
+        <p className="truncate text-[10px] text-admin-sidebar-fg/70">
           {APP.organization.shortName}
         </p>
       </div>

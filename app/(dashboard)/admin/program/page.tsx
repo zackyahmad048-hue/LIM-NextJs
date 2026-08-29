@@ -91,7 +91,7 @@ export default async function ProgramDashboardPage() {
           return (
             <SectionCard
               key={stat.label}
-              variant="glass"
+              variant="elevated"
               className="rounded-lg p-4 shadow-none"
             >
               <div className="flex items-center justify-between">
@@ -113,7 +113,7 @@ export default async function ProgramDashboardPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+        <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
           <div className="flex items-center gap-2">
             <Calendar className="size-4 text-muted-foreground" />
             <h2 className="text-base font-semibold">Program Mendatang</h2>
@@ -145,7 +145,7 @@ export default async function ProgramDashboardPage() {
           )}
         </SectionCard>
 
-        <SectionCard variant="glass" className="rounded-lg p-4 shadow-none">
+        <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
           <div className="flex items-center gap-2">
             <Users className="size-4 text-muted-foreground" />
             <h2 className="text-base font-semibold">Akses Cepat</h2>

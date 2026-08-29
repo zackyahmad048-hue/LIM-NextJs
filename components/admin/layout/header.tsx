@@ -4,11 +4,11 @@ import { Breadcrumb } from "../navigation/breadcrumb";
 import { UserMenu } from "../navigation/user-menu";
 import { CommandMenu } from "../navigation/command-menu";
 import { DateChip } from "../shared/date-chip";
-import { glassChrome } from "../shared/chrome";
 import { PanelLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "../providers/sidebar-provider";
+import { cn } from "@/lib/utils";
 
 interface HeaderUser {
   name: string;
@@ -36,7 +36,11 @@ export function Header({ user, roleSlugs }: Props) {
 
   return (
     <header
-      className={`sticky top-0 z-20 flex h-14 items-center gap-3 border-b px-4 ${glassChrome}`}
+      className={cn(
+        "sticky top-0 z-20 flex h-14 items-center gap-3 border-b px-4",
+        "bg-admin-card-bg border-admin-card-border",
+        "backdrop-blur-sm backdrop-saturate-150",
+      )}
     >
       <div className="flex items-center gap-1.5">
         <Button
@@ -44,11 +48,12 @@ export function Header({ user, roleSlugs }: Props) {
           size="icon-sm"
           onClick={isMobile ? toggleMobile : toggle}
           aria-label={toggleLabel}
+          className="text-admin-content-fg hover:bg-admin-border"
         >
           <PanelLeft className="h-4 w-4" />
         </Button>
 
-        <div className="min-w-0 rounded-full bg-muted/40 px-3 py-1">
+        <div className="min-w-0 rounded-lg bg-admin-border/50 px-3 py-1">
           <Breadcrumb />
         </div>
       </div>

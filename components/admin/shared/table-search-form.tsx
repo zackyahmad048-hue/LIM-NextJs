@@ -28,7 +28,7 @@ export function TableSearchForm({
         <input key={name} type="hidden" name={name} value={value} />
       ))}
       <div className="relative">
-        <Search className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+        <Search className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-admin-content-fg/40" />
         <label htmlFor="table-search" className="sr-only">
           Cari data
         </label>
@@ -38,7 +38,7 @@ export function TableSearchForm({
           name="search"
           defaultValue={defaultValue}
           placeholder={placeholder}
-          className="h-8 w-48 pl-8 text-xs sm:w-56"
+          className="h-8 w-48 pl-8 text-xs sm:w-56 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
         />
       </div>
       {defaultValue && (
@@ -47,6 +47,7 @@ export function TableSearchForm({
           variant="ghost"
           size="icon-sm"
           aria-label="Hapus pencarian"
+          className="text-admin-content-fg/60 hover:text-admin-content-fg hover:bg-admin-border"
         >
           <Link href={basePath}>
             <X className="size-3.5" />

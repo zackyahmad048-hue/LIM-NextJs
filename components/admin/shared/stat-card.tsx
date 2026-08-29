@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 
 import { SectionCard } from "./section-card";
 import { HubDot } from "@/components/shared/hub-dot";
+import { cn } from "@/lib/utils";
 
 interface StatCardProps {
   title: string;
@@ -17,27 +18,29 @@ export function StatCard({
   icon: Icon,
 }: StatCardProps) {
   return (
-    <SectionCard variant="glass">
+    <SectionCard variant="elevated">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <HubDot className="h-2 w-2" />
+          <p className="flex items-center gap-1.5 text-sm text-admin-content-fg/60">
+            <HubDot className="h-2 w-2 bg-admin-border" />
             {title}
           </p>
 
-          <h2 className="font-display text-3xl font-semibold tracking-[-0.01em] tabular-nums">
+          <h2 className="font-display text-3xl font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg">
             {value}
           </h2>
 
           {description && (
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-sm text-admin-content-fg/50">{description}</p>
           )}
         </div>
 
         {Icon && (
-          <div className="relative flex size-10 items-center justify-center">
-            <span className="absolute inset-0 rounded-full border border-dashed border-primary/40" />
-            <Icon className="relative h-4 w-4 text-primary" />
+          <div className={cn(
+            "relative flex size-10 items-center justify-center rounded-lg",
+            "bg-admin-border/30"
+          )}>
+            <Icon className="relative h-5 w-5 text-primary" />
           </div>
         )}
       </div>

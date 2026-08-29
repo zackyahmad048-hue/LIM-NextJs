@@ -34,15 +34,15 @@ export function DateChip({ className }: DateChipProps) {
   return (
     <div
       className={cn(
-        "items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1",
+        "items-center gap-2 rounded-full border border-admin-border/50 bg-admin-border/30 px-3 py-1",
         className,
       )}
     >
-      <span className="text-xs font-medium tabular-nums text-foreground">
+      <span className="text-xs font-medium tabular-nums text-admin-content-fg">
         {gregorian}
       </span>
-      <span aria-hidden className="h-3 w-px bg-border" />
-      <span className="font-data text-[11px] uppercase tabular-nums tracking-wide text-muted-foreground">
+      <span aria-hidden className="h-3 w-px bg-admin-border" />
+      <span className="font-data text-[11px] uppercase tabular-nums tracking-wide text-admin-content-fg/60">
         {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
       </span>
     </div>

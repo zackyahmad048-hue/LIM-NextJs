@@ -36,14 +36,28 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-dvh bg-transparent">
+      {/* 
+        Menambahkan background dasar yang solid (dark:bg-slate-950) agar kanvas utama 
+        tidak bentrok dengan efek Glassmorphism di Header nanti.
+      */}
+      <div className="flex min-h-dvh w-full bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50">
+        
         <Sidebar roleSlugs={roleSlugs} />
         <MobileSidebar roleSlugs={roleSlugs} />
 
         <div className="flex min-w-0 flex-1 flex-col">
           <Header user={user} roleSlugs={roleSlugs} />
 
-          <main className="flex-1 overflow-x-hidden">{children}</main>
+          {/* 
+            Menambahkan sistem padding responsif (p-4 md:p-6 lg:p-8) 
+            dan pembungkus max-w-7xl agar konten di dalam dashboard tidak 
+            menyentuh pinggir layar dan memiliki "ruang napas" yang lega.
+          */}
+          <main className="flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
+            <div className="mx-auto flex max-w-7xl flex-col gap-6 md:gap-8">
+              {children}
+            </div>
+          </main>
 
           <Footer />
         </div>

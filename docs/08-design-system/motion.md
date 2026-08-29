@@ -48,6 +48,8 @@ Aturan:
 
 ---
 
+> **⚠️ Catatan skop untuk Situs Publik.** Token easing/spring dan primitif `Reveal` di bawah adalah infrastruktur animasi — kemungkinan besar tetap dipakai apa pun dunia visualnya. Namun contoh kelas yang menyertakan warna literal (mis. `border-primary/45` pada Hover Lift) mengasumsikan palet "Oranye LIM" yang berstatus incumbent (lihat `colors.md`); verifikasi ulang terhadap palet baru situs publik begitu tersedia (arah "Ruang Gelap" dicabut; pengganti: dark-mode-first + palet harmonis).
+
 # Primitif Situs Publik
 
 ## `Reveal`

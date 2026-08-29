@@ -30,6 +30,11 @@ function isActiveHref(href: string | undefined, pathname: string) {
   return href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
 }
 
+const activeClass =
+  "bg-admin-sidebar-accent text-admin-sidebar-accent-fg font-medium";
+const hoverClass = "hover:bg-admin-sidebar-accent hover:text-admin-sidebar-accent-fg";
+const baseTextClass = "text-admin-sidebar-fg/90";
+
 export function SidebarItem({
   item,
   collapsed = false,
@@ -57,9 +62,8 @@ export function SidebarItem({
           aria-current={childCurrent ? "page" : undefined}
           className={cn(
             "flex h-8 items-center rounded-md px-3 text-xs transition-colors duration-200",
-            childCurrent
-              ? "bg-primary/10 font-medium text-primary"
-              : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground",
+            baseTextClass,
+            childCurrent ? activeClass : hoverClass,
           )}
         >
           {child.title}
@@ -77,9 +81,8 @@ export function SidebarItem({
         className={cn(
           "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200",
           collapsed ? "justify-center" : "gap-2.5 px-3",
-          active
-            ? "bg-primary/10 font-medium text-primary"
-            : "text-foreground hover:bg-foreground/5",
+          baseTextClass,
+          active ? activeClass : hoverClass,
         )}
       >
         {Icon && <Icon className="h-4 w-4 shrink-0" />}
@@ -113,8 +116,10 @@ export function SidebarItem({
       aria-expanded={collapsed ? undefined : open}
       aria-label={collapsed ? item.title : undefined}
       className={cn(
-        "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200 hover:bg-foreground/5",
+        "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200",
         collapsed ? "justify-center" : "gap-2.5 px-3",
+        baseTextClass,
+        hoverClass,
         childActive && !collapsed && "font-medium",
       )}
     >
@@ -130,7 +135,8 @@ export function SidebarItem({
       {!collapsed && (
         <ChevronDown
           className={cn(
-            "h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform duration-300 ease-in-out",
+            "h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-in-out",
+            "text-admin-sidebar-fg/60",
             open && "rotate-180",
           )}
         />
@@ -147,8 +153,8 @@ export function SidebarItem({
           </TooltipTrigger>
           <TooltipContent side="right">{item.title}</TooltipContent>
         </Tooltip>
-        <PopoverContent side="right" align="start" className="w-52 gap-1 p-1">
-          <p className="px-3 py-1.5 text-xs font-medium text-muted-foreground">
+        <PopoverContent side="right" align="start" className="w-52 gap-1 p-1 bg-admin-sidebar-bg border-admin-sidebar-border">
+          <p className="px-3 py-1.5 text-xs font-medium text-admin-sidebar-fg/60">
             {item.title}
           </p>
           <div className="space-y-0.5">{renderChildLinks()}</div>
@@ -170,7 +176,7 @@ export function SidebarItem({
             : "invisible grid-rows-[0fr] opacity-0",
         )}
       >
-        <div className="ml-5 overflow-hidden border-l border-border/60 pl-2">
+        <div className="ml-5 overflow-hidden border-l border-admin-sidebar-border/50 pl-2">
           <div className="space-y-0.5 py-0.5">{renderChildLinks()}</div>
         </div>
       </div>

@@ -153,7 +153,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <SectionCard variant="glass" className="rounded-2xl p-5">
+      <SectionCard variant="elevated" className="rounded-2xl p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="flex min-w-0 flex-1 items-center gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
@@ -211,7 +211,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
         })}
       </div>
 
-      <SectionCard variant="glass" className="p-5">
+      <SectionCard variant="elevated" className="p-5">
         <div className="flex items-center gap-3">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <Building2 className="size-4" />
@@ -244,7 +244,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
         )}
       </SectionCard>
 
-      <SectionCard variant="glass" className="p-5">
+      <SectionCard variant="elevated" className="p-5">
         <div className="flex items-center gap-3">
           <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <BookOpen className="size-4" />

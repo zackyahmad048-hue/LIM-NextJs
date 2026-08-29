@@ -104,7 +104,7 @@ export function PostForm({
   }
 
   return (
-    <PageContainer className="gap-4 bg-muted/20 p-4 lg:p-5">
+    <PageContainer>
       <PageHeader
         title={mode === "create" ? "Tulis Berita" : "Edit Berita"}
         description={
@@ -128,7 +128,7 @@ export function PostForm({
       >
         {/* Main content */}
         <div className="flex flex-col gap-4">
-          <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+          <SectionCard variant="elevated">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">Judul</Label>
@@ -203,8 +203,8 @@ export function PostForm({
 
         {/* Sidebar */}
         <div className="flex flex-col gap-4">
-          <SectionCard className="rounded-lg bg-background p-4 shadow-none">
-            <h3 className="text-sm font-semibold">Publikasi</h3>
+          <SectionCard variant="elevated">
+            <h3 className="text-sm font-semibold text-admin-content-fg">Publikasi</h3>
             <div className="mt-3 space-y-3">
               <div className="space-y-2">
                 <Label>Kategori</Label>
@@ -241,8 +241,8 @@ export function PostForm({
             </div>
           </SectionCard>
 
-          <SectionCard className="rounded-lg bg-background p-4 shadow-none">
-            <h3 className="text-sm font-semibold">Aksi</h3>
+          <SectionCard variant="elevated">
+            <h3 className="text-sm font-semibold text-admin-content-fg">Aksi</h3>
             <div className="mt-3 flex flex-col gap-2">
               <Button
                 type="submit"

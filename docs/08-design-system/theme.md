@@ -127,9 +127,9 @@ Glassmorphism dipakai terbatas pada **chrome** dan **kartu**, bukan permukaan lu
 
 Permukaan yang boleh kaca:
 
-- Navbar (publik) saat scroll.
+- Navbar (publik) saat scroll. **⚠️ Incumbent** — bagian dari tampilan "Oranye LIM" lama; berlaku untuk Admin CMS, tapi untuk navbar situs publik menunggu konfirmasi apakah arah pengganti (dark-mode-first + palet harmonis — arah "Ruang Gelap" dicabut) tetap memakai glassmorphism (lihat `PRODUCT.md`).
 - Sidebar & topbar admin.
-- Kartu/panel ringkasan (taqwim hero, kartu dashboard, kartu modul, kartu konten).
+- Kartu/panel ringkasan (taqwim hero, kartu dashboard, kartu modul, kartu konten). Referensi "taqwim hero" mengikuti penamaan sistem lama; sesuaikan bila komponen situs publik berganti nama pada rebuild.
 
 Permukaan yang **wajib solid**:
 

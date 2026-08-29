@@ -85,7 +85,7 @@ export function Breadcrumb() {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="flex min-w-0 items-center gap-1.5 text-sm font-medium text-muted-foreground">
+      <ol className="flex min-w-0 items-center gap-1.5 text-sm font-medium text-admin-content-fg/70">
         {crumbs.map((crumb, index) => {
           const isLast = index === crumbs.length - 1;
           return (
@@ -93,15 +93,15 @@ export function Breadcrumb() {
               {index > 0 && (
                 <ChevronRight
                   aria-hidden
-                  className="size-3.5 shrink-0 text-muted-foreground/50"
+                  className="size-3.5 shrink-0 text-admin-content-fg/40"
                 />
               )}
               {isLast ? (
-                <span className="truncate text-foreground">{crumb.label}</span>
+                <span className="truncate text-admin-content-fg">{crumb.label}</span>
               ) : (
                 <Link
                   href={crumb.href}
-                  className="truncate transition-colors hover:text-foreground"
+                  className="truncate transition-colors hover:text-admin-content-fg"
                 >
                   {crumb.label}
                 </Link>
