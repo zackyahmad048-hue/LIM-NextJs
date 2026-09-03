@@ -96,7 +96,7 @@ function MultiCheck({
               key={option}
               className={cn(
                 "flex cursor-pointer select-none items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
-                "has-[:focus-visible]:border-ring has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50",
+                "has-focus-visible:border-ring hashas-focus-visible:ring-3s-[:focus-visible]:ring-ring/50",
                 checked
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-input hover:bg-muted/60",
@@ -151,7 +151,7 @@ export function StepKondisi({ form }: Props) {
                   className={cn(
                     "flex cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2 text-sm transition-colors",
                     selected ? "border-primary " : "border-input",
-                    "has-[:focus-visible]:border-ring has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50",
+                    "has-focus-visible:border-ring has-focus-visible:ring-3 has-focus-visible:ring-ring/50",
                   )}
                 >
                   <input

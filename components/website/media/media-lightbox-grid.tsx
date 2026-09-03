@@ -148,7 +148,7 @@ export default function MediaLightboxGrid({
                       </DialogDescription>
                     </DialogHeader>
 
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md">
+                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-md">
                       {item.type === "VIDEO" ? (
                         <video
                           src={item.href}
