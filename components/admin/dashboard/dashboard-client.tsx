@@ -11,6 +11,7 @@ import {
   FileBarChart,
   BookOpen,
   Download,
+  LayoutDashboard,
 } from "lucide-react";
 import { FEATURES } from "@/config/feature";
 import { hasAnyPermission } from "@/modules/authorization/application/permission.service";
@@ -19,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PreviewDialog } from "@/components/admin/structure/preview.dialog";
 import { SectionCard } from "@/components/admin/shared/section-card";
+import { DashboardEmptyState } from "@/components/admin/shared/empty-state";
+import { cn } from "@/lib/utils";
 
 interface DashboardUser {
   name: string;
@@ -153,7 +156,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <SectionCard variant="elevated" className="rounded-2xl p-5">
+      <SectionCard variant="elevated" className="p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="flex min-w-0 flex-1 items-center gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
@@ -172,7 +175,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
 
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <h1 className="text-xl font-bold">
+                <h1 className="font-heading text-xl font-bold">
                   Selamat datang, {user.name}
                 </h1>
                 <Badge variant="secondary">{user.roleLabel}</Badge>
@@ -185,31 +188,47 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
         </div>
       </SectionCard>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {enabled.map((mod) => {
-          const Icon = mod.icon;
-          return (
-            <Link
-              key={mod.href}
-              href={mod.href}
-              className="group flex items-start gap-4 rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:border-primary/30 hover:bg-primary/5 motion-safe:hover:-translate-y-0.5"
-            >
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <Icon className="size-5" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <h2 className="text-base font-semibold text-card-foreground">
-                  {mod.title}
-                </h2>
-                <p className="mt-0.5 text-sm text-muted-foreground">
-                  {mod.description}
-                </p>
-              </div>
-              <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          );
-        })}
-      </div>
+      {enabled.length > 0 ? (
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {enabled.map((mod) => {
+            const Icon = mod.icon;
+            return (
+              <Link
+                key={mod.href}
+                href={mod.href}
+                className={cn(
+                  "group flex flex-col items-start gap-3 rounded-xl p-5 transition-all duration-300 ease-out",
+                  // Solid card (SectionCard style) — no glassmorphism on module cards
+                  "bg-admin-card-bg border-primary/25 shadow-sm",
+                  "hover:shadow-md hover:border-primary hover:bg-primary/5",
+                  "motion-safe:hover:-translate-y-0.5",
+                  // Focus ring for accessibility
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-admin-content-bg",
+                )}
+              >
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+                  <Icon className="size-5" />
+                </div>
+                <div className="min-w-0 flex-1 w-full">
+                  <h2 className="font-heading text-base font-semibold text-card-foreground">
+                    {mod.title}
+                  </h2>
+                  <p className="mt-0.5 text-sm text-muted-foreground">
+                    {mod.description}
+                  </p>
+                </div>
+                <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            );
+          })}
+        </div>
+      ) : (
+        <DashboardEmptyState
+          icon={LayoutDashboard}
+          title="Belum ada modul tersedia"
+          description="Anda belum memiliki akses ke modul manajemen manapun. Hubungi administrator untuk mendapatkan izin."
+        />
+      )}
 
       <SectionCard variant="elevated" className="p-5">
         <div className="flex items-center gap-3">
@@ -217,14 +236,14 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
             <Building2 className="size-4" />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="text-base font-semibold">Struktur & Anggota</h2>
+            <h2 className="font-heading text-base font-semibold">Struktur & Anggota</h2>
           </div>
           <Button size="sm" variant="outline" asChild>
             <Link href="/admin/profil/pengurus-pusat">Kelola</Link>
           </Button>
         </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-y-4 sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-[var(--glass-border)]">
+        <div className="mt-5 grid grid-cols-2 gap-y-4 sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-admin-card-border">
           <MiniStat value={totalCentralBoard} label="Pengurus Pusat" />
           <MiniStat value={totalRegionalBoards} label="Wilayah" />
           <MiniStat value={totalBranchBoards} label="Cabang" />
@@ -250,7 +269,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
             <BookOpen className="size-4" />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="text-base font-semibold">Profil</h2>
+            <h2 className="font-heading text-base font-semibold">Profil</h2>
             <p className="mt-0.5 text-xs tabular-nums text-muted-foreground">
               {profil.misi.length} poin misi
             </p>
@@ -297,7 +316,7 @@ export function DashboardClient({ user, roleSlugs, structure, profil }: Props) {
 function MiniStat({ value, label }: { value: number; label: string }) {
   return (
     <div className="pr-4 sm:px-4 sm:first:pl-0">
-      <p className="font-display text-xl font-semibold tracking-[-0.01em] tabular-nums text-card-foreground">
+      <p className="font-heading text-xl font-semibold tracking-[-0.01em] tabular-nums text-card-foreground stat-number">
         {value}
       </p>
       <p className="mt-0.5 truncate text-xs text-muted-foreground">{label}</p>

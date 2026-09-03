@@ -250,6 +250,25 @@ export function calculatePrayerTimes(
 }
 
 /**
+ * Convert an absolute Date instant into decimal hours in a fixed UTC-offset
+ * timezone (e.g. `location.timezone` = 7 for WIB). This keeps the "current
+ * time" in the same frame as the computed prayer times, so the next-prayer/
+ * countdown scan stays accurate even when the device clock is in a different
+ * timezone than the active location.
+ */
+export function dateToDecimalHoursInZone(
+  date: Date,
+  tzOffsetHours: number,
+): number {
+  return fixHour(
+    date.getUTCHours() +
+      date.getUTCMinutes() / 60 +
+      date.getUTCSeconds() / 3600 +
+      tzOffsetHours,
+  );
+}
+
+/**
  * The five obligatory prayers, in chronological order. Sunrise (Thulu') is
  * excluded: it is not a prayer, matching the jadwal shalat page behaviour.
  */
@@ -305,10 +324,7 @@ export function convertToIstiwaClock(
     location.timezone,
     eqt,
   );
-  const localStdHours =
-    currentDate.getHours() +
-    currentDate.getMinutes() / 60 +
-    currentDate.getSeconds() / 3600;
+  const localStdHours = dateToDecimalHoursInZone(currentDate, location.timezone);
 
   const istiwaHours = fixHour(localStdHours - transitStd + 12);
   const deltaMinutes = (12 - transitStd) * 60;

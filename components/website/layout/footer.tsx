@@ -10,20 +10,19 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
+import { BIDANG } from "@/config/bidang";
 const menuLinks = [
   { title: "Beranda", href: "/" },
   { title: "Profil", href: "/profil" },
+  { title: "Bidang", href: "/profil/bidang" },
   { title: "Artikel", href: "/artikel" },
-  { title: "Media", href: "/media" },
   { title: "Kontak", href: "/kontak" },
 ];
 
-const falakLinks = [
-  { title: "Layanan Falak", href: "/falak" },
-  { title: "Jadwal Shalat", href: "/falak/jadwal-shalat" },
-  { title: "Arah Kiblat", href: "/falak/kiblat" },
-  { title: "Kalender Hijriah", href: "/falak/kalender-hijriah" },
-];
+const bidangLinks = BIDANG.map((bidang) => ({
+  title: bidang.title,
+  href: `/profil/bidang/${bidang.slug}`,
+}));
 
 const socialLinks = [
   {
@@ -54,32 +53,32 @@ const socialLinks = [
 ];
 
 const linkClass =
-  "transition hover:text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground";
+  "transition hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-primary text-primary-foreground">
-      <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <footer className="relative border-t border-primary/15 bg-primary/8 dark:bg-primary/12">
+      <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
         <div className="flex flex-col gap-8">
           <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-[1.25fr_0.7fr_1fr_1fr]">
             <div>
-              <p className="font-display text-xl font-medium text-balance">
+              <p className="font-heading text-2xl tracking-wide text-foreground">
                 Lembaga Ittihadul Muballighin
               </p>
-              <p className="mt-1.5 font-display text-sm italic text-primary-foreground/90">
+              <p className="mt-1.5 text-sm text-primary">
                 Menebar Dakwah, Memasyarakatkan Pesantren
               </p>
-              <p className="mt-4 max-w-sm text-sm leading-6 text-pretty text-primary-foreground/80">
+              <p className="mt-4 max-w-sm text-sm leading-6 text-pretty text-muted-foreground">
                 Dakwah, pendidikan, dan pengabdian muballigh dari Pondok Pesantren
                 Lirboyo, Kediri.
               </p>
             </div>
 
             <div>
-              <h3 className="text-[10px] font-medium uppercase text-primary-foreground">
+              <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
                 Jelajah
               </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-primary-foreground/80">
+              <ul className="mt-4 space-y-2.5 text-sm text-foreground/80">
                 {menuLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={linkClass}>
@@ -91,11 +90,11 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[10px] font-medium uppercase text-primary-foreground">
-                Layanan Falak
+              <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                Bidang
               </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-primary-foreground/80">
-                {falakLinks.map((item) => (
+              <ul className="mt-4 space-y-2.5 text-sm text-foreground/80">
+                {bidangLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={linkClass}>
                       {item.title}
@@ -106,12 +105,12 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[10px] font-medium uppercase text-primary-foreground">
+              <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
                 Hubungi Kami
               </h3>
-              <div className="mt-4 space-y-2.5 text-sm text-primary-foreground/80">
+              <div className="mt-4 space-y-2.5 text-sm text-foreground/80">
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="mt-1 h-4 w-4 shrink-0" />
+                  <MapPin className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
                   <p className="leading-6">
                     Gedung Al Ittihad Lt.1
                     <br />
@@ -120,7 +119,7 @@ export default function Footer() {
                 </div>
 
                 <div className="flex items-center gap-2.5">
-                  <Mail className="h-4 w-4 shrink-0" />
+                  <Mail className="h-4 w-4 shrink-0 text-muted-foreground" />
                   <span className="break-all">
                     info@ittihadulmuballighin.or.id
                   </span>
@@ -131,7 +130,7 @@ export default function Footer() {
                 href="https://wa.me/6281367891910"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex h-11 items-center gap-2 bg-primary-foreground px-5 text-xs font-semibold text-primary transition hover:bg-primary-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground"
+                className="mt-4 inline-flex h-10 items-center gap-2 rounded-sm bg-primary px-5 text-xs font-semibold text-primary-foreground transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 <FaWhatsapp className="h-4 w-4" />
                 WhatsApp
@@ -148,9 +147,9 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="flex h-11 w-11 items-center justify-center text-primary-foreground/80 transition hover:text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground"
+                      className="flex h-9 w-9 items-center justify-center rounded-sm text-muted-foreground transition hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-4 w-4" />
                     </Link>
                   );
                 })}
@@ -158,12 +157,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-3 border-t border-primary-foreground/20 pt-6 sm:flex-row">
-            <p className="text-center text-xs text-primary-foreground/70">
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-border pt-6 sm:flex-row">
+            <p className="mx-auto text-center text-xs text-muted-foreground">
               © 2026 Sekretariat Lembaga Ittihadul Muballighin
-            </p>
-            <p className="font-data text-[10px] uppercase text-primary-foreground/60">
-              Dicetak di Lirboyo, Kediri · Jawa Timur
             </p>
           </div>
         </div>

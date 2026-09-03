@@ -25,7 +25,7 @@ export default function PageHeader({
         <Reveal>
           <h1
             className={cn(
-              "max-w-3xl font-display text-[2rem] font-semibold tracking-[-0.02em] text-balance text-foreground sm:text-4xl md:text-5xl",
+              "max-w-3xl font-heading text-[2rem] font-semibold tracking-[-0.02em] text-balance text-foreground sm:text-4xl md:text-5xl",
               centered && "mx-auto",
             )}
           >

@@ -4,9 +4,11 @@
 
 **Folder:** `08-design-system`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
+
+Perubahan pada 1.1: ritme spacing section & grid sejajar ditambahkan; standard card spacing diperbarui ke `rounded-xl`.
 
 ---
 
@@ -64,6 +66,7 @@ gap-8        /* Grid/flex gap very big */
 p-4           /* Padding dalam card */
 p-5           /* Padding dalam card besar */
 p-6           /* Padding dalam card very big */
+rounded-xl    /* Radius standar content cards */
 `
 
 ---
@@ -78,7 +81,7 @@ px-4 sm:px-6           /* Horizontal padding */
 gap-6                   /* Gap antar menu items */
 `
 
-> **⚠️ Incumbent.** Nilai-nilai ini mengikuti kapsul navbar glass di `navigation.md` yang berstatus incumbent (menunggu "Ruang Gelap"). Perlu diverifikasi ulang begitu navbar situs publik didesain ulang (arah "Ruang Gelap" dicabut; pengganti: dark-mode-first + palet harmonis).
+> **⚠️ Situs Publik (implemented).** Nilai-nilai mengikuti kapsul navbar glass yang sekarang diterapkan di navbar situs publik (`app/globals.css`, `DESIGN.md` §2/§4). Tokens: `--primary` oranye LIM, `--background` putih/near-black.
 
 ### Sidebar
 
@@ -131,6 +134,13 @@ grid gap-7 md:grid-cols-2 lg:grid-cols-[1.25fr_0.7fr_1fr_1fr]  /* Footer grid */
 2. Jangan hardcode nilai spacing (misal: `margin-top: 13px`).
 3. Konsisten menggunakan token spacing yang sama untuk komponen serupa.
 4. Gunakan responsive spacing (`sm:`, `md:`, `lg:`) sesuai kebutuhan.
+
+# Ritme Section
+
+- Vertikal antar section: `py-16 sm:py-20` (public) — konsisten di semua halaman.
+- Grid gap seragam: `gap-4 md:gap-6` untuk halaman profil & sub-content (bukan `gap-3`/`gap-7` acak).
+- Card dalam satu grid memakai `h-full` agar tinggi sejajar.
+- Jangan campur kolom-count dalam satu viewport pada halaman sejenis.
 
 ---
 

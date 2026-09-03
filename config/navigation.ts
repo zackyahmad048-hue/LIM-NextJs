@@ -44,6 +44,12 @@ const rawNav: (NavigationItem | false | undefined)[] = [
 
     items: [
       {
+        title: "Tata Kelola",
+        icon: LayoutDashboard,
+        href: "/admin/homepage",
+        permissions: ["content.post.read"],
+      },
+      {
         title: "Hero Carousel",
         icon: GalleryHorizontalEnd,
         href: "/admin/homepage/hero",

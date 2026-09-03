@@ -10,7 +10,7 @@
 
 **Status:** Approved
 
-Perubahan pada 3.1: navbar desktop & mobile menggunakan kapsul mengambang glass (`rounded-full`, border, blur, shadow) yang tampil sejak awal; saat halaman discroll, kapsul melebar menjadi bar full-width di desktop (radius & padding wrapper transisi mulus); menu berbentuk pill dengan indikator aktif `bg-primary/10 text-primary`; hamburger bulat oranye.
+Perubahan pada 3.1: navbar desktop & mobile menggunakan kapsul mengambang glass (`rounded-2xl`, border, blur, shadow) yang tampil sejak awal; saat halaman discroll, kapsul **melebar penuh** (`w-full`) menjadi bar full-display dengan radius hilang dan border samping dibuka (transisi `[width,border-radius,...]` 300ms `ease-in-out`); menu berbentuk pill dengan indikator aktif `bg-primary/10 text-primary`; hamburger bulat oranye.
 
 Perubahan pada 3.0: logo tanpa lingkaran (warna asli), pill aktif oranye, bar blur, mobile menggunakan Sheet shadcn.
 
@@ -33,7 +33,7 @@ Dokumen ini menjadi acuan implementasi seluruh navigasi Public Website maupun Ad
 
 > **⚠️ Dua lapisan berbeda status untuk Situs Publik.** Per `PRODUCT.md`, situs publik dibangun ulang total "kecuali menu navigasi yang dipertahankan". Dokumen ini memuat dua jenis informasi dengan status berbeda:
 > - **Dipertahankan (tetap mengikat):** Information Architecture — daftar menu (`Public Navigation`, `Profile Navigation`, jumlah maksimal lima menu utama) dan struktur URL.
-> - **Incumbent, menunggu pembaruan (tidak mengikat):** seluruh detail visual — kapsul glass mengambang, warna pill, gaya logo, Sheet mobile — di bagian `Desktop Navigation` dan `Mobile Navigation` di bawah. Ini adalah tampilan dunia visual lama; arah dunia visual baru belum didokumentasikan di sini — arah "Ruang Gelap" (amber darkroom) sudah dicabut, pengganti: tema gelap (dark mode) dengan keserasian warna, detail final belum ada.
+> - **Situs Publik (implemented):** navbar glass capsule dipertahankan (dropdown Profil: Tentang, Visi-Misi, Pengurus Pusat) + item top-level **Bidang** (`/profil/bidang`), Artikel, Kontak; Falak & Media tidak di menu atas. Menu kanan: ThemeToggle + Admin. Detail IA final di `DESIGN.md` §4; warna mengikuti `app/globals.css`.
 
 ---
 
@@ -60,7 +60,6 @@ LIM Digital Platform
 │
 │   ├── Beranda
 │   ├── Profil
-│   │   └── Layanan Falak (proposal — lihat "Rute Belum Terpetakan")
 │   ├── Artikel
 │   ├── Media
 │   └── Kontak
@@ -105,13 +104,6 @@ Profil
 ├── Tentang LIM
 ├── Visi & Misi
 ├── Pengurus Pusat
-├── Layanan Falak         ← proposal, lihat "Rute Belum Terpetakan"
-│   ├── Jadwal Shalat
-│   ├── Arah Kiblat
-│   ├── Kalender Hijriah
-│   ├── Hisab
-│   ├── Rukyat
-│   └── Gerhana
 └── Bidang
     ├── Tim Wajib Khidmah  ← + link "Permohonan" (rute wajib-khidmah/permohonan)
     ├── Safari Ramadan
@@ -166,13 +158,13 @@ Desktop menggunakan:
 Detail visual:
 
 - Kapsul mengambang: `sticky top-0 z-50` (wrapper transparan) berisi kapsul glass `border border-(--glass-border) bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate)` + shadow lembut dan highlight inset (`--glass-highlight`).
-- Di atas halaman: kapsul `mx-auto max-w-6xl rounded-full` dengan wrapper `px-4 pt-3 sm:pt-4`.
-- Saat scroll (> 8px): kapsul melebar `w-full rounded-none border-x-0` (full-width), wrapper padding hilang; transisi `duration-500 ease-out`, dimatikan untuk reduced-motion.
+- Di atas halaman: kapsul `mx-auto max-w-6xl rounded-2xl` dengan wrapper `px-4 pt-3 sm:pt-4`.
+- Saat scroll (> 8px): kapsul melebar penuh `w-full rounded-none border-x-0` (full-display dari tepi ke tepi), wrapper padding hilang; transisi `duration-300 ease-in-out`, dimatikan untuk reduced-motion.
 - Isi kapsul: `flex items-center justify-between px-4 py-2 sm:px-6 sm:py-2.5`.
 - Logo: tampil polos dengan warna aslinya (tanpa lingkaran, tanpa invert di dark mode).
 - Menu berbentuk pill `rounded-full px-4 py-2 text-sm`; aktif `bg-primary/10 font-medium text-primary`; idle `text-foreground/70 hover:bg-accent hover:text-primary`.
 - Hamburger mobile: bulat `rounded-full bg-primary/10 p-2 text-primary`.
-- Typography: Hanken Grotesk (kelas `font-display`), tanpa font mixing.
+- Typography: Fraunces (kelas `font-heading`), tanpa font mixing.
 
 Contoh:
 
@@ -220,20 +212,6 @@ Tentang LIM
 Visi & Misi
 
 Pengurus Pusat
-
-Layanan Falak
-
- • Jadwal Shalat
-
- • Arah Kiblat
-
- • Kalender Hijriah
-
- • Hisab
-
- • Rukyat
-
- • Gerhana
 
 Bidang
 
@@ -285,7 +263,7 @@ Bidang
 
 - Logo selalu mengarah ke Beranda.
 - Logo tampil polos dengan warna aslinya — tanpa lingkaran, tanpa invert dark mode.
-- Wordmark memakai Hanken Grotesk `tracking-tight`.
+- Wordmark memakai Fraunces `tracking-tight`.
 
 ---
 
@@ -390,12 +368,6 @@ Contoh URL Public:
 /profil/bidang/tim-wajib-khidmah/permohonan  ← proposal, belum final
 
 /profil/bidang/safari-ramadan
-
-/profil/falak/jadwal-shalat  ← proposal, belum final
-
-/profil/falak/kiblat  ← proposal, belum final
-
-/profil/falak/kalender-hijriah  ← proposal, belum final
 
 /artikel
 

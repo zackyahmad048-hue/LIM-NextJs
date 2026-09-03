@@ -4,16 +4,24 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility font-body {
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+@utility font-heading {
+  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-heading: var(--font-sans);
-  --font-display: var(--fx-display), "Times New Roman", serif;
-  --font-site: var(--f-site), "Segoe UI", sans-serif;
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
+  --font-display: var(--font-heading), "Georgia", "Times New Roman", serif;
+  --font-site: var(--font-body), "Segoe UI", sans-serif;
   --font-ar: var(--fx-ar), "Segoe UI", sans-serif;
-  --font-data: var(--fx-mono), "SFMono-Regular", Consolas, monospace;
+  --font-data: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -31,6 +39,10 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -62,17 +74,24 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --shadow-xs: var(--lim-shadow-sm);
+  --shadow-sm: var(--lim-shadow-sm);
+  --shadow-md: var(--lim-shadow-md);
+  --shadow-lg: var(--lim-shadow-lg);
+  --shadow-xl: var(--lim-shadow-lg);
 }
 
 /*
  * LIM Digital Platform — identitas "Oranye LIM".
- * Aksen resmi oranye (skala orange Tailwind), permukaan putih bersih
- * (preset shadcn radix-maia), tint abu netral zinc/neutral.
- * Kertas tidak tembus cahaya — wadah solid, tanpa blur dekoratif.
- * Dual mode: siang (putih + oranye) / malam (neutral-950 + oranye).
- * Default: malam.
+ * Aksen resmi oranye (skala orange Tailwind), permukaan bersih dengan
+ * kedalaman halus (shadow offset + blur lembut). Dual mode: siang / malam.
+ * Default: malam. Radius standar: rounded-xl (0.75rem base).
  */
-:root {
+ :root {
+  /* Easing eksponensial untuk transisi View Transitions (Skiper UI). */
+  --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --expo-in: cubic-bezier(0.7, 0, 0.84, 0);
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -88,15 +107,25 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --success: oklch(0.627 0.194 149.214);
+  --success-foreground: oklch(0.98 0 0);
+  --warning: oklch(0.795 0.184 86.047);
+  --warning-foreground: oklch(0.205 0 0);
+  --border: oklch(0.91 0 0);
+  --input: oklch(0.91 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.837 0.128 66.29);
   --chart-2: oklch(0.705 0.213 47.604);
   --chart-3: oklch(0.646 0.222 41.116);
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
-  --radius: 0.625rem;
+  /* Radius: 0.75rem base → rounded-xl = 1.05rem (standar untuk semua konten) */
+  --radius: 0.75rem;
+
+  /* Shadow tokens — kedalaman halus, kertas tertumpuk */
+  --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
+  --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 8%), 0 1px 4px -1px oklch(0 0 0 / 4%);
+  --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 10%), 0 2px 6px -2px oklch(0 0 0 / 5%);
 
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -109,33 +138,29 @@
 
   /*
    * Admin CMS — Brand-forward shell.
-   * Sidebar: primary orange (--primary) — immediate LIM identity.
-   * Content: amber-100 light / taupe dark — warm paper ground, not glass.
-   * Cards: solid, elevated. No blur on data surfaces.
+   * Sidebar: primary orange. Content: warm amber/taupe ground.
+   * Cards: solid, elevated with shadow. Glass on chrome only.
    */
   --admin-sidebar-bg: var(--primary);
   --admin-sidebar-fg: var(--primary-foreground);
   --admin-sidebar-border: color-mix(in oklab, var(--primary) 85%, transparent);
   --admin-sidebar-accent: color-mix(in oklab, var(--primary) 90%, transparent);
   --admin-sidebar-accent-fg: var(--primary-foreground);
-  --admin-content-bg: oklch(0.95 0.08 85);
+  --admin-content-bg: oklch(0.96 0.06 85);
   --admin-content-fg: var(--foreground);
   --admin-card-bg: oklch(1 0 0);
-  --admin-card-border: oklch(0.88 0.02 85);
-  --admin-border: oklch(0.88 0.02 85);
+  --admin-card-border: oklch(0.89 0.015 85);
+  --admin-border: oklch(0.89 0.015 85);
   --admin-input-bg: oklch(1 0 0);
-  --admin-input-border: oklch(0.88 0.02 85);
+  --admin-input-border: oklch(0.89 0.015 85);
 
   /*
-   * Glassmorphism — "Kaca Kristal" (chrome + kartu).
-   * CSS-only, berlaku global (publik & admin). Blur hanya di permukaan
-   * kecil; tabel/form/teks panjang tetap solid. Nilai turunan dari token
-   * semantik agar valid di light & dark.
-   * - chrome: lebih opak (~80%) — pola Apple (scrim nav hampir opak).
-   * - card:  tipis (~65%) — pola Fey (layering translusen).
+   * Glassmorphism — "Kaca Kristal" (chrome + kartu admin).
+   * CSS-only, berlaku global. Blur hanya di permukaan kecil;
+   * tabel/form/teks panjang tetap solid.
    */
-  --glass-chrome-bg: color-mix(in oklab, var(--background) 80%, transparent);
-  --glass-card-bg: color-mix(in oklab, var(--background) 65%, transparent);
+  --glass-chrome-bg: color-mix(in oklab, var(--background) 82%, transparent);
+  --glass-card-bg: color-mix(in oklab, var(--background) 68%, transparent);
   --glass-border: color-mix(in oklab, var(--border) 70%, transparent);
   --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
   --glass-blur: 20px;
@@ -184,7 +209,11 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --success: oklch(0.723 0.219 149.579);
+  --success-foreground: oklch(0.98 0 0);
+  --warning: oklch(0.85 0.16 80);
+  --warning-foreground: oklch(0.2 0 0);
+  --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.837 0.128 66.29);
@@ -192,6 +221,12 @@
   --chart-3: oklch(0.646 0.222 41.116);
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
+
+  /* Shadow tokens — lebih pekat di dark mode */
+  --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 20%);
+  --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 30%), 0 1px 4px -1px oklch(0 0 0 / 15%);
+  --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 35%), 0 2px 6px -2px oklch(0 0 0 / 20%);
+
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.705 0.213 47.604);
@@ -207,19 +242,20 @@
   --admin-sidebar-border: color-mix(in oklab, var(--primary) 80%, transparent);
   --admin-sidebar-accent: color-mix(in oklab, var(--primary) 85%, transparent);
   --admin-sidebar-accent-fg: var(--primary-foreground);
-  --admin-content-bg: oklch(0.22 0.015 45);
+  --admin-content-bg: oklch(0.18 0.012 45);
   --admin-content-fg: var(--foreground);
-  --admin-card-bg: oklch(0.26 0.01 45);
-  --admin-card-border: oklch(0.35 0.02 45);
-  --admin-border: oklch(0.35 0.02 45);
-  --admin-input-bg: oklch(0.28 0.01 45);
-  --admin-input-border: oklch(0.35 0.02 45);
+  --admin-card-bg: oklch(0.23 0.008 45);
+  --admin-card-border: oklch(0.32 0.015 45);
+  --admin-border: oklch(0.32 0.015 45);
+  --admin-input-bg: oklch(0.25 0.008 45);
+  --admin-input-border: oklch(0.32 0.015 45);
 }
 
 /*
  * Admin CMS — Brand-forward shell.
  * Sidebar: primary orange. Content: warm amber/taupe ground.
- * Solid surfaces, no glass on data. Sharp radius, hairline borders.
+ * Solid surfaces with subtle shadow, glass on chrome only.
+ * Radius: rounded-xl seragam. Font: Fraunces (heading), Inter (body).
  */
 .admin {
   position: relative;
@@ -229,12 +265,14 @@
   color: var(--admin-content-fg);
   background-color: var(--admin-content-bg);
   min-height: 100dvh;
+  font-family: var(--font-body), "Segoe UI", sans-serif;
 }
 
 /*
- * Website publik — identitas "Oranye LIM".
- * Putih bersih (siang) / neutral gelap (malam), aksen oranye.
- * Permukaan solid, tanpa kaca/gradien.
+ * Website publik — identitas "Khusyu Minimalis" dengan kedalaman halus.
+ * Permukaan solid dengan shadow offset lembut (kertas tertumpuk).
+ * Aksen oranye taktis: CTA, underline aktif, status, focus ring.
+ * Glassmorphism hanya navbar. Radius: rounded-xl seragam.
  */
 .site {
   position: relative;
@@ -242,11 +280,11 @@
   overflow-x: clip;
 
   color: var(--foreground);
-  font-family: var(--f-site), "Segoe UI", sans-serif;
+  font-family: var(--font-body), "Segoe UI", sans-serif;
   min-height: 100dvh;
 
-  /* Tipografi publik: display serif + angka instrument mono. */
-  --font-mono: var(--fx-mono), "SFMono-Regular", Consolas, monospace;
+  /* Tipografi publik: Fraunces display + JetBrains Mono data instrument. */
+  --font-mono: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
 }
 
 /*
@@ -270,12 +308,41 @@
 }
 
 .site h1,
-.site h2 {
-  font-family: var(--font-display), "Times New Roman", serif;
-  font-weight: 500;
-  /* Tracking negatif khusus ukuran besar (optical sizing manual). */
-  letter-spacing: -0.02em;
+.site h2,
+.site h3,
+.site h4 {
+  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
+  /* Fraunces — serif editorial, judul memakai title case, bukan paksa
+     uppercase (uppercase hanya dipakai eyebrow/label kecil). Berat font
+     dibiarkan per-komponen (hero bold, judul section semibold). */
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 30, "WONK" 0;
+  letter-spacing: -0.01em;
   text-wrap: balance;
+}
+
+/* Admin headings — Fraunces */
+.admin h1,
+.admin h2,
+.admin h3,
+.admin h4,
+.admin h5,
+.admin h6 {
+  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 30, "WONK" 0;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Admin stat numbers — Fraunces with tabular nums */
+.admin .stat-number,
+.admin [class*="stat-number"] {
+  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-variation-settings: "SOFT" 30, "WONK" 0;
+  letter-spacing: -0.01em;
 }
 
 /*
@@ -287,7 +354,7 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply font-sans;
+    @apply font-body;
     background-color: var(--background);
   }
   body {
@@ -319,11 +386,9 @@
 }
 
 /*
- * Safety net a11y: hormati preferensi reduced-motion untuk SEMUA animasi CSS
- * (keyframes marquee, tw-animate-css, transisi utilitas). Animasi berbasis JS
- * (motion/react) sudah ditangani useReducedMotion di masing-masing komponen.
- * Catatan: varian hover Tailwind v4 sudah otomatis digate @media (hover:hover),
- * sehingga tidak perlu varian khusus anti-sticky-hover.
+ * Reduced motion: kill entrance/decorative animations, preserve hover/focus
+ * transitions for interactivity. Animasi berbasis JS (motion/react) sudah
+ * ditangani useReducedMotion di masing-masing komponen.
  */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -331,7 +396,10 @@
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    /* Preserve hover/focus transitions — hanya matikan entrance & decorative */
+    transition-duration: 200ms !important;
+    transition-property: color, background-color, border-color, box-shadow,
+      opacity, outline-color, text-decoration-color !important;
     scroll-behavior: auto !important;
   }
 }

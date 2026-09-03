@@ -75,7 +75,7 @@ export default async function VerifyLetterPage({
           />
         </Link>
 
-        <h1 className="mt-3 font-display text-2xl font-medium text-balance text-foreground">
+        <h1 className="mt-3 font-heading text-2xl font-medium text-balance text-foreground">
           Verifikasi Keaslian Surat
         </h1>
 
@@ -84,13 +84,13 @@ export default async function VerifyLetterPage({
         </p>
       </div>
 
-      <Reveal className="mt-8 rounded-xl border bg-card p-3" delay={0.1}>
+      <Reveal className="mt-8 rounded-md border border-primary/25 bg-card p-3" delay={0.1}>
         <VerificationForm />
       </Reveal>
 
       <Reveal delay={0.15} className="mt-8">
         {letter ? (
-          <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+          <div className="overflow-hidden rounded-md border border-primary/25 bg-card shadow-sm">
             <div className="flex items-center justify-between border-b border-emerald-500/20 bg-emerald-50 px-6 py-4 dark:bg-emerald-950/30">
               <div className="flex items-center gap-2">
                 <BadgeCheck className="size-5 text-emerald-600 dark:text-emerald-400" />
@@ -172,7 +172,7 @@ export default async function VerifyLetterPage({
             </div>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-2xl border border-destructive/30 bg-card shadow-sm">
+          <div className="overflow-hidden rounded-md border border-destructive/30 bg-card shadow-sm">
             <div className="flex items-center justify-between border-b border-destructive/20 bg-destructive/5 px-6 py-4">
               <div className="flex items-center gap-2">
                 <ShieldAlert className="size-5 text-destructive" />

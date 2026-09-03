@@ -96,7 +96,7 @@ export default async function ArtikelDetailPage({
           </time>
         </div>
 
-        <h1 className="mt-4 font-display text-2xl font-bold text-balance leading-tight text-foreground sm:text-3xl">
+        <h1 className="mt-4 font-heading text-2xl font-bold text-balance leading-tight text-foreground sm:text-3xl">
           {post.title}
         </h1>
 
@@ -115,7 +115,7 @@ export default async function ArtikelDetailPage({
       </header>
 
       {post.thumbnail && (
-        <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl border border-border/10">
+        <div className="relative mt-8 aspect-video overflow-hidden rounded-md border border-border/10">
           <Image
             src={post.thumbnail}
             alt={post.title}

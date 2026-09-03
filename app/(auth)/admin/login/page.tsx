@@ -34,7 +34,7 @@ export default function LoginPage() {
                   className="mx-auto"
                 />
 
-                <h1 className="mt-3 font-display text-2xl font-medium text-balance text-card-foreground">
+                <h1 className="mt-3 font-heading text-2xl font-medium text-balance text-card-foreground">
                   Admin Gateway
                 </h1>
 

@@ -29,8 +29,8 @@ export default async function TentangPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="space-y-8">
           <Reveal>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-              <h2 className="font-display text-xl font-semibold text-balance text-foreground">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
+              <h2 className="font-heading text-xl font-semibold text-balance text-foreground">
                 Sejarah
               </h2>
               {sejarah.map((paragraph) => (
@@ -45,15 +45,15 @@ export default async function TentangPage() {
           </Reveal>
 
           <Reveal>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-              <h2 className="font-display text-xl font-semibold text-balance text-foreground">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
+              <h2 className="font-heading text-xl font-semibold text-balance text-foreground">
                 Keunggulan
               </h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {tentang.keunggulan.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-xl bg-muted/50 p-5"
+                    className="rounded-lg bg-muted/50 p-5"
                   >
                     <p className="text-sm font-semibold text-foreground">
                       {item.title}
@@ -68,8 +68,8 @@ export default async function TentangPage() {
           </Reveal>
 
           <Reveal>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
-              <h2 className="font-display text-xl font-semibold text-balance text-foreground">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
+              <h2 className="font-heading text-xl font-semibold text-balance text-foreground">
                 Tujuan
               </h2>
               <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">

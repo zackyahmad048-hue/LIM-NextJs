@@ -77,6 +77,18 @@ export default async function HeroSettingsPage() {
             </div>
 
             <div className="space-y-1.5 md:col-span-2">
+              <Label htmlFor="tagline" className="text-xs">
+                Tagline (moto organisasi)
+              </Label>
+              <Input
+                id="tagline"
+                name="tagline"
+                defaultValue={config.tagline}
+                className="rounded-md text-xs"
+              />
+            </div>
+
+            <div className="space-y-1.5 md:col-span-2">
               <Label htmlFor="description" className="text-xs">
                 Deskripsi
               </Label>

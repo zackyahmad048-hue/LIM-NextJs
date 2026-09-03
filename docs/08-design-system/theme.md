@@ -6,9 +6,11 @@
 
 **Document:** `theme.md`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
+
+Perubahan pada 1.1: radius seragam `rounded-xl` untuk semua content cards; penambahan shadow tokens (`--lim-shadow-*`) untuk kedalaman halus; refinement glass rules.
 
 ---
 
@@ -127,7 +129,7 @@ Glassmorphism dipakai terbatas pada **chrome** dan **kartu**, bukan permukaan lu
 
 Permukaan yang boleh kaca:
 
-- Navbar (publik) saat scroll. **⚠️ Incumbent** — bagian dari tampilan "Oranye LIM" lama; berlaku untuk Admin CMS, tapi untuk navbar situs publik menunggu konfirmasi apakah arah pengganti (dark-mode-first + palet harmonis — arah "Ruang Gelap" dicabut) tetap memakai glassmorphism (lihat `PRODUCT.md`).
+- Navbar (publik) saat scroll. **Implementasi**: glassmorphism hanya di navbar situs publik; kartu publik solid flat (`DESIGN.md` §2, `app/globals.css`).
 - Sidebar & topbar admin.
 - Kartu/panel ringkasan (taqwim hero, kartu dashboard, kartu modul, kartu konten). Referensi "taqwim hero" mengikuti penamaan sistem lama; sesuaikan bila komponen situs publik berganti nama pada rebuild.
 
@@ -138,12 +140,53 @@ Permukaan yang **wajib solid**:
 Implementasi:
 
 - CSS-only via token `--glass-*` di `app/globals.css` (berlaku global publik & admin).
-- `--glass-chrome-bg`: scrim chrome (~80–85% opak, pola Apple).
-- `--glass-card-bg`: kartu translusen (~65–70%, pola Fey).
+- `--glass-chrome-bg`: scrim chrome (~82–85% opak, pola Apple).
+- `--glass-card-bg`: kartu translusen (~68%, pola Fey).
 - `--glass-blur`: 20px desktop / 12px mobile.
 - `--glass-saturate`: 1.8 (menjaga keterbacaan teks di atas konten di belakangnya).
 - Fallback `prefers-reduced-transparency` → permukaan menjadi solid.
 - Transisi hanya `transform`/`opacity`/`color` (jalur kompositor).
+
+---
+
+# Shadow (Kedalaman)
+
+Kedalaman = bayangan offset + blur lembut (kertas tertumpuk), **bukan halo tanpa offset**.
+
+Token shadow:
+
+| Token | Penggunaan |
+| ----- | ---------- |
+| `shadow-sm` (`--lim-shadow-sm`) | Kartu kecil, chip, elemen rapat |
+| `shadow-md` (`--lim-shadow-md`) | Kartu konten, card lists — **standar** |
+| `shadow-lg` (`--lim-shadow-lg`) | Overlay, modal, popover |
+
+Aturan:
+
+- Public site: `shadow-sm`/`shadow-md` lembut pada kartu konten.
+- Admin CMS: `shadow-md` standar kartu, `shadow-lg` untuk modal/sheet.
+- Dark mode: shadow otomatis lebih pekat (token `--lim-shadow-*` di `.dark`).
+- Jangan gunakan shadow keras atau halo besar; shadow menggantikan border sebagai penanda elevasi.
+
+---
+
+# Radius
+
+Radius seragam untuk seluruh platform:
+
+| Level | Utility | Penggunaan |
+| ----- | ------- | ---------- |
+| `sm` | `rounded-sm` | Chip, badge, elemen sangat kecil |
+| `md` | `rounded-md` | Input, button compact, nested control |
+| `lg` | `rounded-lg` | Form, panel kecil, nested card |
+| `xl` | `rounded-xl` | **Standar content cards** — public & admin |
+| `2xl` | `rounded-2xl` | Chrome saja (navbar capsule) |
+
+Aturan:
+
+- `rounded-xl` adalah **default** untuk semua content cards (public & admin).
+- `rounded-2xl`+ dicadangkan hanya untuk chrome (navbar, hero overlay).
+- Jangan bervariasi radius antar card serupa dalam satu section.
 
 ---
 

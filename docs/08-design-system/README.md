@@ -292,7 +292,7 @@ typography.md
 
 # Related Documents
 
-- `PRODUCT.md` — **acuan tertinggi untuk situs publik saat ini.** Situs publik sedang dibangun ulang total; arah "Ruang Gelap" (amber darkroom) yang sempat tercatat di sana telah **dicabut**, diganti arah lebih sederhana: tema gelap (dark mode) dengan keserasian warna. Bila isi `PRODUCT.md` bertentangan dengan detail visual di `colors.md`, `typography.md`, `navigation.md`, `motion.md`, atau `theme.md` (lihat catatan status di masing-masing dokumen), `PRODUCT.md` yang berlaku sampai dokumen-dokumen tersebut diperbarui.
+- `PRODUCT.md` — **acuan tertinggi untuk situs publik.** Situs publik dibangun ulang total dengan dunia visual **"Khusyu Minimalis"** yang sekarang diimplementasikan. Detail warna/font final diselaraskan dengan token `app/globals.css` (oranye LIM `--primary`, `--background` putih/near-black, Fraunces/Inter/JetBrains Mono/Reem Kufi, kartu `border-primary/25`, footer band tint oranye) dan `DESIGN.md`; bila isi dokumen lain bertentangan, `PRODUCT.md` + `DESIGN.md` + `app/globals.css` yang berlaku.
 - 02-architecture
 - 03-development
 - 07-specifications

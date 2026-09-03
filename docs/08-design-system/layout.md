@@ -6,11 +6,11 @@
 
 **Document:** `layout.md`
 
-**Version:** 1.1
+**Version:** 1.2
 
 **Status:** Approved
 
-Perubahan pada 1.1: konten CMS tidak lagi dibatasi `max-w-7xl`; `PageContainer` admin melebar penuh mengikuti layar. Tabel container dipecah per konteks publik/admin.
+Perubahan pada 1.2: penambahan aturan ritme section & spacing konsisten; penekanan grid sejajar untuk sub-content cards.
 
 ---
 
@@ -80,7 +80,7 @@ Section mandiri (di luar hero) juga memakai `max-w-6xl` agar garis margin konsis
 
 ## Admin CMS
 
-`PageContainer` (`components/admin/shared/page-container.tsx`) **tanpa batas lebar**: konten memenuhi seluruh area di kanan sidebar dengan padding `px-4 py-5 lg:px-6 lg:py-8`. Form yang butuh ukuran baca nyaman membatasi dirinya sendiri (misal `max-w-2xl` pada elemen form), bukan pada container.
+`PageContainer` (`components/admin/shared/page-container.tsx`) **tanpa batas lebar**: konten memenuhi seluruh area di kanan sidebar; padding horizontal ditangani pad oleh `<main>` (`p-4 md:p-6 lg:p-8`), `PageContainer` hanya menambah padding vertikal (`py-5 lg:py-8`) + gap agar inset kiri/kanan tidak dobel. Form yang butuh ukuran baca nyaman membatasi dirinya sendiri (misal `max-w-2xl` pada elemen form), bukan pada container.
 
 ---
 
@@ -92,6 +92,13 @@ Setiap section memiliki:
 - Description (Opsional)
 - Content
 - Action (Opsional)
+
+## Ritme Section
+
+- Vertikal antar section: `py-16 sm:py-20` (public) — konsisten di semua halaman.
+- Separator section: hairline `h-px bg-border/60` dalam `max-w-6xl`.
+- Heading section selalu diikuti description gap `gap-2` sebelum content.
+- Jangan menumpuk dua section tanpa sekurang-kurangnya satu `py-16`.
 
 ---
 
@@ -108,6 +115,15 @@ Tablet:
 Desktop:
 
 - 3–4 Kolom sesuai kebutuhan
+
+## Grid Sejajar (Sub-content cards)
+
+Untuk halaman profil & sub-content cards, wajib:
+
+- Gap seragam: `gap-4 md:gap-6` (bukan `gap-3`/`gap-7` acak).
+- Card dalam satu grid punya tinggi konsisten (`h-full` pada card skins).
+- Grid alignment sama di seluruh halaman sejenis (profil, bidang, pengurus).
+- Jangan campur kolom-count dalam satu viewport (mis. 2 lalu 3 di baris yang sama).
 
 ---
 

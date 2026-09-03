@@ -16,7 +16,7 @@ export function getTimezoneFromLongitude(longitude: number): {
 } {
   if (longitude >= 127.5) {
     return { timezone: 9, timezoneName: "WIT" };
-  } else if (longitude >= 113.5) {
+  } else if (longitude >= 115) {
     return { timezone: 8, timezoneName: "WITA" };
   } else {
     return { timezone: 7, timezoneName: "WIB" };
@@ -72,7 +72,7 @@ export function useGeolocation() {
         let msg = "Gagal mengambil lokasi GPS.";
         if (error.code === error.PERMISSION_DENIED) {
           msg =
-            "Akses lokasi ditolak oleh pengguna. Menggunakan lokasi default (Jakarta).";
+            "Akses lokasi ditolak oleh pengguna. Menggunakan lokasi default (Kediri).";
         } else if (error.code === error.POSITION_UNAVAILABLE) {
           msg = "Informasi lokasi tidak tersedia pada device ini.";
         } else if (error.code === error.TIMEOUT) {

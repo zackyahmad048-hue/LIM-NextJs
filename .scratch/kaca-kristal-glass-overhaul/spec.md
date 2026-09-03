@@ -1,6 +1,8 @@
 # Kaca Kristal — Glassmorphism Visual Overhaul
 
-Status: ready-for-agent
+> **⚠️ STALE (2026-09).** Superseded by the live direction: `DESIGN.md`, `docs/08-design-system/*`, `PRODUCT.md`, and the current working tree describe **"Khusyu Minimalis"** — flat solid surfaces with **navbar-only glass**, cards `border-2 border-primary`, and the four-font system **Space Grotesk / Inter / JetBrains Mono / Reem Kufi**. The chrome+cards glass scope and Newsreader/Hanken/Spline font references below no longer apply. Kept for historical reference; do not implement from this spec.
+
+Status: ready-for-agent (superseded — see note above)
 
 > **Triage state.** `ready-for-agent` — fully specified, ready for an AFK agent. No further triage needed.
 

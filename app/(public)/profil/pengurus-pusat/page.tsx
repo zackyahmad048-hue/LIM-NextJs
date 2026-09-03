@@ -32,7 +32,7 @@ export default async function PengurusPusatPage() {
       />
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {pengurus.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-primary/20 bg-card p-12 text-center">
+          <div className="rounded-xl border border-dashed border-primary/20 bg-card p-12 text-center shadow-sm">
             <p className="text-center text-sm text-muted-foreground">
               Belum ada data Pengurus Pusat.
             </p>
@@ -42,9 +42,9 @@ export default async function PengurusPusatPage() {
             {pengurus.map((orang, i) => (
               <Reveal key={orang.id} index={i} className="h-full">
                 <div
-                  className="group h-full rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                  className="group h-full rounded-xl border border-primary/25 bg-card shadow-sm transition-colors duration-300 ease-out hover:border-primary"
                 >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 font-sans text-sm text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 font-sans text-sm text-primary">
                   {orang.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -56,7 +56,7 @@ export default async function PengurusPusatPage() {
                     initials(orang.name)
                   )}
                 </div>
-                <h3 className="mt-4 font-display text-sm font-semibold text-balance text-foreground">
+                <h3 className="mt-4 font-heading text-sm font-semibold text-balance text-foreground">
                   {orang.name}
                 </h3>
                 <p className="mt-1 font-sans text-[10px] uppercase text-primary">

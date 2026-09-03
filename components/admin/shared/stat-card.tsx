@@ -26,7 +26,7 @@ export function StatCard({
             {title}
           </p>
 
-          <h2 className="font-display text-3xl font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg">
+          <h2 className="font-heading text-3xl font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg stat-number">
             {value}
           </h2>
 

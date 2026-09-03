@@ -16,7 +16,8 @@ function isHeroConfig(value: unknown): value is HeroConfig {
     typeof c.ctaLabel === "string" &&
     typeof c.ctaHref === "string" &&
     typeof c.secondaryLabel === "string" &&
-    typeof c.secondaryHref === "string"
+    typeof c.secondaryHref === "string" &&
+    (c.tagline === undefined || typeof c.tagline === "string")
   );
 }
 
@@ -32,7 +33,9 @@ export async function getHeroConfig(): Promise<HeroConfig> {
 
   try {
     const parsed = JSON.parse(setting.value) as unknown;
-    if (isHeroConfig(parsed)) return parsed;
+    if (isHeroConfig(parsed)) {
+      return { ...parsed, tagline: parsed.tagline ?? DEFAULT_HERO_CONFIG.tagline };
+    }
   } catch {
     return DEFAULT_HERO_CONFIG;
   }

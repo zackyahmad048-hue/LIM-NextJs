@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import Image from "next/image";
 import PageHeader from "@/components/website/page-header";
 import { Button } from "@/components/ui/button";
-import Reveal from "@/components/website/motion/reveal";
-import { getPublicMediaItems } from "@/modules/cms/queries/media.query";
+import MediaLightboxGrid from "@/components/website/media/media-lightbox-grid";
+import { getPublicMedia } from "@/modules/cms/queries/media.query";
+import { IGNORED_MEDIA_FILES } from "@/lib/media";
 
 export const revalidate = 3600;
 
@@ -14,19 +14,9 @@ export const metadata: Metadata = {
     "Dokumentasi kegiatan, foto, dan video Lembaga Ittihadul Muballighin.",
 };
 
-const IGNORED_FILES = new Set(["logo.png", "orangelim.png"]);
-
-/** Ubah nama file menjadi teks alt yang layak dibaca: "DSC_4021.jpg" -> "DSC 4021". */
-function humanizeFileName(name: string): string {
-  return name
-    .replace(/\.[^.]+$/, "")
-    .replace(/[-_]+/g, " ")
-    .trim();
-}
-
 export default async function MediaPage() {
-  const items = (await getPublicMediaItems()).filter(
-    (item) => !IGNORED_FILES.has(item.name),
+  const items = (await getPublicMedia()).filter(
+    (item) => !IGNORED_MEDIA_FILES.has(item.name),
   );
 
   return (
@@ -38,28 +28,9 @@ export default async function MediaPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {items.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {items.map((item, i) => (
-              <Reveal key={item.href} index={i}>
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group relative block aspect-square overflow-hidden rounded-xl border border-primary/10 bg-card transition hover:border-primary/35"
-                >
-                  <Image
-                    src={item.href}
-                    alt={humanizeFileName(item.name)}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                    className="object-cover transition-transform duration-200 group-hover:scale-105"
-                  />
-                </a>
-              </Reveal>
-            ))}
-          </div>
+          <MediaLightboxGrid items={items} />
         ) : (
-          <div className="rounded-2xl border border-dashed border-primary/20 bg-card p-12 text-center">
+          <div className="rounded-md border border-dashed border-primary/20 bg-card p-12 text-center">
             <p className="text-sm text-muted-foreground">
               Belum ada dokumentasi.
             </p>

@@ -19,10 +19,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useGeolocation } from "@/hooks/use-geolocation";
+import { useGeolocation, getTimezoneFromLongitude } from "@/hooks/use-geolocation";
 import {
   calculatePrayerTimes,
   convertToIstiwaClock,
+  dateToDecimalHoursInZone,
   PrayerTimes,
   PrayerTimesNumeric,
 } from "@/lib/astroCalc";
@@ -133,18 +134,18 @@ export function PrayerTimeTable() {
   // Convert live clock to Istiwa
   const istiwaClockInfo = convertToIstiwaClock(currentTime, location);
 
-  // Live Standard Clock formatted
-  const pad = (n: number) => n.toString().padStart(2, "0");
-  const stdHours = pad(currentTime.getHours());
-  const stdMinutes = pad(currentTime.getMinutes());
-  const stdSeconds = pad(currentTime.getSeconds());
-  const standardClockStr = `${stdHours}:${stdMinutes}:${stdSeconds}`;
+  // Current active hour decimal representation, expressed in the active
+  // location's timezone (not the device's) to match the prayer-time frame.
+  const currentDecHours = dateToDecimalHoursInZone(currentTime, location.timezone);
 
-  // Current active hour decimal representation
-  const currentDecHours =
-    currentTime.getHours() +
-    currentTime.getMinutes() / 60 +
-    currentTime.getSeconds() / 3600;
+  // Live Standard Clock formatted — shown in the active location's time, so
+  // switching city/GPS updates the wall clock along with the zone label.
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  const stdClockSeconds = Math.round(currentDecHours * 3600) % (24 * 3600);
+  const stdHours = pad(Math.floor(stdClockSeconds / 3600));
+  const stdMinutes = pad(Math.floor((stdClockSeconds % 3600) / 60));
+  const stdSeconds = pad(stdClockSeconds % 60);
+  const standardClockStr = `${stdHours}:${stdMinutes}:${stdSeconds}`;
 
   let activeHourDec = currentDecHours;
   if (isIstiwaMode) {
@@ -187,15 +188,8 @@ export function PrayerTimeTable() {
     const lat = parseFloat(customLat);
     const lon = parseFloat(customLon);
     if (!isNaN(lat) && !isNaN(lon)) {
-      let tz = 7;
-      let tzName = "WIB";
-      if (lon >= 127.5) {
-        tz = 9;
-        tzName = "WIT";
-      } else if (lon >= 113.5) {
-        tz = 8;
-        tzName = "WITA";
-      }
+      const { timezone: tz, timezoneName: tzName } =
+        getTimezoneFromLongitude(lon);
 
       selectCity({
         name:
@@ -214,7 +208,7 @@ export function PrayerTimeTable() {
   return (
     <div className="space-y-6">
       {/* Top Controls: Location & City Picker */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-primary/25 bg-card p-4">
         <div className="flex flex-wrap items-center gap-2">
           <MapPin className="h-5 w-5 text-primary" />
           <span className="font-semibold text-foreground">{locationName}</span>
@@ -386,7 +380,7 @@ export function PrayerTimeTable() {
       )}
 
       {/* Hero Live Clock & Istiwa Toggle Switch */}
-      <Card className="border-border/10 bg-card shadow-[0_18px_40px_-20px] shadow-black/20">
+      <Card className="border-border bg-card">
         <CardHeader className="pb-2 text-center">
           <div className="mx-auto mb-3 flex items-center justify-center gap-3 rounded-full border border-border/10 bg-muted px-4 py-1.5">
             <span
@@ -410,7 +404,7 @@ export function PrayerTimeTable() {
               className={cn(
                 "text-xs sm:text-sm font-medium transition-colors",
                 isIstiwaMode
-                  ? "font-bold text-amber-400"
+                  ? "font-bold text-primary"
                   : "text-muted-foreground",
               )}
             >
@@ -435,7 +429,7 @@ export function PrayerTimeTable() {
         </CardHeader>
 
         <CardContent className="pt-2 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs sm:text-sm text-primary">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-4 py-1.5 text-xs sm:text-sm text-primary">
             <Sparkles className="h-4 w-4" />
             <span>
               Menuju <strong>{nextPrayerName}</strong> dalam:{" "}
@@ -471,9 +465,9 @@ export function PrayerTimeTable() {
               <Card
                 key={p.key}
                 className={cn(
-                  "transition-[border-color,box-shadow,transform,scale] duration-200 hover:scale-[1.02]",
+                  "transition-[border-color,transform] duration-200 hover:scale-[1.02]",
                   isNext
-                    ? "border-primary bg-primary/10 shadow-md shadow-primary/10"
+                    ? "border-primary ring-1 ring-primary"
                     : "border-border",
                 )}
               >

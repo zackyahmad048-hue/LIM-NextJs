@@ -8,7 +8,7 @@ interface SectionCardProps {
   variant?: "default" | "elevated";
 }
 
-/** Kartu section solid — rounded-2xl, border halus, shadow lembut. Tanpa glass. */
+/** Kartu section solid — rounded-xl, border 1px primary/25, shadow lembut. Tanpa glass. */
 export function SectionCard({
   children,
   className,
@@ -17,10 +17,10 @@ export function SectionCard({
   return (
     <section
       className={cn(
-        "rounded-2xl p-6 transition-shadow duration-200",
+        "rounded-xl border border-primary/25 p-6 transition-[border-color,box-shadow] duration-200 hover:border-primary",
         variant === "elevated"
-          ? "bg-admin-card-bg border-admin-card-border shadow-sm hover:shadow-md"
-          : "bg-admin-card-bg border-admin-card-border",
+          ? "bg-admin-card-bg shadow-sm hover:shadow-md"
+          : "bg-admin-card-bg",
         className,
       )}
     >

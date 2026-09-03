@@ -27,7 +27,7 @@ export default function BidangIndexPage() {
             <Reveal key={bidang.slug} index={i} className="h-full">
               <Link
                 href={`/profil/bidang/${bidang.slug}`}
-                className="group block h-full rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-5 backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                className="group block h-full rounded-xl border border-primary/25 bg-card shadow-sm transition-colors duration-300 ease-out hover:border-primary"
               >
               <h2 className="text-sm font-semibold text-balance text-foreground">
                 {bidang.title}

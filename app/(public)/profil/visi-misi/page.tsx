@@ -27,16 +27,16 @@ export default async function VisiMisiPage() {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="space-y-8">
           <Reveal>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
               <SectionLabel>Visi</SectionLabel>
-              <p className="mt-5 font-display text-lg italic leading-8 text-foreground">
+              <p className="mt-5 font-heading text-lg italic leading-8 text-foreground">
                 {visiMisi.visi}
               </p>
             </div>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
             <SectionLabel>Misi</SectionLabel>
             <ul className="mt-5 space-y-5">
               {visiMisi.misi.map((item, index) => (

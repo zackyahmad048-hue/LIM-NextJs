@@ -46,11 +46,11 @@ export default async function KontakPage() {
         <div className="grid gap-5 sm:grid-cols-3">
           {contacts.map((item, i) => (
             <Reveal key={item.title} index={i}>
-              <div className="h-full rounded-2xl border border-[var(--glass-border)] bg-[var(--glass-card-bg)] p-6 text-center backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10">
+              <div className="h-full rounded-md border border-primary/25 bg-card p-6 text-center transition-colors duration-300 ease-out hover:border-primary">
+                <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-sm border border-primary/40">
                   <item.icon size={18} className="text-primary" />
                 </div>
-                <h2 className="mt-4 font-display text-base font-semibold text-balance text-foreground">
+                <h2 className="mt-4 font-heading text-base font-semibold text-balance text-foreground">
                   {item.title}
                 </h2>
                 <p className="mt-2 whitespace-pre-line text-sm leading-6 text-muted-foreground">
@@ -62,7 +62,7 @@ export default async function KontakPage() {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="mt-8 rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+          <div className="mt-8 rounded-md border border-primary/25 bg-card p-7 sm:p-8">
           <div className="flex items-center gap-2 text-primary">
             <MessageCircle size={18} />
             <SectionLabel>Kirim Pesan</SectionLabel>

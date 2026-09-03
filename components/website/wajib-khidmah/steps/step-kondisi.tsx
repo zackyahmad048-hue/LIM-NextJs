@@ -150,7 +150,7 @@ export function StepKondisi({ form }: Props) {
                   key={value}
                   className={cn(
                     "flex cursor-pointer items-center gap-2.5 rounded-lg border px-3 py-2 text-sm transition-colors",
-                    selected ? "border-primary bg-primary/5" : "border-input",
+                    selected ? "border-primary " : "border-input",
                     "has-[:focus-visible]:border-ring has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50",
                   )}
                 >
@@ -284,7 +284,7 @@ export function StepKondisi({ form }: Props) {
 
         {/* Jumlah */}
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-border/60 p-4">
+          <div className="rounded-md border border-border/60 p-4">
             <p className="mb-3 text-sm font-semibold">
               Jumlah Pengurus
               <span className="text-destructive"> *</span>
@@ -307,7 +307,7 @@ export function StepKondisi({ form }: Props) {
             </div>
           </div>
 
-          <div className="rounded-xl border border-border/60 p-4">
+          <div className="rounded-md border border-border/60 p-4">
             <p className="mb-3 text-sm font-semibold">
               Jumlah Santri
               <span className="text-destructive"> *</span>

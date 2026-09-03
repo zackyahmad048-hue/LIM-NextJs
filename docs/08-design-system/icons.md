@@ -75,7 +75,7 @@ Menggunakan design tokens:
 
 > **⚠️ Kontradiksi dengan `colors.md`/`README.md`.** Kolom di atas memakai kelas Tailwind literal (`text-orange-500`, `text-emerald-600`, dst), padahal `colors.md` dan `README.md` eksplisit melarang hardcoded color ("Jangan menggunakan warna hardcoded pada komponen"; anti-contoh resmi: `bg-white`, `text-black`, `border-gray-300`). Seharusnya tabel ini memetakan ke token semantik (`text-primary`, `text-success`, `text-warning`, `text-destructive`, dst), bukan nilai Tailwind langsung -- perlu diperbaiki agar konsisten.
 >
-> Tambahan khusus situs publik: `text-orange-500` sebagai warna accent terikat identitas "Oranye LIM" yang berstatus incumbent (lihat `colors.md`) -- bila arah baru situs publik (dark-mode-first + palet harmonis — arah "Ruang Gelap" dicabut) mengubah hue accent, baris ini perlu direvisi ulang setelah token semantiknya diperbaiki.
+> Tambahan khusus situs publik: `text-primary` (oranye LIM `oklch(0.553 0.195 38.402)` dari `app/globals.css`) sebagai warna accent — mengikuti token semantik `primary`; jangan hardcode `text-orange-500` agar selaras dengan `colors.md`/`theme.md`.
 
 ---
 

@@ -128,7 +128,7 @@ export default async function FalakDashboardPage() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="group flex items-center gap-3 rounded-xl border border-border/70 bg-card p-4 transition-colors hover:border-primary/40 hover:bg-primary/5"
+                className="group flex items-center gap-3 rounded-xl border border-primary/25 bg-admin-card-bg p-4 transition-colors hover:border-primary hover:bg-primary/5"
               >
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
                   <Icon className="size-4" />

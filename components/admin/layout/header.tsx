@@ -9,6 +9,7 @@ import { PanelLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "../providers/sidebar-provider";
 import { cn } from "@/lib/utils";
+import { glassChrome } from "../shared/chrome";
 
 interface HeaderUser {
   name: string;
@@ -38,8 +39,9 @@ export function Header({ user, roleSlugs }: Props) {
     <header
       className={cn(
         "sticky top-0 z-20 flex h-14 items-center gap-3 border-b px-4",
-        "bg-admin-card-bg border-admin-card-border",
-        "backdrop-blur-sm backdrop-saturate-150",
+        // Glassmorphism on chrome (topbar) — CSS-only via shared token
+        // Fallback handled by prefers-reduced-transparency in globals.css
+        glassChrome,
       )}
     >
       <div className="flex items-center gap-1.5">

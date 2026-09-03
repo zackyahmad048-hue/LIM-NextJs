@@ -123,7 +123,7 @@ export function FileUploadField({
       </Label>
 
       {file ? (
-        <div className="flex items-center gap-3 rounded-xl border bg-muted/40 px-3 py-2.5">
+        <div className="flex items-center gap-3 rounded-md border bg-muted/40 px-3 py-2.5">
           {isFoto && previewUrl ? (
             <img
               src={previewUrl}
@@ -171,7 +171,7 @@ export function FileUploadField({
       ) : (
         <label
           htmlFor={inputId}
-          className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed px-4 py-7 text-center transition-colors hover:bg-muted/50"
+          className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-md border border-dashed px-4 py-7 text-center transition-colors hover:bg-muted/50"
         >
           {isFoto ? (
             <ImageIcon className="size-5 text-muted-foreground" />

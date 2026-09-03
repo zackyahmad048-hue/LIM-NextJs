@@ -26,7 +26,7 @@ export default async function TimWajibKhidmahPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <Reveal>
-        <div className="rounded-2xl border border-primary/15 bg-card px-6 py-12 sm:px-10 md:py-16">
+        <div className="rounded-xl border border-primary/25 bg-card px-6 py-12 shadow-sm sm:px-10 md:py-16">
           <div className="mx-auto max-w-2xl text-center">
             <SectionLabel>{content.sectionTitle}</SectionLabel>
             <p className="mt-6 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
@@ -34,11 +34,11 @@ export default async function TimWajibKhidmahPage() {
             </p>
           </div>
 
-          <ul className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-2">
+          <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
             {content.peran.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 rounded-xl border border-primary/10 bg-muted/40 p-4"
+                className="flex items-start gap-3 rounded-lg border border-primary/10 bg-muted/40 p-4"
               >
                 <HubDot className="mt-1.5 h-2.5 w-2.5 shrink-0" />
                 <span className="text-sm leading-6 text-foreground/90">

@@ -1,32 +1,29 @@
-export interface HomeGridConfig {
+export interface HomepageSectionDescriptor {
+  id: string;
   title: string;
-  description?: string;
-  categorySlug: string;
-  limit: number;
-  href: string;
-  hrefLabel: string;
-  arabic?: string;
-  layout?: "uniform" | "featured";
+  description: string;
+  settingKey: string;
+  adminHref: string;
+  previewHref: string;
 }
 
-export const HOME_GRIDS: HomeGridConfig[] = [
+export const HOMEPAGE_SECTIONS: HomepageSectionDescriptor[] = [
   {
-    title: "Berita Terbaru",
-    description: "Kabar dan kegiatan terbaru dari LIM di seluruh Indonesia.",
-    categorySlug: "berita",
-    limit: 5,
-    href: "/artikel",
-    hrefLabel: "Semua Berita",
-    arabic: "أخبار",
-    layout: "featured",
+    id: "hero",
+    title: "Hero",
+    description:
+      "Judul, moto, deskripsi, dan tombol ajakan pada bagian paling atas beranda.",
+    settingKey: "homepage.hero",
+    adminHref: "/admin/homepage/hero",
+    previewHref: "/",
   },
   {
-    title: "Kajian & Artikel",
-    description: "Tulisan keislaman dan kajian dari para muballigh.",
-    categorySlug: "artikel",
-    limit: 6,
-    href: "/artikel",
-    hrefLabel: "Semua Artikel",
-    arabic: "مقالات",
+    id: "about",
+    title: "Tentang Kami",
+    description:
+      "Section Selayang Pandang: judul, deskripsi, gambar, dan kartu fitur.",
+    settingKey: "homepage.about",
+    adminHref: "/admin/content/pages/homepage.about",
+    previewHref: "/",
   },
 ];

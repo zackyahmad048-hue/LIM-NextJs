@@ -29,9 +29,9 @@ export default function About({
   return (
     <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-14">
       <Reveal>
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-5xl text-center lg:max-w-2xl">
           <SectionLabel>Selayang Pandang</SectionLabel>
-          <h2 className="mt-3 font-display text-3xl font-medium text-balance text-foreground md:text-4xl">
+          <h2 className="mt-3 font-heading text-3xl font-medium text-balance text-foreground md:text-4xl">
             {title}
           </h2>
           {subtitle && (
@@ -63,7 +63,7 @@ export default function About({
         </Reveal>
 
         <Reveal from="right">
-          <h3 className="font-display text-2xl font-medium text-balance text-primary">
+          <h3 className="font-heading text-2xl font-medium text-balance text-primary">
             Siapa Kami?
           </h3>
 
@@ -71,7 +71,7 @@ export default function About({
             {description}
           </p>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {features.map((feature, i) => (
               <Reveal key={feature.title} index={i}>
                 <AboutCard
@@ -83,7 +83,7 @@ export default function About({
           </div>
 
           <Reveal delay={0.1} className="mt-6">
-            <Button variant="default" size="sm" asChild>
+            <Button variant="default" size="lg" asChild>
               <Link href="/profil">
                 Selengkapnya
                 <ArrowRight size={18} data-icon="inline-end" />

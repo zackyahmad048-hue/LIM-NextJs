@@ -6,9 +6,11 @@
 
 **Document:** `motion.md`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
+
+Perubahan pada 1.1: clarifikasi reduced-motion (entrance mati, hover/transition tetap); penambahan pola ikon animated dengan `motion/react`.
 
 ---
 
@@ -21,7 +23,8 @@ Prinsip dasar:
 - Gerak harus purposeful — masuk, menegaskan hubungan spasial, atau memberi umpan balik.
 - Hanya properti murah yang dianimasikan: `transform` dan `opacity`.
 - UI transition ≤ 300ms (`ease-out`); entrance konten boleh hingga 600ms.
-- Reduced motion bukan opsional — setiap gerak wajib punya jalur non-animasi.
+- **Reduced motion**: entrance/decorative animations mati; hover/focus transition **tetap jalan** (preserve umpan balik interaktif).
+- Ikon: Lucide React + `motion/react` untuk animasi stroke/path.
 
 Detail aksesibilitas gerak juga diatur di `accessibility.md`.
 
@@ -48,7 +51,7 @@ Aturan:
 
 ---
 
-> **⚠️ Catatan skop untuk Situs Publik.** Token easing/spring dan primitif `Reveal` di bawah adalah infrastruktur animasi — kemungkinan besar tetap dipakai apa pun dunia visualnya. Namun contoh kelas yang menyertakan warna literal (mis. `border-primary/45` pada Hover Lift) mengasumsikan palet "Oranye LIM" yang berstatus incumbent (lihat `colors.md`); verifikasi ulang terhadap palet baru situs publik begitu tersedia (arah "Ruang Gelap" dicabut; pengganti: dark-mode-first + palet harmonis).
+> **⚠️ Catatan skop untuk Situs Publik.** Token easing/spring dan primitif `Reveal` di bawah adalah infrastruktur animasi yang tetap dipakai. Hover pada kartu publik memakai perubahan `border-color` (`hover:border-primary`) — **bukan** translate-lift (lihat `DESIGN.md` §2/§6). Warna accent mengikuti token `primary` di `app/globals.css`.
 
 # Primitif Situs Publik
 
@@ -114,6 +117,15 @@ Syarat: anak langsung ber-`overflow-hidden`. Konten tertutup memakai `aria-hidde
 
 Header, sidebar, dan kartu admin memakai token glass dari `components/admin/shared/chrome.ts` (`glassChrome`, `glassCard`, `softCard`). Detail token di `theme.md`.
 
+## Transisi Tema (light ⇄ dark)
+
+Pergantian tema memakai "swap" cross-fade (`components/theme-toggle.tsx`):
+
+- Bila browser mendukung **View Transitions API** → `document.startViewTransition()` (cross-fade native).
+- **Fallback** → overlay penuh layar berwarna `--background` lama: fade-in 300ms, kelas tema ditukar di baliknya, lalu fade-out 300ms menampilkan tema baru.
+- **Hanya `opacity` + warna latar overlay yang dianimasikan** — sesuai kaidah "hanya transform/opacity".
+- `prefers-reduced-motion` → swap instan tanpa animasi.
+
 ---
 
 # Reduced Motion
@@ -122,7 +134,40 @@ Wajib pada semua gerak:
 
 - CSS: pasangkan `motion-reduce:transition-none` (atau reset transform) pada setiap transisi.
 - JS (`motion/react`): cabang `useReducedMotion()` seperti pada `Reveal`.
-- Safety net global `prefers-reduced-motion` ada di `app/globals.css`; jangan mengandalkannya sebagai pengganti reset lokal.
+- Safety net global di `app/globals.css` `@media (prefers-reduced-motion: reduce)`:
+  - **Entrance/decorative** di-skip (`animation-duration: 0.01ms`).
+  - **Hover/focus transition** tetap jalan dengan durasi 200ms, hanya properti `color/background-color/border-color/box-shadow/opacity/outline/text-decoration-color` (bukan transform/layout) — umpan balik interaktif utuh.
+- Jangan mengandalkan safety net global sebagai pengganti reset lokal.
+
+---
+
+# Ikon Animated
+
+Ikon memakai **Lucide React**, dianimasikan dengan `motion/react` ketika ikon perlu memberi umpan balik (bukan entrance).
+
+Pola:
+
+```tsx
+import { motion } from "motion/react";
+import { Check, X } from "lucide-react";
+
+// Path morph — ikon berubah saat state berubah
+<motion.div
+  initial={{ scale: 0.8, opacity: 0 }}
+  animate={{ scale: 1, opacity: 1 }}
+  transition={{ type: "spring", ... }}
+  key={state} /* re-mount per state untuk morph */
+>
+  {isSuccess ? <Check /> : <X />}
+</motion.div>
+```
+
+Aturan:
+
+- Ikon statis default; animasi hanya saat umpan balik (press, state change, success/error).
+- Animasikan `opacity`/`scale`/`pathLength`/`rotate` — bukan layout.
+- Durasi ≤ 300ms; `useReducedMotion()` → ikon tampil langsung tanpa animasi.
+- Hindari animasi ikon dekoratif di nav/header; fokus pada aksi kontekstual.
 
 ---
 

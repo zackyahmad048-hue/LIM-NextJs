@@ -4198,5 +4198,6 @@ export const INDONESIA_CITIES: City[] = [
 ];
 
 export const DEFAULT_CITY: City =
+  INDONESIA_CITIES.find((c) => c.name === "Kediri") ??
   INDONESIA_CITIES.find((c) => c.name === "Jakarta Pusat") ??
   INDONESIA_CITIES[0];

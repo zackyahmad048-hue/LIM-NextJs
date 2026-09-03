@@ -24,9 +24,9 @@ export default async function ProfilPage() {
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid gap-8 md:grid-cols-2">
-          <Reveal>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Reveal className="h-full">
+            <div className="h-full rounded-xl border border-primary/25 bg-card p-7 shadow-sm">
               <SectionLabel>Visi</SectionLabel>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">
                 {profil.visi}
@@ -34,8 +34,8 @@ export default async function ProfilPage() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7">
+          <Reveal delay={0.08} className="h-full">
+            <div className="h-full rounded-xl border border-primary/25 bg-card p-7 shadow-sm">
               <SectionLabel>Misi</SectionLabel>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
                 {profil.misi.map((item) => (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { motion } from "motion/react";
@@ -16,6 +17,7 @@ import {
 } from "@/modules/authentication/validators/login.schema";
 
 export default function LoginForm() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -45,7 +47,7 @@ export default function LoginForm() {
     }
 
     toast.success("Selamat datang kembali.");
-    window.location.assign("/admin");
+    router.push("/admin");
   };
 
   return (

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
+import { formatDateInput } from "@/lib/format";
 
 const HIJRI_MONTHS = [
   "Muharram",
@@ -30,11 +31,17 @@ const HIJRI_MONTHS = [
   "Zulhijjah",
 ];
 
+type Method = "HISAB" | "RUKYAT" | "IMKANUR_RUKYAT" | "WUJUDUL_HILAL";
+
+const METHOD_LABELS: Record<Method, string> = {
+  HISAB: "Perhitungan Hisab",
+  RUKYAT: "Observasi Rukyat",
+  IMKANUR_RUKYAT: "Kriteria Imkanur Rukyat",
+  WUJUDUL_HILAL: "Kriteria Wujudul Hilal",
+};
+
 export function HijriCalendarWidget() {
-  const [date, setDate] = useState(() => {
-    const now = new Date();
-    return now.toISOString().split("T")[0];
-  });
+  const [date, setDate] = useState(() => formatDateInput(new Date()));
   const [method, setMethod] = useState("HISAB");
   const [result, setResult] = useState<{
     hijriYear: number;
@@ -117,14 +124,14 @@ export function HijriCalendarWidget() {
         )}
 
         {result && (
-          <div className="rounded-lg border border-primary/20 bg-primary/5 p-6 text-center">
+          <div className="rounded-md border border-primary/30 p-6 text-center">
             <p className="text-sm text-muted-foreground">Tanggal Hijriah</p>
-            <p className="mt-2 text-3xl font-bold tabular-nums text-primary">
+            <p className="mt-2 font-data text-3xl font-bold tabular-nums text-primary">
               {result.hijriDay} {HIJRI_MONTHS[result.hijriMonth - 1]}{" "}
               {result.hijriYear} H
             </p>
             <Badge variant="outline" className="mt-3">
-              {method === "HISAB" ? "Perhitungan Hisab" : `Observasi ${method}`}
+              {METHOD_LABELS[method as Method] ?? "Perhitungan Hisab"}
             </Badge>
           </div>
         )}

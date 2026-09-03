@@ -21,28 +21,22 @@ interface PostCardProps {
     publishedAt: Date | null;
     category: { name: string; slug: string };
   };
-  variant?: "default" | "glass";
   size?: "default" | "feature";
   className?: string;
 }
 
 export default function PostCard({
   post,
-  variant = "default",
   size = "default",
   className,
 }: PostCardProps) {
-  const glass = variant === "glass";
   const feature = size === "feature";
 
   return (
     <Link
       href={`/artikel/${post.slug}`}
       className={cn(
-        "group flex flex-col overflow-hidden rounded-2xl border transition-all duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
-        glass
-          ? "border-[var(--glass-border)] bg-[var(--glass-card-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)] hover:border-primary/45"
-          : "border-primary/15 bg-card hover:border-primary/45",
+        "group flex flex-col overflow-hidden rounded-md border border-primary/25 bg-card transition-colors duration-300 ease-out hover:border-primary",
         className,
       )}
     >
@@ -63,14 +57,14 @@ export default function PostCard({
                 ? "(min-width: 1024px) 50vw, 100vw"
                 : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             }
-            className="object-cover transition-transform duration-200 group-hover:scale-105"
+            className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
           />
         )}
       </div>
 
       <div className={cn("flex flex-col p-5", !feature && "flex-1")}>
         <div className="flex items-center gap-2.5 text-[11px]">
-          <span className="font-sans font-medium uppercase text-primary">
+          <span className="font-sans font-medium uppercase tracking-wide text-primary">
             {post.category.name}
           </span>
           <span
@@ -87,7 +81,7 @@ export default function PostCard({
 
         <h3
           className={cn(
-            "mt-2.5 font-display font-semibold text-balance leading-snug text-foreground transition-colors group-hover:text-primary",
+            "mt-2.5 font-heading font-semibold text-balance leading-snug text-foreground transition-colors group-hover:text-primary",
             feature ? "text-lg sm:text-xl" : "text-base",
           )}
         >

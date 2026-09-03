@@ -53,7 +53,7 @@ export default async function BidangPage({ params }: BidangPageProps) {
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="space-y-8">
           <Reveal>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
               <SectionLabel>Cakupan Program</SectionLabel>
               <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
                 {bidang.points.map((point) => (
@@ -67,14 +67,14 @@ export default async function BidangPage({ params }: BidangPageProps) {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <div className="rounded-2xl border border-primary/15 bg-card p-7 sm:p-8">
+            <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
               <SectionLabel>Bidang Lainnya</SectionLabel>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {lainnya.map((item) => (
                 <Link
                   key={item.slug}
                   href={`/profil/bidang/${item.slug}`}
-                  className="group rounded-xl border border-primary/10 bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
+                  className="group rounded-lg border border-primary/10 bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
                 >
                   <p className="text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
                     {item.title}

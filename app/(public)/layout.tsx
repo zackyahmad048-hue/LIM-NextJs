@@ -9,7 +9,7 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="site flex min-h-dvh flex-col overflow-y-clip">
+    <div className="site flex min-h-dvh flex-col overflow-x-clip overflow-y-clip">
       <Navbar />
 
       <main className="flex-1">{children}</main>

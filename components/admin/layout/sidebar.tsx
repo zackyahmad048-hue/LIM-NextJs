@@ -28,10 +28,10 @@ export function Sidebar({ roleSlugs }: Props) {
         "sticky top-0 hidden h-dvh flex-col border-r transition-[width,padding] duration-300 ease-in-out lg:flex",
         
         // Gradasi Nusantara (reference/colorize.md)
-        // Mode Terang: Bersih dengan sedikit sentuhan hangat batu alam (stone)
-        // Mode Gelap: Midnight blue (slate-950) yang memudar halus ke zamrud gelap (emerald-950/30) di bagian bawah.
-        "bg-linear-to-b from-slate-50 to-stone-100 border-slate-200",
-        "dark:bg-linear-to-b dark:from-slate-950 dark:via-slate-950/90 dark:to-emerald-950/30 dark:border-slate-800/80",
+        // Light: clean warm stone gradient
+        // Dark: midnight slate → deep emerald (elegant, no neon)
+        "bg-gradient-to-b from-slate-50 via-stone-50 to-stone-100 border-slate-200",
+        "dark:from-slate-950 dark:via-slate-900/80 dark:to-emerald-950/20 dark:border-slate-800/80",
         
         collapsed ? "w-16" : "w-56"
       )}

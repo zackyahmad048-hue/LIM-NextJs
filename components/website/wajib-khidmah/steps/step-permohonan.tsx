@@ -38,7 +38,7 @@ export function StepPermohonan({ form }: Props) {
                     })
                   }
                   className={cn(
-                    "flex h-12 w-14 flex-col items-center justify-center rounded-xl border text-sm font-semibold transition-colors",
+                    "flex h-12 w-14 flex-col items-center justify-center rounded-md border text-sm font-semibold transition-colors",
                     selected
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-input hover:bg-muted/60",
@@ -78,7 +78,7 @@ export function StepPermohonan({ form }: Props) {
               form.setValue("catatanCalonGuruBantu", event.target.value)
             }
             placeholder="Catatan tambahan bagi calon guru bantu."
-            className="min-h-24 w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+            className="min-h-24 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
           />
         </FieldWrapper>
 

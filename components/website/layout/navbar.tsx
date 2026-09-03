@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
-import { ChevronDown, ChevronRight, Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
   NavigationMenu,
@@ -22,7 +22,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { BIDANG } from "@/config/bidang";
+import GlobalSearchPalette from "@/components/website/search/global-search-palette";
 
 const profilChildren = [
   { title: "Tentang LIM", href: "/profil/tentang" },
@@ -32,19 +32,17 @@ const profilChildren = [
 
 const navLinks = [
   { title: "Artikel", href: "/artikel" },
-  { title: "Media", href: "/media" },
   { title: "Kontak", href: "/kontak" },
 ];
 
-const linkPill = cn(
-  "flex items-center gap-1.5 rounded-full px-4 py-2 text-sm transition-colors",
+const linkClass = cn(
+  "relative flex items-center gap-1.5 rounded-full px-4 py-2 text-sm transition-colors",
 );
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [profilOpen, setProfilOpen] = useState(false);
-  const [bidangOpen, setBidangOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
 
@@ -57,19 +55,19 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 transition-[padding] duration-500 ease-out motion-reduce:transition-none",
-        scrolled ? "pt-0" : "px-4 pt-3 sm:pt-4",
+        "sticky top-0 z-50 transition-[padding] duration-300 ease-in-out motion-reduce:transition-none",
+        scrolled ? "px-0 pt-0" : "px-4 pt-3 sm:pt-4",
       )}
     >
       <div
         className={cn(
-          "border border-(--glass-border) bg-(--glass-chrome-bg) shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15),var(--glass-highlight)] backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate) transition-all duration-500 ease-out motion-reduce:transition-none",
+          "border border-(--glass-border) bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate) transition-[width,border-radius,box-shadow,border-color] duration-300 ease-in-out motion-reduce:transition-none",
           scrolled
             ? "w-full rounded-none border-x-0"
-            : "mx-auto max-w-6xl rounded-full",
+            : "mx-auto max-w-5xl rounded-full",
         )}
       >
-        <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2.5">
+        <nav className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-2 sm:px-6 sm:py-2.5">
           <Link href="/" className="group flex shrink-0 items-center gap-3">
             <Image
               src="/images/orangelim.png"
@@ -101,7 +99,7 @@ export default function Navbar() {
                   <Link
                     href="/"
                     className={cn(
-                      linkPill,
+                      linkClass,
                       pathname === "/"
                         ? "bg-primary/10 font-medium text-primary"
                         : "text-foreground/70 hover:bg-accent hover:text-primary",
@@ -115,17 +113,17 @@ export default function Navbar() {
               <NavigationMenuItem>
                 <NavigationMenuTrigger
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                    "rounded-full px-4 py-2 text-sm font-medium transition-colors data-open:bg-transparent",
                     profilActive
-                      ? "bg-primary/10 text-primary data-open:bg-primary/10 data-open:hover:bg-primary/10"
+                      ? "bg-primary/10 text-primary"
                       : "text-foreground/70 hover:bg-accent hover:text-primary data-open:text-foreground",
                   )}
                 >
                   Profil
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="md:top-full md:mt-1.5">
-                  <div className="w-110 max-w-[calc(100vw-2rem)]">
-                    <div className="grid gap-2 p-3 sm:grid-cols-2">
+                  <div className="w-56 max-w-[calc(100vw-2rem)]">
+                    <div className="grid gap-2 p-3">
                       <div>
                         <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase text-muted-foreground">
                           Profil
@@ -135,34 +133,13 @@ export default function Navbar() {
                             <Link
                               href={item.href}
                               className={cn(
-                                "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                                "block rounded-sm px-3 py-2 text-sm transition-colors",
                                 pathname === item.href
-                                  ? "bg-primary/10 text-primary hover:bg-primary/10"
-                                  : "text-foreground/80",
+                                  ? "font-medium text-primary"
+                                  : "text-foreground/80 hover:text-primary",
                               )}
                             >
                               {item.title}
-                            </Link>
-                          </NavigationMenuLink>
-                        ))}
-                      </div>
-
-                      <div>
-                        <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase text-muted-foreground">
-                          Bidang
-                        </p>
-                        {BIDANG.map((bidang) => (
-                          <NavigationMenuLink asChild key={bidang.slug}>
-                            <Link
-                              href={`/profil/bidang/${bidang.slug}`}
-                              className={cn(
-                                "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
-                                pathname === `/profil/bidang/${bidang.slug}`
-                                  ? "bg-primary/10 text-primary hover:bg-primary/10"
-                                  : "text-foreground/80",
-                              )}
-                            >
-                              {bidang.title}
                             </Link>
                           </NavigationMenuLink>
                         ))}
@@ -172,13 +149,30 @@ export default function Navbar() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link
+                    href="/profil/bidang"
+                    className={cn(
+                      linkClass,
+                      pathname === "/profil/bidang" ||
+                        pathname.startsWith("/profil/bidang/")
+                        ? "bg-primary/10 font-medium text-primary"
+                        : "text-foreground/70 hover:bg-accent hover:text-primary",
+                    )}
+                  >
+                    Bidang
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
               {navLinks.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <NavigationMenuLink asChild>
                     <Link
                       href={item.href}
                       className={cn(
-                        linkPill,
+                        linkClass,
                         pathname === item.href
                           ? "bg-primary/10 font-medium text-primary"
                           : "text-foreground/70 hover:bg-accent hover:text-primary",
@@ -194,6 +188,8 @@ export default function Navbar() {
 
           {/* Right cluster */}
           <div className="flex shrink-0 items-center gap-2">
+            <GlobalSearchPalette />
+
             <ThemeToggle />
 
             <Link
@@ -209,7 +205,7 @@ export default function Navbar() {
                   type="button"
                   aria-label="Buka menu"
                   aria-expanded={open}
-                  className="rounded-full bg-primary/10 p-2 text-primary transition hover:bg-primary/20 active:scale-95 lg:hidden"
+                  className="rounded-md border border-border p-2 text-foreground transition-colors hover:border-primary hover:text-primary active:scale-95 lg:hidden"
                 >
                   <Menu className="h-5 w-5" />
                 </button>
@@ -241,10 +237,10 @@ export default function Navbar() {
                     href="/"
                     onClick={() => setOpen(false)}
                     className={cn(
-                      "flex items-center rounded-xl px-3.5 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                      "flex items-center rounded-full px-3.5 py-2.5 text-sm transition-colors",
                       pathname === "/"
-                        ? "bg-primary/10 font-medium text-primary hover:bg-primary/10"
-                        : "text-foreground/80",
+                        ? "font-medium text-primary"
+                        : "text-foreground/80 hover:text-primary",
                     )}
                   >
                     Beranda
@@ -255,10 +251,10 @@ export default function Navbar() {
                     onClick={() => setProfilOpen(!profilOpen)}
                     aria-expanded={profilOpen}
                     className={cn(
-                      "flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                      "flex w-full items-center justify-between rounded-full px-3.5 py-2.5 text-sm transition-colors",
                       profilActive
-                        ? "bg-primary/10 font-medium text-primary hover:bg-primary/10"
-                        : "text-foreground/80",
+                        ? "font-medium text-primary"
+                        : "text-foreground/80 hover:text-primary",
                     )}
                   >
                     Profil
@@ -278,52 +274,31 @@ export default function Navbar() {
                           href={item.href}
                           onClick={() => setOpen(false)}
                           className={cn(
-                            "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                            "block rounded-full px-3 py-2 text-sm transition-colors",
                             pathname === item.href
                               ? "font-medium text-primary"
-                              : "text-muted-foreground",
+                              : "text-muted-foreground hover:text-primary",
                           )}
                         >
                           {item.title}
                         </Link>
                       ))}
-
-                      <button
-                        type="button"
-                        onClick={() => setBidangOpen(!bidangOpen)}
-                        aria-expanded={bidangOpen}
-                        className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                      >
-                        Bidang
-                        <ChevronRight
-                          className={cn(
-                            "h-3.5 w-3.5 transition-transform",
-                            bidangOpen && "rotate-90",
-                          )}
-                        />
-                      </button>
-
-                      {bidangOpen && (
-                        <div className="ml-3 space-y-0.5 border-l border-border/15 pl-3">
-                          {BIDANG.map((bidang) => (
-                            <Link
-                              key={bidang.slug}
-                              href={`/profil/bidang/${bidang.slug}`}
-                              onClick={() => setOpen(false)}
-                              className={cn(
-                                "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
-                                pathname === `/profil/bidang/${bidang.slug}`
-                                  ? "font-medium text-primary"
-                                  : "text-muted-foreground",
-                              )}
-                            >
-                              {bidang.title}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
                     </div>
                   )}
+
+                  <Link
+                    href="/profil/bidang"
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex items-center rounded-full px-3.5 py-2.5 text-sm transition-colors",
+                      pathname === "/profil/bidang" ||
+                        pathname.startsWith("/profil/bidang/")
+                        ? "font-medium text-primary"
+                        : "text-foreground/80 hover:text-primary",
+                    )}
+                  >
+                    Bidang
+                  </Link>
 
                   {navLinks.map((item) => (
                     <Link
@@ -331,10 +306,10 @@ export default function Navbar() {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       className={cn(
-                        "flex items-center rounded-xl px-3.5 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
+                        "flex items-center rounded-full px-3.5 py-2.5 text-sm transition-colors",
                         pathname === item.href
-                          ? "bg-primary/10 font-medium text-primary hover:bg-primary/10"
-                          : "text-foreground/80",
+                          ? "font-medium text-primary"
+                          : "text-foreground/80 hover:text-primary",
                       )}
                     >
                       {item.title}
@@ -346,7 +321,7 @@ export default function Navbar() {
                   <Link
                     href="/admin/login"
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl border border-border px-3.5 py-2.5 text-center text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+                    className="block rounded-sm border border-border px-3.5 py-2.5 text-center text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
                   >
                     Login Admin
                   </Link>

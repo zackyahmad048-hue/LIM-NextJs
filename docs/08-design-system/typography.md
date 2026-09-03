@@ -6,9 +6,11 @@
 
 **Document:** `typography.md`
 
-**Version:** 1.0
+**Version:** 1.1
 
 **Status:** Approved
+
+Perubahan pada 1.1: penambahan aturan hierarki heading untuk mengatasi visual monoton (weight & size contrast antara heading vs body).
 
 ---
 
@@ -22,27 +24,40 @@ Dokumen ini mendefinisikan standar tipografi yang digunakan pada LIM Digital Pla
 
 Situs publik (`app/(public)/`) memakai empat keluarga font via `next/font/google`, masing-masing satu peran spesifik:
 
-| Peran     | Font           | Penggunaan                                                              |
-| --------- | -------------- | ----------------------------------------------------------------------- |
-| Display   | Newsreader     | Judul (h1/h2), tagline italic — suara "kitab" yang tenang               |
-| Body/UI   | Hanken Grotesk | Teks isi, kontrol, label — tetap menjadi suara antarmuka                 |
-| Data      | Spline Sans Mono | Jam, waktu shalat, derajat, koordinat, angka tabel — "instrument readout" |
-| Arab      | Reem Kufi      | Eyebrow marginalia (`الفجر`), kolofon (`تم بحمد الله`), baris Hijriah   |
+| Peran     | Font          | Penggunaan                                                              |
+| --------- | ------------- | ----------------------------------------------------------------------- |
+| Heading   | Fraunces      | Judul (h1/h2/h3), serif editorial, title case — karakter tenang & reflektif (SOFT=30, WONK=0) |
+| Body/UI   | Inter         | Teks isi, kontrol, label — suara antarmuka                               |
+| Data      | JetBrains Mono| Jam, waktu shalat, derajat, koordinat, angka tabel — "instrument readout"|
+| Arab      | Reem Kufi     | Eyebrow marginalia (`الفجر`), kolofon (`تم بحمد الله`), baris Hijriah    |
 
-Pemetaan token:
+Pemetaan token (definisi di `app/layout.tsx` + `app/globals.css`):
 
 ```text id="typo-public"
-font-display → Newsreader     (variabel --fx-display)
-font-sans    → Hanken Grotesk (--f-site)
-font-data    → Spline Sans Mono (--fx-mono)
-font-ar      → Reem Kufi      (--fx-ar)
+--font-heading -> Fraunces
+--font-body    -> Inter
+--font-data    -> JetBrains Mono
+(arab)         -> Reem Kufi
 ```
 
-Catatan peran: kaidah "maksimal dua keluarga font" di bawah sengaja dilonggarkan hanya untuk situs publik karena setiap keluarga punya satu pekerjaan nyata — angka/data membaca sebagai alat hisab, bukan dekorasi.
-
-> **⚠️ Status untuk Situs Publik: Incumbent, menunggu pembaruan.** Per `PRODUCT.md`, keempat font di atas (Newsreader, Hanken Grotesk, Spline Sans Mono, Reem Kufi) secara eksplisit terdaftar sebagai "incumbent visual details (akan diganti)" untuk dunia visual baru situs publik dan **tidak mengikat** untuk build — arah **"Ruang Gelap" (amber darkroom)** yang sempat tercatat sudah dicabut (dinilai kemungkinan AI-generated, tidak direkomendasikan pemilik produk); pengganti: tema gelap (dark mode) dengan keserasian warna, tipografi definitif belum ditentukan. Bagian "Taqwim" ini adalah referensi historis, bukan spesifikasi final.
+Catatan peran: kaidah "maksimal dua keluarga font" di bawah sengaja dilonggarkan hanya untuk situs publik karena setiap keluarga punya satu pekerjaan nyata — angka/data membaca sebagai alat hisab, bukan dekorasi. Font definitif mengikuti `app/layout.tsx`; tabel historis (Newsreader/Hanken Grotesk/Spline Sans Mono, Bebas Neue/Lato, lalu Space Grotesk) sudah diganti. Uppercase tidak lagi dipaksakan global pada heading (Fraunces bekerja dalam title case serif); uppercase hanya dipakai opt-in pada eyebrow/label kecil. Berat font heading dibiarkan per-komponen — tidak dipaksa 500 di `globals.css` supaya hero bisa `font-bold` dan judul section `font-semibold`.
 
 Typography memastikan seluruh aplikasi memiliki hierarki visual yang jelas, mudah dibaca, konsisten, dan mendukung berbagai ukuran layar.
+
+---
+
+# Hierarki (anti-monoton)
+
+Untuk mencegah tampilan monoton, pertahankan kontras hierarki heading vs body:
+
+- **Heading** (Fraunces, serif): `font-semibold`–`font-bold`, `tracking-tight`, `letter-spacing: -0.01em` — pesan dominan.
+- **Body** (Inter, sans): `font-normal` (regular), warna `foreground`/`muted-foreground` — suara pendukung.
+- **H1 hero**: `text-4xl sm:text-5xl lg:text-6xl` (besar, tegas).
+- **H2 section**: `text-2xl sm:text-3xl` (tegas tapi lebih kecil dari H1).
+- **H3 card**: `text-lg sm:text-xl` (judul kartu, `font-semibold`).
+- **Eyebrow/label**: utility `uppercase text-xs tracking-widest text-muted-foreground` — jangan pakai serif untuk eyebrow.
+
+Jangan buat semua heading dan body satu berat — kontras berat antara heading (semibold/bold) dan body (normal) adalah kunci hierarki yang terasa profesional.
 
 ---
 

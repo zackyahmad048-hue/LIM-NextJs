@@ -21,7 +21,7 @@ export function SuccessScreen() {
         initial={reduce ? false : { scale: 0.4, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ ...SPRING_MOVE, delay: 0.1 }}
-        className="mx-auto flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"
+        className="mx-auto flex size-16 items-center justify-center rounded-full bg-success text-success-foreground"
       >
         <CheckCircle2 className="size-8" />
       </motion.div>
@@ -30,7 +30,7 @@ export function SuccessScreen() {
         initial={reduce ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: EASE_OUT, delay: 0.2 }}
-        className="mt-6 font-display text-2xl font-semibold text-foreground"
+        className="mt-6 font-heading text-2xl font-semibold text-foreground"
       >
         Permohonan Berhasil Dikirim
       </motion.h2>

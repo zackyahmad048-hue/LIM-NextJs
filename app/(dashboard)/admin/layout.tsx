@@ -37,10 +37,12 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider>
       {/* 
-        Menambahkan background dasar yang solid (dark:bg-slate-950) agar kanvas utama 
-        tidak bentrok dengan efek Glassmorphism di Header nanti.
+        Kanvas admin memakai kelas `.admin` (lihat app/globals.css) agar
+        background & warna konsisten dengan sistem token admin
+        (--admin-content-bg / --admin-content-fg) dan selaras dengan
+        keluarga warna publik (warm-neutral), bukan slate dingin.
       */}
-      <div className="flex min-h-dvh w-full bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50">
+      <div className="admin flex min-h-dvh w-full">
         
         <Sidebar roleSlugs={roleSlugs} />
         <MobileSidebar roleSlugs={roleSlugs} />

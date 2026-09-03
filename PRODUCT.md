@@ -8,22 +8,21 @@ web
 
 ## Users
 
-Empat audiens publik yang saling tumpang tindih (semua dikonfirmasi oleh pemilik produk):
+Tiga audiens publik yang saling tumpang tindih (semua dikonfirmasi oleh pemilik produk):
 
-1. **Jamaah umum** — mencari informasi dakwah dan berita kegiatan LIM (artikel, media, jadwal kegiatan).
-2. **Jamaah pengguna falak** — mencari jadwal shalat, arah kiblat, kalender Hijriah, hisab/rukyat, gerhana.
-3. **Calon kolaborasi/donatur** — menilai kredibilitas LIM untuk kerja sama; butuh kesan organisasi yang kredibel, terawat, dan berwibawa.
-4. **Muballigh & cabang** — anggota organisasi yang mencari program, pendaftaran peserta, dan informasi cabang.
+1. **Masyarakat Umum** — mencari informasi dakwah dan berita kegiatan LIM (artikel, media, jadwal kegiatan), mencari jadwal shalat, arah kiblat, kalender Hijriah, hisab/rukyat, gerhana.
+2. **Kolaborator & Kepengurusan** — menilai kredibilitas LIM untuk kerja sama; butuh kesan organisasi yang kredibel, terawat, dan berwibawa.
+3. **Kepengurusan & Internal** — anggota organisasi yang mencari program, pendaftaran peserta, dan informasi cabang.
 
 Admin internal (sekretariat, pengelola konten, pengelola falak) memakai CMS di `/admin`.
 
 ## Product Purpose
 
-LIM Digital Platform adalah situs resmi + CMS dari Lembaga Ittihadul Muballighin (LIM), lembaga dakwah dan pembinaan muballigh dari Pondok Pesantren Lirboyo, Kediri. Situs publik menyebarkan informasi dakwah, berita, profil organisasi, dan layanan falak yang akurat; CMS memungkinkan sekretariat mengelola seluruh konten tanpa developer. Sukses = jamaah menemukan informasi dan layanan dengan cepat, dan situs memantulkan wibawa Lirboyo.
+LIM Digital Platform adalah situs resmi + CMS dari Lembaga Ittihadul Muballighin (LIM), lembaga dakwah dari Badan Otonom Himpunan Alumni Santri Pondok Pesantren Lirboyo, Kediri (HIMASAL P2L). Situs publik menyebarkan informasi dakwah, berita, profil organisasi, dan layanan falak yang akurat; CMS memungkinkan sekretariat mengelola seluruh konten tanpa developer. Sukses = masyarakat menemukan informasi dan layanan dengan cepat, dan situs memantulkan wibawa Lirboyo.
 
 ## Positioning
 
-Kredibilitas Lirboyo — otoritas pesantren salaf terkemuka. Yang membedakan: nama besar pesantren sebagai sumber pengetahuan (ilmu falak yang dipegang tradisi pesantren), bukan sekadar portal berita dakwah generik. Semua konten disajikan dalam bahasa Indonesia; lokasi Kediri, Jawa Timur.
+Kredibilitas Lirboyo — otoritas pesantren salaf terkemuka. Yang membedakan: nama besar pesantren sebagai sumber pengetahuan (ilmu agama yang dipegang tradisi pesantren), bukan sekadar portal berita dakwah generik. Semua konten disajikan dalam bahasa Indonesia; lokasi Kediri, Jawa Timur.
 
 ## Operating Context
 
@@ -42,13 +41,13 @@ Kredibilitas Lirboyo — otoritas pesantren salaf terkemuka. Yang membedakan: na
 - Hamburger nav pada mobile — keputusan fungsional yang dikonfirmasi.
 - Aset: logo.png, orangelim.png, iksadari.JPG (foto hero).
 - Konten artikel/media saat ini masih placeholder di beberapa halaman (dummy).
-- **Incumbent visual details (akan diganti):** Font Hanken Grotesk + Newsreader + Spline Sans Mono + Reem Kufi; glassmorphism "Kaca Kristal" (CSS-only, chrome + kartu saja); Roboto sebagai `--font-sans` di `layout.tsx` (perlu dibersihkan). Detail visual ini tidak mengikat untuk dunia baru.
+- **Fonts (implemented, `app/layout.tsx` via `next/font/google`):** Fraunces (`--font-heading`, serif editorial), Inter (`--font-body`), JetBrains Mono (`--font-data`), Reem Kufi (Arabic).
 
 ## Brand Commitments
 
 - Nama organisasi: Lembaga Ittihadul Muballighin (LIM); tagline "Memasyarakatkan Pesantren, Memesantrenkan Masyarakat".
 - **Rebuild total situs publik dari nol** — pemilik menyatakan tampilan sebelumnya "jelek banget" dan meminta dunia visual baru. Keputusan fungsional (mobile-first, dual-mode, default dark, hamburger nav) tetap berlaku. Menu navigasi dipertahankan.
-- Dunia visual: arah **"Ruang Gelap" (amber darkroom) dicabut** — dinilai kemungkinan hasil AI-generated tanpa dasar kuat, tidak direkomendasikan pemilik produk. Arah pengganti yang dikonfirmasi: **tema gelap (dark mode) sebagai basis, dengan keserasian warna** sebagai prinsip utama — belum ada nama/konsep bertema, palet & tipografi definitif masih terbuka.
+- Dunia visual **Khusyu Minimalis** (implemented): dual-mode (dark default, light untuk seluruh permukaan). Sumber kebenaran single: token warna di `app/globals.css` — `--primary` oranye LIM `oklch(0.553 0.195 38.402)` sebagai accent taktis (CTA, underline, focus) dan `--background` putih `oklch(1 0 0)` / near-black `oklch(0.145 0 0)`. Font via `next/font/google`: Fraunces (heading, serif), Inter (body), JetBrains Mono (data/falak), Reem Kufi (Arab). Kartu memakai `border-primary/25` (1px) + hover `border-primary`; footer band tint oranye `primary/[8-12]%`; navbar glass (kapsul `rounded-full` saat di atas, melebar penuh `w-full rounded-none` saat scroll, easing `ease-in-out` 300ms); section beranda dipisah hairline; transisi tema light⇄dark memakai cross-fade 300ms (View Transitions bila tersedia). Detail final ada di `DESIGN.md` dan `app/globals.css`.
 - Bahasa situs: Indonesia; slug rute Bahasa Indonesia.
 - Narasi dan copy ditulis sendiri oleh pemilik untuk tahap lanjut.
 - Build path: **code-led** (tidak ada image generation yang tersedia; ambisi tertulis dalam direction contract).

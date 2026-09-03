@@ -16,7 +16,7 @@ export function StepCard({ title, description, children }: StepCardProps) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="font-display text-lg font-semibold text-foreground">
+        <h2 className="font-heading text-lg font-semibold text-foreground">
           {title}
         </h2>
         {description && (

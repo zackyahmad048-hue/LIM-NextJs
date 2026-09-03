@@ -287,7 +287,7 @@ export function SuratMenyuratClient({
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Link
           href="/admin/secretariat/outgoing-mail/new"
-          className="group flex items-start justify-between gap-4 rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+          className="group flex items-start justify-between gap-4 rounded-xl border border-primary/25 bg-admin-card-bg p-5 shadow-sm transition-colors hover:border-primary hover:bg-primary/5"
         >
           <div className="flex items-start gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
@@ -306,7 +306,7 @@ export function SuratMenyuratClient({
 
         <Link
           href="/admin/secretariat/incoming-mail/new"
-          className="group flex items-start justify-between gap-4 rounded-xl border bg-card p-5 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+          className="group flex items-start justify-between gap-4 rounded-xl border border-primary/25 bg-admin-card-bg p-5 shadow-sm transition-colors hover:border-primary hover:bg-primary/5"
         >
           <div className="flex items-start gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
@@ -324,7 +324,7 @@ export function SuratMenyuratClient({
       </div>
 
       {/* Status penyimpanan */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 shadow-sm">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/25 bg-admin-card-bg px-4 py-3 shadow-sm">
         <div className="flex items-center gap-2.5">
           {driveEmail ? (
             <>

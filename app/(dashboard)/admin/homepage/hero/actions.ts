@@ -41,6 +41,7 @@ export async function updateHeroConfig(
       eyebrow: readValue(formData, "eyebrow"),
       title: readValue(formData, "title"),
       highlight: readValue(formData, "highlight"),
+      tagline: readValue(formData, "tagline"),
       description: readValue(formData, "description"),
       image: readValue(formData, "image"),
       ctaLabel: readValue(formData, "ctaLabel"),

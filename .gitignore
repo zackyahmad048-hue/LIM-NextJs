@@ -48,5 +48,10 @@ scripts/.cache/
 *.tsbuildinfo
 next-env.d.ts
 
+# opencode
+opencode.json
+
 .vercel
 .env*
+opencode.json
+opencode.json

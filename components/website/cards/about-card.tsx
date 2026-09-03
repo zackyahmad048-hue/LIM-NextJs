@@ -5,16 +5,16 @@ interface AboutCardProps {
 
 export default function AboutCard({ title, description }: AboutCardProps) {
   return (
-    <div className="flex h-full gap-4 rounded-2xl border border-border bg-card p-5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/45 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <div className="flex h-full gap-4 rounded-xl border border-primary/25 bg-card p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary motion-reduce:transition-none">
       <span
-        className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/10"
+        className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-primary/40"
         aria-hidden
       >
         <span className="h-2 w-2 rounded-full bg-primary" />
       </span>
 
       <div>
-        <h3 className="font-display text-base font-medium text-balance text-foreground">
+        <h3 className="font-heading text-base font-medium text-balance text-foreground">
           {title}
         </h3>
 

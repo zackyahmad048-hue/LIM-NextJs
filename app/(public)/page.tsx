@@ -1,12 +1,11 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import Hero from "@/components/website/sections/Hero";
 import About from "@/components/website/sections/about";
-import PostGrid from "@/components/website/sections/post-grid";
+import BidangCarousel from "@/components/website/sections/bidang-carousel";
+import ArticleBento from "@/components/website/sections/article-bento";
+import SectionDivider from "@/components/website/layout/section-divider";
 import { getHeroConfig } from "@/modules/cms/queries/hero.query";
 import { getAboutContent } from "@/modules/cms/queries/site-page.query";
-import { Skeleton } from "@/components/ui/skeleton";
-import { HOME_GRIDS } from "@/config/home";
 
 export const dynamic = "force-dynamic";
 
@@ -25,12 +24,12 @@ export default async function Home() {
   return (
     <>
       <Hero hero={heroConfig} />
-            {HOME_GRIDS.map((grid) => (
-        <PostGrid key={grid.categorySlug} grid={grid} cardVariant="glass" />
-      ))}
-      <Suspense fallback={<Skeleton className="h-150 w-full rounded-none" />}>
-        <About {...about} />
-      </Suspense>
+      <SectionDivider />
+      <About {...about} />
+      <SectionDivider />
+      <BidangCarousel />
+      <SectionDivider />
+      <ArticleBento />
     </>
   );
 }

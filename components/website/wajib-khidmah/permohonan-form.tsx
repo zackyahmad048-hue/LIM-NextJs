@@ -248,7 +248,7 @@ export function PermohonanWizard() {
   const isLast = step === STEPS.length - 1;
 
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-5 shadow-sm pb-24 sm:p-8 sm:pb-8">
+    <div className="rounded-md border border-primary/25 bg-card p-5 pb-24 sm:p-8 sm:pb-8">
       {/* Stepper */}
       <div className="mb-8">
         <div className="mb-3 flex items-center justify-between text-xs text-muted-foreground">

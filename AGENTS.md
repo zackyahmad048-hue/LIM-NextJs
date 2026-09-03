@@ -92,6 +92,12 @@ Implement
 
 ---
 
+# 3.1 Searching Documentation
+
+When you need to search docs, use `context7` tools.
+
+---
+
 # 4. Research Is Not Implementation
 
 If the user asks to:
@@ -1210,3 +1216,19 @@ The purpose of OpenCode is to extend LIM-NextJs consistently, not to redesign th
 ```
 
 **Never skip the inspection phase for non-trivial work.**
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as local markdown files under `.scratch/`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` at the repo root + `docs/05-decisions/` for ADRs. See `docs/agents/domain.md`.

@@ -14,7 +14,7 @@
 
 - **Core Framework:** Next.js 16 (App Router, Server Components, Server Actions)
 - **Language:** TypeScript
-- **Styling & UI:** Tailwind CSS v4, `shadcn/ui` (`radix-maia` style), `framer-motion`
+- **Styling & UI:** Tailwind CSS v4, `shadcn/ui` (`radix-maia` style), `motion`
 - **Database & ORM:** PostgreSQL (Neon) with Prisma ORM (`@/generated/client`)
 - **Authentication & AuthZ:** Better Auth with Prisma Adapter & Custom RBAC
 - **Icons:** Lucide React
