@@ -1,21 +1,12 @@
-import { formatDateId } from "@/lib/format";
 import Link from "next/link";
-import {
-  Archive,
-  ExternalLink,
-  FileText,
-  FolderArchive,
-  Inbox,
-  Search,
-} from "lucide-react";
+import { formatDateId } from "@/lib/format";
+import { ExternalLink, FileText, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
-import { AdminTable } from "@/components/admin/shared/admin-table";
-import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { DataTable } from "@/components/admin/shared/data-table";
 
 import { getArchiveData } from "@/modules/secretariat/queries/secretariat.query";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
@@ -28,13 +19,7 @@ const documentTypeLabels: Record<string, string> = {
   LAINNYA: "Lainnya",
 };
 
-function AttachmentLink({
-  url,
-  label,
-}: {
-  url: string | null;
-  label: string;
-}) {
+function AttachmentLink({ url, label }: { url: string | null; label: string }) {
   const fileId = url ? extractFileIdFromMediaUrl(url) : null;
   if (!fileId) return null;
   return (
@@ -62,54 +47,24 @@ export default async function ArsipPage({
     <PageContainer>
       <PageHeader
         title="Arsip"
-        description="Kumpulan surat dan dokumen terarsip â hanya baca, diagregasi otomatis dari surat menyurat."
+        description="Kumpulan surat dan dokumen terarsip — hanya baca, diagregasi otomatis dari surat menyurat."
+        actions={
+          <div className="flex items-center gap-2">
+            <Input
+              name="search"
+              defaultValue={params.search ?? ""}
+              placeholder="Cari perihal, nomor, atau pengirim..."
+              className="rounded-md text-xs"
+            />
+            <Button type="submit" size="sm" variant="secondary">
+              <Search className="size-3.5" /> Cari
+            </Button>
+          </div>
+        }
       />
 
-      <div className="grid gap-3 sm:grid-cols-3">
-        <SectionCard className="rounded-lg p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-muted-foreground">Surat Keluar</p>
-            <Archive className="size-4 text-muted-foreground/50" />
-          </div>
-          <p className="mt-1 text-2xl font-semibold tabular-nums">
-            {outgoing.length}
-          </p>
-        </SectionCard>
-        <SectionCard className="rounded-lg p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-muted-foreground">Surat Masuk</p>
-            <Inbox className="size-4 text-muted-foreground/50" />
-          </div>
-          <p className="mt-1 text-2xl font-semibold tabular-nums">
-            {incoming.length}
-          </p>
-        </SectionCard>
-        <SectionCard className="rounded-lg p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-muted-foreground">Dokumen Administrasi</p>
-            <FolderArchive className="size-4 text-muted-foreground/50" />
-          </div>
-          <p className="mt-1 text-2xl font-semibold tabular-nums">
-            {documents.length}
-          </p>
-        </SectionCard>
-      </div>
-
-      <form method="GET" className="mt-4 flex max-w-sm gap-2">
-        <Input
-          name="search"
-          defaultValue={params.search}
-          placeholder="Cari perihal, nomor, atau pengirim..."
-          className="rounded-md text-xs"
-        />
-        <Button type="submit" size="sm" variant="secondary">
-          <Search className="size-3.5" />
-          Cari
-        </Button>
-      </form>
-
-      <div className="mt-4 space-y-4">
-        <AdminTable
+      <div className="mt-4 space-y-6">
+        <DataTable
           title="Surat Keluar Terarsip"
           description={`${outgoing.length} surat keluar yang telah diarsipkan.`}
           columns={[
@@ -120,7 +75,7 @@ export default async function ArsipPage({
                 item.fullNumber ? (
                   <LetterPlate fullNumber={item.fullNumber} size="sm" />
                 ) : (
-                  <span className="text-xs text-muted-foreground">â</span>
+                  <span className="text-xs text-muted-foreground">—</span>
                 ),
             },
             {
@@ -146,28 +101,30 @@ export default async function ArsipPage({
               key: "actions",
               label: "Aksi",
               align: "right",
-              render: (item) => (
-                <div className="flex justify-end gap-1">
-                  <AttachmentLink
-                    url={item.attachmentUrl}
-                    label="Buka lampiran"
-                  />
-                  <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
-                    <Link
-                      href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
-                    >
-                      <FileText className="size-3.5" />
-                    </Link>
-                  </Button>
-                </div>
-              ),
+              render: (item) => {
+                return (
+                  <div className="flex justify-end gap-1">
+                    <AttachmentLink
+                      url={item.attachmentUrl}
+                      label="Buka lampiran"
+                    />
+                    <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
+                      <Link
+                        href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
+                      >
+                        <FileText className="size-3.5" />
+                      </Link>
+                    </Button>
+                  </div>
+                );
+              },
             },
           ]}
           data={outgoing}
           emptyMessage="Belum ada surat keluar yang diarsipkan."
         />
 
-        <AdminTable
+        <DataTable
           title="Surat Masuk Terarsip"
           description={`${incoming.length} surat masuk yang telah diarsipkan.`}
           columns={[
@@ -195,9 +152,7 @@ export default async function ArsipPage({
             {
               key: "subject",
               label: "Perihal",
-              render: (item) => (
-                <span className="truncate text-xs">{item.subject}</span>
-              ),
+              render: (item) => <span className="truncate text-xs">{item.subject}</span>,
             },
             {
               key: "archivedAt",
@@ -210,28 +165,30 @@ export default async function ArsipPage({
               key: "actions",
               label: "Aksi",
               align: "right",
-              render: (item) => (
-                <div className="flex justify-end gap-1">
-                  <AttachmentLink
-                    url={item.attachmentUrl}
-                    label="Buka lampiran"
-                  />
-                  <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
-                    <Link
-                      href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
-                    >
-                      <FileText className="size-3.5" />
-                    </Link>
-                  </Button>
-                </div>
-              ),
+              render: (item) => {
+                return (
+                  <div className="flex justify-end gap-1">
+                    <AttachmentLink
+                      url={item.attachmentUrl}
+                      label="Buka lampiran"
+                    />
+                    <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
+                      <Link
+                        href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
+                      >
+                        <FileText className="size-3.5" />
+                      </Link>
+                    </Button>
+                  </div>
+                );
+              },
             },
           ]}
           data={incoming}
           emptyMessage="Belum ada surat masuk yang diarsipkan."
         />
 
-        <AdminTable
+        <DataTable
           title="Dokumen Administrasi"
           description={`${documents.length} dokumen administrasi terarsip.`}
           columns={[
@@ -247,16 +204,18 @@ export default async function ArsipPage({
             {
               key: "title",
               label: "Judul",
-              render: (item) => (
-                <div className="max-w-[240px]">
-                  <p className="truncate text-sm font-medium">{item.title}</p>
-                  {item.description && (
-                    <p className="truncate text-xs text-muted-foreground">
-                      {item.description}
-                    </p>
-                  )}
-                </div>
-              ),
+              render: (item) => {
+                return (
+                  <div className="max-w-[240px]">
+                    <p className="truncate text-sm font-medium">{item.title}</p>
+                    {item.description && (
+                      <p className="truncate text-xs text-muted-foreground">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                );
+              },
             },
             {
               key: "documentType",
@@ -272,7 +231,10 @@ export default async function ArsipPage({
               label: "Tanggal Arsip",
               render: (item) => (
                 <span className="text-xs">
-                  {formatDateId(item.archivedAt ?? item.approvedAt, { fallback: "—" })}
+                  {formatDateId(
+                    item.archivedAt ?? item.approvedAt,
+                    { fallback: "—" }
+                  )}
                 </span>
               ),
             },
