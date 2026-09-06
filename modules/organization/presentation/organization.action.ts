@@ -124,7 +124,11 @@ export async function createOfficerAction(
 ): Promise<ActionResult> {
   const parsed = createOfficerSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { ok: false, message: firstIssueMessage(parsed.error) };
+    return {
+      ok: false,
+      message: firstIssueMessage(parsed.error),
+      fieldErrors: fieldErrorMap(parsed.error),
+    };
   }
 
   try {
@@ -152,7 +156,11 @@ export async function updateOfficerAction(
 ): Promise<ActionResult> {
   const parsed = updateOfficerSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { ok: false, message: firstIssueMessage(parsed.error) };
+    return {
+      ok: false,
+      message: firstIssueMessage(parsed.error),
+      fieldErrors: fieldErrorMap(parsed.error),
+    };
   }
 
   try {
