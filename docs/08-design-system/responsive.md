@@ -96,6 +96,8 @@ Login Admin Button
 
 ### Dashboard Stats
 
+> **Admin (`spec-admin-permukaan-tenang.md`):** contoh di bawah bukan mandat untuk permukaan stat admin. Kapasitas angka menonjol: maks 4 per halaman; ≤3 → `stat-strip`, 4 → band ringkas, lebih → `stat-row` (tertumpuk sendiri di mobile), bukan grid kartu paralel.
+
 ``tsx
 <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
   // Mobile: 1 column

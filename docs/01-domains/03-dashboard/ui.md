@@ -18,6 +18,8 @@ Dokumen ini menjelaskan struktur antarmuka Dashboard.
 
 # Layout
 
+> **Catatan (per `docs/07-specifications/spec-admin-permukaan-tenang.md`):** urutan di bawah adalah **contoh alur**, bukan mandat vertikal. Komposisi permukaan (stat band/baris, list divider-row, navigasi ke rail) ditetapkan oleh spec permukaan admin. Istilah kartu pada bagian Components (`Statistics Card`, `Welcome Card`) sudah dinetralkan; "Statistics" adalah data, belum tentu kartu.
+
 ```text
 Header
 
@@ -52,7 +54,7 @@ Berisi:
 
 ---
 
-## Welcome Card
+## Welcome
 
 Menampilkan:
 
@@ -60,17 +62,15 @@ Menampilkan:
 - Role
 - Sapaan
 
+Mengikuti komposisi band yang ditetapkan spec permukaan admin (bukan kotak "Welcome Card"; pada dasbor saat ini sapaan dipindah menjadi headline PageHeader).
+
 ---
 
-## Statistics Card
+## Statistics
 
-Menampilkan:
+Menampilkan ringkasan data yang dapat diakses pengguna (contoh: total user, program, surat, sertifikat, berita).
 
-- Total User
-- Total Program
-- Total Surat
-- Total Sertifikat
-- Total Berita
+Jumlah angka yang menonjol dan bentuknya (band ringkas/baris) ditetapkan `spec-admin-permukaan-tenang.md` (§Statistik: kap 4 angka menonjol; angka selanjutnya sebagai baris). Bukan grid kartu paralel.
 
 ---
 

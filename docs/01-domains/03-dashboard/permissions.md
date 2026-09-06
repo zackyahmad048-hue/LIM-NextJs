@@ -68,7 +68,7 @@ Tanpa permission ini, pengguna tidak dapat mengakses Dashboard.
 
 ## dashboard.statistics
 
-Hak untuk melihat seluruh kartu statistik.
+Hak untuk melihat seluruh permukaan statistik (band statistik/baris statistik).
 
 Statistik hanya ditampilkan apabila pengguna memiliki permission terhadap modul sumber data.
 

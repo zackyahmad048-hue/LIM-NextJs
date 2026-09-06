@@ -85,8 +85,9 @@ Digunakan untuk:
 - Dashboard Widget
 - Program
 - Article
-- Statistics
 - User Profile
+
+> **Catatan (per `spec-admin-permukaan-tenang.md`):** "Statistics" tidak lagi tercantum sebagai kegunaan kartu — primitif stat bersifat permukaan-netral dan boleh dirender sebagai baris/kolom dalam `band` (stat-strip/stat-row), bukan wajib kartu. Kartu tersisa untuk tempat struktural: form-group dan tabel (plain box).
 
 Card dapat memiliki:
 
@@ -106,8 +107,9 @@ Primitif bersama kerangka admin. Wajib dipakai ulang; larang duplikasi gaya.
 | `chrome.ts`             | `components/admin/shared/chrome.ts`                | Konstanta `glassChrome`, `glassCard`, `softCard` — satu sumber token glass untuk header/sidebar/kartu                                 |
 | `PageContainer`         | `components/admin/shared/page-container.tsx`       | Wrapper konten halaman, **full-width tanpa max-w**; hanya padding vertikal (`py-5 lg:py-8`) — inset horizontal ditangani `<main>`                                                                                    |
 | `PageHeader`            | `components/admin/shared/page-header.tsx`          | Judul `font-heading` + hairline bawah (`border-b border-border/60 pb-5`) + slot actions                                               |
-| `SectionCard`           | `components/admin/shared/section-card.tsx`         | Kartu section `rounded-2xl` + **`border primary/25`** (hover `border-primary`) + shadow konsisten                                          |
-| `StatCard` / `MiniStat` | `components/admin/shared/stat-card.tsx`, dashboard | Angka memakai `font-heading font-semibold tracking-[-0.01em] tabular-nums`; MiniStat dipakai saat statistik hidup di dalam kartu lain |
+| `SectionCard`           | `components/admin/shared/section-card.tsx`         | Kartu section `rounded-xl` + **`border primary/25`** (hover `border-primary`) + solid flat `bg-admin-card-bg`; satu sumber standar radius/padding (`rounded-xl p-5`), hapus override sebaran (lihat spec permukaan admin)                                                              |
+| `StatCard` / `MiniStat` | `components/admin/shared/stat-card.tsx`, dashboard | Angka memakai `font-heading font-semibold tracking-[-0.01em] tabular-nums`; primitif stat **permukaan-netral** — boleh dirender sebagai `stat-row`/`stat-strip` dalam `band`, bukan wajib kartu, dan dilarang hidup di dalam kartu lain (kartu-dalam-kartu). Komposisi ditetapkan `spec-admin-permukaan-tenang.md` |
+| `DataTable`            | `components/admin/shared/data-table/`              | Tabel kanon admin (tanstack): sortir, global filter, pagination, `DataEmpty`/`DataError`/skeleton; chrome plain box `rounded-xl border` token admin; judul + toolbar milik `band`. `AdminTable` (legacy) ditinggalkan (migrasi sesuai `spec-admin-permukaan-tenang.md`). Dua mode pagination: client ≤50, server >50 |
 | `CommandMenu`           | `components/admin/navigation/command-menu.tsx`     | Pencarian menu global (`Ctrl/Cmd+K`) via `CommandDialog`, terfilter permission                                                        |
 | `DateChip`              | `components/admin/shared/date-chip.tsx`            | Chip tanggal Masehi + Hijriah di header (satu-satunya tempat tanggal tampil)                                                          |
 | `Header` toolbar        | `components/admin/layout/header.tsx`               | Toggle + breadcrumb dalam chip + search pill; kanan: DateChip + UserMenu                                                              |

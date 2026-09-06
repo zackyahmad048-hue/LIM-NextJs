@@ -82,6 +82,8 @@ Section mandiri (di luar hero) juga memakai `max-w-6xl` agar garis margin konsis
 
 `PageContainer` (`components/admin/shared/page-container.tsx`) **tanpa batas lebar**: konten memenuhi seluruh area di kanan sidebar; padding horizontal ditangani pad oleh `<main>` (`p-4 md:p-6 lg:p-8`), `PageContainer` hanya menambah padding vertikal (`py-5 lg:py-8`) + gap agar inset kiri/kanan tidak dobel. Form yang butuh ukuran baca nyaman membatasi dirinya sendiri (misal `max-w-2xl` pada elemen form), bukan pada container.
 
+> **⚠️ Drift (ditemukan dalam audit `admin-redesign`).** Standar di atas belum diimplementasikan apa adanya: `app/(dashboard)/admin/layout.tsx:58-59` saat ini membungkus konten dengan `max-w-7xl` (bukan "tanpa batas"). Call-out didokumentasikan di catatan peta per-halaman `.scratch/admin-redesign/map.md` & spec `docs/07-specifications/spec-admin-permukaan-tenang.md` §4; keputusan akhir lebar konten admin ditetapkan saat implementasi spec, bukan lewat edit kode sekarang.
+
 ---
 
 # Section

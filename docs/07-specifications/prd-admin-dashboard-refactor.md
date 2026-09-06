@@ -6,6 +6,10 @@
 **Status:** Completed
 **Date:** 2026-08-29
 
+> **⚠️ Superseded (2026-09-06, oleh `spec-admin-permukaan-tenang.md`).** PRD ini tetap sebagai catatan historis refactor 2026-08 yang selesai; resep berikut sudah digantikan:
+> - **Font**: Bebas Neue/Lato/unifony → **Fraunces/Inter** (`docs/08-design-system/typography.md`).
+> - **Komposisi kartu** (§ menyangkut kartu statistik, module cards, glass hover-lift, sturctural cards): → **komposisi permukaan tenang** (`band`/`stat-strip`/`stat-row`/`list-row`/`data-table`), kartu hanya untuk form-group & tabel. Perbedaan keputusan tercatat di `.scratch/admin-redesign/issues/01`–`05`.
+
 ---
 
 ## 1. Executive Summary

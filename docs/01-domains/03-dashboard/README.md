@@ -104,12 +104,14 @@ Dashboard tidak menjadi dependency bagi domain lain.
 
 Fitur utama Dashboard:
 
-- Welcome Card
-- Statistics Card
+- Welcome (sapaan & identitas pengguna)
+- Statistics
 - Quick Access
 - Recent Activities
-- Announcement Panel
+- Announcements
 - System Information
+
+> **Catatan:** penamaan permukaan (Welcome Card → Welcome, Statistics Card → Statistics, Announcement Panel → Announcements) dinetralkan; bentuk permukaan (band/baris) ditetapkan `docs/07-specifications/spec-admin-permukaan-tenang.md`.
 
 ---
 

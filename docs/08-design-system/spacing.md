@@ -104,9 +104,11 @@ gap-3                    /* Gap antar elements */
 
 `css
 p-4                    /* Default card padding */
-rounded-lg              /* Border radius */
+rounded-xl              /* Border radius — konsisten dengan theme.md v1.1 & DESIGN.md §2 */
 space-y-3              /* Vertical spacing dalam card */
 `
+
+> **Admin (`spec-admin-permukaan-tenang.md`):** `SectionCard`/band memakai `p-5` + `rounded-xl` sebagai satu-satunya standar; override sebaran (`rounded-lg p-4`) dihapus.
 
 ---
 
@@ -115,9 +117,11 @@ space-y-3              /* Vertical spacing dalam card */
 ### Dashboard Grid
 
 `css
-grid gap-3 md:grid-cols-2 xl:grid-cols-4    /* Stats grid */
+grid gap-3 md:grid-cols-2 xl:grid-cols-4    /* Stats grid (contoh, bukan mandat) */
 grid gap-3 xl:grid-cols-[1fr_320px]          /* Content + sidebar */
 `
+
+> **Admin (`spec-admin-permukaan-tenang.md`):** contoh grid `grid-cols-4` stat bukan mandat. Kapasitas angka menonjol per halaman admin: maks 4; ≤3 → `stat-strip`, 4 → band ringkas, lebih → `stat-row` dalam band. Stat **bukan** grid kartu paralel.
 
 ### Public Page Grid
 

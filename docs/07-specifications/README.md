@@ -66,6 +66,8 @@ settings-spec.md
 knowledge-spec.md
 
 falak-spec.md
+
+spec-admin-permukaan-tenang.md
 ```
 
 ---

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<title>PROTOTYPE — Admin Permukaan Tenang</title>
+<!--
+  PROTOTYPE THROWAWAY (jangan dipakai produksi).
+  Memakai token aktual admin (app/globals.css, dark default):
+    content-bg oklch(0.18 0.012 45) · card oklch(0.23 0.008 45) · border oklch(0.32 0.015 45)
+    primary oklch(0.47 0.157 37.304) · primary-fg oklch(0.98 0.016 73.684) · fg oklch(0.985 0 0)
+    radius-xl = calc(0.75rem * 1.4) · heading Fraunces · body Inter
+  Tiga scene (motif kart): falak (stat+modul) · homepage (daftar-dalam-kartu) · form surat.
+  Empat varian: current (baseline kart-heavy) | A List-first | B Split master-detail | C Focus/tabs.
+  Switcher: tombol ‹ › / panah keyboard. URL ?scene=&variant= shareable & reload-stable.
+-->
+<style>
+  :root {
+    --bg: oklch(0.18 0.012 45);
+    --fg: oklch(0.985 0 0);
+    --muted: oklch(0.72 0.01 45);
+    --card: oklch(0.23 0.008 45);
+    --card2: oklch(0.25 0.008 45);
+    --border: oklch(0.32 0.015 45);
+    --primary: oklch(0.47 0.157 37.304);
+    --primary-hi: oklch(0.55 0.17 38);
+    --primary-fg: oklch(0.98 0.016 73.684);
+    --radius: 15px;
+    --r-sm: 9px;
+    --font-heading: "Fraunces", "Georgia", "Times New Roman", serif;
+    --font-body: "Inter", system-ui, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: var(--font-body); font-size: 14px; line-height: 1.5;
+  }
+  .app { display: flex; min-height: 100vh; }
+
+  /* ---- Sidebar ---- */
+  .sidebar {
+    width: 216px; flex: none; background: linear-gradient(180deg, oklch(0.42 0.15 38) 0%, oklch(0.34 0.13 42) 55%, oklch(0.30 0.11 45) 100%);
+    color: var(--primary-fg); padding: 16px 10px; display: flex; flex-direction: column; gap: 2px;
+  }
+  .sidebar .logo { display: flex; align-items: center; gap: 8px; padding: 4px 8px 16px; font-family: var(--font-heading); font-size: 15px; }
+  .logo .mark { width: 22px; height: 22px; border-radius: 6px; background: oklch(0.98 0.016 73.684 / 0.18); display: grid; place-items: center; font-size: 11px; }
+  .sidebar a { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 8px; color: oklch(0.98 0.016 73.684 / 0.85); text-decoration: none; font-size: 13px; }
+  .sidebar a.active { background: oklch(0.98 0.016 73.684 / 0.16); color: #fff; }
+  .sidebar .nav { display: contents; }
+
+  /* ---- Main ---- */
+  .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .topbar {
+    display: flex; align-items: center; gap: 12px; padding: 10px 24px;
+    border-bottom: 1px solid var(--border); background: color-mix(in oklab, var(--bg) 82%, transparent);
+    backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 5;
+  }
+  .topbar .crumb { color: var(--muted); font-size: 12px; }
+  .topbar .date { margin-left: auto; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .topbar .user { width: 26px; height: 26px; border-radius: 50%; background: var(--card2); border: 1px solid var(--border); }
+
+  .content { padding: 28px 32px 96px; max-width: 1000px; }
+  .pagehead h1 { font-family: var(--font-heading); font-weight: 400; font-size: 26px; text-wrap: balance; }
+  .pagehead p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .hairline { height: 1px; background: var(--border); margin: 18px 0 22px; }
+
+  /* scene chips */
+  .tabs { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+  .tabs button {
+    font: inherit; font-size: 12px; cursor: pointer; padding: 5px 12px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--card); color: var(--muted);
+  }
+  .tabs button.active { border-color: var(--primary); color: var(--fg); background: color-mix(in oklab, var(--primary) 22%, var(--card)); }
+
+  .cap { font-size: 11px; color: var(--muted); margin: 4px 0 16px; font-variant-numeric: tabular-nums; }
+  .cap b { color: var(--primary-hi); font-weight: 600; }
+
+  /* ---- current (baseline) ---- */
+  .cgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .card {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--card);
+    padding: 14px 16px; box-shadow: 0 1px 2px oklch(0 0 0 / 0.2);
+  }
+  .card .lbl { color: var(--muted); font-size: 11px; }
+  .card .num { font-family: var(--font-heading); font-size: 24px; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .card .mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+  .mini b { font-family: var(--font-heading); font-size: 16px; font-variant-numeric: tabular-nums; }
+  .mini span { display: block; font-size: 10px; color: var(--muted); }
+
+  /* ---- calm primitives ---- */
+  .statstrip { display: flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+  .statstrip .st { padding: 12px 20px; min-width: 130px; }
+  .statstrip .st + .st { border-left: 1px solid var(--border); }
+  .statstrip .lbl { font-size: 11px; color: var(--muted); }
+  .statstrip b { display: block; font-family: var(--font-heading); font-size: 20px; font-variant-numeric: tabular-nums; }
+
+  .band { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
+  .band .bandhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .band .bandhead h2 { font-family: var(--font-heading); font-weight: 400; font-size: 15px; }
+  .band .bandhead .act { font-size: 12px; color: var(--primary-hi); }
+  .rows { }
+  .row { display: flex; align-items: center; gap: 14px; padding: 11px 20px; }
+  .row + .row { border-top: 1px solid var(--border); }
+  .row .t { font-size: 13px; }
+  .row .s { color: var(--muted); font-size: 12px; }
+  .row .gt { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+  .status { font-size: 10px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+  .status.used { border-color: var(--primary); color: var(--primary-hi); }
+  .status.sel { border-color: oklch(0.75 0.12 130); color: oklch(0.8 0.12 130); }
+  .status.new { border-color: oklch(0.75 0.1 60); color: oklch(0.82 0.12 60); }
+
+  /* form */
+  .field { margin: 14px 20px; }
+  .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; font: inherit; color: var(--fg); background: var(--card2);
+    border: 1px solid var(--card-border, var(--border)); border-radius: var(--r-sm); padding: 8px 10px;
+  }
+  .actions { display: flex; gap: 10px; padding: 16px 20px; border-top: 1px solid var(--border); }
+  .btn { font: inherit; font-size: 12px; padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+  .btn.p { background: var(--primary); color: var(--primary-fg); border: 1px solid transparent; }
+  .btn.o { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+
+  /* variant B split */
+  .split { display: grid; grid-template-columns: 180px 1fr; gap: 16px; align-items: start; }
+  .rail { border: 1px solid var(--border); border-radius: var(--radius); background: transparent; padding: 6px; }
+  .rail a { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; color: var(--muted); text-decoration: none; font-size: 12px; }
+  .rail a.on { background: var(--card); color: var(--fg); }
+
+  /* variant C tabs */
+  .htabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+  .htabs button { font: inherit; font-size: 13px; padding: 8px 14px; border: none; background: none; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
+  .htabs button.on { color: var(--fg); border-bottom-color: var(--primary); }
+
+  /* ---- floating switcher ---- */
+  .sw {
+    position: fixed; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 40;
+    display: flex; align-items: center; gap: 8px;
+    background: oklch(0.16 0 0); border: 1px solid oklch(1 0 0 / 18%); border-radius: 999px;
+    padding: 6px 10px; box-shadow: 0 6px 24px oklch(0 0 0 / 0.45); font-size: 12px;
+  }
+  .sw button {
+    width: 28px; height: 28px; border-radius: 50%; border: 1px solid oklch(1 0 0 / 20%);
+    background: transparent; color: var(--fg); font-size: 16px; cursor: pointer;
+  }
+  .sw .lbl { min-width: 150px; text-align: center; color: var(--muted); }
+  .sw .lbl b { color: var(--fg); font-weight: 600; }
+  .pill { background: var(--primary); border-radius: 999px; padding: 2px 10px; font-size: 10px; color: var(--primary-fg); text-transform: uppercase; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo"><span class="mark">✦</span> LIM Admin</div>
+    <nav class="nav">
+      <a>Dashboard</a><a>Beranda</a><a>Konten</a><a class="active">Falak</a>
+      <a>Program</a><a>Sekretariat</a><a>TWK</a><a>Profil</a><a>Laporan</a><a>Sistem</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <span class="crumb">Permukaan Tenang › <b id="crumbPage">Falak</b></span>
+      <span class="date">Minggu, 06 September 2026 · 1 Rabiul Awal 1448 H</span>
+      <span class="user"></span>
+    </div>
+
+    <main class="content">
+      <div class="tabs" id="sceneTabs"></div>
+
+      <div class="pagehead">
+        <h1 id="phTitle"></h1>
+        <p id="phDesc"></p>
+      </div>
+      <div class="hairline"></div>
+
+      <div class="cap" id="variantCap"></div>
+      <div id="scene"></div>
+    </main>
+  </div>
+</div>
+
+<div class="sw" id="switcher">
+  <button id="prev" title="Varian sebelumnya">‹</button>
+  <span class="lbl" id="swLabel"></span>
+  <button id="next" title="Varian berikutnya">›</button>
+  <span class="pill" id="swPill"></span>
+</div>
+
+<script>
+/* ---------- data fiktif (meniru halaman asli) ---------- */
+const SCENES = {
+  falak: {
+    crumb: "Falak",
+    title: "Falak",
+    desc: "Pusat perhitungan hisab-rukyat, jadwal, dan laporan observasi.",
+    statLbl: ["Waktu salat", "Hisab", "Rukyat", "Gerhana"],
+    statNum: ["12.482", "3.107", "2.854", "117"],
+    links: ["Jadwal salat", "Hisab", "Rukyat", "Gerhana", "Laporan", "Arsip"],
+    recentTitle: "Rukyat terbaru",
+    recent: (["Awal Zulhijah 1448 — HILAL TERLIHAT", "Awal Muharam 1449 — HILAL TIDAK TERLIHAT", "Gerhana Bulan — VIABILITAS 87%"]),
+    detail: "Rincian statistik & entri terbaru dalam satu band.",
+  },
+  homepage: {
+    crumb: "Beranda",
+    title: "Beranda",
+    desc: "Status setiap bagian halaman depan: tersimpan di database vs default kode.",
+    statLbl: ["Bagian", "Tersimpan", "Aktif"],
+    statNum: ["7", "4", "3"],
+    sections: [
+      { name: "Hero",       status: "used", s: "Tersimpan — CTA diubah 2 hari lalu" },
+      { name: "Tentang",    status: "used", s: "Tersimpan — default" },
+      { name: "Visi-Misi",  status: "new",  s: "Mengikuti default kode" },
+      { name: "Bidang utama", status: "used", s: "Tersimpan — 8 kartu bidang" },
+      { name: "Artikel & kajian", status: "new", s: "Mengikuti default kode" },
+      { name: "Falak widget", status: "sel",  s: "Dipilih — jadwal hari ini" },
+      { name: "Kontak",     status: "new",  s: "Mengikuti default kode" },
+    ],
+  },
+  form: {
+    crumb: "Sekretariat › Surat keluar baru",
+    title: "Surat keluar baru",
+    desc: "Perangkaan nomor, tujuan, isi, dan lampiran dalam satu alur.",
+    groups: ["Nomor & tujuan", "Isi surat", "Lampiran & disposisi"],
+    fields: [
+      ["Nomor surat", "tujuan", "select", "Pilih surat masuk ..."],
+      ["Ditujukan ke", "tujuan", "input", "Bagian/lembaga ..."],
+      ["Perihal", "isi", "input", "Perihal surat ..."],
+      ["Konten isi (draft)", "isi", "textarea", "Tulis isi surat ..."],
+      ["Lampiran", "lamp", "input", "file lampiran"],
+      ["Disposisi ke", "lamp", "select", "Teruskan ke ..."],
+    ],
+  },
+};
+const VARIANTS = [
+  { key: "current", name: "Current (baseline kart)" },
+  { key: "A",       name: "A · List-first" },
+  { key: "B",       name: "B · Split master–detail" },
+  { key: "C",       name: "C · Focus / tab" },
+];
+const VAR_CAP = {
+  current: "Baseline: komposisi kart-heavy yang sekarang.",
+  A: "0 kartu modul · stat jadi strip · daftar jadi divider-rows · form jadi band ber-fieldset. Kartu TIDAK dipakai di motif ini.",
+  B: "Split dua kolom: rail teks tipis di kiri, satu band besar di kanan. Stat menempel di header.",
+  C: "Tabs horizontal, satu fokus per waktu. Halaman tampak hampir kosong; data di-defer.",
+};
+
+let scene = "falak", v = "current";
+
+const $ = (id) => document.getElementById(id);
+
+function rowHTML(icon, t, s, g) {
+  return `<div class="row"><span class="t">${t}</span><span class="s">${s||""}</span><span class="gt">${g||""}</span></div>`;
+}
+
+function renderCurrent(d) {
+  return `
+    <div class="cgrid">
+      ${d.statLbl.map((l,i)=>`
+        <div class="card"><div class="lbl">${l}</div><div class="num">${d.statNum[i]}</div>
+          <div class="mini">${[">1 bln","3 bln","1 thn"].map((_,j)=>`<div><b>${d.statNum[(i+j)%d.statNum.length]}</b><span>periode</span></div>`).join("")}</div>
+        </div>`).join("")}
+    </div>
+    <div class="cgrid">
+      ${(d.links||[]).map(l=>`<div class="card"><div class="lbl">${l}</div><div class="num" style="font-size:15px">→</div></div>`).join("")}
+      ${d.sections ? `<div class="card"><div class="lbl">Bagian</div><div class="mini">${['4','3','0'].map((n,i)=>`<div><b>${n}</b><span>s</span></div>`).join("")}</div></div>` : ""}
+    </div>
+    <div class="card" style="margin-top:12px"><div class="lbl">${d.recentTitle||""}</div>
+      ${(d.recent||d.sections||[]).slice(0,3).map((r, i)=>rowHTML("", typeof r==="string"?r:r.name, typeof r==="string"?"":r.s)).join("")}
+    </div>
+    ${d.fields ? `
+      <div class="card" style="margin-top:12px"><div class="lbl">Formulir</div>
+        ${d.groups.map((g,i)=>`<div style="border-top:1px solid var(--border);padding:10px 0;font-size:12px;color:var(--muted)">${i+1}. ${g}</div>`).join("")}
+      </div>` : ""}`;
+}
+
+function renderA(d) {
+  return `
+    <div class="statstrip">${d.statLbl.map((l,i)=>`<div class="st"><span class="lbl">${l}</span><b>${d.statNum[i]}</b></div>`).join("")}</div>
+
+    ${d.links ? `<div class="band" style="margin-top:16px"><div class="bandhead"><h2>Menu</h2><span class="act">via sidebar</span></div>
+      <div class="rows">${d.links.map(l=>rowHTML("", l, "", "ke /admin/falak/…")).join("")}</div></div>` : ""}
+
+    ${d.sections ? `<div class="band" style="margin-top:16px"><div class="bandhead"><h2>Bagian beranda</h2><span class="act">${d.sections.filter(s=>s.status==="used").length} tersimpan</span></div>
+      <div class="rows">${d.sections.map(s=>`<div class="row"><span class="status ${s.status}">${s.status==="used"?"tersimpan":s.status==="sel"?"dipilih":"default"}</span><span class="t">${s.name}</span><span class="s">${s.s}</span><span class="gt">edit</span></div>`).join("")}</div></div>` : ""}
+
+    ${d.recent ? `<div class="band" style="margin-top:16px"><div class="bandhead"><h2>${d.recentTitle}</h2></div>
+      <div class="rows">${d.recent.map(r=>rowHTML("", r)).join("")}</div></div>` : ""}
+
+    ${d.fields ? `<div class="band" style="margin-top:16px"><div class="bandhead"><h2>Formulir</h2></div>
+      ${d.groups.map((g,gi)=>`
+        <div class="field" style="padding-top:14px;border-top:${gi>0?"1px solid var(--border)":"none"};margin-bottom:4px">
+          <label>${g}</label>${d.fields.filter(f=>f[1]===g[0]===undefined || (gi<d.groups.length)).slice(0,2).map(f=>`
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">${[0,1].map(k=>`<div><label style="margin-top:6px">${f[2]==="textarea"?"Isi": "Field"}</label><input ${f[2]==="textarea"?"":""} placeholder="${f[3]}" style="margin-bottom:10px" /></div>`).join("")}</div>`).join("")}
+        </div>`).join("")}
+      <div class="actions"><button class="btn p">Simpan draft</button><button class="btn o">Terbitkan</button></div>
+      </div>` : ""}`;
+}
+
+function renderB(d) {
+  const rail = d.links ? d.links : (d.sections ? d.sections.map(s=>s.name) : d.groups);
+  return `
+    <div class="split">
+      <div class="rail">${rail.map((r,i)=>`<a class="${i===0?"on":""}">${r}</a>`).join("")}</div>
+      <div>
+        <div class="band">
+          <div class="bandhead"><h2>${d.detail || d.sections ? (d.sections? "Bagian beranda":"") : (d.fields?"Formulir: Nomor & tujuan":rail[0])}</h2><span class="act">−</span></div>
+          <div class="rows">
+            ${d.statLbl ? d.statLbl.slice(0,3).map((l,i)=>rowHTML("", l, d.statNum[i])).join("") : ""}
+            ${(d.sections||d.recent||[]).slice(0,3).map((r,i)=>rowHTML("", typeof r==="string"?r:r.name, typeof r==="string"?d.detail:r.s)).join("")}
+            ${d.fields ? `<div class="field" style="border-top:1px solid var(--border)"><label>Nomor surat</label><input placeholder="Pilih surat masuk ..." /></div>
+                         <div class="field"><label>Ditujukan ke</label><input placeholder="Bagian/lembaga ..." /></div>
+                         <div class="field"><label>Perihal</label><input placeholder="Perihal surat ..." /></div>
+                         <div class="actions"><button class="btn p">Simpan</button><button class="btn o">Batal</button></div>` : ""}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderC(d) {
+  const tabs = d.links ? ["Menu","Rukyat terbaru"] : (d.sections ? ["Ringkasan","Per bagian"] : d.groups);
+  return `
+    <div class="band"><div class="bandhead"><h2>${d.title}</h2><span class="act">statistik inline</span></div>
+      <div class="rows">${d.statLbl.slice(0,3).map((l,i)=>rowHTML("", l, d.statNum[i])).join("")}</div>
+    </div>
+    <div class="htabs" style="margin-top:20px">${tabs.map((t,i)=>`<button class="${i===0?"on":""}">${t}</button>`).join("")}</div>
+    <div class="band">
+      <div class="rows">
+        ${(d.links||d.sections||d.recent||d.groups||[]).slice(0,2).map((r,i)=>rowHTML("", typeof r==="string"?r:r.name, typeof r==="string"?"":"—")).join("")}
+        ${d.fields ? `<div class="field" style="border-top:1px solid var(--border)"><label>Perihal</label><input placeholder="Perihal surat ..." /></div>
+                     <div class="actions"><button class="btn p">Berikutnya</button></div>` : ""}
+      </div>
+    </div>`;
+}
+
+const RENDER = { current: renderCurrent, A: renderA, B: renderB, C: renderC };
+
+function draw() {
+  const d = SCENES[scene];
+  $("crumbPage").textContent = d.crumb;
+  $("phTitle").textContent = d.title;
+  $("phDesc").textContent = d.desc;
+  $("sceneTabs").innerHTML = Object.keys(SCENES).map(s =>
+    `<button class="${s===scene?"active":""}" onclick="setScene('${s}')">${{falak:"1 · Falak (stat+modul)", homepage:"2 · Beranda (daftar-dalam-kartu)", form:"3 · Surat keluar (form)"}[s]}</button>`).join("");
+  $("variantCap").innerHTML = `<b>${v}</b> — ${VAR_CAP[v]}`;
+  $("scene").innerHTML = RENDER[v](d);
+  $("swLabel").innerHTML = `<b>${v}</b> · ${VARIANTS.find(x=>x.key===v).name}`;
+  $("swPill").textContent = `${scene} / ${v}`;
+  history.replaceState(null, "", `?scene=${scene}&variant=${v}`);
+}
+
+function setScene(s){ scene = s; v = "current"; draw(); }
+function cycle(dir){ const i = VARIANTS.findIndex(x=>x.key===v); v = VARIANTS[(i+dir+VARIANTS.length)%VARIANTS.length].key; draw(); }
+
+$("prev").onclick = ()=>cycle(-1);
+$("next").onclick = ()=>cycle(1);
+document.addEventListener("keydown", e=>{
+  if (["INPUT","TEXTAREA","SELECT","[contenteditable]"].includes(e.target.tagName) || e.target.isContentEditable) return;
+  if (e.key==="ArrowLeft") { cycle(-1); e.preventDefault(); }
+  if (e.key==="ArrowRight"){ cycle(1); e.preventDefault(); }
+});
+
+/* init dari URL */
+const qs = new URLSearchParams(location.search);
+if (qs.get("scene") in SCENES) scene = qs.get("scene");
+if (VARIANTS.some(x=>x.key===qs.get("variant"))) v = qs.get("variant");
+draw();
+</script>
+</body>
+</html>
