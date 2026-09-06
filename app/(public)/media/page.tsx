@@ -30,7 +30,7 @@ export default async function MediaPage() {
         {items.length > 0 ? (
           <MediaLightboxGrid items={items} />
         ) : (
-          <div className="rounded-md border border-dashed border-primary/20 bg-card p-12 text-center">
+          <div className="rounded-xl border border-dashed border-primary/20 bg-card p-12 text-center shadow-sm">
             <p className="text-sm text-muted-foreground">
               Belum ada dokumentasi.
             </p>

@@ -43,10 +43,10 @@ export default async function KontakPage() {
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-3 md:gap-6">
           {contacts.map((item, i) => (
             <Reveal key={item.title} index={i}>
-              <div className="h-full rounded-md border border-primary/25 bg-card p-6 text-center transition-colors duration-300 ease-out hover:border-primary">
+              <div className="h-full rounded-xl border border-primary/25 bg-card p-6 text-center shadow-sm transition-colors duration-300 ease-out hover:border-primary">
                 <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-sm border border-primary/40">
                   <item.icon size={18} className="text-primary" />
                 </div>
@@ -62,7 +62,7 @@ export default async function KontakPage() {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="mt-8 rounded-md border border-primary/25 bg-card p-7 sm:p-8">
+          <div className="mt-8 rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
           <div className="flex items-center gap-2 text-primary">
             <MessageCircle size={18} />
             <SectionLabel>Kirim Pesan</SectionLabel>

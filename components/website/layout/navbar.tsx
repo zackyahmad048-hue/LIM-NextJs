@@ -61,7 +61,7 @@ export default function Navbar() {
     >
       <div
         className={cn(
-          "border border-(--glass-border) bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate) transition-[width,border-radius,box-shadow,border-color] duration-300 ease-in-out motion-reduce:transition-none",
+          "border border-border/40 bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate) transition-[width,border-radius,box-shadow,border-color] duration-300 ease-in-out motion-reduce:transition-none",
           scrolled
             ? "w-full rounded-none border-x-0"
             : "mx-auto max-w-5xl rounded-full",

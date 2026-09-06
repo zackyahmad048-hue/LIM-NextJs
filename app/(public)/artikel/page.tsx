@@ -133,7 +133,7 @@ export default async function ArtikelPage({
             ))}
           </div>
         ) : (
-          <div className="mt-6 rounded-md border border-dashed border-primary/20 bg-card p-12 text-center">
+          <div className="mt-6 rounded-xl border border-dashed border-primary/20 bg-card p-12 text-center shadow-sm">
             <p className="text-sm text-muted-foreground">
               Belum ada artikel yang cocok dengan filter ini.
             </p>

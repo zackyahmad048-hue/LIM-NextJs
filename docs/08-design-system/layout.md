@@ -153,6 +153,18 @@ Komponen berikut dapat menggunakan sticky:
 - Semua card fleksibel.
 - Semua gambar responsive.
 
+## Widget Responsive Sizing
+
+Komponen widget (prayer schedule, dll.) harus di-scale untuk mobile:
+
+| Breakpoint | Max-width | Padding |
+| ---------- | --------- | ------- |
+| Default (mobile) | `max-w-[18rem]` | `px-3 py-3` |
+| `sm` | `max-w-[20rem]` | `sm:px-5 sm:py-4` |
+| `lg` (desktop) | `lg:max-w-88` | `sm:px-5 sm:py-4` |
+
+Font sizes: label `text-[10px] sm:text-[11px]`, values `text-xs sm:text-sm`, clock `text-lg sm:text-xl`.
+
 ---
 
 # Acceptance Criteria

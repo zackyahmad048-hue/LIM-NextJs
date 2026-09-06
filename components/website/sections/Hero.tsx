@@ -64,9 +64,22 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
             </div>
           </div>
 
-          <Reveal from="scale" startScale={0.9} delay={0.2}>
-            <PrayerScheduleWidget />
-          </Reveal>
+          <div className="relative">
+            {/* Reserve the column height on desktop so the floating widget
+                never drives the hero height / causes layout shift. */}
+            <div aria-hidden className="hidden lg:block lg:h-136" />
+
+            <Reveal
+              from="scale"
+              startScale={0.85}
+              delay={0.2}
+              className="lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center"
+            >
+              <div className="w-full max-w-[18rem] sm:max-w-[20rem] lg:max-w-88">
+                <PrayerScheduleWidget />
+              </div>
+            </Reveal>
+          </div>
         </div>
 
         {hero.statCards && hero.statCards.length > 0 && (

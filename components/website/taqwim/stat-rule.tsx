@@ -16,7 +16,7 @@ export default function StatRule({ items, className }: StatRuleProps) {
   return (
     <dl
       className={cn(
-        "grid grid-cols-3 divide-x divide-border",
+        "grid grid-cols-3 divide-x divide-border text-center",
         className,
       )}
     >

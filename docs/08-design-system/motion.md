@@ -6,10 +6,11 @@
 
 **Document:** `motion.md`
 
-**Version:** 1.1
+**Version:** 1.2
 
 **Status:** Approved
 
+Perubahan pada 1.2: penambahan pola Marquee auto-scroll, clarifikasi reduced-motion untuk marquee.
 Perubahan pada 1.1: clarifikasi reduced-motion (entrance mati, hover/transition tetap); penambahan pola ikon animated dengan `motion/react`.
 
 ---
@@ -95,6 +96,52 @@ import { cardLift } from "@/components/website/motion/hover";
 
 Efek: naik `-translate-y-1` + border menguat ke `border-primary/45`, durasi 300ms `ease-out`. Sudah termasuk `motion-reduce:` reset.
 
+## Marquee Auto-Scroll
+
+**Lokasi:** `components/website/sections/bidang-carousel.tsx` (Client Component).
+
+Scroll kontinu horizontal untuk konten promosi/carousel card. Menggunakan `@keyframes marquee-seamless` di `app/globals.css`:
+
+```text
+@keyframes marquee-seamless {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+```
+
+Pola implementasi:
+
+```tsx
+"use client";
+import { useReducedMotion } from "motion/react";
+
+const reduced = useReducedMotion();
+const items = BIDANG.map((b) => <Card key={b.slug} {...b} />);
+
+<div className="relative overflow-hidden">
+  {/* Gradient fade di tepi */}
+  <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-background to-transparent" />
+  <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-background to-transparent" />
+
+  <div
+    className="flex w-max gap-4"
+    style={reduced ? undefined : { animation: "marquee-seamless 30s linear infinite" }}
+  >
+    {items} {/* set pertama */}
+    {items} {/* duplikasi untuk seamless loop */}
+  </div>
+</div>
+```
+
+Aturan:
+
+- Item diduplikasi — `-50%` translate menghasilkan loop seamless.
+- Durasi 30s default; sesuaikan dengan jumlah item (lebih banyak = lebih cepat).
+- Pause on hover: `onMouseEnter` set `animationPlayState = "paused"`, `onMouseLeave` set `"running"`.
+- Gradient fade di tepi kiri-kanan (`w-12 bg-linear-to-r/to-l from-background to-transparent`).
+- **Reduced motion**: `useReducedMotion()` → animasi dimatikan, konten statis.
+- Lebar item: `w-[18rem] sm:w-[20rem] md:w-[22rem]` (responsive).
+
 ---
 
 # Pola Transisi CMS
@@ -134,6 +181,7 @@ Wajib pada semua gerak:
 
 - CSS: pasangkan `motion-reduce:transition-none` (atau reset transform) pada setiap transisi.
 - JS (`motion/react`): cabang `useReducedMotion()` seperti pada `Reveal`.
+- **Marquee**: `useReducedMotion()` → jangan terapkan `style={{ animation: ... }}`; konten tampil statis.
 - Safety net global di `app/globals.css` `@media (prefers-reduced-motion: reduce)`:
   - **Entrance/decorative** di-skip (`animation-duration: 0.01ms`).
   - **Hover/focus transition** tetap jalan dengan durasi 200ms, hanya properti `color/background-color/border-color/box-shadow/opacity/outline/text-decoration-color` (bukan transform/layout) — umpan balik interaktif utuh.

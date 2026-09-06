@@ -21,14 +21,14 @@ export default async function FalakPage() {
       />
 
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
           {tools.map((tool, i) => {
             const Icon = tool.icon;
             return (
               <Reveal key={tool.href} index={i} className="h-full">
                 <Link
                   href={tool.href}
-                  className="group relative flex h-full flex-col rounded-md border border-primary/25 bg-card p-6 transition-colors duration-300 ease-out hover:border-primary"
+                  className="group relative flex h-full flex-col rounded-xl border border-primary/25 bg-card p-6 shadow-sm transition-colors duration-300 ease-out hover:border-primary"
                 >
                   <div className="flex items-center justify-end">
                     <Icon className="h-5 w-5 text-primary" />
@@ -54,7 +54,7 @@ export default async function FalakPage() {
         </div>
 
         <Reveal delay={0.1}>
-          <div className="mt-8 rounded-md border border-primary/25 bg-card p-6 sm:p-8">
+          <div className="mt-8 rounded-xl border border-primary/25 bg-card p-6 shadow-sm sm:p-8">
             <SectionLabel>Metode Perhitungan</SectionLabel>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
               {falak.metode}

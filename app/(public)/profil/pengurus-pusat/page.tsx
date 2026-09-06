@@ -42,7 +42,7 @@ export default async function PengurusPusatPage() {
             {pengurus.map((orang, i) => (
               <Reveal key={orang.id} index={i} className="h-full">
                 <div
-                  className="group h-full rounded-xl border border-primary/25 bg-card shadow-sm transition-colors duration-300 ease-out hover:border-primary"
+                  className="group h-full rounded-xl border border-primary/25 bg-card p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary"
                 >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 font-sans text-sm text-primary">
                   {orang.image ? (

@@ -27,7 +27,7 @@ export default function About({
   features,
 }: AboutSectionProps) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-14">
+    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
       <Reveal>
         <div className="mx-auto max-w-5xl text-center lg:max-w-2xl">
           <SectionLabel>Selayang Pandang</SectionLabel>

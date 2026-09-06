@@ -157,8 +157,8 @@ Desktop menggunakan:
 
 Detail visual:
 
-- Kapsul mengambang: `sticky top-0 z-50` (wrapper transparan) berisi kapsul glass `border border-(--glass-border) bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate)` + shadow lembut dan highlight inset (`--glass-highlight`).
-- Di atas halaman: kapsul `mx-auto max-w-6xl rounded-2xl` dengan wrapper `px-4 pt-3 sm:pt-4`.
+- Kapsul mengambang: `sticky top-0 z-50` (wrapper transparan) berisi kapsul glass `border border-border/40 bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate)` + shadow lembut.
+- Di atas halaman: kapsul `mx-auto max-w-5xl rounded-full` dengan wrapper `px-4 pt-3 sm:pt-4`.
 - Saat scroll (> 8px): kapsul melebar penuh `w-full rounded-none border-x-0` (full-display dari tepi ke tepi), wrapper padding hilang; transisi `duration-300 ease-in-out`, dimatikan untuk reduced-motion.
 - Isi kapsul: `flex items-center justify-between px-4 py-2 sm:px-6 sm:py-2.5`.
 - Logo: tampil polos dengan warna aslinya (tanpa lingkaran, tanpa invert di dark mode).
