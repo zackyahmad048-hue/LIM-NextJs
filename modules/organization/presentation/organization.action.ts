@@ -1,5 +1,7 @@
 "use server";
 
+import type { ZodError } from "zod";
+
 import { revalidatePath } from "next/cache";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { organizationService } from "../application/service";
@@ -36,13 +38,28 @@ function firstIssueMessage(error: unknown) {
   return "Periksa kembali isian formulir.";
 }
 
+function fieldErrorMap(error: ZodError): Record<string, string> | undefined {
+  const { fieldErrors } = error.flatten() as {
+    fieldErrors: Record<string, string[] | undefined>;
+  };
+  const map: Record<string, string> = {};
+  for (const [field, messages] of Object.entries(fieldErrors)) {
+    if (messages && messages.length > 0) map[field] = messages[0];
+  }
+  return Object.keys(map).length > 0 ? map : undefined;
+}
+
 export async function createUnitAction(
   prevState: ActionResult,
   formData: FormData,
 ): Promise<ActionResult> {
   const parsed = createUnitSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { ok: false, message: firstIssueMessage(parsed.error) };
+    return {
+      ok: false,
+      message: firstIssueMessage(parsed.error),
+      fieldErrors: fieldErrorMap(parsed.error),
+    };
   }
 
   try {
@@ -68,7 +85,11 @@ export async function updateUnitAction(
 ): Promise<ActionResult> {
   const parsed = updateUnitSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { ok: false, message: firstIssueMessage(parsed.error) };
+    return {
+      ok: false,
+      message: firstIssueMessage(parsed.error),
+      fieldErrors: fieldErrorMap(parsed.error),
+    };
   }
 
   try {

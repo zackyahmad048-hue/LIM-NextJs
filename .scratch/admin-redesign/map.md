@@ -52,13 +52,13 @@ Wayfinding selesai; spec diterima. Implementasi dipecah lewat `/to-tickets` dari
 
 - [06 Primitif permukaan tenang bersama](.scratch/admin-redesign/issues/06-surface-primitives.md) — blocker: (none) → **frontier sekarang**
 - [07 Tracer-bullet LIST — petugas unit](.scratch/admin-redesign/issues/07-tracer-bullet-list-officers.md) — blocker: 06 → **resolved** (pola list lolos gate: band + DataTable + DataEmpty; boundary impor server-action diluruskan langsung dari file "use server")
-- [08 Tracer-bullet FORM — tambah unit](.scratch/admin-redesign/issues/08-tracer-bullet-form-unit-new.md) — blocker: 06
+- [08 Tracer-bullet FORM — tambah unit](.scratch/admin-redesign/issues/08-tracer-bullet-form-unit-new.md) — blocker: 06 → **resolved** (gate pola form lolos: band + FormGroup, fieldErrors per-field + aria, pending + batal)
 - [09 Tracer-bullet DASHBOARD — beranda admin](.scratch/admin-redesign/issues/09-tracer-bullet-dashboard-admin.md) — blocker: 06
 - [10 Ramp modul berat: sekretariat & falak](.scratch/admin-redesign/issues/10-ramp-secretariat-falak.md) — blocker: 07, 08, 09
 - [11 Ramp modul lain + retire `AdminTable`](.scratch/admin-redesign/issues/11-ramp-rest-retire-admintable.md) — blocker: 07, 08, 09
 - [12 Kontrak & verifikasi akhir](.scratch/admin-redesign/issues/12-contract-verification.md) — blocker: 10, 11
 
-Status implementasi: 06 resolved (primitif + data-table admin), 07 resolved (gate pola list lolos) → frontier berikut 08/09.
+Status implementasi: 06 resolved (primitif + data-table admin), 07 resolved (gate pola list), 08 resolved (gate pola form) → frontier berikut 09.
 
 ## Not yet specified
 
