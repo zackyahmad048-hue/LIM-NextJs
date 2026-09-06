@@ -4,6 +4,7 @@ import { ExternalLink, FileText, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { DataTable } from "@/components/admin/shared/data-table";
@@ -69,39 +70,43 @@ export default async function ArsipPage({
           description={`${outgoing.length} surat keluar yang telah diarsipkan.`}
           columns={[
             {
-              key: "fullNumber",
-              label: "Nomor Surat",
-              render: (item) =>
-                item.fullNumber ? (
+              accessorKey: "fullNumber",
+              header: "Nomor Surat",
+              cell: (info) => {
+                const item = info.original;
+                return item.fullNumber ? (
                   <LetterPlate fullNumber={item.fullNumber} size="sm" />
                 ) : (
                   <span className="text-xs text-muted-foreground">—</span>
-                ),
+                );
+              },
             },
             {
-              key: "subject",
-              label: "Perihal",
-              render: (item) => (
-                <div className="max-w-[240px]">
-                  <p className="truncate text-sm font-medium">{item.subject}</p>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {item.recipient ?? "-"}
-                  </p>
-                </div>
-              ),
+              accessorKey: "subject",
+              header: "Perihal",
+              cell: (info) => {
+                return (
+                  <div className="max-w-[240px]">
+                    <p className="truncate text-sm font-medium">{item.subject}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {item.recipient ?? "-"}
+                    </p>
+                  </div>
+                );
+              },
             },
             {
-              key: "archivedAt",
-              label: "Tanggal Arsip",
-              render: (item) => (
+              accessorKey: "archivedAt",
+              header: "Tanggal Arsip",
+              cell: (info) => (
                 <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
               ),
             },
             {
-              key: "actions",
-              label: "Aksi",
+              accessorKey: "actions",
+              header: "Aksi",
               align: "right",
-              render: (item) => {
+              cell: (info) => {
                 return (
                   <div className="flex justify-end gap-1">
                     <AttachmentLink
@@ -129,43 +134,49 @@ export default async function ArsipPage({
           description={`${incoming.length} surat masuk yang telah diarsipkan.`}
           columns={[
             {
-              key: "registrationNumber",
-              label: "No. Surat Pengirim",
-              render: (item) => (
-                <span className="text-xs text-muted-foreground">
-                  {item.registrationNumber}
-                </span>
-              ),
+              accessorKey: "registrationNumber",
+              header: "No. Surat Pengirim",
+              cell: (info) => {
+                return (
+                  <span className="text-xs text-muted-foreground">
+                    {item.registrationNumber}
+                  </span>
+                );
+              },
             },
             {
-              key: "sender",
-              label: "Pengirim",
-              render: (item) => (
-                <div className="max-w-[200px]">
-                  <p className="truncate text-sm font-medium">{item.sender}</p>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {item.senderAddress ?? ""}
-                  </p>
-                </div>
-              ),
+              accessorKey: "sender",
+              header: "Pengirim",
+              cell: (info) => {
+                return (
+                  <div className="max-w-[200px]">
+                    <p className="truncate text-sm font-medium">{item.sender}</p>
+                    <p className="truncate text-xs text-muted-foreground">
+                      {item.senderAddress ?? ""}
+                    </p>
+                  </div>
+                );
+              },
             },
             {
-              key: "subject",
-              label: "Perihal",
-              render: (item) => <span className="truncate text-xs">{item.subject}</span>,
+              accessorKey: "subject",
+              header: "Perihal",
+              cell: (info) => <span className="truncate text-xs">{item.subject}</span>,
             },
             {
-              key: "archivedAt",
-              label: "Tanggal Arsip",
-              render: (item) => (
-                <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
-              ),
+              accessorKey: "archivedAt",
+              header: "Tanggal Arsip",
+              cell: (info) => {
+                return (
+                  <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
+                );
+              },
             },
             {
-              key: "actions",
-              label: "Aksi",
+              accessorKey: "actions",
+              header: "Aksi",
               align: "right",
-              render: (item) => {
+              cell: (info) => {
                 return (
                   <div className="flex justify-end gap-1">
                     <AttachmentLink
@@ -193,18 +204,20 @@ export default async function ArsipPage({
           description={`${documents.length} dokumen administrasi terarsip.`}
           columns={[
             {
-              key: "documentNumber",
-              label: "No. Dokumen",
-              render: (item) => (
-                <span className="text-xs text-muted-foreground">
-                  {item.documentNumber}
-                </span>
-              ),
+              accessorKey: "documentNumber",
+              header: "No. Dokumen",
+              cell: (info) => {
+                return (
+                  <span className="text-xs text-muted-foreground">
+                    {item.documentNumber}
+                  </span>
+                );
+              },
             },
             {
-              key: "title",
-              label: "Judul",
-              render: (item) => {
+              accessorKey: "title",
+              header: "Judul",
+              cell: (info) => {
                 return (
                   <div className="max-w-[240px]">
                     <p className="truncate text-sm font-medium">{item.title}</p>
@@ -218,25 +231,29 @@ export default async function ArsipPage({
               },
             },
             {
-              key: "documentType",
-              label: "Jenis Dokumen",
-              render: (item) => (
-                <span className="text-xs">
-                  {documentTypeLabels[item.documentType] ?? item.documentType}
-                </span>
-              ),
+              accessorKey: "documentType",
+              header: "Jenis Dokumen",
+              cell: (info) => {
+                return (
+                  <span className="text-xs">
+                    {documentTypeLabels[item.documentType] ?? item.documentType}
+                  </span>
+                );
+              },
             },
             {
-              key: "archivedAt",
-              label: "Tanggal Arsip",
-              render: (item) => (
-                <span className="text-xs">
-                  {formatDateId(
-                    item.archivedAt ?? item.approvedAt,
-                    { fallback: "—" }
-                  )}
-                </span>
-              ),
+              accessorKey: "archivedAt",
+              header: "Tanggal Arsip",
+              cell: (info) => {
+                return (
+                  <span className="text-xs">
+                    {formatDateId(
+                      item.archivedAt ?? item.approvedAt,
+                      { fallback: "—" }
+                    )}
+                  </span>
+                );
+              },
             },
           ]}
           data={documents}
