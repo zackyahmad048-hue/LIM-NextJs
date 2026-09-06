@@ -1,5 +1,5 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
-import { DashboardClient } from "@/components/admin/dashboard/dashboard-client";
+import { AdminDashboard } from "@/components/admin/dashboard/admin-dashboard";
 
 import { getSession } from "@/modules/authentication/infrastructure/session.helper";
 import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
@@ -28,9 +28,8 @@ export default async function AdminPage() {
 
   return (
     <PageContainer>
-      <DashboardClient
+      <AdminDashboard
         user={user}
-        roleSlugs={roleSlugs}
         structure={structure}
         profil={profil}
       />

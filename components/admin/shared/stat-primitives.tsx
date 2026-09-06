@@ -18,8 +18,9 @@ interface StatPrimitivesProps {
 const statValueClass =
   "font-heading font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg";
 
-/** Deret statistik ringkas (kap maks 3, S3) — tipis di atas/awal `band` sebagai
- * permukaan netral, bukan kartu. Statistik densitas di dalam `band` memakai `stat-row`. */
+/** Deret statistik menonjol (kap maks 4, S1) — 4 angka sebagai satu `band`
+ * ringkasan, ≤3 sebagai strip tipis di atas band (S3); permukaan netral,
+ * bukan kartu. Statistik densitas di dalam `band` memakai `stat-row`. */
 export function StatStrip({ items, className }: StatPrimitivesProps) {
   return (
     <dl
