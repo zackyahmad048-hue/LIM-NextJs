@@ -57,15 +57,15 @@ export function DataTable<TData, TValue>({
     <div className="space-y-4">
       <DataToolbar value={globalFilter} onChange={setGlobalFilter} />
 
-      <div className="overflow-x-auto rounded-xl border">
+      <div className="overflow-x-auto rounded-xl border border-admin-border bg-admin-card-bg">
         <table className="w-full min-w-160">
-          <thead className="bg-muted">
+          <thead className="bg-admin-border/20">
             {table.getHeaderGroups().map((group) => (
               <tr key={group.id}>
                 {group.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-4 py-3 text-left text-sm font-medium"
+                    className="px-4 py-3 text-left text-sm font-medium text-admin-content-fg/70"
                   >
                     {header.isPlaceholder
                       ? null
@@ -88,7 +88,7 @@ export function DataTable<TData, TValue>({
               </tr>
             ) : (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="border-t">
+                <tr key={row.id} className="border-t border-admin-border/50">
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-4 py-3">
                       {flexRender(
