@@ -6,12 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getDispositions } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteDisposition } from "@/modules/secretariat/presentation/secretariat.action";
+
+export const dynamic = "force-dynamic";
+
+type Disposition = Awaited<ReturnType<typeof getDispositions>>["items"][number];
 
 const statusLabels: Record<
   string,
@@ -45,9 +49,9 @@ export default async function DispositionListPage({
   searchParams: Promise<{ page?: string }>;
 }) {
   const params = await searchParams;
-  const { items, total } = await getDispositions({
-    page: params.page ? Number(params.page) : 1,
-  });
+  const page = params.page ? Number(params.page) : 1;
+  const { items, total } = await getDispositions({ page });
+  const pageSize = 20;
 
   return (
     <PageContainer>
@@ -64,45 +68,44 @@ export default async function DispositionListPage({
         }
       />
 
-      <AdminTable
-        title="Disposisi"
-        description={`${total} disposisi ditemukan.`}
-        pagination={
-          <TablePagination
-            page={params.page ? Number(params.page) : 1}
-            pageSize={20}
-            total={total}
-            basePath="/admin/secretariat/disposition/list"
-          />
-        }
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada disposisi. Buat disposisi pertama Anda.
+        </p>
+      )}
+
+      <DataTable<Disposition, unknown>
+        data={items}
         columns={[
           {
-            key: "incomingMail",
-            label: "Surat Masuk",
-            render: (item) => (
-              <div className="max-w-[200px]">
-                <p className="truncate text-sm font-medium">
-                  {item.incomingMail?.registrationNumber ?? "-"}
+            id: "incomingMail",
+            header: "Surat Masuk",
+            cell: ({ row }) => (
+              <div className="max-w-50">
+                <p className="truncate text-sm font-medium text-admin-content-fg">
+                  {row.original.incomingMail?.registrationNumber ?? "-"}
                 </p>
-                <p className="truncate text-xs text-muted-foreground">
-                  {item.incomingMail?.subject ?? ""}
+                <p className="truncate text-xs text-admin-content-fg/60">
+                  {row.original.incomingMail?.subject ?? ""}
                 </p>
               </div>
             ),
           },
           {
-            key: "instruction",
-            label: "Instruksi",
-            render: (item) => (
-              <span className="truncate text-xs">{item.instruction}</span>
+            accessorKey: "instruction",
+            header: "Instruksi",
+            cell: ({ row }) => (
+              <span className="truncate text-xs text-admin-content-fg/80">
+                {row.original.instruction}
+              </span>
             ),
           },
           {
-            key: "priority",
-            label: "Prioritas",
-            render: (item) => {
-              const p = priorityLabels[item.priority] ?? {
-                label: item.priority,
+            accessorKey: "priority",
+            header: "Prioritas",
+            cell: ({ row }) => {
+              const p = priorityLabels[row.original.priority] ?? {
+                label: row.original.priority,
                 variant: "outline" as const,
               };
               return (
@@ -113,20 +116,20 @@ export default async function DispositionListPage({
             },
           },
           {
-            key: "dueDate",
-            label: "Batas Waktu",
-            render: (item) => (
-              <span className="text-xs tabular-nums">
-                {item.dueDate ? formatDateId(item.dueDate) : "-"}
+            accessorKey: "dueDate",
+            header: "Batas Waktu",
+            cell: ({ row }) => (
+              <span className="text-xs tabular-nums text-admin-content-fg/80">
+                {row.original.dueDate ? formatDateId(row.original.dueDate) : "-"}
               </span>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => {
-              const s = statusLabels[item.status] ?? {
-                label: item.status,
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = statusLabels[row.original.status] ?? {
+                label: row.original.status,
                 variant: "outline" as const,
               };
               return (
@@ -137,29 +140,37 @@ export default async function DispositionListPage({
             },
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            id: "actions",
+            header: () => (
+              <div className="text-right text-sm font-medium text-admin-content-fg/70">
+                Aksi
+              </div>
+            ),
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
                 <Button asChild variant="ghost" size="sm" aria-label="Edit disposisi">
-                  <Link href={`/admin/secretariat/disposition/${item.id}/edit`}>
+                  <Link href={`/admin/secretariat/disposition/${row.original.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
                 <ConfirmDelete
                   onConfirm={deleteDisposition}
-                  args={[item.id]}
+                  args={[row.original.id]}
                   title="Hapus disposisi"
-                  description={`Disposisi "${item.instruction}" akan dihapus permanen.`}
+                  description={`Disposisi "${row.original.instruction}" akan dihapus permanen.`}
                   label="Hapus disposisi"
                 />
               </div>
             ),
           },
         ]}
-        data={items}
-        emptyMessage="Belum ada disposisi. Buat disposisi pertama Anda."
+      />
+
+      <TablePagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        basePath="/admin/secretariat/disposition/list"
       />
     </PageContainer>
   );
