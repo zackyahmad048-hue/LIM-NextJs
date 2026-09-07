@@ -6,12 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
-
-import { getPaginatedPosts } from "@/modules/cms/queries/post.query";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
+
+import { getPaginatedPosts } from "@/modules/cms/queries/post.query";
 
 import {
   publishPost,
@@ -19,6 +19,10 @@ import {
   restorePostToDraft,
   deletePost,
 } from "./_actions";
+
+export const dynamic = "force-dynamic";
+
+type Post = Awaited<ReturnType<typeof getPaginatedPosts>>["posts"][number];
 
 function getPostStatus(post: { published: boolean; publishedAt: Date | null }) {
   if (post.published) return "Published";
@@ -51,6 +55,8 @@ export default async function PostsPage({
     page: params.page ? Number(params.page) : 1,
     search: params.search,
   });
+  const page = params.page ? Number(params.page) : 1;
+  const pageSize = 20;
 
   return (
     <PageContainer>
@@ -67,86 +73,93 @@ export default async function PostsPage({
         }
       />
 
-      <AdminTable
-        title="Daftar berita"
-        description={`${total} berita ditemukan.`}
-        toolbar={
-          <TableSearchForm
-            basePath="/admin/content/posts"
-            defaultValue={params.search ?? ""}
-            placeholder="Cari judul berita..."
-          />
-        }
-        pagination={
-          <TablePagination
-            page={params.page ? Number(params.page) : 1}
-            pageSize={20}
-            total={total}
-            basePath="/admin/content/posts"
-            queryParams={{ search: params.search }}
-          />
-        }
+      <TableSearchForm
+        basePath="/admin/content/posts"
+        defaultValue={params.search ?? ""}
+        placeholder="Cari judul berita..."
+      />
+
+      {posts.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada berita.{" "}
+          <Link href="/admin/content/posts/new" className="text-primary underline">
+            Tulis berita pertama
+          </Link>
+        </p>
+      )}
+
+      <DataTable<Post, unknown>
+        data={posts}
         columns={[
           {
-            key: "judul",
-            label: "Judul",
-            render: (post) => (
-              <div className="max-w-[320px]">
-                <p className="truncate text-sm font-medium">{post.title}</p>
-                <p className="truncate text-xs text-muted-foreground">
-                  /{post.slug}
+            accessorKey: "title",
+            header: "Judul",
+            cell: ({ row }) => (
+              <div className="max-w-80">
+                <p className="truncate text-sm font-medium">{row.original.title}</p>
+                <p className="truncate text-xs text-admin-content-fg/60">
+                  /{row.original.slug}
                 </p>
               </div>
             ),
           },
           {
-            key: "kategori",
-            label: "Kategori",
-            render: (post) => (
-              <span className="text-xs">{post.category.name}</span>
+            id: "category",
+            header: "Kategori",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {row.original.category.name}
+              </span>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (post) => <StatusBadge status={getPostStatus(post)} />,
-          },
-          {
-            key: "author",
-            label: "Author",
-            render: (post) => (
-              <span className="text-xs">{post.author.name}</span>
+            id: "status",
+            header: "Status",
+            cell: ({ row }) => (
+              <StatusBadge status={getPostStatus(row.original)} />
             ),
           },
           {
-            key: "aksi",
-            label: "Aksi",
-            align: "right",
-            render: (post) => {
-              const status = getPostStatus(post);
+            id: "author",
+            header: "Author",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {row.original.author.name}
+              </span>
+            ),
+          },
+          {
+            id: "actions",
+            header: () => (
+              <div className="text-right text-sm font-medium text-admin-content-fg/70">
+                Aksi
+              </div>
+            ),
+            cell: ({ row }) => {
+              const status = getPostStatus(row.original);
               return (
                 <div className="flex justify-end gap-1">
                   <Button asChild variant="ghost" size="sm" aria-label="Edit berita">
-                    <Link href={`/admin/content/posts/${post.id}/edit`}>
+                    <Link href={`/admin/content/posts/${row.original.id}/edit`}>
                       <Pencil className="size-3.5" />
                     </Link>
                   </Button>
                   {status !== "Published" && (
-                    <form action={publishPost.bind(null, post.id)}>
+                    <form action={publishPost.bind(null, row.original.id)}>
                       <Button variant="ghost" size="sm" aria-label="Publikasikan berita">
                         <Send className="size-3.5" />
                       </Button>
                     </form>
                   )}
                   {status === "Published" && (
-                    <form action={archivePost.bind(null, post.id)}>
+                    <form action={archivePost.bind(null, row.original.id)}>
                       <Button variant="ghost" size="sm" aria-label="Arsipkan berita">
                         <Archive className="size-3.5" />
                       </Button>
                     </form>
                   )}
                   {status === "Archived" && (
-                    <form action={restorePostToDraft.bind(null, post.id)}>
+                    <form action={restorePostToDraft.bind(null, row.original.id)}>
                       <Button variant="ghost" size="sm" aria-label="Pulihkan ke draft">
                         <RotateCcw className="size-3.5" />
                       </Button>
@@ -154,9 +167,9 @@ export default async function PostsPage({
                   )}
                   <ConfirmDelete
                     onConfirm={deletePost}
-                    args={[post.id]}
+                    args={[row.original.id]}
                     title="Hapus berita"
-                    description={`Berita "${post.title}" akan dihapus permanen.`}
+                    description={`Berita "${row.original.title}" akan dihapus permanen.`}
                     label="Hapus berita"
                   />
                 </div>
@@ -164,28 +177,27 @@ export default async function PostsPage({
             },
           },
           {
-            key: "update",
-            label: "Update",
-            align: "right",
-            render: (post) => (
-              <span className="text-right text-xs tabular-nums text-muted-foreground">
-                {formatDateId(post.updatedAt)}
+            accessorKey: "updatedAt",
+            header: () => (
+              <div className="text-right text-sm font-medium text-admin-content-fg/70">
+                Update
+              </div>
+            ),
+            cell: ({ row }) => (
+              <span className="text-right text-xs tabular-nums text-admin-content-fg/60">
+                {formatDateId(row.original.updatedAt)}
               </span>
             ),
           },
         ]}
-        data={posts}
-        emptyMessage={
-          <>
-            Belum ada berita.{" "}
-            <Link
-              href="/admin/content/posts/new"
-              className="text-primary underline"
-            >
-              Tulis berita pertama
-            </Link>
-          </>
-        }
+      />
+
+      <TablePagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        basePath="/admin/content/posts"
+        queryParams={{ search: params.search }}
       />
     </PageContainer>
   );
