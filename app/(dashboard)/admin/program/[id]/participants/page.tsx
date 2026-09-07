@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
@@ -20,6 +20,8 @@ import {
   updateParticipantStatus,
   removeParticipant,
 } from "@/modules/program/presentation/program.action";
+
+type Item = Awaited<ReturnType<typeof getParticipants>>[number];
 
 const statusLabels: Record<
   string,
@@ -86,48 +88,53 @@ export default async function ParticipantsPage({
         </Button>
       </form>
 
-      <AdminTable
-        title="Daftar Peserta"
-        description={`${participants.length} peserta.`}
+      {participants.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">Belum ada peserta.</p>
+      )}
+
+      <DataTable<Item, unknown>
+        data={participants}
         columns={[
           {
-            key: "user",
-            label: "Peserta",
-            render: (item) => (
+            accessorKey: "user",
+            header: "Peserta",
+            cell: ({ row }) => (
               <div className="flex items-center gap-3">
                 <Avatar className="size-8">
                   <AvatarFallback className="text-xs bg-orange-100 text-orange-600">
-                    {item.user.name.slice(0, 2).toUpperCase()}
+                    {row.original.user.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="text-sm font-medium">{item.user.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {item.user.email}
+                  <p className="text-sm font-medium text-admin-content-fg">
+                    {row.original.user.name}
+                  </p>
+                  <p className="text-xs text-admin-content-fg/60">
+                    {row.original.user.email}
                   </p>
                 </div>
               </div>
             ),
           },
           {
-            key: "registrationDate",
-            label: "Tanggal Daftar",
-            render: (item) => (
-              <span className="text-xs">
+            accessorKey: "registrationDate",
+            header: "Tanggal Daftar",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
                 {new Intl.DateTimeFormat("id-ID", {
                   day: "2-digit",
                   month: "short",
                   year: "numeric",
-                }).format(item.registrationDate)}
+                }).format(row.original.registrationDate)}
               </span>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => {
-              const s = statusLabels[item.registrationStatus] ?? {
-                label: item.registrationStatus,
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = statusLabels[row.original.registrationStatus] ?? {
+                label: row.original.registrationStatus,
                 variant: "outline" as const,
               };
               return (
@@ -138,17 +145,16 @@ export default async function ParticipantsPage({
             },
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            id: "actions",
+            header: "Aksi",
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
-                {item.registrationStatus === "PENDING" && (
+                {row.original.registrationStatus === "PENDING" && (
                   <>
                     <form
                       action={updateParticipantStatus.bind(
                         null,
-                        item.id,
+                        row.original.id,
                         program.id,
                         "APPROVED",
                       )}
@@ -160,7 +166,7 @@ export default async function ParticipantsPage({
                     <form
                       action={updateParticipantStatus.bind(
                         null,
-                        item.id,
+                        row.original.id,
                         program.id,
                         "REJECTED",
                       )}
@@ -173,17 +179,15 @@ export default async function ParticipantsPage({
                 )}
                 <ConfirmDelete
                   onConfirm={removeParticipant}
-                  args={[item.id, program.id]}
+                  args={[row.original.id, program.id]}
                   title="Hapus peserta"
-                  description={`Peserta "${item.user?.name ?? "tersebut"}" akan dihapus dari program.`}
+                  description={`Peserta "${row.original.user?.name ?? "tersebut"}" akan dihapus dari program.`}
                   label="Hapus peserta"
                 />
               </div>
             ),
           },
         ]}
-        data={participants}
-        emptyMessage="Belum ada peserta."
       />
     </PageContainer>
   );

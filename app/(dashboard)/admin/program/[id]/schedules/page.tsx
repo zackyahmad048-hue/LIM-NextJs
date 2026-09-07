@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
@@ -14,6 +14,8 @@ import {
   createSchedule,
   deleteSchedule,
 } from "@/modules/program/presentation/program.action";
+
+type Item = Awaited<ReturnType<typeof getSchedules>>[number];
 
 function formatTime(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {
@@ -94,57 +96,73 @@ export default async function SchedulesPage({
         </Button>
       </form>
 
-      <AdminTable
-        title="Daftar Jadwal"
-        description={`${schedules.length} jadwal.`}
+      {schedules.length > 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          {schedules.length} jadwal.
+        </p>
+      )}
+
+      {schedules.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada jadwal. Tambah jadwal pertama.
+        </p>
+      )}
+
+      <DataTable<Item, unknown>
+        data={schedules}
         columns={[
           {
-            key: "title",
-            label: "Judul",
-            render: (item) => (
-              <span className="text-sm font-medium">{item.title}</span>
-            ),
-          },
-          {
-            key: "startTime",
-            label: "Mulai",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.startTime)}</span>
-            ),
-          },
-          {
-            key: "endTime",
-            label: "Selesai",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.endTime)}</span>
-            ),
-          },
-          {
-            key: "description",
-            label: "Keterangan",
-            render: (item) => (
-              <span className="text-xs text-muted-foreground">
-                {item.description || "-"}
+            accessorKey: "title",
+            header: "Judul",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {row.original.title}
               </span>
             ),
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
-              <ConfirmDelete
-                onConfirm={deleteSchedule}
-                args={[item.id, program.id]}
-                title="Hapus jadwal"
-                description={`Jadwal "${item.title}" akan dihapus permanen.`}
-                label="Hapus jadwal"
-              />
+            accessorKey: "startTime",
+            header: "Mulai",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.startTime)}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "endTime",
+            header: "Selesai",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.endTime)}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "description",
+            header: "Keterangan",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/60">
+                {row.original.description || "-"}
+              </span>
+            ),
+          },
+          {
+            id: "actions",
+            header: "Aksi",
+            cell: ({ row }) => (
+              <div className="flex justify-end">
+                <ConfirmDelete
+                  onConfirm={deleteSchedule}
+                  args={[row.original.id, program.id]}
+                  title="Hapus jadwal"
+                  description={`Jadwal "${row.original.title}" akan dihapus permanen.`}
+                  label="Hapus jadwal"
+                />
+              </div>
             ),
           },
         ]}
-        data={schedules}
-        emptyMessage="Belum ada jadwal. Tambah jadwal pertama."
       />
     </PageContainer>
   );

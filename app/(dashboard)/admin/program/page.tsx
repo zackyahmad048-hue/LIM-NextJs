@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 import {
@@ -89,11 +89,7 @@ export default async function ProgramDashboardPage() {
         {statCards.map((stat) => {
           const Icon = stat.value > 0 ? ClipboardList : FileText;
           return (
-            <SectionCard
-              key={stat.label}
-              variant="elevated"
-              className="rounded-lg p-4 shadow-none"
-            >
+            <Band key={stat.label}>
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-muted-foreground">
                   {stat.label}
@@ -107,13 +103,13 @@ export default async function ProgramDashboardPage() {
               <p className="mt-3 text-3xl font-bold tabular-nums">
                 {stat.value}
               </p>
-            </SectionCard>
+            </Band>
           );
         })}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
+        <Band>
           <div className="flex items-center gap-2">
             <Calendar className="size-4 text-muted-foreground" />
             <h2 className="text-base font-semibold">Program Mendatang</h2>
@@ -143,9 +139,9 @@ export default async function ProgramDashboardPage() {
               Tidak ada program mendatang.
             </p>
           )}
-        </SectionCard>
+        </Band>
 
-        <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
+        <Band>
           <div className="flex items-center gap-2">
             <Users className="size-4 text-muted-foreground" />
             <h2 className="text-base font-semibold">Akses Cepat</h2>
@@ -164,7 +160,7 @@ export default async function ProgramDashboardPage() {
               </Link>
             </Button>
           </div>
-        </SectionCard>
+        </Band>
       </div>
     </PageContainer>
   );

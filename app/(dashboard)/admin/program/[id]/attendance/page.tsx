@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 
 import {
   getProgramById,
@@ -14,6 +14,8 @@ import {
   checkInAttendance,
   checkOutAttendance,
 } from "@/modules/program/presentation/program.action";
+
+type Item = Awaited<ReturnType<typeof getAttendance>>[number];
 
 function formatTime(date: Date | null) {
   if (!date) return "-";
@@ -58,39 +60,54 @@ export default async function AttendancePage({
         description="Catat kehadiran peserta program."
       />
 
-      <AdminTable
-        title="Daftar Absensi"
-        description={`${attendance.length} catatan kehadiran.`}
+      {attendance.length > 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          {attendance.length} catatan kehadiran.
+        </p>
+      )}
+
+      {attendance.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada catatan kehadiran.
+        </p>
+      )}
+
+      <DataTable<Item, unknown>
+        data={attendance}
         columns={[
           {
-            key: "participant",
-            label: "Peserta",
-            render: (item) => (
-              <span className="text-sm font-medium">
-                {item.participant.user.name}
+            accessorKey: "participant",
+            header: "Peserta",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {row.original.participant.user.name}
               </span>
             ),
           },
           {
-            key: "checkIn",
-            label: "Check In",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.checkIn)}</span>
+            accessorKey: "checkIn",
+            header: "Check In",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.checkIn)}
+              </span>
             ),
           },
           {
-            key: "checkOut",
-            label: "Check Out",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.checkOut)}</span>
+            accessorKey: "checkOut",
+            header: "Check Out",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.checkOut)}
+              </span>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => {
-              const s = attendanceLabels[item.status] ?? {
-                label: item.status,
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = attendanceLabels[row.original.status] ?? {
+                label: row.original.status,
                 variant: "outline" as const,
               };
               return (
@@ -101,16 +118,15 @@ export default async function AttendancePage({
             },
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            id: "actions",
+            header: "Aksi",
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
-                {!item.checkIn && (
+                {!row.original.checkIn && (
                   <form
                     action={checkInAttendance.bind(
                       null,
-                      item.participantId,
+                      row.original.participantId,
                       program.id,
                     )}
                   >
@@ -119,11 +135,11 @@ export default async function AttendancePage({
                     </Button>
                   </form>
                 )}
-                {item.checkIn && !item.checkOut && (
+                {row.original.checkIn && !row.original.checkOut && (
                   <form
                     action={checkOutAttendance.bind(
                       null,
-                      item.participantId,
+                      row.original.participantId,
                       program.id,
                     )}
                   >
@@ -136,8 +152,6 @@ export default async function AttendancePage({
             ),
           },
         ]}
-        data={attendance as Array<any>}
-        emptyMessage="Belum ada catatan kehadiran."
       />
     </PageContainer>
   );

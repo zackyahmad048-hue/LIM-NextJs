@@ -6,13 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getPrograms } from "@/modules/program/queries/program.query";
 import { deleteProgram } from "@/modules/program/presentation/program.action";
+
+type Item = Awaited<ReturnType<typeof getPrograms>>["items"][number];
 
 const statusLabels: Record<
   string,
@@ -58,74 +60,88 @@ export default async function ProgramListPage({
         }
       />
 
-      <AdminTable
-        title="Program"
-        description={`${total} program ditemukan.`}
-        toolbar={
-          <TableSearchForm
-            basePath="/admin/program/list"
-            defaultValue={params.search ?? ""}
-            placeholder="Cari nama/kode program..."
-          />
-        }
-        pagination={
-          <TablePagination
-            page={params.page ? Number(params.page) : 1}
-            pageSize={20}
-            total={total}
-            basePath="/admin/program/list"
-            queryParams={{ search: params.search, status: params.status }}
-          />
-        }
+      <TableSearchForm
+        basePath="/admin/program/list"
+        defaultValue={params.search ?? ""}
+        placeholder="Cari nama/kode program..."
+      />
+
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada program.{" "}
+          <Button variant="link" size="sm" className="p-0" asChild>
+            <Link href="/admin/program/new">Buat program pertama</Link>
+          </Button>
+        </p>
+      )}
+
+      {items.length > 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          {total} program ditemukan.
+        </p>
+      )}
+
+      <DataTable<Item, unknown>
+        data={items}
         columns={[
           {
-            key: "code",
-            label: "Kode",
-            render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">
-                {item.code}
+            accessorKey: "code",
+            header: "Kode",
+            cell: ({ row }) => (
+              <span className="text-xs font-mono text-admin-content-fg/60">
+                {row.original.code}
               </span>
             ),
           },
           {
-            key: "name",
-            label: "Nama Program",
-            render: (item) => (
+            accessorKey: "name",
+            header: "Nama Program",
+            cell: ({ row }) => (
               <div className="max-w-62.5">
-                <p className="truncate text-sm font-medium">{item.name}</p>
-                {item.personInCharge && (
-                  <p className="truncate text-xs text-muted-foreground">
-                    PIC: {item.personInCharge.name}
+                <p className="truncate text-sm font-medium text-admin-content-fg">
+                  {row.original.name}
+                </p>
+                {row.original.personInCharge && (
+                  <p className="truncate text-xs text-admin-content-fg/60">
+                    PIC: {row.original.personInCharge.name}
                   </p>
                 )}
               </div>
             ),
           },
           {
-            key: "type",
-            label: "Jenis",
-            render: (item) => <span className="text-xs">{item.type}</span>,
-          },
-          {
-            key: "startDate",
-            label: "Mulai",
-            render: (item) => (
-              <span className="text-xs tabular-nums">{formatDateId(item.startDate)}</span>
+            accessorKey: "type",
+            header: "Jenis",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {row.original.type}
+              </span>
             ),
           },
           {
-            key: "endDate",
-            label: "Selesai",
-            render: (item) => (
-              <span className="text-xs tabular-nums">{formatDateId(item.endDate)}</span>
+            accessorKey: "startDate",
+            header: "Mulai",
+            cell: ({ row }) => (
+              <span className="text-xs tabular-nums text-admin-content-fg/80">
+                {formatDateId(row.original.startDate)}
+              </span>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => {
-              const s = statusLabels[item.status] ?? {
-                label: item.status,
+            accessorKey: "endDate",
+            header: "Selesai",
+            cell: ({ row }) => (
+              <span className="text-xs tabular-nums text-admin-content-fg/80">
+                {formatDateId(row.original.endDate)}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = statusLabels[row.original.status] ?? {
+                label: row.original.status,
                 variant: "outline" as const,
               };
               return (
@@ -136,41 +152,39 @@ export default async function ProgramListPage({
             },
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            id: "actions",
+            header: "Aksi",
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
                 <Button asChild variant="ghost" size="sm" aria-label="Edit program">
-                  <Link href={`/admin/program/${item.id}/edit`}>
+                  <Link href={`/admin/program/${row.original.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
                 <Button asChild variant="ghost" size="sm" aria-label="Jadwal program">
-                  <Link href={`/admin/program/${item.id}/schedules`}>
+                  <Link href={`/admin/program/${row.original.id}/schedules`}>
                     <Calendar className="size-3.5" />
                   </Link>
                 </Button>
                 <ConfirmDelete
                   onConfirm={deleteProgram}
-                  args={[item.id]}
+                  args={[row.original.id]}
                   title="Hapus program"
-                  description={`Program "${item.name}" beserta seluruh datanya akan dihapus permanen.`}
+                  description={`Program "${row.original.name}" beserta seluruh datanya akan dihapus permanen.`}
                   label="Hapus program"
                 />
               </div>
             ),
           },
         ]}
-        data={items}
-        emptyMessage={
-          <>
-            Belum ada program.{" "}
-            <Button variant="link" size="sm" className="p-0" asChild>
-              <Link href="/admin/program/new">Buat program pertama</Link>
-            </Button>
-          </>
-        }
+      />
+
+      <TablePagination
+        page={params.page ? Number(params.page) : 1}
+        pageSize={20}
+        total={total}
+        basePath="/admin/program/list"
+        queryParams={{ search: params.search, status: params.status }}
       />
     </PageContainer>
   );

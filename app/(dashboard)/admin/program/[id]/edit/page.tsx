@@ -22,7 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
 import {
@@ -194,7 +194,7 @@ export default async function EditProgramPage({
       >
         <input type="hidden" name="code" value={program.code} />
 
-        <SectionCard className="rounded-lg p-4">
+        <Band>
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Program</h2>
           </div>
@@ -279,9 +279,9 @@ export default async function EditProgramPage({
               </NativeSelect>
             </div>
           </div>
-        </SectionCard>
+        </Band>
 
-        <SectionCard className="rounded-lg p-4">
+        <Band>
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Tanggal & Pendaftaran</h2>
           </div>
@@ -338,7 +338,7 @@ export default async function EditProgramPage({
               />
             </div>
           </div>
-        </SectionCard>
+        </Band>
 
       </ActionForm>
     </PageContainer>

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
@@ -14,6 +14,8 @@ import {
   addDocumentation,
   removeDocumentation,
 } from "@/modules/program/presentation/program.action";
+
+type Item = Awaited<ReturnType<typeof getDocumentation>>[number];
 
 export default async function DocumentationPage({
   params,
@@ -77,43 +79,55 @@ export default async function DocumentationPage({
         </Button>
       </form>
 
-      <AdminTable
-        title="Daftar Dokumentasi"
-        description={`${documentation.length} item.`}
+      {documentation.length > 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          {documentation.length} item.
+        </p>
+      )}
+
+      {documentation.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada dokumentasi.
+        </p>
+      )}
+
+      <DataTable<Item, unknown>
+        data={documentation}
         columns={[
           {
-            key: "title",
-            label: "Judul",
-            render: (item) => (
-              <span className="text-sm font-medium">{item.title}</span>
-            ),
-          },
-          {
-            key: "description",
-            label: "Deskripsi",
-            render: (item) => (
-              <span className="text-xs text-muted-foreground">
-                {item.description || "-"}
+            accessorKey: "title",
+            header: "Judul",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {row.original.title}
               </span>
             ),
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
-              <ConfirmDelete
-                onConfirm={removeDocumentation}
-                args={[item.id, program.id]}
-                title="Hapus dokumentasi"
-                description={`Dokumentasi "${item.title}" akan dihapus permanen.`}
-                label="Hapus dokumentasi"
-              />
+            accessorKey: "description",
+            header: "Deskripsi",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/60">
+                {row.original.description || "-"}
+              </span>
+            ),
+          },
+          {
+            id: "actions",
+            header: "Aksi",
+            cell: ({ row }) => (
+              <div className="flex justify-end">
+                <ConfirmDelete
+                  onConfirm={removeDocumentation}
+                  args={[row.original.id, program.id]}
+                  title="Hapus dokumentasi"
+                  description={`Dokumentasi "${row.original.title}" akan dihapus permanen.`}
+                  label="Hapus dokumentasi"
+                />
+              </div>
             ),
           },
         ]}
-        data={documentation}
-        emptyMessage="Belum ada dokumentasi."
       />
     </PageContainer>
   );
