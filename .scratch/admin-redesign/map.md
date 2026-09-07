@@ -54,11 +54,11 @@ Wayfinding selesai; spec diterima. Implementasi dipecah lewat `/to-tickets` dari
 - [07 Tracer-bullet LIST — petugas unit](.scratch/admin-redesign/issues/07-tracer-bullet-list-officers.md) — blocker: 06 → **resolved** (pola list lolos gate: band + DataTable + DataEmpty; boundary impor server-action diluruskan langsung dari file "use server")
 - [08 Tracer-bullet FORM — tambah unit](.scratch/admin-redesign/issues/08-tracer-bullet-form-unit-new.md) — blocker: 06 → **resolved** (gate pola form lolos: band + FormGroup, fieldErrors per-field + aria, pending + batal)
 - [09 Tracer-bullet DASHBOARD — beranda admin](.scratch/admin-redesign/issues/09-tracer-bullet-dashboard-admin.md) — blocker: 06 → **resolved** (gate pola dashboard lolos: band stats 4+1, list-row Profil, module-grid → sidebar; `DashboardClient` → Server Component `AdminDashboard`)
-- [10 Ramp modul berat: sekretariat & falak](.scratch/admin-redesign/issues/10-ramp-secretariat-falak.md) — blocker: 07, 08, 09
-- [11 Ramp modul lain + retire `AdminTable`](.scratch/admin-redesign/issues/11-ramp-rest-retire-admintable.md) — blocker: 07, 08, 09
+- [10 Ramp modul berat: sekretariat & falak](.scratch/admin-redesign/issues/10-ramp-secretariat-falak.md) — blocker: 07, 08, 09 → **resolved**
+- [11 Ramp modul lain + retire `AdminTable`](.scratch/admin-redesign/issues/11-ramp-rest-retire-admintable.md) — blocker: 07, 08, 09 → **resolved**
 - [12 Kontrak & verifikasi akhir](.scratch/admin-redesign/issues/12-contract-verification.md) — blocker: 10, 11
 
-Status implementasi: 06 (primitif), 07 (pola list), 08 (pola form), 09 (pola dashboard) — semua resolved → frontier berikut 10 & 11 (ramp modul, blocker 07–09 sudah lunas).
+Status implementasi: 06–11 semua resolved (primitif, tracer list/form/dashboard, ramp sekretariat/falak, ramp sisa + retire `AdminTable`/`SectionCard`/`StatCard`) → **frontier berikut 12** (kontrak & verifikasi akhir: hapus berkas legacy defs, WCAG AA per §5, sisa kartu-navigasi dashboard sekretariat N1).
 
 ## Not yet specified
 
