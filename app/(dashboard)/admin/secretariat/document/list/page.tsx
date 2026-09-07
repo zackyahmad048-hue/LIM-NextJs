@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
@@ -23,6 +23,10 @@ import {
   deleteAdministrativeDocument,
   transitionAdministrativeDocumentStatus,
 } from "@/modules/secretariat/presentation/secretariat.action";
+
+export const dynamic = "force-dynamic";
+
+type Document = Awaited<ReturnType<typeof getAdministrativeDocuments>>["items"][number];
 
 const statusLabels: Record<
   string,
@@ -72,11 +76,13 @@ export default async function DocumentListPage({
   searchParams: Promise<{ search?: string; status?: string; page?: string }>;
 }) {
   const params = await searchParams;
+  const page = params.page ? Number(params.page) : 1;
   const { items, total } = await getAdministrativeDocuments({
     search: params.search,
     status: params.status,
-    page: params.page ? Number(params.page) : 1,
+    page,
   });
+  const pageSize = 20;
 
   return (
     <PageContainer>
@@ -93,53 +99,51 @@ export default async function DocumentListPage({
         }
       />
 
-      <AdminTable
-        title="Dokumen Administrasi"
-        description={`${total} dokumen ditemukan.`}
-        toolbar={
-          <TableSearchForm
-            basePath="/admin/secretariat/document/list"
-            defaultValue={params.search ?? ""}
-            placeholder="Cari dokumen..."
-          />
-        }
-        pagination={
-          <TablePagination
-            page={params.page ? Number(params.page) : 1}
-            pageSize={20}
-            total={total}
-            basePath="/admin/secretariat/document/list"
-            queryParams={{ search: params.search, status: params.status }}
-          />
-        }
+      <TableSearchForm
+        basePath="/admin/secretariat/document/list"
+        defaultValue={params.search ?? ""}
+        placeholder="Cari dokumen..."
+      />
+
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada dokumen administrasi. Buat dokumen pertama Anda.
+        </p>
+      )}
+
+      <DataTable<Document, unknown>
+        data={items}
         columns={[
           {
-            key: "documentNumber",
-            label: "No. Dokumen",
-            render: (item) => (
-              <span className="text-xs font-mono text-muted-foreground">
-                {item.documentNumber}
+            accessorKey: "documentNumber",
+            header: "No. Dokumen",
+            cell: ({ row }) => (
+              <span className="font-mono text-xs text-admin-content-fg/60">
+                {row.original.documentNumber}
               </span>
             ),
           },
           {
-            key: "title",
-            label: "Judul",
-            render: (item) => (
-              <div className="max-w-[250px]">
-                <p className="truncate text-sm font-medium">{item.title}</p>
-                <p className="truncate text-xs text-muted-foreground">
-                  {documentTypeLabels[item.documentType] ?? item.documentType}
+            accessorKey: "title",
+            header: "Judul",
+            cell: ({ row }) => (
+              <div className="max-w-62.5">
+                <p className="truncate text-sm font-medium text-admin-content-fg">
+                  {row.original.title}
+                </p>
+                <p className="truncate text-xs text-admin-content-fg/60">
+                  {documentTypeLabels[row.original.documentType] ??
+                    row.original.documentType}
                 </p>
               </div>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => {
-              const s = statusLabels[item.status] ?? {
-                label: item.status,
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = statusLabels[row.original.status] ?? {
+                label: row.original.status,
                 variant: "outline" as const,
               };
               return (
@@ -150,19 +154,22 @@ export default async function DocumentListPage({
             },
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            id: "actions",
+            header: () => (
+              <div className="text-right text-sm font-medium text-admin-content-fg/70">
+                Aksi
+              </div>
+            ),
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
-                {(statusActions[item.status] ?? []).map((action) => {
+                {(statusActions[row.original.status] ?? []).map((action) => {
                   const Icon = action.icon;
                   return (
                     <form
                       key={action.status}
                       action={transitionAdministrativeDocumentStatus.bind(
                         null,
-                        item.id,
+                        row.original.id,
                         action.status,
                       )}
                     >
@@ -180,28 +187,34 @@ export default async function DocumentListPage({
                   );
                 })}
                 <Button asChild variant="ghost" size="sm" aria-label="Cetak / PDF">
-                  <Link href={`/admin/secretariat/document/${item.id}/cetak`}>
+                  <Link href={`/admin/secretariat/document/${row.original.id}/cetak`}>
                     <FileText className="size-3.5" />
                   </Link>
                 </Button>
                 <Button asChild variant="ghost" size="sm" aria-label="Edit dokumen">
-                  <Link href={`/admin/secretariat/document/${item.id}/edit`}>
+                  <Link href={`/admin/secretariat/document/${row.original.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
                 <ConfirmDelete
                   onConfirm={deleteAdministrativeDocument}
-                  args={[item.id]}
+                  args={[row.original.id]}
                   title="Hapus dokumen"
-                  description={`Dokumen "${item.title}" akan dihapus permanen.`}
+                  description={`Dokumen "${row.original.title}" akan dihapus permanen.`}
                   label="Hapus dokumen"
                 />
               </div>
             ),
           },
         ]}
-        data={items}
-        emptyMessage="Belum ada dokumen administrasi. Buat dokumen pertama Anda."
+      />
+
+      <TablePagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        basePath="/admin/secretariat/document/list"
+        queryParams={{ search: params.search, status: params.status }}
       />
     </PageContainer>
   );
