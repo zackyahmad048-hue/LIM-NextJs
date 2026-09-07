@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 import {
   INITIAL_ACTION_RESULT,
@@ -35,10 +35,10 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
 
   return (
     <form action={formAction} className="max-w-2xl space-y-3">
-      <SectionCard className="rounded-lg p-4">
+      <Band>
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Informasi Agenda</h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Rapat, kegiatan, atau jadwal kerja organisasi.
           </p>
         </div>
@@ -124,7 +124,7 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
             />
           </div>
         </div>
-      </SectionCard>
+      </Band>
 
       <ActionResultMessage state={state} />
 

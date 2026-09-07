@@ -22,7 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { ConfirmDialog } from "@/components/admin/shared/confirm-dialog";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { cn } from "@/lib/utils";
@@ -213,74 +213,78 @@ export function SuratMenyuratClient({
 
       {/* Plat nomor terakhir + statistik */}
       <div className="mt-6 grid gap-4 lg:grid-cols-5">
-        <SectionCard className="lg:col-span-3">
-          <p className="text-xs font-medium uppercase text-muted-foreground">
-            Nomor Terbit Terakhir
-          </p>
-          {latestIssued?.fullNumber ? (
-            <div className="mt-3 space-y-3">
-              <LetterPlate fullNumber={latestIssued.fullNumber} size="md" />
-              <div className="flex flex-wrap items-end justify-between gap-2">
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">
-                    {latestIssued.subject}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {formatDateLong(latestIssued.mailDate)}
-                  </p>
-                </div>
-                <div className="flex shrink-0 items-center gap-1.5 rounded-md border border-primary/25 bg-primary/5 px-2 py-1">
-                  <QrCode className="size-3.5 text-primary" />
-                  <span className="text-[11px] font-medium text-primary">
-                    QR verifikasi otomatis
-                  </span>
+        <div className="lg:col-span-3">
+          <Band>
+            <p className="text-xs font-medium uppercase text-admin-content-fg/60">
+              Nomor Terbit Terakhir
+            </p>
+            {latestIssued?.fullNumber ? (
+              <div className="mt-3 space-y-3">
+                <LetterPlate fullNumber={latestIssued.fullNumber} size="md" />
+                <div className="flex flex-wrap items-end justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">
+                      {latestIssued.subject}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDateLong(latestIssued.mailDate)}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-1.5 rounded-md border border-primary/25 bg-primary/5 px-2 py-1">
+                    <QrCode className="size-3.5 text-primary" />
+                    <span className="text-[11px] font-medium text-primary">
+                      QR verifikasi otomatis
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="mt-3 rounded-lg border border-dashed px-4 py-6 text-center">
-              <p className="text-sm font-medium text-muted-foreground">
-                Belum ada nomor terbit
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground/80">
-                Nomor diterbitkan otomatis saat surat keluar ditandai terkirim.
-              </p>
-            </div>
-          )}
-        </SectionCard>
+            ) : (
+              <div className="mt-3 rounded-lg border border-dashed px-4 py-6 text-center">
+                <p className="text-sm font-medium text-muted-foreground">
+                  Belum ada nomor terbit
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground/80">
+                  Nomor diterbitkan otomatis saat surat keluar ditandai terkirim.
+                </p>
+              </div>
+            )}
+          </Band>
+        </div>
 
-        <SectionCard className="lg:col-span-2">
-          <p className="text-xs font-medium uppercase text-muted-foreground">
-            Sekilas
-          </p>
-          <dl className="mt-3 divide-y">
-            {[
-              { label: "Surat keluar", value: stats.outgoingTotal },
-              { label: "Surat masuk", value: stats.incomingTotal },
-              { label: "Diarsipkan", value: stats.archivedTotal },
-              {
-                label: "Perlu tindakan",
-                value: stats.pendingCount,
-                highlight: stats.pendingCount > 0,
-              },
-            ].map((row) => (
-              <div
-                key={row.label}
-                className="flex items-center justify-between py-2"
-              >
-                <dt className="text-sm text-muted-foreground">{row.label}</dt>
-                <dd
-                  className={cn(
-                    "text-lg font-bold tabular-nums",
-                    row.highlight ? "text-primary" : "text-foreground",
-                  )}
+        <div className="lg:col-span-2">
+          <Band>
+            <p className="text-xs font-medium uppercase text-admin-content-fg/60">
+              Sekilas
+            </p>
+            <dl className="mt-3 divide-y">
+              {[
+                { label: "Surat keluar", value: stats.outgoingTotal },
+                { label: "Surat masuk", value: stats.incomingTotal },
+                { label: "Diarsipkan", value: stats.archivedTotal },
+                {
+                  label: "Perlu tindakan",
+                  value: stats.pendingCount,
+                  highlight: stats.pendingCount > 0,
+                },
+              ].map((row) => (
+                <div
+                  key={row.label}
+                  className="flex items-center justify-between py-2"
                 >
-                  {row.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </SectionCard>
+                  <dt className="text-sm text-muted-foreground">{row.label}</dt>
+                  <dd
+                    className={cn(
+                      "text-lg font-bold tabular-nums",
+                      row.highlight ? "text-primary" : "text-foreground",
+                    )}
+                  >
+                    {row.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Band>
+        </div>
       </div>
 
       {/* Pita kerja: Tulis & Terima */}

@@ -11,7 +11,7 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 import {
   INITIAL_ACTION_RESULT,
@@ -55,10 +55,10 @@ export function OutgoingMailForm({
 
   return (
     <form action={formAction} className="max-w-2xl space-y-3">
-      <SectionCard className="rounded-lg p-4">
+      <Band>
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Informasi Surat</h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Tingkat dan kategori menentukan nomor surat resmi. Nomor dan QR
             verifikasi diterbitkan otomatis saat surat ditandai terkirim.
           </p>
@@ -153,12 +153,12 @@ export function OutgoingMailForm({
             />
           </div>
         </div>
-      </SectionCard>
+      </Band>
 
-      <SectionCard className="rounded-lg p-4">
+      <Band>
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">QR Penanda Tangan</h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus
             Pusat dan dijadikan konten QR yang ditempel pada dokumen saat
             surat ditandai terkirim.
@@ -166,19 +166,19 @@ export function OutgoingMailForm({
         </div>
 
         <SignerFields pengurus={pengurus} />
-      </SectionCard>
+      </Band>
 
-      <SectionCard className="rounded-lg p-4">
+      <Band>
         <div className="mb-4 border-b pb-3">
           <h2 className="text-base font-semibold">Dokumen Surat</h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan
             Verifikasi pada halaman dokumen.
           </p>
         </div>
 
         <SigningEditor />
-      </SectionCard>
+      </Band>
 
       <ActionResultMessage state={state} />
 

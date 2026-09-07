@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/native-select";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { ActionForm } from "@/components/admin/shared/action-form";
 import { SigningEditor } from "@/components/admin/secretariat/signing-editor";
 import { SignerFields } from "@/components/admin/secretariat/signer-fields";
@@ -155,10 +155,10 @@ export default async function EditOutgoingMailPage({
           submitLabel="Simpan Perubahan"
           submitIcon={<CheckCircle className="size-4" />}
         >
-          <SectionCard className="rounded-lg p-4">
+          <Band>
             <div className="mb-4 border-b pb-3">
               <h2 className="text-base font-semibold">Informasi Surat</h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-admin-content-fg/60">
                 Mengubah tingkat atau kategori akan memutakhirkan nomor surat
                 otomatis.
               </p>
@@ -246,12 +246,12 @@ export default async function EditOutgoingMailPage({
                 />
               </div>
             </div>
-          </SectionCard>
+          </Band>
 
-          <SectionCard className="rounded-lg p-4">
+          <Band>
             <div className="mb-4 border-b pb-3">
               <h2 className="text-base font-semibold">QR Penanda Tangan</h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-admin-content-fg/60">
                 Nama & jabatan Ketua dan Sekretaris diambil dari struktur
                 Pengurus Pusat dan dijadikan konten QR yang ditempel pada
                 dokumen saat surat ditandai terkirim.
@@ -265,12 +265,12 @@ export default async function EditOutgoingMailPage({
               initialSekretarisName={mail.sekretarisName}
               initialSekretarisPosition={mail.sekretarisPosition}
             />
-          </SectionCard>
+          </Band>
 
-          <SectionCard className="rounded-lg p-4">
+          <Band>
             <div className="mb-4 border-b pb-3">
               <h2 className="text-base font-semibold">Dokumen Surat</h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-admin-content-fg/60">
                 Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris,
                 dan Verifikasi pada halaman dokumen.
               </p>
@@ -283,15 +283,15 @@ export default async function EditOutgoingMailPage({
               initialSekretarisPosition={mail.qrSekretarisPosition}
               initialVerifikasiPosition={mail.qrVerifikasiPosition}
             />
-            </SectionCard>
+          </Band>
           </ActionForm>
         )}
 
       <div className="mt-4 max-w-2xl">
-        <SectionCard className="rounded-lg p-4">
+        <Band>
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">QR Verifikasi</h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-admin-content-fg/60">
               QR diterbitkan otomatis saat surat ditandai terkirim. Pihak luar
               bisa memverifikasi dengan scan QR atau memasukkan nomor surat.
             </p>
@@ -331,7 +331,7 @@ export default async function EditOutgoingMailPage({
               </p>
             </div>
           )}
-        </SectionCard>
+        </Band>
       </div>
     </PageContainer>
   );

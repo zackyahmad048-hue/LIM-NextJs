@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
@@ -34,10 +34,10 @@ export default function NewDocumentPage() {
         submitLabel="Simpan Dokumen"
         submitIcon={<Plus className="size-4" />}
       >
-        <SectionCard className="rounded-lg p-4">
+        <Band>
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Informasi Dokumen</h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-admin-content-fg/60">
               Data utama dokumen administrasi.
             </p>
           </div>
@@ -112,12 +112,12 @@ export default function NewDocumentPage() {
               />
             </div>
           </div>
-        </SectionCard>
+        </Band>
 
-        <SectionCard className="rounded-lg p-4">
+        <Band>
           <div className="mb-4 border-b pb-3">
             <h2 className="text-base font-semibold">Dokumen File</h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-admin-content-fg/60">
               Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file
               ini.
             </p>
@@ -126,7 +126,7 @@ export default function NewDocumentPage() {
           <AttachmentUpload
             uploadAction={uploadAdministrativeDocumentAttachment}
           />
-        </SectionCard>
+        </Band>
       </ActionForm>
     </PageContainer>
   );
