@@ -50,7 +50,7 @@ export default async function ArsipPage({
         title="Arsip"
         description="Kumpulan surat dan dokumen terarsip — hanya baca, diagregasi otomatis dari surat menyurat."
         actions={
-          <div className="flex items-center gap-2">
+          <form method="GET" className="flex items-center gap-2">
             <Input
               name="search"
               defaultValue={params.search ?? ""}
@@ -60,20 +60,21 @@ export default async function ArsipPage({
             <Button type="submit" size="sm" variant="secondary">
               <Search className="size-3.5" /> Cari
             </Button>
-          </div>
+          </form>
         }
       />
 
       <div className="mt-4 space-y-6">
+        {outgoing.length === 0 && (
+          <p className="text-sm text-admin-content-fg/60">Belum ada surat keluar yang diarsipkan.</p>
+        )}
         <DataTable
-          title="Surat Keluar Terarsip"
-          description={`${outgoing.length} surat keluar yang telah diarsipkan.`}
           columns={[
             {
               accessorKey: "fullNumber",
               header: "Nomor Surat",
-              cell: (info) => {
-                const item = info.original;
+              cell: ({ row }) => {
+                const item = row.original;
                 return item.fullNumber ? (
                   <LetterPlate fullNumber={item.fullNumber} size="sm" />
                 ) : (
@@ -84,7 +85,8 @@ export default async function ArsipPage({
             {
               accessorKey: "subject",
               header: "Perihal",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <div className="max-w-[240px]">
                     <p className="truncate text-sm font-medium">{item.subject}</p>
@@ -98,25 +100,23 @@ export default async function ArsipPage({
             {
               accessorKey: "archivedAt",
               header: "Tanggal Arsip",
-              cell: (info) => (
-                <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
-              ),
+              cell: ({ row }) => {
+                const item = row.original;
+                return (
+                  <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
+                );
+              },
             },
             {
-              accessorKey: "actions",
-              header: "Aksi",
-              align: "right",
-              cell: (info) => {
+              id: "actions",
+              header: () => <div className="text-right text-sm font-medium text-admin-content-fg/70">Aksi</div>,
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <div className="flex justify-end gap-1">
-                    <AttachmentLink
-                      url={item.attachmentUrl}
-                      label="Buka lampiran"
-                    />
+                    <AttachmentLink url={item.attachmentUrl} label="Buka lampiran" />
                     <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
-                      <Link
-                        href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
-                      >
+                      <Link href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}>
                         <FileText className="size-3.5" />
                       </Link>
                     </Button>
@@ -126,17 +126,18 @@ export default async function ArsipPage({
             },
           ]}
           data={outgoing}
-          emptyMessage="Belum ada surat keluar yang diarsipkan."
         />
 
+        {incoming.length === 0 && (
+          <p className="text-sm text-admin-content-fg/60">Belum ada surat masuk yang diarsipkan.</p>
+        )}
         <DataTable
-          title="Surat Masuk Terarsip"
-          description={`${incoming.length} surat masuk yang telah diarsipkan.`}
           columns={[
             {
               accessorKey: "registrationNumber",
               header: "No. Surat Pengirim",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <span className="text-xs text-muted-foreground">
                     {item.registrationNumber}
@@ -147,7 +148,8 @@ export default async function ArsipPage({
             {
               accessorKey: "sender",
               header: "Pengirim",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <div className="max-w-[200px]">
                     <p className="truncate text-sm font-medium">{item.sender}</p>
@@ -161,32 +163,31 @@ export default async function ArsipPage({
             {
               accessorKey: "subject",
               header: "Perihal",
-              cell: (info) => <span className="truncate text-xs">{item.subject}</span>,
+              cell: ({ row }) => {
+                const item = row.original;
+                return <span className="truncate text-xs">{item.subject}</span>;
+              },
             },
             {
               accessorKey: "archivedAt",
               header: "Tanggal Arsip",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <span className="text-xs">{formatDateId(item.archivedAt, { fallback: "—" })}</span>
                 );
               },
             },
             {
-              accessorKey: "actions",
-              header: "Aksi",
-              align: "right",
-              cell: (info) => {
+              id: "actions",
+              header: () => <div className="text-right text-sm font-medium text-admin-content-fg/70">Aksi</div>,
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <div className="flex justify-end gap-1">
-                    <AttachmentLink
-                      url={item.attachmentUrl}
-                      label="Buka lampiran"
-                    />
+                    <AttachmentLink url={item.attachmentUrl} label="Buka lampiran" />
                     <Button asChild variant="ghost" size="sm" aria-label="Buka surat" title="Buka surat">
-                      <Link
-                        href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
-                      >
+                      <Link href={`/admin/secretariat/incoming-mail/${item.id}/edit`}>
                         <FileText className="size-3.5" />
                       </Link>
                     </Button>
@@ -196,17 +197,18 @@ export default async function ArsipPage({
             },
           ]}
           data={incoming}
-          emptyMessage="Belum ada surat masuk yang diarsipkan."
         />
 
+        {documents.length === 0 && (
+          <p className="text-sm text-admin-content-fg/60">Belum ada dokumen administrasi terarsip.</p>
+        )}
         <DataTable
-          title="Dokumen Administrasi"
-          description={`${documents.length} dokumen administrasi terarsip.`}
           columns={[
             {
               accessorKey: "documentNumber",
               header: "No. Dokumen",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <span className="text-xs text-muted-foreground">
                     {item.documentNumber}
@@ -217,7 +219,8 @@ export default async function ArsipPage({
             {
               accessorKey: "title",
               header: "Judul",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <div className="max-w-[240px]">
                     <p className="truncate text-sm font-medium">{item.title}</p>
@@ -233,7 +236,8 @@ export default async function ArsipPage({
             {
               accessorKey: "documentType",
               header: "Jenis Dokumen",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <span className="text-xs">
                     {documentTypeLabels[item.documentType] ?? item.documentType}
@@ -244,20 +248,17 @@ export default async function ArsipPage({
             {
               accessorKey: "archivedAt",
               header: "Tanggal Arsip",
-              cell: (info) => {
+              cell: ({ row }) => {
+                const item = row.original;
                 return (
                   <span className="text-xs">
-                    {formatDateId(
-                      item.archivedAt ?? item.approvedAt,
-                      { fallback: "—" }
-                    )}
+                    {formatDateId(item.archivedAt ?? item.approvedAt, { fallback: "—" })}
                   </span>
                 );
               },
             },
           ]}
           data={documents}
-          emptyMessage="Belum ada dokumen administrasi terarsip."
         />
       </div>
     </PageContainer>

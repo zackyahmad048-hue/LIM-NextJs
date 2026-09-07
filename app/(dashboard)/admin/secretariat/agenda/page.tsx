@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { formatDateId } from "@/lib/format";
-import { Calendar, MapPin, Users } from "lucide-react";
+import { Calendar, MapPin, Search, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { DataTable } from "@/components/admin/shared/data-table";
@@ -17,7 +17,7 @@ export default async function AgendaPage({
   searchParams: Promise<{ search?: string; page?: string }>;
 }) {
   const params = await searchParams;
-  const { items, total } = await getAgendaBooks({
+  const { items } = await getAgendaBooks({
     search: params.search,
     page: params.page ? Number(params.page) : 1,
   });
@@ -52,11 +52,11 @@ export default async function AgendaPage({
           {
             accessorKey: "date",
             header: "Tanggal",
-            cell: (info) => {
+            cell: ({ row }) => {
               return (
                 <div className="flex items-center gap-1.5">
                   <Calendar className="size-3.5 text-muted-foreground" />
-                  <span className="text-xs tabular-nums">{formatDateId(info.original.date, { long: true })}</span>
+                  <span className="text-xs tabular-nums">{formatDateId(row.original.date, { long: true })}</span>
                 </div>
               );
             },
@@ -64,7 +64,8 @@ export default async function AgendaPage({
           {
             accessorKey: "title",
             header: "Judul",
-            cell: (info) => {
+            cell: ({ row }) => {
+              const item = row.original;
               return (
                 <div className="max-w-62.5">
                   <p className="truncate text-sm font-medium">{item.title}</p>
@@ -80,7 +81,8 @@ export default async function AgendaPage({
           {
             accessorKey: "location",
             header: "Lokasi",
-            cell: (info) => {
+            cell: ({ row }) => {
+              const item = row.original;
               return (
                 <div className="flex items-center gap-1.5">
                   <MapPin className="size-3.5 text-muted-foreground" />
@@ -92,7 +94,8 @@ export default async function AgendaPage({
           {
             accessorKey: "participants",
             header: "Peserta",
-            cell: (info) => {
+            cell: ({ row }) => {
+              const item = row.original;
               return (
                 <div className="max-w-50">
                   {item.participants ? (
@@ -102,14 +105,16 @@ export default async function AgendaPage({
                     </div>
                   ) : (
                     <span className="text-xs text-muted-foreground">-</span>
-                  );
-                });
+                  )}
+                </div>
+              );
             },
           },
           {
             accessorKey: "notes",
             header: "Catatan",
-            cell: (info) => {
+            cell: ({ row }) => {
+              const item = row.original;
               return <span className="truncate text-xs">{item.notes ?? "-"}</span>;
             },
           },
