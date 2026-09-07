@@ -4,7 +4,7 @@ import { ArrowLeft, Download } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { Button } from "@/components/ui/button";
 
 import { getLembagaById } from "@/modules/twk-lembaga/queries/lembaga.query";
@@ -112,192 +112,202 @@ export default async function LembagaDetailPage({ params }: PageProps) {
       />
 
       <div className="mt-6 space-y-4">
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">Identitas Lembaga</h2>
-          <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-            <Field
-              label="Nama Lembaga Pendidikan"
-              value={lembaga.namaLembagaPendidikan}
-            />
-            <Field label="RT/RW" value={lembaga.rtRw} />
-            <Field label="Alamat" value={alamat} />
-            <Field label="Wilayah" value={wilayah} />
-            <Field label="Nomor Telepon" value={lembaga.teleponLembaga} />
-            <Field
-              label="Akun Media Sosial"
-              value={lembaga.mediaSosialLembaga}
-            />
-          </div>
-        </SectionCard>
-
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">Identitas Pengasuh</h2>
-          <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-            <Field label="Nama Pengasuh" value={lembaga.pengasuhNama} />
-            <Field
-              label="Status Pengasuh"
-              value={
-                lembaga.pengasuhStatus
-                  ? STATUS_PEMOHON_LABELS[lembaga.pengasuhStatus]
-                  : null
-              }
-            />
-            <Field
-              label="Status Lainnya"
-              value={lembaga.pengasuhStatusLainnya}
-            />
-            <Field
-              label="Alumni Angkatan"
-              value={lembaga.pengasuhAlumniAngkatan}
-            />
-            <Field label="Nomor Telepon" value={lembaga.pengasuhTelepon} />
-            <PhotoField label="Foto" fileId={lembaga.pengasuhFotoFileId} />
-          </div>
-        </SectionCard>
-
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">
-            Identitas Penanggung Jawab
-          </h2>
-          <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-            <Field
-              label="Nama Penanggung Jawab"
-              value={lembaga.penanggungJawabNama}
-            />
-            <Field
-              label="Status Penanggung Jawab"
-              value={
-                lembaga.penanggungJawabStatus
-                  ? STATUS_PEMOHON_LABELS[lembaga.penanggungJawabStatus]
-                  : null
-              }
-            />
-            <Field
-              label="Status Lainnya"
-              value={lembaga.penanggungJawabStatusLainnya}
-            />
-            <Field
-              label="Alumni Angkatan"
-              value={lembaga.penanggungJawabAlumniAngkatan}
-            />
-            <Field
-              label="Nomor Telepon"
-              value={lembaga.penanggungJawabTelepon}
-            />
-            <PhotoField
-              label="Foto"
-              fileId={lembaga.penanggungJawabFotoFileId}
-            />
-          </div>
-        </SectionCard>
-
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">Kondisi Lembaga</h2>
-          <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-            <Field
-              label="Lokasi Madrasah"
-              value={
-                lembaga.lokasiMadrasah
-                  ? LOKASI_MADRASAH_LABELS[lembaga.lokasiMadrasah]
-                  : null
-              }
-            />
-            <FieldList
-              label="Jenis Satuan Pendidikan"
-              values={lembaga.jenisSatuanPendidikan.map(
-                (value) => SATUAN_PENDIDIKAN_LABELS[value] ?? value,
-              )}
-            />
-            <Field
-              label="Jenis Satuan Lainnya"
-              value={lembaga.jenisSatuanPendidikanLainnya}
-            />
-            <FieldList label="Kitab Bermakna" values={lembaga.kitabBermakna} />
-            <Field
-              label="Kitab Bermakna Lainnya"
-              value={lembaga.kitabBermaknaLainnya}
-            />
-            <FieldList
-              label="Bahasa Pengantar"
-              values={lembaga.bahasaPengantar}
-            />
-            <Field
-              label="Bahasa Pengantar Lainnya"
-              value={lembaga.bahasaPengantarLainnya}
-            />
-            <Field
-              label="Jumlah Pengurus (Putra)"
-              value={
-                lembaga.jumlahPengurusPutra !== null &&
-                lembaga.jumlahPengurusPutra !== undefined
-                  ? String(lembaga.jumlahPengurusPutra)
-                  : null
-              }
-            />
-            <Field
-              label="Jumlah Pengurus (Putri)"
-              value={
-                lembaga.jumlahPengurusPutri !== null &&
-                lembaga.jumlahPengurusPutri !== undefined
-                  ? String(lembaga.jumlahPengurusPutri)
-                  : null
-              }
-            />
-            <Field
-              label="Jumlah Santri (Putra)"
-              value={
-                lembaga.jumlahSantriPutra !== null &&
-                lembaga.jumlahSantriPutra !== undefined
-                  ? String(lembaga.jumlahSantriPutra)
-                  : null
-              }
-            />
-            <Field
-              label="Jumlah Santri (Putri)"
-              value={
-                lembaga.jumlahSantriPutri !== null &&
-                lembaga.jumlahSantriPutri !== undefined
-                  ? String(lembaga.jumlahSantriPutri)
-                  : null
-              }
-            />
-          </div>
-        </SectionCard>
-
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">Permohonan Guru Bantu</h2>
-          <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-            <Field
-              label="Jumlah Guru Bantu Dimohon"
-              value={String(lembaga.jumlahGuruBantuDimohon)}
-            />
-            <Field label="Tugas Guru Bantu" value={lembaga.tugasGuruBantu} />
-            <Field
-              label="Kitab yang Diajarkan"
-              value={lembaga.kitabDiajarkanGuruBantu}
-            />
-            <div className="sm:col-span-2">
-              <Field label="Catatan" value={lembaga.catatanCalonGuruBantu} />
+        <Band>
+          <div className="space-y-6">
+            <h2 className="text-base font-semibold">Identitas Lembaga</h2>
+            <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <Field
+                label="Nama Lembaga Pendidikan"
+                value={lembaga.namaLembagaPendidikan}
+              />
+              <Field label="RT/RW" value={lembaga.rtRw} />
+              <Field label="Alamat" value={alamat} />
+              <Field label="Wilayah" value={wilayah} />
+              <Field label="Nomor Telepon" value={lembaga.teleponLembaga} />
+              <Field
+                label="Akun Media Sosial"
+                value={lembaga.mediaSosialLembaga}
+              />
             </div>
-            {lembaga.dokumenPermohonanFileId && (
-              <div className="sm:col-span-2">
-                <p className="text-xs uppercase text-muted-foreground">
-                  Dokumen Permohonan
-                </p>
-                <Button variant="outline" size="sm" asChild className="mt-1">
-                  <a
-                    href={`/api/media/${encodeURIComponent(lembaga.dokumenPermohonanFileId)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <Download className="size-4" />
-                    Unduh dokumen
-                  </a>
-                </Button>
-              </div>
-            )}
           </div>
-        </SectionCard>
+        </Band>
+
+        <Band>
+          <div className="space-y-6">
+            <h2 className="text-base font-semibold">Identitas Pengasuh</h2>
+            <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <Field label="Nama Pengasuh" value={lembaga.pengasuhNama} />
+              <Field
+                label="Status Pengasuh"
+                value={
+                  lembaga.pengasuhStatus
+                    ? STATUS_PEMOHON_LABELS[lembaga.pengasuhStatus]
+                    : null
+                }
+              />
+              <Field
+                label="Status Lainnya"
+                value={lembaga.pengasuhStatusLainnya}
+              />
+              <Field
+                label="Alumni Angkatan"
+                value={lembaga.pengasuhAlumniAngkatan}
+              />
+              <Field label="Nomor Telepon" value={lembaga.pengasuhTelepon} />
+              <PhotoField label="Foto" fileId={lembaga.pengasuhFotoFileId} />
+            </div>
+          </div>
+        </Band>
+
+        <Band>
+          <div className="space-y-6">
+            <h2 className="text-base font-semibold">
+              Identitas Penanggung Jawab
+            </h2>
+            <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <Field
+                label="Nama Penanggung Jawab"
+                value={lembaga.penanggungJawabNama}
+              />
+              <Field
+                label="Status Penanggung Jawab"
+                value={
+                  lembaga.penanggungJawabStatus
+                    ? STATUS_PEMOHON_LABELS[lembaga.penanggungJawabStatus]
+                    : null
+                }
+              />
+              <Field
+                label="Status Lainnya"
+                value={lembaga.penanggungJawabStatusLainnya}
+              />
+              <Field
+                label="Alumni Angkatan"
+                value={lembaga.penanggungJawabAlumniAngkatan}
+              />
+              <Field
+                label="Nomor Telepon"
+                value={lembaga.penanggungJawabTelepon}
+              />
+              <PhotoField
+                label="Foto"
+                fileId={lembaga.penanggungJawabFotoFileId}
+              />
+            </div>
+          </div>
+        </Band>
+
+        <Band>
+          <div className="space-y-6">
+            <h2 className="text-base font-semibold">Kondisi Lembaga</h2>
+            <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <Field
+                label="Lokasi Madrasah"
+                value={
+                  lembaga.lokasiMadrasah
+                    ? LOKASI_MADRASAH_LABELS[lembaga.lokasiMadrasah]
+                    : null
+                }
+              />
+              <FieldList
+                label="Jenis Satuan Pendidikan"
+                values={lembaga.jenisSatuanPendidikan.map(
+                  (value) => SATUAN_PENDIDIKAN_LABELS[value] ?? value,
+                )}
+              />
+              <Field
+                label="Jenis Satuan Lainnya"
+                value={lembaga.jenisSatuanPendidikanLainnya}
+              />
+              <FieldList label="Kitab Bermakna" values={lembaga.kitabBermakna} />
+              <Field
+                label="Kitab Bermakna Lainnya"
+                value={lembaga.kitabBermaknaLainnya}
+              />
+              <FieldList
+                label="Bahasa Pengantar"
+                values={lembaga.bahasaPengantar}
+              />
+              <Field
+                label="Bahasa Pengantar Lainnya"
+                value={lembaga.bahasaPengantarLainnya}
+              />
+              <Field
+                label="Jumlah Pengurus (Putra)"
+                value={
+                  lembaga.jumlahPengurusPutra !== null &&
+                  lembaga.jumlahPengurusPutra !== undefined
+                    ? String(lembaga.jumlahPengurusPutra)
+                    : null
+                }
+              />
+              <Field
+                label="Jumlah Pengurus (Putri)"
+                value={
+                  lembaga.jumlahPengurusPutri !== null &&
+                  lembaga.jumlahPengurusPutri !== undefined
+                    ? String(lembaga.jumlahPengurusPutri)
+                    : null
+                }
+              />
+              <Field
+                label="Jumlah Santri (Putra)"
+                value={
+                  lembaga.jumlahSantriPutra !== null &&
+                  lembaga.jumlahSantriPutra !== undefined
+                    ? String(lembaga.jumlahSantriPutra)
+                    : null
+                }
+              />
+              <Field
+                label="Jumlah Santri (Putri)"
+                value={
+                  lembaga.jumlahSantriPutri !== null &&
+                  lembaga.jumlahSantriPutri !== undefined
+                    ? String(lembaga.jumlahSantriPutri)
+                    : null
+                }
+              />
+            </div>
+          </div>
+        </Band>
+
+        <Band>
+          <div className="space-y-6">
+            <h2 className="text-base font-semibold">Permohonan Guru Bantu</h2>
+            <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+              <Field
+                label="Jumlah Guru Bantu Dimohon"
+                value={String(lembaga.jumlahGuruBantuDimohon)}
+              />
+              <Field label="Tugas Guru Bantu" value={lembaga.tugasGuruBantu} />
+              <Field
+                label="Kitab yang Diajarkan"
+                value={lembaga.kitabDiajarkanGuruBantu}
+              />
+              <div className="sm:col-span-2">
+                <Field label="Catatan" value={lembaga.catatanCalonGuruBantu} />
+              </div>
+              {lembaga.dokumenPermohonanFileId && (
+                <div className="sm:col-span-2">
+                  <p className="text-xs uppercase text-muted-foreground">
+                    Dokumen Permohonan
+                  </p>
+                  <Button variant="outline" size="sm" asChild className="mt-1">
+                    <a
+                      href={`/api/media/${encodeURIComponent(lembaga.dokumenPermohonanFileId)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Download className="size-4" />
+                      Unduh dokumen
+                    </a>
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </Band>
       </div>
     </PageContainer>
   );
