@@ -6,7 +6,8 @@ import { ArrowLeft, Pencil, Power, PowerOff } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -34,12 +35,12 @@ interface FieldProps {
 function Field({ label, value }: FieldProps) {
   return (
     <div className="space-y-1">
-      <p className="text-xs uppercase text-muted-foreground">{label}</p>
-      <p className="text-sm">
+      <p className="text-xs uppercase text-admin-content-fg/60">{label}</p>
+      <p className="text-sm text-admin-content-fg">
         {value && value.trim() ? (
           value
         ) : (
-          <span className="text-muted-foreground">-</span>
+          <span className="text-admin-content-fg/40">-</span>
         )}
       </p>
     </div>
@@ -51,14 +52,14 @@ function FieldList({ label, values }: { label: string; values: string[] }) {
 
   return (
     <div className="space-y-1">
-      <p className="text-xs uppercase text-muted-foreground">{label}</p>
+      <p className="text-xs uppercase text-admin-content-fg/60">{label}</p>
       {trimmed.length === 0 ? (
-        <p className="text-sm text-muted-foreground">-</p>
+        <p className="text-sm text-admin-content-fg/40">-</p>
       ) : (
-        <ul className="space-y-0.5 text-sm">
+        <ul className="space-y-0.5 text-sm text-admin-content-fg">
           {trimmed.map((value, index) => (
             <li key={index} className="flex items-start gap-1.5">
-              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-muted-foreground/40" />
+              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-admin-content-fg/40" />
               <span>{value}</span>
             </li>
           ))}
@@ -138,29 +139,17 @@ export function TwkDetailView({ member }: Props) {
         }
       />
 
-      <div className="mt-6 space-y-4">
-        <SectionCard className="space-y-4">
+      <Band>
+        <FormGroup legend="Status" description="Status keanggotaan saat ini.">
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={member.status} />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               {STATUS_TONE_DESCRIPTION[member.status]}
             </p>
           </div>
+        </FormGroup>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-            <span className="inline-flex items-center gap-1">
-              {isActive ? (
-                <Power className="size-3.5" />
-              ) : (
-                <PowerOff className="size-3.5" />
-              )}
-              Status terakhir diubah: {formatDate(member.updatedAt)}
-            </span>
-          </div>
-        </SectionCard>
-
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">Data Utama</h2>
+        <FormGroup legend="Data Utama">
           <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
             <Field label="Nama" value={member.nama} />
             <Field label="Asal Daerah" value={member.asalDaerah} />
@@ -173,10 +162,9 @@ export function TwkDetailView({ member }: Props) {
             <Field label="Tugas Khidmah" value={member.tugasKhidmah} />
             <Field label="Absensi" value={member.absensi} />
           </div>
-        </SectionCard>
+        </FormGroup>
 
-        <SectionCard className="space-y-6">
-          <h2 className="text-base font-semibold">Status & Catatan</h2>
+        <FormGroup legend="Status & Catatan">
           <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
             <Field
               label="Status"
@@ -187,13 +175,15 @@ export function TwkDetailView({ member }: Props) {
               <Field label="Catatan" value={member.catatan} />
             </div>
           </div>
-        </SectionCard>
+        </FormGroup>
 
-        <SectionCard className="space-y-2 text-xs text-muted-foreground">
-          <p>Dibuat: {formatDate(member.createdAt)}</p>
-          <p>Diperbarui: {formatDate(member.updatedAt)}</p>
-        </SectionCard>
-      </div>
+        <FormGroup legend="Timestamp">
+          <div className="grid gap-x-6 gap-y-2 text-xs text-admin-content-fg/60 sm:grid-cols-2">
+            <p>Dibuat: {formatDate(member.createdAt)}</p>
+            <p>Diperbarui: {formatDate(member.updatedAt)}</p>
+          </div>
+        </FormGroup>
+      </Band>
 
       <MemberDialog
         open={editOpen}
