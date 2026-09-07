@@ -1,63 +1,33 @@
 import { formatDateId } from "@/lib/format";
 import Link from "next/link";
-import {
-  Clock,
-  Calculator,
-  Eye,
-  Eclipse,
-  FileBarChart,
-  Archive,
-  ChevronRight,
-} from "lucide-react";
+import { Clock, Calculator, Eye } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
-import { StatCard } from "@/components/admin/shared/stat-card";
+import { Band } from "@/components/admin/shared/band";
+import { ListRow } from "@/components/admin/shared/list-row";
+import { StatStrip } from "@/components/admin/shared/stat-primitives";
 
 import { falakService } from "@/modules/falak/application/service";
 import { getUpcomingEclipses } from "@/modules/falak/queries/eclipse.query";
 import { getAllPrayerTimes } from "@/modules/falak/queries/prayer-time.query";
 import { DEFAULT_CITY } from "@/lib/cities";
 
-const QUICK_LINKS = [
-  {
-    title: "Jadwal Shalat",
-    description: "Kelola data waktu shalat",
-    href: "/admin/falak/prayer-time",
-    icon: Clock,
-  },
-  {
-    title: "Hisab",
-    description: "Data perhitungan hisab",
-    href: "/admin/falak/hisab",
-    icon: Calculator,
-  },
-  {
-    title: "Rukyat",
-    description: "Observasi hilal dan rukyat",
-    href: "/admin/falak/rukyat",
-    icon: Eye,
-  },
-  {
-    title: "Eclipse",
-    description: "Gerhana matahari dan bulan",
-    href: "/admin/falak/eclipse",
-    icon: Eclipse,
-  },
-  {
-    title: "Laporan",
-    description: "Ringkasan statistik falak",
-    href: "/admin/falak/reports",
-    icon: FileBarChart,
-  },
-  {
-    title: "Arsip",
-    description: "Data yang telah diarsipkan",
-    href: "/admin/falak/archive",
-    icon: Archive,
-  },
-];
+export const dynamic = "force-dynamic";
+
+const STATUS_LABEL: Record<string, string> = {
+  DRAFT: "Draft",
+  VERIFIED: "Terverifikasi",
+  CONFIRMED: "Dikonfirmasi",
+  ARCHIVED: "Diarsipkan",
+};
+
+const STATUS_TONE: Record<string, string> = {
+  CONFIRMED: "text-primary",
+  VERIFIED: "text-emerald-600",
+  DRAFT: "text-amber-600",
+  ARCHIVED: "text-admin-content-fg/50",
+};
 
 export default async function FalakDashboardPage() {
   const [prayerTimes, hisabResult, recentRukyat, rukyatPending, eclipses] =
@@ -83,75 +53,41 @@ export default async function FalakDashboardPage() {
         description="Ringkasan data layanan falak."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          title="Jadwal Shalat"
-          icon={Clock}
-          value={prayerTimes.length.toString()}
-          description={`Tercatat untuk ${DEFAULT_CITY.name}`}
+      <Band>
+        <StatStrip
+          items={[
+            {
+              key: "prayer",
+              label: "Jadwal Shalat",
+              value: prayerTimes.length.toString(),
+              description: `Tercatat untuk ${DEFAULT_CITY.name}`,
+            },
+            {
+              key: "rukyat",
+              label: "Observasi Rukyat",
+              value: recentRukyat.total.toString(),
+              description: `${pendingVerifications} menunggu verifikasi`,
+            },
+            {
+              key: "hisab",
+              label: "Total Hisab",
+              value: hisabResult.total.toString(),
+              description: "Data perhitungan",
+            },
+            {
+              key: "eclipse",
+              label: "Eclipse Mendatang",
+              value: eclipses.length.toString(),
+              description: "Event astronomi",
+            },
+          ]}
         />
-        <StatCard
-          title="Observasi Rukyat"
-          icon={Eye}
-          value={recentRukyat.total.toString()}
-          description={`${pendingVerifications} menunggu verifikasi`}
-        />
-        <StatCard
-          title="Total Hisab"
-          icon={Calculator}
-          value={hisabResult.total.toString()}
-          description="Data perhitungan"
-        />
-        <StatCard
-          title="Eclipse Mendatang"
-          icon={Eclipse}
-          value={eclipses.length.toString()}
-          description="Event astronomi"
-        />
-      </div>
-
-      <SectionCard variant="elevated" className="rounded-lg p-4 shadow-none">
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="text-base font-semibold">Menu Falak</h3>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Kelola data layanan falak dari halaman berikut.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {QUICK_LINKS.map((link) => {
-            const Icon = link.icon;
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group flex items-center gap-3 rounded-xl border border-primary/25 bg-admin-card-bg p-4 transition-colors hover:border-primary hover:bg-primary/5"
-              >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
-                  <Icon className="size-4" />
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold">{link.title}</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    {link.description}
-                  </p>
-                </div>
-
-                <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            );
-          })}
-        </div>
-      </SectionCard>
+      </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard variant="elevated" className="p-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-foreground">
+        <Band>
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="font-semibold text-admin-content-fg">
               Observasi Rukyat Terbaru
             </h3>
             <Link
@@ -161,53 +97,35 @@ export default async function FalakDashboardPage() {
               Lihat semua
             </Link>
           </div>
-
           {rukyatData.length > 0 ? (
-            <div className="mt-4 space-y-2">
+            <ul className="divide-y divide-admin-border/50">
               {rukyatData.slice(0, 5).map((r) => (
-                <div
+                <ListRow
                   key={r.id}
-                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm"
-                >
-                  <div>
-                    <p className="font-medium">{r.locationName}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDateId(r.observationDate)}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`text-xs font-medium ${
-                      r.status === "CONFIRMED"
-                        ? "text-primary"
-                        : r.status === "VERIFIED"
-                          ? "text-emerald-600"
-                          : r.status === "DRAFT"
-                            ? "text-amber-600"
-                            : "text-muted-foreground"
-                    }`}
-                  >
-                    {r.status === "DRAFT"
-                      ? "Draft"
-                      : r.status === "VERIFIED"
-                        ? "Terverifikasi"
-                        : r.status === "CONFIRMED"
-                          ? "Dikonfirmasi"
-                          : "Diarsipkan"}
-                  </span>
-                </div>
+                  title={r.locationName}
+                  description={formatDateId(r.observationDate)}
+                  meta={
+                    <span
+                      className={`text-xs font-medium ${
+                        STATUS_TONE[r.status] ?? "text-admin-content-fg/50"
+                      }`}
+                    >
+                      {STATUS_LABEL[r.status] ?? r.status}
+                    </span>
+                  }
+                />
               ))}
-            </div>
+            </ul>
           ) : (
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               Belum ada data observasi.
             </p>
           )}
-        </SectionCard>
+        </Band>
 
-        <SectionCard variant="elevated" className="p-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-foreground">
+        <Band>
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="font-semibold text-admin-content-fg">
               Eclipse Mendatang
             </h3>
             <Link
@@ -217,33 +135,26 @@ export default async function FalakDashboardPage() {
               Lihat semua
             </Link>
           </div>
-
           {eclipses.length > 0 ? (
-            <div className="mt-4 space-y-2">
+            <ul className="divide-y divide-admin-border/50">
               {eclipses.slice(0, 5).map((e) => (
-                <div
+                <ListRow
                   key={e.id}
-                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm"
-                >
-                  <div>
-                    <p className="font-medium">
-                      {e.eclipseType === "SOLAR"
-                        ? "Gerhana Matahari"
-                        : "Gerhana Bulan"}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDateId(e.eclipseDate)}
-                    </p>
-                  </div>
-                </div>
+                  title={
+                    e.eclipseType === "SOLAR"
+                      ? "Gerhana Matahari"
+                      : "Gerhana Bulan"
+                  }
+                  description={formatDateId(e.eclipseDate)}
+                />
               ))}
-            </div>
+            </ul>
           ) : (
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               Tidak ada eclipse mendatang.
             </p>
           )}
-        </SectionCard>
+        </Band>
       </div>
     </PageContainer>
   );
