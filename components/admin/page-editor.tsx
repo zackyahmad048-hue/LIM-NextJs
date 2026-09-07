@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 type Values = Record<string, unknown>;
@@ -109,7 +109,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
   return (
     <div className="flex flex-col gap-4">
       {textFields.length > 0 && (
-        <SectionCard variant="elevated">
+        <Band>
           <div className="mb-4 border-b border-admin-border pb-3">
             <h2 className="text-base font-semibold text-admin-content-fg">Konten Teks</h2>
             <p className="text-xs text-admin-content-fg/50">
@@ -154,11 +154,11 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
               ),
             )}
           </div>
-        </SectionCard>
+        </Band>
       )}
 
       {listFields.map((field) => (
-        <SectionCard key={field.key} variant="elevated">
+        <Band key={field.key}>
           <div className="mb-4 flex items-center justify-between gap-3 border-b border-admin-border pb-3">
             <div>
               <h2 className="text-base font-semibold text-admin-content-fg">{field.label}</h2>
@@ -270,7 +270,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
               </p>
             )}
           </div>
-        </SectionCard>
+        </Band>
       ))}
 
       <div className="sticky bottom-4 flex justify-end">

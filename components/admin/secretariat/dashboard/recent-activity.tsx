@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, CalendarDays, Inbox, Send } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 export interface RecentOutgoingMail {
@@ -223,7 +223,7 @@ function ActivityCard({
     : Boolean(children);
 
   return (
-    <SectionCard>
+    <Band>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span
@@ -254,6 +254,6 @@ function ActivityCard({
           </li>
         )}
       </ul>
-    </SectionCard>
+    </Band>
   );
 }

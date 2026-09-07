@@ -8,7 +8,7 @@ import {
   Settings2,
 } from "lucide-react";
 
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { StatCard } from "@/components/admin/shared/stat-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -156,11 +156,11 @@ export function SecretariatDashboard({
         />
       </div>
 
-      <SectionCard variant="elevated">
+      <Band>
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base font-semibold">Tren 12 Bulan</h2>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-admin-content-fg/60">
               Perbandingan surat masuk dan keluar bulanan.
             </p>
           </div>
@@ -178,7 +178,7 @@ export function SecretariatDashboard({
         <div className="mt-4">
           <MonthlyTrendChart series={trend.series} />
         </div>
-      </SectionCard>
+      </Band>
 
       <RecentActivity
         outgoing={recent.outgoing}
@@ -191,11 +191,11 @@ export function SecretariatDashboard({
           driveEmail={health.driveEmail}
           missingAttachments={health.missingAttachments}
         />
-        <SectionCard variant="elevated" className="lg:col-span-2">
+        <Band className="lg:col-span-2">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-semibold">Modul Sekretariat</h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-admin-content-fg/60">
                 Pintasan cepat ke fitur utama.
               </p>
             </div>
@@ -239,7 +239,7 @@ export function SecretariatDashboard({
               );
             })}
           </div>
-        </SectionCard>
+        </Band>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 export interface DashboardDisposition {
@@ -109,11 +109,11 @@ function formatDueDate(date: Date | null) {
 
 export function ActionQueue({ dispositions, counts }: ActionQueueProps) {
   return (
-    <SectionCard variant="elevated">
+    <Band>
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">Perlu Tindakan</h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Item yang menunggu tindak lanjut segera.
           </p>
         </div>
@@ -233,6 +233,6 @@ export function ActionQueue({ dispositions, counts }: ActionQueueProps) {
           </ul>
         )}
       </div>
-    </SectionCard>
+    </Band>
   );
 }

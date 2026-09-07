@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { Badge } from "@/components/ui/badge";
 import { PreviewDialog } from "./preview.dialog";
 
@@ -46,7 +46,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <SectionCard className="rounded-lg bg-background p-0 shadow-none overflow-hidden">
+    <Band>
       <button
         type="button"
         onClick={() => onToggle(id)}
@@ -68,7 +68,7 @@ function Section({
         )}
       </button>
       {expanded && <div className="border-t px-4 py-3">{children}</div>}
-    </SectionCard>
+    </Band>
   );
 }
 

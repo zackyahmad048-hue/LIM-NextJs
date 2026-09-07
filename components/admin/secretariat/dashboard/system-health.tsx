@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, Cloud, CloudOff } from "lucide-react";
 
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 interface MissingAttachments {
@@ -25,11 +25,11 @@ export function SystemHealth({
     missingAttachments.documents;
 
   return (
-    <SectionCard variant="elevated">
+    <Band>
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">Kesehatan Sistem</h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Status koneksi Drive dan kelengkapan lampiran.
           </p>
         </div>
@@ -120,6 +120,6 @@ export function SystemHealth({
           )}
         </div>
       </div>
-    </SectionCard>
+    </Band>
   );
 }

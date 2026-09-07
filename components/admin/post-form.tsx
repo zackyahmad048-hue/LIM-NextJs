@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/select";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 
 interface PostFormProps {
   mode: "create" | "edit";
@@ -128,7 +128,7 @@ export function PostForm({
       >
         {/* Main content */}
         <div className="flex flex-col gap-4">
-          <SectionCard variant="elevated">
+          <Band>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">Judul</Label>
@@ -198,12 +198,12 @@ export function PostForm({
                 )}
               </div>
             </div>
-          </SectionCard>
+          </Band>
         </div>
 
         {/* Sidebar */}
         <div className="flex flex-col gap-4">
-          <SectionCard variant="elevated">
+          <Band>
             <h3 className="text-sm font-semibold text-admin-content-fg">Publikasi</h3>
             <div className="mt-3 space-y-3">
               <div className="space-y-2">
@@ -239,9 +239,9 @@ export function PostForm({
                 />
               </div>
             </div>
-          </SectionCard>
+          </Band>
 
-          <SectionCard variant="elevated">
+          <Band>
             <h3 className="text-sm font-semibold text-admin-content-fg">Aksi</h3>
             <div className="mt-3 flex flex-col gap-2">
               <Button
@@ -272,7 +272,7 @@ export function PostForm({
                 Batal
               </Button>
             </div>
-          </SectionCard>
+          </Band>
         </div>
       </form>
     </PageContainer>

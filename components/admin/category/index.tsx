@@ -5,7 +5,7 @@ import { FolderTree, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 
 import { CategoryDialog } from "./dialog";
 import { CategoryTable } from "./table";
@@ -41,7 +41,7 @@ export function CategoryModule({ data }: Props) {
 
   return (
     <>
-      <SectionCard className="rounded-lg bg-background p-4 shadow-none">
+      <Band>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
@@ -49,7 +49,7 @@ export function CategoryModule({ data }: Props) {
             </div>
             <div>
               <h2 className="text-base font-semibold">Daftar kategori</h2>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-xs text-admin-content-fg/60">
                 {data.length} kategori aktif tersedia untuk konten website.
               </p>
             </div>
@@ -60,11 +60,11 @@ export function CategoryModule({ data }: Props) {
             Tambah kategori
           </Button>
         </div>
-      </SectionCard>
+      </Band>
 
-      <SectionCard className="rounded-lg bg-background p-0 shadow-none">
+      <Band>
         <CategoryTable data={data} onEdit={handleEdit} />
-      </SectionCard>
+      </Band>
 
       <CategoryDialog
         open={open}
