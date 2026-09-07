@@ -3,7 +3,7 @@ import { Cog } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 
 import { getLetterNumberingConfig } from "@/modules/secretariat/queries/secretariat.query";
 import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
@@ -33,42 +33,46 @@ export default async function PenomoranSettingsPage() {
           <NumberingSettingsForm config={config} />
         </div>
 
-        <SectionCard className="h-fit rounded-lg p-4">
+        <Band className="h-fit">
           <div className="mb-3 flex items-center gap-2">
-            <Cog className="size-4 text-muted-foreground" />
-            <h2 className="text-sm font-semibold">Petunjuk Format</h2>
+            <Cog className="size-4 text-admin-content-fg/50" />
+            <h2 className="text-sm font-semibold text-admin-content-fg">
+              Petunjuk Format
+            </h2>
           </div>
-          <ul className="space-y-2 text-xs text-muted-foreground">
+          <ul className="space-y-2 text-xs text-admin-content-fg/60">
             <li>
-              <code className="rounded bg-muted px-1.5 py-0.5">{"{seq}"}</code>{" "}
+              <code className="rounded bg-admin-input-bg px-1.5 py-0.5 font-mono">
+                {"{seq}"}
+              </code>{" "}
               — nomor urut (di-pad sesuai digit)
             </li>
             <li>
-              <code className="rounded bg-muted px-1.5 py-0.5">
+              <code className="rounded bg-admin-input-bg px-1.5 py-0.5 font-mono">
                 {"{level}"}
               </code>{" "}
               — kode tingkat kepengurusan
             </li>
             <li>
-              <code className="rounded bg-muted px-1.5 py-0.5">
+              <code className="rounded bg-admin-input-bg px-1.5 py-0.5 font-mono">
                 {"{category}"}
               </code>{" "}
               — kode kategori surat
             </li>
             <li>
-              <code className="rounded bg-muted px-1.5 py-0.5">
+              <code className="rounded bg-admin-input-bg px-1.5 py-0.5 font-mono">
                 {"{bulan}"}
               </code>{" "}
               — bulan (angka Romawi)
             </li>
             <li>
-              <code className="rounded bg-muted px-1.5 py-0.5">
+              <code className="rounded bg-admin-input-bg px-1.5 py-0.5 font-mono">
                 {"{tahun}"}
               </code>{" "}
               — tahun periode aktif
             </li>
           </ul>
-        </SectionCard>
+        </Band>
       </div>
     </PageContainer>
   );

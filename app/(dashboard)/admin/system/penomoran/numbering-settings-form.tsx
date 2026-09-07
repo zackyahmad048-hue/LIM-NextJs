@@ -8,7 +8,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 
 import type { LetterNumberingConfig } from "@/modules/secretariat/infrastructure/letter-numbering.config";
 import type { NumberingPeriod } from "@/modules/secretariat/application/letter-number.rules";
@@ -76,23 +77,19 @@ export function NumberingSettingsForm({
   }
 
   return (
-    <div className="space-y-3">
-      <form action={handleSave} className="space-y-3">
-        <input type="hidden" name="periods" value={JSON.stringify(periods)} />
-        <input
-          type="hidden"
-          name="levelCodes"
-          value={JSON.stringify(levelCodes)}
-        />
+    <form action={handleSave} className="max-w-3xl space-y-4">
+      <input type="hidden" name="periods" value={JSON.stringify(periods)} />
+      <input
+        type="hidden"
+        name="levelCodes"
+        value={JSON.stringify(levelCodes)}
+      />
 
-        <SectionCard className="rounded-lg p-4">
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Format & Digit</h2>
-            <p className="text-xs text-muted-foreground">
-              Template memakai placeholder yang dibatasi tanda kurung kurawal.
-            </p>
-          </div>
-
+      <Band>
+        <FormGroup
+          legend="Format & Digit"
+          description="Template memakai placeholder yang dibatasi tanda kurung kurawal."
+        >
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="formatTemplate" className="text-xs">
@@ -121,16 +118,13 @@ export function NumberingSettingsForm({
               />
             </div>
           </div>
-        </SectionCard>
+        </FormGroup>
 
-        <SectionCard className="rounded-lg p-4">
-          <div className="mb-4 flex items-center justify-between border-b pb-3">
-            <div>
-              <h2 className="text-base font-semibold">Periode Kepengurusan</h2>
-              <p className="text-xs text-muted-foreground">
-                Rentang tahun menentukan periode aktif penomoran surat.
-              </p>
-            </div>
+        <FormGroup
+          legend="Periode Kepengurusan"
+          description="Rentang tahun menentukan periode aktif penomoran surat."
+        >
+          <div className="flex justify-end">
             <Button
               type="button"
               variant="outline"
@@ -149,7 +143,6 @@ export function NumberingSettingsForm({
               Tambah
             </Button>
           </div>
-
           <div className="space-y-2">
             {periods.map((period, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -163,7 +156,7 @@ export function NumberingSettingsForm({
                   className="rounded-md text-xs"
                   aria-label={`Tahun mulai periode ${index + 1}`}
                 />
-                <span className="text-xs text-muted-foreground">s/d</span>
+                <span className="text-xs text-admin-content-fg/60">s/d</span>
                 <Input
                   type="number"
                   min={1900}
@@ -188,16 +181,13 @@ export function NumberingSettingsForm({
               </div>
             ))}
           </div>
-        </SectionCard>
+        </FormGroup>
 
-        <SectionCard className="rounded-lg p-4">
-          <div className="mb-4 flex items-center justify-between border-b pb-3">
-            <div>
-              <h2 className="text-base font-semibold">Kode Tingkat</h2>
-              <p className="text-xs text-muted-foreground">
-                Opsi tingkat kepengurusan untuk form surat keluar.
-              </p>
-            </div>
+        <FormGroup
+          legend="Kode Tingkat"
+          description="Opsi tingkat kepengurusan untuk form surat keluar."
+        >
+          <div className="flex justify-end">
             <Button
               type="button"
               variant="outline"
@@ -210,7 +200,6 @@ export function NumberingSettingsForm({
               Tambah
             </Button>
           </div>
-
           <div className="space-y-2">
             {levelCodes.map((level, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -246,57 +235,53 @@ export function NumberingSettingsForm({
               </div>
             ))}
           </div>
-        </SectionCard>
+        </FormGroup>
 
-        <div className="sticky bottom-4 flex justify-end">
-          <Button type="submit" size="sm" disabled={saving}>
-            {saving ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : (
-              <Save className="size-4" />
-            )}
-            Simpan Pengaturan
-          </Button>
-        </div>
-      </form>
+        <FormGroup
+          legend="Nomor Urut Berikutnya"
+          description="Koreksi manual nomor urut yang akan dipakai per periode."
+        >
+          <div className="space-y-2">
+            {periods.map((period) => (
+              <form
+                key={`${period.startYear}-${period.endYear}`}
+                action={handleSetSequence}
+                className="flex flex-wrap items-center gap-2"
+              >
+                <span className="w-28 text-sm font-medium tabular-nums">
+                  {period.startYear}/{period.endYear}
+                </span>
+                <input type="hidden" name="periodYear" value={period.startYear} />
+                <Input
+                  name="sequence"
+                  type="number"
+                  min={1}
+                  defaultValue={
+                    config.nextSequence?.[String(period.startYear)] ?? 1
+                  }
+                  className="w-28 rounded-md text-xs"
+                  aria-label={`Nomor urut berikutnya periode ${period.startYear}`}
+                />
+                <Button type="submit" variant="outline" size="sm" disabled={sequenceBusy}>
+                  <RefreshCcw className="size-3.5" />
+                  Atur
+                </Button>
+              </form>
+            ))}
+          </div>
+        </FormGroup>
+      </Band>
 
-      <SectionCard className="rounded-lg p-4">
-        <div className="mb-4 border-b pb-3">
-          <h2 className="text-base font-semibold">Nomor Urut Berikutnya</h2>
-          <p className="text-xs text-muted-foreground">
-            Koreksi manual nomor urut yang akan dipakai per periode.
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          {periods.map((period) => (
-            <form
-              key={`${period.startYear}-${period.endYear}`}
-              action={handleSetSequence}
-              className="flex flex-wrap items-center gap-2"
-            >
-              <span className="w-28 text-sm font-medium tabular-nums">
-                {period.startYear}/{period.endYear}
-              </span>
-              <input type="hidden" name="periodYear" value={period.startYear} />
-              <Input
-                name="sequence"
-                type="number"
-                min={1}
-                defaultValue={
-                  config.nextSequence?.[String(period.startYear)] ?? 1
-                }
-                className="w-28 rounded-md text-xs"
-                aria-label={`Nomor urut berikutnya periode ${period.startYear}`}
-              />
-              <Button type="submit" variant="outline" size="sm" disabled={sequenceBusy}>
-                <RefreshCcw className="size-3.5" />
-                Atur
-              </Button>
-            </form>
-          ))}
-        </div>
-      </SectionCard>
-    </div>
+      <div className="sticky bottom-4 flex justify-end">
+        <Button type="submit" size="sm" disabled={saving}>
+          {saving ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Save className="size-4" />
+          )}
+          Simpan Pengaturan
+        </Button>
+      </div>
+    </form>
   );
 }
