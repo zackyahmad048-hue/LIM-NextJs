@@ -1,6 +1,5 @@
 import { formatDateId } from "@/lib/format";
 import Link from "next/link";
-import { Clock, Calculator, Eye } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";

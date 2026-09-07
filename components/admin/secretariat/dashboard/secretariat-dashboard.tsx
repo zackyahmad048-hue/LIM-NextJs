@@ -1,17 +1,10 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  ClipboardList,
-  FileText,
-  Inbox,
-  Send,
-  Settings2,
-} from "lucide-react";
+import { ArrowRight, Settings2 } from "lucide-react";
 
 import { Band } from "@/components/admin/shared/band";
 import { StatStrip } from "@/components/admin/shared/stat-primitives";
+import { ListRow } from "@/components/admin/shared/list-row";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 import { ActionQueue, type DashboardDisposition } from "./action-queue";
 import { MonthlyTrendChart, type TrendDatum } from "./monthly-trend-chart";
@@ -73,40 +66,30 @@ function percentDelta(current: number, previous: number) {
   return `${sign}${rounded}% dari bulan lalu`;
 }
 
-const navCards: Array<{
+const navLinks: Array<{
   title: string;
   description: string;
   href: string;
-  icon: typeof Inbox;
-  tone: string;
 }> = [
   {
     title: "Surat Keluar",
     description: "Buat, tandatangani, dan kirim surat keluar.",
     href: "/admin/secretariat/outgoing-mail/list",
-    icon: Send,
-    tone: "text-amber-600 bg-amber-100 dark:bg-amber-950/50",
   },
   {
     title: "Surat Masuk",
     description: "Catat surat masuk dan teruskan ke disposisi.",
     href: "/admin/secretariat/incoming-mail/list",
-    icon: Inbox,
-    tone: "text-sky-600 bg-sky-100 dark:bg-sky-950/50",
   },
   {
     title: "Disposisi",
     description: "Pantau instruksi dan tindak lanjut disposisi.",
     href: "/admin/secretariat/disposition/list",
-    icon: ClipboardList,
-    tone: "text-primary bg-primary/10",
   },
   {
     title: "Dokumen",
     description: "Kelola dokumen administrasi dan pengarsipan.",
     href: "/admin/secretariat/document/list",
-    icon: FileText,
-    tone: "text-violet-600 bg-violet-100 dark:bg-violet-950/50",
   },
 ];
 
@@ -215,33 +198,28 @@ export function SecretariatDashboard({
               </Link>
             </Button>
           </div>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {navCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <Link
-                  key={card.href}
-                  href={card.href}
-                  className="group flex items-start gap-3 rounded-lg border bg-background p-3 transition-colors hover:border-primary/30 hover:bg-primary/5"
-                >
-                  <span
-                    className={cn(
-                      "flex size-9 shrink-0 items-center justify-center rounded-md",
-                      card.tone,
-                    )}
-                  >
-                    <Icon className="size-4" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold">{card.title}</p>
-                    <p className="mt-0.5 text-[11px] text-muted-foreground">
-                      {card.description}
-                    </p>
-                  </div>
-                  <ArrowRight className="mt-1 size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              );
-            })}
+          <div className="mt-4">
+            <ul className="divide-y divide-admin-border/50">
+              {navLinks.map((link) => (
+                <ListRow
+                  key={link.href}
+                  title={link.title}
+                  description={link.description}
+                  action={
+                    <Button
+                      asChild
+                      variant="ghost"
+                      size="sm"
+                      aria-label={`Buka ${link.title}`}
+                    >
+                      <Link href={link.href}>
+                        <ArrowRight className="size-3.5" />
+                      </Link>
+                    </Button>
+                  }
+                />
+              ))}
+            </ul>
           </div>
         </Band>
       </div>

@@ -51,12 +51,13 @@ export default async function DashboardLayout({
           <Header user={user} roleSlugs={roleSlugs} />
 
           {/* 
-            Menambahkan sistem padding responsif (p-4 md:p-6 lg:p-8) 
-            dan pembungkus max-w-7xl agar konten di dalam dashboard tidak 
-            menyentuh pinggir layar dan memiliki "ruang napas" yang lega.
+            Sistem padding responsif (p-4 md:p-6 lg:p-8) ada di <main>;
+            konten admin memenuhi seluruh area kanan sidebar tanpa batas
+            lebar (per docs/08-design-system/layout.md). PageContainer hanya
+            menambah padding vertikal + gap.
           */}
           <main className="flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
-            <div className="mx-auto flex max-w-7xl flex-col gap-6 md:gap-8">
+            <div className="flex flex-col gap-6 md:gap-8">
               {children}
             </div>
           </main>
