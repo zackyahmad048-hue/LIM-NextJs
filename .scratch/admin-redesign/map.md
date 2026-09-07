@@ -56,9 +56,9 @@ Wayfinding selesai; spec diterima. Implementasi dipecah lewat `/to-tickets` dari
 - [09 Tracer-bullet DASHBOARD — beranda admin](.scratch/admin-redesign/issues/09-tracer-bullet-dashboard-admin.md) — blocker: 06 → **resolved** (gate pola dashboard lolos: band stats 4+1, list-row Profil, module-grid → sidebar; `DashboardClient` → Server Component `AdminDashboard`)
 - [10 Ramp modul berat: sekretariat & falak](.scratch/admin-redesign/issues/10-ramp-secretariat-falak.md) — blocker: 07, 08, 09 → **resolved**
 - [11 Ramp modul lain + retire `AdminTable`](.scratch/admin-redesign/issues/11-ramp-rest-retire-admintable.md) — blocker: 07, 08, 09 → **resolved**
-- [12 Kontrak & verifikasi akhir](.scratch/admin-redesign/issues/12-contract-verification.md) — blocker: 10, 11
+- [12 Kontrak & verifikasi akhir](.scratch/admin-redesign/issues/12-contract-verification.md) — blocker: 10, 11 → **resolved**
 
-Status implementasi: 06–11 semua resolved (primitif, tracer list/form/dashboard, ramp sekretariat/falak, ramp sisa + retire `AdminTable`/`SectionCard`/`StatCard`) → **frontier berikut 12** (kontrak & verifikasi akhir: hapus berkas legacy defs, WCAG AA per §5, sisa kartu-navigasi dashboard sekretariat N1).
+Status implementasi: **06–12 semua resolved** — seluruh permukaan admin termigrasi ke primitif tenang (`Band`/`StatStrip`/`StatRow`/`ListRow`/`FormGroup`/`DataTable`); `SectionCard`, `AdminTable`, `StatCard` legacy dihapus; drift `max-w-7xl` diselaraskan. Sisa untuk audit human: WCAG AA (ada runner a11y bila dipasang) + audit silang visual fold/kartu-dalam-kartu — dicatat di Answer ticket 12.
 
 ## Not yet specified
 
