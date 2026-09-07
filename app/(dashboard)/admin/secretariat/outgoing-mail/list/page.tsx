@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
@@ -14,6 +14,10 @@ import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
 import { SearchForm } from "./search-form";
+
+export const dynamic = "force-dynamic";
+
+type Mail = Awaited<ReturnType<typeof getOutgoingMails>>["items"][number];
 
 const statusLabels: Record<
   string,
@@ -33,11 +37,13 @@ export default async function OutgoingMailListPage({
   searchParams: Promise<{ search?: string; status?: string; page?: string }>;
 }) {
   const params = await searchParams;
+  const page = params.page ? Number(params.page) : 1;
   const { items, total } = await getOutgoingMails({
     search: params.search,
     status: params.status,
-    page: params.page ? Number(params.page) : 1,
+    page,
   });
+  const pageSize = 20;
 
   return (
     <PageContainer>
@@ -57,114 +63,117 @@ export default async function OutgoingMailListPage({
         }
       />
 
-      <div className="mt-4">
-        <AdminTable
-          title="Surat Keluar"
-          description={`${total} surat keluar ditemukan.`}
-          pagination={
-            <TablePagination
-              page={params.page ? Number(params.page) : 1}
-              pageSize={20}
-              total={total}
-              basePath="/admin/secretariat/outgoing-mail/list"
-              queryParams={{ search: params.search, status: params.status }}
-            />
-          }
-          columns={[
-            {
-              key: "fullNumber",
-              label: "Nomor Surat",
-              render: (item) =>
-                item.fullNumber ? (
-                  <LetterPlate fullNumber={item.fullNumber} size="sm" />
-                ) : (
-                  <span className="text-xs text-muted-foreground">
-                    Belum bernomor
-                  </span>
-                ),
-            },
-            {
-              key: "recipient",
-              label: "Penerima",
-              render: (item) => (
-                <div className="max-w-[200px]">
-                  <p className="truncate text-sm font-medium">
-                    {item.recipient || "-"}
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada surat keluar. Buat surat keluar pertama Anda.
+        </p>
+      )}
+
+      <DataTable<Mail, unknown>
+        data={items}
+        columns={[
+          {
+            accessorKey: "fullNumber",
+            header: "Nomor Surat",
+            cell: ({ row }) =>
+              row.original.fullNumber ? (
+                <LetterPlate fullNumber={row.original.fullNumber} size="sm" />
+              ) : (
+                <span className="text-xs text-admin-content-fg/60">
+                  Belum bernomor
+                </span>
+              ),
+          },
+          {
+            accessorKey: "recipient",
+            header: "Penerima",
+            cell: ({ row }) => (
+              <div className="max-w-50">
+                <p className="truncate text-sm font-medium text-admin-content-fg">
+                  {row.original.recipient || "-"}
+                </p>
+                {row.original.ketuaName && (
+                  <p className="truncate text-xs text-admin-content-fg/60">
+                    Ketua: {row.original.ketuaName}
                   </p>
-                  {item.ketuaName && (
-                    <p className="truncate text-xs text-muted-foreground">
-                      Ketua: {item.ketuaName}
-                    </p>
-                  )}
-                </div>
-              ),
+                )}
+              </div>
+            ),
+          },
+          {
+            accessorKey: "subject",
+            header: "Perihal",
+            cell: ({ row }) => (
+              <span className="truncate text-xs text-admin-content-fg/80">
+                {row.original.subject}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "mailDate",
+            header: "Tanggal Surat",
+            cell: ({ row }) => (
+              <span className="text-xs tabular-nums text-admin-content-fg/80">
+                {formatDateId(row.original.mailDate)}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = statusLabels[row.original.status] ?? {
+                label: row.original.status,
+                variant: "outline" as const,
+              };
+              return (
+                <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
+                  {s.label}
+                </Badge>
+              );
             },
-            {
-              key: "subject",
-              label: "Perihal",
-              render: (item) => (
-                <span className="truncate text-xs">{item.subject}</span>
-              ),
-            },
-            {
-              key: "mailDate",
-              label: "Tanggal Surat",
-              render: (item) => (
-                <span className="text-xs tabular-nums">{formatDateId(item.mailDate)}</span>
-              ),
-            },
-            {
-              key: "status",
-              label: "Status",
-              render: (item) => {
-                const s = statusLabels[item.status] ?? {
-                  label: item.status,
-                  variant: "outline" as const,
-                };
-                return (
-                  <Badge variant={s.variant} className="h-5 px-2 text-[11px]">
-                    {s.label}
-                  </Badge>
-                );
-              },
-            },
-            {
-              key: "actions",
-              label: "Aksi",
-              align: "right",
-              render: (item) => (
-                <div className="flex justify-end gap-1">
-                  <Button asChild variant="ghost" size="sm" aria-label="Cetak / PDF">
-                    <Link
-                      href={`/admin/secretariat/outgoing-mail/${item.id}/cetak`}
-                    >
-                      <FileText className="size-3.5" />
+          },
+          {
+            id: "actions",
+            header: () => (
+              <div className="text-right text-sm font-medium text-admin-content-fg/70">
+                Aksi
+              </div>
+            ),
+            cell: ({ row }) => (
+              <div className="flex justify-end gap-1">
+                <Button asChild variant="ghost" size="sm" aria-label="Cetak / PDF">
+                  <Link href={`/admin/secretariat/outgoing-mail/${row.original.id}/cetak`}>
+                    <FileText className="size-3.5" />
+                  </Link>
+                </Button>
+                {row.original.status !== "ARCHIVED" && (
+                  <Button asChild variant="ghost" size="sm" aria-label="Edit surat keluar">
+                    <Link href={`/admin/secretariat/outgoing-mail/${row.original.id}/edit`}>
+                      <Pencil className="size-3.5" />
                     </Link>
                   </Button>
-                  {item.status !== "ARCHIVED" && (
-                    <Button asChild variant="ghost" size="sm" aria-label="Edit surat keluar">
-                      <Link
-                        href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
-                      >
-                        <Pencil className="size-3.5" />
-                      </Link>
-                    </Button>
-                  )}
-                  <ConfirmDelete
-                    onConfirm={deleteOutgoingMail}
-                    args={[item.id]}
-                    title="Hapus surat keluar"
-                    description={`Surat keluar "${item.subject}" akan dihapus permanen.`}
-                    label="Hapus surat keluar"
-                  />
-                </div>
-              ),
-            },
-          ]}
-          data={items}
-          emptyMessage="Belum ada surat keluar. Buat surat keluar pertama Anda."
-        />
-      </div>
+                )}
+                <ConfirmDelete
+                  onConfirm={deleteOutgoingMail}
+                  args={[row.original.id]}
+                  title="Hapus surat keluar"
+                  description={`Surat keluar "${row.original.subject}" akan dihapus permanen.`}
+                  label="Hapus surat keluar"
+                />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <TablePagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        basePath="/admin/secretariat/outgoing-mail/list"
+        queryParams={{ search: params.search, status: params.status }}
+      />
     </PageContainer>
   );
 }
