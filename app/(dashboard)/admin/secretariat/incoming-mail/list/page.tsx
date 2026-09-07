@@ -6,13 +6,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { deleteIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
+
+export const dynamic = "force-dynamic";
+
+type Incoming = Awaited<ReturnType<typeof getIncomingMails>>["items"][number];
 
 const statusLabels: Record<
   string,
@@ -31,11 +35,13 @@ export default async function IncomingMailListPage({
   searchParams: Promise<{ search?: string; status?: string; page?: string }>;
 }) {
   const params = await searchParams;
+  const page = params.page ? Number(params.page) : 1;
   const { items, total } = await getIncomingMails({
     search: params.search,
     status: params.status,
-    page: params.page ? Number(params.page) : 1,
+    page,
   });
+  const pageSize = 20;
 
   return (
     <PageContainer>
@@ -52,69 +58,70 @@ export default async function IncomingMailListPage({
         }
       />
 
-      <AdminTable
-        title="Surat Masuk"
-        description={`${total} surat masuk ditemukan.`}
-        toolbar={
-          <TableSearchForm
-            basePath="/admin/secretariat/incoming-mail/list"
-            defaultValue={params.search ?? ""}
-            placeholder="Cari perihal/pengirim..."
-          />
-        }
-        pagination={
-          <TablePagination
-            page={params.page ? Number(params.page) : 1}
-            pageSize={20}
-            total={total}
-            basePath="/admin/secretariat/incoming-mail/list"
-            queryParams={{ search: params.search, status: params.status }}
-          />
-        }
+      <TableSearchForm
+        basePath="/admin/secretariat/incoming-mail/list"
+        defaultValue={params.search ?? ""}
+        placeholder="Cari perihal/pengirim..."
+      />
+
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada surat masuk. Buat surat masuk pertama Anda.
+        </p>
+      )}
+
+      <DataTable<Incoming, unknown>
+        data={items}
         columns={[
           {
-            key: "registrationNumber",
-            label: "No. Surat Pengirim",
-            render: (item) => (
-              <span className="text-xs text-muted-foreground">
-                {item.registrationNumber}
+            accessorKey: "registrationNumber",
+            header: "No. Surat Pengirim",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/60">
+                {row.original.registrationNumber}
               </span>
             ),
           },
           {
-            key: "sender",
-            label: "Pengirim",
-            render: (item) => (
+            accessorKey: "sender",
+            header: "Pengirim",
+            cell: ({ row }) => (
               <div className="max-w-50">
-                <p className="truncate text-sm font-medium">{item.sender}</p>
-                {item.senderAddress && (
-                  <p className="truncate text-xs text-muted-foreground">
-                    {item.senderAddress}
+                <p className="truncate text-sm font-medium text-admin-content-fg">
+                  {row.original.sender}
+                </p>
+                {row.original.senderAddress && (
+                  <p className="truncate text-xs text-admin-content-fg/60">
+                    {row.original.senderAddress}
                   </p>
                 )}
               </div>
             ),
           },
           {
-            key: "subject",
-            label: "Perihal",
-            render: (item) => (
-              <span className="truncate text-xs">{item.subject}</span>
+            accessorKey: "subject",
+            header: "Perihal",
+            cell: ({ row }) => (
+              <span className="truncate text-xs text-admin-content-fg/80">
+                {row.original.subject}
+              </span>
             ),
           },
           {
-            key: "receivedDate",
-            label: "Tanggal Diterima",
-            render: (item) => (
-              <span className="text-xs tabular-nums">{formatDateId(item.receivedDate)}</span>
+            accessorKey: "receivedDate",
+            header: "Tanggal Diterima",
+            cell: ({ row }) => (
+              <span className="text-xs tabular-nums text-admin-content-fg/80">
+                {formatDateId(row.original.receivedDate)}
+              </span>
             ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => {
-              const s = statusLabels[item.status] ?? {
-                label: item.status,
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+              const s = statusLabels[row.original.status] ?? {
+                label: row.original.status,
                 variant: "outline" as const,
               };
               return (
@@ -125,31 +132,38 @@ export default async function IncomingMailListPage({
             },
           },
           {
-            key: "actions",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            id: "actions",
+            header: () => (
+              <div className="text-right text-sm font-medium text-admin-content-fg/70">
+                Aksi
+              </div>
+            ),
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
                 <Button asChild variant="ghost" size="sm" aria-label="Edit surat masuk">
-                  <Link
-                    href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
-                  >
+                  <Link href={`/admin/secretariat/incoming-mail/${row.original.id}/edit`}>
                     <Pencil className="size-3.5" />
                   </Link>
                 </Button>
                 <ConfirmDelete
                   onConfirm={deleteIncomingMail}
-                  args={[item.id]}
+                  args={[row.original.id]}
                   title="Hapus surat masuk"
-                  description={`Surat masuk "${item.subject}" akan dihapus permanen.`}
+                  description={`Surat masuk "${row.original.subject}" akan dihapus permanen.`}
                   label="Hapus surat masuk"
                 />
               </div>
             ),
           },
         ]}
-        data={items}
-        emptyMessage="Belum ada surat masuk. Buat surat masuk pertama Anda."
+      />
+
+      <TablePagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        basePath="/admin/secretariat/incoming-mail/list"
+        queryParams={{ search: params.search, status: params.status }}
       />
     </PageContainer>
   );
