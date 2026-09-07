@@ -3,9 +3,12 @@ import { Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
+import { formatDateId } from "@/lib/format";
 
 import { getRoles } from "@/modules/authorization/presentation/role.query";
+
+export const dynamic = "force-dynamic";
 
 export default async function RolesPage() {
   const roles = await getRoles();
@@ -17,50 +20,53 @@ export default async function RolesPage() {
         description="Kelola peran dan hak akses pengguna."
       />
 
-      <AdminTable
-        title="Daftar Role"
-        description={`${roles.length} role terdaftar.`}
+      {roles.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">Belum ada role.</p>
+      )}
+
+      <DataTable
+        data={roles}
         columns={[
           {
-            key: "role",
-            label: "Role",
-            render: (role) => (
+            accessorKey: "name",
+            header: "Role",
+            cell: ({ row }) => (
               <div className="flex items-center gap-2">
                 <Shield className="size-4 text-muted-foreground" />
-                <span className="font-medium">{role.name}</span>
+                <span className="font-medium">{row.original.name}</span>
               </div>
             ),
           },
           {
-            key: "slug",
-            label: "Slug",
-            render: (role) => (
+            accessorKey: "slug",
+            header: "Slug",
+            cell: ({ row }) => (
               <Badge variant="outline" className="text-[11px] font-mono">
-                {role.slug}
+                {row.original.slug}
               </Badge>
             ),
           },
           {
-            key: "deskripsi",
-            label: "Deskripsi",
-            render: (role) => (
+            accessorKey: "description",
+            header: "Deskripsi",
+            cell: ({ row }) => (
               <span className="text-muted-foreground">
-                {role.description || <span className="italic">—</span>}
+                {row.original.description || (
+                  <span className="italic">—</span>
+                )}
               </span>
             ),
           },
           {
-            key: "dibuat",
-            label: "Dibuat",
-            render: (role) => (
+            accessorKey: "createdAt",
+            header: "Dibuat",
+            cell: ({ row }) => (
               <span className="tabular-nums text-muted-foreground">
-                {new Date(role.createdAt).toLocaleDateString("id-ID")}
+                {formatDateId(row.original.createdAt)}
               </span>
             ),
           },
         ]}
-        data={roles}
-        emptyMessage="Belum ada role."
       />
     </PageContainer>
   );
