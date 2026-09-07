@@ -2,10 +2,17 @@ import { formatDateId } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 
 import { getRukyatByStatus } from "@/modules/falak/queries/rukyat.query";
 import { falakHisabRepository } from "@/modules/falak/infrastructure/repository";
+
+type RukyatItem = Awaited<
+  ReturnType<typeof getRukyatByStatus>
+>[number];
+type HisabItem = Awaited<
+  ReturnType<typeof falakHisabRepository.findPaginated>
+>["items"][number];
 
 export default async function FalakArchivePage() {
   const [archivedRukyat, hisabResult] = await Promise.all([
@@ -21,77 +28,88 @@ export default async function FalakArchivePage() {
         description="Data arsip observasi rukyat, hisab, dan eclipse."
       />
 
-      <AdminTable
-        title="Arsip Observasi Rukyat"
-        description={`${archivedRukyat.length} observasi terarsipkan.`}
+      {archivedRukyat.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada arsip observasi.
+        </p>
+      )}
+      <DataTable<RukyatItem, unknown>
+        data={archivedRukyat}
         columns={[
           {
-            key: "lokasi",
-            label: "Lokasi",
-            render: (item) => (
-              <span className="text-sm font-medium">{item.locationName}</span>
-            ),
-          },
-          {
-            key: "tanggal",
-            label: "Tanggal",
-            render: (item) => (
-              <span className="text-xs">
-                {formatDateId(item.observationDate)}
+            accessorKey: "locationName",
+            header: "Lokasi",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {row.original.locationName}
               </span>
             ),
           },
           {
-            key: "hasil",
-            label: "Hasil",
-            render: (item) => <Badge variant="outline">{item.result}</Badge>,
+            accessorKey: "observationDate",
+            header: "Tanggal",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatDateId(row.original.observationDate)}
+              </span>
+            ),
           },
           {
-            key: "cuaca",
-            label: "Cuaca",
-            render: (item) => (
-              <span className="text-xs text-muted-foreground">
-                {item.weather}
+            accessorKey: "result",
+            header: "Hasil",
+            cell: ({ row }) => (
+              <Badge variant="outline">{row.original.result}</Badge>
+            ),
+          },
+          {
+            accessorKey: "weather",
+            header: "Cuaca",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/60">
+                {row.original.weather}
               </span>
             ),
           },
         ]}
-        data={archivedRukyat}
-        emptyMessage="Belum ada arsip observasi."
       />
 
-      <AdminTable
-        title="Arsip Hisab"
-        description={`${archivedHisab.length} data hisab.`}
+      {archivedHisab.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada data hisab.
+        </p>
+      )}
+      <DataTable<HisabItem, unknown>
+        data={archivedHisab}
         columns={[
           {
-            key: "lokasi",
-            label: "Lokasi",
-            render: (item) => (
-              <span className="text-sm font-medium">{item.locationName}</span>
-            ),
-          },
-          {
-            key: "tanggal",
-            label: "Tanggal",
-            render: (item) => (
-              <span className="text-xs">
-                {formatDateId(item.calculationDate)}
+            accessorKey: "locationName",
+            header: "Lokasi",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {row.original.locationName}
               </span>
             ),
           },
           {
-            key: "koordinat",
-            label: "Koordinat",
-            render: (item) => (
-              <span className="text-xs text-muted-foreground">
-                {item.latitude.toFixed(4)}, {item.longitude.toFixed(4)}
+            accessorKey: "calculationDate",
+            header: "Tanggal",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatDateId(row.original.calculationDate)}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "latitude",
+            header: "Koordinat",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/60">
+                {row.original.latitude.toFixed(4)},{" "}
+                {row.original.longitude.toFixed(4)}
               </span>
             ),
           },
         ]}
-        data={archivedHisab}
-        emptyMessage="Belum ada data hisab."
       />
     </PageContainer>
   );

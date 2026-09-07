@@ -2,9 +2,13 @@ import { formatDateId } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 
 import { falakService } from "@/modules/falak/application/service";
+
+type Item = Awaited<
+  ReturnType<typeof falakService.getEclipsePaginated>
+>["items"][number];
 
 export default async function EclipsePage() {
   const result = await falakService.getEclipsePaginated(1, 50);
@@ -17,47 +21,57 @@ export default async function EclipsePage() {
         description="Kelola data gerhana matahari dan bulan."
       />
 
-      <AdminTable
-        title="Daftar Eclipse"
-        description={`${items.length} data eclipse tercatat.`}
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada data eclipse.
+        </p>
+      )}
+      <DataTable<Item, unknown>
+        data={items}
         columns={[
           {
-            key: "jenis",
-            label: "Jenis",
-            render: (item) => (
+            accessorKey: "eclipseType",
+            header: "Jenis",
+            cell: ({ row }) => (
               <Badge
-                variant={item.eclipseType === "SOLAR" ? "default" : "secondary"}
+                variant={
+                  row.original.eclipseType === "SOLAR" ? "default" : "secondary"
+                }
               >
-                {item.eclipseType === "SOLAR" ? "Matahari" : "Bulan"}
+                {row.original.eclipseType === "SOLAR" ? "Matahari" : "Bulan"}
               </Badge>
             ),
           },
           {
-            key: "tanggal",
-            label: "Tanggal",
-            render: (item) => (
-              <span className="text-xs">{formatDateId(item.eclipseDate)}</span>
+            accessorKey: "eclipseDate",
+            header: "Tanggal",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatDateId(row.original.eclipseDate)}
+              </span>
             ),
           },
           {
-            key: "visibilitas",
-            label: "Visibilitas",
-            render: (item) => (
-              <span className="text-xs">{item.visibility || "-"}</span>
+            accessorKey: "visibility",
+            header: "Visibilitas",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {row.original.visibility || "-"}
+              </span>
             ),
           },
           {
-            key: "keterangan",
-            label: "Keterangan",
-            render: (item) => (
-              <span className="text-xs text-muted-foreground">
-                {item.details ? JSON.stringify(item.details) : "-"}
+            accessorKey: "details",
+            header: "Keterangan",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/60">
+                {row.original.details
+                  ? JSON.stringify(row.original.details)
+                  : "-"}
               </span>
             ),
           },
         ]}
-        data={items}
-        emptyMessage="Belum ada data eclipse."
       />
     </PageContainer>
   );

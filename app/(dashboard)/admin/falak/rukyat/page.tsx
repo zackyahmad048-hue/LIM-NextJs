@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 import { TablePagination } from "@/components/admin/shared/table-pagination";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
@@ -15,6 +15,10 @@ import {
   confirmRukyat,
   archiveRukyat,
 } from "@/modules/falak/presentation/falak.action";
+
+type Item = Awaited<
+  ReturnType<typeof falakService.getRukyatPaginated>
+>["items"][number];
 
 function StatusBadge({ status }: { status: string }) {
   const variant =
@@ -59,80 +63,104 @@ export default async function RukyatPage({
         description="Kelola data observasi rukyat."
       />
 
-      <AdminTable
-        title="Daftar Observasi Rukyat"
-        description={`${result.total} observasi tercatat.`}
-        toolbar={
-          <TableSearchForm
-            basePath="/admin/falak/rukyat"
-            defaultValue={params.search ?? ""}
-            placeholder="Cari lokasi..."
-          />
-        }
-        pagination={
-          <TablePagination
-            page={page}
-            pageSize={20}
-            total={result.total}
-            basePath="/admin/falak/rukyat"
-            queryParams={{ search: params.search }}
-          />
-        }
+      <TableSearchForm
+        basePath="/admin/falak/rukyat"
+        defaultValue={params.search ?? ""}
+        placeholder="Cari lokasi..."
+      />
+
+      {items.length === 0 && (
+        <p className="text-sm text-admin-content-fg/60">
+          Belum ada data observasi rukyat.
+        </p>
+      )}
+      <DataTable<Item, unknown>
+        data={items}
         columns={[
           {
-            key: "lokasi",
-            label: "Lokasi",
-            render: (item) => (
-              <span className="text-sm font-medium">{item.locationName}</span>
-            ),
-          },
-          {
-            key: "tanggal",
-            label: "Tanggal",
-            render: (item) => (
-              <span className="text-xs">
-                {formatDateId(item.observationDate)}
+            accessorKey: "locationName",
+            header: "Lokasi",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {row.original.locationName}
               </span>
             ),
           },
           {
-            key: "cuaca",
-            label: "Cuaca",
-            render: (item) => <span className="text-xs">{item.weather}</span>,
+            accessorKey: "observationDate",
+            header: "Tanggal",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatDateId(row.original.observationDate)}
+              </span>
+            ),
           },
           {
-            key: "hasil",
-            label: "Hasil",
-            render: (item) => <span className="text-xs">{item.result}</span>,
+            accessorKey: "weather",
+            header: "Cuaca",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {row.original.weather}
+              </span>
+            ),
           },
           {
-            key: "status",
-            label: "Status",
-            render: (item) => <StatusBadge status={item.status} />,
+            accessorKey: "result",
+            header: "Hasil",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {row.original.result}
+              </span>
+            ),
           },
           {
-            key: "aksi",
-            label: "Aksi",
-            align: "right",
-            render: (item) => (
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => <StatusBadge status={row.original.status} />,
+          },
+          {
+            accessorKey: "id",
+            header: "Aksi",
+            cell: ({ row }) => (
               <div className="flex justify-end gap-1">
-                {item.status === "DRAFT" && (
-                  <form action={verifyRukyat.bind(null, item.id)}>
-                    <Button variant="ghost" size="sm" aria-label="Verifikasi" title="Verifikasi">
+                {row.original.status === "DRAFT" && (
+                  <form
+                    action={verifyRukyat.bind(null, row.original.id)}
+                  >
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      aria-label="Verifikasi"
+                      title="Verifikasi"
+                    >
                       <ShieldCheck className="size-3.5" />
                     </Button>
                   </form>
                 )}
-                {item.status === "VERIFIED" && (
-                  <form action={confirmRukyat.bind(null, item.id)}>
-                    <Button variant="ghost" size="sm" aria-label="Konfirmasi" title="Konfirmasi">
+                {row.original.status === "VERIFIED" && (
+                  <form
+                    action={confirmRukyat.bind(null, row.original.id)}
+                  >
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      aria-label="Konfirmasi"
+                      title="Konfirmasi"
+                    >
                       <CheckCircle className="size-3.5" />
                     </Button>
                   </form>
                 )}
-                {item.status === "CONFIRMED" && (
-                  <form action={archiveRukyat.bind(null, item.id)}>
-                    <Button variant="ghost" size="sm" aria-label="Arsipkan" title="Arsipkan">
+                {row.original.status === "CONFIRMED" && (
+                  <form
+                    action={archiveRukyat.bind(null, row.original.id)}
+                  >
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      aria-label="Arsipkan"
+                      title="Arsipkan"
+                    >
                       <Archive className="size-3.5" />
                     </Button>
                   </form>
@@ -141,8 +169,14 @@ export default async function RukyatPage({
             ),
           },
         ]}
-        data={items}
-        emptyMessage="Belum ada data observasi rukyat."
+      />
+
+      <TablePagination
+        page={page}
+        pageSize={20}
+        total={result.total}
+        basePath="/admin/falak/rukyat"
+        queryParams={{ search: params.search }}
       />
     </PageContainer>
   );

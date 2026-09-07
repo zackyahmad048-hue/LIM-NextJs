@@ -1,6 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { SectionCard } from "@/components/admin/shared/section-card";
+import { Band } from "@/components/admin/shared/band";
 import { StatCard } from "@/components/admin/shared/stat-card";
 import { getAllRukyat } from "@/modules/falak/queries/rukyat.query";
 import {
@@ -56,8 +56,8 @@ export default async function FalakReportsPage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard variant="elevated" className="p-4">
-          <h3 className="font-semibold text-foreground">
+        <Band>
+          <h3 className="font-semibold text-admin-content-fg">
             Statistik Hasil Rukyat
           </h3>
           <div className="mt-4 space-y-3">
@@ -83,10 +83,12 @@ export default async function FalakReportsPage() {
                     key={result}
                     className="flex items-center justify-between text-sm"
                   >
-                    <span className="text-muted-foreground">{label}</span>
+                    <span className="text-admin-content-fg/60">{label}</span>
                     <div className="flex items-center gap-2">
-                      <span className="font-medium">{count}</span>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="font-medium text-admin-content-fg">
+                        {count}
+                      </span>
+                      <span className="text-xs text-admin-content-fg/60">
                         ({pct}%)
                       </span>
                     </div>
@@ -95,34 +97,36 @@ export default async function FalakReportsPage() {
               },
             )}
           </div>
-        </SectionCard>
+        </Band>
 
-        <SectionCard variant="elevated" className="p-4">
-          <h3 className="font-semibold text-foreground">Riwayat Eclipse</h3>
+        <Band>
+          <h3 className="font-semibold text-admin-content-fg">
+            Riwayat Eclipse
+          </h3>
           {pastEclipses.length > 0 ? (
             <div className="mt-4 space-y-2">
               {pastEclipses.slice(0, 8).map((e) => (
                 <div
                   key={e.id}
-                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm"
+                  className="flex items-center justify-between rounded-lg border border-admin-border px-3 py-2 text-sm"
                 >
-                  <span className="font-medium">
+                  <span className="font-medium text-admin-content-fg">
                     {e.eclipseType === "SOLAR"
                       ? "Gerhana Matahari"
                       : "Gerhana Bulan"}
                   </span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-admin-content-fg/60">
                     {new Intl.DateTimeFormat("id-ID").format(e.eclipseDate)}
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-4 text-sm text-admin-content-fg/60">
               Belum ada riwayat eclipse.
             </p>
           )}
-        </SectionCard>
+        </Band>
       </div>
     </PageContainer>
   );

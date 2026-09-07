@@ -3,10 +3,12 @@ import { Clock } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { AdminTable } from "@/components/admin/shared/admin-table";
+import { DataTable } from "@/components/admin/shared/data-table";
 
 import { getRecentPrayerTimes } from "@/modules/falak/queries/prayer-time.query";
 import { DEFAULT_CITY } from "@/lib/cities";
+
+type Item = Awaited<ReturnType<typeof getRecentPrayerTimes>>[number];
 
 function formatTime(date: Date) {
   return new Intl.DateTimeFormat("id-ID", {
@@ -31,68 +33,80 @@ export default async function PrayerTimePage() {
         description={`Data jadwal shalat yang tersimpan untuk ${DEFAULT_CITY.name} (metode Kemenag).`}
       />
 
-      <AdminTable
-        title="Riwayat Jadwal Shalat"
-        description={`${recent.length} jadwal tercatat.`}
+      {recent.length === 0 && (
+        <p className="inline-flex items-center gap-2 text-sm text-admin-content-fg/60">
+          <Clock className="size-4" />
+          Belum ada jadwal shalat tersimpan. Jadwal akan muncul setelah
+          perhitungan dijalankan.
+        </p>
+      )}
+      <DataTable<Item, unknown>
+        data={recent}
         columns={[
           {
-            key: "tanggal",
-            label: "Tanggal",
-            render: (item) => (
-              <span className="text-sm font-medium">
-                {formatDateId(item.prayerDate)}
+            accessorKey: "prayerDate",
+            header: "Tanggal",
+            cell: ({ row }) => (
+              <span className="text-sm font-medium text-admin-content-fg">
+                {formatDateId(row.original.prayerDate)}
               </span>
             ),
           },
           {
-            key: "fajr",
-            label: "Subuh",
-            render: (item) => <span className="text-xs">{formatTime(item.fajr)}</span>,
-          },
-          {
-            key: "sunrise",
-            label: "Terbit",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.sunrise)}</span>
+            accessorKey: "fajr",
+            header: "Subuh",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.fajr)}
+              </span>
             ),
           },
           {
-            key: "dhuhr",
-            label: "Dzuhur",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.dhuhr)}</span>
+            accessorKey: "sunrise",
+            header: "Terbit",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.sunrise)}
+              </span>
             ),
           },
           {
-            key: "asr",
-            label: "Asar",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.asr)}</span>
+            accessorKey: "dhuhr",
+            header: "Dzuhur",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.dhuhr)}
+              </span>
             ),
           },
           {
-            key: "maghrib",
-            label: "Maghrib",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.maghrib)}</span>
+            accessorKey: "asr",
+            header: "Asar",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.asr)}
+              </span>
             ),
           },
           {
-            key: "isha",
-            label: "Isya",
-            render: (item) => (
-              <span className="text-xs">{formatTime(item.isha)}</span>
+            accessorKey: "maghrib",
+            header: "Maghrib",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.maghrib)}
+              </span>
+            ),
+          },
+          {
+            accessorKey: "isha",
+            header: "Isya",
+            cell: ({ row }) => (
+              <span className="text-xs text-admin-content-fg/80">
+                {formatTime(row.original.isha)}
+              </span>
             ),
           },
         ]}
-        data={recent}
-        emptyMessage={
-          <span className="inline-flex items-center gap-2">
-            <Clock className="size-4" />
-            Belum ada jadwal shalat tersimpan. Jadwal akan muncul setelah
-            perhitungan dijalankan.
-          </span>
-        }
       />
     </PageContainer>
   );
