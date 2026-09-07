@@ -1,13 +1,12 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
-import { StatCard } from "@/components/admin/shared/stat-card";
+import { StatStrip } from "@/components/admin/shared/stat-primitives";
 import { getAllRukyat } from "@/modules/falak/queries/rukyat.query";
 import {
   getUpcomingEclipses,
   getPastEclipses,
 } from "@/modules/falak/queries/eclipse.query";
-import { Eye, Eclipse, Clock, CheckCircle } from "lucide-react";
 
 export default async function FalakReportsPage() {
   const [rukyatData, upcomingEclipses, pastEclipses] = await Promise.all([
@@ -28,32 +27,36 @@ export default async function FalakReportsPage() {
         description="Ringkasan dan statistik data falak."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          title="Total Observasi"
-          icon={Eye}
-          value={rukyatData.length.toString()}
-          description="Semua data rukyat"
+      <Band>
+        <StatStrip
+          items={[
+            {
+              key: "total",
+              label: "Total Observasi",
+              value: rukyatData.length.toString(),
+              description: "Semua data rukyat",
+            },
+            {
+              key: "visible",
+              label: "Hilal Terlihat",
+              value: totalVisible.toString(),
+              description: `${totalConfirmed} dikonfirmasi`,
+            },
+            {
+              key: "upcoming",
+              label: "Eclipse Mendatang",
+              value: upcomingEclipses.length.toString(),
+              description: "Event akan datang",
+            },
+            {
+              key: "past",
+              label: "Eclipse Tercatat",
+              value: pastEclipses.length.toString(),
+              description: "Riwayat eclipse",
+            },
+          ]}
         />
-        <StatCard
-          title="Hilal Terlihat"
-          icon={CheckCircle}
-          value={totalVisible.toString()}
-          description={`${totalConfirmed} dikonfirmasi`}
-        />
-        <StatCard
-          title="Eclipse Mendatang"
-          icon={Eclipse}
-          value={upcomingEclipses.length.toString()}
-          description="Event akan datang"
-        />
-        <StatCard
-          title="Eclipse Tercatat"
-          icon={Clock}
-          value={pastEclipses.length.toString()}
-          description="Riwayat eclipse"
-        />
-      </div>
+      </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Band>

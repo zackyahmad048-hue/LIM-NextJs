@@ -4,11 +4,8 @@ import { useMemo, useState } from "react";
 
 import {
   BarChart3,
-  Briefcase,
   Upload,
-  UserCheck,
   UserPlus,
-  UserX,
   UsersRound,
 } from "lucide-react";
 
@@ -17,7 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 
 import { Band } from "@/components/admin/shared/band";
-import { StatCard } from "@/components/admin/shared/stat-card";
+import { StatStrip } from "@/components/admin/shared/stat-primitives";
 
 import { ImportDialog } from "./import.dialog";
 import { MemberDialog } from "./member.dialog";
@@ -60,36 +57,33 @@ export function TwkModule({ members, stats }: Props) {
 
   return (
     <>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          title="Total Anggota"
-          value={stats.total}
-          icon={UsersRound}
-          description={
-            hideNonActive
-              ? `${visibleMembers.length} ditampilkan`
-              : "Termasuk anggota non-aktif"
-          }
+      <Band>
+        <StatStrip
+          items={[
+            {
+              key: "total",
+              label: "Total Anggota",
+              value: stats.total,
+              description: hideNonActive
+                ? `${visibleMembers.length} ditampilkan`
+                : "Termasuk anggota non-aktif",
+            },
+            { key: "active", label: "Aktif", value: activeCount, description: "Sedang berjalan" },
+            {
+              key: "inactive",
+              label: "Non-aktif",
+              value: inactiveCount,
+              description: "Gugur / Bebas Tugas / Qodlo",
+            },
+            {
+              key: "pos",
+              label: "Pos Khidmah",
+              value: Object.keys(stats.perPos).length,
+              description: "Pos unik yang tercatat",
+            },
+          ]}
         />
-        <StatCard
-          title="Aktif"
-          value={activeCount}
-          icon={UserCheck}
-          description="Sedang berjalan"
-        />
-        <StatCard
-          title="Non-aktif"
-          value={inactiveCount}
-          icon={UserX}
-          description="Gugur / Bebas Tugas / Qodlo"
-        />
-        <StatCard
-          title="Pos Khidmah"
-          value={Object.keys(stats.perPos).length}
-          icon={Briefcase}
-          description="Pos unik yang tercatat"
-        />
-      </div>
+      </Band>
 
       <Band>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

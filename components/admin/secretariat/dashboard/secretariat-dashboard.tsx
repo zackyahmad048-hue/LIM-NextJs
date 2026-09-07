@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import { Band } from "@/components/admin/shared/band";
-import { StatCard } from "@/components/admin/shared/stat-card";
+import { StatStrip } from "@/components/admin/shared/stat-primitives";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -121,40 +121,44 @@ export function SecretariatDashboard({
     <div className="flex flex-col gap-4">
       <ActionQueue dispositions={queue.dispositions} counts={queue.counts} />
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard
-          title="Surat Masuk"
-          value={stats.totalIncomingMails.toLocaleString("id-ID")}
-          description={percentDelta(
-            trend.thisMonth.incoming,
-            trend.previousMonth.incoming,
-          )}
-          icon={Inbox}
+      <Band>
+        <StatStrip
+          items={[
+            {
+              key: "incoming",
+              label: "Surat Masuk",
+              value: stats.totalIncomingMails.toLocaleString("id-ID"),
+              description: percentDelta(
+                trend.thisMonth.incoming,
+                trend.previousMonth.incoming,
+              ),
+            },
+            {
+              key: "outgoing",
+              label: "Surat Keluar",
+              value: stats.totalOutgoingMails.toLocaleString("id-ID"),
+              description: percentDelta(
+                trend.thisMonth.outgoing,
+                trend.previousMonth.outgoing,
+              ),
+            },
+            {
+              key: "dispositions",
+              label: "Disposisi Aktif",
+              value: stats.pendingDispositions.toLocaleString("id-ID"),
+              description: "Menunggu atau sedang dikerjakan.",
+            },
+            {
+              key: "documents",
+              label: "Dokumen & Agenda",
+              value: (
+                stats.totalAdministrativeDocuments + stats.totalAgenda
+              ).toLocaleString("id-ID"),
+              description: `${stats.totalAdministrativeDocuments} dokumen · ${stats.totalAgenda} agenda`,
+            },
+          ]}
         />
-        <StatCard
-          title="Surat Keluar"
-          value={stats.totalOutgoingMails.toLocaleString("id-ID")}
-          description={percentDelta(
-            trend.thisMonth.outgoing,
-            trend.previousMonth.outgoing,
-          )}
-          icon={Send}
-        />
-        <StatCard
-          title="Disposisi Aktif"
-          value={stats.pendingDispositions.toLocaleString("id-ID")}
-          description="Menunggu atau sedang dikerjakan."
-          icon={ClipboardList}
-        />
-        <StatCard
-          title="Dokumen & Agenda"
-          value={(
-            stats.totalAdministrativeDocuments + stats.totalAgenda
-          ).toLocaleString("id-ID")}
-          description={`${stats.totalAdministrativeDocuments} dokumen · ${stats.totalAgenda} agenda`}
-          icon={FileText}
-        />
-      </div>
+      </Band>
 
       <Band>
         <div className="flex items-center justify-between">
