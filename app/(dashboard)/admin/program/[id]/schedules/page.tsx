@@ -3,29 +3,10 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { DataTable } from "@/components/admin/shared/data-table";
-import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
-import {
-  getProgramById,
-  getSchedules,
-} from "@/modules/program/queries/program.query";
-import {
-  createSchedule,
-  deleteSchedule,
-} from "@/modules/program/presentation/program.action";
-
-type Item = Awaited<ReturnType<typeof getSchedules>>[number];
-
-function formatTime(date: Date) {
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
-}
+import { getProgramById, getSchedules } from "@/modules/program/queries/program.query";
+import { createSchedule } from "@/modules/program/presentation/program.action";
+import { SchedulesTable } from "./schedules-table";
 
 export default async function SchedulesPage({
   params,
@@ -108,62 +89,7 @@ export default async function SchedulesPage({
         </p>
       )}
 
-      <DataTable<Item, unknown>
-        data={schedules}
-        columns={[
-          {
-            accessorKey: "title",
-            header: "Judul",
-            cell: ({ row }) => (
-              <span className="text-sm font-medium text-admin-content-fg">
-                {row.original.title}
-              </span>
-            ),
-          },
-          {
-            accessorKey: "startTime",
-            header: "Mulai",
-            cell: ({ row }) => (
-              <span className="text-xs text-admin-content-fg/80">
-                {formatTime(row.original.startTime)}
-              </span>
-            ),
-          },
-          {
-            accessorKey: "endTime",
-            header: "Selesai",
-            cell: ({ row }) => (
-              <span className="text-xs text-admin-content-fg/80">
-                {formatTime(row.original.endTime)}
-              </span>
-            ),
-          },
-          {
-            accessorKey: "description",
-            header: "Keterangan",
-            cell: ({ row }) => (
-              <span className="text-xs text-admin-content-fg/60">
-                {row.original.description || "-"}
-              </span>
-            ),
-          },
-          {
-            id: "actions",
-            header: "Aksi",
-            cell: ({ row }) => (
-              <div className="flex justify-end">
-                <ConfirmDelete
-                  onConfirm={deleteSchedule}
-                  args={[row.original.id, program.id]}
-                  title="Hapus jadwal"
-                  description={`Jadwal "${row.original.title}" akan dihapus permanen.`}
-                  label="Hapus jadwal"
-                />
-              </div>
-            ),
-          },
-        ]}
-      />
+      <SchedulesTable data={schedules} programId={program.id} />
     </PageContainer>
   );
 }

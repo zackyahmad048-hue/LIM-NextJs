@@ -3,19 +3,13 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { DataTable } from "@/components/admin/shared/data-table";
-import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 
 import {
   getProgramById,
   getDocumentation,
 } from "@/modules/program/queries/program.query";
-import {
-  addDocumentation,
-  removeDocumentation,
-} from "@/modules/program/presentation/program.action";
-
-type Item = Awaited<ReturnType<typeof getDocumentation>>[number];
+import { addDocumentation } from "@/modules/program/presentation/program.action";
+import { DocumentationTable } from "./documentation-table";
 
 export default async function DocumentationPage({
   params,
@@ -91,44 +85,7 @@ export default async function DocumentationPage({
         </p>
       )}
 
-      <DataTable<Item, unknown>
-        data={documentation}
-        columns={[
-          {
-            accessorKey: "title",
-            header: "Judul",
-            cell: ({ row }) => (
-              <span className="text-sm font-medium text-admin-content-fg">
-                {row.original.title}
-              </span>
-            ),
-          },
-          {
-            accessorKey: "description",
-            header: "Deskripsi",
-            cell: ({ row }) => (
-              <span className="text-xs text-admin-content-fg/60">
-                {row.original.description || "-"}
-              </span>
-            ),
-          },
-          {
-            id: "actions",
-            header: "Aksi",
-            cell: ({ row }) => (
-              <div className="flex justify-end">
-                <ConfirmDelete
-                  onConfirm={removeDocumentation}
-                  args={[row.original.id, program.id]}
-                  title="Hapus dokumentasi"
-                  description={`Dokumentasi "${row.original.title}" akan dihapus permanen.`}
-                  label="Hapus dokumentasi"
-                />
-              </div>
-            ),
-          },
-        ]}
-      />
+      <DocumentationTable data={documentation} programId={program.id} />
     </PageContainer>
   );
 }
