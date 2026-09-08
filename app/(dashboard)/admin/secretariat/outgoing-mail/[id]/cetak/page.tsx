@@ -8,7 +8,7 @@ import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/dri
 import { getLetterTypeLabel } from "@/config/letter-types";
 import { getLetterVerificationUrl } from "@/modules/secretariat/application/qr-code";
 import { SITE } from "@/config/site";
-import { PrintButton } from "./print-button";
+import { PrintButton } from "@/components/admin/shared/print-button";
 
 const INLINE_VIEWABLE_MIME = new Set([
   "application/pdf",

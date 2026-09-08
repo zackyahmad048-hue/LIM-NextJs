@@ -1,7 +1,4 @@
 import { notFound } from "next/navigation";
-import { Printer } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 
 import {
   getAdministrativeDocumentById,
@@ -9,6 +6,7 @@ import {
 } from "@/modules/secretariat/queries/secretariat.query";
 import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 import { SITE } from "@/config/site";
+import { PrintButton } from "@/components/admin/shared/print-button";
 
 const INLINE_VIEWABLE_MIME = new Set([
   "application/pdf",
@@ -64,10 +62,7 @@ export default async function CetakDocumentPage({
           {doc.documentNumber} &middot; {statusLabels[doc.status] ?? doc.status}
         </p>
         <div className="flex gap-2">
-          <Button size="sm" onClick={() => window.print()}>
-            <Printer className="size-3.5" />
-            Cetak / PDF
-          </Button>
+          <PrintButton />
         </div>
       </div>
 
