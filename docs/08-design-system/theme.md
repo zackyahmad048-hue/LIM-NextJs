@@ -6,9 +6,11 @@
 
 **Document:** `theme.md`
 
-**Version:** 1.1
+**Version:** 1.2
 
 **Status:** Approved
+
+Perubahan pada 1.2: chrome solid — glass ditarik dari navbar/topbar/rail; kaca (`.glass`, `.glass-tint-*`) dipertahankan hanya untuk kartu/widget konten; `--glass-chrome-bg` dan `.glass-hard` dihapus.
 
 Perubahan pada 1.1: radius seragam `rounded-xl` untuk semua content cards; penambahan shadow tokens (`--lim-shadow-*`) untuk kedalaman halus; refinement glass rules.
 
@@ -125,25 +127,25 @@ Perubahan Theme harus diterapkan tanpa memuat ulang aplikasi.
 
 # Glassmorphism ("Kaca Kristal")
 
-Glassmorphism dipakai terbatas pada **chrome** dan **kartu**, bukan permukaan luas.
+Glassmorphism dipakai terbatas pada **kartu/widget konten**, bukan chrome/navigasi.
 
 Permukaan yang boleh kaca:
 
-- Navbar (publik) saat scroll. **Implementasi**: glassmorphism hanya di navbar situs publik; kartu publik solid flat (`DESIGN.md` §2, `app/globals.css`).
-- Sidebar & topbar admin.
-- Kartu/panel ringkasan (taqwim hero, kartu dashboard, kartu modul, kartu konten). Referensi "taqwim hero" mengikuti penamaan sistem lama; sesuaikan bila komponen situs publik berganti nama pada rebuild.
+- Kartu widget konten: hero shalat (`PrayerScheduleWidget`), tentang (about), kartu artikel (post-card), widget falak. Refrensi "taqwim hero" mengikuti penamaan sistem lama; sesuaikan bila komponen situs publik berganti nama pada rebuild.
+- Kartu/nav highlight lain di situs publik yang memakai `.glass`/`.glass-tint-*` eksplisit.
 
 Permukaan yang **wajib solid**:
 
+- Chrome: navbar publik, topbar & rail sidebar admin, back-link login.
 - Tabel, form, teks panjang/artikel, area data padat, kartu media gambar.
 
 Implementasi:
 
 - CSS-only via token `--glass-*` di `app/globals.css` (berlaku global publik & admin).
-- `--glass-chrome-bg`: scrim chrome (~82–85% opak, pola Apple).
-- `--glass-card-bg`: kartu translusen (~68%, pola Fey).
+- `--glass-card-bg`: kartu translusen (~72%, pola Fey).
+- `--glass-border`, `--glass-highlight`.
 - `--glass-blur`: 20px desktop / 12px mobile.
-- `--glass-saturate`: 1.8 (menjaga keterbacaan teks di atas konten di belakangnya).
+- `--glass-saturate`: ~1.6–1.8 (menjaga keterbacaan teks di atas konten di belakangnya).
 - Fallback `prefers-reduced-transparency` → permukaan menjadi solid.
 - Transisi hanya `transform`/`opacity`/`color` (jalur kompositor).
 
@@ -180,7 +182,7 @@ Radius seragam untuk seluruh platform:
 | `md` | `rounded-md` | Input, button compact, nested control |
 | `lg` | `rounded-lg` | Form, panel kecil, nested card |
 | `xl` | `rounded-xl` | **Standar content cards** — public & admin |
-| `2xl` | `rounded-2xl` | Chrome saja (navbar capsule) |
+| `2xl`/`full` | `rounded-2xl`/`rounded-full` | Chrome saja (navbar capsule `rounded-full`) |
 
 Aturan:
 

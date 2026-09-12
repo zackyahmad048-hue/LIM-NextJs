@@ -162,7 +162,7 @@ Syarat: anak langsung ber-`overflow-hidden`. Konten tertutup memakai `aria-hidde
 
 ## Chrome & Permukaan
 
-Header, sidebar, dan kartu admin memakai token glass dari `components/admin/shared/chrome.ts` (`glassChrome`, `glassCard`, `softCard`). Detail token di `theme.md`.
+Chrome admin (header, rail sidebar) memakai permukaan solid dari `components/admin/shared/chrome.ts` (`chrome`); kartu konten memakai `.glass` global (`app/globals.css`). Detail token di `theme.md`.
 
 ## Transisi Tema (light ⇄ dark)
 

@@ -22,7 +22,7 @@ Dokumen ini mendefinisikan standar penggunaan warna pada LIM Digital Platform.
 
 Situs publik (`app/(public)/`) memakai tema standar Oranye LIM yang sama dengan seluruh platform: aksen oranye via token semantik (`--primary`) di atas ground putih (siang) dan `neutral-950` (malam). Tidak ada palet terpisah untuk situs publik; identitas visual publik dibangun dari layout, margin rule, dan tipografi, bukan dari warna tambahan.
 
-Glassmorphism ("Kaca Kristal") dipakai terbatas pada chrome dan kartu, CSS-only. Token glass menurun dari token semantik (`--glass-chrome-bg`, `--glass-card-bg`, `--glass-border`, `--glass-blur`, `--glass-saturate`) sehingga valid di light & dark, dengan fallback `prefers-reduced-transparency` menjadi solid. Detail di `theme.md`.
+Glassmorphism ("Kaca Kristal") dipakai terbatas pada **konten** (kartu/widget), CSS-only; chrome (navbar, topbar, rail) memakai permukaan solid `bg-background`. Token glass menurun dari token semantik (`--glass-card-bg`, `--glass-border`, `--glass-blur`, `--glass-saturate`) sehingga valid di light & dark, dengan fallback `prefers-reduced-transparency` menjadi solid. Detail di `theme.md`.
 
 > **⚠️ Situs Publik (implemented):** sumber kebenaran single adalah token di `app/globals.css` — `--primary` oranye LIM `oklch(0.553 0.195 38.402)` sebagai accent taktis (CTA, underline aktif, status, focus ring; **bukan** background wash), `--background` putih `oklch(1 0 0)` / near-black `oklch(0.145 0 0)`, `--font-heading` dst. Skala token (Primary-50…900, Neutral, Semantic) di bawah tetap relevan sebagai *struktur* token; nilai hue/warna aktual di situs publik mengikuti `global.css`. **Admin CMS tidak termasuk rebuild dan tetap memakai identitas Oranye LIM.**
 

@@ -6,9 +6,11 @@
 
 **Document:** `layout.md`
 
-**Version:** 1.2
+**Version:** 1.3
 
 **Status:** Approved
+
+Perubahan pada 1.3: standardisasi wrapper section publik lewat `SiteSection` (ritme `py-12 lg:py-16`, diambil dari `max-w-6xl px-4 sm:px-6`); chrome admin & publik memakai permukaan solid, kaca hanya untuk kartu/widget konten.
 
 Perubahan pada 1.2: penambahan aturan ritme section & spacing konsisten; penekanan grid sejajar untuk sub-content cards.
 
@@ -71,12 +73,12 @@ Footer (Optional)
 
 ## Situs Publik
 
+Section mandiri (di luar hero) memakai wrapper `SiteSection` (`components/website/layout/site-section.tsx`): `mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:py-16`. Wrapper ini satu-satunya sumber ritme section publik; jangan menulis ulang kelas container/ritme per halaman.
+
 | Breakpoint                              | Max Width |
 | --------------------------------------- | --------: |
 | Default                                 |      100% |
 | `max-w-6xl` (pola utama situs & footer) |    1152px |
-
-Section mandiri (di luar hero) juga memakai `max-w-6xl` agar garis margin konsisten dengan navbar dan footer.
 
 ## Admin CMS
 
@@ -95,10 +97,10 @@ Setiap section memiliki:
 
 ## Ritme Section
 
-- Vertikal antar section: `py-16 sm:py-20` (public) — konsisten di semua halaman.
+- Vertikal antar section: `py-12 lg:py-16` (public) — konsisten di semua halaman lewat `SiteSection`.
 - Separator section: hairline `h-px bg-border/60` dalam `max-w-6xl`.
 - Heading section selalu diikuti description gap `gap-2` sebelum content.
-- Jangan menumpuk dua section tanpa sekurang-kurangnya satu `py-16`.
+- Jangan menumpuk dua section tanpa sekurang-kurangnya satu `py-12`.
 
 ---
 
