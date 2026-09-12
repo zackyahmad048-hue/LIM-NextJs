@@ -1,0 +1,98 @@
+# Accessibility Gate — scan axe WCAG 2.2 AA terhadap seluruh rute publik + admin.
+#
+# Membutuhkan 4 GitHub secrets (lihat docs/00-overview/14-GIT_WORKFLOW.md):
+#   DATABASE_URL        — Neon branch khusus CI (harus berisi user admin dari
+#                         ADMIN_EMAIL, dengan password Better Auth yang valid).
+#   BETTER_AUTH_SECRET  — secret Better Auth (boleh berbeda dari produksi).
+#   ADMIN_EMAIL         — email akun super-admin untuk login di /admin/login.
+#   ADMIN_PASSWORD      — password akun super-admin.
+#
+# Catatan: `db:seed` hanya menautkan role super-admin ke user yang SUDAH ada;
+# ia TIDAK membuat user. Jadi DB CI harus sudah berisi user ADMIN_EMAIL
+# (mis. bootstrap sekali lewat server action `actions/create-admin.ts`).
+#
+# Latar belakang: scan 34 rute (~18 menit) melawan `next start` (produksi).
+# Dev server tidak stabil pada runner hemat RAM sehingga scan memakai build.
+
+name: Accessibility Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: a11y-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  a11y:
+    name: axe WCAG 2.2 AA (34 routes)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      # Jangan set NODE_ENV di level job: npm ci melewatkan devDependencies
+      # (playwright/vitest/tsx) saat NODE_ENV=production.
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+      BETTER_AUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      APP_URL: http://localhost:3000
+      ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+      A11Y_BASE_URL: http://localhost:3000
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Apply migrations and seed roles
+        run: npm run db:deploy
+
+      - name: Build
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm run start > /tmp/next-start.log 2>&1 &
+          echo $! > /tmp/next.pid
+          for i in $(seq 1 90); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/ 2>/dev/null || true)
+            if [ "${code:-000}" = "200" ]; then
+              echo "server ready in ${i}s"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "::error::server tidak siap dalam 180s"
+          cat /tmp/next-start.log
+          exit 1
+
+      - name: Run accessibility scan
+        run: |
+          npm run a11y:scan 2>&1 | tee /tmp/a11y-scan.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Upload scan logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-scan-logs
+          path: |
+            /tmp/a11y-scan.log
+            /tmp/next-start.log
+          if-no-files-found: ignore

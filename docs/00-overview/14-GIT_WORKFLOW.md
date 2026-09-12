@@ -281,6 +281,41 @@ Aturan:
 
 ---
 
+# CI: Accessibility Gate
+
+Workflow `.github/workflows/a11y.yml` berjalan pada setiap Pull Request dan push ke `main`.
+
+Yang diverifikasi:
+
+```text id="gw14b"
+npm ci (termasuk prisma generate)
+prisma migrate deploy + db:seed
+next build
+next start (produksi)
+axe.scan.test.ts terhadap 34 rute (21 publik + 13 admin) — WCAG 2.2 AA, 0 pelanggaran
+```
+
+Catatan penting:
+
+- `db:seed` hanya **menautkan role super-admin ke user yang sudah ada** — ia tidak membuat user.
+- Karena itu database CI harus sudah berisi user `ADMIN_EMAIL` (bootstrap sekali via
+  `actions/create-admin.ts`).
+- Job **gagal** bila: server tidak siap, atau scan menemukan pelanggaran axe pada salah satu dari 34 rute
+  (rute yang di-**skip** karena server mati tidak dianggap lulus).
+
+### Secrets yang wajib disiapkan di GitHub
+
+| Secret | Keterangan |
+| - | - |
+| `DATABASE_URL` | Neon branch **khusus CI** (bukan produksi; `migrate deploy` + seed berjalan padanya setiap run). |
+| `BETTER_AUTH_SECRET` | Secret Better Auth (boleh berbeda dari produksi). |
+| `ADMIN_EMAIL` | Email super-admin yang sudah ada di DB CI. |
+| `ADMIN_PASSWORD` | Password akun tersebut (untuk login `/admin/login` oleh runner). |
+
+Status check wajib (`a11y`) ditandai **required** pada branch protection `main`/`develop`.
+
+---
+
 # Release Flow
 
 Alur release:
