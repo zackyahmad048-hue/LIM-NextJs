@@ -4,6 +4,7 @@ import PageHeader from "@/components/website/page-header";
 import WhatsAppForm from "@/components/website/kontak/whatsapp-form";
 import SectionLabel from "@/components/shared/section-label";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { getKontakContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -42,7 +43,7 @@ export default async function KontakPage() {
         description={kontak.headerDescription}
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <div className="grid gap-4 sm:grid-cols-3 md:gap-6">
           {contacts.map((item, i) => (
             <Reveal key={item.title} index={i}>
@@ -76,7 +77,7 @@ export default async function KontakPage() {
           </div>
           </div>
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

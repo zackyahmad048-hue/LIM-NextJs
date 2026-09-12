@@ -25,34 +25,48 @@ export function MobileSidebar({ roleSlugs }: Props) {
 
   const navigation = useMemo(() => filterNavigation(roleSlugs), [roleSlugs]);
 
+  const main = navigation.filter((item) => item.pin !== "bottom");
+  const bottom = navigation.filter((item) => item.pin === "bottom");
+
   return (
     <Sheet open={mobileOpen} onOpenChange={closeMobile}>
       <SheetContent 
         side="left" 
         className={cn(
           "w-72 border-r p-0",
-          // Gradasi Nusantara disamakan dengan versi Desktop (reference/colorize.md)
-          "bg-linear-to-b from-slate-50 to-stone-100 border-slate-200",
-          "dark:bg-linear-to-b dark:from-slate-950 dark:via-slate-950/90 dark:to-emerald-950/30 dark:border-slate-800/80"
+          // Chrome solid — sama dengan versi Desktop (bukan kaca).
+          "border-r border-admin-sidebar-border bg-admin-sidebar-bg"
         )}
       >
         <SheetHeader className="sr-only">
-          {/* Aksesibilitas dipertahankan: Bagus untuk screen reader (reference/audit.md) */}
           <SheetTitle>Menu Admin</SheetTitle>
           <SheetDescription>Navigasi halaman admin.</SheetDescription>
         </SheetHeader>
 
         <Logo />
 
-        {/* Ritme & Spasi disesuaikan agar lebih lega di layar sentuh (reference/layout.md & reference/adapt.md) */}
-        <nav className="flex-1 space-y-1.5 overflow-y-auto px-4 py-4">
-          {navigation.map((item) => (
-            <SidebarItem
-              key={item.href ?? item.title}
-              item={item}
-              onNavigate={closeMobile}
-            />
-          ))}
+        <nav className="flex flex-1 flex-col space-y-1.5 overflow-y-auto px-4 py-4">
+          <div className="space-y-1.5">
+            {main.map((item) => (
+              <SidebarItem
+                key={item.href ?? item.title}
+                item={item}
+                onNavigate={closeMobile}
+              />
+            ))}
+          </div>
+
+          {bottom.length > 0 && (
+            <div className="mt-auto space-y-1.5 border-t border-admin-sidebar-border/60 pt-4">
+              {bottom.map((item) => (
+                <SidebarItem
+                  key={item.href ?? item.title}
+                  item={item}
+                  onNavigate={closeMobile}
+                />
+              ))}
+            </div>
+          )}
         </nav>
       </SheetContent>
     </Sheet>

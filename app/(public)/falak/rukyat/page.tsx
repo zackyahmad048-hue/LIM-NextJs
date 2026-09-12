@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/website/page-header";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { FalakDataTable } from "@/components/website/falak/data-table";
 import { falakService } from "@/modules/falak/application/service";
 import { formatDateId } from "@/lib/format";
@@ -37,7 +38,7 @@ export default async function RukyatPage() {
         description="Hasil observasi hilal dari titik-titik pantau yang telah terkonfirmasi, beserta cuaca saat pemantauan."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <Reveal>
           <FalakDataTable
             title="Observasi Hilal Terkonfirmasi"
@@ -73,7 +74,7 @@ export default async function RukyatPage() {
             emptyMessage="Belum ada laporan rukyat terkonfirmasi."
           />
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

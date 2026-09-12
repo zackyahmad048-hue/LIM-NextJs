@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import { HubDot } from "@/components/shared/hub-dot";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { BIDANG } from "@/config/bidang";
 import Link from "next/link";
 
@@ -21,7 +22,7 @@ export default function BidangIndexPage() {
         description="Berbagai bidang kegiatan Lembaga Ittihadul Muballighin dalam melayani masyarakat."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {BIDANG.map((bidang, i) => (
             <Reveal key={bidang.slug} index={i} className="h-full">
@@ -60,7 +61,7 @@ export default function BidangIndexPage() {
             </Reveal>
           ))}
         </div>
-      </section>
+      </SiteSection>
     </>
   );
 }

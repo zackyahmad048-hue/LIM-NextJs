@@ -4,15 +4,35 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { Card, CardContent } from "@/components/ui/card";
 import LoginForm from "@/modules/authentication/presentation/login-form";
+import Aurora from "@/components/Aurora";
+import { useTheme } from "next-themes";
 import { EASE_OUT } from "@/lib/ease";
 
 export default function LoginPage() {
   const reduced = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <main className="login-aurora relative flex min-h-dvh min-w-full flex-col items-center justify-center px-4 py-10">
-      <div className="relative z-10 w-full max-w-sm">
+    <main className="login-aurora relative flex min-h-dvh min-w-full flex-col items-center px-4">
+      {/* Latar observatorium — aurora cair + peta bintang falak, mengisi
+          ruang kosong login agar tak terlalu banyak whitespace. */}
+      <div aria-hidden className="absolute inset-0 -z-10">
+        {!reduced && (
+          <Aurora
+            lightMode={!isDark}
+            amplitude={0.7}
+            blend={0.35}
+            speed={1.2}
+            colorStops={["#E8903C", "#7C5CFC", "#2E7D5B"]}
+          />
+        )}
+        <div className="login-stars" />
+      </div>
+
+      <div className="relative z-10 flex w-full max-w-md flex-1 flex-col items-center justify-center py-10">
         <motion.div
+          className="w-full"
           initial={reduced ? false : { opacity: 0, y: 36, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, ease: EASE_OUT }}
@@ -47,16 +67,18 @@ export default function LoginPage() {
             </CardContent>
           </Card>
         </motion.div>
+      </div>
 
+      <footer className="relative z-10 w-full max-w-sm pb-6">
         <motion.p
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.7, ease: EASE_OUT }}
-          className="mt-16 text-center text-sm text-muted-foreground"
+          className="text-center text-xs text-muted-foreground"
         >
           © 2026 Sekretariat Lembaga Ittihadul Muballighin
         </motion.p>
-      </div>
+      </footer>
     </main>
   );
 }

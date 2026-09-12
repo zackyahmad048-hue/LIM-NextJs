@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { FalakDataTable } from "@/components/website/falak/data-table";
 import { falakService } from "@/modules/falak/application/service";
 import { formatDateId } from "@/lib/format";
@@ -23,7 +24,7 @@ export default async function HisabPage() {
         description="Perhitungan hilal dan kriteria imkanur rukyat dari titik-titik pantau seluruh Indonesia."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <Reveal>
           <FalakDataTable
             title="Hasil Hisab"
@@ -53,7 +54,7 @@ export default async function HisabPage() {
             emptyMessage="Belum ada data hisab yang dipublikasikan."
           />
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

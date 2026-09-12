@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import PostCard from "@/components/website/cards/post-card";
+import SiteSection from "@/components/website/layout/site-section";
 import Reveal from "@/components/website/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
@@ -69,7 +70,7 @@ export default async function ArtikelPage({
         description="Artikel keislaman, kajian, dan tulisan inspiratif dari para muballigh."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <Reveal from="up">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <nav
@@ -179,7 +180,7 @@ export default async function ArtikelPage({
             </Button>
           </nav>
         )}
-      </section>
+      </SiteSection>
     </>
   );
 }

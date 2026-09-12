@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import { Button } from "@/components/ui/button";
 import MediaLightboxGrid from "@/components/website/media/media-lightbox-grid";
+import SiteSection from "@/components/website/layout/site-section";
 import { getPublicMedia } from "@/modules/cms/queries/media.query";
 import { IGNORED_MEDIA_FILES } from "@/lib/media";
 
@@ -26,7 +27,7 @@ export default async function MediaPage() {
         description="Dokumentasi kegiatan, foto, dan video Lembaga Ittihadul Muballighin."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         {items.length > 0 ? (
           <MediaLightboxGrid items={items} />
         ) : (
@@ -39,7 +40,7 @@ export default async function MediaPage() {
             </Button>
           </div>
         )}
-      </section>
+      </SiteSection>
     </>
   );
 }

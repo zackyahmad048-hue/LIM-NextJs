@@ -5,6 +5,7 @@ import { MobileSidebar } from "@/components/admin/layout/mobile-sidebar";
 import { Header } from "@/components/admin/layout/header";
 import { Footer } from "@/components/admin/layout/footer";
 import { SidebarProvider } from "@/components/admin/providers/sidebar-provider";
+import AmbientBackground from "@/components/shared/ambient-background";
 
 import { getSession } from "@/modules/authentication/infrastructure/session.helper";
 import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
@@ -43,7 +44,8 @@ export default async function DashboardLayout({
         keluarga warna publik (warm-neutral), bukan slate dingin.
       */}
       <div className="admin flex min-h-dvh w-full">
-        
+        <AmbientBackground />
+
         <Sidebar roleSlugs={roleSlugs} />
         <MobileSidebar roleSlugs={roleSlugs} />
 

@@ -147,13 +147,14 @@
   --sidebar-ring: oklch(0.708 0 0);
 
 /*
-   * Admin rail — panel kiri memakai permukaan SOLID indigo-tinted (bukan kaca);
-   * value opaque agar latar ambient tidak tembus. Glass dipertahankan hanya
-   * untuk kartu/widget konten (lihat `.glass`, `.glass-tint-*`).
+   * Admin rail — panel kiri memakai permukaan SOLID netral-hangat (bukan kaca,
+   * bukan indigo); identitas mengikuti "Oranye LIM" warna.md. Value opaque agar
+   * latar ambient tidak tembus. Glass dipertahankan hanya untuk kartu/widget
+   * konten (lihat `.glass`, `.glass-tint-*`).
    */
-  --admin-sidebar-bg: oklch(0.95 0.014 262);
-  --admin-sidebar-fg: oklch(0.2 0.02 262);
-  --admin-sidebar-border: oklch(0.86 0.02 262 / 0.6);
+  --admin-sidebar-bg: oklch(0.95 0.014 60);
+  --admin-sidebar-fg: oklch(0.2 0.02 60);
+  --admin-sidebar-border: oklch(0.86 0.02 60 / 0.6);
   --admin-sidebar-accent: oklch(0.47 0.14 60);
   --admin-sidebar-accent-fg: oklch(0.98 0.012 90);
   --admin-content-bg: oklch(0.975 0.006 85);
@@ -251,25 +252,25 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* Admin rail malam — indigo solid (bukan kaca). */
-  --admin-sidebar-bg: oklch(0.15 0.03 262);
+  /* Admin rail malam — solid hangat (bukan kaca, bukan indigo). */
+  --admin-sidebar-bg: oklch(0.15 0.03 60);
   --admin-sidebar-fg: oklch(0.93 0.01 95);
   --admin-sidebar-border: oklch(1 0 0 / 0.1);
   --admin-sidebar-accent: oklch(0.75 0.13 85);
-  --admin-sidebar-accent-fg: oklch(0.2 0.02 262);
-  --admin-content-bg: oklch(0.155 0.02 260);
+  --admin-sidebar-accent-fg: oklch(0.2 0.02 60);
+  --admin-content-bg: oklch(0.155 0.02 60);
   --admin-content-fg: var(--foreground);
-  --admin-card-bg: oklch(0.24 0.03 262);
+  --admin-card-bg: oklch(0.24 0.03 60);
   --admin-card-border: oklch(0.85 0.01 90 / 0.16);
   --admin-border: oklch(0.85 0.01 90 / 0.16);
-  --admin-input-bg: oklch(0.24 0.03 262);
+  --admin-input-bg: oklch(0.24 0.03 60);
   --admin-input-border: oklch(0.85 0.01 90 / 0.2);
 }
 
 /*
  * Admin CMS — Observatorium.
- * Sidebar: indigo SOLID (bukan kaca). Content: kertas siang hangat
- * / malam indigo. Kartu = glass, tabel & input tetap solid. Radius: rounded-xl.
+ * Sidebar: SOLID netral-hangat (bukan indigo). Content: kertas siang hangat
+ * / malam hangat. Kartu = glass, tabel & input tetap solid. Radius: rounded-xl.
  */
 .admin {
   position: relative;

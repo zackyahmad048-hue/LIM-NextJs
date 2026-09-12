@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { APP } from "@/modules/shared/constants/app";
-import { Zap } from "lucide-react";
+import { MoonStar } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -19,7 +19,7 @@ export function Logo({ collapsed = false }: LogoProps) {
       )}
     >
       <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-admin-sidebar-accent text-admin-sidebar-accent-fg">
-        <Zap className="h-4 w-4" />
+        <MoonStar className="h-4 w-4" />
       </div>
 
       <div

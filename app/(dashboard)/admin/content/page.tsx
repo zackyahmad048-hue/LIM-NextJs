@@ -18,7 +18,7 @@ export default async function ContentPage() {
         description="Pusat pengelolaan kategori, berita, dan halaman website."
       />
 
-      <Band>
+      <Band tint="konten">
         <StatStrip
           items={[
             { key: "category", label: "Kategori", value: categoryCount, description: "Aktif" },

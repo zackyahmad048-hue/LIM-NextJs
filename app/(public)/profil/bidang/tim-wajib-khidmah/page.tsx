@@ -3,6 +3,7 @@ import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { getTimWajibKhidmahContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -24,7 +25,7 @@ export default async function TimWajibKhidmahPage() {
         description={content.headerDescription}
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <Reveal>
         <div className="rounded-xl border border-primary/25 bg-card px-6 py-12 shadow-sm sm:px-10 md:py-16">
           <div className="mx-auto max-w-2xl text-center">
@@ -57,7 +58,7 @@ export default async function TimWajibKhidmahPage() {
           )}
         </div>
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

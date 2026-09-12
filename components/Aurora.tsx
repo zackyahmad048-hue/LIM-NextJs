@@ -86,34 +86,34 @@ struct ColorStop {
 
 void main() {
   vec2 uv = gl_FragCoord.xy / uResolution;
-  
+
   ColorStop colors[3];
   colors[0] = ColorStop(uColorStops[0], 0.0);
   colors[1] = ColorStop(uColorStops[1], 0.5);
   colors[2] = ColorStop(uColorStops[2], 1.0);
-  
+
+  // Diagonal ramp — satu gradasi halus antarujung layar, bukan
+  // perpaduan 4 penjuru yang membuat layar terlihat ramai.
+  float ramp = uv.x * 0.6 + uv.y * 0.4;
   vec3 rampColor;
-  COLOR_RAMP(colors, uv.x, rampColor);
-  
-  float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
-  height = exp(height);
-  height = (uv.y * 2.0 - height + 0.2);
-  float intensity = 0.6 * height;
-  
-  float midPoint = 0.20;
-  float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
-  
-  vec3 auroraColor = intensity * rampColor;
-  
+  COLOR_RAMP(colors, ramp, rampColor);
+
+  // Field lembut — gelombang yang bernapas pelan, bukan warp kaku.
+  float field = snoise(vec2(uv.x * 2.4 + uTime * 0.045, uv.y * 1.8 - uTime * 0.03));
+  float light = 0.5 + 0.5 * field;
+  float intensity = 0.55 + (light - 0.5) * (0.7 + 0.3 * uAmplitude);
+
   if (uLightMode > 0.5) {
-    float energy = clamp(max(intensity, 0.0), 0.0, 1.0);
-    float coverage = clamp(auroraAlpha * (0.55 + 0.45 * energy), 0.0, 0.86);
-    vec3 chroma = pow(clamp(rampColor, 0.0, 1.0), vec3(1.2));
-    float chromaPeak = max(chroma.r, max(chroma.g, chroma.b));
-    chroma /= max(chromaPeak, 0.0001);
-    fragColor = vec4(mix(vec3(1.0), chroma, min(coverage * 1.08, 0.94)), 1.0);
+    vec3 chroma = pow(rampColor, vec3(1.25));
+    float peak = max(chroma.r, max(chroma.g, chroma.b));
+    chroma /= max(peak, 0.0001);
+    float coverage = 0.30 + 0.20 * intensity;
+    chroma = mix(rampColor, chroma, 0.85);
+    fragColor = vec4(mix(vec3(1.0), chroma, clamp(coverage, 0.0, 0.9)), 1.0);
   } else {
-    fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
+    vec3 aura = rampColor * intensity * 0.85;
+    float alpha = clamp(intensity * 0.72, 0.0, 0.75);
+    fragColor = vec4(aura, alpha);
   }
 }
 `;

@@ -67,6 +67,8 @@ export default function LoginForm() {
             id="login-email"
             type="email"
             autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? "login-email-error" : undefined}
             {...register("email")}
             placeholder="admin@email.com"
             className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
@@ -74,7 +76,7 @@ export default function LoginForm() {
         </div>
 
         {errors.email && (
-          <p className="mt-1 text-xs text-destructive">
+          <p id="login-email-error" className="mt-1 text-xs text-destructive">
             {errors.email.message}
           </p>
         )}
@@ -95,6 +97,8 @@ export default function LoginForm() {
             id="login-password"
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
+            aria-invalid={errors.password ? true : undefined}
+            aria-describedby={errors.password ? "login-password-error" : undefined}
             {...register("password")}
             placeholder="********"
             className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
@@ -113,7 +117,7 @@ export default function LoginForm() {
         </div>
 
         {errors.password && (
-          <p className="mt-1 text-xs text-destructive">
+          <p id="login-password-error" className="mt-1 text-xs text-destructive">
             {errors.password.message}
           </p>
         )}

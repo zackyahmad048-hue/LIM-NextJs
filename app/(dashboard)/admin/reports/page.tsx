@@ -51,7 +51,7 @@ export default async function ReportsPage() {
         description="Ringkasan data dan statistik konten website."
       />
 
-      <Band>
+      <Band tint="sistem">
         <StatStrip
           items={[
             {

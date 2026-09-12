@@ -89,7 +89,7 @@ export default async function ProgramDashboardPage() {
         {statCards.map((stat) => {
           const Icon = stat.value > 0 ? ClipboardList : FileText;
           return (
-            <Band key={stat.label}>
+            <Band key={stat.label} tint="program">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-muted-foreground">
                   {stat.label}

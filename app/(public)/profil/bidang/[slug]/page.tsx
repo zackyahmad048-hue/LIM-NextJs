@@ -5,6 +5,7 @@ import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { BIDANG, getBidangBySlug } from "@/config/bidang";
 
 interface BidangPageProps {
@@ -50,7 +51,7 @@ export default async function BidangPage({ params }: BidangPageProps) {
         description={bidang.description}
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <div className="space-y-8">
           <Reveal>
             <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
@@ -88,7 +89,7 @@ export default async function BidangPage({ params }: BidangPageProps) {
             </div>
           </Reveal>
         </div>
-      </section>
+      </SiteSection>
     </>
   );
 }

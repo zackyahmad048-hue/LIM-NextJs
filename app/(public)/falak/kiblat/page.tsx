@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { QiblaCompass } from "@/components/website/falak/qibla-compass";
 
 export const metadata: Metadata = {
@@ -16,11 +17,11 @@ export default function KiblatPage() {
         description="Tentukan arah kiblat berdasarkan koordinat lokasi Anda dengan kompas digital."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <Reveal>
           <QiblaCompass />
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

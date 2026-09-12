@@ -4,6 +4,7 @@ import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import { HubDot } from "@/components/shared/hub-dot";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { getFalakContent } from "@/modules/cms/queries/site-page.query";
 import { FALAK_TOOLS } from "@/config/falak";
 
@@ -20,7 +21,7 @@ export default async function FalakPage() {
         description={falak.headerDescription}
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+      <SiteSection>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
           {tools.map((tool, i) => {
             const Icon = tool.icon;
@@ -34,9 +35,9 @@ export default async function FalakPage() {
                     <Icon className="h-5 w-5 text-primary" />
                   </div>
 
-                  <h3 className="mt-8 font-heading text-xl font-semibold text-balance text-foreground">
+                  <h2 className="mt-8 font-heading text-xl font-semibold text-balance text-foreground">
                     {tool.title}
-                  </h3>
+                  </h2>
 
                   <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">
                     {tool.description}
@@ -61,7 +62,7 @@ export default async function FalakPage() {
             </p>
           </div>
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

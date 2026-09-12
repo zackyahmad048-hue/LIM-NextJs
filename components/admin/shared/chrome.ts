@@ -1,18 +1,14 @@
 /**
- * Chrome bersama admin — glass & permukaan kartu ala aplikasi DIGDAYA
- * dengan token desain LIM.
+ * Chrome bersama admin — permukaan solid untuk bar & nav.
+ *
+ * Keputusan layout (tata ulang): glass hanya untuk kartu & widget konten;
+ * chrome (topbar, rail sidebar, panel navigasi) wajib solid agar navigasi
+ * terbaca sebagai lapisan tegas, bukan kaca transparan.
  *
  * File biasa (bukan "use client") agar aman dipakai Server Component.
- * Sumber tunggal: jangan duplikasi string token --glass-* di komponen lain.
+ * Sumber tunggal: jangan duplikasi string kelas ini di komponen lain.
  */
 
-/** Glass chrome untuk bar/sidebar/panel mengambang (scrim lebih pekat). */
-export const glassChrome =
-  "border-[var(--glass-border)] bg-[var(--glass-chrome-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]";
-
-/** Permukaan kartu glass (lebih transparan dari chrome). */
-export const glassCard =
-  "border-[var(--glass-border)] bg-[var(--glass-card-bg)] backdrop-blur-[var(--glass-blur)] backdrop-saturate-[var(--glass-saturate)]";
-
-/** Kartu standar: radius besar, border halus, shadow lembut. */
-export const softCard = "border-border/70 bg-card shadow-sm";
+/** Chrome solid topbar/nav admin. */
+export const chrome =
+  "border-admin-border/60 bg-admin-card-bg";
