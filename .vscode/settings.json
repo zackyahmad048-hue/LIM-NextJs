@@ -29,5 +29,8 @@
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "markdown.validate.ignoredLinks": [
+    "../../agents/cavecrew-investigator.md"
+  ]
 }

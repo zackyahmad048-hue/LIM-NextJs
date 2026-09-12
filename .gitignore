@@ -51,7 +51,7 @@ next-env.d.ts
 # opencode
 opencode.json
 
-.vercel
-.env*
-opencode.json
-opencode.json
+# agent / scratch
+.agents/
+.claude/
+.scratch/
