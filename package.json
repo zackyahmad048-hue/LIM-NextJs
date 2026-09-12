@@ -20,6 +20,7 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:deploy": "prisma migrate deploy && tsx prisma/seed.ts",
+    "admin:bootstrap": "tsx scripts/bootstrap-admin.ts",
     "setup:google": "node scripts/setup-google.mjs",
     "gen:cities": "node scripts/gen-cities.mjs",
     "test:watch": "vitest",
