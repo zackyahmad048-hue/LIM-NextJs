@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { getVisiMisiContent } from "@/modules/cms/queries/site-page.query";
 
 export const revalidate = 3600;
@@ -24,7 +25,7 @@ export default async function VisiMisiPage() {
         description={visiMisi.headerDescription}
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <div className="space-y-8">
           <Reveal>
             <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-sm sm:p-8">
@@ -57,8 +58,8 @@ export default async function VisiMisiPage() {
               </ul>
             </div>
           </Reveal>
-        </div>
-      </section>
+</div>
+      </SiteSection>
     </>
   );
 }

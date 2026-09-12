@@ -52,7 +52,7 @@ export default async function FalakDashboardPage() {
         description="Ringkasan data layanan falak."
       />
 
-      <Band>
+      <Band tint="falak">
         <StatStrip
           items={[
             {
@@ -86,9 +86,9 @@ export default async function FalakDashboardPage() {
       <div className="grid gap-4 lg:grid-cols-2">
         <Band>
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-semibold text-admin-content-fg">
+            <h2 className="font-semibold text-admin-content-fg">
               Observasi Rukyat Terbaru
-            </h3>
+            </h2>
             <Link
               href="/admin/falak/rukyat"
               className="text-xs text-primary hover:underline"
@@ -124,9 +124,9 @@ export default async function FalakDashboardPage() {
 
         <Band>
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="font-semibold text-admin-content-fg">
+            <h2 className="font-semibold text-admin-content-fg">
               Eclipse Mendatang
-            </h3>
+            </h2>
             <Link
               href="/admin/falak/eclipse"
               className="text-xs text-primary hover:underline"

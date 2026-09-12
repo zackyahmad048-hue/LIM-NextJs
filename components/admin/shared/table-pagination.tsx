@@ -45,11 +45,11 @@ export function TablePagination({
       aria-label="Navigasi halaman tabel"
       className="flex flex-wrap items-center justify-between gap-3 border-t border-admin-card-border px-4 py-3"
     >
-      <p className="text-xs text-admin-content-fg/50 tabular-nums">
+      <p className="text-xs text-admin-content-fg/80 tabular-nums">
         Menampilkan {start}&ndash;{end} dari {total}
       </p>
       <div className="flex items-center gap-2">
-        <span className="text-xs tabular-nums text-admin-content-fg/50">
+        <span className="text-xs tabular-nums text-admin-content-fg/80">
           Halaman {currentPage} dari {totalPages}
         </span>
         {currentPage > 1 ? (

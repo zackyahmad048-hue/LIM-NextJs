@@ -36,7 +36,7 @@ export default function PostCard({
     <Link
       href={`/artikel/${post.slug}`}
       className={cn(
-        "group flex flex-col overflow-hidden rounded-md border border-primary/25 bg-card transition-colors duration-300 ease-out hover:border-primary",
+        "group glass glass-tint-konten flex flex-col overflow-hidden rounded-md border border-primary/25 transition-colors duration-300 ease-out hover:border-primary",
         className,
       )}
     >

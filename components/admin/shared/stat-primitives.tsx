@@ -31,10 +31,10 @@ export function StatStrip({ items, className }: StatPrimitivesProps) {
     >
       {items.map((item, index) => (
         <div key={item.key ?? index}>
-          <dt className="text-sm text-admin-content-fg/60">{item.label}</dt>
+          <dt className="text-sm text-admin-content-fg/80">{item.label}</dt>
           <dd className={cn("mt-0.5 text-2xl", statValueClass)}>{item.value}</dd>
           {item.description != null && (
-            <dd className="text-xs text-admin-content-fg/50">{item.description}</dd>
+            <dd className="text-xs text-admin-content-fg/70">{item.description}</dd>
           )}
         </div>
       ))}
@@ -52,11 +52,11 @@ export function StatRow({ items, className }: StatPrimitivesProps) {
           key={item.key ?? index}
           className="flex items-baseline justify-between gap-4 py-2.5"
         >
-          <dt className="text-sm text-admin-content-fg/70">{item.label}</dt>
+          <dt className="text-sm text-admin-content-fg/85">{item.label}</dt>
           <dd className="text-right">
             <span className={cn("text-lg", statValueClass)}>{item.value}</span>
             {item.description != null && (
-              <span className="ml-2 text-xs text-admin-content-fg/50">
+              <span className="ml-2 text-xs text-admin-content-fg/70">
                 {item.description}
               </span>
             )}

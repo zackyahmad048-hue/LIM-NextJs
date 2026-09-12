@@ -5,7 +5,7 @@ interface AboutCardProps {
 
 export default function AboutCard({ title, description }: AboutCardProps) {
   return (
-    <div className="flex h-full gap-4 rounded-xl border border-primary/25 bg-card p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary motion-reduce:transition-none">
+    <div className="glass glass-tint-sekretariat flex h-full gap-4 rounded-xl border border-primary/25 p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary motion-reduce:transition-none">
       <span
         className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-primary/40"
         aria-hidden

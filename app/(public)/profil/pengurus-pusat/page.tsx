@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { getStructure } from "@/modules/cms/queries/structure.query";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +31,7 @@ export default async function PengurusPusatPage() {
         title="Pengurus Pusat"
         description="Struktur Dewan Harian Pengurus Pusat Lembaga Ittihadul Muballighin."
       />
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         {pengurus.length === 0 ? (
           <div className="rounded-xl border border-dashed border-primary/20 bg-card p-12 text-center shadow-sm">
             <p className="text-center text-sm text-muted-foreground">
@@ -44,7 +45,7 @@ export default async function PengurusPusatPage() {
                 <div
                   className="group h-full rounded-xl border border-primary/25 bg-card p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary"
                 >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 font-sans text-sm text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/40 font-sans text-sm text-foreground">
                   {orang.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -56,9 +57,9 @@ export default async function PengurusPusatPage() {
                     initials(orang.name)
                   )}
                 </div>
-                <h3 className="mt-4 font-heading text-sm font-semibold text-balance text-foreground">
+                <h2 className="mt-4 font-heading text-sm font-semibold text-balance text-foreground">
                   {orang.name}
-                </h3>
+                </h2>
                 <p className="mt-1 font-sans text-[10px] uppercase text-primary">
                   {orang.position}
                 </p>
@@ -67,7 +68,7 @@ export default async function PengurusPusatPage() {
             ))}
           </div>
         )}
-      </section>
+      </SiteSection>
     </>
   );
 }

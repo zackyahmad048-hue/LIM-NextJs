@@ -22,7 +22,7 @@ export function BandHeader({
         <div className="min-w-0">
           <h2 className="text-base font-semibold text-admin-content-fg">{title}</h2>
           {description != null && (
-            <p className="mt-1 text-sm text-admin-content-fg/60">{description}</p>
+            <p className="mt-1 text-sm text-admin-content-fg/80">{description}</p>
           )}
         </div>
       )}
@@ -38,16 +38,28 @@ interface BandProps {
   title?: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
+  /** Ada beberapa warna untuk background kartu (module-based tint).
+   *  Varian memakai `.glass-tint-{modul}` di balik permukaan kaca. */
+  tint?: "falak" | "program" | "sekretariat" | "konten" | "sistem";
   className?: string;
 }
 
-/** Permukaan "band" — plain box admin (rounded-xl p-5) dengan header opsional.
- * Satu standar radius/padding area kerja admin (spec permukaan tenang). */
+const tintClass: Record<NonNullable<BandProps["tint"]>, string> = {
+  falak: "glass-tint-falak",
+  program: "glass-tint-program",
+  sekretariat: "glass-tint-sekretariat",
+  konten: "glass-tint-konten",
+  sistem: "glass-tint-sistem",
+};
+
+/** Permukaan "band" — kartu kaca admin (rounded-xl p-5) dengan header opsional.
+ * Tabel/form di dalamnya tetap solid. Satu standar radius/padding (spec). */
 export function Band({
   children,
   title,
   description,
   actions,
+  tint,
   className,
 }: BandProps) {
   const hasHeader = title != null || description != null || actions != null;
@@ -55,7 +67,8 @@ export function Band({
   return (
     <section
       className={cn(
-        "rounded-xl border border-admin-border bg-admin-card-bg p-5",
+        "glass rounded-xl p-5 shadow-sm",
+        tint && tintClass[tint],
         className,
       )}
     >

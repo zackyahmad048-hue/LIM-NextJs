@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
     <div className="space-y-4">
       <DataToolbar value={globalFilter} onChange={setGlobalFilter} />
 
-      <div className="overflow-x-auto rounded-xl border border-admin-border bg-admin-card-bg">
+      <div className="overflow-x-auto rounded-xl border border-admin-border bg-admin-card-bg" role="region" tabIndex={0} aria-label="Tabel data">
         <table className="w-full min-w-160">
           <thead className="bg-admin-border/20">
             {table.getHeaderGroups().map((group) => (

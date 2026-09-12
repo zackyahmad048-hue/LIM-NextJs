@@ -37,14 +37,22 @@ export default async function CetakOutgoingMailPage({
   const attachmentFileId = mail.attachmentUrl
     ? extractFileIdFromMediaUrl(mail.attachmentUrl)
     : null;
-  const attachmentMedia = attachmentFileId
-    ? await getMediaByFileId(attachmentFileId)
-    : null;
-  const canRenderInline =
-    !!mail.attachmentUrl &&
-    (attachmentMedia?.mimeType
-      ? INLINE_VIEWABLE_MIME.has(attachmentMedia.mimeType)
-      : true);
+  let attachmentMedia = null;
+  if (attachmentFileId) {
+    try {
+      attachmentMedia = await getMediaByFileId(attachmentFileId);
+    } catch {
+      // Metadata media gagal dibaca (mis. DB sementara): jangan jatuhkan
+      // seluruh halaman cetak — turun ke tampilan surat dan catat.
+      console.warn(`[cetak] Gagal membaca metadata media ${attachmentFileId} untuk surat ${id}; memakai tampilan surat.`);
+      attachmentMedia = null;
+    }
+  }
+  const canRenderInline = !!(
+    mail.attachmentUrl &&
+    attachmentMedia?.mimeType &&
+    INLINE_VIEWABLE_MIME.has(attachmentMedia.mimeType)
+  );
 
   const officialNumber = mail.fullNumber ?? mail.registrationNumber;
   const validationUrl = mail.fullNumber
@@ -58,9 +66,9 @@ export default async function CetakOutgoingMailPage({
     <div className="min-h-dvh bg-neutral-100 print:bg-white">
       {/* Toolbar */}
       <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-6 py-3 print:hidden">
-        <p className="text-sm text-muted-foreground">
+        <h1 className="text-sm text-muted-foreground">
           {officialNumber} &middot; {statusLabels[mail.status] ?? mail.status}
-        </p>
+        </h1>
         <PrintButton />
       </div>
 

@@ -51,7 +51,7 @@ const columns: ColumnDef<Mail>[] = [
           {row.original.recipient || "-"}
         </p>
         {row.original.ketuaName && (
-          <p className="truncate text-xs text-admin-content-fg/60">
+          <p className="truncate text-xs text-admin-content-fg/80">
             Ketua: {row.original.ketuaName}
           </p>
         )}

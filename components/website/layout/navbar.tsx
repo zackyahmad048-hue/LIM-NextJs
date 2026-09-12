@@ -61,7 +61,7 @@ export default function Navbar() {
     >
       <div
         className={cn(
-          "border border-border/40 bg-(--glass-chrome-bg) backdrop-blur-(--glass-blur) backdrop-saturate-(--glass-saturate) transition-[width,border-radius,box-shadow,border-color] duration-300 ease-in-out motion-reduce:transition-none",
+          "border border-border/40 bg-background shadow-sm transition-[width,border-radius,box-shadow,border-color] duration-300 ease-in-out motion-reduce:transition-none",
           scrolled
             ? "w-full rounded-none border-x-0"
             : "mx-auto max-w-5xl rounded-full",
@@ -101,8 +101,8 @@ export default function Navbar() {
                     className={cn(
                       linkClass,
                       pathname === "/"
-                        ? "bg-primary/10 font-medium text-primary"
-                        : "text-foreground/70 hover:bg-accent hover:text-primary",
+                        ? "bg-primary/10 font-medium text-foreground"
+                        : "text-foreground hover:bg-accent hover:text-primary",
                     )}
                   >
                     Beranda
@@ -115,8 +115,8 @@ export default function Navbar() {
                   className={cn(
                     "rounded-full px-4 py-2 text-sm font-medium transition-colors data-open:bg-transparent",
                     profilActive
-                      ? "bg-primary/10 text-primary"
-                      : "text-foreground/70 hover:bg-accent hover:text-primary data-open:text-foreground",
+                      ? "bg-primary/10 text-foreground"
+                      : "text-foreground hover:bg-accent hover:text-primary data-open:text-foreground",
                   )}
                 >
                   Profil
@@ -135,8 +135,8 @@ export default function Navbar() {
                               className={cn(
                                 "block rounded-sm px-3 py-2 text-sm transition-colors",
                                 pathname === item.href
-                                  ? "font-medium text-primary"
-                                  : "text-foreground/80 hover:text-primary",
+                                  ? "font-medium text-foreground"
+                                  : "text-foreground hover:text-primary",
                               )}
                             >
                               {item.title}
@@ -157,8 +157,8 @@ export default function Navbar() {
                       linkClass,
                       pathname === "/profil/bidang" ||
                         pathname.startsWith("/profil/bidang/")
-                        ? "bg-primary/10 font-medium text-primary"
-                        : "text-foreground/70 hover:bg-accent hover:text-primary",
+                        ? "bg-primary/10 font-medium text-foreground"
+                        : "text-foreground hover:bg-accent hover:text-primary",
                     )}
                   >
                     Bidang
@@ -174,8 +174,8 @@ export default function Navbar() {
                       className={cn(
                         linkClass,
                         pathname === item.href
-                          ? "bg-primary/10 font-medium text-primary"
-                          : "text-foreground/70 hover:bg-accent hover:text-primary",
+                          ? "bg-primary/10 font-medium text-foreground"
+                          : "text-foreground hover:bg-accent hover:text-primary",
                       )}
                     >
                       {item.title}
@@ -194,7 +194,7 @@ export default function Navbar() {
 
             <Link
               href="/admin/login"
-              className="hidden h-8 items-center rounded-full px-3 text-xs font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-primary lg:inline-flex"
+              className="hidden h-8 items-center rounded-full px-3 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-primary lg:inline-flex"
             >
               Admin
             </Link>
@@ -239,8 +239,8 @@ export default function Navbar() {
                     className={cn(
                       "flex items-center rounded-full px-3.5 py-2.5 text-sm transition-colors",
                       pathname === "/"
-                        ? "font-medium text-primary"
-                        : "text-foreground/80 hover:text-primary",
+                        ? "font-medium text-foreground"
+                        : "text-foreground hover:text-primary",
                     )}
                   >
                     Beranda
@@ -253,8 +253,8 @@ export default function Navbar() {
                     className={cn(
                       "flex w-full items-center justify-between rounded-full px-3.5 py-2.5 text-sm transition-colors",
                       profilActive
-                        ? "font-medium text-primary"
-                        : "text-foreground/80 hover:text-primary",
+                        ? "font-medium text-foreground"
+                        : "text-foreground hover:text-primary",
                     )}
                   >
                     Profil
@@ -276,7 +276,7 @@ export default function Navbar() {
                           className={cn(
                             "block rounded-full px-3 py-2 text-sm transition-colors",
                             pathname === item.href
-                              ? "font-medium text-primary"
+                              ? "font-medium text-foreground"
                               : "text-muted-foreground hover:text-primary",
                           )}
                         >
@@ -293,8 +293,8 @@ export default function Navbar() {
                       "flex items-center rounded-full px-3.5 py-2.5 text-sm transition-colors",
                       pathname === "/profil/bidang" ||
                         pathname.startsWith("/profil/bidang/")
-                        ? "font-medium text-primary"
-                        : "text-foreground/80 hover:text-primary",
+                        ? "font-medium text-foreground"
+                        : "text-foreground hover:text-primary",
                     )}
                   >
                     Bidang
@@ -308,8 +308,8 @@ export default function Navbar() {
                       className={cn(
                         "flex items-center rounded-full px-3.5 py-2.5 text-sm transition-colors",
                         pathname === item.href
-                          ? "font-medium text-primary"
-                          : "text-foreground/80 hover:text-primary",
+                          ? "font-medium text-foreground"
+                          : "text-foreground hover:text-primary",
                       )}
                     >
                       {item.title}

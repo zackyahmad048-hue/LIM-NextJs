@@ -9,11 +9,18 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/shared/data-table";
 import { formatDateId } from "@/lib/format";
 
-import type { getRoles } from "@/modules/authorization/presentation/role.query";
+/** Bentuk serializable dari entity `Role` — RSC menolak instance class domain
+ *  sebagai props client component (lihat role.query → domain/role.entity). */
+export interface RoleRow {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-type Role = Awaited<ReturnType<typeof getRoles>>[number];
-
-const columns: ColumnDef<Role>[] = [
+const columns: ColumnDef<RoleRow>[] = [
   {
     accessorKey: "name",
     header: "Role",
@@ -53,6 +60,6 @@ const columns: ColumnDef<Role>[] = [
   },
 ];
 
-export function RolesTable({ data }: { data: Role[] }) {
+export function RolesTable({ data }: { data: RoleRow[] }) {
   return <DataTable columns={columns} data={data} />;
 }

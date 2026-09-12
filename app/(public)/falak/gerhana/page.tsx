@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import PageHeader from "@/components/website/page-header";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 import { FalakDataTable } from "@/components/website/falak/data-table";
 import { falakService } from "@/modules/falak/application/service";
 import { formatDateId } from "@/lib/format";
@@ -30,7 +31,7 @@ export default async function GerhanaPage() {
         description="Gerhana matahari dan bulan yang tercatat, beserta visibilitasnya dari Indonesia."
       />
 
-      <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <SiteSection>
         <Reveal>
           <FalakDataTable
             title="Daftar Gerhana"
@@ -64,7 +65,7 @@ export default async function GerhanaPage() {
             emptyMessage="Belum ada data gerhana yang dipublikasikan."
           />
         </Reveal>
-      </section>
+      </SiteSection>
     </>
   );
 }

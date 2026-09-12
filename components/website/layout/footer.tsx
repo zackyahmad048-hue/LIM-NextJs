@@ -65,7 +65,7 @@ export default function Footer() {
               <p className="font-heading text-2xl tracking-wide text-foreground">
                 Lembaga Ittihadul Muballighin
               </p>
-              <p className="mt-1.5 text-sm text-primary">
+              <p className="mt-1.5 text-sm text-foreground">
                 Menebar Dakwah, Memasyarakatkan Pesantren
               </p>
               <p className="mt-4 max-w-sm text-sm leading-6 text-pretty text-muted-foreground">
@@ -75,10 +75,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
                 Jelajah
-              </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-foreground/80">
+              </h2>
+              <ul className="mt-4 space-y-2.5 text-sm text-foreground">
                 {menuLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={linkClass}>
@@ -90,10 +90,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
                 Bidang
-              </h3>
-              <ul className="mt-4 space-y-2.5 text-sm text-foreground/80">
+              </h2>
+              <ul className="mt-4 space-y-2.5 text-sm text-foreground">
                 {bidangLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={linkClass}>
@@ -105,10 +105,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
                 Hubungi Kami
-              </h3>
-              <div className="mt-4 space-y-2.5 text-sm text-foreground/80">
+              </h2>
+              <div className="mt-4 space-y-2.5 text-sm text-foreground">
                 <div className="flex items-start gap-2.5">
                   <MapPin className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
                   <p className="leading-6">

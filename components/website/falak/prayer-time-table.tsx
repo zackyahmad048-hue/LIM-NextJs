@@ -444,13 +444,13 @@ export function PrayerTimeTable() {
       {/* Prayer Schedule Cards Grid */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-balance text-foreground flex items-center gap-2">
+          <h2 className="text-lg font-bold text-balance text-foreground flex items-center gap-2">
             Jadwal Shalat (
             {isIstiwaMode
               ? "Waktu Istiwa"
               : location.timezoneName || "Waktu Standar"}
             )
-          </h3>
+          </h2>
           <span className="text-xs text-muted-foreground">
             {isIstiwaMode
               ? "Mode Istiwa (12:00 = Solar Noon)"
@@ -501,10 +501,10 @@ export function PrayerTimeTable() {
         </CardHeader>
         <CardContent className="grid gap-4 text-xs sm:text-sm text-muted-foreground sm:grid-cols-3">
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-balance text-foreground flex items-center gap-1.5">
+            <h3 className="font-semibold text-balance text-foreground flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-primary" />
               Waktu Ihtiyat (Hati-Hati)
-            </h4>
+            </h3>
             <p className="mt-1">
               Tambahan waktu pengaman sebesar <strong>+3 menit</strong>{" "}
               diterapkan pada waktu shalat (Subuh, Dzuhur, Ashar, Maghrib, Isya)
@@ -512,18 +512,18 @@ export function PrayerTimeTable() {
             </p>
           </div>
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-balance text-foreground">
+            <h3 className="font-semibold text-balance text-foreground">
               Kulminasi Matahari (Transit)
-            </h4>
+            </h3>
             <p className="mt-1">
               Jam 12:00:00 Istiwa tepat terjadi saat Matahari melintasi titik
               meridian lokal (Transit Solar Noon).
             </p>
           </div>
           <div className="rounded-lg border border-border p-3">
-            <h4 className="font-semibold text-balance text-foreground">
+            <h3 className="font-semibold text-balance text-foreground">
               Selisih Bujur & EQT
-            </h4>
+            </h3>
             <p className="mt-1">
               Selisih saat ini adalah sekitar{" "}
               <strong className="text-foreground">

@@ -44,7 +44,7 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Button
                 size="lg"
-                className="rounded-3xl px-7 font-semibold uppercase tracking-wide"
+                className="rounded-xl px-7 font-semibold uppercase tracking-wide"
                 asChild
               >
                 <Link href={hero.ctaHref}>
@@ -56,7 +56,7 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-3xl border-border px-7 font-semibold uppercase tracking-wide text-foreground transition-colors duration-300 ease-out hover:border-primary hover:text-primary"
+                className="rounded-xl border-border px-7 font-semibold uppercase tracking-wide text-foreground transition-colors duration-300 ease-out hover:border-primary hover:text-primary"
                 asChild
               >
                 <Link href={hero.secondaryHref}>{hero.secondaryLabel}</Link>
@@ -86,7 +86,7 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
           <Reveal delay={0.3} className="mt-14 w-full">
             <StatRule
               items={hero.statCards}
-              className="rounded-xl border border-primary/25 bg-card shadow-sm"
+              className="glass rounded-xl border border-primary/25 shadow-sm"
             />
           </Reveal>
         )}

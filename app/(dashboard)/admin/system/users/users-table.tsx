@@ -21,7 +21,7 @@ const columns: ColumnDef<User>[] = [
         <div className="flex items-center gap-3">
           <Avatar className="size-8">
             <AvatarImage src={user.image ?? undefined} />
-            <AvatarFallback className="text-xs bg-orange-100 text-orange-600">
+            <AvatarFallback className="text-xs bg-orange-100 text-orange-800">
               {user.name.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>

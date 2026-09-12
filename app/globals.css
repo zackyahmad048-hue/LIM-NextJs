@@ -87,32 +87,33 @@
  * kedalaman halus (shadow offset + blur lembut). Dual mode: siang / malam.
  * Default: malam. Radius standar: rounded-xl (0.75rem base).
  */
- :root {
+:root {
   /* Easing eksponensial untuk transisi View Transitions (Skiper UI). */
   --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
   --expo-in: cubic-bezier(0.7, 0, 0.84, 0);
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.553 0.195 38.402);
+  /* Observatorium — kertas siang yang hangat, bukan putih klinis. */
+  --background: oklch(0.985 0.004 80);
+  --foreground: oklch(0.2 0.01 70);
+  --card: oklch(0.985 0.004 80);
+  --card-foreground: oklch(0.2 0.01 70);
+  --popover: oklch(0.985 0.004 80);
+  --popover-foreground: oklch(0.2 0.01 70);
+  --primary: oklch(0.45 0.195 38.402);
   --primary-foreground: oklch(0.98 0.016 73.684);
-  --secondary: oklch(0.967 0.001 286.375);
+  --secondary: oklch(0.955 0.006 85);
   --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --muted: oklch(0.96 0.005 85);
+  --muted-foreground: oklch(0.45 0.015 80);
+  --accent: oklch(0.955 0.008 85);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --success: oklch(0.627 0.194 149.214);
   --success-foreground: oklch(0.98 0 0);
   --warning: oklch(0.795 0.184 86.047);
   --warning-foreground: oklch(0.205 0 0);
-  --border: oklch(0.91 0 0);
-  --input: oklch(0.91 0 0);
+  --border: oklch(0.9 0.008 80);
+  --input: oklch(0.9 0.008 80);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.837 0.128 66.29);
   --chart-2: oklch(0.705 0.213 47.604);
@@ -127,50 +128,57 @@
   --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 8%), 0 1px 4px -1px oklch(0 0 0 / 4%);
   --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 10%), 0 2px 6px -2px oklch(0 0 0 / 5%);
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.646 0.222 41.116);
+  /* Tint modul — aksen warna untuk kartu glass (module-based tint).
+   * Dipakai via kelas `.glass-tint-{modul}` di permukaan kartu saja;
+   * bukan pengganti `--primary`. */
+  --tint-falak: oklch(0.52 0.13 262);
+  --tint-program: oklch(0.52 0.12 162);
+  --tint-sekretariat: oklch(0.66 0.17 78);
+  --tint-konten: oklch(0.56 0.16 16);
+  --tint-sistem: oklch(0.52 0.05 262);
+
+  --sidebar: oklch(0.958 0.012 262);
+  --sidebar-foreground: oklch(0.2 0.02 262);
+  --sidebar-primary: oklch(0.47 0.14 60);
   --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-accent: oklch(0.9 0.03 262);
+  --sidebar-accent-foreground: oklch(0.2 0.02 262);
+  --sidebar-border: oklch(0.87 0.02 262);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /*
-   * Admin CMS — Brand-forward shell.
-   * Sidebar: primary orange. Content: warm amber/taupe ground.
-   * Cards: solid, elevated with shadow. Glass on chrome only.
+/*
+   * Admin rail — panel kiri memakai permukaan SOLID indigo-tinted (bukan kaca);
+   * value opaque agar latar ambient tidak tembus. Glass dipertahankan hanya
+   * untuk kartu/widget konten (lihat `.glass`, `.glass-tint-*`).
    */
-  --admin-sidebar-bg: var(--primary);
-  --admin-sidebar-fg: var(--primary-foreground);
-  --admin-sidebar-border: color-mix(in oklab, var(--primary) 85%, transparent);
-  --admin-sidebar-accent: color-mix(in oklab, var(--primary) 90%, transparent);
-  --admin-sidebar-accent-fg: var(--primary-foreground);
-  --admin-content-bg: oklch(0.96 0.06 85);
+  --admin-sidebar-bg: oklch(0.95 0.014 262);
+  --admin-sidebar-fg: oklch(0.2 0.02 262);
+  --admin-sidebar-border: oklch(0.86 0.02 262 / 0.6);
+  --admin-sidebar-accent: oklch(0.47 0.14 60);
+  --admin-sidebar-accent-fg: oklch(0.98 0.012 90);
+  --admin-content-bg: oklch(0.975 0.006 85);
   --admin-content-fg: var(--foreground);
-  --admin-card-bg: oklch(1 0 0);
-  --admin-card-border: oklch(0.89 0.015 85);
-  --admin-border: oklch(0.89 0.015 85);
-  --admin-input-bg: oklch(1 0 0);
-  --admin-input-border: oklch(0.89 0.015 85);
+  --admin-card-bg: oklch(0.99 0.006 85);
+  --admin-card-border: oklch(0.88 0.01 80 / 0.6);
+  --admin-border: oklch(0.88 0.01 80);
+  --admin-input-bg: oklch(0.99 0.006 85);
+  --admin-input-border: oklch(0.88 0.01 80);
 
   /*
-   * Glassmorphism — "Kaca Kristal" (chrome + kartu admin).
-   * CSS-only, berlaku global. Blur hanya di permukaan kecil;
-   * tabel/form/teks panjang tetap solid.
+   * Glassmorphism — "Kaca Kristal" (kartu, widget, ambient).
+   * CSS-only, berlaku global. Chrome/navigasi memakai permukaan solid;
+   * kaca dipakai konten kartu/widget. Tabel/form/teks panjang tetap solid.
    */
-  --glass-chrome-bg: color-mix(in oklab, var(--background) 82%, transparent);
-  --glass-card-bg: color-mix(in oklab, var(--background) 68%, transparent);
-  --glass-border: color-mix(in oklab, var(--border) 70%, transparent);
+  --glass-card-bg: color-mix(in oklab, var(--background) 56%, transparent);
+  --glass-border: color-mix(in oklab, var(--border) 78%, transparent);
   --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
   --glass-blur: 20px;
-  --glass-saturate: 1.8;
+  --glass-saturate: 1.6;
 }
 
-/* Dark glass: aksen lebih hangat, scrim chrome lebih pekat. */
+/* Dark glass: aksen lebih hangat, scrim kartu lebih pekat. */
 .dark {
-  --glass-chrome-bg: color-mix(in oklab, var(--background) 85%, transparent);
-  --glass-card-bg: color-mix(in oklab, var(--background) 70%, transparent);
+  --glass-card-bg: color-mix(in oklab, var(--background) 60%, transparent);
 }
 
 /* Mobile low-end: blur lebih tipis untuk menghemat kompositor. */
@@ -186,7 +194,6 @@
  */
 @media (prefers-reduced-transparency: reduce) {
   :root {
-    --glass-chrome-bg: var(--background);
     --glass-card-bg: var(--background);
     --glass-blur: 0px;
     --glass-saturate: 1;
@@ -194,27 +201,28 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  /* Observatorium — malam indigo, bukan hitam netral. */
+  --background: oklch(0.155 0.02 260);
+  --foreground: oklch(0.95 0.008 90);
+  --card: oklch(0.2 0.025 260);
+  --card-foreground: oklch(0.95 0.008 90);
+  --popover: oklch(0.2 0.025 260);
+  --popover-foreground: oklch(0.95 0.008 90);
   --primary: oklch(0.47 0.157 37.304);
   --primary-foreground: oklch(0.98 0.016 73.684);
-  --secondary: oklch(0.274 0.006 286.033);
+  --secondary: oklch(0.24 0.018 270);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --muted: oklch(0.23 0.015 262);
+  --muted-foreground: oklch(0.7 0.015 90);
+  --accent: oklch(0.235 0.02 262);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --success: oklch(0.723 0.219 149.579);
   --success-foreground: oklch(0.98 0 0);
   --warning: oklch(0.85 0.16 80);
   --warning-foreground: oklch(0.2 0 0);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(0.85 0.01 90 / 0.14);
+  --input: oklch(1 0 0 / 0.15);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.837 0.128 66.29);
   --chart-2: oklch(0.705 0.213 47.604);
@@ -227,35 +235,41 @@
   --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 30%), 0 1px 4px -1px oklch(0 0 0 / 15%);
   --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 35%), 0 2px 6px -2px oklch(0 0 0 / 20%);
 
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
+  /* Tint modul — lebih terang di malam agar kaca kebaca. */
+  --tint-falak: oklch(0.68 0.14 262);
+  --tint-program: oklch(0.72 0.13 162);
+  --tint-sekretariat: oklch(0.78 0.15 80);
+  --tint-konten: oklch(0.72 0.16 20);
+  --tint-sistem: oklch(0.66 0.06 262);
+
+  --sidebar: oklch(0.175 0.025 262);
+  --sidebar-foreground: oklch(0.95 0.01 95);
   --sidebar-primary: oklch(0.705 0.213 47.604);
   --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.24 0.03 262);
+  --sidebar-accent-foreground: oklch(0.95 0.01 95);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* Admin CMS dark mode — warm taupe ground */
-  --admin-sidebar-bg: var(--primary);
-  --admin-sidebar-fg: var(--primary-foreground);
-  --admin-sidebar-border: color-mix(in oklab, var(--primary) 80%, transparent);
-  --admin-sidebar-accent: color-mix(in oklab, var(--primary) 85%, transparent);
-  --admin-sidebar-accent-fg: var(--primary-foreground);
-  --admin-content-bg: oklch(0.18 0.012 45);
+  /* Admin rail malam — indigo solid (bukan kaca). */
+  --admin-sidebar-bg: oklch(0.15 0.03 262);
+  --admin-sidebar-fg: oklch(0.93 0.01 95);
+  --admin-sidebar-border: oklch(1 0 0 / 0.1);
+  --admin-sidebar-accent: oklch(0.75 0.13 85);
+  --admin-sidebar-accent-fg: oklch(0.2 0.02 262);
+  --admin-content-bg: oklch(0.155 0.02 260);
   --admin-content-fg: var(--foreground);
-  --admin-card-bg: oklch(0.23 0.008 45);
-  --admin-card-border: oklch(0.32 0.015 45);
-  --admin-border: oklch(0.32 0.015 45);
-  --admin-input-bg: oklch(0.25 0.008 45);
-  --admin-input-border: oklch(0.32 0.015 45);
+  --admin-card-bg: oklch(0.24 0.03 262);
+  --admin-card-border: oklch(0.85 0.01 90 / 0.16);
+  --admin-border: oklch(0.85 0.01 90 / 0.16);
+  --admin-input-bg: oklch(0.24 0.03 262);
+  --admin-input-border: oklch(0.85 0.01 90 / 0.2);
 }
 
 /*
- * Admin CMS — Brand-forward shell.
- * Sidebar: primary orange. Content: warm amber/taupe ground.
- * Solid surfaces with subtle shadow, glass on chrome only.
- * Radius: rounded-xl seragam. Font: Fraunces (heading), Inter (body).
+ * Admin CMS — Observatorium.
+ * Sidebar: indigo SOLID (bukan kaca). Content: kertas siang hangat
+ * / malam indigo. Kartu = glass, tabel & input tetap solid. Radius: rounded-xl.
  */
 .admin {
   position: relative;
@@ -272,7 +286,7 @@
  * Website publik — identitas "Khusyu Minimalis" dengan kedalaman halus.
  * Permukaan solid dengan shadow offset lembut (kertas tertumpuk).
  * Aksen oranye taktis: CTA, underline aktif, status, focus ring.
- * Glassmorphism hanya navbar. Radius: rounded-xl seragam.
+ * Chrome (navbar) solid; glass pada kartu dan widget falak. Radius: rounded-xl.
  */
 .site {
   position: relative;
@@ -282,15 +296,154 @@
   color: var(--foreground);
   font-family: var(--font-body), "Segoe UI", sans-serif;
   min-height: 100dvh;
-
-  /* Tipografi publik: Fraunces display + JetBrains Mono data instrument. */
-  --font-mono: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
 }
 
 /*
  * Token glassmorphism ("--glass-*") didefinisikan global di `:root`/`.dark`
  * sehingga berlaku di situs publik (`.site`) dan admin.
  */
+
+/*
+ * Permukaan kaca "Kaca Kristal" — dipakai pada kartu/widget konten.
+ * Chrome (navbar, rail admin, topbar) memakai permukaan solid.
+ * Varian `.glass-tint-{modul}` menaruh aksen tint modul di balik kaca.
+ * Berada di `@layer components` agar utilitas (border/bg) bisa menimpa.
+ */
+@layer components {
+  .glass {
+    border: 1px solid var(--glass-border);
+    background-color: var(--glass-card-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  }
+
+  .glass-tint-falak {
+    background-color: color-mix(in oklab, var(--tint-falak) 14%, var(--glass-card-bg));
+  }
+  .glass-tint-program {
+    background-color: color-mix(in oklab, var(--tint-program) 14%, var(--glass-card-bg));
+  }
+  .glass-tint-sekretariat {
+    background-color: color-mix(in oklab, var(--tint-sekretariat) 14%, var(--glass-card-bg));
+  }
+  .glass-tint-konten {
+    background-color: color-mix(in oklab, var(--tint-konten) 14%, var(--glass-card-bg));
+  }
+  .glass-tint-sistem {
+    background-color: color-mix(in oklab, var(--tint-sistem) 14%, var(--glass-card-bg));
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-tint-falak,
+  .glass-tint-program,
+  .glass-tint-sekretariat,
+  .glass-tint-konten,
+  .glass-tint-sistem {
+    background-color: var(--background);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/*
+ * Ambient observatorium — lapisan warna lembut di belakang konten sehingga
+ * kaca punya sesuatu untuk mengaburkan. Pure CSS, tanpa WebGL (hemat GPU).
+ * Bangun: 2-3 orb radial berwarna (indigo/brass/emerald) + grid hairline.
+ */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: 0.45;
+  will-change: transform;
+}
+
+.ambient-orb--a {
+  width: 42rem;
+  height: 42rem;
+  left: -12rem;
+  top: -10rem;
+  background-color: color-mix(in oklab, var(--tint-falak) 26%, transparent);
+  animation: orb-drift-a 36s ease-in-out infinite alternate;
+}
+
+.ambient-orb--b {
+  width: 38rem;
+  height: 38rem;
+  right: -10rem;
+  top: 6rem;
+  background-color: color-mix(in oklab, var(--primary) 22%, transparent);
+  animation: orb-drift-b 44s ease-in-out infinite alternate;
+}
+
+.ambient-orb--c {
+  width: 34rem;
+  height: 34rem;
+  left: 28%;
+  bottom: -14rem;
+  background-color: color-mix(in oklab, var(--tint-program) 20%, transparent);
+  animation: orb-drift-c 52s ease-in-out infinite alternate;
+}
+
+.dark .ambient-orb {
+  opacity: 0.55;
+}
+
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      color-mix(in oklab, var(--border) 55%, transparent) 0 1px,
+      transparent 1px 6rem
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--border) 55%, transparent) 0 1px,
+      transparent 1px 6rem
+    );
+  opacity: 0.35;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 70%);
+}
+
+@keyframes orb-drift-a {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(7rem, 5rem) scale(1.12);
+  }
+}
+
+@keyframes orb-drift-b {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-5rem, 6rem) scale(1.08);
+  }
+}
+
+@keyframes orb-drift-c {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-6rem, -4rem) scale(1.15);
+  }
+}
 
 /*
  * Login admin — wadah tertutup (clip), tidak tembus kertas kartu.
@@ -300,6 +453,45 @@
   isolation: isolate;
   overflow: clip;
   background-color: var(--background);
+}
+
+/*
+ * Starfield login — pola titik halus ala peta bintang falak (pure CSS).
+ * Berkedip pelan; mati saat prefers-reduced-motion (aturan global).
+ */
+.login-stars {
+  --login-star-min: 0.18;
+  --login-star-max: 0.38;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 22%, color-mix(in oklab, var(--foreground) 65%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 19% 64%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
+    radial-gradient(2px 2px at 31% 38%, color-mix(in oklab, var(--foreground) 70%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 42% 81%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 55% 16%, color-mix(in oklab, var(--foreground) 65%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 66% 52%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
+    radial-gradient(2px 2px at 78% 30%, color-mix(in oklab, var(--foreground) 60%, transparent) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 87% 68%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
+    radial-gradient(1px 1px at 93% 12%, color-mix(in oklab, var(--foreground) 60%, transparent) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 50% 90%, color-mix(in oklab, var(--foreground) 50%, transparent) 50%, transparent 51%);
+  opacity: 0.4;
+  animation: login-stars-twinkle 7s ease-in-out infinite alternate;
+}
+
+.dark .login-stars {
+  --login-star-min: 0.3;
+  --login-star-max: 0.58;
+}
+
+@keyframes login-stars-twinkle {
+  from {
+    opacity: var(--login-star-min);
+  }
+  to {
+    opacity: var(--login-star-max);
+  }
 }
 
 .site ::selection {

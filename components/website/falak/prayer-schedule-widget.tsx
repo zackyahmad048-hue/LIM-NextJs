@@ -143,7 +143,7 @@ export function PrayerScheduleWidget() {
   const clock = clockDec !== null ? formatTime(clockDec, true) : "--:--:--";
 
   return (
-    <div className="rounded-xl border border-primary/25 bg-card">
+    <div className="glass glass-tint-falak rounded-xl border border-primary/25">
       <div className="border-b border-border px-3 py-3 sm:px-5 sm:py-4">
         <div className="flex items-center justify-between gap-3">
           <p className="font-data text-[10px] font-semibold uppercase tracking-[0.2em] text-primary sm:text-[11px]">

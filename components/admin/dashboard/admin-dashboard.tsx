@@ -79,6 +79,7 @@ export function AdminDashboard({ user, structure, profil }: Props) {
       />
 
       <Band
+        tint="sekretariat"
         title="Struktur & Anggota"
         description="Ringkasan struktur kepengurusan dan anggota di semua tingkatan."
         actions={
@@ -109,24 +110,16 @@ export function AdminDashboard({ user, structure, profil }: Props) {
         )}
       </Band>
 
-      <section aria-labelledby="dashboard-profil">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="min-w-0">
-            <h2
-              id="dashboard-profil"
-              className="text-base font-semibold text-admin-content-fg"
-            >
-              Profil
-            </h2>
-            <p className="mt-1 text-sm text-admin-content-fg/60">
-              Visi dan misi organisasi pada laman publik.
-            </p>
-          </div>
+      <Band
+        tint="konten"
+        title="Profil"
+        description="Visi dan misi organisasi pada laman publik."
+        actions={
           <Button size="sm" variant="outline" asChild>
             <Link href="/admin/content/pages/page:profil">Kelola</Link>
           </Button>
-        </div>
-
+        }
+      >
         <div className="max-w-2xl">
           <StatRow
             items={[{ label: "Poin misi", value: profil.misi.length }]}
@@ -151,13 +144,13 @@ export function AdminDashboard({ user, structure, profil }: Props) {
           ))}
           {profil.misi.length > 3 && (
             <li className="py-3">
-              <p className="text-xs text-admin-content-fg/50">
+              <p className="text-xs text-admin-content-fg/80">
                 +{profil.misi.length - 3} poin misi lainnya
               </p>
             </li>
           )}
         </ul>
-      </section>
+      </Band>
     </div>
   );
 }

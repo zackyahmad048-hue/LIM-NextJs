@@ -46,7 +46,7 @@ export default function About({
         <Reveal from="left" className="relative">
           <div className="relative mx-auto max-w-md">
             <div
-              className="absolute -inset-3 border border-border bg-muted/40"
+              className="glass absolute -inset-3 border border-primary/20"
               aria-hidden
             />
             <div className="relative aspect-4/3 overflow-hidden lg:aspect-4/5">

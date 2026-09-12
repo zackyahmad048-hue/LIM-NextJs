@@ -7,7 +7,14 @@ import { RolesTable } from "./roles-table";
 export const dynamic = "force-dynamic";
 
 export default async function RolesPage() {
-  const roles = await getRoles();
+  const roles = (await getRoles()).map((r) => ({
+    id: r.id,
+    name: r.name,
+    slug: r.slug,
+    description: r.description,
+    createdAt: r.createdAt,
+    updatedAt: r.updatedAt,
+  }));
 
   return (
     <PageContainer>

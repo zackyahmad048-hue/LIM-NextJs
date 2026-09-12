@@ -51,9 +51,9 @@ export function CommandMenu({ roleSlugs }: CommandMenuProps) {
         onClick={() => setOpen(true)}
         className="hidden h-8 w-full max-w-72 justify-start gap-2 rounded-full bg-admin-border/30 px-3 font-normal text-admin-content-fg/70 md:inline-flex"
       >
-        <Search className="size-3.5 shrink-0 text-admin-content-fg/50" />
+        <Search className="size-3.5 shrink-0 text-admin-content-fg/80" />
         <span className="flex-1 text-left text-sm">Cari menu...</span>
-        <kbd className="pointer-events-none rounded border border-admin-border bg-admin-input-bg px-1.5 font-data text-[10px] text-admin-content-fg/50">
+        <kbd className="pointer-events-none rounded border border-admin-border bg-admin-input-bg px-1.5 font-data text-[10px] text-admin-content-fg/90">
           Ctrl K
         </kbd>
       </Button>
