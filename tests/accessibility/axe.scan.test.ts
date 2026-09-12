@@ -19,6 +19,8 @@ import { beforeAll, afterAll, describe, expect, it } from "vitest";
 import { chromium, type Browser, type Page } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 
+import { prisma } from "@/modules/shared/infrastructure/prisma";
+
 const BASE = process.env.A11Y_BASE_URL ?? "http://localhost:3000";
 const STORAGE_STATE = process.env.PLAYWRIGHT_STORAGE_STATE;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
@@ -67,20 +69,56 @@ const PUBLIC_ROUTES: RouteSpec[] = [
   { path: "/admin/login" },
 ];
 
+/**
+ * Rute detail dinamis (id unit / id surat) di-resolusi dari database yang sedang
+ * diuji saat modul di-load — bukan hardcode — agar valid pada DB apa pun (main
+ * lokal, branch CI, string kosong). Bila data tidak ada, rute tidak disertakan
+ * (komitmen "tidak memindai 404/empty-state", lihat komentar inventaris di atas).
+ */
+async function resolveDynamicAdminRoutes(): Promise<RouteSpec[]> {
+  const [unit, mail] = await Promise.all([
+    prisma.organizationUnit.findFirst({
+      where: { deletedAt: null },
+      select: { id: true },
+    }),
+    prisma.outgoingMail.findFirst({
+      where: { deletedAt: null },
+      select: { id: true },
+    }),
+  ]);
+
+  const routes: RouteSpec[] = [];
+  if (unit) {
+    routes.push({ path: `/admin/secretariat/pendataan/units/${unit.id}/officers` });
+  }
+  if (mail) {
+    routes.push({ path: `/admin/secretariat/outgoing-mail/${mail.id}/cetak` });
+  }
+  return routes;
+}
+
+const DYNAMIC_ADMIN_ROUTES: RouteSpec[] = await resolveDynamicAdminRoutes().catch(
+  (error) => {
+    console.warn(
+      `[axe.scan] Resolusi rute dinamis gagal (${String(error)}) — rute detail unit/surat tidak disertakan.`,
+    );
+    return [];
+  },
+);
+
 const ADMIN_ROUTES: RouteSpec[] = [
   { path: "/admin" },
   { path: "/admin/secretariat/pendataan" },
   { path: "/admin/secretariat/pendataan/units/new" },
   { path: "/admin/secretariat/pendataan/officers/new" },
-  { path: "/admin/secretariat/pendataan/units/cmsj9ot750000mswtyvq1uy7y/officers" },
   { path: "/admin/secretariat/surat-menyurat" },
   { path: "/admin/secretariat/outgoing-mail/list" },
-  { path: "/admin/secretariat/outgoing-mail/cmssy4qox000104i36swqc4zl/cetak" },
   { path: "/admin/falak" },
   { path: "/admin/content" },
   { path: "/admin/program/list" },
   { path: "/admin/system/roles" },
   { path: "/admin/system/users" },
+  ...DYNAMIC_ADMIN_ROUTES,
 ];
 
 interface ScanCase {
@@ -286,10 +324,19 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
         await page.waitForTimeout(400);
         const settled = await settlePage();
         // Rute yang tetap menampilkan halaman error setelah retry adalah
-        // kegagalan nyata — bukan sesuatu yang boleh lolos hampa.
+        // kegagalan nyata — bukan sesuatu yang boleh lolos hampa. Sertakan
+        // konteks (url, judul, teks error) agar kegagalan CI dapat didiagnosis
+        // langsung dari log tes.
+        const errDetail = await page
+          .evaluate(() => {
+            const h = document.querySelector(".next-error-h1");
+            return (h?.textContent ?? "").trim();
+          })
+          .catch(() => "");
+        const pageTitle = await page.title().catch(() => "");
         expect(
           settled,
-          `Rute ${spec.path}: tetap menampilkan halaman error setelah retry (tidak dihitung sebagai pemindaian).`,
+          `Rute ${spec.path}: tetap menampilkan halaman error setelah retry (url=${page.url()} title=${JSON.stringify(pageTitle)} err=${JSON.stringify(errDetail)}).`,
         ).toBe(true);
         await page.waitForTimeout(300);
 
