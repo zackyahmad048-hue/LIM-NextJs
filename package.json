@@ -24,8 +24,9 @@
     "gen:cities": "node scripts/gen-cities.mjs",
     "test:watch": "vitest",
     "test": "vitest run",
-    "e2e": "vitest run tests/e2e",
-    "e2e:watch": "vitest tests/e2e"
+    "a11y:scan": "vitest run tests/accessibility/axe.scan.test.ts",
+    "e2e": "vitest run tests/accessibility",
+    "e2e:watch": "vitest watch tests/accessibility"
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.3.0",
@@ -86,6 +87,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@tailwindcss/postcss": "^4",

@@ -45,49 +45,16 @@
   },
 
   "provider": {
-    "opencode": {
+    "xkiro": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "xKiro",
+      "options": {
+        "baseURL": "https://api.xkiro.com/v1",
+        "apiKey": "{env:XKIRO_API_KEY}"
+      },
       "models": {
-        "deepseek-v4-flash-free": {
-          "limit": {
-            "context": 1000000,
-            "output": 384000
-          },
-          "variants": {
-            "high": {
-              "options": {
-                "reasoningEffort": "high"
-              }
-            }
-          }
-        },
-
-        "mimo-v2.5-free": {
-          "limit": {
-            "context": 1000000,
-            "output": 131072
-          }
-        },
-
-        "north-mini-code-free": {
-          "limit": {
-            "context": 256000,
-            "output": 64000
-          }
-        },
-
-        "nemotron-3-ultra-free": {
-          "limit": {
-            "context": 1000000,
-            "output": 128000
-          }
-        },
-
-        "big-pickle": {
-          "limit": {
-            "context": 1000000,
-            "output": 131072
-          }
-        }
+        "minimax/minimax-m3:free": { "name": "minimax/minimax-m3:free" },
+        "qwen/qwen3.8-max:free": { "name": "qwen/qwen3.8-max:free" }
       }
     }
   }
