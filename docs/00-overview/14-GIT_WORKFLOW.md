@@ -293,6 +293,7 @@ prisma migrate deploy + db:seed
 next build
 next start (produksi)
 axe.scan.test.ts terhadap 34 rute (21 publik + 13 admin) — WCAG 2.2 AA, 0 pelanggaran
+  · DUA tema via matriks: light (default) + dark (A11Y_THEME=dark)
 ```
 
 Catatan penting:
@@ -301,7 +302,12 @@ Catatan penting:
 - Karena itu database CI harus sudah berisi user `ADMIN_EMAIL` (bootstrap sekali via
   `actions/create-admin.ts`).
 - Job **gagal** bila: server tidak siap, atau scan menemukan pelanggaran axe pada salah satu dari 34 rute
-  (rute yang di-**skip** karena server mati tidak dianggap lulus).
+  (rute yang di-**skip** karena server mati tidak dianggap lulus). Gagal berlaku untuk **kedua tema**.
+- Tema gelap: teks bernuansa brand `--primary` (ekses yang disetujui pada keputusan token,
+  lihat issue 13) difilter oleh registry ekses di `axe.scan.test.ts` **saat dark saja** — perubahan
+  token `--primary` dark harus disinkronkan dengan registry tersebut.
+- Status check wajib (`a11y`) ditandai **required** pada branch protection `main`/`develop`
+  (check `axe WCAG 2.2 AA (34 routes) [light]` dan `[dark]`).
 
 ### Secrets yang wajib disiapkan di GitHub
 
@@ -311,8 +317,6 @@ Catatan penting:
 | `BETTER_AUTH_SECRET` | Secret Better Auth (boleh berbeda dari produksi). |
 | `ADMIN_EMAIL` | Email super-admin yang sudah ada di DB CI. |
 | `ADMIN_PASSWORD` | Password akun tersebut (untuk login `/admin/login` oleh runner). |
-
-Status check wajib (`a11y`) ditandai **required** pada branch protection `main`/`develop`.
 
 ---
 

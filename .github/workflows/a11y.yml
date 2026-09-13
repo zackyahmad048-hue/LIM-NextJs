@@ -11,8 +11,11 @@
 # ia TIDAK membuat user. Jadi DB CI harus sudah berisi user ADMIN_EMAIL
 # (mis. bootstrap sekali lewat server action `actions/create-admin.ts`).
 #
-# Latar belakang: scan 34 rute (~18 menit) melawan `next start` (produksi).
-# Dev server tidak stabil pada runner hemat RAM sehingga scan memakai build.
+# Latar belakang: scan 34 rute (~18 menit per tema) melawan `next start`
+# (produksi). Dev server tidak stabil pada runner hemat RAM sehingga scan
+# memakai build. Job memindai DUA tema (light + dark) via matriks; tema gelap
+# memakai registry ekses brand `--primary` di runner (keputusan token, issue 13)
+# sehingga hasil dark harus 0 pelanggaran SELAIN aksen brand yang disetujui.
 
 name: Accessibility Gate
 
@@ -28,9 +31,13 @@ concurrency:
 
 jobs:
   a11y:
-    name: axe WCAG 2.2 AA (34 routes)
+    name: axe WCAG 2.2 AA (34 routes) [${{ matrix.theme }}]
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [light, dark]
 
     env:
       # Jangan set NODE_ENV di level job: npm ci melewatkan devDependencies
@@ -43,6 +50,7 @@ jobs:
       ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
       ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
       A11Y_BASE_URL: http://localhost:3000
+      A11Y_THEME: ${{ matrix.theme }}
 
     steps:
       - name: Checkout
@@ -107,7 +115,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: a11y-scan-logs
+          name: a11y-scan-logs-${{ matrix.theme }}
           path: |
             /tmp/a11y-scan.log
             /tmp/next-start.log

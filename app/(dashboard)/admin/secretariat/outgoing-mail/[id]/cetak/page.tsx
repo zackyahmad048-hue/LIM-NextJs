@@ -66,7 +66,7 @@ export default async function CetakOutgoingMailPage({
     <div className="min-h-dvh bg-neutral-100 print:bg-white">
       {/* Toolbar */}
       <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-6 py-3 print:hidden">
-        <h1 className="text-sm text-muted-foreground">
+        <h1 className="text-sm text-neutral-500">
           {officialNumber} &middot; {statusLabels[mail.status] ?? mail.status}
         </h1>
         <PrintButton />
@@ -74,8 +74,8 @@ export default async function CetakOutgoingMailPage({
 
       {/* Letter */}
       {canRenderInline ? (
-        <div className="mx-auto max-w-[210mm] bg-white p-4 shadow-sm print:shadow-none print:p-0">
-          <div className="overflow-hidden rounded border">
+        <div className="mx-auto max-w-[210mm] bg-white p-4 text-neutral-900 shadow-sm print:shadow-none print:p-0">
+          <div className="overflow-hidden rounded border border-neutral-300">
             <iframe
               src={mail.attachmentUrl ?? undefined}
               title={`Dokumen ${officialNumber}`}
@@ -85,9 +85,9 @@ export default async function CetakOutgoingMailPage({
 
           {/* QR Code */}
           {qrDataUrl && (
-            <div className="mt-6 flex items-center justify-between gap-4 rounded border p-4 print:break-inside-avoid">
-              <div className="text-xs text-muted-foreground">
-                <p className="text-sm font-semibold text-foreground">
+            <div className="mt-6 flex items-center justify-between gap-4 rounded border border-neutral-300 p-4 print:break-inside-avoid">
+              <div className="text-xs text-neutral-500">
+                <p className="text-sm font-semibold text-neutral-900">
                   {officialNumber}
                 </p>
                 {validationUrl && (
@@ -108,13 +108,13 @@ export default async function CetakOutgoingMailPage({
           )}
         </div>
       ) : (
-        <div className="mx-auto max-w-[210mm] bg-white px-8 py-10 shadow-sm print:shadow-none print:px-6 print:py-8">
+        <div className="mx-auto max-w-[210mm] bg-white px-8 py-10 text-neutral-900 shadow-sm print:shadow-none print:px-6 print:py-8">
           {/* Kop Surat */}
           <div className="border-b-2 border-black pb-4 text-center">
             <h1 className="text-lg font-bold uppercase">
               {SITE.title}
             </h1>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-xs text-neutral-600">
               {SITE.email}
               {SITE.phone ? ` · ${SITE.phone}` : ""}
             </p>
@@ -155,8 +155,8 @@ export default async function CetakOutgoingMailPage({
 
           {/* QR Code */}
           {qrDataUrl && (
-            <div className="mt-10 flex flex-col items-end border-t pt-4">
-              <div className="flex size-24 items-center justify-center rounded border bg-white p-1.5">
+            <div className="mt-10 flex flex-col items-end border-t border-neutral-300 pt-4">
+              <div className="flex size-24 items-center justify-center rounded border border-neutral-300 bg-white p-1.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={qrDataUrl}
@@ -164,7 +164,7 @@ export default async function CetakOutgoingMailPage({
                   className="size-full"
                 />
               </div>
-              <p className="mt-1 text-[9px] text-muted-foreground">
+              <p className="mt-1 text-[9px] text-neutral-500">
                 Scan QR atau kunjungi halaman verifikasi dengan nomor surat
               </p>
             </div>

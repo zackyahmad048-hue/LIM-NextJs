@@ -6,6 +6,8 @@
  * - Admin (13 rute representatif per pola permukaan) + chrome: desktop, tablet, mobile.
  * - Login admin opsional via env `PLAYWRIGHT_STORAGE_STATE`; bila tak disediakan, rute
  *   admin yang melompat ke /admin/login dicatat "auth-blocked" (bukan gagal).
+ * - Tema yang dipindai ditentukan `A11Y_THEME` (`light` default, `dark` opsional);
+ *   nama tes mencantumkan tema agar laporan dark/light bisa dibedakan.
  *
  * Menjalankan: `npm run e2e` or `npm run a11y:scan` — butuh app berjalan (default
  * http://localhost:3000; override `A11Y_BASE_URL`). Bila app tidak hidup (atau `/`
@@ -18,6 +20,7 @@ import { existsSync } from "node:fs";
 import { beforeAll, afterAll, describe, expect, it } from "vitest";
 import { chromium, type Browser, type Page } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
+import type { AxeResults } from "axe-core";
 
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 
@@ -26,6 +29,58 @@ const STORAGE_STATE = process.env.PLAYWRIGHT_STORAGE_STATE;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const CACHED_STORAGE_PATH = "/tmp/a11y-storage-state.json";
+
+// Tema yang dipindai: `light` (default, deterministik) atau `dark` via
+// A11Y_THEME=dark. Tema gelap dipindai sebagai audit resmi atas "audit manual
+// menyusul" (issue 13) — hasil dimasukkan ke laporan yang sama.
+const THEME: "light" | "dark" = process.env.A11Y_THEME === "dark" ? "dark" : "light";
+
+// Ekses brand yang disetujui (keputusan token, issue 13): `--primary` tema gelap
+// sengaja DIBIARKAN (menggelapkan terbukti merusak teks aksen), sehingga SEMBARANG
+// teks bernuansa brand `--primary` (kelas `text-primary`, badge, dsb.) tidak
+// mencapai 4.5:1 saat dark. Registry di bawah menghapus node `color-contrast`
+// yang ter-render persis warna primary dark HANYA saat tema dark — sempit dan
+// eksplisit agar bug kontras dark yang BUKAN brand tetap terdeteksi.
+const DARK_PRIMARY_RENDERED = "#9f2d00"; // hex dari .dark{--primary:oklch(0.47 0.157 37.304)}; samakan bila token diganti.
+
+const isApprovedDarkPrimaryException = (
+  violationId: string,
+  target: string,
+  html: string,
+  fgColors: string[],
+): boolean =>
+  THEME === "dark" &&
+  violationId === "color-contrast" &&
+  (target.includes("text-primary") ||
+    // Target selector axe sering tidak memuat `text-primary` (memilih token
+    // kelas lain yang lebih "khas" seperti `.text-[11px]`); cek juga HTML node.
+    html.includes("text-primary") ||
+    // Badge/varian lain memakai `--primary` tanpa kelas `text-primary`.
+    fgColors.includes(DARK_PRIMARY_RENDERED));
+
+const nodeForegroundColors = (n: AxeResults["violations"][number]["nodes"][number]): string[] =>
+  n.any
+    .flatMap((r) => r.data)
+    .map((d) => (d as { fgColor?: string } | undefined)?.fgColor)
+    .filter((v): v is string => Boolean(v));
+
+const dropApprovedPrimaryExceptions = (
+  violations: AxeResults["violations"],
+): AxeResults["violations"] =>
+  violations
+    .map((v) => ({
+      ...v,
+      nodes: v.nodes.filter(
+        (n) =>
+          !isApprovedDarkPrimaryException(
+            v.id,
+            String(n.target[0] ?? ""),
+            n.html,
+            nodeForegroundColors(n),
+          ),
+      ),
+    }))
+    .filter((v) => v.nodes.length > 0);
 
 const VIEWPORTS = {
   desktop: { width: 1440, height: 900 },
@@ -179,7 +234,7 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
           viewport: VIEWPORTS.desktop,
         });
         const loginPage = await ctx.newPage();
-        await loginPage.addInitScript(() => localStorage.setItem("theme", "light"));
+        await loginPage.addInitScript((t) => localStorage.setItem("theme", t), THEME);
         await loginPage.goto(`${BASE}/admin/login`, {
           timeout: 120_000,
           waitUntil: "load",
@@ -213,7 +268,7 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
         storageState: storageStatePath ?? STORAGE_STATE ?? undefined,
       });
       const warmPage = await warmCtx.newPage();
-      await warmPage.addInitScript(() => localStorage.setItem("theme", "light"));
+      await warmPage.addInitScript((t) => localStorage.setItem("theme", t), THEME);
       for (const { spec } of ALL_ROUTES) {
         try {
           await warmPage.goto(`${BASE}${spec.path}`, {
@@ -254,7 +309,7 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
   });
 
   it.skipIf(!reachable).each(ALL_ROUTES)(
-    "$spec.path ($viewports.length viewports)",
+    "$spec.path ($viewports.length viewports)" + " [" + THEME + "]",
     async ({ spec, viewports }) => {
       if (!browser) {
         throw new Error("browser tidak tersedia meskipun server sehat.");
@@ -265,11 +320,11 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
         storageState: storageStatePath ?? STORAGE_STATE ?? undefined,
       });
       const page: Page = await context.newPage();
-      // Tema light dipaksa deterministik lewat storage agar pemindaian kontras
-      // konsisten (next-themes defaultTheme="dark"). Cakupan tema gelap
-      // ditangani terpisah (lihat issue 13).
-      await page.addInitScript(() => localStorage.setItem("theme", "light"));
-      await page.emulateMedia({ colorScheme: "light" });
+      // Tema dipaksa deterministik lewat storage agar pemindaian kontras
+      // konsisten (next-themes defaultTheme="dark"). Tema: `A11Y_THEME`
+      // (light/dark); dark dipindai sebagai audit formal (issue 13).
+      await page.addInitScript((t) => localStorage.setItem("theme", t), THEME);
+      await page.emulateMedia({ colorScheme: THEME });
       let url = `${BASE}${spec.path}`;
 
       try {
@@ -340,20 +395,30 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
         ).toBe(true);
         await page.waitForTimeout(300);
 
-        // Tema light dijamin konsisten: jika provider tema menambahkan kelas
-        // `.dark` (mis. karena OS memakai dark), hapus agar token `:root` (light)
-        // terpasang. Cakupan tema gelap ditangani terpisah (lihat issue 13).
-        await page.evaluate(() => {
+        // Pastikan kelas tema sesuai `A11Y_THEME` sebelum axe mengukur: hapus
+        // `.dark` saat light (token :root), tambahkan saat dark (token `.dark`).
+        await page.evaluate((theme) => {
           const d = document.documentElement;
-          d.classList.remove("dark");
-          d.style.colorScheme = "light";
-        });
+          if (theme === "dark") {
+            d.classList.add("dark");
+            d.style.colorScheme = "dark";
+          } else {
+            d.classList.remove("dark");
+            d.style.colorScheme = "light";
+          }
+        }, THEME);
         await page.waitForTimeout(100);
 
-        const results = await new AxeBuilder({ page })
+        const rawResults = await new AxeBuilder({ page })
           .withTags(["wcag2a", "wcag2aa", "best-practice"])
           .analyze();
         scannedCount += 1;
+
+        // Hapus node ekses brand dark yang disetujui (issue 13) dari hasil.
+        const results: AxeResults = {
+          ...rawResults,
+          violations: dropApprovedPrimaryExceptions(rawResults.violations),
+        };
 
         const themeSnapshot = await page.evaluate(
           () => document.documentElement.getAttribute("class") ?? "",
