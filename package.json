@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
-    "build": "prisma generate && NODE_OPTIONS=--max-old-space-size=4096 next build",
+    "dev": "next dev",
+    "build": "prisma generate && NODE_OPTIONS=--max-old-space-size=2048 next build",
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint .",
@@ -17,6 +17,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "payload:generate": "payload generate:types",
+    "payload:importmap": "payload generate:importmap",
     "payload:migrate": "payload migrate",
     "payload:seed": "tsx scripts/payload-seed-pages.ts",
     "prisma:studio": "prisma studio",

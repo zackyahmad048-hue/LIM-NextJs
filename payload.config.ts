@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import path from "path";
@@ -38,17 +40,34 @@ import { OrganizationStructure } from "./globals/OrganizationStructure";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const ADMIN_ROUTE = "/cms";
+const API_ROUTE = "/payload-api";
+
+const secret = process.env.PAYLOAD_SECRET || process.env.BETTER_AUTH_SECRET;
+
+if (!secret) {
+  throw new Error(
+    "Missing PAYLOAD_SECRET. Generate one with `openssl rand -base64 32` and add it to .env. " +
+      "BETTER_AUTH_SECRET is accepted as a fallback.",
+  );
+}
+
 export default buildConfig({
   collections: [Users, Posts, Categories, Media, Pages, Bidang, Units, Officers, AgendaBooks, IncomingMails, OutgoingMails, Dispositions, AdministrativeDocuments, DocumentArchives, Programs, ProgramSchedules, ProgramCommittees, Participants, Attendances, ProgramDocumentations, WajibKhidmahLembagas, WajibKhidmahMembers, FalakPrayerTimes, FalakQiblas, FalakHijriCalendars, FalakHisabs, FalakRukyats, FalakEclipses, GoogleDriveConnections],
   globals: [Settings, OrganizationStructure],
+  routes: {
+    admin: ADMIN_ROUTE,
+    api: API_ROUTE,
+  },
   admin: {
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
-      importMapFile: path.resolve(dirname, "app/(payload)/admin/importMap.js"),
+      importMapFile: path.resolve(dirname, `app/(payload)${ADMIN_ROUTE}/importMap.js`),
     },
   },
-  secret: process.env.PAYLOAD_SECRET || process.env.BETTER_AUTH_SECRET || "CHANGE-ME",
+  secret,
+  serverURL: process.env.NEXT_PUBLIC_APP_URL || process.env.BETTER_AUTH_URL,
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
