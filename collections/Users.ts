@@ -1,14 +1,22 @@
 import type { CollectionConfig } from "payload";
 
-import { canManageRoleField, canManageUsers } from "./access";
+import { canManageUsers, canManageUsersField } from "./access";
+import { betterAuthStrategy } from "./better-auth.strategy";
 
 export const Users: CollectionConfig = {
   slug: "users",
   // avoid clash with Prisma "user" table on shared Neon DB (keeps plural)
   dbName: "payload_users",
-  auth: true,
+  auth: {
+    // Better Auth owns sessions and the RBAC graph. Payload must not keep a
+    // second password store, so the local login form is disabled and the
+    // admin panel relies entirely on the delegated strategy.
+    disableLocalStrategy: true,
+    strategies: [betterAuthStrategy],
+  },
   admin: {
     useAsTitle: "email",
+    group: "System",
   },
   access: {
     read: canManageUsers,
@@ -26,23 +34,10 @@ export const Users: CollectionConfig = {
       type: "email",
       required: true,
       unique: true,
-    },
-    {
-      name: "role",
-      type: "select",
-      defaultValue: "editor",
       access: {
-        create: canManageRoleField,
-        update: canManageRoleField,
+        create: canManageUsersField,
+        update: canManageUsersField,
       },
-      options: [
-        { label: "Super Admin", value: "super-admin" },
-        { label: "Administrator", value: "administrator" },
-        { label: "Editor", value: "editor" },
-        { label: "Operator", value: "operator" },
-        { label: "Sekretaris", value: "sekretaris" },
-        { label: "Viewer", value: "viewer" },
-      ],
     },
   ],
 };
