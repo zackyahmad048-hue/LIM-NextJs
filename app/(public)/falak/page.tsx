@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
-import { HubDot } from "@/components/shared/hub-dot";
 import Reveal from "@/components/website/motion/reveal";
 import SiteSection from "@/components/website/layout/site-section";
 import { getFalakContent } from "@/modules/cms/queries/site-page.query";
@@ -43,10 +41,8 @@ export default async function FalakPage() {
                     {tool.description}
                   </p>
 
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary transition-[gap] group-hover:gap-3">
-                    <HubDot className="h-2 w-2" />
+                  <span className="mt-5 inline-flex text-xs font-semibold text-primary">
                     Buka Instrumen
-                    <ArrowRight size={14} />
                   </span>
                 </Link>
               </Reveal>

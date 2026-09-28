@@ -9,6 +9,6 @@
  * Sumber tunggal: jangan duplikasi string kelas ini di komponen lain.
  */
 
-/** Chrome solid topbar/nav admin. */
+/** Chrome solid topbar/nav admin — permukaan background (bukan card), per theme.md. */
 export const chrome =
-  "border-admin-border/60 bg-admin-card-bg";
+  "border-admin-border/60 bg-admin-content-bg";

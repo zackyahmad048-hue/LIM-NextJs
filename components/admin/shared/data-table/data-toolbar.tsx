@@ -11,12 +11,12 @@ interface Props {
 
 export function DataToolbar({ value, onChange }: Props) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-4">
       <div className="relative w-full max-w-sm">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-admin-content-fg/40" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
         <Input
-          className="border-admin-input-border bg-admin-input-bg pl-9 placeholder:text-admin-content-fg/40"
+          className="border-[var(--admin-input-border)] bg-[var(--admin-input-bg)] pl-9 placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary"
           placeholder="Cari..."
           value={value}
           onChange={(e) => onChange(e.target.value)}

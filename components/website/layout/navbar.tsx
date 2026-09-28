@@ -79,9 +79,6 @@ export default function Navbar() {
             />
 
             <span className="leading-tight">
-              <span className="block text-[10px] font-medium uppercase text-muted-foreground">
-                Lembaga
-              </span>
               <span className="block text-[15px] font-semibold text-foreground">
                 Ittihadul Muballighin
               </span>
@@ -124,11 +121,7 @@ export default function Navbar() {
                 <NavigationMenuContent className="md:top-full md:mt-1.5">
                   <div className="w-56 max-w-[calc(100vw-2rem)]">
                     <div className="grid gap-2 p-3">
-                      <div>
-                        <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase text-muted-foreground">
-                          Profil
-                        </p>
-                        {profilChildren.map((item) => (
+                      {profilChildren.map((item) => (
                           <NavigationMenuLink asChild key={item.href}>
                             <Link
                               href={item.href}
@@ -142,10 +135,9 @@ export default function Navbar() {
                               {item.title}
                             </Link>
                           </NavigationMenuLink>
-                        ))}
+))}
                       </div>
                     </div>
-                  </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
@@ -223,9 +215,6 @@ export default function Navbar() {
                     className="h-6 w-auto object-contain"
                   />
                   <span className="leading-tight">
-                    <span className="block text-[10px] font-medium uppercase text-muted-foreground">
-                      Lembaga
-                    </span>
                     <span className="block text-[15px] font-semibold text-foreground">
                       Ittihadul Muballighin
                     </span>

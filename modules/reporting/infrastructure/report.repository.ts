@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 export interface ReportRow {
   kode: string;
@@ -9,6 +9,31 @@ export interface ReportRow {
 
 function fmt(value: number | bigint): string {
   return value.toString();
+}
+
+async function countNotDeleted(
+  collection:
+    | "incoming-mails"
+    | "outgoing-mails"
+    | "dispositions"
+    | "administrative-documents",
+  status?: string,
+): Promise<number> {
+  const payload = await getPayloadClient();
+  const where: Record<string, unknown> =
+    status != null
+      ? {
+          and: [
+            { deletedAt: { exists: false } },
+            { status: { equals: status } },
+          ],
+        }
+      : { deletedAt: { exists: false } };
+  const res = await payload.count({
+    collection,
+    where: where as never,
+  });
+  return res.totalDocs;
 }
 
 export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
@@ -24,16 +49,16 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
     pendingDispositions,
     adminDocs,
   ] = await Promise.all([
-    prisma.incomingMail.count({ where: { deletedAt: null } }),
-    prisma.incomingMail.count({ where: { status: "RECEIVED", deletedAt: null } }),
-    prisma.incomingMail.count({ where: { status: "PROCESSED", deletedAt: null } }),
-    prisma.incomingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
-    prisma.outgoingMail.count({ where: { deletedAt: null } }),
-    prisma.outgoingMail.count({ where: { status: "DRAFT", deletedAt: null } }),
-    prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
-    prisma.outgoingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
-    prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
-    prisma.administrativeDocument.count({ where: { deletedAt: null } }),
+    countNotDeleted("incoming-mails"),
+    countNotDeleted("incoming-mails", "RECEIVED"),
+    countNotDeleted("incoming-mails", "PROCESSED"),
+    countNotDeleted("incoming-mails", "ARCHIVED"),
+    countNotDeleted("outgoing-mails"),
+    countNotDeleted("outgoing-mails", "DRAFT"),
+    countNotDeleted("outgoing-mails", "SENT"),
+    countNotDeleted("outgoing-mails", "ARCHIVED"),
+    countNotDeleted("dispositions", "PENDING"),
+    countNotDeleted("administrative-documents"),
   ]);
 
   const updatedAt = new Date().toISOString();
@@ -52,23 +77,30 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
 }
 
 export async function getFalakProjectionData(): Promise<ReportRow[]> {
+  const payload = await getPayloadClient();
   const [prayerTimes, qibla, hijri, hisab, rukyat, eclipse] =
     await Promise.all([
-      prisma.falakPrayerTime.count(),
-      prisma.falakQibla.count(),
-      prisma.falakHijriCalendar.count(),
-      prisma.falakHisab.count({ where: { deletedAt: null } }),
-      prisma.falakRukyat.count({ where: { deletedAt: null } }),
-      prisma.falakEclipse.count(),
+      payload.count({ collection: "falak-prayer-times" }),
+      payload.count({ collection: "falak-qiblas" }),
+      payload.count({ collection: "falak-hijri-calendars" }),
+      payload.count({
+        collection: "falak-hisabs",
+        where: { deletedAt: { exists: false } } as never,
+      }),
+      payload.count({
+        collection: "falak-rukyats",
+        where: { deletedAt: { exists: false } } as never,
+      }),
+      payload.count({ collection: "falak-eclipses" }),
     ]);
 
   const updatedAt = new Date().toISOString();
   return [
-    { kode: "prayer-time.total", indikator: "Jadwal Shalat", nilai: fmt(prayerTimes), diperbarui: updatedAt },
-    { kode: "qibla.total", indikator: "Arah Kiblat", nilai: fmt(qibla), diperbarui: updatedAt },
-    { kode: "hijri.total", indikator: "Kalender Hijriah", nilai: fmt(hijri), diperbarui: updatedAt },
-    { kode: "hisab.total", indikator: "Hisab", nilai: fmt(hisab), diperbarui: updatedAt },
-    { kode: "rukyat.total", indikator: "Rukyat", nilai: fmt(rukyat), diperbarui: updatedAt },
-    { kode: "eclipse.total", indikator: "Gerhana", nilai: fmt(eclipse), diperbarui: updatedAt },
+    { kode: "prayer-time.total", indikator: "Jadwal Shalat", nilai: fmt(prayerTimes.totalDocs), diperbarui: updatedAt },
+    { kode: "qibla.total", indikator: "Arah Kiblat", nilai: fmt(qibla.totalDocs), diperbarui: updatedAt },
+    { kode: "hijri.total", indikator: "Kalender Hijriah", nilai: fmt(hijri.totalDocs), diperbarui: updatedAt },
+    { kode: "hisab.total", indikator: "Hisab", nilai: fmt(hisab.totalDocs), diperbarui: updatedAt },
+    { kode: "rukyat.total", indikator: "Rukyat", nilai: fmt(rukyat.totalDocs), diperbarui: updatedAt },
+    { kode: "eclipse.total", indikator: "Gerhana", nilai: fmt(eclipse.totalDocs), diperbarui: updatedAt },
   ];
 }

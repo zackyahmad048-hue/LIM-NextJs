@@ -97,14 +97,14 @@ export function RecentActivity({
             <li key={item.id}>
               <Link
                 href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
-                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-muted/40"
+                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-admin-border/30"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium group-hover:underline">
                     {item.subject}
                   </p>
-                  <p className="mt-0.5 text-[11px] text-muted-foreground">
-                    <span className="font-mono">{item.registrationNumber}</span>
+                  <p className="mt-0.5 text-[11px] text-admin-content-fg/60">
+                    <span className="font-data">{item.registrationNumber}</span>
                     {" · "}
                     {formatShortDate(item.mailDate)}
                   </p>
@@ -137,14 +137,14 @@ export function RecentActivity({
             <li key={item.id}>
               <Link
                 href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
-                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-muted/40"
+                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-admin-border/30"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium group-hover:underline">
                     {item.subject}
                   </p>
-                  <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
-                    <span className="font-mono">{item.registrationNumber}</span>
+                  <p className="mt-0.5 truncate text-[11px] text-admin-content-fg/60">
+                    <span className="font-data">{item.registrationNumber}</span>
                     {" · "}
                     {item.sender}
                   </p>
@@ -172,10 +172,10 @@ export function RecentActivity({
           <li key={item.id}>
             <Link
               href={`/admin/secretariat/agenda/${item.id}/edit`}
-              className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-muted/40"
+              className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-admin-border/30"
             >
               <div className="flex size-9 shrink-0 flex-col items-center justify-center rounded-md bg-violet-100 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300">
-                <span className="text-[10px] font-medium uppercase leading-none">
+                <span className="text-[10px] font-medium leading-none">
                   {new Intl.DateTimeFormat("id-ID", { month: "short" }).format(
                     item.date,
                   )}
@@ -188,7 +188,7 @@ export function RecentActivity({
                 <p className="truncate text-sm font-medium group-hover:underline">
                   {item.title}
                 </p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                <p className="mt-0.5 text-[11px] text-admin-content-fg/60">
                   {formatLongDate(item.date)}
                   {item.location ? ` · ${item.location}` : ""}
                 </p>
@@ -238,14 +238,14 @@ function ActivityCard({
         </div>
         <Link
           href={viewAllHref}
-          className="flex items-center gap-1 text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+          className="flex items-center gap-1 text-[11px] text-admin-content-fg/60 transition-colors hover:text-admin-content-fg"
         >
           Lihat semua
           <ArrowRight className="size-3" />
         </Link>
       </div>
 
-      <ul className="mt-3 -mx-3 divide-y rounded-md border bg-background">
+      <ul className="mt-3 -mx-3 divide-y rounded-md border bg-admin-card-bg">
         {hasItems ? (
           children
         ) : (

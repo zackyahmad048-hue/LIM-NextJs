@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { GripHorizontal } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -460,13 +460,11 @@ export const useThemeToggle = ({
 } = {}) => {
   const { theme, setTheme, resolvedTheme } = useTheme();
 
-  // `isDark` diturunkan langsung dari `resolvedTheme` agar selalu sinkron
-  // dengan tema aktual tanpa perlu useEffect / setState dalam effect.
   const isDark = resolvedTheme === "dark";
 
   const styleId = "theme-transition-styles";
 
-  const updateStyles = useCallback((css: string) => {
+  const updateStyles = useCallback((css: string, name: string) => {
     if (typeof window === "undefined") return;
 
     let styleElement = document.getElementById(styleId) as HTMLStyleElement;
@@ -483,7 +481,7 @@ export const useThemeToggle = ({
   const toggleTheme = useCallback(() => {
     const animation = createAnimation(variant, start, blur, gifUrl);
 
-    updateStyles(animation.css);
+    updateStyles(animation.css, animation.name);
 
     if (typeof window === "undefined") return;
 
@@ -502,7 +500,7 @@ export const useThemeToggle = ({
   const setCrazyLightTheme = useCallback(() => {
     const animation = createAnimation(variant, start, blur, gifUrl);
 
-    updateStyles(animation.css);
+    updateStyles(animation.css, animation.name);
 
     if (typeof window === "undefined") return;
 
@@ -521,7 +519,7 @@ export const useThemeToggle = ({
   const setCrazyDarkTheme = useCallback(() => {
     const animation = createAnimation(variant, start, blur, gifUrl);
 
-    updateStyles(animation.css);
+    updateStyles(animation.css, animation.name);
 
     if (typeof window === "undefined") return;
 
@@ -542,7 +540,7 @@ export const useThemeToggle = ({
 
     const animation = createAnimation(variant, start, blur, gifUrl);
 
-    updateStyles(animation.css);
+    updateStyles(animation.css, animation.name);
 
     const switchTheme = () => {
       setTheme("system");

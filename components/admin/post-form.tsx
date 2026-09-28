@@ -188,7 +188,7 @@ export function PostForm({
                   id="content"
                   rows={12}
                   placeholder="Tulis konten berita di sini..."
-                  className="font-mono text-sm"
+                  className="font-data text-sm"
                   {...form.register("content")}
                 />
                 {form.formState.errors.content && (

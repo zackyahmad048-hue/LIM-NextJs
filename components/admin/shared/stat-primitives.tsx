@@ -8,6 +8,8 @@ export interface StatItem {
   label: ReactNode;
   value: ReactNode;
   description?: ReactNode;
+  /** Highlight primary metric with accent dot */
+  highlight?: boolean;
 }
 
 interface StatPrimitivesProps {
@@ -15,12 +17,57 @@ interface StatPrimitivesProps {
   className?: string;
 }
 
-const statValueClass =
-  "font-heading font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg";
+/** Individual stat card for grid layout — glassmorphism content card */
+export function StatCard({
+  label,
+  value,
+  description,
+  highlight,
+  className,
+}: StatItem & { className?: string }) {
+  return (
+    <article className={cn(
+      "group glass p-5 transition-all hover:border-primary",
+      className,
+    )}>
+      <div className="flex items-baseline gap-2">
+        {highlight && (
+          <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" aria-hidden="true" />
+        )}
+        <dd className="font-heading text-3xl font-semibold tabular-nums text-foreground">
+          {value}
+        </dd>
+      </div>
+      <dt className="mt-1.5 text-sm text-muted-foreground">{label}</dt>
+      {description != null && (
+        <dd className="mt-2 text-xs text-muted-foreground/80">{description}</dd>
+      )}
+    </article>
+  );
+}
 
-/** Deret statistik menonjol (kap maks 4, S1) — 4 angka sebagai satu `band`
- * ringkasan, ≤3 sebagai strip tipis di atas band (S3); permukaan netral,
- * bukan kartu. Statistik densitas di dalam `band` memakai `stat-row`. */
+/** Grid of stat cards — replaces StatStrip for dashboard.
+ *  Responsive: 1 col (<640) → 2 col (640-1023) → 4 col (≥1024) */
+export function StatGrid({ items, className }: StatPrimitivesProps) {
+  return (
+    <div className={cn(
+      "grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+      className,
+    )}>
+      {items.map((item, index) => (
+        <StatCard
+          key={item.key ?? String(index)}
+          label={item.label}
+          value={item.value}
+          description={item.description}
+          highlight={item.highlight ?? index === 0}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** Deret statistik menonjol */
 export function StatStrip({ items, className }: StatPrimitivesProps) {
   return (
     <dl
@@ -31,10 +78,12 @@ export function StatStrip({ items, className }: StatPrimitivesProps) {
     >
       {items.map((item, index) => (
         <div key={item.key ?? index}>
-          <dt className="text-sm text-admin-content-fg/80">{item.label}</dt>
-          <dd className={cn("mt-0.5 text-2xl", statValueClass)}>{item.value}</dd>
+          <dt className="text-sm text-muted-foreground">{item.label}</dt>
+          <dd className="mt-0.5 text-2xl font-heading font-semibold tabular-nums text-foreground">
+            {item.value}
+          </dd>
           {item.description != null && (
-            <dd className="text-xs text-admin-content-fg/70">{item.description}</dd>
+            <dd className="text-xs text-muted-foreground">{item.description}</dd>
           )}
         </div>
       ))}
@@ -42,21 +91,22 @@ export function StatStrip({ items, className }: StatPrimitivesProps) {
   );
 }
 
-/** Daftar statistik densitas rapat (angka ke-5+ atau varian ringkas, S2) — baris
- * label:value di dalam `band`, dipisah `border-t`. */
+/** Daftar statistik densitas rapat */
 export function StatRow({ items, className }: StatPrimitivesProps) {
   return (
-    <dl className={cn("divide-y divide-admin-border/50", className)}>
+    <dl className={cn("divide-y divide-border", className)}>
       {items.map((item, index) => (
         <div
           key={item.key ?? index}
           className="flex items-baseline justify-between gap-4 py-2.5"
         >
-          <dt className="text-sm text-admin-content-fg/85">{item.label}</dt>
+          <dt className="text-sm text-muted-foreground">{item.label}</dt>
           <dd className="text-right">
-            <span className={cn("text-lg", statValueClass)}>{item.value}</span>
+            <span className="text-lg font-heading font-semibold tabular-nums text-foreground">
+              {item.value}
+            </span>
             {item.description != null && (
-              <span className="ml-2 text-xs text-admin-content-fg/70">
+              <span className="ml-2 text-xs text-muted-foreground">
                 {item.description}
               </span>
             )}

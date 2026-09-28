@@ -25,8 +25,8 @@ export function LetterPlate({
   return (
     <div
       className={cn(
-        "inline-flex items-stretch overflow-hidden rounded-lg border bg-muted",
-        size === "md" ? "border-border/80" : "border-border/60",
+        "inline-flex items-stretch overflow-hidden rounded-lg border bg-admin-border/30",
+        size === "md" ? "border-admin-border/80" : "border-admin-border/60",
         className,
       )}
       aria-label={`Nomor surat ${fullNumber}`}
@@ -35,9 +35,9 @@ export function LetterPlate({
         <span
           key={`${segment}-${index}`}
           className={cn(
-            "flex items-center px-2.5 font-semibold tabular-nums text-foreground",
+            "flex items-center px-2.5 font-semibold tabular-nums text-admin-content-fg",
             size === "md" ? "py-2 text-xl md:text-2xl" : "py-1 text-sm",
-            index > 0 ? "border-l border-border" : "",
+            index > 0 ? "border-l border-admin-border" : "",
           )}
         >
           {segment}

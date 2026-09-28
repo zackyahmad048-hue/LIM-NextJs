@@ -52,7 +52,7 @@ export default async function RukyatPage() {
             rows={items.map((item) => ({
               key: item.id,
               cells: [
-                <span key="loc" className="font-medium text-foreground">
+                <span key="loc" className="font-medium text-foreground truncate max-w-xs">
                   {item.locationName}
                 </span>,
                 <span
@@ -61,7 +61,7 @@ export default async function RukyatPage() {
                 >
                   {formatDateId(item.observationDate)}
                 </span>,
-                <span key="weather" className="text-muted-foreground">
+                <span key="weather" className="text-muted-foreground truncate max-w-xs">
                   {item.weather}
                 </span>,
                 <span key="result">
@@ -72,6 +72,10 @@ export default async function RukyatPage() {
               ],
             }))}
             emptyMessage="Belum ada laporan rukyat terkonfirmasi."
+            emptyAction={{
+              label: "Lihat halaman admin untuk menambah laporan",
+              href: "/admin/falak/rukyat",
+            }}
           />
         </Reveal>
       </SiteSection>

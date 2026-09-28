@@ -84,7 +84,7 @@ export default async function ArtikelDetailPage({
 
       <header className="mt-5">
         <div className="flex items-center gap-2.5 text-xs">
-          <span className="font-sans font-medium uppercase text-primary">
+          <span className="font-medium text-primary">
             {post.category.name}
           </span>
           <span aria-hidden className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50" />

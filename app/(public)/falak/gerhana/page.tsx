@@ -57,12 +57,16 @@ export default async function GerhanaPage() {
                 >
                   {formatDateId(item.eclipseDate)}
                 </span>,
-                <span key="visibility" className="text-muted-foreground">
+                <span key="visibility" className="text-muted-foreground truncate max-w-xs">
                   {item.visibility || "Belum dirilis"}
                 </span>,
               ],
             }))}
             emptyMessage="Belum ada data gerhana yang dipublikasikan."
+            emptyAction={{
+              label: "Lihat halaman admin untuk menambah data gerhana",
+              href: "/admin/falak/gerhana",
+            }}
           />
         </Reveal>
       </SiteSection>

@@ -13,7 +13,7 @@ interface ListRowProps {
 }
 
 /** Baris daftar tanpa kotak — dipakai langsung di dalam `band` memakai
- * `divide-y divide-admin-border/50` pada pembungkusnya (L1/L2). */
+ * `divide-y divide-border/50` pada pembungkusnya (L1/L2). */
 export function ListRow({
   title,
   description,
@@ -29,9 +29,9 @@ export function ListRow({
       )}
     >
       <div className="min-w-0">
-        <h3 className="text-sm font-medium text-admin-content-fg">{title}</h3>
+        <h3 className="text-sm font-medium text-foreground">{title}</h3>
         {description != null && (
-          <p className="mt-0.5 text-xs text-admin-content-fg/80">{description}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
         )}
       </div>
       {(meta != null || action != null) && (

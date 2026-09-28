@@ -24,12 +24,12 @@ export {
 
 // Infrastructure
 export {
-  PrismaFalakPrayerTimeRepository,
-  PrismaFalakQiblaRepository,
-  PrismaFalakHijriCalendarRepository,
-  PrismaFalakHisabRepository,
-  PrismaFalakRukyatRepository,
-  PrismaFalakEclipseRepository,
+  PayloadFalakPrayerTimeRepository,
+  PayloadFalakQiblaRepository,
+  PayloadFalakHijriCalendarRepository,
+  PayloadFalakHisabRepository,
+  PayloadFalakRukyatRepository,
+  PayloadFalakEclipseRepository,
   falakPrayerTimeRepository,
   falakQiblaRepository,
   falakHijriCalendarRepository,

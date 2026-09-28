@@ -36,7 +36,7 @@ export function ReportingSyncButton() {
         <p className="text-sm font-medium">
           Sinkronisasi laporan ke Google Sheets
         </p>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <p className="mt-1 text-xs text-admin-content-fg/60">
           Tulis ulang ringkasan statistik (sekretariat & falak) ke spreadsheet
           proyeksi. Proyeksi satu arah dari PostgreSQL.
         </p>

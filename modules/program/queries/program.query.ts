@@ -1,6 +1,33 @@
-import { Prisma } from "@/generated/client";
 import type { ProgramStatus } from "@/generated/client";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { programRepository } from "../infrastructure/repository";
+
+async function withPersonInCharge<
+  T extends { personInChargeId: string | null },
+>(items: T[]) {
+  const ids = [
+    ...new Set(
+      items
+        .map((i) => i.personInChargeId)
+        .filter((x): x is string => x != null),
+    ),
+  ];
+  const users =
+    ids.length > 0
+      ? await prisma.user.findMany({
+          where: { id: { in: ids } },
+          select: { id: true, name: true },
+        })
+      : [];
+  const map = new Map(users.map((u) => [u.id, u]));
+  return items.map((item) => ({
+    ...item,
+    personInCharge: item.personInChargeId
+      ? (map.get(item.personInChargeId) ?? null)
+      : null,
+  }));
+}
 
 export async function getPrograms(params: {
   search?: string;
@@ -8,128 +35,108 @@ export async function getPrograms(params: {
   page?: number;
   limit?: number;
 }) {
-  const where: Prisma.ProgramWhereInput = { deletedAt: null };
+  const payload = await getPayloadClient();
+  const and: NonNullable<
+    import("payload").Where
+  >[] = [{ deletedAt: { exists: false } }];
   if (params.search)
-    where.OR = [
-      { name: { contains: params.search } },
-      { code: { contains: params.search } },
-    ];
+    and.push({
+      or: [
+        { name: { like: params.search } },
+        { code: { like: params.search } },
+      ],
+    });
   if (params.status)
-    where.status = params.status as ProgramStatus;
+    and.push({ status: { equals: params.status as ProgramStatus } });
 
-  const [items, total] = await Promise.all([
-    prisma.program.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      skip: ((params.page ?? 1) - 1) * (params.limit ?? 20),
-      take: params.limit ?? 20,
-      include: { personInCharge: { select: { id: true, name: true } } },
-    }),
-    prisma.program.count({ where }),
-  ]);
+  const res = await payload.find({
+    collection: "programs",
+    where: { and },
+    sort: "-createdAt",
+    page: params.page ?? 1,
+    limit: params.limit ?? 20,
+    depth: 0,
+  });
 
-  return { items, total };
+  const items = await withPersonInCharge(res.docs.map((d) => ({
+    id: String(d.id),
+    code: d.code,
+    name: d.name,
+    type: d.type,
+    description: d.description ?? null,
+    organizerId: d.organizerId ?? null,
+    personInChargeId: d.personInChargeId ?? null,
+    status: d.status,
+    registrationOpen: d.registrationOpen
+      ? new Date(d.registrationOpen)
+      : null,
+    registrationClose: d.registrationClose
+      ? new Date(d.registrationClose)
+      : null,
+    startDate: new Date(d.startDate),
+    endDate: new Date(d.endDate),
+    createdAt: new Date(d.createdAt),
+    updatedAt: new Date(d.updatedAt),
+    deletedAt: d.deletedAt ? new Date(d.deletedAt) : null,
+  })));
+
+  return { items, total: res.totalDocs };
 }
 
 export async function getProgramById(id: string) {
-  return prisma.program.findFirst({
-    where: { id, deletedAt: null },
-    include: { personInCharge: { select: { id: true, name: true } } },
-  }) as unknown as any;
+  const item = await programRepository.findById(id);
+  if (!item) return null;
+  const [enriched] = await withPersonInCharge([item]);
+  return enriched as unknown as any;
 }
 
 export async function getProgramStats() {
-  const [
-    total,
-    draft,
-    published,
-    registrationOpen,
-    registrationClosed,
-    onGoing,
-    completed,
-    cancelled,
-    archived,
-  ] = await Promise.all([
-    prisma.program.count({ where: { deletedAt: null } }),
-    prisma.program.count({ where: { status: "DRAFT", deletedAt: null } }),
-    prisma.program.count({ where: { status: "PUBLISHED", deletedAt: null } }),
-    prisma.program.count({
-      where: { status: "REGISTRATION_OPEN", deletedAt: null },
-    }),
-    prisma.program.count({
-      where: { status: "REGISTRATION_CLOSED", deletedAt: null },
-    }),
-    prisma.program.count({ where: { status: "ON_GOING", deletedAt: null } }),
-    prisma.program.count({ where: { status: "COMPLETED", deletedAt: null } }),
-    prisma.program.count({ where: { status: "CANCELLED", deletedAt: null } }),
-    prisma.program.count({ where: { status: "ARCHIVED", deletedAt: null } }),
-  ]);
+  const payload = await getPayloadClient();
+  const res = await payload.find({
+    collection: "programs",
+    where: { deletedAt: { exists: false } },
+    limit: 10000,
+    depth: 0,
+  });
+  const docs = res.docs;
+  const count = (s: ProgramStatus) =>
+    docs.filter((d) => d.status === s).length;
 
   return {
-    total,
-    draft,
-    published,
-    registrationOpen,
-    registrationClosed,
-    onGoing,
-    completed,
-    cancelled,
-    archived,
+    total: docs.length,
+    draft: count("DRAFT"),
+    published: count("PUBLISHED"),
+    registrationOpen: count("REGISTRATION_OPEN"),
+    registrationClosed: count("REGISTRATION_CLOSED"),
+    onGoing: count("ON_GOING"),
+    completed: count("COMPLETED"),
+    cancelled: count("CANCELLED"),
+    archived: count("ARCHIVED"),
   };
 }
 
 export async function getSchedules(programId: string) {
-  return prisma.programSchedule.findMany({
-    where: { programId, deletedAt: null },
-    orderBy: { startTime: "asc" },
-  }) as unknown as any[];
+  return programRepository.getSchedules(programId) as unknown as any[];
 }
 
 export async function getCommittees(programId: string) {
-  return prisma.programCommittee.findMany({
-    where: { programId, deletedAt: null },
-    include: {
-      user: { select: { id: true, name: true, email: true, image: true } },
-    },
-    orderBy: { role: "asc" },
-  }) as unknown as any[];
+  return programRepository.getCommittees(programId) as unknown as any[];
 }
 
 export async function getParticipants(programId: string) {
-  return prisma.participant.findMany({
-    where: { programId, deletedAt: null },
-    include: {
-      user: { select: { id: true, name: true, email: true, image: true } },
-    },
-    orderBy: { registrationDate: "desc" },
-  }) as unknown as any[];
+  return programRepository.getParticipants(programId) as unknown as any[];
 }
 
 export async function getAttendance(programId: string) {
-  return prisma.attendance.findMany({
-    where: { participant: { programId } },
-    include: { participant: { include: { user: { select: { name: true } } } } },
-    orderBy: { checkIn: "desc" },
-  }) as unknown as any[];
+  return programRepository.getAttendance(programId) as unknown as any[];
 }
 
 export async function getDocumentation(programId: string) {
-  return prisma.programDocumentation.findMany({
-    where: { programId, deletedAt: null },
-    orderBy: { title: "asc" },
-  }) as unknown as any[];
+  return programRepository.getDocumentation(programId) as unknown as any[];
 }
 
 export async function getUpcomingPrograms(limit = 5) {
-  return prisma.program.findMany({
-    where: {
-      deletedAt: null,
-      status: { in: ["PUBLISHED", "REGISTRATION_OPEN"] },
-      startDate: { gte: new Date() },
-    },
-    orderBy: { startDate: "asc" },
-    take: limit,
-  }) as unknown as any[];
+  return programRepository.getUpcomingPrograms(limit);
 }
 
 export async function getUsers() {
@@ -140,8 +147,21 @@ export async function getUsers() {
 }
 
 export async function getMediaItems() {
-  return prisma.programDocumentation.findMany({
-    where: { deletedAt: null },
-    select: { id: true, mediaId: true, title: true },
-  }) as unknown as any[];
+  const payload = await getPayloadClient();
+  const res = await payload.find({
+    collection: "program-documentations",
+    where: { deletedAt: { exists: false } },
+    limit: 10000,
+    depth: 0,
+  });
+  return res.docs.map((d) => ({
+    id: String(d.id),
+    mediaId:
+      d.media == null
+        ? null
+        : typeof d.media === "number"
+          ? String(d.media)
+          : String(d.media.id),
+    title: d.title,
+  })) as unknown as any[];
 }

@@ -130,7 +130,7 @@ export function ActionQueue({ dispositions, counts }: ActionQueueProps) {
             <Link
               key={chip.href}
               href={chip.href}
-              className="group flex items-center gap-3 rounded-lg border bg-background px-3 py-2.5 transition-colors hover:border-primary/30 hover:bg-primary/5"
+              className="group flex items-center gap-3 rounded-lg border bg-admin-card-bg px-3 py-2.5 transition-colors hover:border-primary/50 hover:bg-admin-border/30 focus-visible:ring-2 focus-visible:ring-primary"
             >
               <span
                 className={cn(
@@ -193,8 +193,8 @@ export function ActionQueue({ dispositions, counts }: ActionQueueProps) {
                         {item.incomingMail.subject || item.instruction}
                       </Link>
                     </div>
-                    <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-muted-foreground">
-                      <span className="font-mono">
+                    <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-admin-content-fg/60">
+                      <span className="font-data">
                         {item.incomingMail.registrationNumber}
                       </span>
                       <span aria-hidden>·</span>

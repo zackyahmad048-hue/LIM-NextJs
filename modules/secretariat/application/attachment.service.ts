@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { storage } from "@/modules/shared/infrastructure/storage";
 import { SecretariatError } from "../domain/secretariat.errors";
 
@@ -42,19 +42,20 @@ export async function uploadSecretariatAttachmentFile(
 
   const fileId = await storage.save(buffer, file.name, file.type);
 
-  const media = await prisma.media.create({
+  const payload = await getPayloadClient();
+  const media = await payload.create({
+    collection: "media",
     data: {
       originalName: file.name,
       mimeType: file.type,
       size: file.size,
       fileId,
-      access: "PRIVATE",
+      access: "private",
       folder,
       storageProvider: "BLOB",
       storageKey: fileId,
       uploadedById,
     },
-    select: { fileId: true, originalName: true, size: true },
   });
 
   return {

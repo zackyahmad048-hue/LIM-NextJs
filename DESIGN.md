@@ -3,7 +3,7 @@
 **Project:** LIM Digital Platform — Public Website (`app/(public)/`)
 **Direction:** "Sampaikan dariku walau satu ayat" — **Khusyu Minimalis**
 **Status:** Implemented
-**Date:** 2026-08-30
+**Date:** 2026-09-15 (typography refresh: Fraunces serif → Geist Sans display)
 
 ---
 
@@ -23,7 +23,7 @@ focus, and the institution's authority is shown through demonstrated skill
 |--------|----------|-------|
 | **Canvas** | White `oklch(1 0 0)` (light) / near-black `oklch(0.145 0 0)` (dark); neutral grayscale | Token `--background`, `--foreground`, `--border` (definisi di `app/globals.css`) |
 | **Primary** | Oranye LIM — tactical accent only | CTA, active nav underline, active status, focus ring. **Never a background wash** |
-| **Fonts** | Fraunces (heading, serif editorial) · Inter (body) · JetBrains Mono (data/falak) · Reem Kufi (Arabic) | `next/font/google`, `display: swap` |
+| **Fonts** | Geist Sans (heading, geometric sans display) · Inter (body) · JetBrains Mono (data/falak) · Reem Kufi (Arabic) | `geist/font/sans` + `next/font/google`, `display: swap` |
 | **Surfaces** | **Chrome solid** — navbar/topbar/rail memakai permukaan `bg-background` (kertas, tanpa blur). **Konten** — widget/kartu highlight memakai glass `.glass` (kaca kristal), tabel/form/teks solid (`bg-card`+`border`); shadow lembut `shadow-sm`/`shadow-md` — kertas tertumpuk | Footer band tint oranye `primary/[8-12]%` |
 | **Radius** | Content `rounded-xl` standard (chips/nested kecil `rounded-md`/`rounded-lg`); navbar chrome `rounded-full` (kapsul) | Radius seragam `rounded-xl` untuk semua content cards — public & admin |
 | **Motion** | `EASE_OUT` ≤300ms hover · entrance `Reveal` 600ms · reduced-motion respected (entrance mati, hover/transition tetap) | No translate-lift on cards (replaced with border-color); navbar scroll `transition-[width,border-radius,box-shadow,border-color]` 300ms |
@@ -33,13 +33,13 @@ focus, and the institution's authority is shown through demonstrated skill
 
 | Role | Family | Source |
 |------|--------|--------|
-| Heading | **Fraunces** (wght variable, serif editorial, SOFT=30 WONK=0) | `app/layout.tsx` |
+| Heading | **Geist Sans** (variable, geometric sans display, `--font-geist-sans`) | `geist/font/sans` |
 | Body | **Inter** | `app/layout.tsx` |
 | Data / Falak | **JetBrains Mono** (`--font-data`, `font-data` utility) | `app/layout.tsx` (added) |
 | Arabic | **Reem Kufi** (`--fx-ar`) | `app/layout.tsx` |
 
-- `@theme inline` maps `--font-heading`/`--font-display` → Fraunces, `--font-mono`/`--font-data` → JetBrains Mono.
-- `.site h1..h4` are title case Fraunces serif with `text-wrap: balance`; uppercase is opt-in for eyebrows/labels only. Berat font dibiarkan per-komponen (hero bold, judul section semibold) — tidak dipaksa 500.
+- `@theme inline` maps `--font-heading`/`--font-display` → Geist Sans (`--font-geist-sans`), `--font-mono`/`--font-data` → JetBrains Mono.
+- `.site h1..h4` are Geist Sans display with `tracking-[-0.02em]` + `text-wrap: balance`; uppercase is opt-in for eyebrows/labels only. Berat font dibiarkan per-komponen (hero bold, judul section semibold) — tidak dipaksa 500.
 
 ## 4. Layout & Navigation
 
@@ -54,7 +54,7 @@ focus, and the institution's authority is shown through demonstrated skill
 ### Beranda (`/`)
 1. **Hero** — full-bleed `iksadari.JPG` as subtle atmosphere at low opacity behind a
    soft vertical fade (`bg-gradient-to-b` via `from-background/70` → `to-background`),
-   then a dominant Fraunces serif headline (title + orange highlight line) on the
+   then a dominant Geist Sans display headline (title + orange highlight line) on the
    left, two **CTA buttons** (primary "Jadwal Shalat Hari Ini" → `/falak/jadwal-shalat` +
    secondary outline) below the headline, and the **shalat widget** (`PrayerScheduleWidget`)
    on the right; 3 hero stats (100+ wilayah, 3000+ delegasi, 1000+ titik) in tabular
@@ -89,7 +89,7 @@ focus, and the institution's authority is shown through demonstrated skill
 | Max radius `rounded-lg` (nested/small) · standard `rounded-xl` (content cards) | `rounded-2xl`+ reserved for navbar chrome only |
 | No translate hover-lift | `hover:-translate-y-*` replaced with border-color change on hover |
 | Gradient only on hero scrim | Subtle vertical fade behind hero photo (design intent) — no gradient elsewhere |
-| Fraunces serif | Heading title case serif; `tracking-tight`/`tracking-*` + uppercase reserved for eyebrows/labels |
+| Geist Sans display | Heading display sans; `tracking-tight`/`tracking-*` + uppercase reserved for eyebrows/labels |
 
 ## 7. Anti-Goals (what is NOT allowed)
 
@@ -98,7 +98,7 @@ focus, and the institution's authority is shown through demonstrated skill
 - Glassmorphism pada chrome (navbar, topbar, rail) — chrome wajib solid; kaca hanya untuk kartu/widget konten.
 - Radius above `rounded-xl` on content (navbar chrome `rounded-2xl` is the only exception).
 - Decorative illustrations / gradient washes (hero scrim fade is the only gradient).
-- Sans-only display faces — heading wajib serif editorial (Fraunces); body Inter.
+- Headings use Geist Sans display (geometric sans); body Inter. No serif display faces.
 - The retracted "Oranye band" footer is replaced by a subtle tint band (`primary/8-12%`), not a solid orange slab.
 
 ## 8. Validation

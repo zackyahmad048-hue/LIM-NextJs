@@ -151,13 +151,13 @@ export function SecretariatDashboard({
               Perbandingan surat masuk dan keluar bulanan.
             </p>
           </div>
-          <div className="hidden gap-3 text-[11px] text-muted-foreground sm:flex">
+          <div className="hidden gap-3 text-[11px] text-admin-content-fg/70 sm:flex">
             <span className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-[var(--chart-1)]" />
+              <span className="size-2 rounded-full bg-chart-1" />
               Masuk
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-[var(--chart-2)]" />
+              <span className="size-2 rounded-full bg-chart-2" />
               Keluar
             </span>
           </div>

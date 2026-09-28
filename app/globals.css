@@ -9,16 +9,20 @@
 }
 
 @utility font-heading {
-  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+}
+
+@utility font-ar {
+  font-family: var(--fx-ar), "Segoe UI", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body);
-  --font-heading: var(--font-heading);
+  --font-heading: var(--font-geist-sans);
   --font-mono: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
-  --font-display: var(--font-heading), "Georgia", "Times New Roman", serif;
+  --font-display: var(--font-geist-sans), "Segoe UI", sans-serif;
   --font-site: var(--font-body), "Segoe UI", sans-serif;
   --font-ar: var(--fx-ar), "Segoe UI", sans-serif;
   --font-data: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
@@ -67,481 +71,396 @@
   --color-admin-border: var(--admin-border);
   --color-admin-input-bg: var(--admin-input-bg);
   --color-admin-input-border: var(--admin-input-border);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-  --shadow-xs: var(--lim-shadow-sm);
-  --shadow-sm: var(--lim-shadow-sm);
-  --shadow-md: var(--lim-shadow-md);
-  --shadow-lg: var(--lim-shadow-lg);
-  --shadow-xl: var(--lim-shadow-lg);
+  --radius-xl: calc(var(--radius) * 1.33);
+  --radius-2xl: calc(var(--radius) * 1.66);
+  --radius-3xl: calc(var(--radius) * 2);
+  --radius-4xl: calc(var(--radius) * 2.5);
+  --shadow-xs: var(--shadow-sm);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
 }
 
 /*
- * LIM Digital Platform — identitas "Oranye LIM".
- * Aksen resmi oranye (skala orange Tailwind), permukaan bersih dengan
- * kedalaman halus (shadow offset + blur lembut). Dual mode: siang / malam.
- * Default: malam. Radius standar: rounded-xl (0.75rem base).
+ * LIM Digital Platform — "Khusyu Minimalis" Design System
+ * Neutral canvas (white/near-black) + LIM Orange accent (oklch 0.553 0.195 38.402)
+ * Glassmorphism for content cards only; chrome is solid
+ * Fonts: Geist Sans (display) + Inter (body) + JetBrains Mono (data) + Reem Kufi (Arabic)
+ * Dual-mode: dark default, light available
+ * Radius: rounded-xl standard for content cards
+ * Motion: EASE_OUT ≤300ms hover · entrance Reveal 600ms · reduced-motion respected
  */
 :root {
-  /* Easing eksponensial untuk transisi View Transitions (Skiper UI). */
-  --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --expo-in: cubic-bezier(0.7, 0, 0.84, 0);
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
-  /* Observatorium — kertas siang yang hangat, bukan putih klinis. */
-  --background: oklch(0.985 0.004 80);
-  --foreground: oklch(0.2 0.01 70);
-  --card: oklch(0.985 0.004 80);
-  --card-foreground: oklch(0.2 0.01 70);
-  --popover: oklch(0.985 0.004 80);
-  --popover-foreground: oklch(0.2 0.01 70);
-  --primary: oklch(0.45 0.195 38.402);
-  --primary-foreground: oklch(0.98 0.016 73.684);
-  --secondary: oklch(0.955 0.006 85);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.96 0.005 85);
-  --muted-foreground: oklch(0.45 0.015 80);
-  --accent: oklch(0.955 0.008 85);
+  /* Light mode (default values - can be overridden by .dark) */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  /* Primary — LIM Orange (tactical accent only) */
+  --primary: oklch(0.553 0.195 38.402);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary — Elevated surfaces */
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+
+  /* Muted — Subtle text, disabled states */
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+
+  /* Accent — Same as primary for this system */
+  --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
+
+  /* Semantic */
   --destructive: oklch(0.577 0.245 27.325);
-  --success: oklch(0.627 0.194 149.214);
-  --success-foreground: oklch(0.98 0 0);
-  --warning: oklch(0.795 0.184 86.047);
-  --warning-foreground: oklch(0.205 0 0);
-  --border: oklch(0.9 0.008 80);
-  --input: oklch(0.9 0.008 80);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.837 0.128 66.29);
-  --chart-2: oklch(0.705 0.213 47.604);
-  --chart-3: oklch(0.646 0.222 41.116);
-  --chart-4: oklch(0.553 0.195 38.402);
-  --chart-5: oklch(0.47 0.157 37.304);
-  /* Radius: 0.75rem base → rounded-xl = 1.05rem (standar untuk semua konten) */
-  --radius: 0.75rem;
+  --destructive-foreground: oklch(1 0 0);
+  --success: oklch(0.646 0.15 160);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.828 0.189 84.429);
+  --warning-foreground: oklch(0.145 0 0);
 
-  /* Shadow tokens — kedalaman halus, kertas tertumpuk */
-  --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
-  --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 8%), 0 1px 4px -1px oklch(0 0 0 / 4%);
-  --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 10%), 0 2px 6px -2px oklch(0 0 0 / 5%);
+  /* Borders & Inputs — Light mode: visible borders for WCAG AA contrast */
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.88 0 0);
+  --ring: oklch(0.553 0.195 38.402);
 
-  /* Tint modul — aksen warna untuk kartu glass (module-based tint).
-   * Dipakai via kelas `.glass-tint-{modul}` di permukaan kartu saja;
-   * bukan pengganti `--primary`. */
-  --tint-falak: oklch(0.52 0.13 262);
-  --tint-program: oklch(0.52 0.12 162);
-  --tint-sekretariat: oklch(0.66 0.17 78);
-  --tint-konten: oklch(0.56 0.16 16);
-  --tint-sistem: oklch(0.52 0.05 262);
+  /* Charts */
+  --chart-1: oklch(0.553 0.195 38.402);
+  --chart-2: oklch(0.646 0.15 160);
+  --chart-3: oklch(0.696 0.17 162.48);
+  --chart-4: oklch(0.769 0.188 70.08);
+  --chart-5: oklch(0.828 0.189 84.429);
 
-  --sidebar: oklch(0.958 0.012 262);
-  --sidebar-foreground: oklch(0.2 0.02 262);
-  --sidebar-primary: oklch(0.47 0.14 60);
-  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-accent: oklch(0.9 0.03 262);
-  --sidebar-accent-foreground: oklch(0.2 0.02 262);
-  --sidebar-border: oklch(0.87 0.02 262);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Radius — 8px base (rounded-lg), rounded-xl = 1.33 * base = 10.64px */
+  --radius: 0.5rem;
 
-/*
-   * Admin rail — panel kiri memakai permukaan SOLID netral-hangat (bukan kaca,
-   * bukan indigo); identitas mengikuti "Oranye LIM" warna.md. Value opaque agar
-   * latar ambient tidak tembus. Glass dipertahankan hanya untuk kartu/widget
-   * konten (lihat `.glass`, `.glass-tint-*`).
-   */
-  --admin-sidebar-bg: oklch(0.95 0.014 60);
-  --admin-sidebar-fg: oklch(0.2 0.02 60);
-  --admin-sidebar-border: oklch(0.86 0.02 60 / 0.6);
-  --admin-sidebar-accent: oklch(0.47 0.14 60);
-  --admin-sidebar-accent-fg: oklch(0.98 0.012 90);
-  --admin-content-bg: oklch(0.975 0.006 85);
-  --admin-content-fg: var(--foreground);
-  --admin-card-bg: oklch(0.99 0.006 85);
-  --admin-card-border: oklch(0.88 0.01 80 / 0.6);
-  --admin-border: oklch(0.88 0.01 80);
-  --admin-input-bg: oklch(0.99 0.006 85);
-  --admin-input-border: oklch(0.88 0.01 80);
+  /* Shadows — Soft, paper-like */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-  /*
-   * Glassmorphism — "Kaca Kristal" (kartu, widget, ambient).
-   * CSS-only, berlaku global. Chrome/navigasi memakai permukaan solid;
-   * kaca dipakai konten kartu/widget. Tabel/form/teks panjang tetap solid.
-   */
-  --glass-card-bg: color-mix(in oklab, var(--background) 56%, transparent);
-  --glass-border: color-mix(in oklab, var(--border) 78%, transparent);
-  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
-  --glass-blur: 20px;
-  --glass-saturate: 1.6;
+  /* Glassmorphism Tokens — for content cards/widgets only */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.12);
+  --glass-border-hover: oklch(0.553 0.195 38.402);
+  --glass-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  /* Glass Chrome — for header/navbar only (80% opacity, blur 20px/12px mobile) */
+  --glass-chrome-bg: rgba(255, 255, 255, 0.8);
+  --glass-chrome-border: rgba(0, 0, 0, 0.08);
+  --glass-chrome-blur: 20px;
+  --glass-chrome-blur-mobile: 12px;
+
+  /* Dark mode glass chrome */
+  --glass-chrome-bg-dark: rgba(23, 23, 23, 0.8);
+  --glass-chrome-border-dark: rgba(255, 255, 255, 0.08);
+
+  /* Dark mode glass */
+  --glass-bg-dark: rgba(23, 23, 23, 0.7);
+  --glass-border-dark: rgba(255, 255, 255, 0.12);
+  --glass-border-hover-dark: oklch(0.553 0.195 38.402);
+  --glass-shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  /* Blur Scale */
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 24px;
+  --blur-xl: 40px;
+
+  /* Sidebar (Nav Rail) — Solid for public, glass for admin */
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Admin tokens — Separate namespace */
+  --admin-sidebar-bg: oklch(0.145 0 0);
+  --admin-sidebar-fg: oklch(0.985 0 0);
+  --admin-sidebar-border: oklch(0.269 0 0);
+  --admin-sidebar-accent: oklch(0.553 0.195 38.402);
+  --admin-sidebar-accent-fg: oklch(1 0 0);
+  --admin-content-bg: oklch(0.145 0 0);
+  --admin-content-fg: oklch(0.985 0 0);
+  --admin-card-bg: oklch(0.175 0 0);
+  --admin-card-border: oklch(0.269 0 0);
+  --admin-border: oklch(0.269 0 0);
+  --admin-input-bg: oklch(0.175 0 0);
+  --admin-input-border: oklch(0.269 0 0);
 }
 
-/* Dark glass: aksen lebih hangat, scrim kartu lebih pekat. */
+/* Dark mode (default for public site) */
 .dark {
-  --glass-card-bg: color-mix(in oklab, var(--background) 60%, transparent);
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.175 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.175 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+
+  --primary: oklch(0.553 0.195 38.402);
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(1 0 0);
+  --success: oklch(0.646 0.15 160);
+  --success-foreground: oklch(1 0 0);
+  --warning: oklch(0.828 0.189 84.429);
+  --warning-foreground: oklch(0.145 0 0);
+
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.553 0.195 38.402);
+
+  --chart-1: oklch(0.553 0.195 38.402);
+  --chart-2: oklch(0.646 0.15 160);
+  --chart-3: oklch(0.696 0.17 162.48);
+  --chart-4: oklch(0.769 0.188 70.08);
+  --chart-5: oklch(0.828 0.189 84.429);
+
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  --admin-sidebar-bg: oklch(0.145 0 0);
+  --admin-sidebar-fg: oklch(0.985 0 0);
+  --admin-sidebar-border: oklch(0.269 0 0);
+  --admin-sidebar-accent: oklch(0.553 0.195 38.402);
+  --admin-sidebar-accent-fg: oklch(1 0 0);
+  --admin-content-bg: oklch(0.145 0 0);
+  --admin-content-fg: oklch(0.985 0 0);
+  --admin-card-bg: oklch(0.175 0 0);
+  --admin-card-border: oklch(0.269 0 0);
+  --admin-border: oklch(0.269 0 0);
+  --admin-input-bg: oklch(0.175 0 0);
+  --admin-input-border: oklch(0.269 0 0);
 }
 
-/* Mobile low-end: blur lebih tipis untuk menghemat kompositor. */
+/* Mobile: thinner blur for performance */
 @media (max-width: 767px) {
   :root {
-    --glass-blur: 12px;
+    --blur-sm: 6px;
+    --blur-md: 12px;
+    --blur-lg: 16px;
+    --blur-xl: 24px;
   }
 }
 
-/*
- * Accessibility: pengguna yang sensitif terhadap transparansi/blur
- * mendapat permukaan solid tanpa efek kaca.
- */
+/* Touch adaptation: larger touch targets on coarse pointers */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .btn-sm,
+  .button-sm {
+    min-height: 40px;
+  }
+}
+
+/* Hover adaptation: only show hover effects on devices that support hover */
+@media (hover: hover) {
+  .hover-only {
+    display: block;
+  }
+}
+
+@media (hover: none) {
+  .hover-only {
+    display: none;
+  }
+}
+
+/* Safe area insets for notches and home indicators */
+@supports (padding: max(0px)) {
+  .safe-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .safe-left {
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+  .safe-right {
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+/* Accessibility: reduced transparency */
 @media (prefers-reduced-transparency: reduce) {
   :root {
-    --glass-card-bg: var(--background);
-    --glass-blur: 0px;
-    --glass-saturate: 1;
+    --glass-bg: var(--card);
+    --glass-bg-dark: var(--card);
+    --glass-border: var(--border);
+    --glass-border-dark: var(--border);
+    --glass-chrome-bg: var(--card);
+    --glass-chrome-bg-dark: var(--card);
+    --glass-chrome-border: var(--border);
+    --glass-chrome-border-dark: var(--border);
+    --blur-sm: 0px;
+    --blur-md: 0px;
+    --blur-lg: 0px;
+    --blur-xl: 0px;
+    --glass-chrome-blur: 0px;
+    --glass-chrome-blur-mobile: 0px;
   }
 }
 
-.dark {
-  /* Observatorium — malam indigo, bukan hitam netral. */
-  --background: oklch(0.155 0.02 260);
-  --foreground: oklch(0.95 0.008 90);
-  --card: oklch(0.2 0.025 260);
-  --card-foreground: oklch(0.95 0.008 90);
-  --popover: oklch(0.2 0.025 260);
-  --popover-foreground: oklch(0.95 0.008 90);
-  --primary: oklch(0.47 0.157 37.304);
-  --primary-foreground: oklch(0.98 0.016 73.684);
-  --secondary: oklch(0.24 0.018 270);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.23 0.015 262);
-  --muted-foreground: oklch(0.7 0.015 90);
-  --accent: oklch(0.235 0.02 262);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --success: oklch(0.723 0.219 149.579);
-  --success-foreground: oklch(0.98 0 0);
-  --warning: oklch(0.85 0.16 80);
-  --warning-foreground: oklch(0.2 0 0);
-  --border: oklch(0.85 0.01 90 / 0.14);
-  --input: oklch(1 0 0 / 0.15);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.837 0.128 66.29);
-  --chart-2: oklch(0.705 0.213 47.604);
-  --chart-3: oklch(0.646 0.222 41.116);
-  --chart-4: oklch(0.553 0.195 38.402);
-  --chart-5: oklch(0.47 0.157 37.304);
-
-  /* Shadow tokens — lebih pekat di dark mode */
-  --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 20%);
-  --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 30%), 0 1px 4px -1px oklch(0 0 0 / 15%);
-  --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 35%), 0 2px 6px -2px oklch(0 0 0 / 20%);
-
-  /* Tint modul — lebih terang di malam agar kaca kebaca. */
-  --tint-falak: oklch(0.68 0.14 262);
-  --tint-program: oklch(0.72 0.13 162);
-  --tint-sekretariat: oklch(0.78 0.15 80);
-  --tint-konten: oklch(0.72 0.16 20);
-  --tint-sistem: oklch(0.66 0.06 262);
-
-  --sidebar: oklch(0.175 0.025 262);
-  --sidebar-foreground: oklch(0.95 0.01 95);
-  --sidebar-primary: oklch(0.705 0.213 47.604);
-  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
-  --sidebar-accent: oklch(0.24 0.03 262);
-  --sidebar-accent-foreground: oklch(0.95 0.01 95);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-
-  /* Admin rail malam — solid hangat (bukan kaca, bukan indigo). */
-  --admin-sidebar-bg: oklch(0.15 0.03 60);
-  --admin-sidebar-fg: oklch(0.93 0.01 95);
-  --admin-sidebar-border: oklch(1 0 0 / 0.1);
-  --admin-sidebar-accent: oklch(0.75 0.13 85);
-  --admin-sidebar-accent-fg: oklch(0.2 0.02 60);
-  --admin-content-bg: oklch(0.155 0.02 60);
-  --admin-content-fg: var(--foreground);
-  --admin-card-bg: oklch(0.24 0.03 60);
-  --admin-card-border: oklch(0.85 0.01 90 / 0.16);
-  --admin-border: oklch(0.85 0.01 90 / 0.16);
-  --admin-input-bg: oklch(0.24 0.03 60);
-  --admin-input-border: oklch(0.85 0.01 90 / 0.2);
-}
-
-/*
- * Admin CMS — Observatorium.
- * Sidebar: SOLID netral-hangat (bukan indigo). Content: kertas siang hangat
- * / malam hangat. Kartu = glass, tabel & input tetap solid. Radius: rounded-xl.
- */
-.admin {
-  position: relative;
-  isolation: isolate;
-  overflow-x: clip;
-
-  color: var(--admin-content-fg);
-  background-color: var(--admin-content-bg);
-  min-height: 100dvh;
-  font-family: var(--font-body), "Segoe UI", sans-serif;
-}
-
-/*
- * Website publik — identitas "Khusyu Minimalis" dengan kedalaman halus.
- * Permukaan solid dengan shadow offset lembut (kertas tertumpuk).
- * Aksen oranye taktis: CTA, underline aktif, status, focus ring.
- * Chrome (navbar) solid; glass pada kartu dan widget falak. Radius: rounded-xl.
- */
-.site {
-  position: relative;
-  isolation: isolate;
-  overflow-x: clip;
-
-  color: var(--foreground);
-  font-family: var(--font-body), "Segoe UI", sans-serif;
-  min-height: 100dvh;
-}
-
-/*
- * Token glassmorphism ("--glass-*") didefinisikan global di `:root`/`.dark`
- * sehingga berlaku di situs publik (`.site`) dan admin.
- */
-
-/*
- * Permukaan kaca "Kaca Kristal" — dipakai pada kartu/widget konten.
- * Chrome (navbar, rail admin, topbar) memakai permukaan solid.
- * Varian `.glass-tint-{modul}` menaruh aksen tint modul di balik kaca.
- * Berada di `@layer components` agar utilitas (border/bg) bisa menimpa.
- */
+/* Glassmorphism Utility Classes — for content cards/widgets only */
 @layer components {
   .glass {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-md)) saturate(1.5);
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(1.5);
     border: 1px solid var(--glass-border);
-    background-color: var(--glass-card-bg);
-    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--glass-shadow);
   }
 
+  .dark .glass {
+    background-color: var(--glass-bg-dark);
+    border-color: var(--glass-border-dark);
+    box-shadow: var(--glass-shadow-dark);
+  }
+
+  .glass:hover {
+    border-color: var(--glass-border-hover);
+  }
+
+  .dark .glass:hover {
+    border-color: var(--glass-border-hover-dark);
+  }
+
+  /* Falak-specific glass tint (subtle orange warmth) */
   .glass-tint-falak {
-    background-color: color-mix(in oklab, var(--tint-falak) 14%, var(--glass-card-bg));
+    background-color: color-mix(in oklab, var(--primary) 6%, var(--glass-bg));
   }
-  .glass-tint-program {
-    background-color: color-mix(in oklab, var(--tint-program) 14%, var(--glass-card-bg));
+
+  .dark .glass-tint-falak {
+    background-color: color-mix(in oklab, var(--primary) 8%, var(--glass-bg-dark));
   }
-  .glass-tint-sekretariat {
-    background-color: color-mix(in oklab, var(--tint-sekretariat) 14%, var(--glass-card-bg));
-  }
+
+  /* Konten-specific glass tint (subtle neutral warmth) */
   .glass-tint-konten {
-    background-color: color-mix(in oklab, var(--tint-konten) 14%, var(--glass-card-bg));
+    background-color: color-mix(in oklab, var(--foreground) 4%, var(--glass-bg));
   }
-  .glass-tint-sistem {
-    background-color: color-mix(in oklab, var(--tint-sistem) 14%, var(--glass-card-bg));
+
+  .dark .glass-tint-konten {
+    background-color: color-mix(in oklab, var(--foreground) 5%, var(--glass-bg-dark));
+  }
+
+  /* Sekretariat-specific glass tint (subtle warm amber) */
+  .glass-tint-sekretariat {
+    background-color: color-mix(in oklab, var(--warning) 6%, var(--glass-bg));
+  }
+
+  .dark .glass-tint-sekretariat {
+    background-color: color-mix(in oklab, var(--warning) 8%, var(--glass-bg-dark));
+  }
+
+  /* Stronger glass for modals/popovers */
+  .glass-strong {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-lg)) saturate(1.5);
+    -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(1.5);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  .dark .glass-strong {
+    background-color: var(--glass-bg-dark);
+    border-color: var(--glass-border-dark);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Glass Chrome — for header/navbar only */
+  .glass-chrome {
+    background-color: var(--glass-chrome-bg);
+    backdrop-filter: blur(var(--glass-chrome-blur)) saturate(1.5);
+    -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(1.5);
+    border: 1px solid var(--glass-chrome-border);
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .dark .glass-chrome {
+    background-color: var(--glass-chrome-bg-dark);
+    border-color: var(--glass-chrome-border-dark);
+  }
+
+  @media (max-width: 767px) {
+    .glass-chrome {
+      backdrop-filter: blur(var(--glass-chrome-blur-mobile)) saturate(1.5);
+      -webkit-backdrop-filter: blur(var(--glass-chrome-blur-mobile)) saturate(1.5);
+    }
   }
 }
 
-@media (prefers-reduced-transparency: reduce) {
+/* Reduced motion: kill decorative animations, preserve hover/focus */
+@media (prefers-reduced-motion: reduce) {
   .glass,
   .glass-tint-falak,
-  .glass-tint-program,
-  .glass-tint-sekretariat,
   .glass-tint-konten,
-  .glass-tint-sistem {
-    background-color: var(--background);
+  .glass-tint-sekretariat,
+  .glass-strong,
+  .glass-chrome {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    background-color: var(--card);
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 200ms !important;
+    transition-property: color, background-color, border-color, box-shadow, opacity, outline-color, text-decoration-color !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/*
- * Ambient observatorium — lapisan warna lembut di belakang konten sehingga
- * kaca punya sesuatu untuk mengaburkan. Pure CSS, tanpa WebGL (hemat GPU).
- * Bangun: 2-3 orb radial berwarna (indigo/brass/emerald) + grid hairline.
- */
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: -10;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.ambient-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(64px);
-  opacity: 0.45;
-  will-change: transform;
-}
-
-.ambient-orb--a {
-  width: 42rem;
-  height: 42rem;
-  left: -12rem;
-  top: -10rem;
-  background-color: color-mix(in oklab, var(--tint-falak) 26%, transparent);
-  animation: orb-drift-a 36s ease-in-out infinite alternate;
-}
-
-.ambient-orb--b {
-  width: 38rem;
-  height: 38rem;
-  right: -10rem;
-  top: 6rem;
-  background-color: color-mix(in oklab, var(--primary) 22%, transparent);
-  animation: orb-drift-b 44s ease-in-out infinite alternate;
-}
-
-.ambient-orb--c {
-  width: 34rem;
-  height: 34rem;
-  left: 28%;
-  bottom: -14rem;
-  background-color: color-mix(in oklab, var(--tint-program) 20%, transparent);
-  animation: orb-drift-c 52s ease-in-out infinite alternate;
-}
-
-.dark .ambient-orb {
-  opacity: 0.55;
-}
-
-.ambient-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      to right,
-      color-mix(in oklab, var(--border) 55%, transparent) 0 1px,
-      transparent 1px 6rem
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--border) 55%, transparent) 0 1px,
-      transparent 1px 6rem
-    );
-  opacity: 0.35;
-  mask-image: linear-gradient(to bottom, black, transparent 70%);
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 70%);
-}
-
-@keyframes orb-drift-a {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(7rem, 5rem) scale(1.12);
-  }
-}
-
-@keyframes orb-drift-b {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(-5rem, 6rem) scale(1.08);
-  }
-}
-
-@keyframes orb-drift-c {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(-6rem, -4rem) scale(1.15);
-  }
-}
-
-/*
- * Login admin — wadah tertutup (clip), tidak tembus kertas kartu.
- */
-.login-aurora {
-  position: relative;
-  isolation: isolate;
-  overflow: clip;
-  background-color: var(--background);
-}
-
-/*
- * Starfield login — pola titik halus ala peta bintang falak (pure CSS).
- * Berkedip pelan; mati saat prefers-reduced-motion (aturan global).
- */
-.login-stars {
-  --login-star-min: 0.18;
-  --login-star-max: 0.38;
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(1.5px 1.5px at 8% 22%, color-mix(in oklab, var(--foreground) 65%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 19% 64%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
-    radial-gradient(2px 2px at 31% 38%, color-mix(in oklab, var(--foreground) 70%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 42% 81%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 55% 16%, color-mix(in oklab, var(--foreground) 65%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 66% 52%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
-    radial-gradient(2px 2px at 78% 30%, color-mix(in oklab, var(--foreground) 60%, transparent) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 87% 68%, color-mix(in oklab, var(--foreground) 55%, transparent) 50%, transparent 51%),
-    radial-gradient(1px 1px at 93% 12%, color-mix(in oklab, var(--foreground) 60%, transparent) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 50% 90%, color-mix(in oklab, var(--foreground) 50%, transparent) 50%, transparent 51%);
-  opacity: 0.4;
-  animation: login-stars-twinkle 7s ease-in-out infinite alternate;
-}
-
-.dark .login-stars {
-  --login-star-min: 0.3;
-  --login-star-max: 0.58;
-}
-
-@keyframes login-stars-twinkle {
-  from {
-    opacity: var(--login-star-min);
-  }
-  to {
-    opacity: var(--login-star-max);
-  }
-}
-
-.site ::selection {
-  background: var(--primary);
-  color: var(--primary-foreground);
-}
-
-.site h1,
-.site h2,
-.site h3,
-.site h4 {
-  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
-  /* Fraunces — serif editorial, judul memakai title case, bukan paksa
-     uppercase (uppercase hanya dipakai eyebrow/label kecil). Berat font
-     dibiarkan per-komponen (hero bold, judul section semibold). */
-  font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-}
-
-/* Admin headings — Fraunces */
-.admin h1,
-.admin h2,
-.admin h3,
-.admin h4,
-.admin h5,
-.admin h6 {
-  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-}
-
-/* Admin stat numbers — Fraunces with tabular nums */
-.admin .stat-number,
-.admin [class*="stat-number"] {
-  font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
-  letter-spacing: -0.01em;
-}
-
-/*
- * Kedalaman = bayangan offset + blur lembut (kertas tertumpuk),
- * bukan halo tanpa offset. Tidak ada kaca: permukaan selalu solid.
- */
+/* Base styles */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -552,7 +471,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: color-mix(in oklab, var(--background) 55%, transparent);
+    min-height: 100dvh;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -560,16 +479,163 @@
   }
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+/* Typography */
+.site h1,
+.site h2,
+.site h3,
+.site h4,
+.site h5,
+.site h6 {
+  font-family: var(--font-heading), "Segoe UI", sans-serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
-@keyframes marquee-seamless {
+.admin h1,
+.admin h2,
+.admin h3,
+.admin h4,
+.admin h5,
+.admin h6 {
+  font-family: var(--font-heading), "Segoe UI", sans-serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.admin .stat-number,
+.admin [class*="stat-number"] {
+  font-family: var(--font-heading), "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Mono for IDs, codes, timestamps, falak data */
+.font-mono,
+.font-data,
+.code,
+pre,
+kbd {
+  font-family: var(--font-data), "JetBrains Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Arabic text */
+.font-ar {
+  font-family: var(--fx-ar), "Reem Kufi", "Segoe UI", sans-serif;
+}
+
+/* Selection */
+.admin ::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.site ::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Admin root */
+.admin {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  color: var(--admin-content-fg);
+  background-color: var(--admin-content-bg);
+  min-height: 100dvh;
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Text truncation utilities */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Flex/Grid overflow prevention */
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+
+.min-h-0 {
+  min-height: 0;
+}
+
+/* Marquee — continuous scroll, no easing */
+@keyframes marquee {
   from {
     transform: translateX(0);
   }
@@ -578,30 +644,6 @@
   }
 }
 
-@keyframes marquee-vertical {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-}
-
-/*
- * Reduced motion: kill entrance/decorative animations, preserve hover/focus
- * transitions for interactivity. Animasi berbasis JS (motion/react) sudah
- * ditangani useReducedMotion di masing-masing komponen.
- */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    /* Preserve hover/focus transitions — hanya matikan entrance & decorative */
-    transition-duration: 200ms !important;
-    transition-property: color, background-color, border-color, box-shadow,
-      opacity, outline-color, text-decoration-color !important;
-    scroll-behavior: auto !important;
-  }
+@utility animate-marquee {
+  animation: marquee 30s linear infinite;
 }

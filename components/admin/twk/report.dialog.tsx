@@ -52,7 +52,7 @@ function BreakdownSection({
 
   if (entries.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-admin-content-fg/60">
         Belum ada data untuk {title.toLowerCase()}.
       </p>
     );
@@ -63,7 +63,7 @@ function BreakdownSection({
       {entries.map(([key, count]) => (
         <Badge key={key} variant="secondary" className="gap-1.5 px-2.5 py-1">
           {key}
-          <span className="rounded bg-background px-1 text-[11px]">
+          <span className="rounded bg-admin-card-bg px-1 text-[11px]">
             {count}
           </span>
         </Badge>
@@ -147,27 +147,27 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
 
         <div className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-4">
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Total Anggota</p>
+            <div className="rounded-lg border bg-admin-border/30 p-4">
+              <p className="text-sm text-admin-content-fg/60">Total Anggota</p>
               <p className="mt-1 text-3xl font-bold">{stats.total}</p>
             </div>
 
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Status</p>
+            <div className="rounded-lg border bg-admin-border/30 p-4">
+              <p className="text-sm text-admin-content-fg/60">Status</p>
               <p className="mt-1 text-3xl font-bold">
                 {Object.keys(stats.perStatus).length}
               </p>
             </div>
 
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Pos</p>
+            <div className="rounded-lg border bg-admin-border/30 p-4">
+              <p className="text-sm text-admin-content-fg/60">Pos</p>
               <p className="mt-1 text-3xl font-bold">
                 {Object.keys(stats.perPos).length}
               </p>
             </div>
 
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Tempat</p>
+            <div className="rounded-lg border bg-admin-border/30 p-4">
+              <p className="text-sm text-admin-content-fg/60">Tempat</p>
               <p className="mt-1 text-3xl font-bold">
                 {Object.keys(stats.perTempat).length}
               </p>
@@ -224,7 +224,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
 
             <ScrollArea className="h-72 rounded-lg border">
               <table className="w-full text-sm">
-                <thead className="sticky top-0 bg-muted">
+                <thead className="sticky top-0 bg-admin-border/30">
                   <tr>
                     <th className="px-3 py-2 text-left font-medium">No.</th>
                     <th className="px-3 py-2 text-left font-medium">Nama</th>
@@ -238,7 +238,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                     <tr>
                       <td
                         colSpan={5}
-                        className="px-3 py-8 text-center text-muted-foreground"
+                        className="px-3 py-8 text-center text-admin-content-fg/60"
                       >
                         Tidak ada data.
                       </td>
@@ -246,13 +246,13 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                   ) : (
                     filtered.map((member, index) => (
                       <tr key={member.id} className="border-t">
-                        <td className="px-3 py-2 text-muted-foreground">
+                        <td className="px-3 py-2 text-admin-content-fg/60">
                           {index + 1}
                         </td>
                         <td className="px-3 py-2 font-medium">{member.nama}</td>
                         <td className="px-3 py-2">
                           {member.posWajibKhidmah ?? (
-                            <span className="text-muted-foreground">-</span>
+                            <span className="text-admin-content-fg/60">-</span>
                           )}
                         </td>
                         <td className="px-3 py-2">
@@ -264,7 +264,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
                           {member.tempatWajibKhidmah.length > 0 ? (
                             member.tempatWajibKhidmah.join("; ")
                           ) : (
-                            <span className="text-muted-foreground">-</span>
+                            <span className="text-admin-content-fg/60">-</span>
                           )}
                         </td>
                       </tr>

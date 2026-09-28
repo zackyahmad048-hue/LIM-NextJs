@@ -13,7 +13,7 @@ interface EmptyStateProps {
 
 /**
  * Empty State component untuk Admin CMS.
- * Menggunakan font-heading (Fraunces) untuk title, font-body (Inter) untuk description.
+ * Menggunakan font-heading (Geist Sans) untuk title, font-body (Inter) untuk description.
  */
 export function EmptyState({
   icon: Icon,
@@ -31,16 +31,16 @@ export function EmptyState({
       )}
     >
       {Icon && (
-        <div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-muted/50 text-muted-foreground/60">
+        <div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-admin-border/30 text-admin-content-fg/40">
           <Icon className="size-8" />
         </div>
       )}
       <div className="space-y-2 max-w-sm">
-        <h3 className="font-heading text-xl font-semibold text-card-foreground">
+        <h3 className="font-heading text-xl font-semibold text-admin-content-fg">
           {title}
         </h3>
         {description && (
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-admin-content-fg/60 leading-relaxed">
             {description}
           </p>
         )}
@@ -71,16 +71,16 @@ export function TableEmptyState({
       )}
     >
       {Icon && (
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-muted/50 text-muted-foreground/60">
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-admin-border/30 text-admin-content-fg/40">
           <Icon className="size-6" />
         </div>
       )}
       <div className="space-y-1">
-        <h4 className="font-heading text-base font-semibold text-card-foreground">
+        <h4 className="font-heading text-base font-semibold text-admin-content-fg">
           {title}
         </h4>
         {description && (
-          <p className="text-xs text-muted-foreground">{description}</p>
+          <p className="text-xs text-admin-content-fg/60">{description}</p>
         )}
       </div>
       {action && (
@@ -109,7 +109,7 @@ export function DashboardEmptyState({
         className,
       )}
     >
-      <div className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-primary/5">
+      <div className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-admin-border/30">
         {Icon ? (
           <Icon className="size-10 text-primary/80" />
         ) : (
@@ -130,11 +130,11 @@ export function DashboardEmptyState({
         )}
       </div>
       <div className="space-y-2 max-w-xs">
-        <h3 className="font-heading text-lg font-semibold text-card-foreground">
+        <h3 className="font-heading text-lg font-semibold text-admin-content-fg">
           {title}
         </h3>
         {description && (
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-admin-content-fg/70 leading-relaxed">
             {description}
           </p>
         )}

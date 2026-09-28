@@ -30,12 +30,12 @@ export function MobileSidebar({ roleSlugs }: Props) {
 
   return (
     <Sheet open={mobileOpen} onOpenChange={closeMobile}>
-      <SheetContent 
-        side="left" 
+      <SheetContent
+        side="left"
         className={cn(
           "w-72 border-r p-0",
-          // Chrome solid — sama dengan versi Desktop (bukan kaca).
-          "border-r border-admin-sidebar-border bg-admin-sidebar-bg"
+          "bg-background",
+          "border-r border-border",
         )}
       >
         <SheetHeader className="sr-only">
@@ -57,7 +57,7 @@ export function MobileSidebar({ roleSlugs }: Props) {
           </div>
 
           {bottom.length > 0 && (
-            <div className="mt-auto space-y-1.5 border-t border-admin-sidebar-border/60 pt-4">
+            <div className="mt-auto space-y-1.5 border-t border-border pt-4">
               {bottom.map((item) => (
                 <SidebarItem
                   key={item.href ?? item.title}

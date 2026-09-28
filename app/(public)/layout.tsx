@@ -11,10 +11,13 @@ export default function PublicLayout({
 }) {
   return (
     <div className="site flex min-h-dvh flex-col overflow-x-clip overflow-y-clip">
+      <a href="#main-content" className="skip-link">
+        Lewati ke konten utama
+      </a>
       <AmbientBackground />
       <Navbar />
 
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1">{children}</main>
 
       <Footer />
     </div>

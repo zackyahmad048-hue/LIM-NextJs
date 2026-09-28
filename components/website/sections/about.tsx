@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import AboutCard from "@/components/website/cards/about-card";
 import Reveal from "@/components/website/motion/reveal";
-import SectionLabel from "@/components/shared/section-label";
-import { ArrowRight } from "lucide-react";
+import SiteSection from "@/components/website/layout/site-section";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -27,11 +26,10 @@ export default function About({
   features,
 }: AboutSectionProps) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <SiteSection as="div">
       <Reveal>
         <div className="mx-auto max-w-5xl text-center lg:max-w-2xl">
-          <SectionLabel>Selayang Pandang</SectionLabel>
-          <h2 className="mt-3 font-heading text-3xl font-medium text-balance text-foreground md:text-4xl">
+          <h2 className="font-heading text-3xl font-medium text-balance text-foreground md:text-4xl">
             {title}
           </h2>
           {subtitle && (
@@ -84,14 +82,11 @@ export default function About({
 
           <Reveal delay={0.1} className="mt-6">
             <Button variant="default" size="lg" asChild>
-              <Link href="/profil">
-                Selengkapnya
-                <ArrowRight size={18} data-icon="inline-end" />
-              </Link>
+              <Link href="/profil">Selengkapnya</Link>
             </Button>
           </Reveal>
         </Reveal>
       </div>
-    </section>
+    </SiteSection>
   );
 }

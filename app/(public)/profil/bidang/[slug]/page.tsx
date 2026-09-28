@@ -3,26 +3,33 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
-import { HubDot } from "@/components/shared/hub-dot";
+import { Check } from "lucide-react";
 import Reveal from "@/components/website/motion/reveal";
 import SiteSection from "@/components/website/layout/site-section";
-import { BIDANG, getBidangBySlug } from "@/config/bidang";
+import {
+  getBidangBySlug,
+  getBidangList,
+} from "@/modules/organization/queries/bidang.query";
 
 interface BidangPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return BIDANG.filter((bidang) => bidang.slug !== "tim-wajib-khidmah").map(
-    (bidang) => ({ slug: bidang.slug }),
-  );
+  return getBidangList()
+    .then((list) =>
+      list
+        .filter((bidang) => bidang.slug !== "tim-wajib-khidmah")
+        .map((bidang) => ({ slug: bidang.slug })),
+    )
+    .then((params) => params);
 }
 
 export async function generateMetadata({
   params,
 }: BidangPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const bidang = getBidangBySlug(slug);
+  const bidang = await getBidangBySlug(slug);
 
   if (!bidang) {
     return { title: "Bidang | LIM Digital Platform" };
@@ -36,13 +43,15 @@ export async function generateMetadata({
 
 export default async function BidangPage({ params }: BidangPageProps) {
   const { slug } = await params;
-  const bidang = getBidangBySlug(slug);
+  const bidang = await getBidangBySlug(slug);
 
   if (!bidang) {
     notFound();
   }
 
-  const lainnya = BIDANG.filter((item) => item.slug !== bidang.slug);
+  const lainnya = (await getBidangList()).filter(
+    (item) => item.slug !== bidang.slug,
+  );
 
   return (
     <>
@@ -59,7 +68,7 @@ export default async function BidangPage({ params }: BidangPageProps) {
               <ul className="mt-5 space-y-3 text-sm leading-7 text-muted-foreground">
                 {bidang.points.map((point) => (
                   <li key={point} className="flex items-start gap-3">
-                    <HubDot className="mt-1.5 h-2.5 w-2.5" />
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
                     {point}
                   </li>
                 ))}

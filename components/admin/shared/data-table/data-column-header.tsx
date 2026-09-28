@@ -17,20 +17,24 @@ export function DataColumnHeader<TData, TValue>({
   return (
     <Button
       variant="ghost"
-      className="px-0 hover:bg-transparent"
+      className="px-0 hover:bg-transparent focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
-      {title}
+      <span className="flex items-center gap-1.5">
+        {title}
 
-      {column.getIsSorted() === "asc" && <ArrowUp className="ml-2 h-4 w-4" />}
+        {column.getIsSorted() === "asc" && (
+          <ArrowUp className="h-4 w-4 text-primary" aria-hidden="true" />
+        )}
 
-      {column.getIsSorted() === "desc" && (
-        <ArrowDown className="ml-2 h-4 w-4" />
-      )}
+        {column.getIsSorted() === "desc" && (
+          <ArrowDown className="h-4 w-4 text-primary" aria-hidden="true" />
+        )}
 
-      {!column.getIsSorted() && (
-        <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
-      )}
+        {!column.getIsSorted() && (
+          <ChevronsUpDown className="h-4 w-4 text-admin-content-fg/40" aria-hidden="true" />
+        )}
+      </span>
     </Button>
   );
 }

@@ -1,92 +1,86 @@
 "use client";
 
 import Link from "next/link";
-import { useReducedMotion } from "motion/react";
+import {
+  type LucideIcon,
+  UsersRound,
+  MoonStar,
+  CalendarDays,
+  FlaskConical,
+  GraduationCap,
+  MonitorSmartphone,
+  School,
+  HandCoins,
+  Sparkles,
+} from "lucide-react";
 import { BIDANG } from "@/config/bidang";
 import Reveal from "@/components/website/motion/reveal";
+import SiteSection from "@/components/website/layout/site-section";
 
-function BidangCard({
+const BIDANG_ICONS: Record<string, LucideIcon> = {
+  "tim-wajib-khidmah": UsersRound,
+  "safari-ramadan": MoonStar,
+  "safari-dakwah-rutinan": CalendarDays,
+  "penelitian-pengembangan": FlaskConical,
+  "pesantren-ramadan": GraduationCap,
+  "dakwah-digital": MonitorSmartphone,
+  "pendidikan-kaderisasi": School,
+  "pemberdayaan-ekonomi": HandCoins,
+};
+
+function BidangItem({
   slug,
   title,
-  tagline,
 }: {
   slug: string;
   title: string;
-  tagline: string;
 }) {
+  const Icon = BIDANG_ICONS[slug] ?? Sparkles;
+
   return (
     <Link
       href={`/profil/bidang/${slug}`}
-      className="group flex h-full flex-col rounded-xl border border-primary/25 bg-card p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary motion-reduce:transition-none"
+      className="group flex shrink-0 flex-col items-center gap-3 text-center"
     >
       <span
-        className="flex h-10 w-10 items-center justify-center rounded-sm border border-primary/40"
+        className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/20 transition-colors duration-300 ease-out group-hover:border-primary group-hover:bg-primary/5 motion-reduce:transition-none"
         aria-hidden
       >
-        <span className="h-2.5 w-2.5 rounded-full bg-primary transition-transform duration-300 ease-out group-hover:scale-125 motion-reduce:transition-none" />
+        <Icon className="h-5 w-5 text-primary" />
       </span>
 
-      <h3 className="mt-4 font-heading text-base font-base text-balance text-foreground">
+      <span className="font-heading text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-300 ease-out">
         {title}
-      </h3>
-
-      <p className="mt-1 text-xs leading-5 text-pretty text-muted-foreground">
-        {tagline}
-      </p>
+      </span>
     </Link>
   );
 }
 
 export default function BidangCarousel() {
-  const reduced = useReducedMotion();
-
-  const items = BIDANG.map((b) => (
-    <div
-      key={b.slug}
-      className="w-[18rem] shrink-0 sm:w-[20rem] md:w-[22rem]"
-    >
-      <BidangCard slug={b.slug} title={b.title} tagline={b.tagline} />
-    </div>
-  ));
+  const doubled = [...BIDANG, ...BIDANG];
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
-      <Reveal from="scale">
-        <div
-          className="group/marquee relative overflow-hidden"
-          onMouseEnter={(e) => {
-            const inner = e.currentTarget.querySelector(
-              "[data-marquee-inner]",
-            ) as HTMLElement;
-            if (inner) inner.style.animationPlayState = "paused";
-          }}
-          onMouseLeave={(e) => {
-            const inner = e.currentTarget.querySelector(
-              "[data-marquee-inner]",
-            ) as HTMLElement;
-            if (inner) inner.style.animationPlayState = "running";
-          }}
-        >
-          {/* Gradient fades on edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-linear-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-linear-to-l from-background to-transparent" />
+    <SiteSection as="div">
+      <Reveal from="left">
+        <div className="mb-8">
+          <h2 className="font-heading text-2xl font-medium text-foreground">
+            Bidang Kegiatan
+          </h2>
+          <p className="mt-1.5 max-w-lg text-sm leading-6 text-pretty text-muted-foreground">
+            Delapan bidang kegiatan organisasi yang menjalankan program dakwah LIM.
+          </p>
+        </div>
+      </Reveal>
 
-          <div
-            data-marquee-inner
-            className="flex w-max gap-4"
-            style={
-              reduced
-                ? undefined
-                : {
-                    animation: "marquee-seamless 30s linear infinite",
-                  }
-            }
-          >
-            {items}
-            {items}
+      <Reveal from="scale">
+        <div className="overflow-hidden">
+          <div className="flex w-max gap-8 animate-marquee motion-reduce:animate-none">
+            {doubled.map((b, i) => (
+              <BidangItem key={`${b.slug}-${i}`} slug={b.slug} title={b.title} />
+            ))}
           </div>
         </div>
       </Reveal>
-    </section>
+    </SiteSection>
   );
 }

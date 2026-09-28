@@ -28,7 +28,7 @@ export default function StatRule({ items, className }: StatRuleProps) {
           <dt className="font-data text-2xl font-semibold leading-none tabular-nums text-foreground sm:text-3xl">
             {stat.value}
           </dt>
-          <dd className="mt-2.5 text-[11px] font-medium uppercase leading-snug text-muted-foreground">
+          <dd className="mt-2.5 text-xs font-medium leading-snug text-muted-foreground">
             {stat.label}
           </dd>
         </div>

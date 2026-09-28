@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { toHijri } from "hijri-converter";
 import { useEffect, useRef, useState } from "react";
-import { CalendarDays, Clock, MapPin, Timer } from "lucide-react";
+import { MapPin, Navigation } from "lucide-react";
 import {
   calculatePrayerTimes,
   dateToDecimalHoursInZone,
@@ -16,6 +16,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group";
+import { PrayerWidgetSkeleton } from "@/components/website/ui/skeleton";
 
 const HIJRI_MONTHS = [
   "Muharram",
@@ -56,7 +57,7 @@ function pad(n: number): string {
   return n.toString().padStart(2, "0");
 }
 
-/** Widget jadwal shalat untuk hero: mode WIB/WITA/WIT dan istiwa (WIS). */
+/** Widget jadwal shalat untuk hero — glassmorphism style. */
 export function PrayerScheduleWidget() {
   const { location, locationName, requestGPSLocation } = useGeolocation();
   const [mode, setMode] = useState<ScheduleMode>("standard");
@@ -71,9 +72,6 @@ export function PrayerScheduleWidget() {
   }, [requestGPSLocation]);
 
   useEffect(() => {
-    // Populate right after hydration (deferred one macrotask so it never runs
-    // synchronously inside the effect) — the placeholder shell holds the size,
-    // so there is never a sudden, layout-shifting pop-in.
     const immediate = setTimeout(() => setNow(new Date()), 0);
     const timer = setInterval(() => setNow(new Date()), 1000);
     return () => {
@@ -83,12 +81,14 @@ export function PrayerScheduleWidget() {
   }, []);
 
   const isIstiwa = mode === "istiwa";
-  // The widget always renders (reserved height) — it never returns null, so
-  // the hero never jumps in height when the timer first ticks.
   const ready = now !== null;
   const calculation = now ? calculatePrayerTimes(now, location, isIstiwa, 3) : null;
   const timesFormatted = calculation?.timesFormatted;
   const timesNumeric = calculation?.timesNumeric;
+
+  if (!ready) {
+    return <PrayerWidgetSkeleton />;
+  }
 
   const timeFor = (key: keyof PrayerTimes | "imsak"): string => {
     if (key === "imsak") {
@@ -100,8 +100,6 @@ export function PrayerScheduleWidget() {
   let nextKey: keyof PrayerTimes | null = null;
   let countdown = "--j --m --s";
   if (now && timesNumeric) {
-    // Current time expressed in the active location's frame (not the device's),
-    // so it matches the timezone the prayer times are computed in.
     const currentDec = dateToDecimalHoursInZone(now, location.timezone);
     const activeHourDec = isIstiwa
       ? (currentDec - (calculation?.transitStandard ?? 0) + 36) % 24
@@ -119,16 +117,14 @@ export function PrayerScheduleWidget() {
     ? new Intl.DateTimeFormat("id-ID", {
         weekday: "long",
         day: "numeric",
-        month: "short",
+        month: "long",
         year: "numeric",
       }).format(now)
-    : "–";
+    : "-";
 
   const hijri = now
     ? toHijri(now.getFullYear(), now.getMonth() + 1, now.getDate())
     : null;
-
-  const timezoneLabel = isIstiwa ? "WIS" : location.timezoneName || "WIB";
 
   const clockDec =
     now && calculation
@@ -143,117 +139,125 @@ export function PrayerScheduleWidget() {
   const clock = clockDec !== null ? formatTime(clockDec, true) : "--:--:--";
 
   return (
-    <div className="glass glass-tint-falak rounded-xl border border-primary/25">
-      <div className="border-b border-border px-3 py-3 sm:px-5 sm:py-4">
-        <div className="flex items-center justify-between gap-3">
-          <p className="font-data text-[10px] font-semibold uppercase tracking-[0.2em] text-primary sm:text-[11px]">
-            Jadwal Shalat
+    <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-black/20">
+      {/* Subtle gradient overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.06] via-transparent to-primary/[0.03]"
+      />
+
+      <div className="relative">
+        {/* Header — clock + countdown */}
+        <div className="px-6 pt-6 pb-5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="font-data text-[2.5rem] font-bold leading-none tracking-tight tabular-nums text-foreground">
+                {clock}
+              </p>
+              <p className="mt-2 text-sm text-foreground/60">{gregorian}</p>
+              {hijri && (
+                <p className="mt-0.5 font-ar text-xs text-foreground/40">
+                  {hijri.hd} {HIJRI_MONTHS[hijri.hm - 1]} {hijri.hy} H
+                </p>
+              )}
+            </div>
+
+            {nextKey && (
+              <div className="flex flex-col items-end gap-1 pt-1">
+                <span className="rounded-full bg-primary/15 px-2.5 py-1 text-[11px] font-medium text-primary">
+                  {PRAYER_INDONESIA[nextKey]}
+                </span>
+                <span className="font-data text-xs tabular-nums text-foreground/50">
+                  {countdown}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Location */}
+          <p className="mt-3 flex items-center gap-1.5 text-[11px] text-foreground/40">
+            <MapPin className="h-3 w-3" aria-hidden />
+            {locationName}
           </p>
-          <span className="font-data text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:text-[11px]">
-            {timezoneLabel}
-          </span>
         </div>
-        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-foreground sm:mt-2 sm:text-sm">
-          <CalendarDays className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" aria-hidden />
-          {gregorian}
-        </p>
-        <p className="mt-1 flex items-center gap-1.5 font-data text-lg font-semibold tabular-nums text-foreground sm:mt-1.5 sm:text-xl">
-          <Clock className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" aria-hidden />
-          {clock}
-        </p>
-        <p className="mt-0.5 text-[11px] text-muted-foreground sm:text-xs">
-          {hijri
-            ? `${hijri.hd} ${HIJRI_MONTHS[hijri.hm - 1]} ${hijri.hy} H`
-            : "–"}
-        </p>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">
-          <MapPin className="h-3 w-3 text-primary sm:h-3.5 sm:w-3.5" aria-hidden />
-          {locationName}
-        </p>
-      </div>
 
-      <div className="px-3 pt-3 sm:px-5 sm:pt-4">
-        <ToggleGroup
-          type="single"
-          value={mode}
-          onValueChange={(value) => {
-            if (value) setMode(value as ScheduleMode);
-          }}
-          variant="outline"
-          size="sm"
-          spacing={0}
-          aria-label="Mode waktu jadwal shalat"
-          className="w-full"
-        >
-          <ToggleGroupItem value="standard" className="flex-1 font-data text-[11px] sm:text-xs">
-            {location.timezoneName || "WIB"}
-          </ToggleGroupItem>
-          <ToggleGroupItem value="istiwa" className="flex-1 font-data text-[11px] sm:text-xs">
-            WIS
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
+        {/* Divider */}
+        <div className="mx-6 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
-      <ul className="px-3 py-2 sm:px-5 sm:py-3">
-        {ROWS.map((row) => {
-          const isNext =
-            ready &&
-            row.key !== "imsak" &&
-            row.key !== "sunrise" &&
-            row.key === nextKey;
-          const time = timeFor(row.key);
-          return (
-            <li
-              key={row.key}
-              className="flex items-center justify-between gap-2 border-b border-border/40 py-2 last:border-b-0 sm:gap-3 sm:py-2.5"
-            >
-              <span
-                className={`flex items-center gap-1.5 text-xs sm:gap-2 sm:text-sm ${
-                  isNext ? "font-semibold text-primary" : "text-foreground"
+        {/* Mode toggle */}
+        <div className="px-6 pt-4 pb-3">
+          <ToggleGroup
+            type="single"
+            value={mode}
+            onValueChange={(value) => {
+              if (value) setMode(value as ScheduleMode);
+            }}
+            variant="outline"
+            size="sm"
+            spacing={0}
+            aria-label="Mode waktu jadwal shalat"
+            className="w-full rounded-full border-white/10 bg-white/5 p-0.5"
+          >
+            <ToggleGroupItem value="standard" className="flex-1 rounded-full font-data text-[11px] data-[state=on]:bg-primary/15 data-[state=on]:text-primary">
+              {location.timezoneName || "WIB"}
+            </ToggleGroupItem>
+            <ToggleGroupItem value="istiwa" className="flex-1 rounded-full font-data text-[11px] data-[state=on]:bg-primary/15 data-[state=on]:text-primary">
+              WIS
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+
+        {/* Prayer times list */}
+        <ul className="px-6 pb-3">
+          {ROWS.map((row) => {
+            const isNext =
+              ready &&
+              row.key !== "imsak" &&
+              row.key !== "sunrise" &&
+              row.key === nextKey;
+            const time = timeFor(row.key);
+            return (
+              <li
+                key={row.key}
+                className={`flex items-center justify-between rounded-lg px-3 py-2.5 transition-colors ${
+                  isNext
+                    ? "bg-primary/10"
+                    : "hover:bg-white/5"
                 }`}
               >
-                {row.label}
-                {isNext && (
+                <div className="flex items-center gap-2.5">
+                  {isNext && (
+                    <Navigation className="h-3 w-3 text-primary" aria-hidden />
+                  )}
                   <span
-                    className="rounded-full border border-primary/40 px-1.5 py-0.5 font-data text-[9px] uppercase tracking-[0.15em] sm:px-2 sm:text-[10px]"
-                    role="status"
+                    className={`text-sm ${
+                      isNext ? "font-semibold text-primary" : "text-foreground/80"
+                    }`}
                   >
-                    Menuju
+                    {row.label}
                   </span>
-                )}
-              </span>
-              <span
-                className={`font-data text-xs tabular-nums sm:text-sm ${
-                  isNext ? "font-semibold text-primary" : "text-foreground"
-                }`}
-              >
-                {time}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+                </div>
+                <span
+                  className={`font-data text-sm tabular-nums ${
+                    isNext ? "font-semibold text-primary" : "text-foreground/60"
+                  }`}
+                >
+                  {time}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
 
-      <div className="border-t border-border px-3 py-3 sm:px-5 sm:py-3.5">
-        <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground sm:gap-2 sm:text-xs">
-          <Timer className="h-3 w-3 text-primary sm:h-3.5 sm:w-3.5" aria-hidden />
-          <span>
-            Menuju{" "}
-            <strong className="font-semibold text-foreground">
-              {nextKey ? PRAYER_INDONESIA[nextKey] : "shalat berikutnya"}
-            </strong>{" "}
-            dalam{" "}
-            <strong className="font-data tabular-nums text-foreground">
-              {countdown}
-            </strong>
-          </span>
-        </p>
-        <Link
-          href="/falak/jadwal-shalat"
-          className="mt-2 block text-right font-data text-[10px] font-medium uppercase tracking-[0.2em] text-foreground underline-offset-4 hover:text-primary hover:underline sm:mt-3 sm:text-[11px]"
-        >
-          Jadwal Lengkap
-        </Link>
+        {/* Footer */}
+        <div className="px-6 pb-5 pt-2">
+          <Link
+            href="/falak/jadwal-shalat"
+            className="block rounded-full bg-white/5 py-2 text-center text-xs font-medium text-foreground/50 transition-colors hover:bg-primary/10 hover:text-primary"
+          >
+            Lihat Jadwal Lengkap
+          </Link>
+        </div>
       </div>
     </div>
   );

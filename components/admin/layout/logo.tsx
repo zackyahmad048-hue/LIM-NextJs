@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { APP } from "@/modules/shared/constants/app";
-import { MoonStar } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -14,13 +14,18 @@ export function Logo({ collapsed = false }: LogoProps) {
       href="/admin"
       aria-label="Beranda admin"
       className={cn(
-        "flex h-12 shrink-0 items-center border-b border-admin-sidebar-border/50",
+        "flex h-12 shrink-0 items-center border-b",
+        "border-border",
         collapsed ? "justify-center px-0" : "gap-2.5 px-4",
       )}
     >
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-admin-sidebar-accent text-admin-sidebar-accent-fg">
-        <MoonStar className="h-4 w-4" />
-      </div>
+      <Image
+        src="/images/orangelim.png"
+        alt="Lembaga Ittihadul Muballighin"
+        width={999}
+        height={1107}
+        className="h-7 w-auto object-contain shrink-0"
+      />
 
       <div
         className={cn(
@@ -28,10 +33,10 @@ export function Logo({ collapsed = false }: LogoProps) {
           collapsed ? "w-0 opacity-0" : "flex-1",
         )}
       >
-        <h1 className="truncate text-sm font-bold leading-tight text-admin-sidebar-fg">
+        <h1 className="truncate text-sm font-semibold leading-tight text-foreground">
           {APP.shortName}
         </h1>
-        <p className="truncate text-[10px] text-admin-sidebar-fg/70">
+        <p className="truncate text-[10px] text-muted-foreground">
           {APP.organization.shortName}
         </p>
       </div>

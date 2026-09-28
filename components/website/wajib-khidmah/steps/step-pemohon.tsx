@@ -112,7 +112,7 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
 
         <Reveal show={isAlumni}>
           <TextField
-            label="Alumni Lirboyo — Tahun/Angkatan Lulus"
+            label="Alumni Lirboyo - Tahun/Angkatan Lulus"
             id={`${prefix}-alumni`}
             required
             value={alumni}
@@ -174,7 +174,7 @@ function PemohonSection({ form, prefix }: PemohonSectionProps) {
 export function StepPengasuh({ form }: Props) {
   return (
     <StepCard
-      title="Identitas Pemohon — Pengasuh"
+      title="Identitas Pemohon - Pengasuh"
       description="Data pengasuh lembaga pemohon."
     >
       <PemohonSection form={form} prefix={prefixPengasuh} />
@@ -185,7 +185,7 @@ export function StepPengasuh({ form }: Props) {
 export function StepPenanggungJawab({ form }: Props) {
   return (
     <StepCard
-      title="Identitas Pemohon — Penanggung Jawab"
+      title="Identitas Pemohon - Penanggung Jawab"
       description="Data penanggung jawab lembaga pemohon."
     >
       <PemohonSection form={form} prefix={prefixPj} />

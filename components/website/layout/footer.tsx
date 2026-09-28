@@ -1,6 +1,5 @@
-"use client";
-
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, MapPin } from "lucide-react";
 import {
   FaFacebookF,
@@ -11,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
 import { BIDANG } from "@/config/bidang";
+
 const menuLinks = [
   { title: "Beranda", href: "/" },
   { title: "Profil", href: "/profil" },
@@ -58,27 +58,36 @@ const linkClass =
 export default function Footer() {
   return (
     <footer className="relative border-t border-primary/15 bg-primary/8 dark:bg-primary/12">
-      <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
-        <div className="flex flex-col gap-8">
-          <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-[1.25fr_0.7fr_1fr_1fr]">
-            <div>
+      <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
+        <div className="flex flex-col gap-8 lg:gap-12">
+          <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-[1.5fr_0.7fr_1fr_1fr]">
+            <div className="space-y-4">
+              <Link href="/" className="inline-flex items-center gap-3" aria-label="Lembaga Ittihadul Muballighin - Beranda">
+                <Image
+                  src="/images/orangelim.png"
+                  alt=""
+                  width={999}
+                  height={1107}
+                  className="h-8 w-auto object-contain"
+                />
+              </Link>
               <p className="font-heading text-2xl tracking-wide text-foreground">
                 Lembaga Ittihadul Muballighin
               </p>
-              <p className="mt-1.5 text-sm text-foreground">
-                Menebar Dakwah, Memasyarakatkan Pesantren
+              <p className="text-sm text-primary font-medium">
+                Memasyarakatkan Pesantren, Memesantrenkan Masyarakat
               </p>
-              <p className="mt-4 max-w-sm text-sm leading-6 text-pretty text-muted-foreground">
+              <p className="max-w-sm text-sm leading-6 text-pretty text-muted-foreground">
                 Dakwah, pendidikan, dan pengabdian muballigh dari Pondok Pesantren
                 Lirboyo, Kediri.
               </p>
             </div>
 
             <div>
-              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
+              <h2 className="text-xs font-semibold text-foreground uppercase tracking-wide">
                 Jelajah
               </h2>
-              <ul className="mt-4 space-y-2.5 text-sm text-foreground">
+              <ul className="mt-4 space-y-3 text-sm text-foreground">
                 {menuLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={linkClass}>
@@ -90,10 +99,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
+              <h2 className="text-xs font-semibold text-foreground uppercase tracking-wide">
                 Bidang
               </h2>
-              <ul className="mt-4 space-y-2.5 text-sm text-foreground">
+              <ul className="mt-4 space-y-3 text-sm text-foreground">
                 {bidangLinks.map((item) => (
                   <li key={item.href}>
                     <Link href={item.href} className={linkClass}>
@@ -105,10 +114,10 @@ export default function Footer() {
             </div>
 
             <div>
-              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
+              <h2 className="text-xs font-semibold text-foreground uppercase tracking-wide">
                 Hubungi Kami
               </h2>
-              <div className="mt-4 space-y-2.5 text-sm text-foreground">
+              <div className="mt-4 space-y-3 text-sm text-foreground">
                 <div className="flex items-start gap-2.5">
                   <MapPin className="mt-1 h-4 w-4 shrink-0 text-muted-foreground" />
                   <p className="leading-6">
@@ -136,7 +145,7 @@ export default function Footer() {
                 WhatsApp
               </Link>
 
-              <div className="mt-3 flex items-center gap-0.5">
+              <div className="mt-4 flex items-center gap-1.5">
                 {socialLinks.map((item) => {
                   const Icon = item.icon;
 
@@ -157,9 +166,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center justify-between gap-3 border-t border-border pt-6 sm:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-border/40 pt-6 sm:flex-row">
             <p className="mx-auto text-center text-xs text-muted-foreground">
-              © 2026 Sekretariat Lembaga Ittihadul Muballighin
+              © {new Date().getFullYear()} Sekretariat Lembaga Ittihadul Muballighin
             </p>
           </div>
         </div>

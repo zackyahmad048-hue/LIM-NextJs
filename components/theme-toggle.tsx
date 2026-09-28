@@ -20,9 +20,7 @@ function useMounted() {
 
 /**
  * Saklar tema — pill dengan thumb bundar (Sun/Moon) yang bergeser.
- * Perpindahan tema memakai `useThemeToggle` (Skiper UI) dengan variant
- * "rectangle" + start "bottom-up" → reveal vertikal (swipe ke atas)
- * lewat View Transitions API.
+ * View Transitions API untuk transisi halus antar tema.
  */
 export function ThemeToggle() {
   const mounted = useMounted();
@@ -32,7 +30,6 @@ export function ThemeToggle() {
   });
 
   if (!mounted) {
-    // Placeholder berukuran sama agar navbar tidak bergeser saat tombol mount.
     return (
       <span
         aria-hidden
@@ -50,11 +47,9 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       className="relative inline-flex h-9 w-[4.25rem] items-center rounded-full border border-primary/30 bg-primary/10 transition-colors hover:border-primary/60 hover:bg-primary/20"
     >
-      {/* Ikon-ikon statis di kedua sisi pill */}
       <Moon className="absolute right-2.5 size-3.5 text-primary/70" />
       <Sun className="absolute left-2.5 size-3.5 text-primary/70" />
 
-      {/* Thumb bundar yang bergeser mengikuti tema */}
       <motion.span
         aria-hidden
         initial={false}

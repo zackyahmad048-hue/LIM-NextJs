@@ -33,7 +33,7 @@ export function ImagePathField({
       />
 
       {path.trim() && !failed ? (
-        <div className="relative mt-2 aspect-video w-full overflow-hidden rounded-md border bg-muted/40">
+        <div className="relative mt-2 aspect-video w-full overflow-hidden rounded-md border bg-admin-border/30">
           <Image
             src={path}
             alt="Pratinjau gambar hero"
@@ -44,7 +44,7 @@ export function ImagePathField({
           />
         </div>
       ) : (
-        <p className="text-[11px] text-muted-foreground">
+        <p className="text-[11px] text-admin-content-fg/60">
           {path.trim()
             ? "Gambar tidak ditemukan pada path tersebut."
             : "Kosong — hero hanya akan menampilkan teks."}

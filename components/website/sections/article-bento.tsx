@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/website/motion/reveal";
-import SectionLabel from "@/components/shared/section-label";
 import PostCard from "@/components/website/cards/post-card";
+import SiteSection from "@/components/website/layout/site-section";
 import { getPublishedPostsByCategorySlug } from "@/modules/cms";
+import { CardSkeleton } from "@/components/website/ui/skeleton";
 
 const BENTO = {
   label: "Kajian & Artikel",
@@ -24,13 +24,15 @@ export default async function ArticleBento() {
   const [featured, ...rest] = posts;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <SiteSection as="div">
       <Reveal from="left">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <SectionLabel>{BENTO.label}</SectionLabel>
+            <h2 className="font-heading text-2xl font-medium text-foreground">
+              {BENTO.label}
+            </h2>
             {BENTO.description && (
-              <p className="mt-2 max-w-lg text-sm leading-6 text-pretty text-muted-foreground">
+              <p className="mt-1.5 max-w-lg text-sm leading-6 text-pretty text-muted-foreground">
                 {BENTO.description}
               </p>
             )}
@@ -38,10 +40,9 @@ export default async function ArticleBento() {
 
           <Link
             href={BENTO.href}
-            className="group inline-flex items-center gap-1.5 font-data text-[11px] font-medium uppercase text-primary"
+            className="group text-sm font-medium text-primary underline-offset-4 hover:underline"
           >
             {BENTO.hrefLabel}
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
       </Reveal>
@@ -64,11 +65,17 @@ export default async function ArticleBento() {
         </div>
       ) : (
         <div className="mt-8 border border-dashed border-primary/25 bg-card p-10 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-4">
             Belum ada konten pada kategori ini.
           </p>
+          <Link
+            href="/artikel"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Jelajahi semua artikel
+          </Link>
         </div>
       )}
-    </section>
+    </SiteSection>
   );
 }

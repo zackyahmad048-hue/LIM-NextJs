@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/website/motion/reveal";
 import StatRule from "@/components/website/taqwim/stat-rule";
 import { PrayerScheduleWidget } from "@/components/website/falak/prayer-schedule-widget";
@@ -20,12 +19,12 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-[0.16] dark:opacity-[0.14]"
+          className="object-cover object-center opacity-[0.28] dark:opacity-[0.24]"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-background/70 via-background/85 to-background" />
+        <div className="absolute inset-0 bg-linear-to-b from-background/50 via-background/70 to-background" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 sm:pt-20 lg:pb-16 lg:pt-24">
+      <div className="relative mx-auto max-w-6xl px-4 pb-12 pt-16 sm:px-6 sm:pt-20 lg:pb-16 lg:pt-24">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-10">
           <div className="text-left">
             <h1 className="max-w-3xl font-heading text-[2.75rem] font-bold leading-[1.02] tracking-tight text-balance text-foreground sm:text-6xl lg:text-7xl">
@@ -41,22 +40,19 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
               {hero.description}
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-9 flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
               <Button
                 size="lg"
-                className="rounded-xl px-7 font-semibold uppercase tracking-wide"
+                className="rounded-xl px-7 font-semibold w-full sm:w-auto"
                 asChild
               >
-                <Link href={hero.ctaHref}>
-                  {hero.ctaLabel}
-                  <ArrowRight size={16} data-icon="inline-end" />
-                </Link>
+                <Link href={hero.ctaHref}>{hero.ctaLabel}</Link>
               </Button>
 
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-xl border-border px-7 font-semibold uppercase tracking-wide text-foreground transition-colors duration-300 ease-out hover:border-primary hover:text-primary"
+                className="rounded-xl border-border px-7 font-semibold text-foreground transition-colors duration-300 ease-out hover:border-primary hover:text-primary w-full sm:w-auto"
                 asChild
               >
                 <Link href={hero.secondaryHref}>{hero.secondaryLabel}</Link>
@@ -64,7 +60,7 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative flex justify-center lg:block">
             {/* Reserve the column height on desktop so the floating widget
                 never drives the hero height / causes layout shift. */}
             <div aria-hidden className="hidden lg:block lg:h-136" />

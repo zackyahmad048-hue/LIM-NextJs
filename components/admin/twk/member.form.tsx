@@ -234,7 +234,7 @@ export function MemberForm({ member, onSuccess }: Props) {
             <Plus className="size-4" />
             Tambah tempat
           </Button>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-admin-content-fg/60">
             Isi sub-domain kerja. Tambahkan baris baru bila peserta memiliki
             lebih dari satu jabatan.
           </p>
@@ -252,7 +252,7 @@ export function MemberForm({ member, onSuccess }: Props) {
               placeholder="Contoh: Pengajar"
               {...form.register("tugasKhidmah")}
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-admin-content-fg/60">
               Diisi dengan job peserta wajib khidmah.
             </p>
             {errorMessage(errors, "tugasKhidmah") && (
@@ -294,7 +294,7 @@ export function MemberForm({ member, onSuccess }: Props) {
           aria-describedby="keterangan-helper"
           {...form.register("keterangan")}
         />
-        <p id="keterangan-helper" className="text-xs text-muted-foreground">
+        <p id="keterangan-helper" className="text-xs text-admin-content-fg/60">
           {status === "AKTIF"
             ? "Isi dengan tanda '-' untuk anggota Aktif."
             : "Wajib diisi dengan alasan penonaktifan."}

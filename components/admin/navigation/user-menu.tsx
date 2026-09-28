@@ -41,7 +41,7 @@ export function UserMenu({ user }: Props) {
   return (
     <div className="flex items-center gap-3">
       <div className="hidden items-center gap-2.5 md:flex">
-        <div className="flex size-7 items-center justify-center rounded-full bg-admin-border/50 text-xs font-semibold text-admin-content-fg">
+        <div className="flex size-7 items-center justify-center rounded-full bg-secondary text-xs font-semibold text-foreground">
           {user.image ? (
             <Image
               src={user.image}
@@ -56,8 +56,8 @@ export function UserMenu({ user }: Props) {
         </div>
 
         <div>
-          <p className="max-w-40 truncate text-xs font-medium text-admin-content-fg">{user.name}</p>
-          <p className="text-xs text-admin-content-fg/60">{user.roleLabel}</p>
+          <p className="max-w-40 truncate text-xs font-medium text-foreground">{user.name}</p>
+          <p className="text-xs text-muted-foreground">{user.roleLabel}</p>
         </div>
       </div>
 
@@ -69,7 +69,7 @@ export function UserMenu({ user }: Props) {
         aria-label="Logout"
         title="Logout"
         aria-busy={loggingOut}
-        className="text-admin-content-fg hover:bg-admin-border"
+        className="text-foreground hover:bg-accent"
       >
         {loggingOut ? (
           <Loader2 className="size-4 animate-spin" aria-hidden="true" />

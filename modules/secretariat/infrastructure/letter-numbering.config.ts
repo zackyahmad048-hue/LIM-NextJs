@@ -1,4 +1,6 @@
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import type { Setting } from "@/payload-types";
 import type { NumberingPeriod } from "../application/letter-number.rules";
 
 export interface LevelCodeOption {
@@ -13,6 +15,14 @@ export interface LetterNumberingConfig {
   levelCodes: LevelCodeOption[];
   /** Override nomor urut berikutnya per periodYear. */
   nextSequence: Record<string, number>;
+}
+
+interface PayloadNumberingGroup {
+  formatTemplate?: string | null;
+  sequenceDigits?: number | null;
+  periods?: { startYear: number; endYear: number }[] | null;
+  levelCodes?: LevelCodeOption[] | null;
+  nextSequence?: Record<string, number> | null;
 }
 
 export const NUMBERING_SETTING_KEYS = {
@@ -52,7 +62,41 @@ function parseJson<T>(value: string, fallback: T): T {
   }
 }
 
-export async function getLetterNumberingConfig(): Promise<LetterNumberingConfig> {
+function isNumberingSet(
+  numbering: PayloadNumberingGroup | undefined,
+): numbering is PayloadNumberingGroup {
+  if (!numbering) return false;
+  return Boolean(
+    numbering.formatTemplate ||
+      numbering.sequenceDigits ||
+      (numbering.periods && numbering.periods.length > 0) ||
+      (numbering.levelCodes && numbering.levelCodes.length > 0) ||
+      numbering.nextSequence,
+  );
+}
+
+function payloadToConfig(numbering: PayloadNumberingGroup): LetterNumberingConfig {
+  return {
+    formatTemplate:
+      numbering.formatTemplate?.trim() || DEFAULT_NUMBERING_CONFIG.formatTemplate,
+    sequenceDigits:
+      Number(numbering.sequenceDigits) || DEFAULT_NUMBERING_CONFIG.sequenceDigits,
+    periods:
+      numbering.periods && numbering.periods.length > 0
+        ? numbering.periods.map((p) => ({
+            startYear: Number(p.startYear),
+            endYear: Number(p.endYear),
+          }))
+        : DEFAULT_NUMBERING_CONFIG.periods,
+    levelCodes:
+      numbering.levelCodes && numbering.levelCodes.length > 0
+        ? numbering.levelCodes.map((l) => ({ code: l.code, label: l.label }))
+        : DEFAULT_NUMBERING_CONFIG.levelCodes,
+    nextSequence: numbering.nextSequence ?? {},
+  };
+}
+
+async function legacyConfig(): Promise<LetterNumberingConfig> {
   const rows = await prisma.setting.findMany({
     where: { key: { in: Object.values(NUMBERING_SETTING_KEYS) } },
   });
@@ -83,19 +127,16 @@ export async function getLetterNumberingConfig(): Promise<LetterNumberingConfig>
   };
 }
 
-type SettingType = "STRING" | "NUMBER" | "BOOLEAN" | "JSON";
+export async function getLetterNumberingConfig(): Promise<LetterNumberingConfig> {
+  const payload = await getPayloadClient();
+  const settings = await payload.findGlobal({ slug: "settings", depth: 0 });
+  const numbering = (settings as { numbering?: PayloadNumberingGroup }).numbering;
 
-async function upsertSetting(
-  key: string,
-  value: string,
-  type: SettingType,
-  description: string,
-) {
-  await prisma.setting.upsert({
-    where: { key },
-    create: { key, value, type, description },
-    update: { value, type, description },
-  });
+  if (isNumberingSet(numbering)) {
+    return payloadToConfig(numbering);
+  }
+
+  return legacyConfig();
 }
 
 export interface UpdateNumberingSettingsInput {
@@ -109,44 +150,25 @@ export interface UpdateNumberingSettingsInput {
 export async function saveNumberingSettings(
   input: UpdateNumberingSettingsInput,
 ): Promise<void> {
-  if (input.formatTemplate !== undefined) {
-    await upsertSetting(
-      NUMBERING_SETTING_KEYS.formatTemplate,
-      input.formatTemplate.trim(),
-      "STRING",
-      "Template format nomor surat keluar (placeholder: {seq}, {level}, {category}, {bulan}, {tahun}).",
-    );
-  }
-  if (input.sequenceDigits !== undefined) {
-    await upsertSetting(
-      NUMBERING_SETTING_KEYS.sequenceDigits,
-      String(input.sequenceDigits),
-      "NUMBER",
-      "Jumlah digit nomor urut (padding, mis. 3 => 001).",
-    );
-  }
-  if (input.periods !== undefined) {
-    await upsertSetting(
-      NUMBERING_SETTING_KEYS.periods,
-      JSON.stringify(input.periods),
-      "JSON",
-      "Daftar periode kepengurusan (rentang tahun).",
-    );
-  }
-  if (input.levelCodes !== undefined) {
-    await upsertSetting(
-      NUMBERING_SETTING_KEYS.levelCodes,
-      JSON.stringify(input.levelCodes),
-      "JSON",
-      "Kode tingkat kepengurusan untuk penomoran surat.",
-    );
-  }
-  if (input.nextSequence !== undefined) {
-    await upsertSetting(
-      NUMBERING_SETTING_KEYS.nextSequence,
-      JSON.stringify(input.nextSequence),
-      "JSON",
-      "Override nomor urut berikutnya per periode ({\"periodYear\": n}).",
-    );
-  }
+  const numbering: NonNullable<Setting["numbering"]> = {};
+  if (input.formatTemplate !== undefined)
+    numbering.formatTemplate = input.formatTemplate.trim();
+  if (input.sequenceDigits !== undefined)
+    numbering.sequenceDigits = input.sequenceDigits;
+  if (input.periods !== undefined)
+    numbering.periods = input.periods.map((p) => ({
+      startYear: p.startYear,
+      endYear: p.endYear,
+    }));
+  if (input.levelCodes !== undefined)
+    numbering.levelCodes = input.levelCodes.map((l) => ({
+      code: l.code,
+      label: l.label,
+    }));
+  if (input.nextSequence !== undefined)
+    numbering.nextSequence = input.nextSequence;
+  if (Object.keys(numbering).length === 0) return;
+
+  const payload = await getPayloadClient();
+  await payload.updateGlobal({ slug: "settings", data: { numbering } });
 }

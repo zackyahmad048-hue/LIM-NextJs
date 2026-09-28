@@ -38,28 +38,17 @@ interface BandProps {
   title?: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
-  /** Ada beberapa warna untuk background kartu (module-based tint).
-   *  Varian memakai `.glass-tint-{modul}` di balik permukaan kaca. */
-  tint?: "falak" | "program" | "sekretariat" | "konten" | "sistem";
   className?: string;
 }
 
-const tintClass: Record<NonNullable<BandProps["tint"]>, string> = {
-  falak: "glass-tint-falak",
-  program: "glass-tint-program",
-  sekretariat: "glass-tint-sekretariat",
-  konten: "glass-tint-konten",
-  sistem: "glass-tint-sistem",
-};
-
-/** Permukaan "band" — kartu kaca admin (rounded-xl p-5) dengan header opsional.
- * Tabel/form di dalamnya tetap solid. Satu standar radius/padding (spec). */
+/** Permukaan "band" — kartu solid admin (rounded-xl p-5) dengan header opsional.
+ *  Khusyu Minimalis: no glass, no tint backgrounds. Solid card with hairline border.
+ *  Tabel/form di dalamnya tetap solid. Satu standar radius/padding (spec). */
 export function Band({
   children,
   title,
   description,
   actions,
-  tint,
   className,
 }: BandProps) {
   const hasHeader = title != null || description != null || actions != null;
@@ -67,8 +56,8 @@ export function Band({
   return (
     <section
       className={cn(
-        "glass rounded-xl p-5 shadow-sm",
-        tint && tintClass[tint],
+        "bg-admin-card-bg border border-admin-card-border rounded-xl p-5 shadow-sm",
+        "hover:shadow-md transition-shadow duration-200",
         className,
       )}
     >

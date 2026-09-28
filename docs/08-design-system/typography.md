@@ -6,10 +6,11 @@
 
 **Document:** `typography.md`
 
-**Version:** 1.1
+**Version:** 1.2
 
 **Status:** Approved
 
+Perubahan pada 1.2: heading siden public swap dari serif editorial (Fraunces) ke geometric sans display (Geist Sans) via `geist/font/sans`.
 Perubahan pada 1.1: penambahan aturan hierarki heading untuk mengatasi visual monoton (weight & size contrast antara heading vs body).
 
 ---
@@ -22,11 +23,11 @@ Dokumen ini mendefinisikan standar tipografi yang digunakan pada LIM Digital Pla
 
 # Public Website — Empat Peran Tipografi ("Taqwim")
 
-Situs publik (`app/(public)/`) memakai empat keluarga font via `next/font/google`, masing-masing satu peran spesifik:
+Situs publik (`app/(public)/`) memakai empat keluarga font via `geist/font/sans` + `next/font/google`, masing-masing satu peran spesifik:
 
 | Peran     | Font          | Penggunaan                                                              |
 | --------- | ------------- | ----------------------------------------------------------------------- |
-| Heading   | Fraunces      | Judul (h1/h2/h3), serif editorial, title case — karakter tenang & reflektif (SOFT=30, WONK=0) |
+| Heading   | Geist Sans    | Judul (h1/h2/h3), geometric sans display, title case — karakter bersih & modern |
 | Body/UI   | Inter         | Teks isi, kontrol, label — suara antarmuka                               |
 | Data      | JetBrains Mono| Jam, waktu shalat, derajat, koordinat, angka tabel — "instrument readout"|
 | Arab      | Reem Kufi     | Eyebrow marginalia (`الفجر`), kolofon (`تم بحمد الله`), baris Hijriah    |
@@ -34,13 +35,13 @@ Situs publik (`app/(public)/`) memakai empat keluarga font via `next/font/google
 Pemetaan token (definisi di `app/layout.tsx` + `app/globals.css`):
 
 ```text id="typo-public"
---font-heading -> Fraunces
+--font-heading -> Geist Sans (--font-geist-sans)
 --font-body    -> Inter
 --font-data    -> JetBrains Mono
 (arab)         -> Reem Kufi
 ```
 
-Catatan peran: kaidah "maksimal dua keluarga font" di bawah sengaja dilonggarkan hanya untuk situs publik karena setiap keluarga punya satu pekerjaan nyata — angka/data membaca sebagai alat hisab, bukan dekorasi. Font definitif mengikuti `app/layout.tsx`; tabel historis (Newsreader/Hanken Grotesk/Spline Sans Mono, Bebas Neue/Lato, lalu Space Grotesk) sudah diganti. Uppercase tidak lagi dipaksakan global pada heading (Fraunces bekerja dalam title case serif); uppercase hanya dipakai opt-in pada eyebrow/label kecil. Berat font heading dibiarkan per-komponen — tidak dipaksa 500 di `globals.css` supaya hero bisa `font-bold` dan judul section `font-semibold`.
+Catatan peran: kaidah "maksimal dua keluarga font" di bawah sengaja dilonggarkan hanya untuk situs publik karena setiap keluarga punya satu pekerjaan nyata — angka/data membaca sebagai alat hisab, bukan dekorasi. Font definitif mengikuti `app/layout.tsx`; tabel historis (Fraunces/Newsreader/Hanken Grotesk/Spline Sans Mono, Bebas Neue/Lato, lalu Space Grotesk) sudah diganti. Uppercase tidak lagi dipaksakan global pada heading (Geist Sans bekerja dalam title case sans); uppercase hanya dipakai opt-in pada eyebrow/label kecil. Berat font heading dibiarkan per-komponen — tidak dipaksa 500 di `globals.css` supaya hero bisa `font-bold` dan judul section `font-semibold`.
 
 Typography memastikan seluruh aplikasi memiliki hierarki visual yang jelas, mudah dibaca, konsisten, dan mendukung berbagai ukuran layar.
 
@@ -50,7 +51,7 @@ Typography memastikan seluruh aplikasi memiliki hierarki visual yang jelas, muda
 
 Untuk mencegah tampilan monoton, pertahankan kontras hierarki heading vs body:
 
-- **Heading** (Fraunces, serif): `font-semibold`–`font-bold`, `tracking-tight`, `letter-spacing: -0.01em` — pesan dominan.
+- **Heading** (Geist Sans, sans): `font-semibold`–`font-bold`, `tracking-tight`, `letter-spacing: -0.02em` — pesan dominan.
 - **Body** (Inter, sans): `font-normal` (regular), warna `foreground`/`muted-foreground` — suara pendukung.
 - **H1 hero**: `text-4xl sm:text-5xl lg:text-6xl` (besar, tegas).
 - **H2 section**: `text-2xl sm:text-3xl` (tegas tapi lebih kecil dari H1).

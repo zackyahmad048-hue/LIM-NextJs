@@ -49,11 +49,11 @@ export function CommandMenu({ roleSlugs }: CommandMenuProps) {
         variant="outline"
         aria-label="Cari halaman admin"
         onClick={() => setOpen(true)}
-        className="hidden h-8 w-full max-w-72 justify-start gap-2 rounded-full bg-admin-border/30 px-3 font-normal text-admin-content-fg/70 md:inline-flex"
+        className="hidden h-8 w-full max-w-72 justify-start gap-2 rounded-full bg-secondary border border-border px-3 font-normal text-foreground/70 md:inline-flex focus-visible:ring-2 focus-visible:ring-primary"
       >
-        <Search className="size-3.5 shrink-0 text-admin-content-fg/80" />
+        <Search className="size-3.5 shrink-0 text-muted-foreground" />
         <span className="flex-1 text-left text-sm">Cari menu...</span>
-        <kbd className="pointer-events-none rounded border border-admin-border bg-admin-input-bg px-1.5 font-data text-[10px] text-admin-content-fg/90">
+        <kbd className="pointer-events-none rounded border border-border bg-secondary px-1.5 font-mono text-[10px] text-foreground/90">
           Ctrl K
         </kbd>
       </Button>
@@ -63,7 +63,7 @@ export function CommandMenu({ roleSlugs }: CommandMenuProps) {
         size="icon-sm"
         aria-label="Cari halaman admin"
         onClick={() => setOpen(true)}
-        className="md:hidden text-admin-content-fg hover:bg-admin-border"
+        className="md:hidden text-foreground hover:bg-accent focus-visible:ring-2 focus-visible:ring-primary"
       >
         <Search className="size-4" />
       </Button>
@@ -83,7 +83,7 @@ export function CommandMenu({ roleSlugs }: CommandMenuProps) {
                     onSelect={() => child.href && go(child.href)}
                   >
                     {child.icon && <child.icon className="mr-2 size-4" />}
-                    {child.title}
+                  {item.title}
                   </CommandItem>
                 ))}
               </CommandGroup>

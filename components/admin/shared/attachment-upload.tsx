@@ -107,12 +107,12 @@ export function AttachmentUpload({
       <input type="hidden" name={name} value={file?.url ?? ""} readOnly />
 
       {file ? (
-        <div className="flex items-center gap-3 rounded-lg border bg-muted/40 px-3 py-2.5">
-          <FileText className="size-4 shrink-0 text-muted-foreground" />
+        <div className="flex items-center gap-3 rounded-lg border bg-admin-border/30 px-3 py-2.5">
+          <FileText className="size-4 shrink-0 text-admin-content-fg/60" />
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-medium">{file.name}</p>
             {file.size > 0 && (
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-[11px] text-admin-content-fg/60">
                 {formatSize(file.size)}
               </p>
             )}
@@ -151,11 +151,11 @@ export function AttachmentUpload({
           htmlFor="attachment"
           className="flex cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border border-dashed px-4 py-8 text-center transition-colors hover:bg-muted/50"
         >
-          <Upload className="size-5 text-muted-foreground" />
+          <Upload className="size-5 text-admin-content-fg/60" />
           <span className="text-xs font-medium">
             {uploading ? "Mengunggah..." : "Pilih dokumen surat"}
           </span>
-          <span className="text-[11px] text-muted-foreground">
+          <span className="text-[11px] text-admin-content-fg/60">
             PDF &middot; maksimal 2 MB
           </span>
         </label>
@@ -172,7 +172,7 @@ export function AttachmentUpload({
       />
 
       {uploading && (
-        <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+        <p className="flex items-center gap-1.5 text-xs text-admin-content-fg/60">
           <Loader2 className="size-3.5 animate-spin" />
           Mengunggah dokumen...
         </p>

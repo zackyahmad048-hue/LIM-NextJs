@@ -128,7 +128,7 @@ export function ImportDialog({ open, onOpenChange }: Props) {
                 onChange={(e) => setSheetUrl(e.target.value)}
               />
 
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-admin-content-fg/60">
                 Pastikan sheet diatur ke &quot;Siapa saja yang memiliki tautan
                 dapat melihat&quot; agar dapat diambil oleh sistem.
               </p>

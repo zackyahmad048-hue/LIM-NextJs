@@ -20,15 +20,15 @@ export function FormGroup({
   return (
     <fieldset
       className={cn(
-        "border-t border-admin-border/60 pb-5 first:border-t-0",
+        "border-t border-border/60 pb-5 first:border-t-0",
         className,
       )}
     >
-      <legend className="mb-3 w-full text-base font-semibold text-admin-content-fg">
+      <legend className="mb-3 w-full text-base font-semibold text-foreground">
         {legend}
       </legend>
       {description != null && (
-        <p className="-mt-1 mb-4 text-sm text-admin-content-fg/60">{description}</p>
+        <p className="-mt-1 mb-4 text-sm text-muted-foreground">{description}</p>
       )}
       <div className="flex flex-col gap-5">{children}</div>
     </fieldset>

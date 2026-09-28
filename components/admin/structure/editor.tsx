@@ -50,15 +50,15 @@ function Section({
       <button
         type="button"
         onClick={() => onToggle(id)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-muted/50"
+        className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-admin-border/30"
       >
         <div className="flex items-center gap-2">
           {expanded ? (
-            <ChevronDown className="size-4 text-muted-foreground" />
+            <ChevronDown className="size-4 text-admin-content-fg/60" />
           ) : (
-            <ChevronRight className="size-4 text-muted-foreground" />
+            <ChevronRight className="size-4 text-admin-content-fg/60" />
           )}
-          <Icon className="size-4 text-muted-foreground" />
+          <Icon className="size-4 text-admin-content-fg/60" />
           <span className="text-sm font-semibold">{title}</span>
         </div>
         {badge && (
@@ -334,7 +334,7 @@ export function StructureEditor({ initial }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-admin-content-fg/60">
           Atur struktur organisasi LIM: Pengurus Pusat, Pengurus Wilayah,
           Pengurus Cabang, dan Anggota.
         </p>
@@ -424,7 +424,7 @@ export function StructureEditor({ initial }: Props) {
               Preview
             </Button>
           </div>
-          <p className="text-[11px] text-muted-foreground">
+          <p className="text-[11px] text-admin-content-fg/60">
             Sheet harus memiliki kolom: nama, alamat, kelas, pos, tempat. Data
             anggota diimpor dari sheet ini.
           </p>
@@ -441,7 +441,7 @@ export function StructureEditor({ initial }: Props) {
       >
         <div className="space-y-3">
           {data.centralBoard.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               Belum ada data Pengurus Pusat. Tambahkan pengurus pusat.
             </p>
           ) : (
@@ -501,12 +501,12 @@ export function StructureEditor({ initial }: Props) {
                         onClick={() => setEditingMember(m.id)}
                       >
                         {m.name || (
-                          <span className="italic text-muted-foreground">
+                          <span className="italic text-admin-content-fg/60">
                             Nama pengurus
                           </span>
                         )}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-admin-content-fg/60">
                         {m.position || "Tanpa jabatan"}
                       </p>
                     </div>
@@ -541,7 +541,7 @@ export function StructureEditor({ initial }: Props) {
       >
         <div className="space-y-3">
           {data.regionalBoards.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               Belum ada data Pengurus Wilayah. Tambahkan wilayah (provinsi).
             </p>
           ) : (
@@ -605,12 +605,12 @@ export function StructureEditor({ initial }: Props) {
                         onClick={() => setEditingRegional(r.id)}
                       >
                         {r.province || (
-                          <span className="italic text-muted-foreground">
+                          <span className="italic text-admin-content-fg/60">
                             Provinsi
                           </span>
                         )}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-admin-content-fg/60">
                         {r.name || "Tanpa nama"} · {r.members.length} anggota
                       </p>
                     </div>
@@ -631,16 +631,16 @@ export function StructureEditor({ initial }: Props) {
                     {r.members.map((m) => (
                       <div
                         key={m.id}
-                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
+                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-admin-border/30"
                       >
                         <span className="text-xs">
                           {m.name || (
-                            <span className="italic text-muted-foreground">
+                            <span className="italic text-admin-content-fg/60">
                               Anggota
                             </span>
                           )}
                           {m.position && (
-                            <span className="ml-2 text-[10px] text-muted-foreground">
+                            <span className="ml-2 text-[10px] text-admin-content-fg/60">
                               — {m.position}
                             </span>
                           )}
@@ -658,7 +658,7 @@ export function StructureEditor({ initial }: Props) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-6 text-xs text-muted-foreground"
+                      className="h-6 text-xs text-admin-content-fg/60"
                       onClick={() => addRegionalMember(r.id)}
                     >
                       <Plus className="size-3" />
@@ -686,7 +686,7 @@ export function StructureEditor({ initial }: Props) {
       >
         <div className="space-y-3">
           {data.branchBoards.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               Belum ada data Pengurus Cabang. Tambahkan cabang (kabupaten/kota).
             </p>
           ) : (
@@ -757,12 +757,12 @@ export function StructureEditor({ initial }: Props) {
                         onClick={() => setEditingBranch(b.id)}
                       >
                         {b.regency || (
-                          <span className="italic text-muted-foreground">
+                          <span className="italic text-admin-content-fg/60">
                             Kabupaten/Kota
                           </span>
                         )}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-admin-content-fg/60">
                         {b.province && `${b.province} · `}
                         {b.name || "Tanpa nama"} · {b.members.length} anggota
                       </p>
@@ -784,16 +784,16 @@ export function StructureEditor({ initial }: Props) {
                     {b.members.map((m) => (
                       <div
                         key={m.id}
-                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-muted/50"
+                        className="group flex items-center justify-between rounded px-2 py-1 hover:bg-admin-border/30"
                       >
                         <span className="text-xs">
                           {m.name || (
-                            <span className="italic text-muted-foreground">
+                            <span className="italic text-admin-content-fg/60">
                               Anggota
                             </span>
                           )}
                           {m.position && (
-                            <span className="ml-2 text-[10px] text-muted-foreground">
+                            <span className="ml-2 text-[10px] text-admin-content-fg/60">
                               — {m.position}
                             </span>
                           )}
@@ -811,7 +811,7 @@ export function StructureEditor({ initial }: Props) {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-6 text-xs text-muted-foreground"
+                      className="h-6 text-xs text-admin-content-fg/60"
                       onClick={() => addBranchMember(b.id)}
                     >
                       <Plus className="size-3" />
@@ -839,7 +839,7 @@ export function StructureEditor({ initial }: Props) {
       >
         <div className="space-y-3">
           {data.members.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-admin-content-fg/60">
               Belum ada data anggota. Tambahkan anggota.
             </p>
           ) : (
@@ -899,12 +899,12 @@ export function StructureEditor({ initial }: Props) {
                         onClick={() => setEditingMember(m.id)}
                       >
                         {m.name || (
-                          <span className="italic text-muted-foreground">
+                          <span className="italic text-admin-content-fg/60">
                             Nama anggota
                           </span>
                         )}
                       </p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-admin-content-fg/60">
                         {m.position || "Tanpa posisi"}
                       </p>
                     </div>

@@ -1,13 +1,23 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 export async function getDashboardMetrics() {
+  const payload = await getPayloadClient();
   const [categoryCount, postCount, publishedPostCount, userCount] =
     await Promise.all([
-      prisma.category.count({ where: { deletedAt: null } }),
-      prisma.post.count({ where: { deletedAt: null } }),
-      prisma.post.count({ where: { published: true, deletedAt: null } }),
+      payload.count({ collection: "categories" }),
+      payload.count({ collection: "posts" }),
+      payload.count({
+        collection: "posts",
+        where: { published: { equals: true } },
+      }),
       prisma.user.count(),
     ]);
 
-  return { categoryCount, postCount, publishedPostCount, userCount };
+  return {
+    categoryCount: categoryCount.totalDocs,
+    postCount: postCount.totalDocs,
+    publishedPostCount: publishedPostCount.totalDocs,
+    userCount,
+  };
 }

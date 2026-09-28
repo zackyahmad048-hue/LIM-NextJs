@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import {
   SITE_PAGE_KEYS,
   getSitePageDefinition,
@@ -103,10 +103,20 @@ export async function getSitePageValues(
   const def = getSitePageDefinition(key);
   if (!def) throw new Error(`Halaman tidak dikenal: ${key}`);
 
-  let stored: unknown;
+  let stored: unknown = null;
+
   try {
-    const setting = await prisma.setting.findUnique({ where: { key } });
-    stored = setting ? JSON.parse(setting.value) : null;
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: "pages",
+      where: { key: { equals: key } },
+      limit: 1,
+      depth: 0,
+    });
+    const doc = res.docs[0];
+    if (doc && typeof doc.content === "object" && doc.content !== null) {
+      stored = doc.content;
+    }
   } catch {
     stored = null;
   }
@@ -146,10 +156,22 @@ export interface SitePageStatus {
 }
 
 export async function getSitePageStatuses(): Promise<SitePageStatus[]> {
-  const settings = await prisma.setting.findMany({
-    where: { key: { in: SITE_PAGE_KEYS } },
-    select: { key: true, updatedAt: true },
-  });
+  let updatedAtByKey = new Map<string, Date>();
+
+  try {
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: "pages",
+      where: { key: { in: SITE_PAGE_KEYS } },
+      limit: SITE_PAGE_KEYS.length,
+      depth: 0,
+    });
+    updatedAtByKey = new Map(
+      res.docs.map((d) => [String(d.key), new Date(d.updatedAt)]),
+    );
+  } catch {
+    updatedAtByKey = new Map();
+  }
 
   return SITE_PAGE_KEYS.map((key) => {
     const def = getSitePageDefinition(key)!;
@@ -157,7 +179,7 @@ export async function getSitePageStatuses(): Promise<SitePageStatus[]> {
       key,
       route: def.route,
       title: def.title,
-      updatedAt: settings.find((s) => s.key === key)?.updatedAt ?? null,
+      updatedAt: updatedAtByKey.get(key) ?? null,
     };
   });
 }

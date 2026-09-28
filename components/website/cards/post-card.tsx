@@ -36,7 +36,7 @@ export default function PostCard({
     <Link
       href={`/artikel/${post.slug}`}
       className={cn(
-        "group glass glass-tint-konten flex flex-col overflow-hidden rounded-md border border-primary/25 transition-colors duration-300 ease-out hover:border-primary",
+        "group glass glass-tint-konten flex flex-col overflow-hidden rounded-xl border border-primary/25 transition-colors duration-300 ease-out hover:border-primary",
         className,
       )}
     >
@@ -64,7 +64,7 @@ export default function PostCard({
 
       <div className={cn("flex flex-col p-5", !feature && "flex-1")}>
         <div className="flex items-center gap-2.5 text-[11px]">
-          <span className="font-sans font-medium uppercase tracking-wide text-primary">
+          <span className="font-medium text-primary">
             {post.category.name}
           </span>
           <span

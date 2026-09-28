@@ -88,7 +88,7 @@ export function TwkModule({ members, stats }: Props) {
       <Band>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-admin-border/30 text-admin-content-fg/60">
               <UsersRound className="size-4" />
             </div>
             <div>

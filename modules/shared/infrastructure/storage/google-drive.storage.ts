@@ -1,6 +1,7 @@
 import { google, type drive_v3 } from "googleapis";
 
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
+import type { GoogleDriveConnection } from "@/payload-types";
 import type { FileStorage } from "./types";
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -35,13 +36,17 @@ function requireClient() {
   );
 }
 
-export async function getDriveConnection() {
-  return prisma.googleDriveConnection.findFirst();
+export async function getDriveConnection(): Promise<GoogleDriveConnection | null> {
+  const payload = await getPayloadClient();
+  const res = await payload.find({
+    collection: "google-drive-connections",
+    limit: 1,
+    depth: 0,
+  });
+  return res.docs[0] ?? null;
 }
 
-type DriveConnection = NonNullable<
-  Awaited<ReturnType<typeof getDriveConnection>>
->;
+type DriveConnection = GoogleDriveConnection;
 
 function driveFromConnection(connection: DriveConnection) {
   const client = requireClient();
@@ -81,21 +86,30 @@ export async function saveDriveConnection(
   email: string,
   refreshToken: string,
 ): Promise<void> {
-  const existing = await prisma.googleDriveConnection.findFirst();
+  const payload = await getPayloadClient();
+  const existing = await getDriveConnection();
   if (existing) {
-    await prisma.googleDriveConnection.update({
-      where: { id: existing.id },
-      data: { email, refreshToken, updatedAt: new Date() },
+    await payload.update({
+      collection: "google-drive-connections",
+      id: existing.id,
+      data: { email, refreshToken },
     });
     return;
   }
-  await prisma.googleDriveConnection.create({
+  await payload.create({
+    collection: "google-drive-connections",
     data: { email, refreshToken },
   });
 }
 
 export async function deleteDriveConnection(): Promise<void> {
-  await prisma.googleDriveConnection.deleteMany();
+  const existing = await getDriveConnection();
+  if (!existing) return;
+  const payload = await getPayloadClient();
+  await payload.delete({
+    collection: "google-drive-connections",
+    id: existing.id,
+  });
 }
 
 export async function createDriveClient() {
@@ -116,15 +130,15 @@ export class GoogleDriveStorage implements FileStorage {
     mimeType: string,
     connection?: DriveConnection,
   ): Promise<string> {
-    const drive = connection
-      ? driveFromConnection(connection)
-      : (await createDriveClient()).drive;
+    const conn = connection ?? (await createDriveClient()).connection;
+    const drive = driveFromConnection(conn);
 
     const folderId =
-      connection?.driveFolderId ??
+      conn.driveFolderId ??
       (await ensureDriveFolder(
         drive,
-        connection?.driveFolderName ?? undefined,
+        conn.driveFolderName ?? undefined,
+        conn.id,
       ));
 
     const response = await drive.files.create({
@@ -165,6 +179,7 @@ export class GoogleDriveStorage implements FileStorage {
 async function ensureDriveFolder(
   drive: drive_v3.Drive,
   folderName?: string,
+  connectionId?: number,
 ): Promise<string> {
   const targetName = folderName ?? "LIM-Arsip";
 
@@ -187,13 +202,14 @@ async function ensureDriveFolder(
   const id = created.data.id;
   if (!id) throw new Error("Gagal membuat folder arsip di Google Drive.");
 
-  await prisma.googleDriveConnection.updateMany({
-    data: {
-      driveFolderId: id,
-      driveFolderName: targetName,
-      updatedAt: new Date(),
-    },
-  });
+  if (connectionId !== undefined) {
+    const payload = await getPayloadClient();
+    await payload.update({
+      collection: "google-drive-connections",
+      id: connectionId,
+      data: { driveFolderId: id, driveFolderName: targetName },
+    });
+  }
 
   return id;
 }

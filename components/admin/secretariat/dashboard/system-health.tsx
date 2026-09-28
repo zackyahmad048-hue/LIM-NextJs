@@ -36,7 +36,7 @@ export function SystemHealth({
       </div>
 
       <div className="mt-4 space-y-2">
-        <div className="flex items-center justify-between rounded-md border bg-background px-3 py-2.5">
+        <div className="flex items-center justify-between rounded-md border bg-admin-card-bg px-3 py-2.5">
           <div className="flex items-center gap-2.5">
             {driveEmail ? (
               <>
@@ -45,21 +45,21 @@ export function SystemHealth({
                 </span>
                 <div>
                   <p className="text-sm font-medium">Google Drive terhubung</p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-[11px] text-admin-content-fg/60">
                     {driveEmail}
                   </p>
                 </div>
               </>
             ) : (
               <>
-                <span className="flex size-7 items-center justify-center rounded-md bg-muted text-muted-foreground">
+                <span className="flex size-7 items-center justify-center rounded-md bg-admin-border/30 text-admin-content-fg/60">
                   <CloudOff className="size-4" />
                 </span>
                 <div>
                   <p className="text-sm font-medium">
                     Google Drive belum terhubung
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-[11px] text-admin-content-fg/60">
                     Arsip masih disimpan di Vercel Blob.
                   </p>
                 </div>
@@ -87,7 +87,7 @@ export function SystemHealth({
                 "flex size-7 items-center justify-center rounded-md",
                 totalMissing > 0
                   ? "bg-destructive/10 text-destructive"
-                  : "bg-muted text-muted-foreground",
+                  : "bg-admin-border/30 text-admin-content-fg/60",
               )}
             >
               {totalMissing > 0 ? (
@@ -102,7 +102,7 @@ export function SystemHealth({
                   ? `${totalMissing} lampiran belum diunggah`
                   : "Semua lampiran sudah lengkap"}
               </p>
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-[11px] text-admin-content-fg/60">
                 Keluar {missingAttachments.outgoing} · Masuk{" "}
                 {missingAttachments.incoming} · Dokumen{" "}
                 {missingAttachments.documents}

@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import {
   HOMEPAGE_SECTIONS,
   type HomepageSectionDescriptor,
@@ -13,24 +13,29 @@ export async function getHomepageSectionStatuses(): Promise<
   HomepageSectionStatus[]
 > {
   const keys = HOMEPAGE_SECTIONS.map((section) => section.settingKey);
-  let settings: { key: string; updatedAt: Date }[] = [];
+  let pages: { key: string; updatedAt: string }[] = [];
   try {
-    settings = await prisma.setting.findMany({
+    const payload = await getPayloadClient();
+    const res = await payload.find({
+      collection: "pages",
       where: { key: { in: keys } },
-      select: { key: true, updatedAt: true },
+      limit: keys.length,
+      depth: 0,
     });
+    pages = res.docs.map((doc) => ({
+      key: String(doc.key),
+      updatedAt: doc.updatedAt,
+    }));
   } catch {
-    settings = [];
+    pages = [];
   }
 
   return HOMEPAGE_SECTIONS.map((section) => {
-    const stored = settings.find(
-      (setting) => setting.key === section.settingKey,
-    );
+    const page = pages.find((candidate) => candidate.key === section.settingKey);
     return {
       ...section,
-      stored: Boolean(stored),
-      updatedAt: stored?.updatedAt ?? null,
+      stored: Boolean(page),
+      updatedAt: page ? new Date(page.updatedAt) : null,
     };
   });
 }

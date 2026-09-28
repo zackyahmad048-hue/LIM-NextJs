@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
-import { HubDot } from "@/components/shared/hub-dot";
+import { UserCheck } from "lucide-react";
 import Reveal from "@/components/website/motion/reveal";
 import SiteSection from "@/components/website/layout/site-section";
 import { getTimWajibKhidmahContent } from "@/modules/cms/queries/site-page.query";
@@ -41,7 +41,7 @@ export default async function TimWajibKhidmahPage() {
                 key={item}
                 className="flex items-start gap-3 rounded-lg border border-primary/10 bg-muted/40 p-4"
               >
-                <HubDot className="mt-1.5 h-2.5 w-2.5 shrink-0" />
+                <UserCheck className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
                 <span className="text-sm leading-6 text-foreground/90">
                   {item}
                 </span>

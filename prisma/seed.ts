@@ -1,6 +1,7 @@
 import "dotenv/config";
 
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 import { PERMISSIONS } from "@/config/permission";
 import { ROLE_LABELS } from "@/config/role";
@@ -160,29 +161,35 @@ function buildStandardUnits(): SeedUnit[] {
 }
 
 async function seedOrganizationUnits() {
+  const payload = await getPayloadClient();
   const units = buildStandardUnits();
-  const codeToId = new Map<string, string>();
+  const codeToId = new Map<string, number>();
+  const currentParent = new Map<string, number | null>();
 
   for (const unit of units) {
-    const existing = await prisma.organizationUnit.findUnique({
-      where: { code: unit.code },
-      select: { id: true, name: true },
+    const existing = await payload.find({
+      collection: "units",
+      where: { code: { equals: unit.code } },
+      limit: 1,
+      depth: 0,
     });
 
-    if (existing) {
-      codeToId.set(unit.code, existing.id);
+    const doc = existing.docs[0];
+    if (doc) {
+      codeToId.set(unit.code, doc.id);
+      currentParent.set(
+        unit.code,
+        typeof doc.parent === "number" ? doc.parent : null,
+      );
       continue;
     }
 
-    const created = await prisma.organizationUnit.create({
-      data: {
-        code: unit.code,
-        name: unit.name,
-        level: unit.level,
-      },
-      select: { id: true },
+    const created = await payload.create({
+      collection: "units",
+      data: { code: unit.code, name: unit.name, level: unit.level },
     });
     codeToId.set(unit.code, created.id);
+    currentParent.set(unit.code, null);
     console.log(`✓ unit ${unit.code} ${unit.name}`);
   }
 
@@ -191,20 +198,16 @@ async function seedOrganizationUnits() {
     const id = codeToId.get(unit.code);
     const parentId = codeToId.get(unit.parentCode);
     if (!id || !parentId) continue;
-    const current = await prisma.organizationUnit.findUnique({
-      where: { id },
-      select: { parentId: true },
+    if (currentParent.get(unit.code) === parentId) continue;
+    await payload.update({
+      collection: "units",
+      id,
+      data: { parent: parentId },
     });
-    if (current?.parentId !== parentId) {
-      await prisma.organizationUnit.update({
-        where: { id },
-        data: { parentId },
-      });
-    }
   }
 
-  const total = await prisma.organizationUnit.count({ where: { deletedAt: null } });
-  console.log(`✓ struktur organisasi: ${total} unit`);
+  const total = await payload.count({ collection: "units" });
+  console.log(`✓ struktur organisasi: ${total.totalDocs} unit`);
 }
 
 function grantsForRole(roleSlug: string): string[] {
@@ -291,4 +294,7 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(() => prisma.$disconnect());
+  .finally(async () => {
+    await prisma.$disconnect();
+    process.exit(0);
+  });

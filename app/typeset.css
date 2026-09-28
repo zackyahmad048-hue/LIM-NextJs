@@ -136,7 +136,7 @@
     &:where(mark) {
       background-color: color-mix(
         in oklab,
-        oklch(0.86 0.17 95) 40%,
+        oklch(0.86 0.12 70) 40%,
         transparent
       );
       color: inherit;
@@ -489,11 +489,11 @@
 }
 
 /* Public surface: typed voices own their roles.
-   Body = Hanken, headings = Newsreader display, data = Spline Sans Mono. */
+   Body = Inter, headings = Geist Sans display, data = JetBrains Mono. */
 @layer components {
   .site .typeset {
-    --typeset-font-body: var(--f-site), "Segoe UI", sans-serif;
-    --typeset-font-heading: var(--font-display), "Times New Roman", serif;
+    --typeset-font-body: var(--font-body), "Segoe UI", sans-serif;
+    --typeset-font-heading: var(--font-display), "Segoe UI", sans-serif;
     --typeset-font-mono: var(--font-data), "SFMono-Regular", Consolas, monospace;
   }
 }

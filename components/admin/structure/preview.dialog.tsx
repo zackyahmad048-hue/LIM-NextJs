@@ -180,13 +180,13 @@ export function PreviewDialog({
 
           {rows.length > 0 && (
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-admin-content-fg/60">
                 {rows.length} baris ditemukan.
               </p>
 
               <div className="max-h-72 overflow-auto rounded-md border">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-muted">
+                  <thead className="sticky top-0 bg-admin-border/30">
                     <tr>
                       <th className="px-3 py-2 text-left font-medium">No</th>
                       <th className="px-3 py-2 text-left font-medium">Nama</th>
@@ -205,20 +205,20 @@ export function PreviewDialog({
                   <tbody className="divide-y">
                     {rows.slice(0, 50).map((row, index) => (
                       <tr key={index}>
-                        <td className="px-3 py-2 text-muted-foreground">
+                        <td className="px-3 py-2 text-admin-content-fg/60">
                           {index + 1}
                         </td>
                         <td className="px-3 py-2">{row.nama}</td>
-                        <td className="px-3 py-2 text-muted-foreground">
+                        <td className="px-3 py-2 text-admin-content-fg/60">
                           {row.asalDaerah || "—"}
                         </td>
-                        <td className="px-3 py-2 text-muted-foreground">
+                        <td className="px-3 py-2 text-admin-content-fg/60">
                           {row.posWajibKhidmah || "—"}
                         </td>
-                        <td className="px-3 py-2 text-muted-foreground">
+                        <td className="px-3 py-2 text-admin-content-fg/60">
                           {row.status || "—"}
                         </td>
-                        <td className="px-3 py-2 text-muted-foreground">
+                        <td className="px-3 py-2 text-admin-content-fg/60">
                           {row.tempatWajibKhidmah || "—"}
                         </td>
                       </tr>
@@ -226,7 +226,7 @@ export function PreviewDialog({
                   </tbody>
                 </table>
                 {rows.length > 50 && (
-                  <p className="p-3 text-center text-xs text-muted-foreground">
+                  <p className="p-3 text-center text-xs text-admin-content-fg/60">
                     Menampilkan 50 dari {rows.length} baris.
                   </p>
                 )}

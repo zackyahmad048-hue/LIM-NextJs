@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { storage } from "@/modules/shared/infrastructure/storage";
 import type { OutgoingMailEntity } from "../domain/entities";
 import {
@@ -96,9 +96,14 @@ export async function signOutgoingMail(
         },
       });
 
-      const oldMedia = await prisma.media.findUnique({
-        where: { fileId: attachmentFileId },
+      const payload = await getPayloadClient();
+      const oldRes = await payload.find({
+        collection: "media",
+        where: { fileId: { equals: attachmentFileId } },
+        limit: 1,
+        depth: 0,
       });
+      const oldMedia = oldRes.docs[0];
 
       const newFileId = await storage.save(
         signedPdf,
@@ -106,13 +111,14 @@ export async function signOutgoingMail(
         "application/pdf",
       );
 
-      const media = await prisma.media.create({
+      const media = await payload.create({
+        collection: "media",
         data: {
           originalName: oldMedia?.originalName ?? "surat-ber-qr.pdf",
           mimeType: "application/pdf",
           size: signedPdf.byteLength,
           fileId: newFileId,
-          access: "PRIVATE",
+          access: "private",
           folder: oldMedia?.folder ?? "surat-keluar",
           storageProvider: "BLOB",
           storageKey: newFileId,
@@ -121,7 +127,10 @@ export async function signOutgoingMail(
       });
 
       if (oldMedia) {
-        await prisma.media.delete({ where: { id: oldMedia.id } });
+        await payload.delete({
+          collection: "media",
+          id: Number(oldMedia.id),
+        });
       }
       await storage.remove(attachmentFileId).catch(() => undefined);
 

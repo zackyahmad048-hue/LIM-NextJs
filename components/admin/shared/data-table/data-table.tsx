@@ -57,15 +57,20 @@ export function DataTable<TData, TValue>({
     <div className="space-y-4">
       <DataToolbar value={globalFilter} onChange={setGlobalFilter} />
 
-      <div className="overflow-x-auto rounded-xl border border-admin-border bg-admin-card-bg" role="region" tabIndex={0} aria-label="Tabel data">
+      <div
+        className="overflow-x-auto border border-border shadow-sm"
+        role="region"
+        tabIndex={0}
+        aria-label="Tabel data"
+      >
         <table className="w-full min-w-160">
-          <thead className="bg-admin-border/20">
+          <thead className="bg-muted/50">
             {table.getHeaderGroups().map((group) => (
               <tr key={group.id}>
                 {group.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-4 py-3 text-left text-sm font-medium text-admin-content-fg/70"
+                    className="px-4 py-3 text-left text-sm font-medium text-muted-foreground font-heading"
                   >
                     {header.isPlaceholder
                       ? null
@@ -88,7 +93,10 @@ export function DataTable<TData, TValue>({
               </tr>
             ) : (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="border-t border-admin-border/50">
+                <tr
+                  key={row.id}
+                  className="border-t border-border transition-colors hover:bg-accent/50"
+                >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-4 py-3">
                       {flexRender(

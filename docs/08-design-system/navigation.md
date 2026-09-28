@@ -164,7 +164,7 @@ Detail visual:
 - Logo: tampil polos dengan warna aslinya (tanpa lingkaran, tanpa invert di dark mode).
 - Menu berbentuk pill `rounded-full px-4 py-2 text-sm`; aktif `bg-primary/10 font-medium text-primary`; idle `text-foreground/70 hover:bg-accent hover:text-primary`.
 - Hamburger mobile: bulat `rounded-full bg-primary/10 p-2 text-primary`.
-- Typography: Fraunces (kelas `font-heading`), tanpa font mixing.
+- Typography: Geist Sans (kelas `font-heading`), tanpa font mixing.
 
 Contoh:
 
@@ -263,7 +263,7 @@ Bidang
 
 - Logo selalu mengarah ke Beranda.
 - Logo tampil polos dengan warna aslinya — tanpa lingkaran, tanpa invert dark mode.
-- Wordmark memakai Fraunces `tracking-tight`.
+- Wordmark memakai Geist Sans `tracking-tight`.
 
 ---
 

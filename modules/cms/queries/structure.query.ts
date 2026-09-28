@@ -1,4 +1,5 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
+import type { OrganizationStructure as PayloadOrganizationStructure } from "@/payload-types";
 
 export interface BoardMember {
   id: string;
@@ -40,8 +41,6 @@ export interface OrgStructure {
   members: BoardMember[];
 }
 
-const STRUCTURE_KEY = "org:structure";
-
 const defaultStructure: OrgStructure = {
   organization: {
     name: "Lembaga Ittihadul Muballighin",
@@ -59,44 +58,129 @@ const defaultStructure: OrgStructure = {
   members: [],
 };
 
+interface PayloadBoardMember {
+  id: string;
+  name: string;
+  position: string;
+  image?: string | null;
+  sortOrder?: number | null;
+}
+
+function toBoardMember(member: PayloadBoardMember): BoardMember {
+  return {
+    id: member.id,
+    name: member.name,
+    position: member.position,
+    image: member.image ?? "",
+    sortOrder: member.sortOrder ?? 0,
+  };
+}
+
+function payloadToStructure(
+  doc: PayloadOrganizationStructure,
+): OrgStructure | null {
+  const centralBoard = (doc.centralBoard ?? []).map(toBoardMember);
+  const members = (doc.members ?? []).map(toBoardMember);
+  const regionalBoards = (doc.regionalBoards ?? []).map((board) => ({
+    id: board.id,
+    province: board.province,
+    name: board.name,
+    members: (board.members ?? []).map(toBoardMember),
+  }));
+  const branchBoards = (doc.branchBoards ?? []).map((board) => ({
+    id: board.id,
+    province: board.province,
+    regency: board.regency,
+    name: board.name,
+    members: (board.members ?? []).map(toBoardMember),
+  }));
+  const organizationName = doc.organization?.name?.trim();
+  const hasContent =
+    Boolean(organizationName) ||
+    centralBoard.length > 0 ||
+    regionalBoards.length > 0 ||
+    branchBoards.length > 0 ||
+    members.length > 0;
+  if (!hasContent) return null;
+
+  const organization = doc.organization;
+  return {
+    organization: {
+      name: organization?.name ?? defaultStructure.organization.name,
+      shortName: organization?.shortName ?? "",
+      logo: organization?.logo ?? "",
+      address: organization?.address ?? "",
+      phone: organization?.phone ?? "",
+      email: organization?.email ?? "",
+      website: organization?.website ?? "",
+    },
+    googleSheetUrl: doc.googleSheetUrl ?? "",
+    centralBoard,
+    regionalBoards,
+    branchBoards,
+    members,
+  };
+}
+
 export async function getStructure(): Promise<OrgStructure> {
-  const setting = await prisma.setting.findUnique({
-    where: { key: STRUCTURE_KEY },
-  });
-
-  if (!setting) return defaultStructure;
-
   try {
-    const parsed = JSON.parse(setting.value);
-    return {
-      ...defaultStructure,
-      ...parsed,
-      organization: {
-        ...defaultStructure.organization,
-        ...parsed.organization,
-      },
-      centralBoard: parsed.centralBoard ?? defaultStructure.centralBoard,
-      regionalBoards:
-        parsed.regionalBoards ?? defaultStructure.regionalBoards,
-      branchBoards: parsed.branchBoards ?? defaultStructure.branchBoards,
-      members: parsed.members ?? defaultStructure.members,
-    };
+    const payload = await getPayloadClient();
+    const doc = await payload.findGlobal({ slug: "organization-structure" });
+    const fromPayload = payloadToStructure(doc);
+    if (fromPayload) return fromPayload;
   } catch {
-    return defaultStructure;
+    // Payload tidak tersedia → pakai default
   }
+
+  return defaultStructure;
 }
 
 export async function saveStructure(data: OrgStructure) {
-  return prisma.setting.upsert({
-    where: { key: STRUCTURE_KEY },
-    create: {
-      key: STRUCTURE_KEY,
-      value: JSON.stringify(data),
-      type: "JSON",
-    },
-    update: {
-      value: JSON.stringify(data),
-      type: "JSON",
+  const payload = await getPayloadClient();
+  await payload.updateGlobal({
+    slug: "organization-structure",
+    data: {
+      organization: data.organization,
+      googleSheetUrl: data.googleSheetUrl,
+      centralBoard: data.centralBoard.map((member) => ({
+        id: member.id,
+        name: member.name,
+        position: member.position,
+        image: member.image,
+        sortOrder: member.sortOrder,
+      })),
+      regionalBoards: data.regionalBoards.map((board) => ({
+        id: board.id,
+        province: board.province,
+        name: board.name,
+        members: board.members.map((member) => ({
+          id: member.id,
+          name: member.name,
+          position: member.position,
+          image: member.image,
+          sortOrder: member.sortOrder,
+        })),
+      })),
+      branchBoards: data.branchBoards.map((board) => ({
+        id: board.id,
+        province: board.province,
+        regency: board.regency,
+        name: board.name,
+        members: board.members.map((member) => ({
+          id: member.id,
+          name: member.name,
+          position: member.position,
+          image: member.image,
+          sortOrder: member.sortOrder,
+        })),
+      })),
+      members: data.members.map((member) => ({
+        id: member.id,
+        name: member.name,
+        position: member.position,
+        image: member.image,
+        sortOrder: member.sortOrder,
+      })),
     },
   });
 }

@@ -31,6 +31,21 @@ const HIJRI_MONTHS = [
   "Zulhijjah",
 ];
 
+const HIJRI_MONTHS_AR = [
+  "مُحَرَّم",
+  "صَفَر",
+  "رَبِيع ٱلْأَوَّل",
+  "رَبِيع ٱلْآخِر",
+  "جُمَادَىٰ ٱلْأُولَىٰ",
+  "جُمَادَىٰ ٱلْآخِرَة",
+  "رَجَب",
+  "شَعْبَان",
+  "رَمَضَان",
+  "شَوَّال",
+  "ذُو ٱلْقَعْدَة",
+  "ذُو ٱلْحِجَّة",
+];
+
 type Method = "HISAB" | "RUKYAT" | "IMKANUR_RUKYAT" | "WUJUDUL_HILAL";
 
 const METHOD_LABELS: Record<Method, string> = {
@@ -126,9 +141,12 @@ export function HijriCalendarWidget() {
         {result && (
           <div className="rounded-md border border-primary/30 p-6 text-center">
             <p className="text-sm text-muted-foreground">Tanggal Hijriah</p>
-            <p className="mt-2 font-data text-3xl font-bold tabular-nums text-primary">
-              {result.hijriDay} {HIJRI_MONTHS[result.hijriMonth - 1]}{" "}
+            <p className="mt-2 font-ar text-3xl font-bold tabular-nums text-primary">
+              {result.hijriDay} {HIJRI_MONTHS_AR[result.hijriMonth - 1]}{" "}
               {result.hijriYear} H
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {result.hijriDay} {HIJRI_MONTHS[result.hijriMonth - 1]} {result.hijriYear} H
             </p>
             <Badge variant="outline" className="mt-3">
               {METHOD_LABELS[method as Method] ?? "Perhitungan Hisab"}

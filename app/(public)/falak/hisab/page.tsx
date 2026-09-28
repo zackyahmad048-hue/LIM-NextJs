@@ -37,7 +37,7 @@ export default async function HisabPage() {
             rows={items.map((item) => ({
               key: item.id,
               cells: [
-                <span key="loc" className="font-medium text-foreground">
+                <span key="loc" className="font-medium text-foreground truncate max-w-xs">
                   {item.locationName}
                 </span>,
                 <span key="coord" className="tabular-nums text-muted-foreground">
@@ -52,6 +52,10 @@ export default async function HisabPage() {
               ],
             }))}
             emptyMessage="Belum ada data hisab yang dipublikasikan."
+            emptyAction={{
+              label: "Lihat halaman admin untuk menambah data",
+              href: "/admin/falak/hisab",
+            }}
           />
         </Reveal>
       </SiteSection>

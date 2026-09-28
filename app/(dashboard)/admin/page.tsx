@@ -5,34 +5,25 @@ import { getSession } from "@/modules/authentication/infrastructure/session.help
 import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
 import { ROLE_LABELS } from "@/config/role";
 import { getStructure } from "@/modules/cms/queries/structure.query";
-import { getProfilContent } from "@/modules/cms/queries/site-page.query";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
   const session = await getSession();
   const { roleSlugs } = await getCurrentUserPermissions();
-  const [structure, profil] = await Promise.all([
-    getStructure(),
-    getProfilContent(),
-  ]);
+  const structure = await getStructure();
 
   const user = {
     name: session?.user.name ?? "Admin",
     email: session?.user.email ?? "",
     image: session?.user.image ?? null,
     roleLabel:
-      roleSlugs.map((slug) => ROLE_LABELS[slug]).filter(Boolean)[0] ??
-      "Admin",
+      roleSlugs.map((slug) => ROLE_LABELS[slug]).filter(Boolean)[0] ?? "Admin",
   };
 
   return (
     <PageContainer>
-      <AdminDashboard
-        user={user}
-        structure={structure}
-        profil={profil}
-      />
+      <AdminDashboard user={user} structure={structure} roleSlugs={roleSlugs} />
     </PageContainer>
   );
 }

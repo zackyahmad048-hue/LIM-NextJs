@@ -60,7 +60,7 @@ export default async function PengurusPusatPage() {
                 <h2 className="mt-4 font-heading text-sm font-semibold text-balance text-foreground">
                   {orang.name}
                 </h2>
-                <p className="mt-1 font-sans text-[10px] uppercase text-primary">
+                <p className="mt-1 text-xs font-medium text-primary">
                   {orang.position}
                 </p>
                 </div>

@@ -8,8 +8,6 @@ import { PanelLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "../providers/sidebar-provider";
-import { cn } from "@/lib/utils";
-import { chrome } from "../shared/chrome";
 
 interface HeaderUser {
   name: string;
@@ -36,24 +34,19 @@ export function Header({ user, roleSlugs }: Props) {
       : "Tutup sidebar";
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-20 flex h-14 items-center gap-3 border-b px-4",
-        chrome,
-      )}
-    >
-      <div className="flex items-center gap-1.5">
+    <header className="sticky top-12 z-30 flex h-12 items-center gap-3 border-b px-4 md:px-6 glass-chrome">
+      <div className="flex items-center gap-2">
         <Button
           variant="ghost"
           size="icon-sm"
           onClick={isMobile ? toggleMobile : toggle}
           aria-label={toggleLabel}
-          className="text-admin-content-fg hover:bg-admin-border"
+          className="text-admin-content-fg hover:bg-admin-sidebar-accent/10"
         >
           <PanelLeft className="h-4 w-4" />
         </Button>
 
-        <div className="min-w-0 rounded-lg bg-admin-border/50 px-3 py-1">
+        <div className="min-w-0 px-3 py-1 rounded-lg bg-admin-card-bg border border-admin-card-border">
           <Breadcrumb />
         </div>
       </div>

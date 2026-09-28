@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
 import SectionLabel from "@/components/shared/section-label";
-import { HubDot } from "@/components/shared/hub-dot";
+import { Target } from "lucide-react";
 import Reveal from "@/components/website/motion/reveal";
 import SiteSection from "@/components/website/layout/site-section";
 import { getProfilContent } from "@/modules/cms/queries/site-page.query";
@@ -41,7 +41,7 @@ export default async function ProfilPage() {
               <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
                 {profil.misi.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <HubDot className="mt-1.5 h-2.5 w-2.5" />
+                    <Target className="mt-1.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
                     {item}
                   </li>
                 ))}

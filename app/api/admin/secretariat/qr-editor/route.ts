@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
-import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { driveStorage, storage } from "@/modules/shared/infrastructure/storage";
 import { findFiducialPositions } from "@/modules/secretariat/application/fiducial.service";
 import { renderPdfPagesForEditor } from "@/modules/secretariat/application/qr-editor.service";
@@ -27,7 +27,14 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const media = await prisma.media.findUnique({ where: { fileId } });
+    const payload = await getPayloadClient();
+    const mediaRes = await payload.find({
+      collection: "media",
+      where: { fileId: { equals: fileId } },
+      limit: 1,
+      depth: 0,
+    });
+    const media = mediaRes.docs[0];
     if (!media || media.mimeType !== "application/pdf") {
       return NextResponse.json(
         { success: false, message: "Dokumen tidak ditemukan." },

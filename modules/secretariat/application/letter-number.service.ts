@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { SecretariatError } from "../domain/secretariat.errors";
 import {
   formatLetterNumber,
@@ -62,69 +62,82 @@ export async function assignLetterNumber(
 
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const result = await prisma.$transaction(async (tx) => {
-        const mail = await tx.outgoingMail.findUnique({
-          where: { id: mailId },
-          select: { fullNumber: true, deletedAt: true },
-        });
-        if (!mail || mail.deletedAt) {
-          throw new SecretariatError("Surat keluar tidak ditemukan.");
-        }
-        if (mail.fullNumber) {
-          throw new LetterNumberAlreadyIssuedError();
-        }
+      const payload = await getPayloadClient();
+      const idNum = Number(mailId);
+      if (!Number.isInteger(idNum)) {
+        throw new SecretariatError("Surat keluar tidak ditemukan.");
+      }
 
-        // Nomor surat tidak boleh dipakai ulang, termasuk yang sudah
-        // dihapus (soft delete) — constraint unique (periodYear, sequence)
-        // tetap berlaku untuk semua baris.
-        const latest = await tx.outgoingMail.findFirst({
-          where: {
-            periodYear,
-            sequence: { not: null },
-          },
-          orderBy: { sequence: "desc" },
-          select: { sequence: true },
-        });
+      const found = await payload.find({
+        collection: "outgoing-mails",
+        where: { id: { equals: idNum } },
+        limit: 1,
+        depth: 0,
+      });
+      const mail = found.docs[0];
+      if (!mail || mail.deletedAt) {
+        throw new SecretariatError("Surat keluar tidak ditemukan.");
+      }
+      if (mail.fullNumber) {
+        throw new LetterNumberAlreadyIssuedError();
+      }
 
-        const sequence = Math.max(
-          (latest?.sequence ?? 0) + 1,
-          nextSequenceOverride,
-        );
-        const fullNumber = formatLetterNumber(
-          {
-            sequence,
-            levelCode,
-            categoryCode,
-            romanMonth,
-            year,
-          },
-          {
-            template: config.formatTemplate,
-            sequenceDigits: config.sequenceDigits,
-          },
-        );
+      // Nomor surat tidak boleh dipakai ulang, termasuk yang sudah
+      // dihapus (soft delete) — constraint unique (periodYear, sequence)
+      // tetap berlaku untuk semua baris.
+      const latestRes = await payload.find({
+        collection: "outgoing-mails",
+        where: {
+          and: [
+            { periodYear: { equals: periodYear } },
+            { sequence: { greater_than: 0 } },
+          ],
+        },
+        sort: "-sequence",
+        limit: 1,
+        depth: 0,
+      });
+      const latest = latestRes.docs[0];
 
-        await tx.outgoingMail.update({
-          where: { id: mailId },
-          data: {
-            sequence,
-            levelCode,
-            categoryCode,
-            romanMonth,
-            periodYear,
-            fullNumber,
-          },
-        });
-
-        return {
+      const sequence = Math.max(
+        (latest?.sequence ?? 0) + 1,
+        nextSequenceOverride,
+      );
+      const fullNumber = formatLetterNumber(
+        {
           sequence,
           levelCode,
           categoryCode,
           romanMonth,
           year,
+        },
+        {
+          template: config.formatTemplate,
+          sequenceDigits: config.sequenceDigits,
+        },
+      );
+
+      await payload.update({
+        collection: "outgoing-mails",
+        id: idNum,
+        data: {
+          sequence,
+          levelCode,
+          categoryCode,
+          romanMonth,
+          periodYear,
           fullNumber,
-        };
+        },
       });
+
+      const result = {
+        sequence,
+        levelCode,
+        categoryCode,
+        romanMonth,
+        year,
+        fullNumber,
+      };
 
       // Override "nomor urut berikutnya" sudah terpakai — bersihkan.
       if (
@@ -136,17 +149,29 @@ export async function assignLetterNumber(
 
       return result;
     } catch (error) {
-      const isUniqueConflict =
-        error &&
-        typeof error === "object" &&
-        "code" in error &&
-        (error as { code?: string }).code === "P2002";
+      const isUniqueConflict = isSequenceConflict(error);
       if (isUniqueConflict && attempt < 2) continue;
       throw error;
     }
   }
 
   throw new SecretariatError("Nomor surat gagal diterbitkan.");
+}
+
+function isSequenceConflict(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const e = error as {
+    code?: unknown;
+    message?: unknown;
+    cause?: { code?: unknown; message?: unknown };
+  };
+  if (e.code === "P2002") return true;
+  const cause = e.cause;
+  if (cause && typeof cause === "object" && cause.code === "23505") {
+    return true;
+  }
+  const text = `${String(e.message ?? "")} ${String(cause?.message ?? "")}`;
+  return /duplicate key|unique constraint/i.test(text);
 }
 
 async function clearNextSequenceOverride(periodYear: number) {

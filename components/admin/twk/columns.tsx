@@ -31,12 +31,10 @@ interface Props {
 }
 
 const STATUS_TONE: Record<WajibKhidmahStatus, string> = {
-  AKTIF:
-    "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300",
-  GUGUR: "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-300",
-  BEBAS_TUGAS:
-    "bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300",
-  QODLO: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-300",
+  AKTIF: "bg-success/10 text-success",
+  GUGUR: "bg-destructive/10 text-destructive",
+  BEBAS_TUGAS: "bg-warning/10 text-warning",
+  QODLO: "bg-admin-border/30 text-admin-content-fg/60",
 };
 
 function StatusBadge({ status }: { status: WajibKhidmahStatus }) {
@@ -55,7 +53,7 @@ function DashText({ value, className }: { value: string; className?: string }) {
   const trimmed = value?.trim();
   return (
     <span className={cn("text-sm", className)}>
-      {trimmed ? trimmed : <span className="text-muted-foreground">-</span>}
+      {trimmed ? trimmed : <span className="text-admin-content-fg/60">-</span>}
     </span>
   );
 }
@@ -67,7 +65,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
       accessorKey: "no",
       header: ({ column }) => <DataColumnHeader column={column} title="No." />,
       cell: ({ row }) => (
-        <span className="text-sm tabular-nums text-muted-foreground">
+        <span className="text-sm tabular-nums text-admin-content-fg/60">
           {row.index + 1}
         </span>
       ),
@@ -78,7 +76,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
       cell: ({ row }) => (
         <Link
           href={`/admin/twk/${row.original.id}`}
-          className="font-medium text-foreground transition-colors hover:text-primary hover:underline"
+          className="font-medium text-admin-content-fg transition-colors hover:text-primary hover:underline"
         >
           {row.original.nama}
         </Link>
@@ -92,7 +90,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
       cell: ({ row }) => (
         <span className="block max-w-48 truncate text-sm">
           {row.original.asalDaerah || (
-            <span className="text-muted-foreground">-</span>
+            <span className="text-admin-content-fg/60">-</span>
           )}
         </span>
       ),
@@ -116,7 +114,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
         const trimmed = places.filter((place) => place.trim().length > 0);
 
         if (trimmed.length === 0) {
-          return <span className="text-sm text-muted-foreground">-</span>;
+          return <span className="text-sm text-admin-content-fg/60">-</span>;
         }
 
         return (
@@ -143,7 +141,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
           {row.original.catatan?.trim() ? (
             <span className="line-clamp-2">{row.original.catatan}</span>
           ) : (
-            <span className="text-muted-foreground">-</span>
+            <span className="text-admin-content-fg/60">-</span>
           )}
         </span>
       ),
@@ -154,7 +152,7 @@ export function getMemberColumns({ onEdit }: Props): ColumnDef<MemberRow>[] {
       cell: ({ row }) => (
         <span className="block max-w-40 truncate text-sm">
           {row.original.absensi || (
-            <span className="text-muted-foreground">-</span>
+            <span className="text-admin-content-fg/60">-</span>
           )}
         </span>
       ),

@@ -5,7 +5,7 @@ import type {
   AdministrativeDocumentStatus,
   DocumentType,
 } from "@/generated/client";
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { getLetterNumberingConfig as getLetterNumberingConfigSetting } from "../infrastructure/letter-numbering.config";
 import { secretariatService } from "../application/service";
@@ -171,25 +171,38 @@ export async function getSuratMenyuratStats() {
 }
 
 export async function getCalendarEvents(params: { from: Date; to: Date }) {
-  const [agendas, schedules] = await Promise.all([
+  const payload = await getPayloadClient();
+  const [agendas, scheduleRes] = await Promise.all([
     secretariatService.listAgendasInRange(params),
-    prisma.programSchedule.findMany({
+    payload.find({
+      collection: "program-schedules",
       where: {
-        deletedAt: null,
-        startTime: { gte: params.from },
-        endTime: { lte: params.to },
+        and: [
+          { deletedAt: { exists: false } },
+          { startTime: { greater_than_equal: params.from.toISOString() } },
+          { endTime: { less_than_equal: params.to.toISOString() } },
+        ],
       },
-      select: {
-        id: true,
-        title: true,
-        startTime: true,
-        endTime: true,
-        description: true,
-        program: { select: { name: true } },
-      },
-      orderBy: { startTime: "asc" },
+      sort: "startTime",
+      limit: 1000,
+      depth: 1,
     }),
   ]);
+
+  const schedules = scheduleRes.docs.map((doc) => {
+    const program =
+      doc.program !== null && typeof doc.program === "object"
+        ? doc.program
+        : null;
+    return {
+      id: String(doc.id),
+      title: doc.title,
+      startTime: new Date(doc.startTime),
+      endTime: new Date(doc.endTime),
+      description: doc.description ?? null,
+      program: program ? { name: program.name } : null,
+    };
+  });
 
   return {
     agendas,
@@ -240,7 +253,14 @@ export async function getOutgoingMailByVerificationCode(code: string) {
 }
 
 export async function getMediaByFileId(fileId: string) {
-  return prisma.media.findUnique({ where: { fileId } });
+  const payload = await getPayloadClient();
+  const res = await payload.find({
+    collection: "media",
+    where: { fileId: { equals: fileId } },
+    limit: 1,
+    depth: 0,
+  });
+  return res.docs[0] ?? null;
 }
 
 export async function getDashboardActionQueue(limit = 8) {

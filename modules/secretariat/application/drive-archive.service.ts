@@ -1,4 +1,4 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import { driveStorage, storage } from "@/modules/shared/infrastructure/storage";
 import {
   getDriveConnection,
@@ -42,7 +42,14 @@ export async function archiveOutgoingMailFile(
   const fileId = extractFileIdFromMediaUrl(mail.attachmentUrl);
   if (!fileId) return;
 
-  const media = await prisma.media.findUnique({ where: { fileId } });
+  const payload = await getPayloadClient();
+  const mediaRes = await payload.find({
+    collection: "media",
+    where: { fileId: { equals: fileId } },
+    limit: 1,
+    depth: 0,
+  });
+  const media = mediaRes.docs[0];
   if (!media) return;
   if (media.storageProvider === "GOOGLE_DRIVE") return;
 
@@ -56,8 +63,9 @@ export async function archiveOutgoingMailFile(
     );
 
     await storage.remove(fileId);
-    await prisma.media.update({
-      where: { id: media.id },
+    await payload.update({
+      collection: "media",
+      id: Number(media.id),
       data: {
         storageProvider: "GOOGLE_DRIVE",
         storageKey: driveFileId,

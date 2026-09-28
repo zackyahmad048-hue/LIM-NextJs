@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/website/page-header";
-import { HubDot } from "@/components/shared/hub-dot";
+import { Check } from "lucide-react";
 import Reveal from "@/components/website/motion/reveal";
 import SiteSection from "@/components/website/layout/site-section";
-import { BIDANG } from "@/config/bidang";
+import { getBidangList } from "@/modules/organization/queries/bidang.query";
 import Link from "next/link";
 
 export const revalidate = 3600;
@@ -14,7 +14,9 @@ export const metadata: Metadata = {
     "Bidang-bidang kegiatan Lembaga Ittihadul Muballighin meliputi berbagai program dan layanan untuk masyarakat.",
 };
 
-export default function BidangIndexPage() {
+export default async function BidangIndexPage() {
+  const bidangList = await getBidangList();
+
   return (
     <>
       <PageHeader
@@ -24,7 +26,7 @@ export default function BidangIndexPage() {
 
       <SiteSection>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {BIDANG.map((bidang, i) => (
+          {bidangList.map((bidang, i) => (
             <Reveal key={bidang.slug} index={i} className="h-full">
               <Link
                 href={`/profil/bidang/${bidang.slug}`}
@@ -47,7 +49,7 @@ export default function BidangIndexPage() {
                     key={point}
                     className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
                   >
-                    <HubDot className="h-1.5 w-1.5" />
+                    <Check className="h-3 w-3 shrink-0 text-primary" aria-hidden />
                     {point.length > 25 ? `${point.slice(0, 25)}...` : point}
                   </span>
                 ))}

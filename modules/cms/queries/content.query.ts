@@ -1,11 +1,19 @@
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 export async function getContentSummary() {
+  const payload = await getPayloadClient();
   const [categoryCount, postCount, publishedPostCount] = await Promise.all([
-    prisma.category.count({ where: { deletedAt: null } }),
-    prisma.post.count({ where: { deletedAt: null } }),
-    prisma.post.count({ where: { published: true, deletedAt: null } }),
+    payload.count({ collection: "categories" }),
+    payload.count({ collection: "posts" }),
+    payload.count({
+      collection: "posts",
+      where: { published: { equals: true } },
+    }),
   ]);
 
-  return { categoryCount, postCount, publishedPostCount };
+  return {
+    categoryCount: categoryCount.totalDocs,
+    postCount: postCount.totalDocs,
+    publishedPostCount: publishedPostCount.totalDocs,
+  };
 }

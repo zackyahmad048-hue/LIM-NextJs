@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -13,7 +14,6 @@ const nextConfig: NextConfig = {
       "./node_modules/pdfjs-dist/standard_fonts/**/*.pfb",
     ],
   },
-
   async redirects() {
     const port = process.env.PORT || "3000";
     return [
@@ -27,4 +27,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

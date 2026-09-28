@@ -1,0 +1,30 @@
+import { PageContainer } from "@/components/admin/shared/page-container";
+import { AdminDashboard } from "@/components/admin/dashboard/admin-dashboard";
+
+import { getSession } from "@/modules/authentication/infrastructure/session.helper";
+import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
+import { ROLE_LABELS } from "@/config/role";
+import { getStructure } from "@/modules/cms/queries/structure.query";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminPage() {
+  const session = await getSession();
+  const { roleSlugs } = await getCurrentUserPermissions();
+  const structure = await getStructure();
+
+  const user = {
+    name: session?.user.name ?? "Admin",
+    email: session?.user.email ?? "",
+    image: session?.user.image ?? null,
+    roleLabel:
+      roleSlugs.map((slug) => ROLE_LABELS[slug]).filter(Boolean)[0] ??
+      "Admin",
+  };
+
+  return (
+    <PageContainer>
+      <AdminDashboard user={user} structure={structure} />
+    </PageContainer>
+  );
+}

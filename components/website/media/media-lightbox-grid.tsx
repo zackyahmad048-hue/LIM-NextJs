@@ -35,7 +35,7 @@ export const MEDIA_FILTERS: Array<{ label: string; value: "SEMUA" | MediaType }>
 
 function MediaTypeBadge({ type }: { type: MediaType }) {
   return (
-    <span className="absolute left-2 top-2 z-10 rounded-sm border border-border/70 bg-background/95 px-1.5 py-0.5 font-data text-[10px] font-medium uppercase tracking-wide text-foreground">
+    <span className="absolute left-2 top-2 z-10 rounded-sm border border-border/70 bg-background/95 px-1.5 py-0.5 text-[10px] font-medium text-foreground">
       {MEDIA_TYPE_LABELS[type]}
     </span>
   );

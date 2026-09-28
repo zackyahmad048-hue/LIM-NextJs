@@ -44,40 +44,58 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { TableSkeleton, CardSkeleton } from "@/components/website/ui/skeleton";
+
+const PRAYER_NAMES_AR: Record<string, string> = {
+  fajr: "الفجر",
+  dhuhr: "الظهر",
+  asr: "العصر",
+  maghrib: "المغرب",
+  isha: "العشاء",
+  imsak: "الإمساك",
+  sunrise: "الشروق",
+};
 
 const PRAYER_CARDS: Array<{
   key: keyof PrayerTimes;
   label: string;
+  arabic?: string;
   icon: React.ReactNode;
 }> = [
   {
     key: "fajr",
     label: "Subuh",
+    arabic: PRAYER_NAMES_AR.fajr,
     icon: <Sunrise className="h-5 w-5 text-primary" />,
   },
   {
     key: "sunrise",
     label: "Terbit",
+    arabic: PRAYER_NAMES_AR.sunrise,
     icon: <Sun className="h-5 w-5 text-primary" />,
   },
   {
     key: "dhuhr",
     label: "Dzuhur",
+    arabic: PRAYER_NAMES_AR.dhuhr,
     icon: <Sun className="h-5 w-5 text-primary" />,
   },
   {
     key: "asr",
     label: "Ashar",
+    arabic: PRAYER_NAMES_AR.asr,
     icon: <Sun className="h-5 w-5 text-primary" />,
   },
   {
     key: "maghrib",
     label: "Maghrib",
+    arabic: PRAYER_NAMES_AR.maghrib,
     icon: <Sunset className="h-5 w-5 text-primary" />,
   },
   {
     key: "isha",
     label: "Isya",
+    arabic: PRAYER_NAMES_AR.isha,
     icon: <Moon className="h-5 w-5 text-primary" />,
   },
 ];
@@ -113,9 +131,8 @@ export function PrayerTimeTable() {
 
   if (!currentTime) {
     return (
-      <Card className="p-8 text-center text-muted-foreground">
-        <Clock className="mx-auto h-8 w-8 animate-spin text-primary" />
-        <p className="mt-3">Memuat Perhitungan Waktu Shalat & Jam Istiwa...</p>
+      <Card className="p-8">
+        <TableSkeleton columns={6} rows={6} />
       </Card>
     );
   }
@@ -432,7 +449,13 @@ export function PrayerTimeTable() {
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-4 py-1.5 text-xs sm:text-sm text-primary">
             <Sparkles className="h-4 w-4" />
             <span>
-              Menuju <strong>{nextPrayerName}</strong> dalam:{" "}
+              Menuju <strong className="flex flex-col items-end leading-tight">{nextPrayerName}
+                {PRAYER_NAMES_AR[nextPrayerName.toLowerCase()] && (
+                  <span className="font-ar text-[10px] sm:text-[11px] text-muted-foreground leading-none">
+                    {PRAYER_NAMES_AR[nextPrayerName.toLowerCase()]}
+                  </span>
+                )}
+              </strong> dalam:{" "}
               <strong className="font-mono font-bold tabular-nums">
                 {countdownStr}
               </strong>
@@ -473,13 +496,18 @@ export function PrayerTimeTable() {
               >
                 <CardContent className="flex flex-col items-center justify-center p-4 text-center">
                   <div className="mb-2 rounded-full bg-muted p-2">{p.icon}</div>
-                  <div className="text-xs font-medium text-muted-foreground">
+                  <div className="text-xs font-medium text-muted-foreground flex flex-col items-center leading-tight">
                     {p.label}
+                    {p.arabic && (
+                      <span className="font-ar text-[10px] sm:text-[11px] text-muted-foreground leading-none">
+                        {p.arabic}
+                      </span>
+                    )}
                   </div>
                   <div className="mt-1 font-mono text-xl font-bold text-foreground tabular-nums">
                     {prayerTimesFormatted[p.key]}
                   </div>
-                  <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground uppercase">
+                  <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted-foreground">
                     <span>
                       {isIstiwaMode ? "WIS" : location.timezoneName || "WIB"}
                     </span>

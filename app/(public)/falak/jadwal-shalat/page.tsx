@@ -14,7 +14,7 @@ export default function JadwalShalatPage() {
     <>
       <PageHeader
         title="Jadwal Shalat"
-        description="Jadwal shalat harian berdasarkan lokasi Anda — dengan mode waktu standar, waktu istiwa', dan ihtiyat +3 menit."
+        description="Jadwal shalat harian berdasarkan lokasi Anda - dengan mode waktu standar, waktu istiwa', dan ihtiyat +3 menit."
       />
 
       <SiteSection>

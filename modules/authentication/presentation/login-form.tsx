@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +15,7 @@ import {
   loginSchema,
   type LoginSchema,
 } from "@/modules/authentication/validators/login.schema";
+import { SmoothInput } from "@/components/ui/skiper-ui/skiper106";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function LoginForm() {
     }
 
     toast.success("Selamat datang kembali.");
-    router.push("/admin");
+    router.push("/dashboard");
   };
 
   return (
@@ -59,22 +60,17 @@ export default function LoginForm() {
         >
           Email
         </label>
-
-        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-[border-color,box-shadow] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-          <Mail size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
-
-          <input
-            id="login-email"
-            type="email"
-            autoComplete="email"
-            aria-invalid={errors.email ? true : undefined}
-            aria-describedby={errors.email ? "login-email-error" : undefined}
-            {...register("email")}
-            placeholder="admin@email.com"
-            className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
-          />
-        </div>
-
+        <SmoothInput
+          id="login-email"
+          {...register("email")}
+          type="text"
+          autoComplete="email"
+          aria-invalid={errors.email ? true : undefined}
+          aria-describedby={errors.email ? "login-email-error" : undefined}
+          placeholder="admin@email.com"
+          wrapperClassName="p-0"
+          className="h-9 rounded-full border border-input bg-background px-3 text-xs placeholder:text-muted-foreground"
+        />
         {errors.email && (
           <p id="login-email-error" className="mt-1 text-xs text-destructive">
             {errors.email.message}
@@ -89,33 +85,29 @@ export default function LoginForm() {
         >
           Password
         </label>
-
-        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-[border-color,box-shadow] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-          <Lock size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
-
-          <input
+        <div className="relative">
+          <SmoothInput
             id="login-password"
+            {...register("password")}
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             aria-invalid={errors.password ? true : undefined}
             aria-describedby={errors.password ? "login-password-error" : undefined}
-            {...register("password")}
             placeholder="********"
-            className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+            wrapperClassName="p-0"
+            className="h-9 rounded-full border border-input bg-background px-3 pr-9 text-xs placeholder:text-muted-foreground"
           />
-
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={
               showPassword ? "Sembunyikan password" : "Tampilkan password"
             }
-            className="ml-2 rounded-md p-1 text-muted-foreground transition hover:text-primary"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors focus:text-primary"
           >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
-
         {errors.password && (
           <p id="login-password-error" className="mt-1 text-xs text-destructive">
             {errors.password.message}
@@ -137,7 +129,7 @@ export default function LoginForm() {
         whileHover={{ scale: 1.01 }}
         type="submit"
         disabled={isSubmitting}
-        className="mt-5 flex h-10 w-full items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-5 flex h-10 w-full items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? (
           <motion.div
