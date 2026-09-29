@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload";
 
-import { canManageSecretariat, canReadContent } from "./access";
+import { canManageSecretariat, canReadSecretariat } from "./access";
 
 export const OutgoingMails: CollectionConfig = {
   slug: "outgoing-mails",
@@ -10,7 +10,7 @@ export const OutgoingMails: CollectionConfig = {
     description: "Surat keluar sekretariat.",
   },
   access: {
-    read: canReadContent,
+    read: canReadSecretariat,
     create: canManageSecretariat,
     update: canManageSecretariat,
     delete: canManageSecretariat,

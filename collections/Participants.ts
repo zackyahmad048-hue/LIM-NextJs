@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload";
 
-import { canManageProgram, canReadContent } from "./access";
+import { canManageProgram, canReadProgram } from "./access";
 
 export const Participants: CollectionConfig = {
   slug: "participants",
@@ -9,7 +9,7 @@ export const Participants: CollectionConfig = {
     useAsTitle: "userId",
   },
   access: {
-    read: canReadContent,
+    read: canReadProgram,
     create: canManageProgram,
     update: canManageProgram,
     delete: canManageProgram,

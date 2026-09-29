@@ -43,13 +43,59 @@ const dirname = path.dirname(filename);
 const ADMIN_ROUTE = "/cms";
 const API_ROUTE = "/payload-api";
 
+// Lives beside app/(payload)/cms/[[...segments]]/page.tsx, which imports it as
+// "../importMap.js". Kept in one place so the config and the route folder agree.
+const IMPORT_MAP_DIR = "app/(payload)/cms";
+const IMPORT_MAP_FILE = path.resolve(dirname, IMPORT_MAP_DIR, "importMap.js");
+
+const PLACEHOLDER_SECRETS = new Set([
+  "CHANGE-ME",
+  "your-payload-secret",
+  "your-super-secret-key",
+]);
+
 const secret = process.env.PAYLOAD_SECRET || process.env.BETTER_AUTH_SECRET;
 
-if (!secret) {
+if (!secret || PLACEHOLDER_SECRETS.has(secret)) {
   throw new Error(
-    "Missing PAYLOAD_SECRET. Generate one with `openssl rand -base64 32` and add it to .env. " +
+    "Missing or placeholder PAYLOAD_SECRET. Generate one with `openssl rand -base64 32` and add it to .env. " +
       "BETTER_AUTH_SECRET is accepted as a fallback.",
   );
+}
+
+/**
+ * Payload pushes `serverURL` into its CSRF allowlist and uses it verbatim as
+ * the request origin. Pinning it to a `localhost` value that only holds in
+ * local `.env` would break origin checks on any real deployment, so it is only
+ * set when the configured URL is an absolute, non-localhost origin. Otherwise
+ * Payload derives the origin from request headers, which is correct behind a
+ * proxy and on Vercel.
+ */
+function resolveServerURL(): string | undefined {
+  const candidates = [
+    process.env.SERVER_URL,
+    process.env.NEXT_PUBLIC_APP_URL,
+    process.env.BETTER_AUTH_URL,
+  ];
+
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+
+    let parsed: URL;
+    try {
+      parsed = new URL(candidate);
+    } catch {
+      continue;
+    }
+
+    if (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1") {
+      continue;
+    }
+
+    return parsed.origin;
+  }
+
+  return undefined;
 }
 
 export default buildConfig({
@@ -58,16 +104,30 @@ export default buildConfig({
   routes: {
     admin: ADMIN_ROUTE,
     api: API_ROUTE,
+    graphQL: `${API_ROUTE}/graphql`,
+    graphQLPlayground: `${API_ROUTE}/graphql-playground`,
   },
   admin: {
     user: Users.slug,
+    components: {
+      // disableLocalStrategy removes Payload's own login form, so point people
+      // at the application login, and clear the Better Auth session on logout.
+      beforeLogin: [{ path: "@/collections/better-auth-login#BeforeLogin" }],
+      logout: {
+        Button: { path: "@/collections/better-auth-logout#BetterAuthLogout" },
+      },
+    },
     importMap: {
       baseDir: path.resolve(dirname),
-      importMapFile: path.resolve(dirname, `app/(payload)${ADMIN_ROUTE}/importMap.js`),
+      // Explicit literal, not derived from ADMIN_ROUTE. The (payload) route
+      // group does not contribute a URL segment, so the folder name is a free
+      // filesystem choice that need not match the URL. This path is the one
+      // that must point at a file that exists.
+      importMapFile: IMPORT_MAP_FILE,
     },
   },
   secret,
-  serverURL: process.env.NEXT_PUBLIC_APP_URL || process.env.BETTER_AUTH_URL,
+  serverURL: resolveServerURL(),
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },

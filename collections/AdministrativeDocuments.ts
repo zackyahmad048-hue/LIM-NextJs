@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload";
 
-import { canManageSecretariat, canReadContent } from "./access";
+import { canManageSecretariat, canReadSecretariat } from "./access";
 
 export const AdministrativeDocuments: CollectionConfig = {
   slug: "administrative-documents",
@@ -10,7 +10,7 @@ export const AdministrativeDocuments: CollectionConfig = {
     description: "Dokumen administrasi sekretariat.",
   },
   access: {
-    read: canReadContent,
+    read: canReadSecretariat,
     create: canManageSecretariat,
     update: canManageSecretariat,
     delete: canManageSecretariat,

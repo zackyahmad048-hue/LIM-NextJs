@@ -31,31 +31,45 @@ function permissionSlugs(user: unknown): PermissionSlug[] {
   return toStringArray((user as AuthenticatedUser).permissionSlugs);
 }
 
-function isAuthenticated(user: unknown): boolean {
-  return roleSlugs(user).length > 0;
-}
-
 /**
- * Grants when the user holds at least one of the required permissions, or
- * when they hold a wildcard (`*`) that covers every permission.
+ * Grants when the user holds at least one of the required permissions.
+ *
+ * Deliberately does not treat a role slug as a grant. The wildcard is also
+ * excluded on purpose: `prisma/seed.ts` expands `"*"` into explicit rows, so
+ * a literal `*` row in the permissions table would silently grant everything
+ * to whoever it was attached to.
  */
 function canAny(user: unknown, required: PermissionSlug[]): boolean {
   const granted = permissionSlugs(user);
 
-  if (granted.includes("*")) return true;
   if (granted.length === 0) return false;
 
   return required.some((permission) => granted.includes(permission));
 }
 
-const { CONTENT, FALAK, PROGRAM, TWK, SECRETARIAT, REPORTS, STRUCTURE, SYSTEM } =
-  PERMISSIONS;
+const {
+  CONTENT,
+  FALAK,
+  PROGRAM,
+  TWK,
+  SECRETARIAT,
+  ORGANIZATION,
+  REPORTS,
+  STRUCTURE,
+  SYSTEM,
+} = PERMISSIONS;
 
 const { CATEGORY, POST } = CONTENT;
 
 export const allowPublicRead: Access = () => true;
 
-export const canReadContent: Access = ({ req }) => isAuthenticated(req.user);
+/** Secretariat correspondence and archives. */
+export const canReadSecretariat: Access = ({ req }) =>
+  canAny(req.user, [SECRETARIAT.VIEW]);
+
+/** Program rosters: participants and attendance. */
+export const canReadProgram: Access = ({ req }) =>
+  canAny(req.user, [PROGRAM.VIEW]);
 
 export const canManageContent: Access = ({ req }) =>
   canAny(req.user, [POST.CREATE, POST.UPDATE, CATEGORY.CREATE, CATEGORY.UPDATE]);
@@ -91,4 +105,10 @@ export const canManageUsersField: FieldAccess = ({ req }) =>
   canAny(req.user, [SYSTEM.USER.UPDATE]);
 
 export const isSuperAdmin: FieldAccess = ({ req }) =>
-  permissionSlugs(req.user).includes("*") || roleSlugs(req.user).includes("super-admin");
+  roleSlugs(req.user).includes("super-admin");
+
+/**
+ * Guards administrative document type metadata.
+ */
+export const canReadOrganization: Access = ({ req }) =>
+  canAny(req.user, [ORGANIZATION.UNIT.VIEW]);

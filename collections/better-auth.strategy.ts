@@ -9,14 +9,19 @@ const permissionRepository = new PrismaUserPermissionRepository();
  * Payload is the CMS data layer, not the identity provider. Better Auth owns
  * sessions and the RBAC graph (User -> UserRole -> Role -> RolePermission).
  *
- * This strategy resolves the Better Auth session, then returns the matching
+ * This strategy resolves the Better Auth session and returns the matching
  * `users` document with the caller's role and permission slugs attached, so
  * `collections/access.ts` can authorise against permission slugs instead of a
- * role field that Better Auth never populates.
+ * role field Better Auth never populates.
  *
- * The `users` document is provisioned on first sight of an email so that
- * `req.user.id` stays a valid `users` id. Payload keys admin preferences and
- * locked documents by that id.
+ * The `users` document is keyed on `authUserId` (the Better Auth user id) and
+ * provisioned on first sight. Payload keys admin preferences and locked
+ * documents by that document's id, so a stable id matters. Keying on the
+ * Better Auth id rather than the email also means an email change does not
+ * orphan the old document.
+ *
+ * This runs on every authenticated Payload request, including each admin
+ * server function, so it must not write on the happy path.
  */
 export const betterAuthStrategy: AuthStrategy = {
   name: "better-auth",
@@ -32,33 +37,62 @@ export const betterAuthStrategy: AuthStrategy = {
 
     const existing = await payload.find({
       collection: "users",
-      where: { email: { equals: session.user.email } },
+      where: { authUserId: { equals: session.user.id } },
       limit: 1,
       depth: 0,
     });
 
-    const user = existing.docs[0]
-      ? await payload.update({
+    const found = existing.docs[0];
+
+    if (found) {
+      // Only write when the display name actually drifted, so the common case
+      // stays a read.
+      const name = session.user.name ?? undefined;
+      const nameChanged = name != null && found.name !== name;
+
+      if (nameChanged) {
+        const updated = await payload.update({
           collection: "users",
-          id: existing.docs[0].id,
-          data: { name: session.user.name ?? undefined },
-          depth: 0,
-        })
-      : await payload.create({
-          collection: "users",
-          data: {
-            email: session.user.email,
-            name: session.user.name ?? undefined,
-          },
+          id: found.id,
+          data: { name },
           depth: 0,
         });
 
-    return {
-      user: {
-        ...user,
-        roleSlugs,
-        permissionSlugs,
-      },
-    };
+        return { user: { ...updated, roleSlugs, permissionSlugs } };
+      }
+
+      return { user: { ...found, roleSlugs, permissionSlugs } };
+    }
+
+    // Provision on first sight. A concurrent request can win the unique index
+    // on authUserId between our find and create, so fall back to re-reading.
+    try {
+      const created = await payload.create({
+        collection: "users",
+        data: {
+          authUserId: session.user.id,
+          email: session.user.email,
+          name: session.user.name ?? undefined,
+        },
+        depth: 0,
+      });
+
+      return { user: { ...created, roleSlugs, permissionSlugs } };
+    } catch (error) {
+      const raced = await payload.find({
+        collection: "users",
+        where: { authUserId: { equals: session.user.id } },
+        limit: 1,
+        depth: 0,
+      });
+
+      if (raced.docs[0]) {
+        return {
+          user: { ...raced.docs[0], roleSlugs, permissionSlugs },
+        };
+      }
+
+      throw error;
+    }
   },
 };

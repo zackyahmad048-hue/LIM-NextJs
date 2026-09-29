@@ -183,6 +183,10 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  /**
+   * Better Auth user id. Provisioned by the auth strategy.
+   */
+  authUserId?: string | null;
   name?: string | null;
   email: string;
   updatedAt: string;
@@ -1023,6 +1027,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  authUserId?: T;
   name?: T;
   email?: T;
   updatedAt?: T;
