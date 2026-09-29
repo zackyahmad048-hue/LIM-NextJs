@@ -1,6 +1,6 @@
 "use client";
 
-import type { Category } from "@/generated/client";
+import type { CategoryWithCount } from "@/modules/cms/queries/category.query";
 
 import {
   Dialog,
@@ -14,7 +14,7 @@ import { CategoryForm } from "./form";
 
 interface CategoryDialogProps {
   open: boolean;
-  category?: Category;
+  category?: CategoryWithCount;
   onOpenChange(open: boolean): void;
 }
 

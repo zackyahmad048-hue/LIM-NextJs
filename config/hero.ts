@@ -1,7 +1,5 @@
 import type { HeroConfig } from "@/types/hero";
 
-export const HERO_CONFIG_SETTING_KEY = "homepage.hero";
-
 export const DEFAULT_HERO_CONFIG: HeroConfig = {
   eyebrow: "",
   title: "Memesantrenkan Masyarakat",

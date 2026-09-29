@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
-import type { Category } from "@/generated/client";
+import type { CategoryWithCount } from "@/modules/cms/queries/category.query";
 
 import {
   createCategory,
@@ -26,7 +26,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 interface Props {
-  category?: Category;
+  category?: CategoryWithCount;
   onSuccess(): void;
 }
 

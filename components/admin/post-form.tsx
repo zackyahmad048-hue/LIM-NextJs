@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Save, Send } from "lucide-react";
 import Link from "next/link";
 
-import type { Category } from "@/generated/client";
+import type { CategoryWithCount } from "@/modules/cms/queries/category.query";
 import {
   postSchema,
   type PostInput,
@@ -42,7 +42,7 @@ interface PostFormProps {
     categoryId: string;
     thumbnail: string;
   };
-  categories: Category[];
+  categories: CategoryWithCount[];
 }
 
 export function PostForm({

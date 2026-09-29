@@ -2,14 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 
-import { HERO_CONFIG_SETTING_KEY } from "@/config/hero";
-import { SettingType } from "@/generated/enums";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
-import { PrismaSettingRepository } from "@/modules/settings/infrastructure/setting.repository";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import type { ActionResult } from "@/modules/shared/presentation/action-result";
-import type { HeroConfig } from "@/types/hero";
-
-const settingRepository = new PrismaSettingRepository();
 
 function readValue(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
@@ -37,25 +32,24 @@ export async function updateHeroConfig(
       },
     ].filter((s) => s.value || s.label);
 
-    const config: HeroConfig = {
-      eyebrow: readValue(formData, "eyebrow"),
-      title: readValue(formData, "title"),
-      highlight: readValue(formData, "highlight"),
-      tagline: readValue(formData, "tagline"),
-      description: readValue(formData, "description"),
-      image: readValue(formData, "image"),
-      ctaLabel: readValue(formData, "ctaLabel"),
-      ctaHref: readValue(formData, "ctaHref"),
-      secondaryLabel: readValue(formData, "secondaryLabel"),
-      secondaryHref: readValue(formData, "secondaryHref"),
-      statCards,
-    };
-
-    await settingRepository.upsertValue({
-      key: HERO_CONFIG_SETTING_KEY,
-      value: JSON.stringify(config),
-      type: SettingType.JSON,
-      description: "Konfigurasi hero section pada landing page.",
+    const payload = await getPayloadClient();
+    await payload.updateGlobal({
+      slug: "settings",
+      data: {
+        hero: {
+          eyebrow: readValue(formData, "eyebrow"),
+          title: readValue(formData, "title"),
+          highlight: readValue(formData, "highlight"),
+          tagline: readValue(formData, "tagline"),
+          description: readValue(formData, "description"),
+          image: readValue(formData, "image"),
+          ctaLabel: readValue(formData, "ctaLabel"),
+          ctaHref: readValue(formData, "ctaHref"),
+          secondaryLabel: readValue(formData, "secondaryLabel"),
+          secondaryHref: readValue(formData, "secondaryHref"),
+          statCards,
+        },
+      },
     });
 
     revalidatePath("/");

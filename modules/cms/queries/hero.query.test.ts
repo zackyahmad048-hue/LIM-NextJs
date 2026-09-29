@@ -1,32 +1,23 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 
 import { getHeroConfig } from "./hero.query";
-import { DEFAULT_HERO_CONFIG, HERO_CONFIG_SETTING_KEY } from "@/config/hero";
-import type { HeroConfig } from "@/types/hero";
+import { DEFAULT_HERO_CONFIG } from "@/config/hero";
 
-vi.mock("@/modules/settings/infrastructure/setting.repository");
 vi.mock("@/modules/cms/infrastructure/payload");
 
-import { PrismaSettingRepository } from "@/modules/settings/infrastructure/setting.repository";
 import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 describe("getHeroConfig", () => {
   let mockPayloadFindGlobal: ReturnType<typeof vi.fn>;
-  let mockSettingFindByKey: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.clearAllMocks();
 
     mockPayloadFindGlobal = vi.fn();
-    mockSettingFindByKey = vi.fn();
 
     vi.mocked(getPayloadClient).mockResolvedValue({
       findGlobal: mockPayloadFindGlobal,
     } as any);
-
-    vi.mocked(PrismaSettingRepository.prototype.findByKey).mockImplementation(
-      mockSettingFindByKey,
-    );
   });
 
   it("returns Payload hero config when available and valid", async () => {
@@ -55,37 +46,8 @@ describe("getHeroConfig", () => {
     expect(result.statCards).toEqual([{ value: "10", label: "Test" }]);
   });
 
-  it("falls back to legacy Prisma when Payload fails", async () => {
+  it("returns DEFAULT_HERO_CONFIG when Payload fails", async () => {
     mockPayloadFindGlobal.mockRejectedValue(new Error("Payload unavailable"));
-
-    const legacyConfig = {
-      eyebrow: "Legacy Eyebrow",
-      title: "Legacy Title",
-      highlight: "Legacy Highlight",
-      tagline: "Legacy Tagline",
-      description: "Legacy Description",
-      image: "/images/legacy.jpg",
-      ctaLabel: "Legacy CTA",
-      ctaHref: "/legacy-cta",
-      secondaryLabel: "Legacy Secondary",
-      secondaryHref: "/legacy-secondary",
-      statCards: [{ value: "5", label: "Legacy" }],
-    };
-
-    mockSettingFindByKey.mockResolvedValue({
-      value: JSON.stringify(legacyConfig),
-    });
-
-    const result = await getHeroConfig();
-
-    expect(result.title).toBe("Legacy Title");
-    expect(result.highlight).toBe("Legacy Highlight");
-    expect(result.image).toBe("/images/legacy.jpg");
-  });
-
-  it("returns DEFAULT_HERO_CONFIG when both Payload and Prisma fail", async () => {
-    mockPayloadFindGlobal.mockRejectedValue(new Error("Payload unavailable"));
-    mockSettingFindByKey.mockResolvedValue(null);
 
     const result = await getHeroConfig();
 
@@ -94,8 +56,6 @@ describe("getHeroConfig", () => {
 
   it("returns DEFAULT_HERO_CONFIG when Payload returns empty hero", async () => {
     mockPayloadFindGlobal.mockResolvedValue({ hero: null });
-
-    mockSettingFindByKey.mockResolvedValue(null);
 
     const result = await getHeroConfig();
 
@@ -106,8 +66,6 @@ describe("getHeroConfig", () => {
     mockPayloadFindGlobal.mockResolvedValue({
       hero: { title: "", highlight: "", description: "" },
     });
-
-    mockSettingFindByKey.mockResolvedValue(null);
 
     const result = await getHeroConfig();
 
@@ -128,7 +86,6 @@ describe("getHeroConfig", () => {
     };
 
     mockPayloadFindGlobal.mockResolvedValue({ hero: partialPayloadHero });
-    mockSettingFindByKey.mockResolvedValue(null);
 
     const result = await getHeroConfig();
 
@@ -162,7 +119,6 @@ describe("getHeroConfig", () => {
     };
 
     mockPayloadFindGlobal.mockResolvedValue({ hero: payloadHero });
-    mockSettingFindByKey.mockResolvedValue(null);
 
     const result = await getHeroConfig();
 
@@ -194,7 +150,6 @@ describe("getHeroConfig", () => {
     };
 
     mockPayloadFindGlobal.mockResolvedValue({ hero: payloadHero });
-    mockSettingFindByKey.mockResolvedValue(null);
 
     const result = await getHeroConfig();
 

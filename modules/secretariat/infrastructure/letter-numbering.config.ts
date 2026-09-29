@@ -1,5 +1,4 @@
 import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
-import { prisma } from "@/modules/shared/infrastructure/prisma";
 import type { Setting } from "@/payload-types";
 import type { NumberingPeriod } from "../application/letter-number.rules";
 
@@ -25,14 +24,6 @@ interface PayloadNumberingGroup {
   nextSequence?: Record<string, number> | null;
 }
 
-export const NUMBERING_SETTING_KEYS = {
-  formatTemplate: "secretariat.numbering.formatTemplate",
-  sequenceDigits: "secretariat.numbering.sequenceDigits",
-  periods: "secretariat.numbering.periods",
-  levelCodes: "secretariat.numbering.levelCodes",
-  nextSequence: "secretariat.numbering.nextSequence",
-} as const;
-
 const DEFAULT_LEVEL_CODES: LevelCodeOption[] = [
   { code: "PP", label: "Pengurus Pusat" },
   { code: "PP.I", label: "Bidang I" },
@@ -53,14 +44,6 @@ export const DEFAULT_NUMBERING_CONFIG: LetterNumberingConfig = {
   levelCodes: DEFAULT_LEVEL_CODES,
   nextSequence: {},
 };
-
-function parseJson<T>(value: string, fallback: T): T {
-  try {
-    return JSON.parse(value) as T;
-  } catch {
-    return fallback;
-  }
-}
 
 function isNumberingSet(
   numbering: PayloadNumberingGroup | undefined,
@@ -96,47 +79,21 @@ function payloadToConfig(numbering: PayloadNumberingGroup): LetterNumberingConfi
   };
 }
 
-async function legacyConfig(): Promise<LetterNumberingConfig> {
-  const rows = await prisma.setting.findMany({
-    where: { key: { in: Object.values(NUMBERING_SETTING_KEYS) } },
-  });
-  const values = new Map(rows.map((row) => [row.key, row.value]));
-
-  const read = (key: string, fallback: string): string =>
-    values.get(key) ?? fallback;
-
-  return {
-    formatTemplate: read(
-      NUMBERING_SETTING_KEYS.formatTemplate,
-      DEFAULT_NUMBERING_CONFIG.formatTemplate,
-    ),
-    sequenceDigits:
-      Number(read(NUMBERING_SETTING_KEYS.sequenceDigits, "3")) || 3,
-    periods: parseJson(
-      read(NUMBERING_SETTING_KEYS.periods, "null"),
-      DEFAULT_NUMBERING_CONFIG.periods,
-    ),
-    levelCodes: parseJson(
-      read(NUMBERING_SETTING_KEYS.levelCodes, "null"),
-      DEFAULT_NUMBERING_CONFIG.levelCodes,
-    ),
-    nextSequence: parseJson(
-      read(NUMBERING_SETTING_KEYS.nextSequence, "{}"),
-      {},
-    ),
-  };
-}
-
 export async function getLetterNumberingConfig(): Promise<LetterNumberingConfig> {
-  const payload = await getPayloadClient();
-  const settings = await payload.findGlobal({ slug: "settings", depth: 0 });
-  const numbering = (settings as { numbering?: PayloadNumberingGroup }).numbering;
+  try {
+    const payload = await getPayloadClient();
+    const settings = await payload.findGlobal({ slug: "settings", depth: 0 });
+    const numbering = (settings as { numbering?: PayloadNumberingGroup })
+      .numbering;
 
-  if (isNumberingSet(numbering)) {
-    return payloadToConfig(numbering);
+    if (isNumberingSet(numbering)) {
+      return payloadToConfig(numbering);
+    }
+  } catch {
+    // Payload tidak tersedia → pakai default
   }
 
-  return legacyConfig();
+  return DEFAULT_NUMBERING_CONFIG;
 }
 
 export interface UpdateNumberingSettingsInput {
