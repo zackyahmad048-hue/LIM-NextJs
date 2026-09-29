@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import type { Post } from "@/payload-types";
 
 const dateFormatter = new Intl.DateTimeFormat("id-ID", {
   day: "numeric",
@@ -8,19 +9,18 @@ const dateFormatter = new Intl.DateTimeFormat("id-ID", {
   year: "numeric",
 });
 
-function formatDate(date: Date | null) {
-  return date ? dateFormatter.format(date) : "";
+function formatDate(date: string | null | undefined) {
+  return date ? dateFormatter.format(new Date(date)) : "";
+}
+
+function categoryName(post: Post) {
+  return typeof post.category === "object" && post.category
+    ? post.category.name
+    : "Artikel";
 }
 
 interface PostCardProps {
-  post: {
-    slug: string;
-    title: string;
-    excerpt: string | null;
-    thumbnail: string | null;
-    publishedAt: Date | null;
-    category: { name: string; slug: string };
-  };
+  post: Post;
   size?: "default" | "feature";
   className?: string;
 }
@@ -65,14 +65,14 @@ export default function PostCard({
       <div className={cn("flex flex-col p-5", !feature && "flex-1")}>
         <div className="flex items-center gap-2.5 text-[11px]">
           <span className="font-medium text-primary">
-            {post.category.name}
+            {categoryName(post)}
           </span>
           <span
             aria-hidden
             className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50"
           />
           <time
-            dateTime={post.publishedAt?.toISOString()}
+            dateTime={post.publishedAt ?? undefined}
             className="tabular-nums text-muted-foreground"
           >
             {formatDate(post.publishedAt)}

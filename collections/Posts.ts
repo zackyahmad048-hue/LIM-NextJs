@@ -45,6 +45,11 @@ export const Posts: CollectionConfig = {
       relationTo: "categories",
     },
     {
+      name: "author",
+      type: "relationship",
+      relationTo: "users",
+    },
+    {
       name: "published",
       type: "checkbox",
       defaultValue: false,

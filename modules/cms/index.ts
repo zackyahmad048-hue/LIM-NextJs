@@ -8,17 +8,35 @@ export { Post } from "./domain/post.entity";
 export { CategoryService } from "./application/category.service";
 export { PostService } from "./application/post.service";
 
-// Infrastructure
+// Infrastructure (low-level repository functions - prefixed to avoid collisions with actions)
 export {
-  PrismaCategoryRepository,
-  categoryRepository,
-} from "./infrastructure/category.repository";
-export {
-  PrismaPostRepository,
-  postRepository,
+  countPostsAll as repoCountPostsAll,
+  countPostsPublished as repoCountPostsPublished,
+  countPostsByCategory as repoCountPostsByCategory,
+  findRecentPosts as repoFindRecentPosts,
+  findPublishedPostsByCategorySlug as repoFindPublishedPostsByCategorySlug,
+  findPublishedPostBySlug as repoFindPublishedPostBySlug,
+  findPostById as repoFindPostById,
+  findPaginatedPosts as repoFindPaginatedPosts,
+  checkPostSlugTaken as repoCheckPostSlugTaken,
+  createPost as repoCreatePost,
+  updatePost as repoUpdatePost,
+  publishPost as repoPublishPost,
+  archivePost as repoArchivePost,
+  restorePostToDraft as repoRestorePostToDraft,
+  softDeletePost as repoSoftDeletePost,
+  countCategoriesAll as repoCountCategoriesAll,
+  findCategories as repoFindCategories,
+  findCategoryById as repoFindCategoryById,
+  findCategoryBySlug as repoFindCategoryBySlug,
+  checkCategorySlugTaken as repoCheckCategorySlugTaken,
+  checkCategoryNameTaken as repoCheckCategoryNameTaken,
+  createCategory as repoCreateCategory,
+  updateCategory as repoUpdateCategory,
+  softDeleteCategory as repoSoftDeleteCategory,
 } from "./infrastructure/post.repository";
 
-// Presentation
+// Presentation (server actions)
 export {
   createCategory,
   updateCategory,

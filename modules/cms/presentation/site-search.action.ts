@@ -38,7 +38,10 @@ export async function searchSite(q: string): Promise<SiteSearchResult> {
   const posts = paginated.posts.map((post) => ({
     title: post.title,
     href: `/artikel/${post.slug}`,
-    meta: post.category ? post.category.name : "Artikel",
+    meta:
+      typeof post.category === "object" && post.category !== null
+        ? post.category.name
+        : "Artikel",
   }));
 
   const media = mediaItems
