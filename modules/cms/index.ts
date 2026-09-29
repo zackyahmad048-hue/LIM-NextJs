@@ -12,6 +12,7 @@ export { PostService } from "./application/post.service";
 export {
   countPostsAll as repoCountPostsAll,
   countPostsPublished as repoCountPostsPublished,
+  countPostsDraft as repoCountPostsDraft,
   countPostsByCategory as repoCountPostsByCategory,
   findRecentPosts as repoFindRecentPosts,
   findPublishedPostsByCategorySlug as repoFindPublishedPostsByCategorySlug,

@@ -49,6 +49,19 @@ export async function countPostsPublished(): Promise<number> {
   return res.totalDocs;
 }
 
+export async function countPostsDraft(): Promise<number> {
+  const client = await getPayloadClient();
+  const res = await client.count({
+    collection: "posts",
+    where: {
+      ...POST_DELETED,
+      published: { equals: false },
+      publishedAt: { exists: false },
+    },
+  });
+  return res.totalDocs;
+}
+
 export async function countPostsByCategory(
   categoryId: string | number,
 ): Promise<number> {
