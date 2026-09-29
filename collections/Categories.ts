@@ -31,5 +31,13 @@ export const Categories: CollectionConfig = {
       name: "description",
       type: "textarea",
     },
+    {
+      name: "deletedAt",
+      type: "date",
+      admin: {
+        hidden: true,
+        description: "Soft delete timestamp. Non-null means archived.",
+      },
+    },
   ],
 };

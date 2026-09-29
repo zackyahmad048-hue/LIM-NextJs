@@ -207,6 +207,10 @@ export interface Post {
   category?: (number | null) | Category;
   published?: boolean | null;
   publishedAt?: string | null;
+  /**
+   * Soft delete timestamp. Non-null means archived.
+   */
+  deletedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -219,6 +223,10 @@ export interface Category {
   name: string;
   slug: string;
   description?: string | null;
+  /**
+   * Soft delete timestamp. Non-null means archived.
+   */
+  deletedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1046,6 +1054,7 @@ export interface PostsSelect<T extends boolean = true> {
   category?: T;
   published?: T;
   publishedAt?: T;
+  deletedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1057,6 +1066,7 @@ export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   description?: T;
+  deletedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -53,5 +53,13 @@ export const Posts: CollectionConfig = {
       name: "publishedAt",
       type: "date",
     },
+    {
+      name: "deletedAt",
+      type: "date",
+      admin: {
+        hidden: true,
+        description: "Soft delete timestamp. Non-null means archived.",
+      },
+    },
   ],
 };
