@@ -149,9 +149,12 @@
 
   /* Shadows — Soft, paper-like */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Glassmorphism Tokens — for content cards/widgets only */
   --glass-bg: rgba(255, 255, 255, 0.7);
@@ -173,7 +176,8 @@
   --glass-bg-dark: rgba(23, 23, 23, 0.7);
   --glass-border-dark: rgba(255, 255, 255, 0.12);
   --glass-border-hover-dark: oklch(0.553 0.195 38.402);
-  --glass-shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --glass-shadow-dark:
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
 
   /* Blur Scale */
   --blur-sm: 8px;
@@ -385,16 +389,28 @@
   }
 
   .dark .glass-tint-falak {
-    background-color: color-mix(in oklab, var(--primary) 8%, var(--glass-bg-dark));
+    background-color: color-mix(
+      in oklab,
+      var(--primary) 8%,
+      var(--glass-bg-dark)
+    );
   }
 
   /* Konten-specific glass tint (subtle neutral warmth) */
   .glass-tint-konten {
-    background-color: color-mix(in oklab, var(--foreground) 4%, var(--glass-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--foreground) 4%,
+      var(--glass-bg)
+    );
   }
 
   .dark .glass-tint-konten {
-    background-color: color-mix(in oklab, var(--foreground) 5%, var(--glass-bg-dark));
+    background-color: color-mix(
+      in oklab,
+      var(--foreground) 5%,
+      var(--glass-bg-dark)
+    );
   }
 
   /* Sekretariat-specific glass tint (subtle warm amber) */
@@ -403,7 +419,11 @@
   }
 
   .dark .glass-tint-sekretariat {
-    background-color: color-mix(in oklab, var(--warning) 8%, var(--glass-bg-dark));
+    background-color: color-mix(
+      in oklab,
+      var(--warning) 8%,
+      var(--glass-bg-dark)
+    );
   }
 
   /* Stronger glass for modals/popovers */
@@ -442,7 +462,8 @@
   @media (max-width: 767px) {
     .glass-chrome {
       backdrop-filter: blur(var(--glass-chrome-blur-mobile)) saturate(1.5);
-      -webkit-backdrop-filter: blur(var(--glass-chrome-blur-mobile)) saturate(1.5);
+      -webkit-backdrop-filter: blur(var(--glass-chrome-blur-mobile))
+        saturate(1.5);
     }
   }
 }
@@ -466,7 +487,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 200ms !important;
-    transition-property: color, background-color, border-color, box-shadow, opacity, outline-color, text-decoration-color !important;
+    transition-property:
+      color, background-color, border-color, box-shadow, opacity, outline-color,
+      text-decoration-color !important;
     scroll-behavior: auto !important;
   }
 }
@@ -640,6 +663,7 @@ kbd {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -647,6 +671,7 @@ kbd {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -654,6 +679,7 @@ kbd {
 .line-clamp-4 {
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

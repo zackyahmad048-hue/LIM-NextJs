@@ -30,19 +30,26 @@ export function StatCard({
   className,
 }: StatItem & { className?: string }) {
   return (
-    <div className={cn(
-      "group glass flex flex-col p-5 transition-all hover:border-primary",
-      className,
-    )}>
+    <div
+      className={cn(
+        "group glass flex flex-col p-5 transition-all hover:border-primary",
+        className,
+      )}
+    >
       <dt className="order-2 mt-1.5 text-sm text-muted-foreground">{label}</dt>
       <dd className="order-1 flex items-baseline gap-2 font-heading text-3xl font-semibold tabular-nums text-foreground">
         {highlight && (
-          <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" aria-hidden="true" />
+          <span
+            className="w-2 h-2 rounded-full bg-primary shrink-0"
+            aria-hidden="true"
+          />
         )}
         {value}
       </dd>
       {description != null && (
-        <dd className="order-3 mt-2 text-xs text-muted-foreground/80">{description}</dd>
+        <dd className="order-3 mt-2 text-xs text-muted-foreground/80">
+          {description}
+        </dd>
       )}
     </div>
   );
@@ -52,10 +59,12 @@ export function StatCard({
  *  Responsive: 1 col (<640) → 2 col (640-1023) → 4 col (≥1024) */
 export function StatGrid({ items, className }: StatPrimitivesProps) {
   return (
-    <dl className={cn(
-      "grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-      className,
-    )}>
+    <dl
+      className={cn(
+        "grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+        className,
+      )}
+    >
       {items.map((item, index) => (
         <StatCard
           key={item.key ?? String(index)}
@@ -85,7 +94,9 @@ export function StatStrip({ items, className }: StatPrimitivesProps) {
             {item.value}
           </dd>
           {item.description != null && (
-            <dd className="text-xs text-muted-foreground">{item.description}</dd>
+            <dd className="text-xs text-muted-foreground">
+              {item.description}
+            </dd>
           )}
         </div>
       ))}
