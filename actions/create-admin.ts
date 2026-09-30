@@ -66,7 +66,7 @@ export async function createAdmin(): Promise<CreateAdminResult> {
   return {
     ok: true,
     message: created
-      ? `Admin ${email} berhasil dibuat. Silakan login di /admin/login.`
-      : `Admin ${email} sudah terdaftar, role super-admin dipastikan. Silakan login di /admin/login.`,
+      ? `Admin ${email} berhasil dibuat. Silakan login di /login.`
+      : `Admin ${email} sudah terdaftar, role super-admin dipastikan. Silakan login di /login.`,
   };
 }

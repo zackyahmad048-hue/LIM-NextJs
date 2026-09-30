@@ -34,7 +34,7 @@ export function UserMenu({ user }: Props) {
       return;
     }
     toast.success("Berhasil logout.");
-    router.push("/admin/login");
+    router.push("/login");
     router.refresh();
   }
 

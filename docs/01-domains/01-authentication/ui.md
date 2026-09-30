@@ -20,29 +20,53 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 ### Login Page
 
-**URL:** `/admin/login`
+**URL:** `/login` (route group `(auth)`; redirect lama `/admin/login` → `/login`)
+
+**Status:** Diimplementasi — `app/(auth)/login/page.tsx`
 
 **Layout:**
 
-- Centered card on dark background
-- App logo + name
+- Centered card on dark/aurora background
+- Back link "Beranda" (→ `/`)
+- App logo + name ("Admin Gateway")
 - Email input
-- Password input
+- Password input (toggle lihat/sembunyi)
 - Login button
-- Forgot password link
+- Footer kredit
 
 **Components:**
 
-- `Input` (email)
-- `Input` (password, type=password)
+- `LoginForm` (`modules/authentication/presentation/login-form.tsx`)
+- `SmoothInput` (email, `name="email"`, `autoComplete="email"`)
+- `SmoothInput` (password, `type="password"`)
 - `Button` (submit)
-- `Link` (forgot password)
+
+**Catatan:**
+
+- Login sukses mengarahkan ke `/cms` (panel Payload).
+- Belum ada link "lupa password" di halaman ini.
+
+---
+
+### Setup Page
+
+**URL:** `/login/setup`
+
+**Status:** Diimplementasi — `app/(auth)/login/setup/page.tsx`
+
+**Layout:**
+
+- Centered card "Buat Admin Pertama"
+- Penjelasan bahwa akun diambil dari `ADMIN_EMAIL` / `ADMIN_PASSWORD` pada `.env`
+- Submit button (server action `createAdmin`)
 
 ---
 
 ### Forgot Password Page
 
 **URL:** `/admin/forgot-password`
+
+**Status:** Belum diimplementasi — tidak ada route maupun komponennya di `app/`.
 
 **Layout:**
 
@@ -63,6 +87,8 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 **URL:** `/admin/reset-password?token=...`
 
+**Status:** Belum diimplementasi — tidak ada route maupun komponennya di `app/`.
+
 **Layout:**
 
 - Centered card
@@ -81,6 +107,8 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 ### Change Password Page
 
 **URL:** `/admin/change-password` (authenticated)
+
+**Status:** Belum diimplementasi — tidak ada route maupun komponennya di `app/`.
 
 **Layout:**
 

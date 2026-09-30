@@ -185,7 +185,7 @@ export default function Navbar() {
             <ThemeToggle />
 
             <Link
-              href="/admin/login"
+              href="/login"
               className="hidden h-8 items-center rounded-full px-3 text-xs font-medium text-foreground transition-colors hover:bg-accent hover:text-primary lg:inline-flex"
             >
               Admin
@@ -308,7 +308,7 @@ export default function Navbar() {
 
                 <div className="border-t border-border/10 p-3">
                   <Link
-                    href="/admin/login"
+                    href="/login"
                     onClick={() => setOpen(false)}
                     className="block rounded-sm border border-border px-3.5 py-2.5 text-center text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
                   >

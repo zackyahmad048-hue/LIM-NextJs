@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+
 /**
  * Label segmen rute admin. Segmen di luar kamus ini ditampilkan apa adanya
  * (capitalize). UUID dan segmen dinamis ditampilkan sebagai "Detail".
@@ -89,7 +91,15 @@ export function Breadcrumb() {
         {crumbs.map((crumb, index) => {
           const isLast = index === crumbs.length - 1;
           return (
-            <li key={crumb.href} className="flex min-w-0 items-center gap-1.5">
+            <li
+              key={crumb.href}
+              // Krumb terakhir (halaman aktif) tidak ikut menyusut agar tetap
+              // terbaca; krumb sebelumnya memang boleh dipangkas lebih dulu.
+              className={cn(
+                "flex min-w-0 items-center gap-1.5",
+                isLast && "shrink-0",
+              )}
+            >
               {index > 0 && (
                 <ChevronRight
                   aria-hidden

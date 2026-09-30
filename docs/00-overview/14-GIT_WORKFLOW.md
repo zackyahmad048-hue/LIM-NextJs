@@ -316,7 +316,7 @@ Catatan penting:
 | `DATABASE_URL` | Neon branch **khusus CI** (bukan produksi; `migrate deploy` + seed berjalan padanya setiap run). |
 | `BETTER_AUTH_SECRET` | Secret Better Auth (boleh berbeda dari produksi). |
 | `ADMIN_EMAIL` | Email super-admin yang sudah ada di DB CI. |
-| `ADMIN_PASSWORD` | Password akun tersebut (untuk login `/admin/login` oleh runner). |
+| `ADMIN_PASSWORD` | Password akun tersebut (untuk login `/login` oleh runner). |
 
 ---
 

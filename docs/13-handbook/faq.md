@@ -149,13 +149,13 @@ npm run db:seed
 
 ### Bagaimana cara login admin?
 
-Buka `/admin/login` dan gunakan akun admin yang sudah dibuat.
+Buka `/login` dan gunakan akun admin yang sudah dibuat.
 
 ---
 
 ### Bagaimana cara membuat akun admin baru?
 
-Jalankan seed data atau buat melalui Prisma Studio.
+Buka `/login/setup` — akun dibuat dari `ADMIN_EMAIL` dan `ADMIN_PASSWORD` pada `.env`, lalu role `super-admin` dipasang otomatis. Alternatif lain: `npm run db:seed` atau buat melalui Prisma Studio.
 
 ---
 

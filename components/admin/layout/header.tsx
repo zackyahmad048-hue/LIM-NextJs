@@ -35,7 +35,7 @@ export function Header({ user, roleSlugs }: Props) {
 
   return (
     <header className="sticky top-12 z-30 flex h-12 items-center gap-3 border-b px-4 md:px-6 glass-chrome">
-      <div className="flex items-center gap-2">
+      <div className="flex min-w-0 flex-1 items-center gap-2">
         <Button
           variant="ghost"
           size="icon-sm"
@@ -46,14 +46,14 @@ export function Header({ user, roleSlugs }: Props) {
           <PanelLeft className="h-4 w-4" />
         </Button>
 
-        <div className="min-w-0 px-3 py-1 rounded-lg bg-admin-card-bg border border-admin-card-border">
+        <div className="min-w-0 overflow-hidden px-3 py-1 rounded-lg bg-admin-card-bg border border-admin-card-border">
           <Breadcrumb />
         </div>
       </div>
 
       <CommandMenu roleSlugs={roleSlugs} />
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex shrink-0 items-center gap-2">
         <DateChip className="hidden lg:flex" />
         <UserMenu user={user} />
       </div>

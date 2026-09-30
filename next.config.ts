@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
     const port = process.env.PORT || "3000";
     return [
       {
+        source: "/admin/login",
+        destination: "/login",
+        permanent: false,
+      },
+      {
         source: "/:path*",
         has: [{ type: "host", value: "127.0.0.1" }],
         permanent: false,

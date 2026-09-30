@@ -204,10 +204,21 @@
   --admin-border: oklch(0.269 0 0);
   --admin-input-bg: oklch(0.175 0 0);
   --admin-input-border: oklch(0.269 0 0);
+  /* LIM Orange versi teks: `--primary` murni (Y≈0.151) hanya 3.6:1 di atas
+     kanvas admin gelap — di bawah ambang WCAG AA 4.5:1 untuk teks kecil.
+     Nilai ini ~5.7:1 di atas `--admin-card-bg` dan ~5.3:1 di atas chrome. */
+  --admin-primary-text: oklch(0.66 0.17 38.402);
 }
 
-/* Dark mode (default for public site) */
-.dark {
+/*
+ * Dark mode (default for public site).
+ * Juga dipakai oleh `.admin`: kanvas admin selalu gelap (token `--admin-*`
+ * di-hardcode gelap), jadi token semantik di dalam `.admin` harus ikut palet
+ * gelap — kalau tidak, `text-foreground`/`text-muted-foreground` mengambil
+ * token tema terang dan teks jadi tak terbaca di atas kanvas gelap (WCAG AA).
+ */
+.dark,
+.admin {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.175 0 0);
@@ -545,6 +556,32 @@ kbd {
   background-color: var(--admin-content-bg);
   min-height: 100dvh;
   font-family: var(--font-body), "Segoe UI", sans-serif;
+  /* Kontrol form/scrollbar mengikuti kanvas admin, bukan tema halaman. */
+  color-scheme: dark;
+  /* Chrome (header) ikut kanvas gelap. Warna dibuat pekat (tanpa alpha)
+     agar latar header selalu terbaca sendiri tanpa perlu mengelusuri
+     elemen di belakangnya — saat kanvas/posisi berbeda, varian 80% membuat
+     axe-core jatuh ke latar halaman terang dan teks terlapor gagal kontras. */
+  --glass-chrome-bg: oklch(0.16 0 0);
+  --glass-chrome-border: var(--glass-chrome-border-dark);
+  /* Kartu glass di kanvas admin juga harus versi gelap — di tema terang
+     `--glass-bg` (putih 70%) di atas kanvas hitam menjadi abu terang yang
+     membuat teks putih di dalamnya gagal kontras. */
+  --glass-bg: var(--glass-bg-dark);
+  --glass-border: var(--glass-border-dark);
+  --glass-border-hover: var(--glass-border-hover-dark);
+  --glass-shadow: var(--glass-shadow-dark);
+}
+
+/*
+ * Teks aksen di kanvas admin: `--primary` (LIM Orange murni) dipertahankan
+ * untuk latar tombol/indicator (putih di atas oranye = 5.2:1), tetapi sebagai
+ * teks kecil hanya 3.6:1. Utilitas `text-primary` di dalam `.admin` dipetakan
+ * ke varian terang agar lolos WCAG AA 4.5:1 tanpa mengubah tombol.
+ */
+.admin .text-primary,
+.admin .hover\:text-primary:hover {
+  color: var(--admin-primary-text);
 }
 
 /* Scrollbar styling */

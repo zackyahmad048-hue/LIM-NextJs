@@ -21,7 +21,7 @@ export default function SetupPage() {
   const reduced = useReducedMotion();
 
   return (
-    <main className="login-aurora relative flex min-h-dvh flex-col items-center justify-center px-4 py-10">
+    <div className="login-aurora relative flex min-h-dvh flex-col items-center justify-center px-4 py-10">
       <div className="relative z-10 w-full max-w-sm">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 36, scale: 0.98 }}
@@ -101,6 +101,6 @@ export default function SetupPage() {
           © 2026 Sekretariat Lembaga Ittihadul Muballighin
         </motion.p>
       </div>
-    </main>
+    </div>
   );
 }
