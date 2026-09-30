@@ -5,7 +5,7 @@
  * - Publik (21 rute) + chrome: viewport desktop & mobile.
  * - Admin (13 rute representatif per pola permukaan) + chrome: desktop, tablet, mobile.
  * - Login admin opsional via env `PLAYWRIGHT_STORAGE_STATE`; bila tak disediakan, rute
- *   admin yang melompat ke /admin/login dicatat "auth-blocked" (bukan gagal).
+ *   admin yang melompat ke /login dicatat "auth-blocked" (bukan gagal).
  * - Tema yang dipindai ditentukan `A11Y_THEME` (`light` default, `dark` opsional);
  *   nama tes mencantumkan tema agar laporan dark/light bisa dibedakan.
  *
@@ -22,7 +22,7 @@ import { chromium, type Browser, type Page } from "playwright";
 import AxeBuilder from "@axe-core/playwright";
 import type { AxeResults } from "axe-core";
 
-import { prisma } from "@/modules/shared/infrastructure/prisma";
+import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 const BASE = process.env.A11Y_BASE_URL ?? "http://localhost:3000";
 const STORAGE_STATE = process.env.PLAYWRIGHT_STORAGE_STATE;
@@ -121,31 +121,41 @@ const PUBLIC_ROUTES: RouteSpec[] = [
   { path: "/falak/gerhana" },
   { path: "/falak/kalender-hijriah" },
   { path: "/wajib-khidmah/permohonan" },
-  { path: "/admin/login" },
+  { path: "/login" },
 ];
 
 /**
  * Rute detail dinamis (id unit / id surat) di-resolusi dari database yang sedang
  * diuji saat modul di-load — bukan hardcode — agar valid pada DB apa pun (main
- * lokal, branch CI, string kosong). Bila data tidak ada, rute tidak disertakan
- * (komitmen "tidak memindai 404/empty-state", lihat komentar inventaris di atas).
+ * lokal, branch CI, string kosong). Sumbernya Payload (bukan Prisma): repositori
+ * unit/surat memakai id numerik Payload, sehingga id Prisma (cuid) membuat halaman
+ * `officers` melempar error dan `cetak` menjawab 404. Bila data tidak ada, rute
+ * tidak disertakan (komitmen "tidak memindai 404/empty-state", lihat komentar
+ * inventaris di atas).
  */
 async function resolveDynamicAdminRoutes(): Promise<RouteSpec[]> {
-  const [unit, mail] = await Promise.all([
-    prisma.organizationUnit.findFirst({
-      where: { deletedAt: null },
-      select: { id: true },
+  const payload = await getPayloadClient();
+  const [units, mails] = await Promise.all([
+    payload.find({
+      collection: "units",
+      where: { deletedAt: { exists: false } },
+      limit: 1,
+      sort: "-updatedAt",
     }),
-    prisma.outgoingMail.findFirst({
-      where: { deletedAt: null },
-      select: { id: true },
+    payload.find({
+      collection: "outgoing-mails",
+      where: { deletedAt: { exists: false } },
+      limit: 1,
+      sort: "-updatedAt",
     }),
   ]);
 
   const routes: RouteSpec[] = [];
+  const unit = units.docs[0];
   if (unit) {
     routes.push({ path: `/admin/secretariat/pendataan/units/${unit.id}/officers` });
   }
+  const mail = mails.docs[0];
   if (mail) {
     routes.push({ path: `/admin/secretariat/outgoing-mail/${mail.id}/cetak` });
   }
@@ -235,11 +245,11 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
         });
         const loginPage = await ctx.newPage();
         await loginPage.addInitScript((t) => localStorage.setItem("theme", t), THEME);
-        await loginPage.goto(`${BASE}/admin/login`, {
+        await loginPage.goto(`${BASE}/login`, {
           timeout: 120_000,
           waitUntil: "load",
         });
-        await loginPage.locator('input[type="email"]').fill(ADMIN_EMAIL);
+        await loginPage.locator('input[name="email"]').fill(ADMIN_EMAIL);
         await loginPage.locator('input[type="password"]').fill(ADMIN_PASSWORD);
         await Promise.all([
           loginPage.waitForURL((u) => !u.pathname.endsWith("/login"), {
@@ -334,7 +344,12 @@ describe("axe.scan (WCAG 2.2 A/AA + best-practice)", () => {
         await page.goto(url, { timeout: 120_000, waitUntil: "load" });
       }
 
-      if (spec.path.startsWith("/admin") && page.url().includes("/admin/login")) {
+      // Tanpa sesi, layout admin melakukan redirect ke `/login` — itulah
+      // penanda "auth-blocked" (bukan halaman yang dipindai).
+      if (
+        spec.path.startsWith("/admin") &&
+        new URL(page.url()).pathname === "/login"
+      ) {
         authBlockedCount += 1;
         await page.close();
         return;

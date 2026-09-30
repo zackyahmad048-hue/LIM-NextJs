@@ -1,5 +1,14 @@
-import { postRepository } from "../infrastructure/post.repository";
-import { categoryRepository } from "../infrastructure/category.repository";
+import {
+  findCategoryById,
+  findPostById,
+  checkPostSlugTaken,
+  createPost,
+  updatePost,
+  publishPost,
+  archivePost,
+  restorePostToDraft,
+  softDeletePost,
+} from "../infrastructure/post.repository";
 
 export class PostService {
   async create(data: {
@@ -12,14 +21,14 @@ export class PostService {
     authorId: string;
   }) {
     const [slugExists, category] = await Promise.all([
-      postRepository.checkSlugTaken(data.slug),
-      categoryRepository.findActiveById(data.categoryId),
+      checkPostSlugTaken(data.slug),
+      findCategoryById(data.categoryId),
     ]);
 
     if (slugExists) throw new Error("Slug sudah digunakan.");
     if (!category) throw new Error("Kategori tidak ditemukan.");
 
-    return postRepository.create(data);
+    return createPost(data);
   }
 
   async update(
@@ -33,58 +42,60 @@ export class PostService {
       categoryId?: string;
     },
   ) {
-    const post = await postRepository.findById(id);
+    const post = await findPostById(id);
     if (!post) throw new Error("Berita tidak ditemukan.");
 
     if (data.slug) {
-      const slugExists = await postRepository.checkSlugTaken(data.slug, id);
+      const slugExists = await checkPostSlugTaken(data.slug, id);
       if (slugExists) throw new Error("Slug sudah digunakan.");
     }
 
     if (data.categoryId) {
-      const category = await categoryRepository.findActiveById(data.categoryId);
+      const category = await findCategoryById(data.categoryId);
       if (!category) throw new Error("Kategori tidak ditemukan.");
     }
 
-    return postRepository.update(id, data);
+    return updatePost(id, data);
   }
 
   async publish(id: string) {
-    const post = await postRepository.findById(id);
+    const post = await findPostById(id);
     if (!post) throw new Error("Berita tidak ditemukan.");
     if (!post.title.trim()) throw new Error("Judul wajib diisi.");
     if (!post.slug.trim()) throw new Error("Slug wajib diisi.");
-    if (!post.content.trim()) throw new Error("Konten wajib diisi.");
+    if (!post.content?.trim()) throw new Error("Konten wajib diisi.");
 
-    const category = await categoryRepository.findActiveById(post.categoryId);
+    const categoryId = typeof post.category === "number" ? post.category : post.category?.id;
+    if (!categoryId) throw new Error("Kategori tidak ditemukan.");
+    const category = await findCategoryById(categoryId);
     if (!category) throw new Error("Kategori tidak ditemukan.");
 
-    return postRepository.publish(id);
+    return publishPost(id);
   }
 
   async archive(id: string) {
-    const post = await postRepository.findById(id);
+    const post = await findPostById(id);
     if (!post) throw new Error("Berita tidak ditemukan.");
     if (!post.published)
       throw new Error("Hanya berita published yang dapat diarsipkan.");
 
-    return postRepository.archive(id);
+    return archivePost(id);
   }
 
   async restoreToDraft(id: string) {
-    const post = await postRepository.findById(id);
+    const post = await findPostById(id);
     if (!post) throw new Error("Berita tidak ditemukan.");
     if (post.published)
       throw new Error("Berita published tidak perlu dipulihkan.");
 
-    return postRepository.restoreToDraft(id);
+    return restorePostToDraft(id);
   }
 
   async delete(id: string) {
-    const post = await postRepository.findById(id);
+    const post = await findPostById(id);
     if (!post) throw new Error("Berita tidak ditemukan.");
 
-    return postRepository.delete(id);
+    return softDeletePost(id);
   }
 }
 

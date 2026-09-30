@@ -8,6 +8,13 @@ import { StatStrip } from "@/components/admin/shared/stat-primitives";
 import { ReportingSyncButton } from "@/components/admin/reporting-sync-button";
 
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import {
+  countPostsAll,
+  countPostsDraft,
+  countPostsPublished,
+  countCategoriesAll,
+} from "@/modules/cms/infrastructure/post.repository";
+import { getCategories } from "@/modules/cms/queries/category.query";
 import { getCurrentUserPermissions } from "@/modules/authorization/queries/current-user-permission.query";
 
 export const dynamic = "force-dynamic";
@@ -19,23 +26,19 @@ export default async function ReportsPage() {
     draftPosts,
     totalCategories,
     totalUsers,
-    postsByCategory,
+    categories,
   ] = await Promise.all([
-    prisma.post.count({ where: { deletedAt: null } }),
-    prisma.post.count({ where: { published: true, deletedAt: null } }),
-    prisma.post.count({
-      where: { published: false, publishedAt: null, deletedAt: null },
-    }),
-    prisma.category.count({ where: { deletedAt: null } }),
+    countPostsAll(),
+    countPostsPublished(),
+    countPostsDraft(),
+    countCategoriesAll(),
     prisma.user.count(),
-    prisma.category.findMany({
-      where: { deletedAt: null },
-      include: {
-        _count: { select: { posts: { where: { deletedAt: null } } } },
-      },
-      orderBy: { posts: { _count: "desc" } },
-    }),
+    getCategories(),
   ]);
+
+  const postsByCategory = [...categories].sort(
+    (a, b) => b._count.posts - a._count.posts,
+  );
 
   const { permissionSlugs } = await getCurrentUserPermissions();
   const canSync = permissionSlugs.includes("reports.sync");

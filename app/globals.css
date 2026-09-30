@@ -149,9 +149,12 @@
 
   /* Shadows — Soft, paper-like */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Glassmorphism Tokens — for content cards/widgets only */
   --glass-bg: rgba(255, 255, 255, 0.7);
@@ -173,7 +176,8 @@
   --glass-bg-dark: rgba(23, 23, 23, 0.7);
   --glass-border-dark: rgba(255, 255, 255, 0.12);
   --glass-border-hover-dark: oklch(0.553 0.195 38.402);
-  --glass-shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --glass-shadow-dark:
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
 
   /* Blur Scale */
   --blur-sm: 8px;
@@ -204,10 +208,21 @@
   --admin-border: oklch(0.269 0 0);
   --admin-input-bg: oklch(0.175 0 0);
   --admin-input-border: oklch(0.269 0 0);
+  /* LIM Orange versi teks: `--primary` murni (Y≈0.151) hanya 3.6:1 di atas
+     kanvas admin gelap — di bawah ambang WCAG AA 4.5:1 untuk teks kecil.
+     Nilai ini ~5.7:1 di atas `--admin-card-bg` dan ~5.3:1 di atas chrome. */
+  --admin-primary-text: oklch(0.66 0.17 38.402);
 }
 
-/* Dark mode (default for public site) */
-.dark {
+/*
+ * Dark mode (default for public site).
+ * Juga dipakai oleh `.admin`: kanvas admin selalu gelap (token `--admin-*`
+ * di-hardcode gelap), jadi token semantik di dalam `.admin` harus ikut palet
+ * gelap — kalau tidak, `text-foreground`/`text-muted-foreground` mengambil
+ * token tema terang dan teks jadi tak terbaca di atas kanvas gelap (WCAG AA).
+ */
+.dark,
+.admin {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.175 0 0);
@@ -374,16 +389,28 @@
   }
 
   .dark .glass-tint-falak {
-    background-color: color-mix(in oklab, var(--primary) 8%, var(--glass-bg-dark));
+    background-color: color-mix(
+      in oklab,
+      var(--primary) 8%,
+      var(--glass-bg-dark)
+    );
   }
 
   /* Konten-specific glass tint (subtle neutral warmth) */
   .glass-tint-konten {
-    background-color: color-mix(in oklab, var(--foreground) 4%, var(--glass-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--foreground) 4%,
+      var(--glass-bg)
+    );
   }
 
   .dark .glass-tint-konten {
-    background-color: color-mix(in oklab, var(--foreground) 5%, var(--glass-bg-dark));
+    background-color: color-mix(
+      in oklab,
+      var(--foreground) 5%,
+      var(--glass-bg-dark)
+    );
   }
 
   /* Sekretariat-specific glass tint (subtle warm amber) */
@@ -392,7 +419,11 @@
   }
 
   .dark .glass-tint-sekretariat {
-    background-color: color-mix(in oklab, var(--warning) 8%, var(--glass-bg-dark));
+    background-color: color-mix(
+      in oklab,
+      var(--warning) 8%,
+      var(--glass-bg-dark)
+    );
   }
 
   /* Stronger glass for modals/popovers */
@@ -431,7 +462,8 @@
   @media (max-width: 767px) {
     .glass-chrome {
       backdrop-filter: blur(var(--glass-chrome-blur-mobile)) saturate(1.5);
-      -webkit-backdrop-filter: blur(var(--glass-chrome-blur-mobile)) saturate(1.5);
+      -webkit-backdrop-filter: blur(var(--glass-chrome-blur-mobile))
+        saturate(1.5);
     }
   }
 }
@@ -455,7 +487,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 200ms !important;
-    transition-property: color, background-color, border-color, box-shadow, opacity, outline-color, text-decoration-color !important;
+    transition-property:
+      color, background-color, border-color, box-shadow, opacity, outline-color,
+      text-decoration-color !important;
     scroll-behavior: auto !important;
   }
 }
@@ -545,6 +579,32 @@ kbd {
   background-color: var(--admin-content-bg);
   min-height: 100dvh;
   font-family: var(--font-body), "Segoe UI", sans-serif;
+  /* Kontrol form/scrollbar mengikuti kanvas admin, bukan tema halaman. */
+  color-scheme: dark;
+  /* Chrome (header) ikut kanvas gelap. Warna dibuat pekat (tanpa alpha)
+     agar latar header selalu terbaca sendiri tanpa perlu mengelusuri
+     elemen di belakangnya — saat kanvas/posisi berbeda, varian 80% membuat
+     axe-core jatuh ke latar halaman terang dan teks terlapor gagal kontras. */
+  --glass-chrome-bg: oklch(0.16 0 0);
+  --glass-chrome-border: var(--glass-chrome-border-dark);
+  /* Kartu glass di kanvas admin juga harus versi gelap — di tema terang
+     `--glass-bg` (putih 70%) di atas kanvas hitam menjadi abu terang yang
+     membuat teks putih di dalamnya gagal kontras. */
+  --glass-bg: var(--glass-bg-dark);
+  --glass-border: var(--glass-border-dark);
+  --glass-border-hover: var(--glass-border-hover-dark);
+  --glass-shadow: var(--glass-shadow-dark);
+}
+
+/*
+ * Teks aksen di kanvas admin: `--primary` (LIM Orange murni) dipertahankan
+ * untuk latar tombol/indicator (putih di atas oranye = 5.2:1), tetapi sebagai
+ * teks kecil hanya 3.6:1. Utilitas `text-primary` di dalam `.admin` dipetakan
+ * ke varian terang agar lolos WCAG AA 4.5:1 tanpa mengubah tombol.
+ */
+.admin .text-primary,
+.admin .hover\:text-primary:hover {
+  color: var(--admin-primary-text);
 }
 
 /* Scrollbar styling */
@@ -603,6 +663,7 @@ kbd {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -610,6 +671,7 @@ kbd {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -617,6 +679,7 @@ kbd {
 .line-clamp-4 {
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

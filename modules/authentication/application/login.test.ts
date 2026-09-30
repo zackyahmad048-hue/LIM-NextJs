@@ -21,7 +21,10 @@ describe("login action seam", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockSignInEmail = vi.fn();
-    vi.mocked(auth.api.signInEmail).mockImplementation(mockSignInEmail);
+    vi.mocked(auth.api.signInEmail).mockImplementation(
+      // vitest's default Mock is broader than Better Auth's procedure signature
+      mockSignInEmail as unknown as typeof auth.api.signInEmail,
+    );
   });
 
   it("calls auth.api.signInEmail with email and password", async () => {

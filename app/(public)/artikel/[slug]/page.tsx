@@ -85,14 +85,20 @@ export default async function ArtikelDetailPage({
       <header className="mt-5">
         <div className="flex items-center gap-2.5 text-xs">
           <span className="font-medium text-primary">
-            {post.category.name}
+            {typeof post.category === "object" && post.category
+              ? post.category.name
+              : "Artikel"}
           </span>
           <span aria-hidden className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50" />
           <time
-            dateTime={post.publishedAt?.toISOString()}
+            dateTime={
+              post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined
+            }
             className="tabular-nums text-muted-foreground"
           >
-            {post.publishedAt ? dateFormatter.format(post.publishedAt) : ""}
+            {post.publishedAt
+              ? dateFormatter.format(new Date(post.publishedAt))
+              : ""}
           </time>
         </div>
 
@@ -106,12 +112,14 @@ export default async function ArtikelDetailPage({
           </p>
         )}
 
-        <p className="mt-4 text-xs text-muted-foreground">
-          Oleh{" "}
-          <span className="font-medium text-foreground">
-            {post.author.name}
-          </span>
-        </p>
+        {typeof post.author === "object" && post.author && (
+          <p className="mt-4 text-xs text-muted-foreground">
+            Oleh{" "}
+            <span className="font-medium text-foreground">
+              {post.author.name}
+            </span>
+          </p>
+        )}
       </header>
 
       {post.thumbnail && (
@@ -128,7 +136,7 @@ export default async function ArtikelDetailPage({
       )}
 
       <div className="mt-8 border-t border-border/10 pt-8">
-        <Prose content={post.content} />
+        <Prose content={post.content ?? ""} />
       </div>
     </article>
   );

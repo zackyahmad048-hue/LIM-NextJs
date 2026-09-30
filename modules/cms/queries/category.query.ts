@@ -18,11 +18,14 @@ export async function getCategories(
 
   const res = await payload.find({
     collection: "categories",
-    where: search
-      ? {
-          or: [{ name: { like: search } }, { slug: { like: search } }],
-        }
-      : undefined,
+    where: {
+      deletedAt: { exists: false },
+      ...(search
+        ? {
+            or: [{ name: { like: search } }, { slug: { like: search } }],
+          }
+        : {}),
+    },
     limit: 1000,
     sort: "-createdAt",
     depth: 0,
@@ -30,6 +33,7 @@ export async function getCategories(
 
   const posts = await payload.find({
     collection: "posts",
+    where: { deletedAt: { exists: false } },
     limit: 10000,
     depth: 0,
     select: { category: true },

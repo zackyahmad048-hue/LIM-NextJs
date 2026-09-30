@@ -48,7 +48,7 @@ export default function LoginForm() {
     }
 
     toast.success("Selamat datang kembali.");
-    router.push("/dashboard");
+    router.push("/cms");
   };
 
   return (

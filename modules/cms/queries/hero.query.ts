@@ -1,26 +1,6 @@
-import { DEFAULT_HERO_CONFIG, HERO_CONFIG_SETTING_KEY } from "@/config/hero";
-import { PrismaSettingRepository } from "@/modules/settings/infrastructure/setting.repository";
+import { DEFAULT_HERO_CONFIG } from "@/config/hero";
 import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 import type { HeroConfig } from "@/types/hero";
-
-const settingRepository = new PrismaSettingRepository();
-
-function isHeroConfig(value: unknown): value is HeroConfig {
-  if (!value || typeof value !== "object") return false;
-  const c = value as Record<string, unknown>;
-  return (
-    typeof c.eyebrow === "string" &&
-    typeof c.title === "string" &&
-    typeof c.highlight === "string" &&
-    typeof c.description === "string" &&
-    typeof c.image === "string" &&
-    typeof c.ctaLabel === "string" &&
-    typeof c.ctaHref === "string" &&
-    typeof c.secondaryLabel === "string" &&
-    typeof c.secondaryHref === "string" &&
-    (c.tagline === undefined || typeof c.tagline === "string")
-  );
-}
 
 function pickStr(value: unknown, fallback: string): string {
   return typeof value === "string" && value.trim() !== "" ? value : fallback;
@@ -59,25 +39,6 @@ function fromPayloadHero(hero: unknown): HeroConfig | null {
   };
 }
 
-async function fromLegacyPrisma(): Promise<HeroConfig | null> {
-  let setting;
-  try {
-    setting = await settingRepository.findByKey(HERO_CONFIG_SETTING_KEY);
-  } catch {
-    return null;
-  }
-  if (!setting) return null;
-  try {
-    const parsed = JSON.parse(setting.value) as unknown;
-    if (isHeroConfig(parsed)) {
-      return { ...parsed, tagline: parsed.tagline ?? DEFAULT_HERO_CONFIG.tagline };
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
-
 export async function getHeroConfig(): Promise<HeroConfig> {
   try {
     const payload = await getPayloadClient();
@@ -85,11 +46,8 @@ export async function getHeroConfig(): Promise<HeroConfig> {
     const fromPayload = fromPayloadHero(settings.hero);
     if (fromPayload) return fromPayload;
   } catch {
-    // fall through to legacy / defaults
+    // Payload tidak tersedia → pakai default
   }
-
-  const legacy = await fromLegacyPrisma();
-  if (legacy) return legacy;
 
   return DEFAULT_HERO_CONFIG;
 }

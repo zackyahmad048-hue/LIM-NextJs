@@ -1,20 +1,23 @@
-import { PrismaPostRepository } from "../infrastructure/post.repository";
-
-const repository = new PrismaPostRepository();
+import {
+  findRecentPosts,
+  findPublishedPostsByCategorySlug,
+  findPublishedPostBySlug,
+  findPaginatedPosts,
+} from "../infrastructure/post.repository";
 
 export async function getRecentPosts(limit = 20) {
-  return repository.findRecent(limit);
+  return findRecentPosts(limit);
 }
 
 export async function getPublishedPostsByCategorySlug(
   categorySlug: string,
   limit = 6,
 ) {
-  return repository.findPublishedByCategorySlug(categorySlug, limit);
+  return findPublishedPostsByCategorySlug(categorySlug, limit);
 }
 
 export async function getPublishedPostBySlug(slug: string) {
-  return repository.findPublishedBySlug(slug);
+  return findPublishedPostBySlug(slug);
 }
 
 export async function getPaginatedPosts(params: {
@@ -24,11 +27,10 @@ export async function getPaginatedPosts(params: {
   status?: "draft" | "published" | "archived";
   categoryId?: string;
 }) {
-  return repository.findPaginated({
-    page: params.page ?? 1,
-    limit: params.limit ?? 20,
-    search: params.search,
-    status: params.status,
-    categoryId: params.categoryId,
-  });
+  return findPaginatedPosts(
+    params.page ?? 1,
+    params.limit ?? 20,
+    params.search,
+    params.status as any,
+  );
 }

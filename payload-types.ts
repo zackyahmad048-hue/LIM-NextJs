@@ -205,6 +205,7 @@ export interface Post {
   content?: string | null;
   thumbnail?: string | null;
   category?: (number | null) | Category;
+  author?: (number | null) | User;
   published?: boolean | null;
   publishedAt?: string | null;
   /**
@@ -1052,6 +1053,7 @@ export interface PostsSelect<T extends boolean = true> {
   content?: T;
   thumbnail?: T;
   category?: T;
+  author?: T;
   published?: T;
   publishedAt?: T;
   deletedAt?: T;

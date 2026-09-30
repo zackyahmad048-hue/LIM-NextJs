@@ -24,8 +24,8 @@ import {
 type Post = Awaited<ReturnType<typeof getPaginatedPosts>>["posts"][number];
 
 function getPostStatus(post: {
-  published: boolean;
-  publishedAt: Date | null;
+  published?: boolean | null;
+  publishedAt?: string | null;
 }) {
   if (post.published) return "Published";
   if (post.publishedAt) return "Archived";
@@ -65,7 +65,9 @@ const columns: ColumnDef<Post>[] = [
     header: "Kategori",
     cell: ({ row }) => (
       <span className="text-xs text-admin-content-fg/80">
-        {row.original.category.name}
+        {typeof row.original.category === "object" && row.original.category
+          ? row.original.category.name
+          : "—"}
       </span>
     ),
   },
@@ -79,7 +81,9 @@ const columns: ColumnDef<Post>[] = [
     header: "Author",
     cell: ({ row }) => (
       <span className="text-xs text-admin-content-fg/80">
-        {row.original.author.name}
+        {typeof row.original.author === "object" && row.original.author
+          ? row.original.author.name
+          : "—"}
       </span>
     ),
   },
@@ -100,21 +104,21 @@ const columns: ColumnDef<Post>[] = [
             </Link>
           </Button>
           {status !== "Published" && (
-            <form action={publishPost.bind(null, row.original.id)}>
+            <form action={publishPost.bind(null, String(row.original.id))}>
               <Button variant="ghost" size="sm" aria-label="Publikasikan berita">
                 <Send className="size-3.5" />
               </Button>
             </form>
           )}
           {status === "Published" && (
-            <form action={archivePost.bind(null, row.original.id)}>
+            <form action={archivePost.bind(null, String(row.original.id))}>
               <Button variant="ghost" size="sm" aria-label="Arsipkan berita">
                 <Archive className="size-3.5" />
               </Button>
             </form>
           )}
           {status === "Archived" && (
-            <form action={restorePostToDraft.bind(null, row.original.id)}>
+            <form action={restorePostToDraft.bind(null, String(row.original.id))}>
               <Button variant="ghost" size="sm" aria-label="Pulihkan ke draft">
                 <RotateCcw className="size-3.5" />
               </Button>
@@ -122,7 +126,7 @@ const columns: ColumnDef<Post>[] = [
           )}
           <ConfirmDelete
             onConfirm={deletePost}
-            args={[row.original.id]}
+            args={[String(row.original.id)]}
             title="Hapus berita"
             description={`Berita "${row.original.title}" akan dihapus permanen.`}
             label="Hapus berita"

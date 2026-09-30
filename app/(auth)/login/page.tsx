@@ -13,7 +13,7 @@ export default function LoginPage() {
   const reduced = useReducedMotion();
 
   return (
-    <main className="relative flex min-h-dvh min-w-full flex-col items-center justify-center px-4 py-10">
+    <div className="relative flex min-h-dvh min-w-full flex-col items-center justify-center px-4 py-10">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-1/4 -right-1/4 h-150 w-150 rounded-full bg-primary/6 blur-[120px]" />
@@ -78,6 +78,6 @@ export default function LoginPage() {
           © 2026 Sekretariat Lembaga Ittihadul Muballighin
         </motion.p>
       </footer>
-    </main>
+    </div>
   );
 }

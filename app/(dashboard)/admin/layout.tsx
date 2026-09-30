@@ -46,11 +46,11 @@ export default async function DashboardLayout({
         <div className="flex min-w-0 flex-1 flex-col">
           <Header user={user} roleSlugs={roleSlugs} />
 
-          <main className="flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
+          <div className="flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
             <div className="flex flex-col gap-6 md:gap-8">
               {children}
             </div>
-          </main>
+          </div>
 
           <Footer />
         </div>

@@ -33,10 +33,18 @@ Bahaya: `prisma migrate dev` akan melihat 52 tabel itu "dimiliki" Prisma dan bis
 
 | Tool | Kepemilikan | Lokasi migrasi |
 | --- | --- | --- |
-| Prisma | 36 model domain aplikasi | `prisma/migrations/` |
+| Prisma | 33 model domain aplikasi | `prisma/migrations/` |
 | Payload (drizzle) | 29 collection + 2 global | `migrations/` (root) |
 
 Semua deklarasi `payload_*` dan keenam model array dihapus dari `prisma/schema.prisma`. Prisma sekarang hanya mendeklarasikan tabel yang benar-benar ia buat.
+
+**Model konten lama juga sudah dihapus.** `Post`, `Category`, dan `Setting` (tabel `posts`, `categories`, `settings`) tidak lagi dimiliki Prisma karena Payload adalah satu-satunya sumber kebenaran konten (keputusan Q7):
+
+- `posts` — 0 baris saat drop, konten pindah ke `payload_posts`.
+- `categories` — 1 baris ("LIMPAT") sudah ada di `payload_categories`.
+- `settings` — penomoran surat sudah identik di global Payload `settings`; `org:structure` superseded oleh global `organization-structure`.
+
+Migrasi drop: `prisma/migrations/20260929120000_drop_legacy_content_tables`.
 
 **Aturan yang berlaku ke depan:**
 
@@ -50,7 +58,7 @@ Semua deklarasi `payload_*` dan keenam model array dihapus dari `prisma/schema.p
 **Positif**
 
 - Tidak ada lagi yang bisa menghasilkan `DROP TABLE payload_*`.
-- `prisma generate` lebih cepat dan hasilnya lebih kecil (88 → 36 model).
+- `prisma generate` lebih cepat dan hasilnya lebih kecil (88 → 33 model).
 - Kepemilikan schema bisa dibaca langsung dari deklarasi tool: tabel yang tidak ada di `prisma/schema.prisma` milik Payload.
 
 **Negatif / yang perlu diperhatikan**

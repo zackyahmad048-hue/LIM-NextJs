@@ -17,7 +17,11 @@ interface StatPrimitivesProps {
   className?: string;
 }
 
-/** Individual stat card for grid layout — glassmorphism content card */
+/** Individual stat card for grid layout — glassmorphism content card.
+ *  Wajib berada di dalam `<dl>` (lihat StatGrid): `dt`/`dd` hanya sah sebagai
+ *  anak langsung `dl` atau `div` yang menjadi anak `dl`. Urutan DOM `dt` → `dd`
+ *  mengikuti definisi (label → nilai) sedangkan `order-*` membalik tampilan
+ *  agar nilai tetap di atas. */
 export function StatCard({
   label,
   value,
@@ -26,23 +30,28 @@ export function StatCard({
   className,
 }: StatItem & { className?: string }) {
   return (
-    <article className={cn(
-      "group glass p-5 transition-all hover:border-primary",
-      className,
-    )}>
-      <div className="flex items-baseline gap-2">
-        {highlight && (
-          <span className="w-2 h-2 rounded-full bg-primary flex-shrink-0" aria-hidden="true" />
-        )}
-        <dd className="font-heading text-3xl font-semibold tabular-nums text-foreground">
-          {value}
-        </dd>
-      </div>
-      <dt className="mt-1.5 text-sm text-muted-foreground">{label}</dt>
-      {description != null && (
-        <dd className="mt-2 text-xs text-muted-foreground/80">{description}</dd>
+    <div
+      className={cn(
+        "group glass flex flex-col p-5 transition-all hover:border-primary",
+        className,
       )}
-    </article>
+    >
+      <dt className="order-2 mt-1.5 text-sm text-muted-foreground">{label}</dt>
+      <dd className="order-1 flex items-baseline gap-2 font-heading text-3xl font-semibold tabular-nums text-foreground">
+        {highlight && (
+          <span
+            className="w-2 h-2 rounded-full bg-primary shrink-0"
+            aria-hidden="true"
+          />
+        )}
+        {value}
+      </dd>
+      {description != null && (
+        <dd className="order-3 mt-2 text-xs text-muted-foreground/80">
+          {description}
+        </dd>
+      )}
+    </div>
   );
 }
 
@@ -50,10 +59,12 @@ export function StatCard({
  *  Responsive: 1 col (<640) → 2 col (640-1023) → 4 col (≥1024) */
 export function StatGrid({ items, className }: StatPrimitivesProps) {
   return (
-    <div className={cn(
-      "grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-      className,
-    )}>
+    <dl
+      className={cn(
+        "grid gap-4 sm:gap-5 lg:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+        className,
+      )}
+    >
       {items.map((item, index) => (
         <StatCard
           key={item.key ?? String(index)}
@@ -63,7 +74,7 @@ export function StatGrid({ items, className }: StatPrimitivesProps) {
           highlight={item.highlight ?? index === 0}
         />
       ))}
-    </div>
+    </dl>
   );
 }
 
@@ -83,7 +94,9 @@ export function StatStrip({ items, className }: StatPrimitivesProps) {
             {item.value}
           </dd>
           {item.description != null && (
-            <dd className="text-xs text-muted-foreground">{item.description}</dd>
+            <dd className="text-xs text-muted-foreground">
+              {item.description}
+            </dd>
           )}
         </div>
       ))}
