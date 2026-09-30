@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, type Mock } from "vitest";
 
 import { getHeroConfig } from "./hero.query";
 import { DEFAULT_HERO_CONFIG, HERO_CONFIG_SETTING_KEY } from "@/config/hero";
@@ -12,7 +12,7 @@ import { getPayloadClient } from "@/modules/cms/infrastructure/payload";
 
 describe("getHeroConfig", () => {
   let mockPayloadFindGlobal: ReturnType<typeof vi.fn>;
-  let mockSettingFindByKey: ReturnType<typeof vi.fn>;
+  let mockSettingFindByKey: Mock;
 
   beforeEach(() => {
     vi.clearAllMocks();

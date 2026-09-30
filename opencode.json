@@ -7,49 +7,47 @@
     }
   },
   "mcp": {
-    "servers": {
-      "context7": {
-        "type": "local",
-        "command": ["npx", "-y", "@upstash/context7-mcp"],
-        "environment": {
-          "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
-        }
-      },
-      "github": {
-        "type": "local",
-        "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
-        "environment": {
-          "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
-        }
-      },
-      "filesystem": {
-        "type": "local",
-        "command": [
-          "npx", "-y", "@modelcontextprotocol/server-filesystem",
-          "/media/linux/New Volume/Folder VS Code/LIM-NextJs"
-        ]
-      },
-      "shadcn": {
-        "type": "local",
-        "command": ["npx", "shadcn@latest", "mcp"]
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "environment": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
       }
+    },
+    "github": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
+      }
+    },
+    "filesystem": {
+      "type": "local",
+      "command": [
+        "npx", "-y", "@modelcontextprotocol/server-filesystem",
+        "/Users/macbookpro/LIM-NextJs"
+      ]
+    },
+    "shadcn": {
+      "type": "local",
+      "command": ["npx", "shadcn@latest", "mcp"]
     }
   },
-  "providers": {
+  "provider": {
     "xkiro": {
       "name": "xKiro",
-      "package": "@opencode/ai/providers/openai-compatible",
-      "settings": {
+      "npm": "@opencode/ai/providers/openai-compatible",
+      "options": {
         "baseURL": "https://api.xkiro.com/v1",
         "apiKey": "{env:XKIRO_API_KEY}"
       },
       "models": {
         "minimax/minimax-m3:free": {
-          "modelID": "minimax/minimax-m3:free",
+          "id": "minimax/minimax-m3:free",
           "name": "minimax/minimax-m3:free"
         },
         "qwen/qwen3.8-max:free": {
-          "modelID": "qwen/qwen3.8-max:free",
+          "id": "qwen/qwen3.8-max:free",
           "name": "qwen/qwen3.8-max:free"
         }
       }

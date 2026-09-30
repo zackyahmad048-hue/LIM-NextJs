@@ -119,9 +119,6 @@ export function AdminDashboard({ user, structure, roleSlugs }: Props) {
                     </div>
                     <div className="min-w-0">
                       <h3 className="font-heading text-base font-semibold truncate">{module.title}</h3>
-                      {module.description && (
-                        <p className="text-xs text-admin-content-fg/60 truncate">{module.description}</p>
-                      )}
                     </div>
                   </div>
                 </Link>

@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, type Mock } from "vitest";
 
 import { authClient } from "@/modules/authentication/infrastructure/better-auth-client";
 
@@ -16,7 +16,7 @@ import { auth } from "@/modules/authentication/infrastructure/better-auth";
 vi.mock("@/modules/authentication/infrastructure/better-auth");
 
 describe("login action seam", () => {
-  let mockSignInEmail: ReturnType<typeof vi.fn>;
+  let mockSignInEmail: Mock;
 
   beforeEach(() => {
     vi.clearAllMocks();
