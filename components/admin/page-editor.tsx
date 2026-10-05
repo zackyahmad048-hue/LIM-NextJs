@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Plus, Save, Trash2 } from "lucide-react";
+import Image from "next/image";
 
 import { saveSitePageContent } from "@/app/(dashboard)/admin/content/pages/_actions";
 import type { SitePageDefinition, SitePageField } from "@/config/site-pages";
@@ -100,7 +101,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
   }
 
   const textFields = def.fields.filter(
-    (field) => field.type === "text" || field.type === "textarea",
+    (field) => field.type === "text" || field.type === "textarea" || field.type === "image",
   );
   const listFields = def.fields.filter(
     (field) => field.type === "list-simple" || field.type === "list-pair",
@@ -132,6 +133,41 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     placeholder={field.placeholder}
                     className="min-h-0 rounded-md text-xs leading-5 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
                   />
+                  {field.hint && (
+                    <p className="text-[11px] text-admin-content-fg/40">
+                      {field.hint}
+                    </p>
+                  )}
+                </div>
+              ) : field.type === "image" ? (
+                <div key={field.key} className="space-y-1.5 md:col-span-2">
+                  <Label htmlFor={field.key} className="text-xs text-admin-content-fg/70">
+                    {field.label}
+                  </Label>
+                  <Input
+                    id={field.key}
+                    value={String(values[field.key] ?? "")}
+                    onChange={(e) => setField(field.key, e.target.value)}
+                    placeholder={field.placeholder ?? "/images/nama-file.jpg"}
+                    className="rounded-md text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                  />
+                  {String(values[field.key] ?? "").trim() ? (
+                    <div className="relative mt-2 aspect-video w-full overflow-hidden rounded-md border bg-admin-input-bg">
+                      <Image
+                        src={String(values[field.key] ?? "")}
+                        alt="Pratinjau gambar"
+                        fill
+                        className="object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <p className="text-[11px] text-admin-content-fg/40">
+                      Kosong — section hanya akan menampilkan teks.
+                    </p>
+                  )}
                   {field.hint && (
                     <p className="text-[11px] text-admin-content-fg/40">
                       {field.hint}

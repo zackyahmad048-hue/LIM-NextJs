@@ -5,7 +5,7 @@ import {
   type SitePageField,
 } from "@/config/site-pages";
 
-export interface ContentPair {
+ interface ContentPair {
   title: string;
   description: string;
 }
@@ -64,7 +64,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function readField(field: SitePageField, stored: unknown, fallback: unknown) {
-  if (field.type === "text" || field.type === "textarea") {
+  if (field.type === "text" || field.type === "textarea" || field.type === "image") {
     return typeof stored === "string" ? stored : String(fallback ?? "");
   }
 

@@ -17,13 +17,13 @@ function BidangCard({
   return (
     <Link
       href={`/profil/bidang/${slug}`}
-      className="group flex h-full flex-col rounded-xl border border-primary/25 bg-card p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary motion-reduce:transition-none"
+      className="flex h-full flex-col rounded-xl border border-primary/25 bg-card p-5 shadow-sm"
     >
       <span
         className="flex h-10 w-10 items-center justify-center rounded-sm border border-primary/40"
         aria-hidden
       >
-        <span className="h-2.5 w-2.5 rounded-full bg-primary transition-transform duration-300 ease-out group-hover:scale-125 motion-reduce:transition-none" />
+        <span className="h-2.5 w-2.5 rounded-full bg-primary" />
       </span>
 
       <h3 className="mt-4 font-heading text-base font-base text-balance text-foreground">
@@ -50,7 +50,7 @@ export default function BidangCarousel() {
   ));
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24">
       <Reveal from="scale">
         <div
           className="group/marquee relative overflow-hidden"
@@ -73,12 +73,12 @@ export default function BidangCarousel() {
 
           <div
             data-marquee-inner
-            className="flex w-max gap-4"
+            className="flex w-max gap-6"
             style={
               reduced
                 ? undefined
                 : {
-                    animation: "marquee-seamless 30s linear infinite",
+                    animation: "marquee-seamless 60s linear infinite",
                   }
             }
           >

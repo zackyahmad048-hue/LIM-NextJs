@@ -27,11 +27,11 @@ export default function About({
   features,
 }: AboutSectionProps) {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
       <Reveal>
         <div className="mx-auto max-w-5xl text-center lg:max-w-2xl">
           <SectionLabel>Selayang Pandang</SectionLabel>
-          <h2 className="mt-3 font-heading text-3xl font-medium text-balance text-foreground md:text-4xl">
+          <h2 className="mt-4 font-heading text-2xl font-medium text-balance text-foreground md:text-3xl">
             {title}
           </h2>
           {subtitle && (
@@ -42,7 +42,7 @@ export default function About({
         </div>
       </Reveal>
 
-      <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+      <div className="mt-12 grid items-center gap-12 lg:grid-cols-2">
         <Reveal from="left" className="relative">
           <div className="relative mx-auto max-w-md">
             <div
@@ -54,7 +54,6 @@ export default function About({
                 src={image}
                 alt={title}
                 fill
-                priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-transform duration-200 hover:scale-105"
               />

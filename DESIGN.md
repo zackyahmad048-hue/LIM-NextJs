@@ -60,14 +60,20 @@ focus, and the institution's authority is shown through demonstrated skill
    on the right; 3 hero stats (100+ wilayah, 3000+ delegasi, 1000+ titik) in tabular
    numbers below the fold.
 2. **Tentang (About)** — konten glass ringan (`.glass`) dengan border; bukan kartu flat.
-3. **Bidang carousel** — diskrit 8 kartu (judul + tagline) memakai `Carousel`; prev/next
-   keyboard-accessible, tanpa auto-rotate.
+3. **Bidang carousel** — 8 kartu (judul + tagline) dalam seamless auto-scroll 60s,
+    pause on hover, dihentikan otomatis saat `prefers-reduced-motion`.
 4. **Kajian & Artikel (Bento)** — layout grid: kiri 2 kartu, kanan 1 kartu besar (feature),
    kartu bergaya glass ringan (`.glass`).
 
 ### Profil section
 - Section wrapper `SiteSection` (`mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16`);
   kartu thin-border (`border-border/60`), aksen oranye hanya taktis; tabel/teks solid.
+
+### Beranda section rhythm (graduated)
+- About: `py-12 sm:py-16 lg:py-20`
+- Bidang carousel: `py-16 sm:py-20 lg:py-24`
+- Article bento: `py-20 sm:py-24 lg:py-28`
+  (air meningkat ke bawah halaman; `SiteSection` dipakai di halaman lain)
 
 ### Layanan Falak (6 pages)
 - Instrumental: monospace numbers, tabular-nums, status badges, city picker,

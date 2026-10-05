@@ -15,6 +15,13 @@ export type SitePageField =
       hint?: string;
     }
   | {
+      type: "image";
+      key: string;
+      label: string;
+      placeholder?: string;
+      hint?: string;
+    }
+  | {
       type: "list-simple";
       key: string;
       label: string;
@@ -42,7 +49,7 @@ export interface SitePageDefinition {
   defaults: Record<string, unknown>;
 }
 
-export const SITE_PAGES: Record<string, SitePageDefinition> = {
+ const SITE_PAGES: Record<string, SitePageDefinition> = {
   "homepage.about": {
     key: "homepage.about",
     route: "/#tentang",
@@ -60,7 +67,7 @@ export const SITE_PAGES: Record<string, SitePageDefinition> = {
         label: "Deskripsi",
         rows: 6,
       },
-      { type: "text", key: "image", label: "Path gambar" },
+      { type: "image", key: "image", label: "Path gambar", placeholder: "/images/nama-file.jpg" },
       {
         type: "list-pair",
         key: "features",
