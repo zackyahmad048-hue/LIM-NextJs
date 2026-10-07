@@ -37,6 +37,13 @@ interface RevealProps {
   index?: number;
   delay?: number;
   className?: string;
+  /**
+   * Animate on mount instead of on scroll into view. Use for elements that are
+   * already above the fold at load (or for absolutely-positioned wrappers whose
+   * IntersectionObserver would not fire before the user scrolls) — otherwise the
+   * entrance tween never runs and the element stays at opacity: 0.
+   */
+  immediate?: boolean;
 }
 
 export default function Reveal({
@@ -47,6 +54,7 @@ export default function Reveal({
   index,
   delay = 0,
   className,
+  immediate = false,
 }: RevealProps) {
   const reduced = useReducedMotion();
   const stagger = typeof index === "number" ? Math.min(index * 0.07, 0.35) : 0;
@@ -68,8 +76,17 @@ export default function Reveal({
   return (
     <motion.div
       initial={reduced ? false : { opacity: 0, ...offset }}
-      whileInView={reduced ? undefined : { opacity: 1, x: 0, y: 0, scale: 1 }}
-      viewport={reduced ? undefined : { once: true, amount: 0.2 }}
+      whileInView={
+        immediate || reduced
+          ? undefined
+          : { opacity: 1, x: 0, y: 0, scale: 1 }
+      }
+      animate={
+        immediate && !reduced
+          ? { opacity: 1, x: 0, y: 0, scale: 1 }
+          : undefined
+      }
+      viewport={immediate || reduced ? undefined : { once: true, amount: 0.2 }}
       transition={{
         duration: 0.6,
         ...(totalDelay > 0 && { delay: totalDelay }),

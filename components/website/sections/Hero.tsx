@@ -66,13 +66,15 @@ export default function Hero({ hero }: { hero: HeroConfig }) {
 
           <div className="relative">
             {/* Reserve the column height on desktop so the floating widget
-                never drives the hero height / causes layout shift. */}
-            <div aria-hidden className="hidden lg:block lg:h-136" />
+                never drives the hero height / causes layout shift. Sized to
+                the widget's real offline-box height (352 x 650 incl. border). */}
+            <div aria-hidden className="hidden lg:block lg:h-164" />
 
             <Reveal
               from="scale"
               startScale={0.85}
               delay={0.2}
+              immediate
               className="lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center"
             >
               <div className="w-full max-w-[18rem] sm:max-w-[20rem] lg:max-w-88">
