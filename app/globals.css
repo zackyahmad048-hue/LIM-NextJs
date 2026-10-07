@@ -547,6 +547,73 @@
  * transitions for interactivity. Animasi berbasis JS (motion/react) sudah
  * ditangani useReducedMotion di masing-masing komponen.
  */
+
+/* Backdrop auth — grid hairline monokrom bergeser pelan (pure CSS). */
+.auth-grid {
+  position: fixed;
+  inset: -56px;
+  z-index: -10;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 45%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 45%, black 30%, transparent 75%);
+  animation: auth-grid-drift 60s linear infinite;
+}
+
+.dark .auth-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 12%, transparent) 1px, transparent 1px);
+}
+
+@keyframes auth-grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(56px, 56px, 0);
+  }
+}
+
+/* Toast island — pil terbalik tema, morph masuk (global). */
+[data-sonner-toast][data-styled="true"] {
+  min-height: 2.5rem;
+  max-width: min(90vw, 28rem);
+  justify-content: center;
+  border: none;
+  border-radius: 1.25rem;
+  background: var(--foreground);
+  color: var(--background);
+  box-shadow: 0 8px 24px -8px rgb(0 0 0 / 0.35);
+}
+
+[data-sonner-toast][data-styled="true"] [data-title] {
+  font-weight: 600;
+}
+
+[data-sonner-toast][data-styled="true"] [data-description] {
+  color: var(--background);
+  opacity: 0.7;
+}
+
+[data-sonner-toast][data-mounted="true"][data-styled="true"] {
+  animation: island-in 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes island-in {
+  from {
+    clip-path: inset(0 45% 0 45% round 1.25rem);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 1.25rem);
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { motion } from "motion/react";
@@ -19,9 +18,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function LoginForm() {
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+export default function LoginForm({
+  onError,
+  onSuccess,
+}: {
+  onError?: () => void;
+  onSuccess?: () => void;
+}) {
+    const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
   const {
@@ -46,11 +50,12 @@ export default function LoginForm() {
     if (error) {
       setAuthError(error.message ?? "Gagal masuk. Periksa email dan password.");
       toast.error(error.message);
+      onError?.();
       return;
     }
 
     toast.success("Selamat datang kembali.");
-    router.push("/admin");
+    onSuccess?.();
   };
 
   return (

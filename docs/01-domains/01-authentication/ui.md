@@ -19,6 +19,8 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 # Pages
 
 > Status implementasi: halaman `/admin/login` dan `/admin/setup` sudah memakai kartu glass di latar polos (dual-mode). Halaman forgot/reset-password dan change-password belum dibangun meski tercantum di dokumen ini.
+- Halaman auth memakai latar grid hairline `.auth-grid` (monokrom, bergeser 60s, reduced-motion membekukan).
+- Toast global memakai island Sonner di tengah atas (pil terbalik tema, `visibleToasts=1`, tanpa tombol tutup).
 
 ### Login Page
 

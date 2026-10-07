@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
+import { Check, Loader2, X } from "lucide-react";
 import { AppThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
@@ -80,7 +81,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         />
         <AppThemeProvider attribute="class" defaultTheme="dark">
           <AntdRegistry>{children}</AntdRegistry>
-          <Toaster richColors position="top-right" closeButton />
+          <Toaster position="top-center" visibleToasts={1} offset={12} closeButton={false} toastOptions={{ duration: 4000 }} icons={{ success: <Check className="size-4 text-primary" />, error: <X className="size-4 text-destructive" />, loading: <Loader2 className="size-4 animate-spin text-primary" /> }} />
         </AppThemeProvider>
       </body>
     </html>
