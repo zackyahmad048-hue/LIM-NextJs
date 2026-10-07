@@ -5,7 +5,6 @@ import { after } from "next/server";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
 import { secretariatService } from "../application/service";
 import type {
-  IncomingMailStatus,
   OutgoingMailStatus,
   DispositionStatus,
   AdministrativeDocumentStatus,
@@ -52,7 +51,6 @@ const PERMISSION_DOCUMENT_UPDATE = ["secretariat.document.update"];
 const PERMISSION_DOCUMENT_DELETE = ["secretariat.document.delete"];
 const PERMISSION_AGENDA_CREATE = ["secretariat.agenda.create"];
 const PERMISSION_AGENDA_UPDATE = ["secretariat.agenda.update"];
-const PERMISSION_AGENDA_DELETE = ["secretariat.agenda.delete"];
 
 export async function createIncomingMail(
   prevState: ActionResult,
@@ -138,15 +136,6 @@ export async function deleteIncomingMail(id: string) {
   }
 }
 
-export async function transitionIncomingMailStatus(id: string, status: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
-    await secretariatService.transitionIncomingMailStatus(id, status as IncomingMailStatus);
-    revalidatePath("/admin/secretariat/surat-menyurat");
-  } catch {
-    return;
-  }
-}
 
 export async function createOutgoingMail(
   _prevState: ActionResult,
@@ -581,15 +570,6 @@ export async function updateAgendaBook(
   }
 }
 
-export async function deleteAgendaBook(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_AGENDA_DELETE);
-    await secretariatService.deleteAgendaBook(id);
-    revalidatePath("/admin/secretariat/agenda");
-  } catch {
-    return;
-  }
-}
 
 function parseJsonArray<T>(value: string, fallback: T[]): T[] {
   try {

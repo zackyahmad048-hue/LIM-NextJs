@@ -6,7 +6,7 @@ const PT_PER_MM = 72 / 25.4;
 
 /** Ukuran QR yang ditempel ke PDF (dalam mm). */
 export const QR_SIZE_MM = 25;
-export const QR_SIZE_PT = QR_SIZE_MM * PT_PER_MM;
+ const QR_SIZE_PT = QR_SIZE_MM * PT_PER_MM;
 
 /** Default posisi QR Ketua — diambil dari example-surat.pdf (page 1). */
 export const DEFAULT_KETUA_POSITION: QrPagePositionMm = {
@@ -25,7 +25,7 @@ export const DEFAULT_SEKRETARIS_POSITION: QrPagePositionMm = {
 /** Default posisi QR Verifikasi — pojok kanan-bawah semua halaman. */
 export const DEFAULT_VERIFIKASI_POSITION: QrPositionMm = { x: 175, y: 12 };
 
-export interface QrImageInput {
+ interface QrImageInput {
   png: Buffer;
   position: QrPagePositionMm | null;
 }
@@ -99,4 +99,3 @@ export async function composeSignedPdf(
   return Buffer.from(bytes);
 }
 
-export { PT_PER_MM };

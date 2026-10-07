@@ -11,23 +11,12 @@ import {
 } from "../infrastructure/letter-numbering.config";
 import type { LetterNumber } from "./letter-number.rules";
 
-export {
-  NUMBERING_PLACEHOLDERS,
-  ROMAN_MONTHS,
-  toRomanMonth,
-  padSequence,
-  formatLetterNumber,
-  validateNumberingTemplate,
-  resolvePeriodYear,
-  parseLetterNumber,
-} from "./letter-number.rules";
 export type {
-  NumberingPeriod,
   LetterNumber,
-  LetterNumberParts,
+  
 } from "./letter-number.rules";
 
-export class LetterNumberAlreadyIssuedError extends SecretariatError {
+ class LetterNumberAlreadyIssuedError extends SecretariatError {
   constructor() {
     super("Surat ini sudah memiliki nomor resmi.");
     this.name = "LetterNumberAlreadyIssuedError";

@@ -136,10 +136,7 @@ export async function createWajibKhidmahLembaga(
   }
 }
 
-export type CreateLembagaResult = Awaited<
-  ReturnType<typeof createWajibKhidmahLembaga>
->;
-
+ 
 export type UploadLembagaFileResult =
   | {
       success: true;
@@ -185,4 +182,3 @@ async function uploadPublicLembagaFile(
   }
 }
 
-export type { UploadedLembagaFile } from "../application/upload.service";

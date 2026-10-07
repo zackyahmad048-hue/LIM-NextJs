@@ -10,7 +10,7 @@ import type {
 } from "../domain/entities";
 import type { SecretariatRepository } from "../domain/repository";
 
-export const prismaSecretariatRepository: SecretariatRepository = {
+ const prismaSecretariatRepository: SecretariatRepository = {
   // Incoming Mail
   async findManyIncomingMails({ search, status, page, limit }) {
     const where: Prisma.IncomingMailWhereInput = { deletedAt: null };

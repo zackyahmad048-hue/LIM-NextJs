@@ -1,6 +1,6 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
 
-export interface BoardMember {
+ interface BoardMember {
   id: string;
   name: string;
   position: string;
@@ -8,14 +8,14 @@ export interface BoardMember {
   sortOrder: number;
 }
 
-export interface RegionalBoard {
+ interface RegionalBoard {
   id: string;
   province: string;
   name: string;
   members: BoardMember[];
 }
 
-export interface BranchBoard {
+ interface BranchBoard {
   id: string;
   province: string;
   regency: string;

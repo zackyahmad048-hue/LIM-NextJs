@@ -2,14 +2,13 @@ import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { storage } from "@/modules/shared/infrastructure/storage";
 import { LembagaValidationError } from "../domain/lembaga.errors";
 
-export const MAX_PHOTO_BYTES = 200 * 1024;
-export const MAX_DOCUMENT_BYTES = 5 * 1024 * 1024;
+ const MAX_PHOTO_BYTES = 200 * 1024;
+ const MAX_DOCUMENT_BYTES = 5 * 1024 * 1024;
 
 const PDF_MAGIC = Buffer.from("%PDF-", "latin1");
 const IMAGE_MIME_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
 
-export type LembagaUploadFolder = "lembaga-pemohon";
-
+ 
 export type LembagaUploadKind = "foto" | "dokumen";
 
 export interface UploadedLembagaFile {

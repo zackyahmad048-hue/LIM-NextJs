@@ -111,52 +111,16 @@ export const LETTER_TYPES: LetterType[] = [
   },
 ];
 
-export const LETTER_TYPE_KEYS = LETTER_TYPES.map((type) => type.key);
-
+ 
 export function getLetterTypeLabel(key: string): string {
   return LETTER_TYPES.find((type) => type.key === key)?.label ?? key;
 }
 
-export function getLetterTypeDescription(key: string): string {
-  return (
-    LETTER_TYPES.find((type) => type.key === key)?.description ?? ""
-  );
-}
-
+ 
 /**
  * Pemetaan kategori A–T ke enum DocumentType lama agar data
  * tetap kompatibel. Kategori yang tidak punya padanan memakai LAINNYA.
  */
-const CATEGORY_TO_DOCUMENT_TYPE: Record<
-  string,
-  | "UNDANGAN"
-  | "PERMOHONAN"
-  | "PEMBERITAHUAN"
-  | "INSTRUKSI"
-  | "KETERANGAN"
-  | "KEPUTUSAN"
-  | "TERIMA_KASIH"
-  | "LAINNYA"
-> = {
-  A: "KEPUTUSAN",
-  B: "UNDANGAN",
-  C: "PERMOHONAN",
-  D: "PEMBERITAHUAN",
-  E: "INSTRUKSI",
-};
 
-type DocumentTypeValue =
-  | "UNDANGAN"
-  | "PERMOHONAN"
-  | "PEMBERITAHUAN"
-  | "INSTRUKSI"
-  | "KETERANGAN"
-  | "KEPUTUSAN"
-  | "TERIMA_KASIH"
-  | "LAINNYA";
 
-export function letterCategoryToDocumentType(
-  categoryCode: string,
-): DocumentTypeValue {
-  return CATEGORY_TO_DOCUMENT_TYPE[categoryCode] ?? "LAINNYA";
-}
+ 

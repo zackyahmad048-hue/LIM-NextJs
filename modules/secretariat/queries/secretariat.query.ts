@@ -144,23 +144,7 @@ export async function getAgendaBookById(id: string) {
   return repo.findAgendaBookById(id);
 }
 
-export async function getDocumentArchives(params: {
-  search?: string;
-  documentType?: string;
-  page?: number;
-  limit?: number;
-}) {
-  return repo.findManyDocumentArchives({
-    search: params.search,
-    documentType: params.documentType as DocumentType,
-    page: params.page ?? 1,
-    limit: params.limit ?? 20,
-  });
-}
 
-export async function getDocumentArchiveById(id: string) {
-  return repo.findDocumentArchiveById(id);
-}
 
 export async function getSecretariatStats() {
   return repo.getDashboardStats();
@@ -170,32 +154,6 @@ export async function getSuratMenyuratStats() {
   return repo.getSuratMenyuratStats();
 }
 
-export async function getCalendarEvents(params: { from: Date; to: Date }) {
-  const [agendas, schedules] = await Promise.all([
-    secretariatService.listAgendasInRange(params),
-    prisma.programSchedule.findMany({
-      where: {
-        deletedAt: null,
-        startTime: { gte: params.from },
-        endTime: { lte: params.to },
-      },
-      select: {
-        id: true,
-        title: true,
-        startTime: true,
-        endTime: true,
-        description: true,
-        program: { select: { name: true } },
-      },
-      orderBy: { startTime: "asc" },
-    }),
-  ]);
-
-  return {
-    agendas,
-    schedules,
-  };
-}
 
 export async function getSecretariatDashboardData(limit = 5) {
   const now = new Date();
@@ -210,30 +168,8 @@ export async function getSecretariatDashboardData(limit = 5) {
   return { stats, recentOutgoing, recentIncoming, upcomingAgendas };
 }
 
-export async function getSecretariatReportData(year: number) {
-  const [incomingByStatus, outgoingByStatus, incomingByMonth, outgoingByMonth] =
-    await Promise.all([
-      repo.countIncomingMailsByStatus(),
-      repo.countOutgoingMailsByStatus(),
-      secretariatService.countIncomingMailsByMonth(year),
-      secretariatService.countOutgoingMailsByMonth(year),
-    ]);
 
-  return {
-    incomingByStatus,
-    outgoingByStatus,
-    incomingByMonth,
-    outgoingByMonth,
-  };
-}
 
-export async function getIncomingMailsByStatus() {
-  return repo.countIncomingMailsByStatus();
-}
-
-export async function getOutgoingMailsByStatus() {
-  return repo.countOutgoingMailsByStatus();
-}
 
 export async function getOutgoingMailByVerificationCode(code: string) {
   return repo.findOutgoingMailByVerificationCode(code);

@@ -3,7 +3,7 @@ import { Prisma } from "@/generated/client";
 import { BaseRepository } from "@/modules/shared/infrastructure/base.repository";
 import type { CategoryRepository } from "../domain/category.repository";
 
-export class PrismaCategoryRepository
+ class PrismaCategoryRepository
   extends BaseRepository
   implements CategoryRepository
 {

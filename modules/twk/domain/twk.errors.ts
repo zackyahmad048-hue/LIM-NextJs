@@ -1,4 +1,4 @@
-export class TwkError extends Error {
+ class TwkError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "TwkError";

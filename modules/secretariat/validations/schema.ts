@@ -29,13 +29,13 @@ function isSameOrAfterToday(value: string): boolean {
   return parseLocalDateInput(value) >= startOfTodayLocal();
 }
 
-export const qrPagePositionSchema = z.object({
+ const qrPagePositionSchema = z.object({
   page: z.number().int().min(1),
   x: z.number().min(0),
   y: z.number().min(0),
 });
 
-export const qrPositionSchema = z.object({
+ const qrPositionSchema = z.object({
   x: z.number().min(0),
   y: z.number().min(0),
 });
@@ -68,30 +68,11 @@ export function parseQrPosition(value: string): QrPositionMm | null {
   return parsed.success ? parsed.data : null;
 }
 
-export const incomingMailStatusEnum = z.enum([
-  "RECEIVED",
-  "PROCESSED",
-  "ARCHIVED",
-]);
-
-export const outgoingMailStatusEnum = z.enum(["DRAFT", "SENT", "ARCHIVED"]);
-
-export const dispositionStatusEnum = z.enum([
-  "PENDING",
-  "IN_PROGRESS",
-  "COMPLETED",
-  "CANCELLED",
-]);
-
-export const administrativeDocumentStatusEnum = z.enum([
-  "DRAFT",
-  "SUBMITTED",
-  "APPROVED",
-  "REJECTED",
-  "ARCHIVED",
-]);
-
-export const documentTypeEnum = z.enum([
+ 
+ 
+ 
+ 
+ const documentTypeEnum = z.enum([
   "UNDANGAN",
   "PERMOHONAN",
   "PEMBERITAHUAN",
@@ -103,7 +84,7 @@ export const documentTypeEnum = z.enum([
 ]);
 
 // Incoming Mail
-export const createIncomingMailBase = z.object({
+ const createIncomingMailBase = z.object({
   registrationNumber: z
     .string()
     .min(1, "Nomor registrasi wajib diisi.")
@@ -151,7 +132,7 @@ export const updateIncomingMailSchema = createIncomingMailBase
   );
 
 // Outgoing Mail
-export const createOutgoingMailBase = z.object({
+ const createOutgoingMailBase = z.object({
   mailDate: z.string().min(1, "Tanggal surat wajib diisi."),
   subject: z
     .string()
@@ -234,7 +215,7 @@ export const updateOutgoingMailSchema = createOutgoingMailBase
   });
 
 // Disposition
-export const createDispositionBase = z.object({
+ const createDispositionBase = z.object({
   incomingMailId: z.string().min(1, "Surat masuk wajib dipilih."),
   assignedToId: z.string().min(1, "Tujuan disposisi wajib dipilih."),
   instruction: z
@@ -263,7 +244,7 @@ export const updateDispositionSchema = createDispositionBase
   });
 
 // Administrative Document
-export const createAdministrativeDocumentBase = z.object({
+ const createAdministrativeDocumentBase = z.object({
   documentNumber: z
     .string()
     .min(1, "Nomor dokumen wajib diisi.")
@@ -322,44 +303,7 @@ export const createAgendaBookSchema = z.object({
 });
 
 // Document Archive
-export const createDocumentArchiveSchema = z.object({
-  archiveNumber: z
-    .string()
-    .min(1, "Nomor arsip wajib diisi.")
-    .max(50, "Nomor arsip maksimal 50 karakter."),
-  title: z
-    .string()
-    .min(1, "Judul wajib diisi.")
-    .max(255, "Judul maksimal 255 karakter."),
-  documentType: documentTypeEnum,
-  category: z
-    .string()
-    .max(255, "Kategori maksimal 255 karakter.")
-    .optional()
-    .or(z.literal("")),
-  retentionYear: z.coerce
-    .number()
-    .int()
-    .positive("Masa retensi harus positif.")
-    .optional(),
-});
+ 
+        export const updateAgendaBookSchema = createAgendaBookSchema.partial();
 
-export type CreateIncomingMailInput = z.infer<typeof createIncomingMailSchema>;
-export type UpdateIncomingMailInput = z.infer<typeof updateIncomingMailSchema>;
-export type CreateOutgoingMailInput = z.infer<typeof createOutgoingMailSchema>;
-export type UpdateOutgoingMailInput = z.infer<typeof updateOutgoingMailSchema>;
-export type CreateDispositionInput = z.infer<typeof createDispositionSchema>;
-export type UpdateDispositionInput = z.infer<typeof updateDispositionSchema>;
-export type CreateAdministrativeDocumentInput = z.infer<
-  typeof createAdministrativeDocumentSchema
->;
-export type UpdateAdministrativeDocumentInput = z.infer<
-  typeof updateAdministrativeDocumentSchema
->;
-export const updateAgendaBookSchema = createAgendaBookSchema.partial();
-
-export type CreateAgendaBookInput = z.infer<typeof createAgendaBookSchema>;
-export type UpdateAgendaBookInput = z.infer<typeof updateAgendaBookSchema>;
-export type CreateDocumentArchiveInput = z.infer<
-  typeof createDocumentArchiveSchema
->;
+   

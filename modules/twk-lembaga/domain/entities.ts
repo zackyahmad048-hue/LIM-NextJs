@@ -76,25 +76,14 @@ export const KITAB_BERMAKNA_OPTIONS = [
   "Lainnya",
 ] as const;
 
-export type KitabBermaknaOption = (typeof KITAB_BERMAKNA_OPTIONS)[number];
-
+ 
 export const BAHASA_PENGANTAR_OPTIONS = ["Indonesia", "Lainnya"] as const;
 
-export type BahasaPengantarOption = (typeof BAHASA_PENGANTAR_OPTIONS)[number];
-
+ 
 export const GURU_BANTU_DIMOHON_OPTIONS = [1, 2] as const;
 
-export type GuruBantuDimohon = (typeof GURU_BANTU_DIMOHON_OPTIONS)[number];
-
-export interface PemohonDetail {
-  nama: string | null;
-  status: WajibKhidmahStatusPemohon | null;
-  statusLainnya: string | null;
-  alumniAngkatan: string | null;
-  telepon: string | null;
-  fotoFileId: string | null;
-}
-
+ 
+ 
 export interface WajibKhidmahLembagaEntity {
   id: string;
   namaLembagaPendidikan: string;

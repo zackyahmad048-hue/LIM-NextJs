@@ -15,7 +15,7 @@ export interface LetterNumberingConfig {
   nextSequence: Record<string, number>;
 }
 
-export const NUMBERING_SETTING_KEYS = {
+ const NUMBERING_SETTING_KEYS = {
   formatTemplate: "secretariat.numbering.formatTemplate",
   sequenceDigits: "secretariat.numbering.sequenceDigits",
   periods: "secretariat.numbering.periods",
@@ -36,7 +36,7 @@ const DEFAULT_LEVEL_CODES: LevelCodeOption[] = [
   { code: "PP.IX", label: "Bidang IX" },
 ];
 
-export const DEFAULT_NUMBERING_CONFIG: LetterNumberingConfig = {
+ const DEFAULT_NUMBERING_CONFIG: LetterNumberingConfig = {
   formatTemplate: "{seq}/{level}/{category}/{bulan}/{tahun}",
   sequenceDigits: 3,
   periods: [{ startYear: 2024, endYear: 2029 }],

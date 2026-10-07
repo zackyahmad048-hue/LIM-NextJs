@@ -176,11 +176,4 @@ export const updateWajibKhidmahMemberSchema = baseShape
 export type WajibKhidmahMemberInput = z.infer<
   typeof wajibKhidmahMemberSchema
 >;
-export type CreateWajibKhidmahMemberInput = z.infer<
-  typeof createWajibKhidmahMemberSchema
->;
-export type UpdateWajibKhidmahMemberInput = z.infer<
-  typeof updateWajibKhidmahMemberSchema
->;
-
-export { STATUS_VALUES };
+  

@@ -1,6 +1,6 @@
 import { categoryRepository } from "../infrastructure/category.repository";
 
-export class CategoryService {
+ class CategoryService {
   async create(data: { name: string; slug: string; description?: string }) {
     const [nameExists, slugExists] = await Promise.all([
       categoryRepository.checkNameTaken(data.name),

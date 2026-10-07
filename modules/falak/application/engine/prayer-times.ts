@@ -46,23 +46,7 @@ export function calculatePrayerTimes(
   };
 }
 
-export function calculatePrayerTimesForMonth(
-  coordinate: Coordinate,
-  year: number,
-  month: number,
-  method: PrayerMethod,
-): PrayerTimeResult[] {
-  const daysInMonth = new Date(year, month, 0).getDate();
-  const results: PrayerTimeResult[] = [];
-
-  for (let day = 1; day <= daysInMonth; day++) {
-    const date = new Date(year, month - 1, day);
-    results.push(calculatePrayerTimes(coordinate, date, method));
-  }
-
-  return results;
-}
-
+ 
 export function calculateQibla(coordinate: Coordinate): number {
   const coords = new Coordinates(coordinate.latitude, coordinate.longitude);
   return qiblaCalc(coords);

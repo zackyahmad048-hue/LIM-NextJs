@@ -21,7 +21,7 @@ import {
 } from "@/modules/organization/presentation/organization.action";
 import { INITIAL_ACTION_RESULT } from "@/modules/shared/presentation/action-result";
 
-export interface OfficerUnitOption {
+ interface OfficerUnitOption {
   id: string;
   code: string;
   name: string;

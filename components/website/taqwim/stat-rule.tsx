@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export interface TaqwimStat {
+ interface TaqwimStat {
   value: string;
   label: string;
 }

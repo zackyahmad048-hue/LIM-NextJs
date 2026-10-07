@@ -24,13 +24,13 @@ export default async function ArticleBento() {
   const [featured, ...rest] = posts;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
+    <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:py-28">
       <Reveal from="left">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <SectionLabel>{BENTO.label}</SectionLabel>
             {BENTO.description && (
-              <p className="mt-2 max-w-lg text-sm leading-6 text-pretty text-muted-foreground">
+              <p className="mt-4 max-w-lg text-base leading-7 text-pretty text-muted-foreground">
                 {BENTO.description}
               </p>
             )}
@@ -38,17 +38,17 @@ export default async function ArticleBento() {
 
           <Link
             href={BENTO.href}
-            className="group inline-flex items-center gap-1.5 font-data text-[11px] font-medium uppercase text-primary"
+            className="inline-flex items-center gap-2 font-data text-xs font-medium uppercase text-primary"
           >
             {BENTO.hrefLabel}
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </Reveal>
 
       {posts.length > 0 ? (
-        <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-          <div className="grid gap-5">
+        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+          <div className="grid gap-8">
             {rest.map((post, i) => (
               <Reveal key={post.id} index={i} className="h-full">
                 <PostCard post={post} size="default" className="h-full" />
@@ -63,8 +63,8 @@ export default async function ArticleBento() {
           )}
         </div>
       ) : (
-        <div className="mt-8 border border-dashed border-primary/25 bg-card p-10 text-center">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 border border-dashed border-primary/25 bg-card p-14 text-center">
+          <p className="text-base text-muted-foreground">
             Belum ada konten pada kategori ini.
           </p>
         </div>

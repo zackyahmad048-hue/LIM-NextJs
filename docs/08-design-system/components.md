@@ -49,6 +49,50 @@ Seluruh komponen wajib:
 
 ---
 
+# Hero
+
+## Overview
+
+Hero component merupakan komponen utama halaman beranda (`/`). Digunakan untuk menampilkan judul utama, subtitle, deskripsi, tindakan utama, dan widget interaktif (seperti widget jadwal shalat) dalam tata letak dua kolom di desktop.
+
+### Variasi
+
+- Hero dengan highlight teks utama
+- Hero dengan deskripsi panjang
+- Hero dengan CTA ganda (primer + outline)
+- Hero dengan widget interaktif (PrayerScheduleWidget, stat cards)
+
+### Penggunaan
+
+```tsx
+<Hero 
+  title="Memberi Kebaikan, Menebar Dakwah"
+  highlight="Memasyarakatkan Pesantren, Memesantrenkan Masyarakat"
+  description="Platform dakwah digital Lembaga Ittihadul Muballighin Pondok Pesantren Lirboyo"
+  ctaHref="/falak/jadwal-shalat"
+  ctaLabel="Jadwal Shalat Hari Ini"
+  secondaryHref="/profil"
+  secondaryLabel="Selengkapnya"
+  image="/images/iksadari.jpg"
+  statCards={[...]}  // Array of stat objects
+/>
+```
+
+### Styling & Typography
+
+- Judul: `font-heading text-4xl font-bold` (Fraunces serif)
+- Subjudul: `font-normal text-base` (Inter)
+- CTA buttons: `font-medium uppercase tracking-wide` (Button component)
+
+### Design System Compliance
+
+✅ Mengikuti `typography.md` - title case headings, opt-in uppercase for labels
+✅ Mengikuti `layout.md` - Section-based layout with proper spacing
+✅ Mengikuti `colors.md` - Primary accent color oranye LIM
+✅ Mengikuti `components.md` - Consistent button styling
+
+---
+
 # Buttons
 
 Jenis Button:
@@ -75,6 +119,114 @@ Button harus mendukung:
 - Icon Only
 - Full Width
 - Different Sizes
+
+---
+
+# About
+
+## Overview
+
+About component menampilkan informasi tentang organisasi (tentang, visi-misi, pengurus pusat) dalam tata letak asimetris dengan gambar di sisi kiri dan konten di sisi kanan.
+
+### Variasi
+
+- About dengan gambar di kiri, teks di kanan
+- About dengan grid fitur (2 kolom)
+- About dengan fitur badge/icon
+
+### Penggunaan
+
+```tsx
+<About
+  title="Tentang LIM"
+  subtitle="Lembaga Ittihadul Muballighin adalah organisasi dakwah pondok pesantren Lirboyo"
+  description="Organisasi yang bertujuan memasyarakatkan pesantren dan memesantrenkan masyarakat"
+  image="/images/about-image.jpg"
+  features={[{title: "Visi & Misi", description: "Visi dan misi organisasi"}, {title: "Pengurus Pusat", description: "Struktur pengurus pusat"}]}
+/>
+```
+
+### Styling & Typography
+
+- Judul section: `font-heading text-2xl font-medium text-balance text-foreground` (Fraunces serif, title case)
+- Subtitle: `font-normal text-base leading-7 text-pretty text-muted-foreground` (Inter)
+- Heading h3: `font-heading text-2xl font-medium text-balance text-primary` (Fraunces serif, title case)
+- Fitur: `font-heading text-base font-medium` (Fraunces serif)
+
+### Design System Compliance
+
+✅ Mengikuti `typography.md` - title case headings, no uppercase for labels
+✅ Mengikuti `layout.md` - Section-based layout with proper spacing
+✅ Mengikuti `components.md` - Consistent card styling
+✅ Mengikuti `colors.md` - Primary accent color for tactical elements
+
+---
+
+# Navigation
+
+## Overview
+
+Navigation component menyediakan navigasi utama untuk situs publik, mencakup menu navigasi desktop dan sidebar mobile.
+
+### Variasi
+
+- Desktop Navigation (NavigationMenu)
+- Mobile Navigation (Sheet)
+- Theme Toggle (Dark/Light mode)
+- Search (GlobalSearchPalette)
+
+### Penggunaan
+
+```tsx
+<Navbar />
+```
+
+### Styling & Typography
+
+- Desktop links: `font-medium text-sm` (Inter)
+- Active state: `bg-primary/10 font-medium text-foreground`
+- Hover state: `hover:bg-accent hover:text-primary`
+- Mobile: `font-medium text-sm` (Inter)
+
+### Design System Compliance
+
+✅ Mengikuti `typography.md` - title case, no uppercase for labels
+✅ Mengikuti `layout.md` - sticky positioning, proper spacing
+✅ Mengikuti `colors.md` - Primary accent for tactical elements
+✅ Mengikuti `components.md` - Consistent button styling
+
+---
+
+# Footer
+
+## Overview
+
+Footer component menyediakan navigasi footer, informasi kontak, link media sosial, dan tagline organisasi di bagian bawah halaman.
+
+### Variasi
+
+- Footer Desktop (Full-width)
+- Footer Mobile (Optimized layout)
+
+### Penggunaan
+
+```tsx
+<Footer />
+```
+
+### Styling & Typography
+
+- Tagline: `text-xs font-medium tracking-wider text-foreground` (Inter)
+- Judul section: `font-sans text-base font-semibold` (Fraunces serif)
+- Link navigasi: `font-normal text-sm text-foreground` (Inter)
+- Social icons: `text-muted-foreground hover:text-primary` (transition)
+
+### Design System Compliance
+
+✅ Mengikuti `typography.md` - title case, no uppercase for labels
+✅ Mengikuti `layout.md` - Section-based layout with proper spacing
+✅ Mengikuti `colors.md` - Primary accent color for tactical elements
+✅ Mengikuti `components.md` - Consistent button styling
 
 ---
 
@@ -320,6 +472,7 @@ Seluruh komponen wajib:
 - theme.md
 - motion.md
 - accessibility.md
+- DESIGN.md
 
 ---
 

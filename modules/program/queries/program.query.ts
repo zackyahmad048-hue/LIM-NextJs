@@ -139,9 +139,3 @@ export async function getUsers() {
   }) as unknown as any[];
 }
 
-export async function getMediaItems() {
-  return prisma.programDocumentation.findMany({
-    where: { deletedAt: null },
-    select: { id: true, mediaId: true, title: true },
-  }) as unknown as any[];
-}

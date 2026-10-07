@@ -1,7 +1,6 @@
 import type {
   PrayerMethod,
   ObservationStatus,
-  RukyatResult,
   EclipseType,
   HijriMethod,
 } from "@/generated/client";
@@ -9,7 +8,6 @@ import type {
 export type {
   PrayerMethod,
   ObservationStatus,
-  RukyatResult,
   EclipseType,
   HijriMethod,
 };
@@ -28,16 +26,7 @@ export interface PrayerTimeResult {
   isha: Date;
 }
 
-export interface HilalResult {
-  altitude: number;
-  elongation: number;
-  moonAge: number;
-  lagTime: number;
-  illumination: number;
-  sunAzimuth: number;
-  moonAzimuth: number;
-}
-
+ 
 export interface HijriDate {
   year: number;
   month: number;

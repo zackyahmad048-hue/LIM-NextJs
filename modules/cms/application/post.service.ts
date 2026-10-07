@@ -1,7 +1,7 @@
 import { postRepository } from "../infrastructure/post.repository";
 import { categoryRepository } from "../infrastructure/category.repository";
 
-export class PostService {
+ class PostService {
   async create(data: {
     title: string;
     slug: string;

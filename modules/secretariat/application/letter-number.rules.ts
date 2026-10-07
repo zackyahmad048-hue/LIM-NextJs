@@ -15,7 +15,7 @@ export interface NumberingPeriod {
  * Placeholder yang dikenali di dalam template format nomor.
  * Contoh template: `{seq}/{level}/{category}/{bulan}/{tahun}`.
  */
-export const NUMBERING_PLACEHOLDERS = [
+ const NUMBERING_PLACEHOLDERS = [
   "seq",
   "level",
   "category",
@@ -23,9 +23,8 @@ export const NUMBERING_PLACEHOLDERS = [
   "tahun",
 ] as const;
 
-export type NumberingPlaceholder = (typeof NUMBERING_PLACEHOLDERS)[number];
-
-export const ROMAN_MONTHS = [
+ 
+ const ROMAN_MONTHS = [
   "I",
   "II",
   "III",

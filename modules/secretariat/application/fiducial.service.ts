@@ -22,8 +22,7 @@ export const FIDUCIAL_SEKRETARIS_COLOR: RgbColor = { r: 0, g: 255, b: 255 };
 export const FIDUCIAL_VERIFIKASI_COLOR: RgbColor = { r: 255, g: 140, b: 0 };
 
 /** Ukuran kotak simbol yang ditempel di template (mm). */
-export const FIDUCIAL_SIZE_MM = 8;
-
+ 
 /** Toleransi jarak warna RGB (0–255) untuk pencocokan simbol. */
 const COLOR_TOLERANCE = 48;
 

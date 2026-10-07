@@ -30,12 +30,7 @@ export interface OrganizationUnitTreeNode extends OrganizationUnitEntity {
   children: OrganizationUnitTreeNode[];
 }
 
-export const UNIT_LEVEL_LABELS: Record<UnitLevel, string> = {
-  PP: "Pengurus Pusat",
-  PW: "Pengurus Wilayah",
-  PC: "Pengurus Cabang",
-};
-
+ 
 export const UNIT_LEVEL_ORDERS: Record<UnitLevel, number> = {
   PP: 0,
   PW: 1,

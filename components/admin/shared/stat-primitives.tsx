@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-export interface StatItem {
+ interface StatItem {
   /** Opsional — identitas stabil untuk list dinamis; fallback ke urutan. */
   key?: string;
   label: ReactNode;

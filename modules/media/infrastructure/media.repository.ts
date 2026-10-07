@@ -83,4 +83,4 @@ export class MediaRepository {
   }
 }
 
-export const mediaRepository = new MediaRepository();
+ 

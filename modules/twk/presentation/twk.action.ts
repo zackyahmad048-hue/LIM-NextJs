@@ -17,7 +17,6 @@ const TWK_PATH = "/admin/twk";
 
 const PERMISSION_CREATE = ["twk.member.create"];
 const PERMISSION_UPDATE = ["twk.member.update"];
-const PERMISSION_DELETE = ["twk.member.delete"];
 const PERMISSION_IMPORT = ["twk.member.import"];
 
 function getErrorMessage(error: unknown) {
@@ -147,18 +146,6 @@ export async function updateWajibKhidmahMember(
   }
 }
 
-export async function deleteWajibKhidmahMember(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_DELETE);
-
-    await twkService.delete(id);
-
-    revalidatePath(TWK_PATH);
-    return { ok: true };
-  } catch (error) {
-    return { ok: false, message: getErrorMessage(error) };
-  }
-}
 
 export async function deactivateWajibKhidmahMember(formData: FormData) {
   try {

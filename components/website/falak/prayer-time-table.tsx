@@ -113,9 +113,16 @@ export function PrayerTimeTable() {
 
   if (!currentTime) {
     return (
-      <Card className="p-8 text-center text-muted-foreground">
-        <Clock className="mx-auto h-8 w-8 animate-spin text-primary" />
-        <p className="mt-3">Memuat Perhitungan Waktu Shalat & Jam Istiwa...</p>
+      <Card className="p-12 text-center text-muted-foreground">
+        <div className="flex flex-col items-center gap-4">
+          <Clock className="h-12 w-12 animate-spin text-primary" />
+          <p className="max-w-md text-lg">
+            Memuat perhitungan waktu shalat & jam istiwa...
+          </p>
+          <p className="text-sm text-muted-foreground/80">
+            Anggur waktu di langit, mengumpulkan cahaya untuk perjalanan spiritual harian Anda
+          </p>
+        </div>
       </Card>
     );
   }
@@ -375,17 +382,21 @@ export function PrayerTimeTable() {
 
       {errorMessage && (
         <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
-          {errorMessage}
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4" />
+            Lokasi tidak valid. Izinkan GPS atau pilih kota Indonesia.
+          </span>
         </div>
       )}
 
       {/* Hero Live Clock & Istiwa Toggle Switch */}
-      <Card className="border-border bg-card">
-        <CardHeader className="pb-2 text-center">
-          <div className="mx-auto mb-3 flex items-center justify-center gap-3 rounded-full border border-border/10 bg-muted px-4 py-1.5">
+      <Card className="relative border-border bg-card overflow-hidden">
+        <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-primary/60 via-primary to-primary/60" />
+        <CardHeader className="pb-2 text-center relative z-10 pt-6">
+          <div className="mx-auto mb-4 flex items-center justify-center gap-3 rounded-full border border-border/10 bg-muted px-4 py-1.5 shadow-sm">
             <span
               className={cn(
-                "text-xs sm:text-sm font-medium transition-colors",
+                "text-xs sm:text-sm font-semibold transition-colors",
                 !isIstiwaMode
                   ? "font-bold text-primary"
                   : "text-muted-foreground",
@@ -398,11 +409,12 @@ export function PrayerTimeTable() {
               checked={isIstiwaMode}
               onCheckedChange={setIsIstiwaMode}
               aria-label="Toggle Waktu Istiwa Mode"
+              className="data-[state=checked]:bg-primary"
             />
 
             <span
               className={cn(
-                "text-xs sm:text-sm font-medium transition-colors",
+                "text-xs sm:text-sm font-semibold transition-colors",
                 isIstiwaMode
                   ? "font-bold text-primary"
                   : "text-muted-foreground",
@@ -412,16 +424,21 @@ export function PrayerTimeTable() {
             </span>
           </div>
 
-          <CardTitle className="font-mono text-4xl sm:text-5xl font-extrabold text-balance text-foreground tabular-nums">
-            {isIstiwaMode
-              ? `${istiwaClockInfo.istiwaTimeStr} WIS`
-              : `${standardClockStr} ${location.timezoneName || "WIB"}`}
+          <CardTitle className="font-heading text-5xl sm:text-6xl font-bold text-balance text-foreground">
+            <span className="inline-flex items-baseline gap-2">
+              <span className="text-primary">
+                {isIstiwaMode ? `${istiwaClockInfo.istiwaTimeStr}` : `${standardClockStr}`}
+              </span>
+              <span className="text-muted-foreground/80 text-3xl">
+                {isIstiwaMode ? "WIS" : location.timezoneName || "WIB"}
+              </span>
+            </span>
           </CardTitle>
-          <CardDescription className="pt-2 text-sm">
-            Selisih:{" "}
+          <CardDescription className="pt-3 text-base">
+            <span className="text-muted-foreground">Selisih: </span>
             <Badge
               variant="outline"
-              className="border-primary/40 text-primary"
+              className="border-primary/60 text-primary font-semibold"
             >
               {istiwaClockInfo.deltaStr}
             </Badge>
@@ -442,47 +459,69 @@ export function PrayerTimeTable() {
       </Card>
 
       {/* Prayer Schedule Cards Grid */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-balance text-foreground flex items-center gap-2">
-            Jadwal Shalat (
-            {isIstiwaMode
-              ? "Waktu Istiwa"
-              : location.timezoneName || "Waktu Standar"}
-            )
+          <h2 className="text-xl font-heading font-bold text-balance text-foreground flex items-center gap-2">
+            <Sun className="h-6 w-6 text-primary" />
+            Jadwal Shalat 
+            <Badge variant="secondary" className="text-xs font-normal ml-2 border-primary/30 text-primary">
+              {isIstiwaMode
+                ? "Waktu Istiwa"
+                : location.timezoneName || "Waktu Standar"}
+            </Badge>
           </h2>
-          <span className="text-xs text-muted-foreground">
-            {isIstiwaMode
-              ? "Mode Istiwa (12:00 = Solar Noon)"
-              : `Mode Standar (${location.timezoneName})`}
-          </span>
+          <div className="hidden sm:block text-xs text-muted-foreground text-right">
+            <span className="block">
+              {isIstiwaMode
+                ? "Mode Istiwa (12:00 = Solar Noon)"
+                : `Mode Standar (${location.timezoneName})`}
+            </span>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {PRAYER_CARDS.map((p) => {
             const isNext = p.label === nextPrayerName;
             return (
               <Card
                 key={p.key}
                 className={cn(
-                  "transition-[border-color,transform] duration-200 hover:scale-[1.02]",
+                  "relative transition-all duration-300 ease-out hover:-translate-y-1",
                   isNext
-                    ? "border-primary ring-1 ring-primary"
-                    : "border-border",
+                    ? "border-primary/80 shadow-md"
+                    : "border-border/80 hover:border-primary/50",
+                  "overflow-hidden"
                 )}
               >
-                <CardContent className="flex flex-col items-center justify-center p-4 text-center">
-                  <div className="mb-2 rounded-full bg-muted p-2">{p.icon}</div>
-                  <div className="text-xs font-medium text-muted-foreground">
-                    {p.label}
+                {isNext && (
+                  <div className="absolute right-2 top-2">
+                    <Badge variant="default" className="text-xs bg-primary text-primary-foreground">
+                      Next
+                    </Badge>
                   </div>
-                  <div className="mt-1 font-mono text-xl font-bold text-foreground tabular-nums">
+                )}
+                <CardContent className="flex flex-col items-center justify-center p-5 text-center">
+                  <div className={cn(
+                    "mb-3 rounded-full p-3 transition-colors",
+                    isNext
+                      ? "bg-primary/20 text-primary"
+                      : "bg-muted text-muted-foreground"
+                  )}>{p.icon}</div>
+                  <div className={cn(
+                    "text-sm font-semibold transition-colors",
+                    isNext ? "text-primary" : "text-foreground"
+                  )}>{p.label}</div>
+                  <div className={cn(
+                    "mt-2 font-mono text-2xl font-bold tabular-nums transition-colors",
+                    isNext ? "text-primary" : "text-foreground"
+                  )}>
                     {prayerTimesFormatted[p.key]}
                   </div>
-                  <div className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground uppercase">
-                    <span>
+                  <div className="mt-2 flex items-center justify-center gap-1 text-xs text-muted-foreground">
+                    <span className="uppercase">
                       {isIstiwaMode ? "WIS" : location.timezoneName || "WIB"}
                     </span>
+                    {isNext && <span className="text-primary">•</span>}
                   </div>
                 </CardContent>
               </Card>
@@ -492,46 +531,67 @@ export function PrayerTimeTable() {
       </div>
 
       {/* Educational Explanation Box */}
-      <Card className="border-border bg-card">
-        <CardHeader className="pb-2">
+      <Card className="border-border bg-card overflow-hidden">
+        <CardHeader className="pb-2 bg-muted/30">
           <CardTitle className="flex items-center gap-2 text-base">
             <Info className="h-4 w-4 text-primary" />
             Penjelasan Waktu Istiwa & Waktu Ihtiyat (+3 Menit)
           </CardTitle>
         </CardHeader>
-        <CardContent className="grid gap-4 text-xs sm:text-sm text-muted-foreground sm:grid-cols-3">
-          <div className="rounded-lg border border-border p-3">
-            <h3 className="font-semibold text-balance text-foreground flex items-center gap-1.5">
+        <CardContent className="grid gap-4 text-xs sm:text-sm text-muted-foreground sm:grid-cols-3 p-6">
+          <div className="group relative rounded-lg border border-border bg-background p-5 transition-all hover:shadow-md hover:border-primary/50">
+            <div className="absolute -top-1 -right-1 rounded-full bg-primary/10 px-2 py-0.5">
+              <span className="text-xs font-medium text-primary">01</span>
+            </div>
+            <h3 className="font-semibold text-balance text-foreground flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-primary" />
               Waktu Ihtiyat (Hati-Hati)
             </h3>
-            <p className="mt-1">
-              Tambahan waktu pengaman sebesar <strong>+3 menit</strong>{" "}
+            <p className="mt-2">
+              Tambahan waktu pengaman sebesar <strong className="text-primary">+3 menit</strong>{" "}
               diterapkan pada waktu shalat (Subuh, Dzuhur, Ashar, Maghrib, Isya)
               sesuai kaidah hisab Kemenag RI & Fiqih Falak.
             </p>
+            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground/80">
+              <Clock className="h-3 w-3" />
+              Pengaman spiritual untuk ketepatan ritual
+            </div>
           </div>
-          <div className="rounded-lg border border-border p-3">
+          <div className="group relative rounded-lg border border-border bg-background p-5 transition-all hover:shadow-md hover:border-primary/50">
+            <div className="absolute -top-1 -right-1 rounded-full bg-primary/10 px-2 py-0.5">
+              <span className="text-xs font-medium text-primary">02</span>
+            </div>
             <h3 className="font-semibold text-balance text-foreground">
               Kulminasi Matahari (Transit)
             </h3>
-            <p className="mt-1">
+            <p className="mt-2">
               Jam 12:00:00 Istiwa tepat terjadi saat Matahari melintasi titik
               meridian lokal (Transit Solar Noon).
             </p>
+            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground/80">
+              <Sun className="h-3 w-3" />
+              Titik tertinggi matahari, penanda waktu
+            </div>
           </div>
-          <div className="rounded-lg border border-border p-3">
+          <div className="group relative rounded-lg border border-border bg-background p-5 transition-all hover:shadow-md hover:border-primary/50">
+            <div className="absolute -top-1 -right-1 rounded-full bg-primary/10 px-2 py-0.5">
+              <span className="text-xs font-medium text-primary">03</span>
+            </div>
             <h3 className="font-semibold text-balance text-foreground">
               Selisih Bujur & EQT
             </h3>
-            <p className="mt-1">
+            <p className="mt-2">
               Selisih saat ini adalah sekitar{" "}
-              <strong className="text-foreground">
+              <strong className="text-primary">
                 {calculation.deltaMinutes.toFixed(1)} menit
               </strong>{" "}
               dibanding {location.timezoneName || "WIB"} akibat posisi bujur &
               perataan waktu.
             </p>
+            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground/80">
+              <Navigation className="h-3 w-3" />
+              Koreksi geografis untuk ketepatan
+            </div>
           </div>
         </CardContent>
       </Card>

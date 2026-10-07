@@ -13,8 +13,6 @@ const POST_PATH = "/admin/content/posts";
 
 const PERMISSION_CREATE = ["content.post.create"];
 const PERMISSION_UPDATE = ["content.post.update"];
-const PERMISSION_PUBLISH = ["content.post.publish"];
-const PERMISSION_DELETE = ["content.post.delete"];
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error && error.message === "UNAUTHORIZED") {
@@ -80,52 +78,6 @@ export async function updatePost(id: string, formData: FormData) {
   }
 }
 
-export async function publishPost(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_PUBLISH);
-    await postService.publish(postIdSchema.parse(id));
 
-    revalidatePath(POST_PATH);
-    revalidatePath("/");
-    return { ok: true as const };
-  } catch (error) {
-    return { ok: false as const, message: getErrorMessage(error) };
-  }
-}
 
-export async function archivePost(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_DELETE);
-    await postService.archive(postIdSchema.parse(id));
 
-    revalidatePath(POST_PATH);
-    revalidatePath("/");
-    return { ok: true as const };
-  } catch (error) {
-    return { ok: false as const, message: getErrorMessage(error) };
-  }
-}
-
-export async function restorePostToDraft(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_UPDATE);
-    await postService.restoreToDraft(postIdSchema.parse(id));
-
-    revalidatePath(POST_PATH);
-    return { ok: true as const };
-  } catch (error) {
-    return { ok: false as const, message: getErrorMessage(error) };
-  }
-}
-
-export async function deletePost(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_DELETE);
-    await postService.delete(postIdSchema.parse(id));
-
-    revalidatePath(POST_PATH);
-    return { ok: true as const };
-  } catch (error) {
-    return { ok: false as const, message: getErrorMessage(error) };
-  }
-}

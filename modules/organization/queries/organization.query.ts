@@ -43,7 +43,7 @@ export async function getLetterLevelOptions() {
   return options;
 }
 
-export interface SignerCandidate {
+ interface SignerCandidate {
   name: string;
   position: string;
 }
@@ -98,11 +98,3 @@ export function buildSignerMap(
 /**
  * Kandidat penanda tangan per tingkat kepengurusan (kode unit).
  */
-export async function getSignerCandidatesByLevels(
-  codes: string[],
-): Promise<Record<string, LevelSigners>> {
-  if (codes.length === 0) return {};
-
-  const rows = await organizationService.listOfficersByUnitCodes(codes);
-  return buildSignerMap(codes, rows);
-}

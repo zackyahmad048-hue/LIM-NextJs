@@ -15,7 +15,7 @@ export class GoogleDriveNotConfiguredError extends Error {
   }
 }
 
-export class GoogleDriveNotConnectedError extends Error {
+ class GoogleDriveNotConnectedError extends Error {
   constructor() {
     super(
       "Google Drive belum terhubung. Hubungkan akun Google di halaman Surat Menyurat.",
@@ -98,7 +98,7 @@ export async function deleteDriveConnection(): Promise<void> {
   await prisma.googleDriveConnection.deleteMany();
 }
 
-export async function createDriveClient() {
+async function createDriveClient() {
   const connection = await getDriveConnection();
   if (!connection) throw new GoogleDriveNotConnectedError();
 

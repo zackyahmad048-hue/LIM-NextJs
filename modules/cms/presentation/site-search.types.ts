@@ -1,4 +1,4 @@
-export interface SiteSearchGroupItem {
+ interface SiteSearchGroupItem {
   title: string;
   href: string;
   meta: string;

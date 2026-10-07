@@ -75,7 +75,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
+              <h2 className="text-[10px] font-medium tracking-wider text-foreground">
                 Jelajah
               </h2>
               <ul className="mt-4 space-y-2.5 text-sm text-foreground">
@@ -90,7 +90,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
+              <h2 className="text-[10px] font-medium tracking-wider text-foreground">
                 Bidang
               </h2>
               <ul className="mt-4 space-y-2.5 text-sm text-foreground">
@@ -105,7 +105,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h2 className="text-[10px] font-medium uppercase tracking-wider text-foreground">
+              <h2 className="text-[10px] font-medium tracking-wider text-foreground">
                 Hubungi Kami
               </h2>
               <div className="mt-4 space-y-2.5 text-sm text-foreground">

@@ -14,8 +14,7 @@ export const POS_WAJIB_KHIDMAH = [
   "8. Binaan LIM",
 ] as const;
 
-export type PosWajibKhidmah = (typeof POS_WAJIB_KHIDMAH)[number];
-
+ 
 export const DEACTIVATED_STATUSES = [
   "GUGUR",
   "BEBAS_TUGAS",
@@ -27,8 +26,7 @@ export const TUGAS_POS_ELIGIBLE = [
   "6. Lembaga Pemohon",
 ] as const;
 
-export type TugasPos = (typeof TUGAS_POS_ELIGIBLE)[number];
-
+ 
 export const WAJIB_KHIDMAH_STATUS_LABELS: Record<WajibKhidmahStatus, string> = {
   AKTIF: "Aktif",
   GUGUR: "Gugur",

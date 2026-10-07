@@ -10,7 +10,7 @@ interface BandHeaderProps {
 }
 
 /** Header band (judul + deskripsi + slot aksi). Dipakai sendiri atau oleh `Band`. */
-export function BandHeader({
+ function BandHeader({
   title,
   description,
   actions,

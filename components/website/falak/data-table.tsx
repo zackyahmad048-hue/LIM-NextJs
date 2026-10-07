@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export interface FalakDataColumn {
+ interface FalakDataColumn {
   header: React.ReactNode;
   className?: string;
 }

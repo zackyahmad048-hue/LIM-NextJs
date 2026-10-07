@@ -128,7 +128,7 @@ const getCachedEclipsePaginated = unstable_cache(
   PUBLIC_CACHE_OPTIONS,
 );
 
-export class FalakService {
+ class FalakService {
   async getPrayerTimes(
     coordinate: Coordinate,
     date: Date,

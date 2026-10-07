@@ -16,7 +16,7 @@ import type {
   HijriMethod,
 } from "../domain/types";
 
-export class PrismaFalakPrayerTimeRepository
+ class PrismaFalakPrayerTimeRepository
   extends BaseRepository
   implements FalakPrayerTimeRepository
 {
@@ -94,7 +94,7 @@ export class PrismaFalakPrayerTimeRepository
   }
 }
 
-export class PrismaFalakQiblaRepository
+ class PrismaFalakQiblaRepository
   extends BaseRepository
   implements FalakQiblaRepository
 {
@@ -113,7 +113,7 @@ export class PrismaFalakQiblaRepository
   }
 }
 
-export class PrismaFalakHijriCalendarRepository
+ class PrismaFalakHijriCalendarRepository
   extends BaseRepository
   implements FalakHijriCalendarRepository
 {
@@ -141,7 +141,7 @@ export class PrismaFalakHijriCalendarRepository
   }
 }
 
-export class PrismaFalakHisabRepository
+ class PrismaFalakHisabRepository
   extends BaseRepository
   implements FalakHisabRepository
 {
@@ -203,7 +203,7 @@ export class PrismaFalakHisabRepository
   }
 }
 
-export class PrismaFalakRukyatRepository
+ class PrismaFalakRukyatRepository
   extends BaseRepository
   implements FalakRukyatRepository
 {
@@ -299,7 +299,7 @@ export class PrismaFalakRukyatRepository
   }
 }
 
-export class PrismaFalakEclipseRepository
+ class PrismaFalakEclipseRepository
   extends BaseRepository
   implements FalakEclipseRepository
 {
@@ -361,14 +361,14 @@ export class PrismaFalakEclipseRepository
   }
 }
 
-export const prismaFalakPrayerTimeRepository =
+ const prismaFalakPrayerTimeRepository =
   new PrismaFalakPrayerTimeRepository();
-export const prismaFalakQiblaRepository = new PrismaFalakQiblaRepository();
-export const prismaFalakHijriCalendarRepository =
+ const prismaFalakQiblaRepository = new PrismaFalakQiblaRepository();
+ const prismaFalakHijriCalendarRepository =
   new PrismaFalakHijriCalendarRepository();
-export const prismaFalakHisabRepository = new PrismaFalakHisabRepository();
-export const prismaFalakRukyatRepository = new PrismaFalakRukyatRepository();
-export const prismaFalakEclipseRepository = new PrismaFalakEclipseRepository();
+ const prismaFalakHisabRepository = new PrismaFalakHisabRepository();
+ const prismaFalakRukyatRepository = new PrismaFalakRukyatRepository();
+ const prismaFalakEclipseRepository = new PrismaFalakEclipseRepository();
 
 export const falakHisabRepository = prismaFalakHisabRepository;
 

@@ -40,9 +40,4 @@ export class ProgramNotOnGoingError extends ProgramError {
   }
 }
 
-export class ProgramNotCompletedError extends ProgramError {
-  constructor() {
-    super("Program harus berstatus Completed sebelum menerbitkan sertifikat.");
-    this.name = "ProgramNotCompletedError";
-  }
-}
+ 

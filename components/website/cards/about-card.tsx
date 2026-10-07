@@ -5,12 +5,12 @@ interface AboutCardProps {
 
 export default function AboutCard({ title, description }: AboutCardProps) {
   return (
-    <div className="glass glass-tint-sekretariat flex h-full gap-4 rounded-xl border border-primary/25 p-5 shadow-sm transition-colors duration-300 ease-out hover:border-primary motion-reduce:transition-none">
+    <div className="glass glass-tint-sekretariat rounded-xl border border-primary/25 p-6 shadow-sm">
       <span
-        className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-primary/40"
+        className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-primary/40"
         aria-hidden
       >
-        <span className="h-2 w-2 rounded-full bg-primary" />
+        <span className="h-2.5 w-2.5 rounded-full bg-primary" />
       </span>
 
       <div>
@@ -18,7 +18,7 @@ export default function AboutCard({ title, description }: AboutCardProps) {
           {title}
         </h3>
 
-        <p className="mt-1.5 text-xs leading-5 text-pretty text-muted-foreground">
+        <p className="mt-2 text-xs leading-5 text-pretty text-muted-foreground">
           {description}
         </p>
       </div>

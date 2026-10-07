@@ -1,33 +1,10 @@
 import { z } from "zod";
 
-export const programStatusEnum = z.enum([
-  "DRAFT",
-  "PUBLISHED",
-  "REGISTRATION_OPEN",
-  "REGISTRATION_CLOSED",
-  "ON_GOING",
-  "COMPLETED",
-  "CANCELLED",
-  "ARCHIVED",
-]);
-
-export const registrationStatusEnum = z.enum([
-  "PENDING",
-  "APPROVED",
-  "REJECTED",
-  "CANCELLED",
-]);
-
-export const committeeStatusEnum = z.enum(["ACTIVE", "INACTIVE"]);
-
-export const attendanceStatusEnum = z.enum([
-  "PRESENT",
-  "ABSENT",
-  "LATE",
-  "EXCUSED",
-]);
-
-export const createProgramBase = z.object({
+ 
+ 
+ 
+ 
+ const createProgramBase = z.object({
   code: z
     .string()
     .min(1, "Kode Program wajib diisi.")
@@ -105,11 +82,4 @@ export const addDocumentationSchema = z.object({
   description: z.string().optional().or(z.literal("")),
 });
 
-export type CreateProgramInput = z.infer<typeof createProgramSchema>;
-export type UpdateProgramInput = z.infer<typeof updateProgramSchema>;
-export type CreateScheduleInput = z.infer<typeof createScheduleSchema>;
-export type AssignCommitteeInput = z.infer<typeof assignCommitteeSchema>;
-export type RegisterParticipantInput = z.infer<
-  typeof registerParticipantSchema
->;
-export type AddDocumentationInput = z.infer<typeof addDocumentationSchema>;
+      

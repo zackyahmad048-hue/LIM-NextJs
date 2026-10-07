@@ -1,37 +1,35 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, JetBrains_Mono, Inter, Reem_Kufi } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import { AppThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: "variable",
-  axes: ["opsz", "SOFT", "WONK"],
+const fraunces = localFont({
+  src: "./fonts/Fraunces-Variable.woff2",
   variable: "--font-heading",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const inter = localFont({
+  src: "./fonts/Inter-Variable.woff2",
   variable: "--font-body",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const jetbrainsMono = localFont({
+  src: "./fonts/JetBrainsMono-Variable.woff2",
   variable: "--font-data",
   display: "swap",
 });
 
-const reemKufi = Reem_Kufi({
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
+const reemKufi = localFont({
+  src: [
+    { path: "./fonts/ReemKufi-Variable-Arabic.woff2" },
+    { path: "./fonts/ReemKufi-Variable-Latin.woff2" },
+  ],
   variable: "--fx-ar",
   display: "swap",
 });

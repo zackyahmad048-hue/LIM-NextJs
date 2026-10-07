@@ -2,9 +2,6 @@ import { PrismaPostRepository } from "../infrastructure/post.repository";
 
 const repository = new PrismaPostRepository();
 
-export async function getRecentPosts(limit = 20) {
-  return repository.findRecent(limit);
-}
 
 export async function getPublishedPostsByCategorySlug(
   categorySlug: string,

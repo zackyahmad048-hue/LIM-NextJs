@@ -15,7 +15,6 @@ import type { ActionResult } from "@/modules/shared/presentation/action-result";
 
 const PERMISSION_UNIT_CREATE = ["organization.unit.create"];
 const PERMISSION_UNIT_UPDATE = ["organization.unit.update"];
-const PERMISSION_UNIT_DELETE = ["organization.unit.delete"];
 const PERMISSION_OFFICER_CREATE = ["organization.officer.create"];
 const PERMISSION_OFFICER_UPDATE = ["organization.officer.update"];
 const PERMISSION_OFFICER_DELETE = ["organization.officer.delete"];
@@ -108,15 +107,6 @@ export async function updateUnitAction(
   }
 }
 
-export async function deleteUnitAction(id: string) {
-  try {
-    await requireSessionWithPermissions(PERMISSION_UNIT_DELETE);
-    await organizationService.deleteUnit(id);
-    revalidatePendataan();
-  } catch {
-    return;
-  }
-}
 
 export async function createOfficerAction(
   prevState: ActionResult,

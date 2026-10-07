@@ -5,7 +5,7 @@ import type {
 } from "../domain/entities";
 import type { OrganizationRepository } from "../domain/repository";
 
-export const prismaOrganizationRepository: OrganizationRepository = {
+ const prismaOrganizationRepository: OrganizationRepository = {
   async findAllUnits() {
     const items = await prisma.organizationUnit.findMany({
       where: { deletedAt: null },

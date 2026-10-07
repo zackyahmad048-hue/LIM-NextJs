@@ -52,7 +52,7 @@ function fixHour(h: number): number {
 /**
  * Calculates Julian Day number for a given date at 00:00 UTC
  */
-export function getJulianDay(year: number, month: number, day: number): number {
+ function getJulianDay(year: number, month: number, day: number): number {
   if (month <= 2) {
     year -= 1;
     month += 12;
@@ -71,7 +71,7 @@ export function getJulianDay(year: number, month: number, day: number): number {
 /**
  * Calculate Solar Coordinates: Declination (dec) and Equation of Time (eqt in hours)
  */
-export function getSunCoordinates(jd: number): { dec: number; eqt: number } {
+ function getSunCoordinates(jd: number): { dec: number; eqt: number } {
   const D = jd - 2451545.0; // Days since J2000.0
   const g = fixAngle(357.529 + 0.98560028 * D); // Mean anomaly
   const q = fixAngle(280.459 + 0.98564736 * D); // Mean longitude
@@ -156,7 +156,7 @@ export function formatTime(
 /**
  * Calculate Local Solar Transit Time (Dhuhr unbuffered) in Standard Local Hours
  */
-export function getSolarTransitStandard(
+ function getSolarTransitStandard(
   longitude: number,
   timezone: number,
   eqt: number,
@@ -272,7 +272,7 @@ export function dateToDecimalHoursInZone(
  * The five obligatory prayers, in chronological order. Sunrise (Thulu') is
  * excluded: it is not a prayer, matching the jadwal shalat page behaviour.
  */
-export const PRAYER_KEYS: ReadonlyArray<keyof PrayerTimes> = [
+ const PRAYER_KEYS: ReadonlyArray<keyof PrayerTimes> = [
   "fajr",
   "dhuhr",
   "asr",

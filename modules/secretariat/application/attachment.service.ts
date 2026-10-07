@@ -2,7 +2,7 @@ import { prisma } from "@/modules/shared/infrastructure/prisma";
 import { storage } from "@/modules/shared/infrastructure/storage";
 import { SecretariatError } from "../domain/secretariat.errors";
 
-export const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
+ const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
 
 const PDF_MAGIC = Buffer.from("%PDF-", "latin1");
 

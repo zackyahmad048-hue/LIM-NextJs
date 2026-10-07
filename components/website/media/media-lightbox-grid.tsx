@@ -26,7 +26,7 @@ export interface PublicMediaItem {
   type: MediaType;
 }
 
-export const MEDIA_FILTERS: Array<{ label: string; value: "SEMUA" | MediaType }> = [
+ const MEDIA_FILTERS: Array<{ label: string; value: "SEMUA" | MediaType }> = [
   { label: "Semua", value: "SEMUA" },
   { label: "Foto", value: "FOTO" },
   { label: "Video", value: "VIDEO" },

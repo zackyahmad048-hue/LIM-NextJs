@@ -35,7 +35,7 @@ export function getGoogleClients(): GoogleClients {
   return cachedClients;
 }
 
-export function mapGoogleError(e: unknown): GoogleApiError {
+ function mapGoogleError(e: unknown): GoogleApiError {
   if (e instanceof GoogleApiError) return e;
 
   const status = (e as { response?: { status?: number } })?.response?.status;
@@ -57,13 +57,6 @@ export function mapGoogleError(e: unknown): GoogleApiError {
   }
 }
 
-export async function withGoogle<T>(fn: () => Promise<T>): Promise<T> {
-  try {
-    return await fn();
-  } catch (e) {
-    throw mapGoogleError(e);
-  }
-}
 
 export async function withGoogleRetry<T>(
   fn: () => Promise<T>,

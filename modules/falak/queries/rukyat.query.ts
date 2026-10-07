@@ -9,6 +9,3 @@ export async function getAllRukyat(take = 50) {
   return falakRukyatRepository.findAll(take);
 }
 
-export async function getRukyatById(id: string) {
-  return falakRukyatRepository.findById(id);
-}

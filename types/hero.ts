@@ -1,4 +1,4 @@
-export interface HeroStatCard {
+ interface HeroStatCard {
   value: string;
   label: string;
 }

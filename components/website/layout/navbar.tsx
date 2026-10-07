@@ -78,14 +78,14 @@ export default function Navbar() {
               className="h-7 w-auto object-contain"
             />
 
-            <span className="leading-tight">
-              <span className="block text-[10px] font-medium uppercase text-muted-foreground">
-                Lembaga
-              </span>
-              <span className="block text-[15px] font-semibold text-foreground">
-                Ittihadul Muballighin
-              </span>
-            </span>
+                    <span className="leading-tight">
+                      <span className="block text-[10px] font-medium text-muted-foreground">
+                        Lembaga
+                      </span>
+                      <span className="block text-[15px] font-semibold text-foreground">
+                        Ittihadul Muballighin
+                      </span>
+                    </span>
           </Link>
 
           {/* Desktop nav */}
@@ -122,13 +122,13 @@ export default function Navbar() {
                   Profil
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="md:top-full md:mt-1.5">
-                  <div className="w-56 max-w-[calc(100vw-2rem)]">
-                    <div className="grid gap-2 p-3">
-                      <div>
-                        <p className="px-3 pb-1 pt-2 text-[10px] font-medium uppercase text-muted-foreground">
-                          Profil
-                        </p>
-                        {profilChildren.map((item) => (
+                   <div className="w-56 max-w-[calc(100vw-2rem)]">
+                     <div className="grid gap-2 p-3">
+                       <div>
+                         <p className="px-3 pb-1 pt-2 text-[10px] font-medium text-muted-foreground">
+                           Profil
+                         </p>
+                         {profilChildren.map((item) => (
                           <NavigationMenuLink asChild key={item.href}>
                             <Link
                               href={item.href}
@@ -214,23 +214,23 @@ export default function Navbar() {
               <SheetContent side="right" className="gap-0 p-0">
                 <SheetTitle className="sr-only">Menu navigasi</SheetTitle>
 
-                <div className="flex items-center gap-3 border-b border-border/10 px-4 py-4">
-                  <Image
-                    src="/images/orangelim.png"
-                    alt=""
-                    width={999}
-                    height={1107}
-                    className="h-6 w-auto object-contain"
-                  />
-                  <span className="leading-tight">
-                    <span className="block text-[10px] font-medium uppercase text-muted-foreground">
-                      Lembaga
+                  <div className="flex items-center gap-3 border-b border-border/10 px-4 py-4">
+                    <Image
+                      src="/images/orangelim.png"
+                      alt=""
+                      width={999}
+                      height={1107}
+                      className="h-6 w-auto object-contain"
+                    />
+                    <span className="leading-tight">
+                      <span className="block text-[10px] font-medium text-muted-foreground">
+                        Lembaga
+                      </span>
+                      <span className="block text-[15px] font-semibold text-foreground">
+                        Ittihadul Muballighin
+                      </span>
                     </span>
-                    <span className="block text-[15px] font-semibold text-foreground">
-                      Ittihadul Muballighin
-                    </span>
-                  </span>
-                </div>
+                  </div>
 
                 <nav className="flex-1 overflow-y-auto p-3">
                   <Link

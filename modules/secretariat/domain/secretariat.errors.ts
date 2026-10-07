@@ -26,27 +26,9 @@ export class InvalidStatusTransitionError extends SecretariatError {
   }
 }
 
-export class MailNotFoundError extends SecretariatError {
-  constructor(id: string) {
-    super(`Surat dengan ID ${id} tidak ditemukan.`);
-    this.name = "MailNotFoundError";
-  }
-}
-
-export class DispositionNotFoundError extends SecretariatError {
-  constructor(id: string) {
-    super(`Disposisi dengan ID ${id} tidak ditemukan.`);
-    this.name = "DispositionNotFoundError";
-  }
-}
-
-export class ArchiveNotFoundError extends SecretariatError {
-  constructor(id: string) {
-    super(`Arsip dengan ID ${id} tidak ditemukan.`);
-    this.name = "ArchiveNotFoundError";
-  }
-}
-
+ 
+ 
+ 
 export class ForbiddenActionError extends SecretariatError {
   constructor(message: string) {
     super(message);

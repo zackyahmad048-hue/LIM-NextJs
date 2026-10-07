@@ -6,11 +6,4 @@ export const googleConfig = {
   spreadsheetFalakId: process.env.GOOGLE_SPREADSHEET_FALAK_ID ?? null,
 } as const;
 
-export function isGoogleConfigured(): boolean {
-  return Boolean(
-    googleConfig.serviceAccountEmail &&
-    googleConfig.serviceAccountPrivateKey &&
-    googleConfig.spreadsheetPendataanId &&
-    googleConfig.spreadsheetFalakId,
-  );
-}
+ 
