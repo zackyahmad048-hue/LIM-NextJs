@@ -15,6 +15,9 @@ import {
   loginSchema,
   type LoginSchema,
 } from "@/modules/authentication/validators/login.schema";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -52,18 +55,16 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <label
-          htmlFor="login-email"
-          className="mb-1.5 block text-xs font-medium"
-        >
-          Email
-        </label>
+      <div className="space-y-1.5">
+        <Label htmlFor="login-email">Email</Label>
 
-        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-[border-color,box-shadow] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-          <Mail size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
-
-          <input
+        <div className="relative">
+          <Mail
+            size={15}
+            aria-hidden
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+          />
+          <Input
             id="login-email"
             type="email"
             autoComplete="email"
@@ -71,53 +72,52 @@ export default function LoginForm() {
             aria-describedby={errors.email ? "login-email-error" : undefined}
             {...register("email")}
             placeholder="admin@email.com"
-            className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+            className="h-11 rounded-md pl-9 text-base md:text-sm"
           />
         </div>
 
         {errors.email && (
-          <p id="login-email-error" className="mt-1 text-xs text-destructive">
+          <p id="login-email-error" className="text-xs text-destructive">
             {errors.email.message}
           </p>
         )}
       </div>
 
-      <div>
-        <label
-          htmlFor="login-password"
-          className="mb-1.5 block text-xs font-medium"
-        >
-          Password
-        </label>
+      <div className="space-y-1.5">
+        <Label htmlFor="login-password">Password</Label>
 
-        <div className="flex h-9 items-center rounded-md border border-input bg-background px-3 transition-[border-color,box-shadow] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
-          <Lock size={15} className="mr-2.5 shrink-0 text-muted-foreground" />
-
-          <input
+        <div className="relative">
+          <Lock
+            size={15}
+            aria-hidden
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+          />
+          <Input
             id="login-password"
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             aria-invalid={errors.password ? true : undefined}
-            aria-describedby={errors.password ? "login-password-error" : undefined}
+            aria-describedby={
+              errors.password ? "login-password-error" : undefined
+            }
             {...register("password")}
             placeholder="********"
-            className="w-full bg-transparent text-xs outline-none placeholder:text-muted-foreground"
+            className="h-11 rounded-md pl-9 pr-11 text-base md:text-sm"
           />
-
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={
               showPassword ? "Sembunyikan password" : "Tampilkan password"
             }
-            className="ml-2 rounded-md p-1 text-muted-foreground transition hover:text-primary"
+            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition hover:text-primary"
           >
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
 
         {errors.password && (
-          <p id="login-password-error" className="mt-1 text-xs text-destructive">
+          <p id="login-password-error" className="text-xs text-destructive">
             {errors.password.message}
           </p>
         )}
@@ -132,27 +132,27 @@ export default function LoginForm() {
         </p>
       )}
 
-      <motion.button
-        whileTap={{ scale: PRESS_SCALE }}
-        whileHover={{ scale: 1.01 }}
-        type="submit"
-        disabled={isSubmitting}
-        className="mt-5 flex h-10 w-full items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {isSubmitting ? (
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{
-              repeat: Infinity,
-              duration: 0.8,
-              ease: "linear",
-            }}
-            className="h-4 w-4 rounded-full border-2 border-primary-foreground border-t-transparent"
-          />
-        ) : (
-          "Masuk ke Dashboard"
-        )}
-      </motion.button>
+      <motion.div whileTap={{ scale: PRESS_SCALE }}>
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="mt-5 h-11 w-full rounded-md text-sm font-semibold"
+        >
+          {isSubmitting ? (
+            <motion.span
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                duration: 0.8,
+                ease: "linear",
+              }}
+              className="h-4 w-4 rounded-full border-2 border-primary-foreground border-t-transparent"
+            />
+          ) : (
+            "Masuk ke Dashboard"
+          )}
+        </Button>
+      </motion.div>
     </form>
   );
 }

@@ -90,6 +90,7 @@ focus, and the institution's authority is shown through demonstrated skill
 |------|----------|
 | Subtle soft shadow (not hard) | `shadow-sm`/`shadow-md` on content cards — kertas tertumpuk, bukan halo |
 | No glass on chrome | Chrome (navbar publik, topbar/rail admin, back-link auth) memakai permukaan solid `bg-background`, tanpa `backdrop-blur`; glass hanya dipakai kartu/widget konten |
+| Auth surfaces | Halaman auth (`/admin/login`, `/admin/setup`) memakai kartu `.glass rounded-xl shadow-sm` di latar polos `bg-background` dual-mode; efek legacy Aurora + starfield dihapus |
 | No orange background wash | `bg-primary/10`, `bg-primary/5` removed from cards; orange → border/text/ring. Footer band tint (`primary/8-12%`) is the only filled surface |
 | Cards use `border-primary/25` (1px) | Card border is hairlinel 1px tint; hover → `border-primary` (no width change) |
 | Max radius `rounded-lg` (nested/small) · standard `rounded-xl` (content cards) | `rounded-2xl`+ reserved for navbar chrome only |

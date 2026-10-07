@@ -18,13 +18,16 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 # Pages
 
+> Status implementasi: halaman `/admin/login` dan `/admin/setup` sudah memakai kartu glass di latar polos (dual-mode). Halaman forgot/reset-password dan change-password belum dibangun meski tercantum di dokumen ini.
+
 ### Login Page
 
 **URL:** `/admin/login`
 
 **Layout:**
 
-- Centered card on dark background
+- Card kaca (`.glass rounded-xl shadow-sm`) di latar polos `bg-background` (dual-mode, bukan dark-only)
+- Kartu glass kristal sesuai `DESIGN.md`; chrome tetap solid
 - App logo + name
 - Email input
 - Password input
@@ -46,7 +49,8 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 **Layout:**
 
-- Centered card
+- Card kaca (`.glass rounded-xl shadow-sm`) di latar polos `bg-background` (dual-mode); shell auth bersama tanpa `<main>` bersarang
+
 - Email input
 - Submit button
 - Back to login link
@@ -65,7 +69,8 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 **Layout:**
 
-- Centered card
+- Card kaca (`.glass rounded-xl shadow-sm`) di latar polos `bg-background` (dual-mode); shell auth bersama tanpa `<main>` bersarang
+
 - New password input
 - Confirm password input
 - Submit button
