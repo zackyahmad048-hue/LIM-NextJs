@@ -321,6 +321,9 @@
   .glass-tint-falak {
     background-color: color-mix(in oklab, var(--tint-falak) 14%, var(--glass-card-bg));
   }
+  .glass-tint-primary {
+    background-color: color-mix(in oklab, var(--primary) 12%, var(--glass-card-bg));
+  }
   .glass-tint-program {
     background-color: color-mix(in oklab, var(--tint-program) 14%, var(--glass-card-bg));
   }
@@ -338,6 +341,7 @@
 @media (prefers-reduced-transparency: reduce) {
   .glass,
   .glass-tint-falak,
+  .glass-tint-primary,
   .glass-tint-program,
   .glass-tint-sekretariat,
   .glass-tint-konten,

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { toHijri } from "hijri-converter";
-import { useEffect, useRef, useState } from "react";
-import { CalendarDays, Clock, MapPin, Timer } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { MapPin } from "lucide-react";
 import {
   calculatePrayerTimes,
   dateToDecimalHoursInZone,
@@ -44,21 +44,20 @@ const ROWS: Array<{ key: keyof PrayerTimes | "imsak"; label: string }> = [
   { key: "isha", label: "Isya" },
 ];
 
-const PRAYER_INDONESIA: Record<string, string> = {
-  fajr: "Subuh",
-  dhuhr: "Dzuhur",
-  asr: "Ashar",
-  maghrib: "Maghrib",
-  isha: "Isya",
-};
+const PASARAN_CYCLE = ["Legi", "Pahing", "Pon", "Wage", "Kliwon"] as const;
 
-function pad(n: number): string {
-  return n.toString().padStart(2, "0");
+// Anchor: 1 Jan 2000 = Legi (Sabtu Legi, neptu 14).
+const PASARAN_ANCHOR = Date.UTC(2000, 0, 1);
+
+function getPasaran(date: Date): string {
+  const day = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  const diff = Math.floor((day - PASARAN_ANCHOR) / 86_400_000);
+  return PASARAN_CYCLE[((diff % 5) + 5) % 5];
 }
 
 /** Widget jadwal shalat untuk hero: mode WIB/WITA/WIT dan istiwa (WIS). */
 export function PrayerScheduleWidget() {
-  const { location, locationName, requestGPSLocation } = useGeolocation();
+  const { location, locationName, isGPS, requestGPSLocation } = useGeolocation();
   const [mode, setMode] = useState<ScheduleMode>("standard");
   const [now, setNow] = useState<Date | null>(null);
   const requestedRef = useRef(false);
@@ -86,7 +85,23 @@ export function PrayerScheduleWidget() {
   // The widget always renders (reserved height) — it never returns null, so
   // the hero never jumps in height when the timer first ticks.
   const ready = now !== null;
-  const calculation = now ? calculatePrayerTimes(now, location, isIstiwa, 3) : null;
+
+  // calculatePrayerTimes only reads year/month/day, so it only needs to run
+  // once per day + location + mode. The 1s tick no longer calls the astronomy.
+  const dayKey = now
+    ? `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`
+    : "";
+  const dayDate = useMemo(() => {
+    if (!dayKey) return null;
+    const [y, m, d] = dayKey.split("-").map(Number);
+    return new Date(y, m, d);
+  }, [dayKey]);
+  const calculation = useMemo(
+    () =>
+      dayDate ? calculatePrayerTimes(dayDate, location, isIstiwa, 3) : null,
+    [dayDate, location, isIstiwa],
+  );
+
   const timesFormatted = calculation?.timesFormatted;
   const timesNumeric = calculation?.timesNumeric;
 
@@ -98,7 +113,6 @@ export function PrayerScheduleWidget() {
   };
 
   let nextKey: keyof PrayerTimes | null = null;
-  let countdown = "--j --m --s";
   if (now && timesNumeric) {
     // Current time expressed in the active location's frame (not the device's),
     // so it matches the timezone the prayer times are computed in.
@@ -109,20 +123,20 @@ export function PrayerScheduleWidget() {
 
     const next = getNextPrayer(timesNumeric, activeHourDec);
     nextKey = next.key;
-    const diffHours = next.diffHours;
-    countdown = `${Math.floor(diffHours)}j ${pad(
-      Math.floor((diffHours % 1) * 60),
-    )}m ${pad(Math.round((((diffHours % 1) * 60) % 1) * 60))}s`;
   }
 
-  const gregorian = now
+  const weekdayName = now
+    ? new Intl.DateTimeFormat("id-ID", { weekday: "long" }).format(now)
+    : "-";
+  const pasaranName = now ? getPasaran(now) : "";
+  const masehiDate = now
     ? new Intl.DateTimeFormat("id-ID", {
-        weekday: "long",
         day: "numeric",
         month: "short",
         year: "numeric",
       }).format(now)
-    : "–";
+    : "-";
+  const gregorian = now ? `${weekdayName} ${pasaranName} - ${masehiDate}` : "-";
 
   const hijri = now
     ? toHijri(now.getFullYear(), now.getMonth() + 1, now.getDate())
@@ -143,33 +157,43 @@ export function PrayerScheduleWidget() {
   const clock = clockDec !== null ? formatTime(clockDec, true) : "--:--:--";
 
   return (
-    <div className="glass glass-tint-falak rounded-xl border border-primary/25">
-      <div className="border-b border-border px-3 py-3 sm:px-5 sm:py-4">
-        <div className="flex items-center justify-between gap-3">
-          <p className="font-data text-[10px] font-semibold uppercase tracking-[0.2em] text-primary sm:text-[11px]">
-            Jadwal Shalat
+    <div className="glass glass-tint-primary rounded-xl ring-1 ring-inset ring-primary/10 shadow-sm shadow-primary/5">
+      <div className="border-b border-border px-3 py-3 text-center sm:px-5 sm:py-4">
+        <p className="font-data text-[10px] font-semibold uppercase tracking-[0.2em] text-primary sm:text-[11px]">
+          Jadwal Shalat
+        </p>
+
+        <div className="mt-1.5 flex items-baseline justify-center gap-2 sm:mt-2 sm:gap-3">
+          <p className="font-data text-2xl font-semibold leading-none tabular-nums text-foreground sm:text-3xl">
+            {clock}
           </p>
           <span className="font-data text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:text-[11px]">
             {timezoneLabel}
           </span>
         </div>
-        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-foreground sm:mt-2 sm:text-sm">
-          <CalendarDays className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" aria-hidden />
+
+        <p className="mt-1.5 text-xs text-foreground sm:mt-2 sm:text-sm">
           {gregorian}
         </p>
-        <p className="mt-1 flex items-center gap-1.5 font-data text-lg font-semibold tabular-nums text-foreground sm:mt-1.5 sm:text-xl">
-          <Clock className="h-3.5 w-3.5 text-primary sm:h-4 sm:w-4" aria-hidden />
-          {clock}
-        </p>
-        <p className="mt-0.5 text-[11px] text-muted-foreground sm:text-xs">
+
+        <p className="mt-1.5 text-[11px] text-muted-foreground sm:text-xs">
           {hijri
             ? `${hijri.hd} ${HIJRI_MONTHS[hijri.hm - 1]} ${hijri.hy} H`
-            : "–"}
+            : "-"}
         </p>
-        <p className="mt-1.5 flex items-center gap-1.5 text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">
-          <MapPin className="h-3 w-3 text-primary sm:h-3.5 sm:w-3.5" aria-hidden />
-          {locationName}
+
+        <p className="mt-1.5 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground sm:mt-2 sm:text-xs">
+          <MapPin
+            className="h-3 w-3 shrink-0 text-primary sm:h-3.5 sm:w-3.5"
+            aria-hidden
+          />
+          {isGPS ? "Titik GPS" : locationName}
         </p>
+        {isGPS && (
+          <p className="mt-0.5 font-data text-[10px] tabular-nums text-muted-foreground sm:text-[11px]">
+            {location.latitude.toFixed(3)}°, {location.longitude.toFixed(3)}°
+          </p>
+        )}
       </div>
 
       <div className="px-3 pt-3 sm:px-5 sm:pt-4">
@@ -185,10 +209,16 @@ export function PrayerScheduleWidget() {
           aria-label="Mode waktu jadwal shalat"
           className="w-full"
         >
-          <ToggleGroupItem value="standard" className="flex-1 font-data text-[11px] sm:text-xs">
+          <ToggleGroupItem
+            value="standard"
+            className="flex-1 font-data text-[11px] sm:text-xs"
+          >
             {location.timezoneName || "WIB"}
           </ToggleGroupItem>
-          <ToggleGroupItem value="istiwa" className="flex-1 font-data text-[11px] sm:text-xs">
+          <ToggleGroupItem
+            value="istiwa"
+            className="flex-1 font-data text-[11px] sm:text-xs"
+          >
             WIS
           </ToggleGroupItem>
         </ToggleGroup>
@@ -205,22 +235,14 @@ export function PrayerScheduleWidget() {
           return (
             <li
               key={row.key}
-              className="flex items-center justify-between gap-2 border-b border-border/40 py-2 last:border-b-0 sm:gap-3 sm:py-2.5"
+              className="flex items-center justify-between gap-2 py-2 sm:gap-3 sm:py-2.5"
             >
               <span
-                className={`flex items-center gap-1.5 text-xs sm:gap-2 sm:text-sm ${
+                className={`text-xs sm:text-sm ${
                   isNext ? "font-semibold text-primary" : "text-foreground"
                 }`}
               >
                 {row.label}
-                {isNext && (
-                  <span
-                    className="rounded-full border border-primary/40 px-1.5 py-0.5 font-data text-[9px] uppercase tracking-[0.15em] sm:px-2 sm:text-[10px]"
-                    role="status"
-                  >
-                    Menuju
-                  </span>
-                )}
               </span>
               <span
                 className={`font-data text-xs tabular-nums sm:text-sm ${
@@ -235,22 +257,9 @@ export function PrayerScheduleWidget() {
       </ul>
 
       <div className="border-t border-border px-3 py-3 sm:px-5 sm:py-3.5">
-        <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground sm:gap-2 sm:text-xs">
-          <Timer className="h-3 w-3 text-primary sm:h-3.5 sm:w-3.5" aria-hidden />
-          <span>
-            Menuju{" "}
-            <strong className="font-semibold text-foreground">
-              {nextKey ? PRAYER_INDONESIA[nextKey] : "shalat berikutnya"}
-            </strong>{" "}
-            dalam{" "}
-            <strong className="font-data tabular-nums text-foreground">
-              {countdown}
-            </strong>
-          </span>
-        </p>
         <Link
           href="/falak/jadwal-shalat"
-          className="mt-2 block text-right font-data text-[10px] font-medium uppercase tracking-[0.2em] text-foreground underline-offset-4 hover:text-primary hover:underline sm:mt-3 sm:text-[11px]"
+          className="block text-right font-data text-[10px] font-medium uppercase tracking-[0.2em] text-foreground underline-offset-4 hover:text-primary hover:underline sm:text-[11px]"
         >
           Jadwal Lengkap
         </Link>

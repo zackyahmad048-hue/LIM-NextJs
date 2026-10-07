@@ -12,6 +12,8 @@
 
 Perubahan pada 1.2: chrome solid — glass ditarik dari navbar/topbar/rail; kaca (`.glass`, `.glass-tint-*`) dipertahankan hanya untuk kartu/widget konten; `--glass-chrome-bg` dan `.glass-hard` dihapus.
 
+Penambahan: `.glass-tint-primary` — varian glass dengan tint aksen `--primary` untuk widget falak beranda (`PrayerScheduleWidget`), agar kartu hero memakai warna primary (oranye Lirboyo) di atas kaca, bukan tint modul falak biru.
+
 Perubahan pada 1.1: radius seragam `rounded-xl` untuk semua content cards; penambahan shadow tokens (`--lim-shadow-*`) untuk kedalaman halus; refinement glass rules.
 
 ---

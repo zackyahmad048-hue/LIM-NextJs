@@ -92,7 +92,7 @@ Beranda | Profil ▼ | Artikel | Media | Kontak
 ### 4.1 Beranda (`/`)
 | Section | Requirement |
 |---------|-------------|
-| **Hero** | Foto `iksadari.JPG` + headline (moto oranye+slate) + deskripsi + CTA utama (falak) + widget jadwal shalat (kanan) + statistik hero (3 numbers: 100+ wilayah, 3000+ delegasi, 1000+ titik). Layout 2 kolom di desktop (kiri: teks, kanan: widget). Tanpa eyebrow/tagline terpisah. Transisi entri mengikuti referensi DIGDAYA (`Reveal distance 80px` + `scale 0.9`, `EASE_OUT`). |
+| **Hero** | Foto `iksadari.JPG` + headline (moto oranye+slate) + deskripsi + CTA utama (falak) + widget jadwal shalat (kanan) + statistik hero (3 numbers: 100+ wilayah, 3000+ delegasi, 1000+ titik). Layout 2 kolom di desktop (kiri: teks, kanan: widget). Tanpa eyebrow/tagline terpisah. Transisi entri mengikuti referensi DIGDAYA (`Reveal distance 80px` + `scale 0.9`, `EASE_OUT`). **Widget jadwal shalat** pakai kartu kaca `glass` + `glass-tint-primary` (aksen primary, tanpa border); header berada di tengah berurutan: judul "Jadwal Shalat" → jam + label (WIB/WIS) → hari + pasaran - tanggal Masehi → tanggal Hijriyah → lokasi (Titik GPS/nama wilayah). Daftar shalat 7 baris (Imsak, Subuh, Terbit, Dzuhur, Ashar, Maghrib, Isya) tanpa garis pemisah per baris; highlight oranye baris shalat berikutnya. Tanpa blok "Berikutnya"/countdown. |
 | **CTA Falak Prominent** | Quick access: Jadwal Shalat, Kiblat, Kalender — sticky di mobile |
 | **Latest Articles** | 3-4 latest, card grid, link ke `/artikel` |
 | **Latest Media** | 4-6 thumbnails, link ke `/media` |
