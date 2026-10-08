@@ -552,7 +552,7 @@ export function PrayerTimeTable() {
               diterapkan pada waktu shalat (Subuh, Dzuhur, Ashar, Maghrib, Isya)
               sesuai kaidah hisab Kemenag RI & Fiqih Falak.
             </p>
-            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground/80">
+            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="h-3 w-3" />
               Pengaman spiritual untuk ketepatan ritual
             </div>
@@ -568,7 +568,7 @@ export function PrayerTimeTable() {
               Jam 12:00:00 Istiwa tepat terjadi saat Matahari melintasi titik
               meridian lokal (Transit Solar Noon).
             </p>
-            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground/80">
+            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
               <Sun className="h-3 w-3" />
               Titik tertinggi matahari, penanda waktu
             </div>
@@ -588,7 +588,7 @@ export function PrayerTimeTable() {
               dibanding {location.timezoneName || "WIB"} akibat posisi bujur &
               perataan waktu.
             </p>
-            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground/80">
+            <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
               <Navigation className="h-3 w-3" />
               Koreksi geografis untuk ketepatan
             </div>

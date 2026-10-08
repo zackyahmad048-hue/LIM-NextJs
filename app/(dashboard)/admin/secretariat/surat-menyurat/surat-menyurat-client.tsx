@@ -243,7 +243,7 @@ export function SuratMenyuratClient({
                 <p className="text-sm font-medium text-muted-foreground">
                   Belum ada nomor terbit
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground/80">
+                <p className="mt-1 text-xs text-muted-foreground">
                   Nomor diterbitkan otomatis saat surat keluar ditandai terkirim.
                 </p>
               </div>
