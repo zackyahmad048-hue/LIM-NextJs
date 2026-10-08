@@ -34,18 +34,17 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 - Email input
 - Password input
 - Login button
-- Forgot password link
+- (Tautan "Lupa password" tidak dirender sampai halaman forgot-password tersedia)
 
 **Components:**
 
 - `Input` (email)
 - `Input` (password, type=password)
 - `Button` (submit)
-- `Link` (forgot password)
 
 ---
 
-### Forgot Password Page
+### Forgot Password Page (belum dibangun)
 
 **URL:** `/admin/forgot-password`
 
@@ -65,7 +64,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 ---
 
-### Reset Password Page
+### Reset Password Page (belum dibangun)
 
 **URL:** `/admin/reset-password?token=...`
 
@@ -85,7 +84,7 @@ Dokumen ini mendefinisikan UI specification untuk domain Authentication.
 
 ---
 
-### Change Password Page
+### Change Password Page (belum dibangun)
 
 **URL:** `/admin/change-password` (authenticated)
 

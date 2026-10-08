@@ -93,6 +93,7 @@ focus, and the institution's authority is shown through demonstrated skill
 | Auth surfaces | Halaman auth (`/admin/login`, `/admin/setup`) memakai kartu `.glass rounded-xl shadow-sm` di latar polos `bg-background` dual-mode; efek legacy Aurora + starfield dihapus |
 | Auth backdrop | Latar auth: grid hairline monokrom (`.auth-grid`) bergeser 60s linear, masker radial, pure CSS; reduced-motion membekukan |
 | Toast island | Sonner global: pil tengah atas (`bg-foreground`/`text-background`), `visibleToasts=1`, morph masuk `island-in`; radius pil dikecualikan dari standar `rounded-xl` seperti navbar chrome |
+| Muted text contrast | Teks sekunder ukuran `text-xs`/`text-sm` wajib `text-muted-foreground` penuh; opacity `/80` pada token ini turun di bawah WCAG AA di light mode |
 | No orange background wash | `bg-primary/10`, `bg-primary/5` removed from cards; orange → border/text/ring. Footer band tint (`primary/8-12%`) is the only filled surface |
 | Cards use `border-primary/25` (1px) | Card border is hairlinel 1px tint; hover → `border-primary` (no width change) |
 | Max radius `rounded-lg` (nested/small) · standard `rounded-xl` (content cards) | `rounded-2xl`+ reserved for navbar chrome only |
