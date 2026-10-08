@@ -95,6 +95,63 @@ describe("defineAction", () => {
     expect(result).toEqual({ ok: false, message: "Struktur tidak boleh kosong." });
   });
 
+  it("meneruskan input apa adanya ke handler saat tidak ada schema", async () => {
+    const handler = vi.fn().mockResolvedValue(undefined);
+    const action = defineAction({ permission: "structure.update", handler });
+
+    const result = await action({ name: "LIM" });
+
+    expect(result.ok).toBe(true);
+    expect(handler).toHaveBeenCalledWith({ name: "LIM" }, guardSuccess);
+  });
+
+  it("memicu revalidatePath sekali saat revalidate berupa string tunggal", async () => {
+    const action = defineAction({
+      permission: "structure.update",
+      revalidate: "/admin",
+      handler: async () => undefined,
+    });
+
+    await action({} as never);
+
+    expect(revalidatePath).toHaveBeenCalledTimes(1);
+    expect(revalidatePath).toHaveBeenCalledWith("/admin");
+  });
+
+  it("tidak menyentuh revalidatePath saat revalidate tidak diisi", async () => {
+    const action = defineAction({ permission: "structure.update", handler: async () => undefined });
+
+    await action({} as never);
+
+    expect(revalidatePath).not.toHaveBeenCalled();
+  });
+
+  it("memetakan error pada root schema ke fieldErrors._form", async () => {
+    const rootSchema = z.string().min(3);
+    const action = defineAction({ permission: "structure.update", schema: rootSchema, handler: vi.fn() });
+
+    const result = await action("ab" as never);
+
+    expect(result.ok).toBe(false);
+    expect(result.fieldErrors?._form).toBeTruthy();
+  });
+
+  it("mencatat error tak dikenal sebelum mengembalikannya ke pengguna", async () => {
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const action = defineAction({
+      permission: "structure.update",
+      handler: async () => {
+        throw new Error("db connection lost");
+      },
+    });
+
+    const result = await action({} as never);
+
+    expect(result.ok).toBe(false);
+    expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
+  });
+
   it("menyembunyikan error tak dikenal di balik pesan umum", async () => {
     const action = defineAction({
       permission: "structure.update",
