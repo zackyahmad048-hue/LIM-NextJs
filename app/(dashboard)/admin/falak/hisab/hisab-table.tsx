@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 import type { ColumnDef } from "@tanstack/react-table";
 
 import { DataTable } from "@/components/admin/shared/data-table";
@@ -59,6 +61,30 @@ const columns: ColumnDef<Item>[] = [
   },
 ];
 
-export function HisabTable({ data }: { data: Item[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function HisabTable({
+  data,
+  page,
+  pageCount,
+}: {
+  data: Item[];
+  page: number;
+  pageCount: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      manualPagination
+      pageCount={pageCount}
+      pageIndex={page - 1}
+      onPaginationChange={(pageIndex) => {
+        const next = new URLSearchParams(searchParams.toString());
+        next.set("page", String(pageIndex + 1));
+        router.push(`/admin/falak/hisab?${next.toString()}`);
+      }}
+    />
+  );
 }

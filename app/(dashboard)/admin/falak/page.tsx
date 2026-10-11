@@ -52,7 +52,7 @@ export default async function FalakDashboardPage() {
         description="Ringkasan data layanan falak."
       />
 
-      <Band tint="falak">
+      <Band variant="raised" tint="falak">
         <StatStrip
           items={[
             {
@@ -84,7 +84,7 @@ export default async function FalakDashboardPage() {
       </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Band>
+        <Band variant="plain">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-semibold text-admin-content-fg">
               Observasi Rukyat Terbaru
@@ -122,7 +122,7 @@ export default async function FalakDashboardPage() {
           )}
         </Band>
 
-        <Band>
+        <Band variant="plain">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-semibold text-admin-content-fg">
               Eclipse Mendatang

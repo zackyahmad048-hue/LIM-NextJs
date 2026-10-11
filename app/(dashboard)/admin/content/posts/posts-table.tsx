@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Archive, Pencil, RotateCcw, Send } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -79,7 +80,7 @@ const columns: ColumnDef<Post>[] = [
     header: "Author",
     cell: ({ row }) => (
       <span className="text-xs text-admin-content-fg/80">
-        {row.original.author.name}
+        {row.original.authors[0]?.name}
       </span>
     ),
   },
@@ -146,6 +147,30 @@ const columns: ColumnDef<Post>[] = [
   },
 ];
 
-export function PostsTable({ data }: { data: Post[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function PostsTable({
+  data,
+  page,
+  pageCount,
+}: {
+  data: Post[];
+  page: number;
+  pageCount: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      manualPagination
+      pageCount={pageCount}
+      pageIndex={page - 1}
+      onPaginationChange={(pageIndex) => {
+        const next = new URLSearchParams(searchParams.toString());
+        next.set("page", String(pageIndex + 1));
+        router.push(`/admin/content/posts?${next.toString()}`);
+      }}
+    />
+  );
 }

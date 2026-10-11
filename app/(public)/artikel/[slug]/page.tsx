@@ -109,7 +109,7 @@ export default async function ArtikelDetailPage({
         <p className="mt-4 text-xs text-muted-foreground">
           Oleh{" "}
           <span className="font-medium text-foreground">
-            {post.author.name}
+            {post.authors[0]?.name}
           </span>
         </p>
       </header>

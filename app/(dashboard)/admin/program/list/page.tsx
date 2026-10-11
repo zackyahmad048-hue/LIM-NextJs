@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { Band } from "@/components/admin/shared/band";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import { getPrograms } from "@/modules/program/queries/program.query";
@@ -16,11 +16,14 @@ export default async function ProgramListPage({
   searchParams: Promise<{ search?: string; status?: string; page?: string }>;
 }) {
   const params = await searchParams;
+  const page = params.page ? Number(params.page) : 1;
+  const pageSize = 20;
   const { items, total } = await getPrograms({
     search: params.search,
     status: params.status,
-    page: params.page ? Number(params.page) : 1,
+    page,
   });
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
 
   return (
     <PageContainer>
@@ -43,30 +46,9 @@ export default async function ProgramListPage({
         placeholder="Cari nama/kode program..."
       />
 
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada program.{" "}
-          <Button variant="link" size="sm" className="p-0" asChild>
-            <Link href="/admin/program/new">Buat program pertama</Link>
-          </Button>
-        </p>
-      )}
-
-      {items.length > 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          {total} program ditemukan.
-        </p>
-      )}
-
-      <ProgramsTable data={items} />
-
-      <TablePagination
-        page={params.page ? Number(params.page) : 1}
-        pageSize={20}
-        total={total}
-        basePath="/admin/program/list"
-        queryParams={{ search: params.search, status: params.status }}
-      />
+      <Band variant="raised" className="mt-4">
+        <ProgramsTable data={items} page={page} pageCount={pageCount} total={total} />
+      </Band>
     </PageContainer>
   );
 }

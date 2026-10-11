@@ -1,13 +1,13 @@
 import { formatDateId } from "@/lib/format";
 import Link from "next/link";
-import { Calendar, ClipboardList, FileText, Plus, Users } from "lucide-react";
+import { Calendar, ClipboardList, Plus, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
-import { cn } from "@/lib/utils";
+import { StatStrip, StatRow } from "@/components/admin/shared/stat-primitives";
 
 import {
   getProgramStats,
@@ -41,32 +41,26 @@ export default async function ProgramDashboardPage() {
     {
       label: "Total Program",
       value: stats.total,
-      color: "text-primary bg-primary/10",
     },
     {
       label: "Draft",
       value: stats.draft,
-      color: "text-stone-500 bg-stone-100 dark:bg-stone-800/60",
     },
     {
       label: "Published",
       value: stats.published,
-      color: "text-amber-600 bg-amber-100 dark:bg-amber-900/40",
     },
     {
       label: "Registrasi Dibuka",
       value: stats.registrationOpen,
-      color: "text-yellow-600 bg-yellow-100 dark:bg-yellow-900/40",
     },
     {
       label: "Berlangsung",
       value: stats.onGoing,
-      color: "text-orange-600 bg-orange-100 dark:bg-orange-900/40",
     },
     {
       label: "Selesai",
       value: stats.completed,
-      color: "text-orange-800 bg-orange-200 dark:bg-orange-950/60",
     },
   ];
 
@@ -85,31 +79,27 @@ export default async function ProgramDashboardPage() {
         }
       />
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-        {statCards.map((stat) => {
-          const Icon = stat.value > 0 ? ClipboardList : FileText;
-          return (
-            <Band key={stat.label} tint="program">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-muted-foreground">
-                  {stat.label}
-                </p>
-                <div
-                  className={cn("flex size-8 items-center justify-center rounded-lg", stat.color)}
-                >
-                  <Icon className="size-4" />
-                </div>
-              </div>
-              <p className="mt-3 text-3xl font-bold tabular-nums">
-                {stat.value}
-              </p>
-            </Band>
-          );
-        })}
-      </div>
+      <Band variant="raised" tint="program">
+        <StatStrip
+          items={statCards.slice(0, 4).map((stat) => ({
+            key: stat.label,
+            label: stat.label,
+            value: stat.value,
+          }))}
+        />
+        <div className="mt-4 max-w-md">
+          <StatRow
+            items={statCards.slice(4).map((stat) => ({
+              key: stat.label,
+              label: stat.label,
+              value: stat.value,
+            }))}
+          />
+        </div>
+      </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Band>
+        <Band variant="plain">
           <div className="flex items-center gap-2">
             <Calendar className="size-4 text-muted-foreground" />
             <h2 className="text-base font-semibold">Program Mendatang</h2>
@@ -141,7 +131,7 @@ export default async function ProgramDashboardPage() {
           )}
         </Band>
 
-        <Band>
+        <Band variant="plain">
           <div className="flex items-center gap-2">
             <Users className="size-4 text-muted-foreground" />
             <h2 className="text-base font-semibold">Akses Cepat</h2>

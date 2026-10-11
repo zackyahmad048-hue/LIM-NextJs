@@ -1,6 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { Band } from "@/components/admin/shared/band";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import { falakService } from "@/modules/falak/application/service";
@@ -15,6 +15,8 @@ export default async function RukyatPage({
   const page = params.page ? Number(params.page) : 1;
   const result = await falakService.getRukyatPaginated(page, 20, params.search);
   const items = result.items;
+  const pageSize = 20;
+  const pageCount = Math.max(1, Math.ceil(result.total / pageSize));
 
   return (
     <PageContainer>
@@ -29,20 +31,9 @@ export default async function RukyatPage({
         placeholder="Cari lokasi..."
       />
 
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada data observasi rukyat.
-        </p>
-      )}
-      <RukyatTable data={items} />
-
-      <TablePagination
-        page={page}
-        pageSize={20}
-        total={result.total}
-        basePath="/admin/falak/rukyat"
-        queryParams={{ search: params.search }}
-      />
+      <Band variant="raised" className="mt-4">
+        <RukyatTable data={items} page={page} pageCount={pageCount} />
+      </Band>
     </PageContainer>
   );
 }

@@ -128,7 +128,7 @@ export function PostForm({
       >
         {/* Main content */}
         <div className="flex flex-col gap-4">
-          <Band>
+          <Band variant="raised">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="title">Judul</Label>
@@ -203,7 +203,7 @@ export function PostForm({
 
         {/* Sidebar */}
         <div className="flex flex-col gap-4">
-          <Band>
+          <Band variant="raised">
             <h3 className="text-sm font-semibold text-admin-content-fg">Publikasi</h3>
             <div className="mt-3 space-y-3">
               <div className="space-y-2">
@@ -241,7 +241,7 @@ export function PostForm({
             </div>
           </Band>
 
-          <Band>
+          <Band variant="plain">
             <h3 className="text-sm font-semibold text-admin-content-fg">Aksi</h3>
             <div className="mt-3 flex flex-col gap-2">
               <Button

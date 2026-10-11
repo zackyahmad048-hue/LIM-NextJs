@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 import {
   INITIAL_ACTION_RESULT,
@@ -55,15 +55,7 @@ export function OutgoingMailForm({
 
   return (
     <form action={formAction} className="max-w-2xl space-y-3">
-      <Band>
-        <div className="mb-4 border-b pb-3">
-          <h2 className="text-base font-semibold">Informasi Surat</h2>
-          <p className="text-xs text-admin-content-fg/60">
-            Tingkat dan kategori menentukan nomor surat resmi. Nomor dan QR
-            verifikasi diterbitkan otomatis saat surat ditandai terkirim.
-          </p>
-        </div>
-
+      <Band variant="raised" title="Informasi Surat" description="Tingkat dan kategori menentukan nomor surat resmi. Nomor dan QR verifikasi diterbitkan otomatis saat surat ditandai terkirim.">
         <NumberPreview
           levelCode={levelCode}
           categoryCode={categoryCode}
@@ -71,10 +63,7 @@ export function OutgoingMailForm({
         />
 
         <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="levelCode" className="text-xs">
-              Tingkat Kepengurusan
-            </Label>
+          <FormGroup legend="Tingkat Kepengurusan">
             <NativeSelect
               id="levelCode"
               name="levelCode"
@@ -90,12 +79,9 @@ export function OutgoingMailForm({
                 </NativeSelectOption>
               ))}
             </NativeSelect>
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="categoryCode" className="text-xs">
-              Kategori Surat
-            </Label>
+          <FormGroup legend="Kategori Surat">
             <NativeSelect
               id="categoryCode"
               name="categoryCode"
@@ -111,12 +97,9 @@ export function OutgoingMailForm({
                 </NativeSelectOption>
               ))}
             </NativeSelect>
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="mailDate" className="text-xs">
-              Tanggal Surat
-            </Label>
+          <FormGroup legend="Tanggal Surat">
             <Input
               id="mailDate"
               name="mailDate"
@@ -126,24 +109,18 @@ export function OutgoingMailForm({
               onChange={(event) => setMailDate(event.target.value)}
               className="rounded-md text-xs"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="recipient" className="text-xs">
-              Penerima
-            </Label>
+          <FormGroup legend="Penerima">
             <Input
               id="recipient"
               name="recipient"
               placeholder="Nama penerima surat"
               className="rounded-md text-xs"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5 md:col-span-2">
-            <Label htmlFor="subject" className="text-xs">
-              Perihal Surat
-            </Label>
+          <FormGroup legend="Perihal Surat" className="md:col-span-2">
             <Input
               id="subject"
               name="subject"
@@ -151,32 +128,15 @@ export function OutgoingMailForm({
               placeholder="Perihal surat"
               className="rounded-md text-xs"
             />
-          </div>
+          </FormGroup>
         </div>
       </Band>
 
-      <Band>
-        <div className="mb-4 border-b pb-3">
-          <h2 className="text-base font-semibold">QR Penanda Tangan</h2>
-          <p className="text-xs text-admin-content-fg/60">
-            Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus
-            Pusat dan dijadikan konten QR yang ditempel pada dokumen saat
-            surat ditandai terkirim.
-          </p>
-        </div>
-
+      <Band variant="raised" title="QR Penanda Tangan" description="Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus Pusat dan dijadikan konten QR yang ditempel pada dokumen saat surat ditandai terkirim.">
         <SignerFields pengurus={pengurus} />
       </Band>
 
-      <Band>
-        <div className="mb-4 border-b pb-3">
-          <h2 className="text-base font-semibold">Dokumen Surat</h2>
-          <p className="text-xs text-admin-content-fg/60">
-            Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan
-            Verifikasi pada halaman dokumen.
-          </p>
-        </div>
-
+      <Band variant="raised" title="Dokumen Surat" description="Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan Verifikasi pada halaman dokumen.">
         <SigningEditor />
       </Band>
 

@@ -104,7 +104,7 @@ export function SecretariatDashboard({
     <div className="flex flex-col gap-4">
       <ActionQueue dispositions={queue.dispositions} counts={queue.counts} />
 
-      <Band>
+      <Band variant="plain">
         <StatStrip
           items={[
             {
@@ -143,7 +143,7 @@ export function SecretariatDashboard({
         />
       </Band>
 
-      <Band>
+      <Band variant="plain" title="Tren 12 Bulan" description="Perbandingan surat masuk dan keluar bulanan.">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base font-semibold">Tren 12 Bulan</h2>
@@ -178,7 +178,7 @@ export function SecretariatDashboard({
           driveEmail={health.driveEmail}
           missingAttachments={health.missingAttachments}
         />
-        <Band className="lg:col-span-2">
+        <Band variant="plain" title="Modul Sekretariat" description="Pintasan cepat ke fitur utama.">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-semibold">Modul Sekretariat</h2>

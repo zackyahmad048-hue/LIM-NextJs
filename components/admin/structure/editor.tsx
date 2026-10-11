@@ -46,7 +46,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <Band>
+    <Band variant="plain">
       <button
         type="button"
         onClick={() => onToggle(id)}

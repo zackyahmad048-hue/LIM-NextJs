@@ -27,7 +27,7 @@ export default async function FalakReportsPage() {
         description="Ringkasan dan statistik data falak."
       />
 
-      <Band>
+      <Band variant="plain">
         <StatStrip
           items={[
             {
@@ -59,7 +59,7 @@ export default async function FalakReportsPage() {
       </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Band>
+        <Band variant="plain">
           <h3 className="font-semibold text-admin-content-fg">
             Statistik Hasil Rukyat
           </h3>
@@ -102,7 +102,7 @@ export default async function FalakReportsPage() {
           </div>
         </Band>
 
-        <Band>
+        <Band variant="plain">
           <h3 className="font-semibold text-admin-content-fg">
             Riwayat Eclipse
           </h3>

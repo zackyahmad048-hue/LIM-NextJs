@@ -85,7 +85,7 @@ export function NumberingSettingsForm({
         value={JSON.stringify(levelCodes)}
       />
 
-      <Band>
+      <Band variant="raised">
         <FormGroup
           legend="Format & Digit"
           description="Template memakai placeholder yang dibatasi tanda kurung kurawal."

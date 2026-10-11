@@ -28,7 +28,7 @@ export default async function MediaPage() {
       />
 
       {mediaItems.length === 0 ? (
-        <Band className="text-center">
+        <Band variant="raised" className="text-center">
           <div className="mx-auto flex size-10 items-center justify-center rounded-md bg-admin-input-bg text-admin-content-fg/50">
             <ImageIcon className="size-5" />
           </div>

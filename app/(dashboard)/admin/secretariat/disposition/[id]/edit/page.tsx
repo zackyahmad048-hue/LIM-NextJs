@@ -5,11 +5,11 @@ import { CheckCircle, Pencil, RotateCcw, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
 import {
@@ -111,16 +111,9 @@ export default async function EditDispositionPage({
         submitLabel="Simpan Perubahan"
         submitIcon={<Pencil className="size-4" />}
       >
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Informasi Disposisi</h2>
-          </div>
-
+        <Band variant="raised" title="Informasi Disposisi">
           <div className="grid gap-3 md:grid-cols-2">
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="incomingMailId" className="text-xs">
-                Surat Masuk
-              </Label>
+            <FormGroup legend="Surat Masuk" className="md:col-span-2">
               <NativeSelect
                 id="incomingMailId"
                 name="incomingMailId"
@@ -135,12 +128,9 @@ export default async function EditDispositionPage({
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="assignedToId" className="text-xs">
-                Tujuan Disposisi
-              </Label>
+            <FormGroup legend="Tujuan Disposisi" className="md:col-span-2">
               <NativeSelect
                 id="assignedToId"
                 name="assignedToId"
@@ -155,12 +145,9 @@ export default async function EditDispositionPage({
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="instruction" className="text-xs">
-                Instruksi
-              </Label>
+            <FormGroup legend="Instruksi" className="md:col-span-2">
               <Textarea
                 id="instruction"
                 name="instruction"
@@ -168,12 +155,9 @@ export default async function EditDispositionPage({
                 defaultValue={disposition.instruction}
                 className="min-h-20 rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="priority" className="text-xs">
-                Prioritas
-              </Label>
+            <FormGroup legend="Prioritas">
               <NativeSelect
                 id="priority"
                 name="priority"
@@ -188,12 +172,9 @@ export default async function EditDispositionPage({
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="dueDate" className="text-xs">
-                Batas Waktu
-              </Label>
+            <FormGroup legend="Batas Waktu">
               <Input
                 id="dueDate"
                 name="dueDate"
@@ -201,19 +182,16 @@ export default async function EditDispositionPage({
                 defaultValue={formatDateInput(disposition.dueDate)}
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="notes" className="text-xs">
-                Catatan
-              </Label>
+            <FormGroup legend="Catatan" className="md:col-span-2">
               <Textarea
                 id="notes"
                 name="notes"
                 defaultValue={disposition.notes ?? ""}
                 className="min-h-20 rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
           </div>
         </Band>
       </ActionForm>

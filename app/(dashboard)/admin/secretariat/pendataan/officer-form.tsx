@@ -84,7 +84,7 @@ export function OfficerForm({
 
   return (
     <form action={formAction} className="max-w-2xl space-y-4">
-      <Band>
+      <Band variant="raised">
         <FormGroup
           legend="Data Pengurus"
           description="Tandai &quot;Ketua&quot; bila pengurus ini pemimpin unit (hanya satu per unit)."

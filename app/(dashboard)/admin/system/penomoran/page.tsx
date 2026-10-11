@@ -33,7 +33,7 @@ export default async function PenomoranSettingsPage() {
           <NumberingSettingsForm config={config} />
         </div>
 
-        <Band className="h-fit">
+        <Band variant="raised" className="h-fit">
           <div className="mb-3 flex items-center gap-2">
             <Cog className="size-4 text-admin-content-fg/50" />
             <h2 className="text-sm font-semibold text-admin-content-fg">

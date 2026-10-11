@@ -51,7 +51,7 @@ export default async function ReportsPage() {
         description="Ringkasan data dan statistik konten website."
       />
 
-      <Band tint="sistem">
+      <Band variant="raised" tint="sistem">
         <StatStrip
           items={[
             {
@@ -72,7 +72,7 @@ export default async function ReportsPage() {
         />
       </Band>
 
-      <Band>
+      <Band variant="plain">
         <div className="flex items-center gap-2">
           <BarChart3 className="size-4 text-admin-content-fg/50" />
           <h2 className="text-base font-semibold text-admin-content-fg">
@@ -108,7 +108,7 @@ export default async function ReportsPage() {
         </div>
       </Band>
 
-      <Band>
+      <Band variant="plain">
         <h2 className="text-base font-semibold text-admin-content-fg">
           Berita per kategori
         </h2>
@@ -149,7 +149,7 @@ export default async function ReportsPage() {
       </Band>
 
       {canSync && (
-        <Band>
+        <Band variant="plain">
           <ReportingSyncButton />
         </Band>
       )}

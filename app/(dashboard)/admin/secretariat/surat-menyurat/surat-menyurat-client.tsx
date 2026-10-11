@@ -214,7 +214,7 @@ export function SuratMenyuratClient({
       {/* Plat nomor terakhir + statistik */}
       <div className="mt-6 grid gap-4 lg:grid-cols-5">
         <div className="lg:col-span-3">
-          <Band>
+          <Band variant="raised">
             <p className="text-xs font-medium uppercase text-admin-content-fg/60">
               Nomor Terbit Terakhir
             </p>
@@ -252,12 +252,13 @@ export function SuratMenyuratClient({
         </div>
 
         <div className="lg:col-span-2">
-          <Band>
+          <Band variant="raised">
             <p className="text-xs font-medium uppercase text-admin-content-fg/60">
               Sekilas
             </p>
             <dl className="mt-3 divide-y">
               {[
+
                 { label: "Surat keluar", value: stats.outgoingTotal },
                 { label: "Surat masuk", value: stats.incomingTotal },
                 { label: "Diarsipkan", value: stats.archivedTotal },
@@ -281,7 +282,7 @@ export function SuratMenyuratClient({
                     {row.value}
                   </dd>
                 </div>
-              ))}
+              ))}]
             </dl>
           </Band>
         </div>
@@ -291,7 +292,7 @@ export function SuratMenyuratClient({
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Link
           href="/admin/secretariat/outgoing-mail/new"
-          className="group flex items-start justify-between gap-4 rounded-xl border border-primary/25 bg-admin-card-bg p-5 shadow-sm transition-colors hover:border-primary hover:bg-primary/5"
+          className="group flex items-start justify-between gap-4 rounded-xl border border-primary/25 bg-admin-card-bg p-5 transition-colors hover:border-primary hover:bg-primary/5"
         >
           <div className="flex items-start gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
@@ -310,7 +311,7 @@ export function SuratMenyuratClient({
 
         <Link
           href="/admin/secretariat/incoming-mail/new"
-          className="group flex items-start justify-between gap-4 rounded-xl border border-primary/25 bg-admin-card-bg p-5 shadow-sm transition-colors hover:border-primary hover:bg-primary/5"
+          className="group flex items-start justify-between gap-4 rounded-xl border border-primary/25 bg-admin-card-bg p-5 transition-colors hover:border-primary hover:bg-primary/5"
         >
           <div className="flex items-start gap-4">
             <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary/10">
@@ -328,7 +329,7 @@ export function SuratMenyuratClient({
       </div>
 
       {/* Status penyimpanan */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/25 bg-admin-card-bg px-4 py-3 shadow-sm">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary/25 bg-admin-card-bg px-4 py-3">
         <div className="flex items-center gap-2.5">
           {driveEmail ? (
             <>
@@ -373,8 +374,8 @@ export function SuratMenyuratClient({
       </div>
 
       {/* Surat keluar terbaru */}
-      <div className="mt-6 overflow-hidden rounded-xl border shadow-sm">
-        <div className="flex items-center justify-between border-b bg-card px-4 py-3">
+      <Band variant="raised" className="mt-6 overflow-hidden p-0">
+        <div className="flex items-center justify-between border-b border-admin-border px-4 py-3">
           <div className="flex items-baseline gap-2">
             <h2 className="text-base font-semibold">Surat keluar terbaru</h2>
             <span className="text-sm tabular-nums text-muted-foreground">
@@ -399,7 +400,7 @@ export function SuratMenyuratClient({
             </p>
           </div>
         ) : (
-          <ul className="divide-y bg-card">
+          <ul className="divide-y divide-admin-border/50">
             {outgoingItems.map((item) => {
               const status = statusConfig[item.status] ?? {
                 label: item.status,
@@ -491,11 +492,11 @@ export function SuratMenyuratClient({
             })}
           </ul>
         )}
-      </div>
+      </Band>
 
       {/* Surat masuk terbaru */}
-      <div className="mt-6 overflow-hidden rounded-xl border shadow-sm">
-        <div className="flex items-center justify-between border-b bg-card px-4 py-3">
+      <Band variant="raised" className="mt-6 overflow-hidden p-0">
+        <div className="flex items-center justify-between border-b border-admin-border px-4 py-3">
           <div className="flex items-baseline gap-2">
             <h2 className="text-base font-semibold">Surat masuk terbaru</h2>
             <span className="text-sm tabular-nums text-muted-foreground">
@@ -520,7 +521,7 @@ export function SuratMenyuratClient({
             </p>
           </div>
         ) : (
-          <ul className="divide-y bg-card">
+          <ul className="divide-y divide-admin-border/50">
             {incomingItems.map((item) => {
               const status = incomingStatusConfig[item.status] ?? {
                 label: item.status,
@@ -557,7 +558,7 @@ export function SuratMenyuratClient({
             })}
           </ul>
         )}
-      </div>
+      </Band>
 
       <ConfirmDialog
         open={confirm !== null}

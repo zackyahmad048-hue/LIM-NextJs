@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { getAgendaBooks } from "@/modules/secretariat/queries/secretariat.query";
 import { AgendaTable } from "./agenda-table";
@@ -28,24 +29,25 @@ export default async function AgendaPage({
         description="Daftar agenda dan kegiatan organisasi (hanya baca)."
         actions={
           <div className="flex items-center gap-2">
-            <Input
-              name="search"
-              defaultValue={params.search ?? ""}
-              placeholder="Cari judul agenda..."
-              className="rounded-md text-xs"
-            />
-            <Button type="submit" size="sm" variant="secondary">
-              <Search className="size-3.5" /> Cari
-            </Button>
+            <form method="get" className="flex items-center gap-2">
+              <input type="hidden" name="page" value={params.page ?? "1"} />
+              <Input
+                name="search"
+                defaultValue={params.search ?? ""}
+                placeholder="Cari judul agenda..."
+                className="rounded-md text-xs"
+              />
+              <Button type="submit" size="sm" variant="secondary">
+                <Search className="size-3.5" /> Cari
+              </Button>
+            </form>
           </div>
         }
       />
 
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">Belum ada agenda.</p>
-      )}
-
-      <AgendaTable data={items} />
+      <Band variant="plain">
+        <AgendaTable data={items} />
+      </Band>
     </PageContainer>
   );
 }

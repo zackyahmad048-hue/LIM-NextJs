@@ -2,11 +2,11 @@ import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 import { Plus } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
@@ -34,19 +34,9 @@ export default function NewDocumentPage() {
         submitLabel="Simpan Dokumen"
         submitIcon={<Plus className="size-4" />}
       >
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Informasi Dokumen</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              Data utama dokumen administrasi.
-            </p>
-          </div>
-
+        <Band variant="raised" title="Informasi Dokumen" description="Data utama dokumen administrasi.">
           <div className="grid gap-3 md:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="documentNumber" className="text-xs">
-                Nomor Dokumen
-              </Label>
+            <FormGroup legend="Nomor Dokumen">
               <Input
                 id="documentNumber"
                 name="documentNumber"
@@ -54,12 +44,9 @@ export default function NewDocumentPage() {
                 placeholder="DOC-2027-001"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="documentType" className="text-xs">
-                Jenis Dokumen
-              </Label>
+            <FormGroup legend="Jenis Dokumen">
               <NativeSelect
                 id="documentType"
                 name="documentType"
@@ -73,12 +60,9 @@ export default function NewDocumentPage() {
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="title" className="text-xs">
-                Judul
-              </Label>
+            <FormGroup legend="Judul" className="md:col-span-2">
               <Input
                 id="title"
                 name="title"
@@ -86,46 +70,30 @@ export default function NewDocumentPage() {
                 placeholder="Judul dokumen"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="description" className="text-xs">
-                Deskripsi
-              </Label>
+            <FormGroup legend="Deskripsi" className="md:col-span-2">
               <Textarea
                 id="description"
                 name="description"
                 className="min-h-20 rounded-md text-xs"
                 placeholder="Deskripsi dokumen (opsional)"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="content" className="text-xs">
-                Konten
-              </Label>
+            <FormGroup legend="Konten" className="md:col-span-2">
               <Textarea
                 id="content"
                 name="content"
                 className="min-h-32 rounded-md text-xs"
                 placeholder="Konten dokumen (opsional)"
               />
-            </div>
+            </FormGroup>
           </div>
         </Band>
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Dokumen File</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file
-              ini.
-            </p>
-          </div>
-
-          <AttachmentUpload
-            uploadAction={uploadAdministrativeDocumentAttachment}
-          />
+        <Band variant="raised" title="Dokumen File" description="Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file ini.">
+          <AttachmentUpload uploadAction={uploadAdministrativeDocumentAttachment} />
         </Band>
       </ActionForm>
     </PageContainer>

@@ -1,6 +1,6 @@
 # Spec — Redesign Admin: Permukaan Tenang
 
-**Status:** Approved
+**Status:** Superseded oleh `spec-admin-tenang-modern.md` (2026-10-08)
 **Pemilik:** admin `app/(dashboard)/admin/` — sistem permukaan & komposisi halaman admin
 **Tanggal:** 2026-09-06
 **Rujukan keputusan:** `.scratch/admin-redesign/issues/01`–`05`, prototipe `prototype/calm-surfaces.html` (varian B), research `research/01-design-assets-inventory.md`

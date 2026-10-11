@@ -1,11 +1,11 @@
 import { Plus } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
@@ -21,19 +21,9 @@ export default function NewIncomingMailPage() {
       />
 
       <ActionForm action={createIncomingMail} submitLabel="Simpan Surat Masuk" submitIcon={<Plus className="size-4" />}>
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Informasi Surat Masuk</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              Surat masuk otomatis diarsipkan saat disimpan.
-            </p>
-          </div>
-
+        <Band variant="raised" title="Informasi Surat Masuk" description="Surat masuk otomatis diarsipkan saat disimpan.">
           <div className="grid gap-3 md:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="registrationNumber" className="text-xs">
-                Nomor Surat Pengirim
-              </Label>
+            <FormGroup legend="Nomor Surat Pengirim">
               <Input
                 id="registrationNumber"
                 name="registrationNumber"
@@ -41,15 +31,12 @@ export default function NewIncomingMailPage() {
                 placeholder="Contoh: 12/B/UM/2026"
                 className="rounded-md text-xs"
               />
-              <p className="text-[11px] text-muted-foreground">
+              <p className="text-[11px] text-admin-content-fg/60">
                 Nomor sesuai lembar asli yang dikirim pihak luar.
               </p>
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="receivedDate" className="text-xs">
-                Tanggal Diterima
-              </Label>
+            <FormGroup legend="Tanggal Diterima">
               <Input
                 id="receivedDate"
                 name="receivedDate"
@@ -57,12 +44,9 @@ export default function NewIncomingMailPage() {
                 required
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="sender" className="text-xs">
-                Pengirim
-              </Label>
+            <FormGroup legend="Pengirim" className="md:col-span-2">
               <Input
                 id="sender"
                 name="sender"
@@ -70,24 +54,18 @@ export default function NewIncomingMailPage() {
                 placeholder="Nama pengirim"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="senderAddress" className="text-xs">
-                Alamat Pengirim
-              </Label>
+            <FormGroup legend="Alamat Pengirim" className="md:col-span-2">
               <Input
                 id="senderAddress"
                 name="senderAddress"
                 placeholder="Alamat pengirim (opsional)"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="subject" className="text-xs">
-                Perihal
-              </Label>
+            <FormGroup legend="Perihal" className="md:col-span-2">
               <Input
                 id="subject"
                 name="subject"
@@ -95,54 +73,38 @@ export default function NewIncomingMailPage() {
                 placeholder="Perihal surat"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="classification" className="text-xs">
-                Klasifikasi
-              </Label>
+            <FormGroup legend="Klasifikasi">
               <Input
                 id="classification"
                 name="classification"
                 placeholder="Klasifikasi (opsional)"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="category" className="text-xs">
-                Kategori
-              </Label>
+            <FormGroup legend="Kategori">
               <Input
                 id="category"
                 name="category"
                 placeholder="Kategori (opsional)"
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="notes" className="text-xs">
-                Catatan
-              </Label>
+            <FormGroup legend="Catatan" className="md:col-span-2">
               <Textarea
                 id="notes"
                 name="notes"
                 className="min-h-20 rounded-md text-xs"
                 placeholder="Catatan (opsional)"
               />
-            </div>
+            </FormGroup>
           </div>
         </Band>
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Dokumen Surat Masuk</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              Unggah dokumen surat masuk.
-            </p>
-          </div>
-
+        <Band variant="raised" title="Dokumen Surat Masuk" description="Unggah dokumen surat masuk.">
           <AttachmentUpload uploadAction={uploadIncomingMailAttachment} />
         </Band>
       </ActionForm>

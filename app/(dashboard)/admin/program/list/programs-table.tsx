@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Calendar, Pencil } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -128,6 +129,37 @@ const columns: ColumnDef<Item>[] = [
   },
 ];
 
-export function ProgramsTable({ data }: { data: Item[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function ProgramsTable({
+  data,
+  page,
+  pageCount,
+  total,
+}: {
+  data: Item[];
+  page: number;
+  pageCount: number;
+  total: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <>
+      {total > 0 && (
+        <p className="mb-3 text-sm text-admin-content-fg/60">{total} program ditemukan.</p>
+      )}
+      <DataTable
+        columns={columns}
+        data={data}
+        manualPagination
+        pageCount={pageCount}
+        pageIndex={page - 1}
+        onPaginationChange={(pageIndex) => {
+          const next = new URLSearchParams(searchParams.toString());
+          next.set("page", String(pageIndex + 1));
+          router.push(`/admin/program/list?${next.toString()}`);
+        }}
+      />
+    </>
+  );
 }

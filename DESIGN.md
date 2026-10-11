@@ -1,131 +1,135 @@
 # DESIGN.md — Visual World: Khusyu Minimalis (Public Website)
 
 **Project:** LIM Digital Platform — Public Website (`app/(public)/`)
-**Direction:** "Sampaikan dariku walau satu ayat" — **Khusyu Minimalis**
-**Status:** Implemented
-**Date:** 2026-08-30
+**Direction:** "Sampaikan dariku walau satu ayat" — Khusyu Minimalis
+**Status:** Implemented · **Revisi:** 2026-10-09 (sinkron dengan `app/globals.css` dan `docs/08-design-system/`)
 
----
+Sumber kebenaran token adalah `app/globals.css`. Dokumen ini tidak boleh menyebut nilai warna atau radius yang bertentangan dengannya. Rincian per topik ada di `docs/08-design-system/` (lihat bagian 10).
 
 ## 1. Concept
-
-**Khusyu Minimalis** — a place of focused, quiet worship. The message is carried
-*despite* (not by) ornament. Whitespace is maximal, each viewport holds a single
-focus, and the institution's authority is shown through demonstrated skill
-(live falak reckoning) rather than decoration.
-
-> "Sampaikan dariku walau satu ayat" — a hadis that grounds the whole system:
-> delivery of the message over ornament.
+Khusyu Minimalis: tempat ibadah yang fokus dan tenang. Pesan disampaikan **walau tanpa** ornamen, bukan **dengan** ornamen. Whitespace maksimal, satu fokus per viewport, dan otoritas lembaga ditunjukkan lewat kemampuan nyata (hisab falak langsung), bukan dekorasi.
 
 ## 2. Design Decisions
 
-| Aspect | Decision | Notes |
-|--------|----------|-------|
-| **Canvas** | White `oklch(1 0 0)` (light) / near-black `oklch(0.145 0 0)` (dark); neutral grayscale | Token `--background`, `--foreground`, `--border` (definisi di `app/globals.css`) |
-| **Primary** | Oranye LIM — tactical accent only | CTA, active nav underline, active status, focus ring. **Never a background wash** |
-| **Fonts** | Fraunces (heading, serif editorial) · Inter (body) · JetBrains Mono (data/falak) · Reem Kufi (Arabic) | `next/font/google`, `display: swap` |
-| **Surfaces** | **Chrome solid** — navbar/topbar/rail memakai permukaan `bg-background` (kertas, tanpa blur). **Konten** — widget/kartu highlight memakai glass `.glass` (kaca kristal), tabel/form/teks solid (`bg-card`+`border`); shadow lembut `shadow-sm`/`shadow-md` — kertas tertumpuk | Footer band tint oranye `primary/[8-12]%` |
-| **Radius** | Content `rounded-xl` standard (chips/nested kecil `rounded-md`/`rounded-lg`); navbar chrome `rounded-full` (kapsul) | Radius seragam `rounded-xl` untuk semua content cards — public & admin |
-| **Motion** | `EASE_OUT` ≤300ms hover · entrance `Reveal` 600ms · reduced-motion respected (entrance mati, hover/transition tetap) | No translate-lift on cards (replaced with border-color); navbar scroll `transition-[width,border-radius,box-shadow,border-color]` 300ms |
-| **Falak** | Instrumental / honest | Monospace, tabular-nums, grid, status pills, dual Gregorian+Hijriah, Kediri default |
+| Aspek | Keputusan | Catatan |
+|---|---|---|
+| Canvas | Siang: kertas hangat (`--background` ≈ `oklch(0.985 0.004 80)`). Malam: indigo gelap (`--background` ≈ `oklch(0.155 0.02 260)`). **Default: malam** (`defaultTheme="dark"`) | Token `--background`, `--foreground`, `--card`, `--border`. Bukan putih klinis atau hitam netral |
+| Primary | Oranye LIM, aksen taktis (`--primary` ≈ `oklch(0.45 0.195 38.4)` siang, `oklch(0.47 0.157 37.3)` malam) | CTA, status aktif, pill nav aktif, focus ring. Bukan latar kartu |
+| Fonts | Fraunces (heading) · Inter (body) · JetBrains Mono (data/falak) · Reem Kufi (Arab) | `next/font/google`, `display: swap` |
+| Chrome | Solid: navbar/topbar/rail memakai `bg-background`, tanpa blur | |
+| Konten | Kartu/widget highlight memakai `.glass`; tabel, form, teks panjang solid (`bg-card` + border) | Varian tint modul: `.glass-tint-{falak\|program\|sekretariat\|konten\|sistem}` |
+| Ambient | Lapisan `.ambient` (orb + grid) di belakang halaman bergaya kaca | Syarat agar glass punya sesuatu untuk diburamkan |
+| Shadow | Lembut, kertas tertumpuk: `shadow-sm` / `shadow-md` (token `--lim-shadow-*`) | Tanpa halo atau shadow keras |
+| Radius | Berbasis `--radius` (saat ini `0.75rem`), skala `rounded-sm … rounded-2xl` | Versi fluid masih **usulan**, lihat bagian 6 dan 10.4 |
+| Motion | Token `lib/ease.ts` (`EASE_OUT`); hover ≤300ms; entrance `Reveal` 600ms; `prefers-reduced-motion` dihormati | Tanpa translate-lift pada kartu (diganti border-color) |
+| Falak | Instrumental dan jujur | Monospace, tabular-nums, grid, status pill, Gregorian + Hijriah, default Kediri |
 
 ## 3. Typography
 
-| Role | Family | Source |
-|------|--------|--------|
-| Heading | **Fraunces** (wght variable, serif editorial, SOFT=30 WONK=0) | `app/layout.tsx` |
-| Body | **Inter** | `app/layout.tsx` |
-| Data / Falak | **JetBrains Mono** (`--font-data`, `font-data` utility) | `app/layout.tsx` (added) |
-| Arabic | **Reem Kufi** (`--fx-ar`) | `app/layout.tsx` |
+| Peran | Family | Sumber |
+|---|---|---|
+| Heading | Fraunces (variable, serif editorial, SOFT=30 WONK=0) | `app/layout.tsx` |
+| Body | Inter | `app/layout.tsx` |
+| Data / Falak | JetBrains Mono (`--font-data`, utility `font-data`) | `app/layout.tsx` |
+| Arab | Reem Kufi (`--fx-ar`) | `app/layout.tsx` |
 
-- `@theme inline` maps `--font-heading`/`--font-display` → Fraunces, `--font-mono`/`--font-data` → JetBrains Mono.
-- `.site h1..h4` are title case Fraunces serif with `text-wrap: balance`; uppercase is opt-in for eyebrows/labels only. Berat font dibiarkan per-komponen (hero bold, judul section semibold) — tidak dipaksa 500.
+`@theme inline` memetakan `--font-heading` / `--font-display` ke Fraunces dan `--font-mono` / `--font-data` ke JetBrains Mono. `.site h1..h4` memakai title case dengan `text-wrap: balance`; uppercase hanya untuk eyebrow dan label (`uppercase text-xs tracking-widest text-muted-foreground`, bukan serif). Berat font ditentukan per komponen (hero bold, judul section semibold). Empat keluarga font adalah pengecualian resmi situs publik (lihat `typography.md`).
 
 ## 4. Layout & Navigation
-
-- **Navbar**: sticky kapsul **solid** (`rounded-full`, `bg-background border border-border/40 shadow-sm`) → melebar penuh (`w-full rounded-none`) on scroll; transisi `transition-[width,border-radius,box-shadow,border-color]` 300ms `ease-in-out`. Chrome tidak memakai glass (kaca hanya untuk kartu/widget konten).
-  Active items = **pill** `bg-primary/10 text-primary` (bukan underline). Mobile: Sheet dari kanan.
-- **Footer**: band tint oranye `bg-primary/[0.08] dark:bg-primary/[0.12]` + `border-t border-primary/15` (prinsip permukaan 3-lapis Ant Design: footer = region latar tersendiri).
-- **Beranda**: section dipisah hairline `h-px bg-border/60` dalam `max-w-6xl` (`SectionDivider`).
-- **IA (binding)**: Beranda · Profil (dropdown: Tentang, Visi-Misi, Pengurus Pusat) · Bidang (top-level, `/profil/bidang`) · Artikel · Kontak. Falak diakses lewat widget shalat di hero; Media tidak di menu atas.
+- **Navbar:** sticky, kapsul solid (`rounded-full bg-background border border-border/40 shadow-sm`), melebar penuh (`w-full rounded-none`) saat scroll dengan `transition-[width,border-radius,box-shadow,border-color]` 300ms `ease-in-out`. Tanpa glass. Item aktif = pill `bg-primary/10 text-primary`. Mobile: Sheet dari kanan.
+- **Footer:** band tint oranye `bg-primary/[0.08] dark:bg-primary/[0.12]` + `border-t border-primary/15` (region latar tersendiri, bukan slab oranye solid).
+- **Section:** wrapper `SiteSection` (`mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:py-16`) adalah satu-satunya sumber ritme; jangan menulis ulang kelas container per halaman. Antar section di Beranda dipisah hairline `h-px bg-border/60` (`SectionDivider`).
+- **Grid sub-content:** `gap-4 md:gap-6`, kartu `h-full`, jumlah kolom tidak dicampur dalam satu viewport.
+- **IA (binding):** Beranda · Profil (dropdown: Tentang, Visi-Misi, Pengurus Pusat) · Bidang (top-level, `/profil/bidang`) · Artikel · Kontak. Falak diakses lewat widget shalat di hero; Media tidak ada di menu atas. Maksimal lima menu utama.
 
 ## 5. Page Designs
 
-### Beranda (`/`)
-1. **Hero** — full-bleed `iksadari.JPG` as subtle atmosphere at low opacity behind a
-   soft vertical fade (`bg-gradient-to-b` via `from-background/70` → `to-background`),
-   then a dominant Fraunces serif headline (title + orange highlight line) on the
-   left, two **CTA buttons** (primary "Jadwal Shalat Hari Ini" → `/falak/jadwal-shalat` +
-   secondary outline) below the headline, and the **shalat widget** (`PrayerScheduleWidget`)
-   on the right; 3 hero stats (100+ wilayah, 3000+ delegasi, 1000+ titik) in tabular
-   numbers below the fold.
-2. **Tentang (About)** — konten glass ringan (`.glass`) dengan border; bukan kartu flat.
-3. **Bidang carousel** — 8 kartu (judul + tagline) dalam seamless auto-scroll 60s,
-    pause on hover, dihentikan otomatis saat `prefers-reduced-motion`.
-4. **Kajian & Artikel (Bento)** — layout grid: kiri 2 kartu, kanan 1 kartu besar (feature),
-   kartu bergaya glass ringan (`.glass`).
+**Beranda (`/`)**
+- **Hero:** foto `iksadari.JPG` full-bleed berintensitas rendah di belakang scrim vertikal (`from-background/70` → `to-background`); headline Fraunces dominan (judul + baris highlight oranye) di kiri, dua CTA di bawahnya (primer "Jadwal Shalat Hari Ini" → `/falak/jadwal-shalat`, sekunder outline), widget shalat (`PrayerScheduleWidget`) di kanan; tiga statistik (100+ wilayah, 3000+ delegasi, 1000+ titik) bertabular-nums di bawahnya.
+- **Tentang:** konten `.glass` ringan dengan border.
+- **Bidang:** carousel diskrit 8 kartu (judul + tagline), prev/next dapat diakses keyboard, tanpa auto-rotate.
+- **Kajian & Artikel (Bento):** grid kiri 2 kartu, kanan 1 kartu besar (feature), bergaya `.glass` ringan.
 
-### Profil section
-- Section wrapper `SiteSection` (`mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16`);
-  kartu thin-border (`border-border/60`), aksen oranye hanya taktis; tabel/teks solid.
+**Profil:** `SiteSection`; kartu solid ber-border `border-border/60`; aksen oranye hanya taktis; tabel dan teks solid.
 
-### Beranda section rhythm (graduated)
-- About: `py-12 sm:py-16 lg:py-20`
-- Bidang carousel: `py-16 sm:py-20 lg:py-24`
-- Article bento: `py-20 sm:py-24 lg:py-28`
-  (air meningkat ke bawah halaman; `SiteSection` dipakai di halaman lain)
+**Layanan Falak (6 halaman):** instrumental. Angka monospace tabular-nums, status badge, city picker, GPS, jam ganda (standar + istiwa), hitung mundur shalat berikutnya, kompas Kiblat SVG. Status aktif memakai border/ring oranye, bukan latar oranye.
 
-### Layanan Falak (6 pages)
-- Instrumental: monospace numbers, tabular-nums, status badges, city picker,
-  GPS, dual clock (standar + istiwa), next-prayer countdown, Kiblat compass SVG.
-- All drop shadows and primary background washes removed; active states use
-  orange **border/ring** accents.
-
-### Artikel / Media / Kontak / Wajib Khidmah
-- Flat bordered surfaces; empty states (dashed border); forms solid.
+**Artikel / Media / Kontak / Wajib Khidmah:** permukaan datar ber-border; empty state dashed border; form solid.
 
 ## 6. Component Contract
 
-| Rule | Enforced |
-|------|----------|
-| Subtle soft shadow (not hard) | `shadow-sm`/`shadow-md` on content cards — kertas tertumpuk, bukan halo |
-| No glass on chrome | Chrome (navbar publik, topbar/rail admin, back-link auth) memakai permukaan solid `bg-background`, tanpa `backdrop-blur`; glass hanya dipakai kartu/widget konten |
-| Auth surfaces | Halaman auth (`/admin/login`, `/admin/setup`) memakai kartu `.glass rounded-xl shadow-sm` di latar polos `bg-background` dual-mode; efek legacy Aurora + starfield dihapus |
-| Auth backdrop | Latar auth: grid hairline monokrom (`.auth-grid`) bergeser 60s linear, masker radial, pure CSS; reduced-motion membekukan |
-| Toast island | Sonner global: pil tengah atas (`bg-foreground`/`text-background`), `visibleToasts=1`, morph masuk `island-in`; radius pil dikecualikan dari standar `rounded-xl` seperti navbar chrome |
-| Muted text contrast | Teks sekunder ukuran `text-xs`/`text-sm` wajib `text-muted-foreground` penuh; opacity `/80` pada token ini turun di bawah WCAG AA di light mode |
-| No orange background wash | `bg-primary/10`, `bg-primary/5` removed from cards; orange → border/text/ring. Footer band tint (`primary/8-12%`) is the only filled surface |
-| Cards use `border-primary/25` (1px) | Card border is hairlinel 1px tint; hover → `border-primary` (no width change) |
-| Max radius `rounded-lg` (nested/small) · standard `rounded-xl` (content cards) | `rounded-2xl`+ reserved for navbar chrome only |
-| No translate hover-lift | `hover:-translate-y-*` replaced with border-color change on hover |
-| Gradient only on hero scrim | Subtle vertical fade behind hero photo (design intent) — no gradient elsewhere |
-| Fraunces serif | Heading title case serif; `tracking-tight`/`tracking-*` + uppercase reserved for eyebrows/labels |
+| Aturan | Penerapan |
+|---|---|
+| Shadow lembut | Kartu konten memakai `shadow-sm` / `shadow-md`; modal/popover `shadow-lg`; tanpa halo dan shadow keras |
+| Chrome tanpa glass | Navbar publik, topbar/rail admin, dan back-link auth solid tanpa `backdrop-blur` |
+| Glass hanya via `.glass` | Jangan menulis ulang `backdrop-blur-*` atau `bg-white/*`; maksimal dua lapis bertumpuk |
+| Tanpa latar oranye pada kartu | Oranye = border, teks, ring. Pengecualian: band footer dan pill nav aktif (elemen kecil) |
+| Border kartu | Default `border-border/60` (atau `--glass-border` pada `.glass`); hover/aktif → `border-primary`; lebar tidak berubah. Lihat 10.4 |
+| Warna hanya dari token | Tanpa hex/rgb dan tanpa palette bawaan Tailwind |
+| Skala radius | `rounded-xl` standar kartu konten (public dan admin); `rounded-md` input/tombol; `rounded-lg` form/panel kecil/nested; `rounded-sm` chip; `rounded-2xl` hanya hero overlay; navbar `rounded-full`. Modal/sheet: lihat 10.4 |
+| Radius fluid (usulan) | `--radius: clamp(0.625rem, 0.25vw + 0.5rem, 1rem)` → ±10px mobile, ±12px desktop, maks 16px layar lebar; semua `rounded-*` ikut. Belum diterapkan di `globals.css` |
+| Tanpa translate hover-lift | `hover:-translate-y-*` diganti perubahan border-color |
+| Gradient | Hanya scrim hero dan lapisan `.ambient` |
+| Heading | Fraunces title case; `tracking-*` + uppercase hanya untuk eyebrow/label |
+| Aksesibilitas | `prefers-reduced-transparency` → kaca menjadi solid; `prefers-reduced-motion` → entrance mati, hover/transition tetap; kontras AA |
 
-## 7. Anti-Goals (what is NOT allowed)
+## 7. Anti-Goals
+- Oranye sebagai latar kartu atau konten (pengecualian: band footer dan pill nav aktif).
+- Shadow keras atau halo; hanya `shadow-sm` / `shadow-md` / `shadow-lg` lembut.
+- Glassmorphism pada chrome (navbar, topbar, rail); chrome wajib solid.
+- Radius di atas `rounded-xl` pada kartu konten.
+- Ilustrasi dekoratif atau gradient di luar scrim hero dan `.ambient`.
+- Heading sans-only; heading wajib serif editorial (Fraunces), body Inter.
+- Band footer solid oranye; yang dipakai adalah tint 8-12%.
+- Semua klise AI slop (glow neon, gradient ungu-biru, card dalam card, emoji sebagai ikon, copy dan statistik karangan; jangan mengarang klaim komersial, testimoni, atau studi kasus).
 
-- Orange as a background wash on cards/content (footer tint band is the purposeful exception).
-- Hard drop shadows (no blur offset, no halo) — hanya `shadow-sm`/`shadow-md` lembut.
-- Glassmorphism pada chrome (navbar, topbar, rail) — chrome wajib solid; kaca hanya untuk kartu/widget konten.
-- Radius above `rounded-xl` on content (navbar chrome `rounded-2xl` is the only exception).
-- Decorative illustrations / gradient washes (hero scrim fade is the only gradient).
-- Sans-only display faces — heading wajib serif editorial (Fraunces); body Inter.
-- The retracted "Oranye band" footer is replaced by a subtle tint band (`primary/8-12%`), not a solid orange slab.
-
-## 8. Validation
-
-- `tsc --noEmit` — passes (NODE_OPTIONS `--max-old-space-size=4096` for heap).
-- `eslint` on changed files — 0 errors.
-- `npm run build` (prisma generate + next build) — passes; all 15 public routes compile.
+## 8. Validasi
+Perintah lewat script proyek (lihat `AGENTS.md`): `npm run typecheck`, `npm run lint`, `npm run build`. Hasil terakhir tercatat 2026-08-30: lulus, 15 rute publik ter-compile. Jalankan ulang setelah perubahan `--radius` dan `.glass`. Uji tampilan di ±390px, ±1440px, dan ≥2560px, mode terang dan gelap.
 
 ## 9. Notes / Dead Code
+- Tidak ada dead code dari arah desain sebelumnya: dihapus `components/website/sections/{route-map,latest-media,post-grid}.tsx`, `components/website/motion/hover.ts` (`cardLift`), dan tiga editor admin beserta halamannya (`admin/homepage/{route-map,grids,media}`).
+- Dipertahankan karena masih dipakai: `components/website/taqwim/stat-rule.tsx` (hero stats), `components/website/taqwim/reveal.tsx` (entrance), dan `components/website/sections/{Hero,about,bidang-carousel,article-bento}.tsx`.
+- Primitive shadcn `Card` berstandar `rounded-xl`, kini seragam untuk semua kartu konten, public dan admin; ini default yang disengaja, bukan override.
+- Token dan helper chrome-glass dihapus (`--glass-chrome-bg`, `.glass-hard`, `glassChrome` / `glassCard`). `components/admin/shared/chrome.ts` kini mengekspor `chrome` (permukaan solid topbar). `backdrop-blur` dihapus dari navbar publik, topbar/rail admin, dan `app/(auth)/layout.tsx`.
+- `--glass-highlight` sudah didefinisikan di `globals.css` tetapi belum dipakai oleh `.glass` (usulan: `box-shadow: var(--glass-highlight), var(--lim-shadow-md)`).
 
-- **Tidak ada** dead code tersisa dari arah desain sebelumnya — semua komponen terkait
-  telah **dihapus**: `components/website/sections/{route-map,latest-media,post-grid}.tsx`
-  (Jaringan Dakwah, Media Terbaru, Grid Berita), `components/website/motion/hover.ts`
-  (`cardLift`), serta tiga editor admin dan halamannya
-  (`admin/homepage/{route-map,grids,media}`).
-- Yang **dipertahankan** karena masih dipakai: `components/website/taqwim/stat-rule.tsx`
-  (hero stats), `components/website/taqwim/reveal.tsx` (entrance animation), dan
-  `components/website/sections/{Hero,about,bidang-carousel,article-bento}.tsx`.
-- The shared `Card` shadcn primitive defaults to `rounded-xl` — kini seragam sebagai standar untuk semua content cards, public & admin. Baris ini mencatat bahwa `rounded-xl` adalah default yang **disengaja**, bukan override.
-- Token/lintasan chrome-glass **dihapus** (chrome kini solid): `--glass-chrome-bg`, `.glass-hard`, `glassChrome`/`glassCard`. `components/admin/shared/chrome.ts` kini mengekspor `chrome` (permukaan solid topbar). `backdrop-blur` dihapus dari navbar publik, topbar/rail admin, dan back-link `app/(auth)/layout.tsx`.
+## 10. Keterkaitan dengan Design System (`docs/08-design-system/`)
+
+### 10.1 Peta rujukan
+
+| Topik | Dokumen | Cakupan |
+|---|---|---|
+| Prinsip & standar global | `README.md` | Mobile first, token, shadcn/ui, WCAG AA |
+| Warna & token | `colors.md` | Struktur token, semantik, status; nilai aktual di `globals.css` |
+| Tema, glass, shadow, radius | `theme.md` | Aturan "Kaca Kristal", token shadow, skala radius |
+| Tipografi | `typography.md` | Empat peran font situs publik, hierarki heading |
+| Layout & ritme section | `layout.md` | `SiteSection`, grid sejajar, widget responsive |
+| Spacing | `spacing.md` | Skala Tailwind, spacing kartu dan komponen |
+| Responsive | `responsive.md` | Breakpoint, perilaku per perangkat |
+| Navigasi | `navigation.md` | IA, navbar kapsul, mobile Sheet, breadcrumb admin |
+| Motion | `motion.md` | Token easing/spring, `Reveal`, reduced motion |
+| Komponen & shell admin | `components.md` | Button, kartu, tabel, `Band`, `PageContainer`, dll. |
+| Form, ikon, tabel, aksesibilitas | `forms.md`, `icons.md`, `tables.md`, `accessibility.md` | Standar masing-masing |
+
+Area admin tidak dicakup dokumen ini; ia mengikuti `components.md` (Admin CMS Shell) dan `spec-admin-permukaan-tenang.md`.
+
+### 10.2 Hierarki sumber kebenaran
+Untuk situs publik: `PRODUCT.md` (maksud produk) → `DESIGN.md` (keputusan visual) → `app/globals.css` (nilai token) → dokumen di `docs/08-design-system/`. Jika isi dokumen lain bertentangan, tiga yang pertama berlaku (sesuai catatan di `README.md` design system).
+
+### 10.3 Ketidaksesuaian docs yang perlu diperbarui
+Diverifikasi terhadap `app/globals.css` dan isi repo per 2026-10-09.
+
+| Dokumen | Isi saat ini | Kenyataan |
+|---|---|---|
+| `PRODUCT.md`, `colors.md` | `--primary` `oklch(0.553 0.195 38.402)`; `--background` putih `oklch(1 0 0)` / near-black `oklch(0.145 0 0)` | `--primary` `0.45` (siang) / `0.47` (malam); `--background` kertas hangat / indigo gelap. Nilai `0.553` kini hanya `--chart-4` |
+| `theme.md` | `--glass-card-bg` ≈72% | 56% (siang) / 60% (malam) via `color-mix` |
+| `motion.md` | Seksi "Hover Lift Kartu" (`hover.ts`, `cardLift`) | `hover.ts` sudah dihapus; hover = border-color |
+| `motion.md` | Marquee auto-scroll di `bidang-carousel.tsx` | Carousel kini diskrit tanpa auto-rotate (keyframes `marquee*` masih ada di CSS) |
+| `spacing.md`, `responsive.md` | Ritme section `py-16 sm:py-20` | `SiteSection` memakai `py-12 lg:py-16` (sesuai `layout.md`) |
+| `spacing.md` | Navbar disebut "kapsul navbar glass" | Navbar solid |
+| `navigation.md` | Daftar Public Navigation memuat Media; Bidang di bawah Profil; header versi 3.1 padahal changelog 3.2 | IA aktual: Bidang top-level, Media tidak di menu atas |
+
+### 10.4 Keputusan terbuka
+1. **Border kartu default.** `README.md` (design system) menyebut `border-primary/25`; seksi Profil dokumen ini menyebut `border-border/60`. Revisi ini memakai `border-border/60` (selaras token dan `.glass`); perlu konfirmasi, lalu samakan.
+2. **Radius modal dan sheet.** `theme.md` mencadangkan `rounded-2xl`+ hanya untuk chrome dan hero overlay dan tidak mengatur modal/sheet. Perlu keputusan: ikut default shadcn atau `rounded-2xl`.
+3. **`--radius` fluid.** Belum diterapkan (`globals.css` masih `0.75rem`). Bila disetujui, perbarui `theme.md` (tabel radius) dan bagian 2 dan 6 dokumen ini.

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { getArchiveData } from "@/modules/secretariat/queries/secretariat.query";
 import {
@@ -44,22 +45,26 @@ export default async function ArsipPage({
         }
       />
 
-      <div className="mt-4 space-y-6">
+      <Band variant="plain" title="Surat Keluar Terarsip">
         {outgoing.length === 0 && (
           <p className="text-sm text-admin-content-fg/60">Belum ada surat keluar yang diarsipkan.</p>
         )}
         <OutgoingArchiveTable data={outgoing} />
+      </Band>
 
+      <Band variant="plain" title="Surat Masuk Terarsip">
         {incoming.length === 0 && (
           <p className="text-sm text-admin-content-fg/60">Belum ada surat masuk yang diarsipkan.</p>
         )}
         <IncomingArchiveTable data={incoming} />
+      </Band>
 
+      <Band variant="plain" title="Dokumen Administrasi Terarsip">
         {documents.length === 0 && (
           <p className="text-sm text-admin-content-fg/60">Belum ada dokumen administrasi terarsip.</p>
         )}
         <DocumentsArchiveTable data={documents} />
-      </div>
+      </Band>
     </PageContainer>
   );
 }

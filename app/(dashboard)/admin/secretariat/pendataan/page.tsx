@@ -86,10 +86,7 @@ export default async function PendataanPage() {
         }
       />
 
-      <Band
-        title="Struktur Organisasi"
-        description="Kode unit dipakai sebagai kolom kedua nomor surat. Klik &quot;Pengurus&quot; untuk mendata pengurus unit tersebut."
-      >
+      <Band variant="plain" title="Struktur Organisasi" description='Kode unit dipakai sebagai kolom kedua nomor surat. Klik "Pengurus" untuk mendata pengurus unit tersebut.'>
         <StatStrip
           items={[
             { label: "Pengurus Pusat", value: stats.unitCount.PP },

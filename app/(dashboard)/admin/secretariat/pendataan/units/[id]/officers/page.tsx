@@ -43,10 +43,7 @@ export default async function OfficersPage({
         }
       />
 
-      <Band
-        title="Pengurus"
-        description={`${officers.length} pengurus terdata pada ${unit.code}.`}
-      >
+      <Band variant="plain" title="Pengurus" description={`${officers.length} pengurus terdata pada ${unit.code}.`}>
         <OfficersTable data={officers} />
       </Band>
     </PageContainer>

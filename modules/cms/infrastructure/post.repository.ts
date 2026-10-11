@@ -20,7 +20,7 @@ export class PrismaPostRepository
   async findRecent(limit = 20) {
     return this.db.post.findMany({
       where: { deletedAt: null },
-      include: { author: true, category: true },
+      include: { authors: true, category: true },
       orderBy: { updatedAt: "desc" },
       take: limit,
     });
@@ -34,7 +34,7 @@ export class PrismaPostRepository
         deletedAt: null,
         category: { slug: categorySlug },
       },
-      include: { author: true, category: true },
+      include: { authors: true, category: true },
       orderBy: { publishedAt: "desc" },
       take: limit,
     });
@@ -43,7 +43,7 @@ export class PrismaPostRepository
   async findPublishedBySlug(slug: string) {
     return this.db.post.findFirst({
       where: { slug, published: true, publishedAt: { not: null }, deletedAt: null },
-      include: { author: true, category: true },
+      include: { authors: true, category: true },
     });
   }
 
@@ -89,7 +89,7 @@ export class PrismaPostRepository
     const [posts, total] = await Promise.all([
       this.db.post.findMany({
         where,
-        include: { author: true, category: true },
+        include: { authors: true, category: true },
         orderBy: { updatedAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
@@ -120,7 +120,10 @@ export class PrismaPostRepository
     categoryId: string;
     authorId: string;
   }) {
-    return this.db.post.create({ data });
+    const { authorId, ...rest } = data;
+    return this.db.post.create({
+      data: { ...rest, authors: { connect: { id: authorId } } },
+    });
   }
 
   async update(

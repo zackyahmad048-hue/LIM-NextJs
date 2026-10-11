@@ -112,9 +112,14 @@ export default async function LembagaDetailPage({ params }: PageProps) {
       />
 
       <div className="mt-6 space-y-4">
-        <Band>
+        <Band
+          variant="plain"
+          title="Identitas"
+          description="Data lembaga, pengasuh, dan penanggung jawab."
+        >
           <div className="space-y-6">
-            <h2 className="text-base font-semibold">Identitas Lembaga</h2>
+            <div>
+              <h3 className="text-sm font-semibold text-admin-content-fg">Identitas Lembaga</h3>
             <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <Field
                 label="Nama Lembaga Pendidikan"
@@ -129,12 +134,10 @@ export default async function LembagaDetailPage({ params }: PageProps) {
                 value={lembaga.mediaSosialLembaga}
               />
             </div>
-          </div>
-        </Band>
+            </div>
 
-        <Band>
-          <div className="space-y-6">
-            <h2 className="text-base font-semibold">Identitas Pengasuh</h2>
+            <div>
+              <h3 className="text-sm font-semibold text-admin-content-fg">Identitas Pengasuh</h3>
             <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <Field label="Nama Pengasuh" value={lembaga.pengasuhNama} />
               <Field
@@ -156,14 +159,10 @@ export default async function LembagaDetailPage({ params }: PageProps) {
               <Field label="Nomor Telepon" value={lembaga.pengasuhTelepon} />
               <PhotoField label="Foto" fileId={lembaga.pengasuhFotoFileId} />
             </div>
-          </div>
-        </Band>
+            </div>
 
-        <Band>
-          <div className="space-y-6">
-            <h2 className="text-base font-semibold">
-              Identitas Penanggung Jawab
-            </h2>
+            <div>
+              <h3 className="text-sm font-semibold text-admin-content-fg">Identitas Penanggung Jawab</h3>
             <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <Field
                 label="Nama Penanggung Jawab"
@@ -194,12 +193,18 @@ export default async function LembagaDetailPage({ params }: PageProps) {
                 fileId={lembaga.penanggungJawabFotoFileId}
               />
             </div>
+            </div>
           </div>
         </Band>
 
-        <Band>
+        <Band
+          variant="plain"
+          title="Kondisi &amp; Pengajuan"
+          description="Data kondisi lembaga dan permohonan guru bantu."
+        >
           <div className="space-y-6">
-            <h2 className="text-base font-semibold">Kondisi Lembaga</h2>
+            <div>
+              <h3 className="text-sm font-semibold text-admin-content-fg">Kondisi Lembaga</h3>
             <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <Field
                 label="Lokasi Madrasah"
@@ -269,12 +274,10 @@ export default async function LembagaDetailPage({ params }: PageProps) {
                 }
               />
             </div>
-          </div>
-        </Band>
+            </div>
 
-        <Band>
-          <div className="space-y-6">
-            <h2 className="text-base font-semibold">Permohonan Guru Bantu</h2>
+            <div>
+              <h3 className="text-sm font-semibold text-admin-content-fg">Permohonan Guru Bantu</h3>
             <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
               <Field
                 label="Jumlah Guru Bantu Dimohon"
@@ -305,6 +308,7 @@ export default async function LembagaDetailPage({ params }: PageProps) {
                   </Button>
                 </div>
               )}
+            </div>
             </div>
           </div>
         </Band>

@@ -38,9 +38,12 @@ interface BandProps {
   title?: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
-  /** Ada beberapa warna untuk background kartu (module-based tint).
-   *  Varian memakai `.glass-tint-{modul}` di balik permukaan kaca. */
+  /** Tint modul pada permukaan kaca: satu tint per kartu, sesuai modulnya
+   *  (skill UI/UX Glassmorphism §Aturan Glass). */
   tint?: "falak" | "program" | "sekretariat" | "konten" | "sistem";
+  /** "plain" = divider-row tanpa kotak (default, untuk section ringkasan);
+   *  "raised" = permukaan kaca untuk form, tabel, dan kartu. */
+  variant?: "plain" | "raised";
   className?: string;
 }
 
@@ -52,14 +55,16 @@ const tintClass: Record<NonNullable<BandProps["tint"]>, string> = {
   sistem: "glass-tint-sistem",
 };
 
-/** Permukaan "band" — kartu kaca admin (rounded-xl p-5) dengan header opsional.
- * Tabel/form di dalamnya tetap solid. Satu standar radius/padding (spec). */
+/** Permukaan "band". "plain" = pemisah section tanpa kotak; "raised" = permukaan
+ *  kaca (`.glass` menyediakan border, background, dan shadow sendiri — jangan
+ *  ditimpa utility manual). Satu standar radius/padding. */
 export function Band({
   children,
   title,
   description,
   actions,
   tint,
+  variant = "plain",
   className,
 }: BandProps) {
   const hasHeader = title != null || description != null || actions != null;
@@ -67,8 +72,9 @@ export function Band({
   return (
     <section
       className={cn(
-        "glass rounded-xl p-5 shadow-sm",
-        tint && tintClass[tint],
+        variant === "plain" && "border-t border-admin-border pt-4 lg:pt-5",
+        variant === "raised" && "glass rounded-xl p-4 lg:p-5",
+        variant === "raised" && tint && tintClass[tint],
         className,
       )}
     >

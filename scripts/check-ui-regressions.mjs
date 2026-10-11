@@ -13,6 +13,7 @@
  *   R7 render-tak-deterministik  Math.random() di dalam komponen (memicu hydration mismatch)
  *   R8 responsive-container-kembar  <ResponsiveContainer> di dalam <ChartContainer>
  *   R9 dialog-terkondisi         {open && <CommandDialog ...> } membuat exit variant tak berguna
+ *   R10 key-href-kembar           key React dari `href` yang dipakai ulang → "same key"
  *
  * Jalankan: node scripts/check-ui-regressions.mjs
  * Keluar 0 bila hijau, 1 bila ada pelanggaran.
@@ -189,9 +190,14 @@ for (const file of tsxFiles) {
   };
 
   const targets = new Map(); // target -> Set(file)
-  for (const file of [...tsxFiles, ...walk(path.join(ROOT, "components"))]) {
+  for (const file of tsxFiles) {
     const src = read(file);
-    for (const m of src.matchAll(/(?:\bhref=|router\.push\()\s*"([^"]+)"/g)) {
+    // Menangkap: JSX href="/x", Link to="/x", router.push("/x"),
+    // serta href: "/x" di dalam array objek (k Aide quick-actions) yang
+    // sebelumnya lolos karena hanya memindai `href="`.
+    for (const m of src.matchAll(
+      /(?:(?:href|to)\s*=\s*|router\.push\(\s*|\bhref:\s*)"([^"]+)"/g,
+    )) {
       const t = m[1];
       if (/^(https?:|mailto:|tel:|#|\/api\/)/.test(t)) continue;
       if (!targets.has(t)) targets.set(t, new Set());
@@ -246,6 +252,30 @@ for (const file of tsxFiles) {
       `${rel(file)}:${src.slice(0, idx).split("\n").length}`,
       "{open && <CommandDialog open={open}>} — child dilepas dari AnimatePresence saat tutup, " +
         "sehingga variant exit tidak pernah berjalan.",
+    );
+  }
+}
+
+// ─── R10 key React dari href yang dipakai ulang (duplikat) ─────────────────
+for (const file of tsxFiles) {
+  const src = read(file);
+  const keyIdx = src.search(/key=\{[^}\n]*\.href\}/);
+  if (keyIdx === -1) continue;
+
+  // Hanya bermasalah bila href yang sama muncul 2+ kali pada satu file:
+  // key dari href unik secara kontekstual masih aman (mis. breadcrumb).
+  /** @type {Map<string, number>} */
+  const counts = new Map();
+  for (const m of src.matchAll(/\bhref:\s*"([^"]+)"/g)) {
+    counts.set(m[1], (counts.get(m[1]) ?? 0) + 1);
+  }
+  const dupes = [...counts].filter(([, n]) => n > 1).map(([href, n]) => `${href} (${n}×)`);
+  if (dupes.length > 0) {
+    report(
+      "R10 key-href-kembar",
+      `${rel(file)}:${src.slice(0, keyIdx).split("\n").length}`,
+      `key={...href} sementara href yang sama dipakai ulang: ${dupes.join(", ")} — React mencetak ` +
+        '"Encountered two children with the same key". Pakai id/title yang stabil.',
     );
   }
 }

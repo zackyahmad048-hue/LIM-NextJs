@@ -168,9 +168,9 @@ Token shadow:
 Aturan:
 
 - Public site: `shadow-sm`/`shadow-md` lembut pada kartu konten.
-- Admin CMS: `shadow-md` standar kartu, `shadow-lg` untuk modal/sheet.
+- Admin CMS: **permukaan kerja tanpa shadow** — `Band` datar (`plain` = `border-t`, `raised` = `border` solid tanpa shadow). `shadow-lg` hanya untuk modal/sheet/popover. Lihat `spec-admin-tenang-modern.md` §1.
 - Dark mode: shadow otomatis lebih pekat (token `--lim-shadow-*` di `.dark`).
-- Jangan gunakan shadow keras atau halo besar; shadow menggantikan border sebagai penanda elevasi.
+- Jangan gunakan shadow keras atau halo besar; di admin, elevasi ditandai border — bukan shadow.
 
 ---
 

@@ -1,6 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { Band } from "@/components/admin/shared/band";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import { falakService } from "@/modules/falak/application/service";
@@ -12,12 +12,11 @@ export default async function HisabPage({
   searchParams: Promise<{ search?: string; page?: string }>;
 }) {
   const params = await searchParams;
-  const result = await falakService.getHisabPaginated(
-    params.page ? Number(params.page) : 1,
-    20,
-    params.search,
-  );
+  const page = params.page ? Number(params.page) : 1;
+  const pageSize = 20;
+  const result = await falakService.getHisabPaginated(page, pageSize, params.search);
   const hisabItems = result.items;
+  const pageCount = Math.max(1, Math.ceil(result.total / pageSize));
 
   return (
     <PageContainer>
@@ -32,20 +31,9 @@ export default async function HisabPage({
         placeholder="Cari lokasi..."
       />
 
-      {hisabItems.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada data hisab.
-        </p>
-      )}
-      <HisabTable data={hisabItems} />
-
-      <TablePagination
-        page={params.page ? Number(params.page) : 1}
-        pageSize={20}
-        total={result.total}
-        basePath="/admin/falak/hisab"
-        queryParams={{ search: params.search }}
-      />
+      <Band variant="raised" className="mt-4">
+        <HisabTable data={hisabItems} page={page} pageCount={pageCount} />
+      </Band>
     </PageContainer>
   );
 }

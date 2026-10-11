@@ -194,10 +194,7 @@ export default async function EditProgramPage({
       >
         <input type="hidden" name="code" value={program.code} />
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Informasi Program</h2>
-          </div>
+        <Band variant="raised" title="Informasi Program">
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
@@ -281,10 +278,7 @@ export default async function EditProgramPage({
           </div>
         </Band>
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Tanggal & Pendaftaran</h2>
-          </div>
+        <Band variant="raised" title="Tanggal & Pendaftaran">
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">

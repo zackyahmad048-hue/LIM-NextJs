@@ -26,13 +26,7 @@ export default async function HeroSettingsPage() {
       />
 
       <ActionForm action={updateHeroConfig} submitLabel="Simpan hero" submitIcon={<Save className="size-4" />}>
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Konten Teks</h2>
-            <p className="text-xs text-muted-foreground">
-              Judul, deskripsi, dan tombolCTA pada hero.
-            </p>
-          </div>
+        <Band variant="raised" title="Konten Teks" description="Judul, deskripsi, dan tombolCTA pada hero.">
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
@@ -101,13 +95,7 @@ export default async function HeroSettingsPage() {
           </div>
         </Band>
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Tombol (CTA)</h2>
-            <p className="text-xs text-muted-foreground">
-              Tombol utama dan tombol kedua pada hero.
-            </p>
-          </div>
+        <Band variant="raised" title="Tombol (CTA)" description="Tombol utama dan tombol kedua pada hero.">
 
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
@@ -160,13 +148,7 @@ export default async function HeroSettingsPage() {
           </div>
         </Band>
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Kartu Statistik</h2>
-            <p className="text-xs text-muted-foreground">
-              Angka penting yang ditampilkan di bawah hero.
-            </p>
-          </div>
+        <Band variant="raised" title="Kartu Statistik" description="Angka penting yang ditampilkan di bawah hero.">
 
           <div className="grid gap-4 sm:grid-cols-3">
             {[1, 2, 3].map((i) => {

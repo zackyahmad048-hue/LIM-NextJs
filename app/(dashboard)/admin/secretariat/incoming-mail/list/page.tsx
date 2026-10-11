@@ -4,8 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
-import { TableSearchForm } from "@/components/admin/shared/table-search-form";
+import { Band } from "@/components/admin/shared/band";
 
 import { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
 import { IncomingMailsTable } from "./incoming-mails-table";
@@ -25,6 +24,7 @@ export default async function IncomingMailListPage({
     page,
   });
   const pageSize = 20;
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
 
   return (
     <PageContainer>
@@ -41,27 +41,9 @@ export default async function IncomingMailListPage({
         }
       />
 
-      <TableSearchForm
-        basePath="/admin/secretariat/incoming-mail/list"
-        defaultValue={params.search ?? ""}
-        placeholder="Cari perihal/pengirim..."
-      />
-
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada surat masuk. Buat surat masuk pertama Anda.
-        </p>
-      )}
-
-      <IncomingMailsTable data={items} />
-
-      <TablePagination
-        page={page}
-        pageSize={pageSize}
-        total={total}
-        basePath="/admin/secretariat/incoming-mail/list"
-        queryParams={{ search: params.search, status: params.status }}
-      />
+      <Band variant="raised">
+        <IncomingMailsTable data={items} page={page} pageCount={pageCount} />
+      </Band>
     </PageContainer>
   );
 }

@@ -5,9 +5,9 @@ import { CalendarPlus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 import {
   INITIAL_ACTION_RESULT,
@@ -35,19 +35,9 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
 
   return (
     <form action={formAction} className="max-w-2xl space-y-3">
-      <Band>
-        <div className="mb-4 border-b pb-3">
-          <h2 className="text-base font-semibold">Informasi Agenda</h2>
-          <p className="text-xs text-admin-content-fg/60">
-            Rapat, kegiatan, atau jadwal kerja organisasi.
-          </p>
-        </div>
-
+      <Band variant="raised" title="Informasi Agenda" description="Rapat, kegiatan, atau jadwal kerja organisasi.">
         <div className="grid gap-3 md:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="date" className="text-xs">
-              Tanggal
-            </Label>
+          <FormGroup legend="Tanggal">
             <Input
               id="date"
               name="date"
@@ -56,12 +46,9 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
               defaultValue={initial?.date}
               className="rounded-md text-xs"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="location" className="text-xs">
-              Lokasi
-            </Label>
+          <FormGroup legend="Lokasi">
             <Input
               id="location"
               name="location"
@@ -69,12 +56,9 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
               className="rounded-md text-xs"
               placeholder="Ruang rapat, online, dsb. (opsional)"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5 md:col-span-2">
-            <Label htmlFor="title" className="text-xs">
-              Judul
-            </Label>
+          <FormGroup legend="Judul" className="md:col-span-2">
             <Input
               id="title"
               name="title"
@@ -83,12 +67,9 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
               className="rounded-md text-xs"
               placeholder="Rapat Pengurus Harian"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5 md:col-span-2">
-            <Label htmlFor="description" className="text-xs">
-              Deskripsi
-            </Label>
+          <FormGroup legend="Deskripsi" className="md:col-span-2">
             <Textarea
               id="description"
               name="description"
@@ -96,12 +77,9 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
               className="min-h-20 rounded-md text-xs"
               placeholder="Agenda dan tujuan kegiatan (opsional)"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5 md:col-span-2">
-            <Label htmlFor="participants" className="text-xs">
-              Peserta
-            </Label>
+          <FormGroup legend="Peserta" className="md:col-span-2">
             <Textarea
               id="participants"
               name="participants"
@@ -109,12 +87,9 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
               className="min-h-16 rounded-md text-xs"
               placeholder="Daftar peserta yang diundang (opsional)"
             />
-          </div>
+          </FormGroup>
 
-          <div className="space-y-1.5 md:col-span-2">
-            <Label htmlFor="notes" className="text-xs">
-              Catatan
-            </Label>
+          <FormGroup legend="Catatan" className="md:col-span-2">
             <Textarea
               id="notes"
               name="notes"
@@ -122,7 +97,7 @@ export function AgendaForm({ action, submitLabel, initial }: AgendaFormProps) {
               className="min-h-16 rounded-md text-xs"
               placeholder="Catatan tambahan (opsional)"
             />
-          </div>
+          </FormGroup>
         </div>
       </Band>
 

@@ -110,7 +110,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
   return (
     <div className="flex flex-col gap-4">
       {textFields.length > 0 && (
-        <Band>
+        <Band variant="raised">
           <div className="mb-4 border-b border-admin-border pb-3">
             <h2 className="text-base font-semibold text-admin-content-fg">Konten Teks</h2>
             <p className="text-xs text-admin-content-fg/50">
@@ -194,7 +194,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
       )}
 
       {listFields.map((field) => (
-        <Band key={field.key}>
+        <Band key={field.key} variant="raised">
           <div className="mb-4 flex items-center justify-between gap-3 border-b border-admin-border pb-3">
             <div>
               <h2 className="text-base font-semibold text-admin-content-fg">{field.label}</h2>

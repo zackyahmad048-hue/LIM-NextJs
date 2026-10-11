@@ -196,7 +196,7 @@ export default async function SitePagesPage() {
                 </span>
               </div>
 
-              <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg shadow-sm">
+              <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg">
                 {pages.map((page, index) => (
                   <div
                     key={page.key}

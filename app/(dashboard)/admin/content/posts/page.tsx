@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { Band } from "@/components/admin/shared/band";
 import { TableSearchForm } from "@/components/admin/shared/table-search-form";
 
 import { getPaginatedPosts } from "@/modules/cms/queries/post.query";
@@ -18,12 +18,13 @@ export default async function PostsPage({
   searchParams: Promise<{ search?: string; page?: string }>;
 }) {
   const params = await searchParams;
-  const { posts, total } = await getPaginatedPosts({
-    page: params.page ? Number(params.page) : 1,
-    search: params.search,
-  });
   const page = params.page ? Number(params.page) : 1;
   const pageSize = 20;
+  const { posts, total } = await getPaginatedPosts({
+    page,
+    search: params.search,
+  });
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
 
   return (
     <PageContainer>
@@ -46,24 +47,9 @@ export default async function PostsPage({
         placeholder="Cari judul berita..."
       />
 
-      {posts.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada berita.{" "}
-          <Link href="/admin/content/posts/new" className="text-primary underline">
-            Tulis berita pertama
-          </Link>
-        </p>
-      )}
-
-      <PostsTable data={posts} />
-
-      <TablePagination
-        page={page}
-        pageSize={pageSize}
-        total={total}
-        basePath="/admin/content/posts"
-        queryParams={{ search: params.search }}
-      />
+      <Band variant="raised" className="mt-4">
+        <PostsTable data={posts} page={page} pageCount={pageCount} />
+      </Band>
     </PageContainer>
   );
 }

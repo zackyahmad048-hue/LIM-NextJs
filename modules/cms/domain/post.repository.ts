@@ -1,6 +1,6 @@
 import type { Post as PrismaPost, User, Category } from "@/generated/client";
 
-type PostWithRelations = PrismaPost & { author: User; category: Category };
+type PostWithRelations = PrismaPost & { authors: User[]; category: Category };
 
 export interface PostRepository {
   countAll(): Promise<number>;

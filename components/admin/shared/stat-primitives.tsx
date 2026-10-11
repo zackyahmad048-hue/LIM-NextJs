@@ -16,7 +16,7 @@ interface StatPrimitivesProps {
 }
 
 const statValueClass =
-  "font-heading font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg";
+  "font-data font-semibold tracking-[-0.01em] tabular-nums text-admin-content-fg";
 
 /** Deret statistik menonjol (kap maks 4, S1) — 4 angka sebagai satu `band`
  * ringkasan, ≤3 sebagai strip tipis di atas band (S3); permukaan netral,

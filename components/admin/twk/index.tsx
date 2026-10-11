@@ -57,7 +57,7 @@ export function TwkModule({ members, stats }: Props) {
 
   return (
     <>
-      <Band>
+      <Band variant="raised">
         <StatStrip
           items={[
             {
@@ -85,7 +85,7 @@ export function TwkModule({ members, stats }: Props) {
         />
       </Band>
 
-      <Band>
+      <Band variant="raised">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
@@ -143,7 +143,7 @@ export function TwkModule({ members, stats }: Props) {
         </div>
       </Band>
 
-      <Band>
+      <Band variant="raised">
         <MemberTable data={visibleMembers} onEdit={handleEdit} />
       </Band>
 

@@ -44,7 +44,7 @@ export default async function DocumentationPage({
             id="doc-title"
             name="title"
             required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs"
           />
         </div>
         <div className="space-y-1.5">
@@ -55,7 +55,7 @@ export default async function DocumentationPage({
             id="doc-media"
             name="mediaId"
             required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs"
           />
         </div>
         <div className="space-y-1.5">
@@ -65,7 +65,7 @@ export default async function DocumentationPage({
           <textarea
             id="doc-desc"
             name="description"
-            className="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-sm"
+            className="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs"
           />
         </div>
         <Button type="submit" size="sm">

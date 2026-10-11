@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Pencil } from "lucide-react";
 
 import type { ColumnDef } from "@tanstack/react-table";
@@ -133,6 +134,30 @@ const columns: ColumnDef<Disposition>[] = [
   },
 ];
 
-export function DispositionTable({ data }: { data: Disposition[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function DispositionTable({
+  data,
+  page,
+  pageCount,
+}: {
+  data: Disposition[];
+  page: number;
+  pageCount: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      manualPagination
+      pageCount={pageCount}
+      pageIndex={page - 1}
+      onPaginationChange={(pageIndex) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", String(pageIndex + 1));
+        router.push(`/admin/secretariat/disposition/list?${params.toString()}`);
+      }}
+    />
+  );
 }

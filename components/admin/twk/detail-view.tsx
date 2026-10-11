@@ -139,7 +139,7 @@ export function TwkDetailView({ member }: Props) {
         }
       />
 
-      <Band>
+      <Band variant="plain">
         <FormGroup legend="Status" description="Status keanggotaan saat ini.">
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={member.status} />

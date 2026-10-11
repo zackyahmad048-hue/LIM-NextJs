@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FileText, Pencil } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -124,6 +125,30 @@ const columns: ColumnDef<Mail>[] = [
   },
 ];
 
-export function OutgoingMailsTable({ data }: { data: Mail[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function OutgoingMailsTable({
+  data,
+  page,
+  pageCount,
+}: {
+  data: Awaited<ReturnType<typeof import("@/modules/secretariat/queries/secretariat.query").getOutgoingMails>>["items"];
+  page: number;
+  pageCount: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      manualPagination
+      pageCount={pageCount}
+      pageIndex={page - 1}
+      onPaginationChange={(pageIndex) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", String(pageIndex + 1));
+        router.push(`/admin/secretariat/outgoing-mail/list?${searchParams.toString()}`);
+      }}
+    />
+  );
 }

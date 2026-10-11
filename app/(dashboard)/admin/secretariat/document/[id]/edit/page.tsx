@@ -4,11 +4,11 @@ import { CheckCircle, Pencil, Send, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
@@ -117,16 +117,9 @@ export default async function EditDocumentPage({
         submitLabel="Simpan Perubahan"
         submitIcon={<Pencil className="size-4" />}
       >
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Informasi Dokumen</h2>
-          </div>
-
+        <Band variant="raised" title="Informasi Dokumen">
           <div className="grid gap-3 md:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="documentNumber" className="text-xs">
-                Nomor Dokumen
-              </Label>
+            <FormGroup legend="Nomor Dokumen">
               <Input
                 id="documentNumber"
                 name="documentNumber"
@@ -134,12 +127,9 @@ export default async function EditDocumentPage({
                 defaultValue={doc.documentNumber}
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="documentType" className="text-xs">
-                Jenis Dokumen
-              </Label>
+            <FormGroup legend="Jenis Dokumen">
               <NativeSelect
                 id="documentType"
                 name="documentType"
@@ -153,12 +143,9 @@ export default async function EditDocumentPage({
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="title" className="text-xs">
-                Judul
-              </Label>
+            <FormGroup legend="Judul" className="md:col-span-2">
               <Input
                 id="title"
                 name="title"
@@ -166,43 +153,29 @@ export default async function EditDocumentPage({
                 defaultValue={doc.title}
                 className="rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="description" className="text-xs">
-                Deskripsi
-              </Label>
+            <FormGroup legend="Deskripsi" className="md:col-span-2">
               <Textarea
                 id="description"
                 name="description"
                 defaultValue={doc.description ?? ""}
                 className="min-h-20 rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
 
-            <div className="space-y-1.5 md:col-span-2">
-              <Label htmlFor="content" className="text-xs">
-                Konten
-              </Label>
+            <FormGroup legend="Konten" className="md:col-span-2">
               <Textarea
                 id="content"
                 name="content"
                 defaultValue={doc.content ?? ""}
                 className="min-h-32 rounded-md text-xs"
               />
-            </div>
+            </FormGroup>
           </div>
         </Band>
 
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">Dokumen File</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file
-              ini.
-            </p>
-          </div>
-
+        <Band variant="raised" title="Dokumen File" description="Unggah dokumen file. Jika diunggah, halaman cetak menampilkan file ini.">
           <AttachmentUpload
             uploadAction={uploadAdministrativeDocumentAttachment}
             initialAttachmentUrl={doc.attachmentUrl}

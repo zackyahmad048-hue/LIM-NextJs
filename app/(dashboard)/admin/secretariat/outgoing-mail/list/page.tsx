@@ -4,10 +4,10 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
+import { Band } from "@/components/admin/shared/band";
+import { SearchForm } from "./search-form";
 
 import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
-import { SearchForm } from "./search-form";
 import { OutgoingMailsTable } from "./outgoing-mails-table";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +25,7 @@ export default async function OutgoingMailListPage({
     page,
   });
   const pageSize = 20;
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
 
   return (
     <PageContainer>
@@ -34,31 +35,19 @@ export default async function OutgoingMailListPage({
         actions={
           <div className="flex items-center gap-2">
             <SearchForm search={params.search ?? ""} status={params.status} />
-            <Button asChild size="sm">
-              <Link href="/admin/secretariat/outgoing-mail/new">
+            <Link href="/admin/secretariat/outgoing-mail/new">
+              <Button size="sm">
                 <Plus className="size-4" />
                 Surat Keluar Baru
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         }
       />
 
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada surat keluar. Buat surat keluar pertama Anda.
-        </p>
-      )}
-
-      <OutgoingMailsTable data={items} />
-
-      <TablePagination
-        page={page}
-        pageSize={pageSize}
-        total={total}
-        basePath="/admin/secretariat/outgoing-mail/list"
-        queryParams={{ search: params.search, status: params.status }}
-      />
+      <Band variant="raised">
+        <OutgoingMailsTable data={items} page={page} pageCount={pageCount} />
+      </Band>
     </PageContainer>
   );
 }

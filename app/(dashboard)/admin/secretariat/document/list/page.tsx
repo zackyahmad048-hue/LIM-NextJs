@@ -4,8 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
-import { TablePagination } from "@/components/admin/shared/table-pagination";
-import { TableSearchForm } from "@/components/admin/shared/table-search-form";
+import { Band } from "@/components/admin/shared/band";
 
 import { getAdministrativeDocuments } from "@/modules/secretariat/queries/secretariat.query";
 import { DocumentTable } from "./document-table";
@@ -25,6 +24,7 @@ export default async function DocumentListPage({
     page,
   });
   const pageSize = 20;
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
 
   return (
     <PageContainer>
@@ -41,27 +41,9 @@ export default async function DocumentListPage({
         }
       />
 
-      <TableSearchForm
-        basePath="/admin/secretariat/document/list"
-        defaultValue={params.search ?? ""}
-        placeholder="Cari dokumen..."
-      />
-
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada dokumen administrasi. Buat dokumen pertama Anda.
-        </p>
-      )}
-
-      <DocumentTable data={items} />
-
-      <TablePagination
-        page={page}
-        pageSize={pageSize}
-        total={total}
-        basePath="/admin/secretariat/document/list"
-        queryParams={{ search: params.search, status: params.status }}
-      />
+      <Band variant="raised">
+        <DocumentTable data={items} page={page} pageCount={pageCount} />
+      </Band>
     </PageContainer>
   );
 }

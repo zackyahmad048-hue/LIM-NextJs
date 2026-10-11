@@ -223,7 +223,7 @@ function ActivityCard({
     : Boolean(children);
 
   return (
-    <Band>
+    <Band variant="plain">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span

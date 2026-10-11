@@ -13,7 +13,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   NativeSelect,
   NativeSelectOption,
@@ -21,6 +20,7 @@ import {
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
+import { FormGroup } from "@/components/admin/shared/form-group";
 import { ActionForm } from "@/components/admin/shared/action-form";
 import { SigningEditor } from "@/components/admin/secretariat/signing-editor";
 import { SignerFields } from "@/components/admin/secretariat/signer-fields";
@@ -155,20 +155,9 @@ export default async function EditOutgoingMailPage({
           submitLabel="Simpan Perubahan"
           submitIcon={<CheckCircle className="size-4" />}
         >
-          <Band>
-            <div className="mb-4 border-b pb-3">
-              <h2 className="text-base font-semibold">Informasi Surat</h2>
-              <p className="text-xs text-admin-content-fg/60">
-                Mengubah tingkat atau kategori akan memutakhirkan nomor surat
-                otomatis.
-              </p>
-            </div>
-
+          <Band variant="raised" title="Informasi Surat" description="Mengubah tingkat atau kategori akan memutakhirkan nomor surat otomatis.">
             <div className="grid gap-3 md:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="levelCode" className="text-xs">
-                  Tingkat Kepengurusan
-                </Label>
+              <FormGroup legend="Tingkat Kepengurusan">
                 <NativeSelect
                   id="levelCode"
                   name="levelCode"
@@ -184,12 +173,9 @@ export default async function EditOutgoingMailPage({
                     </NativeSelectOption>
                   ))}
                 </NativeSelect>
-              </div>
+              </FormGroup>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="categoryCode" className="text-xs">
-                  Kategori Surat
-                </Label>
+              <FormGroup legend="Kategori Surat">
                 <NativeSelect
                   id="categoryCode"
                   name="categoryCode"
@@ -205,12 +191,9 @@ export default async function EditOutgoingMailPage({
                     </NativeSelectOption>
                   ))}
                 </NativeSelect>
-              </div>
+              </FormGroup>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="mailDate" className="text-xs">
-                  Tanggal Surat
-                </Label>
+              <FormGroup legend="Tanggal Surat">
                 <Input
                   id="mailDate"
                   name="mailDate"
@@ -219,24 +202,18 @@ export default async function EditOutgoingMailPage({
                   defaultValue={formatDateInput(mail.mailDate)}
                   className="rounded-md text-xs"
                 />
-              </div>
+              </FormGroup>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="recipient" className="text-xs">
-                  Penerima
-                </Label>
+              <FormGroup legend="Penerima">
                 <Input
                   id="recipient"
                   name="recipient"
                   defaultValue={mail.recipient ?? ""}
                   className="rounded-md text-xs"
                 />
-              </div>
+              </FormGroup>
 
-              <div className="space-y-1.5 md:col-span-2">
-                <Label htmlFor="subject" className="text-xs">
-                  Perihal Surat
-                </Label>
+              <FormGroup legend="Perihal Surat" className="md:col-span-2">
                 <Input
                   id="subject"
                   name="subject"
@@ -244,38 +221,15 @@ export default async function EditOutgoingMailPage({
                   defaultValue={mail.subject}
                   className="rounded-md text-xs"
                 />
-              </div>
+              </FormGroup>
             </div>
           </Band>
 
-          <Band>
-            <div className="mb-4 border-b pb-3">
-              <h2 className="text-base font-semibold">QR Penanda Tangan</h2>
-              <p className="text-xs text-admin-content-fg/60">
-                Nama & jabatan Ketua dan Sekretaris diambil dari struktur
-                Pengurus Pusat dan dijadikan konten QR yang ditempel pada
-                dokumen saat surat ditandai terkirim.
-              </p>
-            </div>
-
-            <SignerFields
-              pengurus={pengurus}
-              initialKetuaName={mail.ketuaName}
-              initialKetuaPosition={mail.ketuaPosition}
-              initialSekretarisName={mail.sekretarisName}
-              initialSekretarisPosition={mail.sekretarisPosition}
-            />
+          <Band variant="raised" title="QR Penanda Tangan" description="Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus Pusat dan dijadikan konten QR yang ditempel pada dokumen saat surat ditandai terkirim.">
+            <SignerFields pengurus={pengurus} />
           </Band>
 
-          <Band>
-            <div className="mb-4 border-b pb-3">
-              <h2 className="text-base font-semibold">Dokumen Surat</h2>
-              <p className="text-xs text-admin-content-fg/60">
-                Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris,
-                dan Verifikasi pada halaman dokumen.
-              </p>
-            </div>
-
+          <Band variant="raised" title="Dokumen Surat" description="Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan Verifikasi pada halaman dokumen.">
             <SigningEditor
               initialAttachmentUrl={mail.attachmentUrl ?? null}
               initialFileName={attachmentMedia?.originalName ?? null}
@@ -284,19 +238,11 @@ export default async function EditOutgoingMailPage({
               initialVerifikasiPosition={mail.qrVerifikasiPosition}
             />
           </Band>
-          </ActionForm>
-        )}
+        </ActionForm>
+      )}
 
       <div className="mt-4 max-w-2xl">
-        <Band>
-          <div className="mb-4 border-b pb-3">
-            <h2 className="text-base font-semibold">QR Verifikasi</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              QR diterbitkan otomatis saat surat ditandai terkirim. Pihak luar
-              bisa memverifikasi dengan scan QR atau memasukkan nomor surat.
-            </p>
-          </div>
-
+        <Band variant="plain" title="QR Verifikasi" description="QR diterbitkan otomatis saat surat ditandai terkirim. Pihak luar bisa memverifikasi dengan scan QR atau memasukkan nomor surat.">
           {hasQr ? (
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <div className="flex size-32 items-center justify-center rounded-lg border bg-white p-2">

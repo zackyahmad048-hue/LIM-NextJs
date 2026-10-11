@@ -113,7 +113,7 @@ export default async function HomepageGovernancePage() {
           </span>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg">
           {sections.map((section, index) => (
             <div
               key={section.id}
@@ -124,7 +124,7 @@ export default async function HomepageGovernancePage() {
           ))}
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg">
           <div className="flex flex-col gap-2 px-4 py-3.5 sm:flex-row sm:items-center sm:gap-4">
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold">Cara kerja</p>

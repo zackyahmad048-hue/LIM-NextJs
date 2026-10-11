@@ -9,6 +9,7 @@ import {
   Send,
   XCircle,
 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -81,8 +82,7 @@ const columns: ColumnDef<Document>[] = [
           {row.original.title}
         </p>
         <p className="truncate text-xs text-admin-content-fg/60">
-          {documentTypeLabels[row.original.documentType] ??
-            row.original.documentType}
+          {documentTypeLabels[row.original.documentType] ?? row.original.documentType}
         </p>
       </div>
     ),
@@ -157,6 +157,32 @@ const columns: ColumnDef<Document>[] = [
   },
 ];
 
-export function DocumentTable({ data }: { data: Document[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function DocumentTable({
+  data,
+  page,
+  pageCount,
+}: {
+  data: Awaited<
+    ReturnType<typeof import("@/modules/secretariat/queries/secretariat.query").getAdministrativeDocuments>
+  >["items"];
+  page: number;
+  pageCount: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      manualPagination
+      pageCount={pageCount}
+      pageIndex={page - 1}
+      onPaginationChange={(pageIndex) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("page", String(pageIndex + 1));
+        router.push(`/admin/secretariat/document/list?${searchParams.toString()}`);
+      }}
+    />
+  );
 }

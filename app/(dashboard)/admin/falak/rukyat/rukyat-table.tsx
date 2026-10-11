@@ -1,6 +1,7 @@
 "use client";
 
 import { Archive, CheckCircle, ShieldCheck } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -141,6 +142,30 @@ const columns: ColumnDef<Item>[] = [
   },
 ];
 
-export function RukyatTable({ data }: { data: Item[] }) {
-  return <DataTable columns={columns} data={data} />;
+export function RukyatTable({
+  data,
+  page,
+  pageCount,
+}: {
+  data: Item[];
+  page: number;
+  pageCount: number;
+}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      manualPagination
+      pageCount={pageCount}
+      pageIndex={page - 1}
+      onPaginationChange={(pageIndex) => {
+        const next = new URLSearchParams(searchParams.toString());
+        next.set("page", String(pageIndex + 1));
+        router.push(`/admin/falak/rukyat?${next.toString()}`);
+      }}
+    />
+  );
 }

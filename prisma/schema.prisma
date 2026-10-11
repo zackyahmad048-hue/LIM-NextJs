@@ -107,6 +107,7 @@ model User {
   committees    ProgramCommittee[]
   participants  Participant[]
   media         Media[]
+  officers      Officer[]
 
   @@map("user")
 }
@@ -185,12 +186,10 @@ model Post {
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
   categoryId  String
-  authorId    String
-  author      User      @relation(fields: [authorId], references: [id])
   category    Category  @relation(fields: [categoryId], references: [id])
+  authors     User[]
 
   @@index([categoryId])
-  @@index([authorId])
   @@map("posts")
 }
 
@@ -843,6 +842,8 @@ model Officer {
   id        String           @id @default(cuid())
   unitId    String
   unit      OrganizationUnit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  userId    String?          @unique
+  user      User?            @relation(fields: [userId], references: [id])
   name      String
   position  String
   isLeader  Boolean          @default(false)

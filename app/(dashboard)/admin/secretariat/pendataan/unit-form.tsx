@@ -12,7 +12,6 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Band } from "@/components/admin/shared/band";
-import { FormGroup } from "@/components/admin/shared/form-group";
 import { ActionResultMessage } from "@/components/admin/shared/action-result-message";
 
 import {
@@ -76,11 +75,7 @@ export function UnitForm({ units, mode, id, initial }: UnitFormProps) {
 
   return (
     <form action={formAction} className="max-w-2xl space-y-4">
-      <Band>
-        <FormGroup
-          legend="Informasi Unit"
-          description="Kode unit dipakai sebagai kolom kedua nomor surat (contoh: PP.I, PW.V, PC.I.3)."
-        >
+      <Band variant="raised" title="Informasi Unit" description="Kode unit dipakai sebagai kolom kedua nomor surat (contoh: PP.I, PW.V, PC.I.3).">
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="code" className="text-xs">
@@ -221,8 +216,7 @@ export function UnitForm({ units, mode, id, initial }: UnitFormProps) {
               )}
             </div>
           </div>
-        </FormGroup>
-      </Band>
+        </Band>
 
       <ActionResultMessage state={state} />
 

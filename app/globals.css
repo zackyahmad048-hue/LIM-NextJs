@@ -120,8 +120,9 @@
   --chart-3: oklch(0.646 0.222 41.116);
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
-  /* Radius: 0.75rem base → rounded-xl = 1.05rem (standar untuk semua konten) */
-  --radius: 0.75rem;
+/* Radius fluid: ±10px mobile, ±12px desktop, maks 16px di layar lebar.
+   rounded-xl = 1.4× nilai ini. */
+--radius: clamp(0.625rem, 0.25vw + 0.5rem, 1rem);
 
   /* Shadow tokens — kedalaman halus, kertas tertumpuk */
   --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
@@ -314,6 +315,7 @@
   .glass {
     border: 1px solid var(--glass-border);
     background-color: var(--glass-card-bg);
+    box-shadow: var(--glass-highlight), var(--lim-shadow-md);
     backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   }
