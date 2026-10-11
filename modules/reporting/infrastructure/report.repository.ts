@@ -15,7 +15,6 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
   const [
     incomingTotal,
     incomingReceived,
-    incomingProcessed,
     incomingArchived,
     outgoingTotal,
     outgoingDraft,
@@ -26,7 +25,6 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
   ] = await Promise.all([
     prisma.incomingMail.count({ where: { deletedAt: null } }),
     prisma.incomingMail.count({ where: { status: "RECEIVED", deletedAt: null } }),
-    prisma.incomingMail.count({ where: { status: "PROCESSED", deletedAt: null } }),
     prisma.incomingMail.count({ where: { status: "ARCHIVED", deletedAt: null } }),
     prisma.outgoingMail.count({ where: { deletedAt: null } }),
     prisma.outgoingMail.count({ where: { status: "DRAFT", deletedAt: null } }),
@@ -40,7 +38,6 @@ export async function getSecretariatProjectionData(): Promise<ReportRow[]> {
   return [
     { kode: "im.total", indikator: "Surat Masuk", nilai: fmt(incomingTotal), diperbarui: updatedAt },
     { kode: "im.received", indikator: "Surat Masuk · Diterima", nilai: fmt(incomingReceived), diperbarui: updatedAt },
-    { kode: "im.processed", indikator: "Surat Masuk · Diproses", nilai: fmt(incomingProcessed), diperbarui: updatedAt },
     { kode: "im.archived", indikator: "Surat Masuk · Diarsipkan", nilai: fmt(incomingArchived), diperbarui: updatedAt },
     { kode: "om.total", indikator: "Surat Keluar", nilai: fmt(outgoingTotal), diperbarui: updatedAt },
     { kode: "om.draft", indikator: "Surat Keluar · Draf", nilai: fmt(outgoingDraft), diperbarui: updatedAt },

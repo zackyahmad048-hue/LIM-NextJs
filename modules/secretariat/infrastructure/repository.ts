@@ -449,19 +449,16 @@ import type { SecretariatRepository } from "../domain/repository";
   },
 
   async countIncomingMailsByStatus() {
-    const [received, processed, archived] = await Promise.all([
+    const [received, archived] = await Promise.all([
       prisma.incomingMail.count({
         where: { status: "RECEIVED", deletedAt: null },
-      }),
-      prisma.incomingMail.count({
-        where: { status: "PROCESSED", deletedAt: null },
       }),
       prisma.incomingMail.count({
         where: { status: "ARCHIVED", deletedAt: null },
       }),
     ]);
 
-    return { received, processed, archived };
+    return { received, archived };
   },
 
   async countOutgoingMailsByStatus() {

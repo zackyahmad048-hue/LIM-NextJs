@@ -55,7 +55,6 @@ const incomingStatusLabels: Record<
   }
 > = {
   RECEIVED: { label: "Diterima", variant: "default" },
-  PROCESSED: { label: "Diproses", variant: "secondary" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
 

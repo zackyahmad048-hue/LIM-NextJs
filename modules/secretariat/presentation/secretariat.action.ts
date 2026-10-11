@@ -136,6 +136,22 @@ export async function deleteIncomingMail(id: string) {
   }
 }
 
+export async function archiveIncomingMail(id: string) {
+  try {
+    await requireSessionWithPermissions(PERMISSION_INCOMING_UPDATE);
+    await secretariatService.archiveIncomingMail(id);
+    revalidatePath("/admin/secretariat/incoming-mail/list");
+    revalidatePath("/admin/secretariat/arsip");
+    revalidatePath("/admin/secretariat/surat-menyurat");
+    return { success: true };
+  } catch (e) {
+    if (e instanceof SecretariatError) {
+      return { success: false, message: e.message };
+    }
+    return { success: false, message: "Gagal mengarsipkan surat masuk." };
+  }
+}
+
 
 export async function createOutgoingMail(
   _prevState: ActionResult,

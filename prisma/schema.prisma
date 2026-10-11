@@ -396,7 +396,6 @@ enum HijriMethod {
 
 enum IncomingMailStatus {
   RECEIVED
-  PROCESSED
   ARCHIVED
 }
 

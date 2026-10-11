@@ -211,7 +211,6 @@ export interface SecretariatRepository {
 
   countIncomingMailsByStatus(): Promise<{
     received: number;
-    processed: number;
     archived: number;
   }>;
 

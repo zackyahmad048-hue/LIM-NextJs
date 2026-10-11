@@ -20,8 +20,7 @@ export const VALID_INCOMING_MAIL_TRANSITIONS: Record<
   IncomingMailStatus,
   IncomingMailStatus[]
 > = {
-  RECEIVED: [],
-  PROCESSED: [],
+  RECEIVED: ["ARCHIVED"],
   ARCHIVED: [],
 };
 
@@ -97,7 +96,7 @@ export const secretariatService = {
     if (existing) throw new DuplicateNumberError(data.registrationNumber);
     return repo.createIncomingMail({
       ...data,
-      status: "ARCHIVED",
+      status: "RECEIVED",
     });
   },
 
@@ -127,20 +126,20 @@ export const secretariatService = {
     await repo.softDeleteIncomingMail(id);
   },
 
-  async transitionIncomingMailStatus(
-    id: string,
-    newStatus: IncomingMailStatus,
-  ) {
+  async archiveIncomingMail(id: string) {
     const mail = await repo.findIncomingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Masuk", id);
 
     if (
-      !canTransition(VALID_INCOMING_MAIL_TRANSITIONS, mail.status, newStatus)
+      !canTransition(VALID_INCOMING_MAIL_TRANSITIONS, mail.status, "ARCHIVED")
     ) {
-      throw new InvalidStatusTransitionError(mail.status, newStatus);
+      throw new InvalidStatusTransitionError(mail.status, "ARCHIVED");
     }
 
-    return repo.updateIncomingMail(id, { status: newStatus });
+    return repo.updateIncomingMail(id, {
+      status: "ARCHIVED",
+      archivedAt: new Date(),
+    });
   },
 
   // Outgoing Mail

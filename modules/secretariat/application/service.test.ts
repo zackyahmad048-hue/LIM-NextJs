@@ -14,15 +14,10 @@
  * Cakupan: Surat Masuk, Surat Keluar, Disposisi, Dokumen Administrasi, Buku
  * Agenda, Arsip Dokumen, dan baca dasbor.
  *
- * PERILAKU LAMA YANG SENGAJA DIKUNCI — jangan "perbaiki" test ini:
- *   1. Surat masuk baru dicatat berstatus ARCHIVED, bukan RECEIVED.
- *   2. transitionIncomingMailStatus selalu melempar, karena tabel transisinya
- *      kosong untuk ketiga status.
- *   3. deleteDisposition menghapus permanen (hard delete).
- *   4. updateAgendaBook mengirim payload lewat `as any` di service.
- *   5. DocumentArchive adalah kode mati yang dipertahankan.
- * Butir 1-2 diubah secara sengaja oleh tiket 03; 3-5 dicatat, bukan
- * diperbaiki di sini. Semuanya bukan cacat test ini.
+ * Perilaku lain yang dikunci apa adanya (dicatat, bukan diperbaiki di sini):
+ *   - deleteDisposition menghapus permanen (hard delete).
+ *   - updateAgendaBook mengirim payload lewat `as any` di service.
+ *   - DocumentArchive adalah kode mati yang dipertahankan.
  */
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -371,7 +366,7 @@ describe("Surat Masuk", () => {
     expect(repo.createIncomingMail).not.toHaveBeenCalled();
   });
 
-  it("mencatat surat masuk baru berstatus ARCHIVED [PERILAKU LAMA, diubah tiket 03]", async () => {
+  it("mencatat surat masuk baru berstatus RECEIVED", async () => {
     vi.mocked(repo.findIncomingMailByNumber).mockResolvedValue(null);
     vi.mocked(repo.createIncomingMail).mockImplementation(async (data) =>
       incomingMail(data),
@@ -381,7 +376,7 @@ describe("Surat Masuk", () => {
 
     expect(repo.createIncomingMail).toHaveBeenCalledWith(
       expect.objectContaining({
-        status: "ARCHIVED",
+        status: "RECEIVED",
         registrationNumber: "001/ABC/2026",
         sender: "Pengirim",
         subject: "Perihal surat",
@@ -476,19 +471,40 @@ describe("Surat Masuk", () => {
     });
   });
 
-  it.each(["RECEIVED", "PROCESSED", "ARCHIVED"] as const)(
-    "melempar untuk transisi surat masuk ke %s [tabel transisi kosong, diubah tiket 03]",
-    async (target) => {
-      vi.mocked(repo.findIncomingMailById).mockResolvedValue(
-        incomingMail({ status: "ARCHIVED" }),
-      );
+  it("mengarsipkan surat masuk dan mencatat waktu arsip", async () => {
+    vi.mocked(repo.findIncomingMailById).mockResolvedValue(
+      incomingMail({ status: "RECEIVED" }),
+    );
+    vi.mocked(repo.updateIncomingMail).mockResolvedValue(
+      incomingMail({ status: "ARCHIVED" }),
+    );
 
-      await expect(
-        secretariatService.transitionIncomingMailStatus("im-1", target),
-      ).rejects.toBeInstanceOf(InvalidStatusTransitionError);
-      expect(repo.updateIncomingMail).not.toHaveBeenCalled();
-    },
-  );
+    await secretariatService.archiveIncomingMail("im-1");
+
+    expect(repo.updateIncomingMail).toHaveBeenCalledWith("im-1", {
+      status: "ARCHIVED",
+      archivedAt: expect.any(Date),
+    });
+  });
+
+  it("menolak mengarsipkan surat masuk yang sudah diarsipkan", async () => {
+    vi.mocked(repo.findIncomingMailById).mockResolvedValue(
+      incomingMail({ status: "ARCHIVED" }),
+    );
+
+    await expect(
+      secretariatService.archiveIncomingMail("im-1"),
+    ).rejects.toBeInstanceOf(InvalidStatusTransitionError);
+    expect(repo.updateIncomingMail).not.toHaveBeenCalled();
+  });
+
+  it("melempar ketika mengarsipkan surat masuk yang tidak ada", async () => {
+    vi.mocked(repo.findIncomingMailById).mockResolvedValue(null);
+
+    await expect(
+      secretariatService.archiveIncomingMail("im-9"),
+    ).rejects.toBeInstanceOf(EntityNotFoundError);
+  });
 });
 
 describe("Surat Keluar", () => {
@@ -1414,13 +1430,13 @@ describe("Aturan transisi status", () => {
     },
   );
 
-  it("surat masuk tidak memiliki transisi sah sama sekali [PERILAKU LAMA, diubah tiket 03]", () => {
-    const statuses = ["RECEIVED", "PROCESSED", "ARCHIVED"] as const;
+  it("hanya transisi surat masuk RECEIVED ke ARCHIVED yang sah", () => {
+    const statuses = ["RECEIVED", "ARCHIVED"] as const;
 
     for (const from of statuses) {
       for (const to of statuses) {
         expect(canTransition(VALID_INCOMING_MAIL_TRANSITIONS, from, to)).toBe(
-          false,
+          from === "RECEIVED" && to === "ARCHIVED",
         );
       }
     }
