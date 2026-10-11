@@ -16,7 +16,7 @@ import {
   ForbiddenActionError,
 } from "../domain/secretariat.errors";
 
-const VALID_INCOMING_MAIL_TRANSITIONS: Record<
+export const VALID_INCOMING_MAIL_TRANSITIONS: Record<
   IncomingMailStatus,
   IncomingMailStatus[]
 > = {
@@ -25,7 +25,7 @@ const VALID_INCOMING_MAIL_TRANSITIONS: Record<
   ARCHIVED: [],
 };
 
-const VALID_OUTGOING_MAIL_TRANSITIONS: Record<
+export const VALID_OUTGOING_MAIL_TRANSITIONS: Record<
   OutgoingMailStatus,
   OutgoingMailStatus[]
 > = {
@@ -34,7 +34,7 @@ const VALID_OUTGOING_MAIL_TRANSITIONS: Record<
   ARCHIVED: [],
 };
 
-const VALID_DISPOSITION_TRANSITIONS: Record<
+export const VALID_DISPOSITION_TRANSITIONS: Record<
   DispositionStatus,
   DispositionStatus[]
 > = {
@@ -44,7 +44,7 @@ const VALID_DISPOSITION_TRANSITIONS: Record<
   CANCELLED: [],
 };
 
-const VALID_ADMINISTRATIVE_DOCUMENT_TRANSITIONS: Record<
+export const VALID_ADMINISTRATIVE_DOCUMENT_TRANSITIONS: Record<
   AdministrativeDocumentStatus,
   AdministrativeDocumentStatus[]
 > = {
@@ -55,7 +55,7 @@ const VALID_ADMINISTRATIVE_DOCUMENT_TRANSITIONS: Record<
   ARCHIVED: [],
 };
 
-function canTransition<T extends string>(
+export function canTransition<T extends string>(
   validTransitions: Record<T, T[]>,
   from: T,
   to: T,
