@@ -1,0 +1,72 @@
+# LIM Digital Platform
+
+Platform manajemen organisasi LIM — sekretariat surat-menyurat, penomoran surat,
+falak, program, dan konten publik, dibangun sebagai modul-modul fitur di atas
+Next.js App Router.
+
+## Language
+
+### Surat Menyurat
+
+**Surat Masuk**:
+Surat yang diterima organisasi dari pihak luar. Berada pada status `RECEIVED`
+saat pertama kali dicatat, dan `ARCHIVED` setelah selesai ditangani.
+_Avoid_: surat baru, surat pending, surat masuk otomatis
+
+**Surat Keluar**:
+Surat yang diterbitkan organisasi ke pihak luar. Nomor resminya terbit saat
+status berubah menjadi `SENT` — bukan saat draft dibuat.
+_Avoid_: surat draft bernomor, surat baru
+
+**Disposisi**:
+Instruksi tertulis atas sebuah Surat Masuk, mencatat siapa yang ditugaskan
+menanganinya dan kapan harus selesai. Satu Surat Masuk dapat memiliki banyak
+Disposisi.
+_Avoid_: tugas, disposisi surat
+
+**Petugas**:
+Orang yang ditugaskan menangani Disposisi atas nama unit kerjanya.
+_Avoid_: officer, user sekretariat
+
+**Unit Kerja**:
+Struktur organisasi yang memiliki Petugas di dalamnya; menjadi sumber pilihan
+tingkat surat pada Surat Keluar.
+_Avoid_: unit, organisasi, Satker
+
+### Arsip
+
+**Arsip**:
+Status yang menandai sebuah dokumen sudah selesai dan tidak lagi dikerjakan —
+bukan nama tempat penyimpanan. Halaman Arsip menampilkan dokumen berstatus
+`ARCHIVED` dari Surat Masuk, Surat Keluar, dan Dokumen Administrasi.
+_Avoid_: folder arsip, repositori arsip
+
+**Dokumen Administrasi**:
+Dokumen resmi yang disusun internal dan mengikuti alur persetujuan
+DRAFT → SUBMITTED → APPROVED → ARCHIVED, berbeda dari surat yang terbit lewat
+Surat Keluar.
+_Avoid_: dokumen, arsip, dokumen resmi
+
+### Penomoran
+
+**Nomor Surat**:
+Identifier resmi Surat Keluar yang terbit saat surat ditandai terkirim,
+dibentuk dari tingkat, kategori, bulan Romawi, dan nomor urut dalam periode.
+Draft tidak memiliki Nomor Surat.
+_Avoid_: nomor registrasi, nomor dokumen
+
+**Verifikasi Surat**:
+Halaman publik untuk memverifikasi keaslian Surat Keluar melalui kode pada QR.
+_Avoid_: cek surat, validasi surat
+
+### Batasan yang harus diketahui
+
+**Hapus Disposisi**:
+Penghapusan permanen Disposisi. Berbeda dari Surat Masuk, Surat Keluar, dan
+Agenda yang dihapus secara lunak dan tetap dapat dipulihkan.
+_Avoid_: soft delete disposisi
+
+**DocumentArchive**:
+Entitas arsip tersendiri yang saat ini tidak dipakai halaman mana pun. Halaman
+Arsip disusun dari dokumen berstatus `ARCHIVED`, bukan dari entitas ini.
+_Avoid_: arsip
