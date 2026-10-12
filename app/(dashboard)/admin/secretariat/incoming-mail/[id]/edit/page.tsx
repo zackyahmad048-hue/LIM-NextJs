@@ -10,6 +10,7 @@ import { Band } from "@/components/admin/shared/band";
 import { FormGroup } from "@/components/admin/shared/form-group";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
+import { ArchiveIncomingMailButton } from "@/components/admin/secretariat/archive-incoming-mail-button";
 
 import {
   getIncomingMailById,
@@ -46,6 +47,16 @@ export default async function EditIncomingMailPage({
       <PageHeader
         title={`Surat Masuk - ${mail.registrationNumber}`}
         description={`Pengirim: ${mail.sender} · Status: ${statusLabels[mail.status] ?? mail.status}`}
+        actions={
+          mail.status !== "ARCHIVED" ? (
+            <ArchiveIncomingMailButton
+              id={mail.id}
+              subject={mail.subject}
+              label="Arsipkan"
+              variant="outline"
+            />
+          ) : undefined
+        }
       />
 
       <ActionForm
@@ -53,7 +64,7 @@ export default async function EditIncomingMailPage({
         submitLabel="Simpan Perubahan"
         submitIcon={<Pencil className="size-4" />}
       >
-        <Band variant="raised" title="Informasi Surat Masuk" description="Surat masuk otomatis diarsipkan saat disimpan.">
+        <Band variant="raised" title="Informasi Surat Masuk">
           <div className="grid gap-3 md:grid-cols-2">
             <FormGroup legend="Nomor Surat Pengirim">
               <Input

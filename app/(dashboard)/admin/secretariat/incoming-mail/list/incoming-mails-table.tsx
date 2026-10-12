@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
+import { ArchiveIncomingMailButton } from "@/components/admin/secretariat/archive-incoming-mail-button";
 import { formatDateId } from "@/lib/format";
 
 import type { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
@@ -101,6 +102,12 @@ const columns: ColumnDef<Incoming>[] = [
             <Pencil className="size-3.5" />
           </Link>
         </Button>
+        {row.original.status === "RECEIVED" && (
+          <ArchiveIncomingMailButton
+            id={row.original.id}
+            subject={row.original.subject}
+          />
+        )}
         <ConfirmDelete
           onConfirm={deleteIncomingMail}
           args={[row.original.id]}
