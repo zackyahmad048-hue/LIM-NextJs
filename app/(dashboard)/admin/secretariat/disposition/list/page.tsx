@@ -6,7 +6,7 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
 
-import { getDispositions } from "@/modules/secretariat/queries/secretariat.query";
+import { getDispositions } from "@/modules/secretariat";
 import { DispositionTable } from "./disposition-table";
 
 export const dynamic = "force-dynamic";

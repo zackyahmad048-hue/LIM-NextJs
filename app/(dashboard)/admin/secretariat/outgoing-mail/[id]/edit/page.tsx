@@ -28,16 +28,14 @@ import { SignerFields } from "@/components/admin/secretariat/signer-fields";
 import {
   getOutgoingMailById,
   getMediaByFileId,
-} from "@/modules/secretariat/queries/secretariat.query";
-import {
   updateOutgoingMail,
   transitionOutgoingMailStatus,
-} from "@/modules/secretariat/presentation/secretariat.action";
+  extractFileIdFromMediaUrl,
+} from "@/modules/secretariat";
 import { getLetterLevelOptions } from "@/modules/organization";
 import { getCentralBoardSigners } from "@/modules/cms/queries/structure.query";
 import { LETTER_TYPES } from "@/config/letter-types";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",

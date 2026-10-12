@@ -4,10 +4,7 @@ import { notFound } from "next/navigation";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AgendaForm } from "../../agenda-form";
-import {
-  getAgendaBookById,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { updateAgendaBook } from "@/modules/secretariat/presentation/secretariat.action";
+import { getAgendaBookById, updateAgendaBook } from "@/modules/secretariat";
 
 export default async function EditAgendaPage({
   params,

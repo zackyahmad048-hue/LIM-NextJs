@@ -4,17 +4,17 @@ import {
   formatLetterNumber,
   resolvePeriodYear,
   toRomanMonth,
-} from "./letter-number.rules";
+} from "../domain/letter-number.rules";
 import {
   getLetterNumberingConfig,
   saveNumberingSettings,
 } from "../infrastructure/letter-numbering.config";
-import type { LetterNumber } from "./letter-number.rules";
+import type { LetterNumber } from "../domain/letter-number.rules";
 
 export type {
   LetterNumber,
   
-} from "./letter-number.rules";
+} from "../domain/letter-number.rules";
 
  class LetterNumberAlreadyIssuedError extends SecretariatError {
   constructor() {

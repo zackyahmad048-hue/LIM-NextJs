@@ -9,9 +9,8 @@ import { Band } from "@/components/admin/shared/band";
 import { FormGroup } from "@/components/admin/shared/form-group";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
-import { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
+import { getIncomingMails, createDisposition } from "@/modules/secretariat";
 import { getUsers } from "@/modules/authorization/queries/user.query";
-import { createDisposition } from "@/modules/secretariat/presentation/secretariat.action";
 
 const priorities = [
   { value: "LOW", label: "Rendah" },

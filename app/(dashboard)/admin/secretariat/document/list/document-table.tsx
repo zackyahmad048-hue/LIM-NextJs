@@ -19,7 +19,7 @@ import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 import { documentTypeLabels } from "@/components/admin/secretariat/document-type-labels";
 
-import type { getAdministrativeDocuments } from "@/modules/secretariat/queries/secretariat.query";
+import type { getAdministrativeDocuments } from "@/modules/secretariat";
 import {
   deleteAdministrativeDocument,
   transitionAdministrativeDocumentStatus,
@@ -163,7 +163,7 @@ export function DocumentTable({
   pageCount,
 }: {
   data: Awaited<
-    ReturnType<typeof import("@/modules/secretariat/queries/secretariat.query").getAdministrativeDocuments>
+    ReturnType<typeof import("@/modules/secretariat").getAdministrativeDocuments>
   >["items"];
   page: number;
   pageCount: number;

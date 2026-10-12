@@ -15,12 +15,10 @@ import { ActionForm } from "@/components/admin/shared/action-form";
 import {
   getDispositionById,
   getIncomingMails,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { getUsers } from "@/modules/authorization/queries/user.query";
-import {
   updateDisposition,
   transitionDispositionStatus,
-} from "@/modules/secretariat/presentation/secretariat.action";
+} from "@/modules/secretariat";
+import { getUsers } from "@/modules/authorization/queries/user.query";
 
 const statusLabels: Record<string, string> = {
   PENDING: "Menunggu",

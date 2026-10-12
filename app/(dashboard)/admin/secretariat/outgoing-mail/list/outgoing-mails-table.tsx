@@ -13,7 +13,7 @@ import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 import { formatDateId } from "@/lib/format";
 
-import type { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
+import type { getOutgoingMails } from "@/modules/secretariat";
 import { deleteOutgoingMail } from "@/modules/secretariat/presentation/secretariat.action";
 
 type Mail = Awaited<ReturnType<typeof getOutgoingMails>>["items"][number];
@@ -130,7 +130,7 @@ export function OutgoingMailsTable({
   page,
   pageCount,
 }: {
-  data: Awaited<ReturnType<typeof import("@/modules/secretariat/queries/secretariat.query").getOutgoingMails>>["items"];
+  data: Awaited<ReturnType<typeof import("@/modules/secretariat").getOutgoingMails>>["items"];
   page: number;
   pageCount: number;
 }) {

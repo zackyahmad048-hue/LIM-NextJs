@@ -11,8 +11,10 @@ import { Label } from "@/components/ui/label";
 import { Band } from "@/components/admin/shared/band";
 import { FormGroup } from "@/components/admin/shared/form-group";
 
-import type { LetterNumberingConfig } from "@/modules/secretariat/infrastructure/letter-numbering.config";
-import type { NumberingPeriod } from "@/modules/secretariat/application/letter-number.rules";
+import type {
+  LetterNumberingConfig,
+  NumberingPeriod,
+} from "@/modules/secretariat";
 import {
   setLetterNextSequence,
   updateLetterNumberingSettings,

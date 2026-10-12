@@ -9,8 +9,10 @@ import { FormGroup } from "@/components/admin/shared/form-group";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
-import { createIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
-import { uploadIncomingMailAttachment } from "@/modules/secretariat/presentation/secretariat.action";
+import {
+  createIncomingMail,
+  uploadIncomingMailAttachment,
+} from "@/modules/secretariat";
 
 export default function NewIncomingMailPage() {
   return (

@@ -13,7 +13,7 @@ import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 import { ArchiveIncomingMailButton } from "@/components/admin/secretariat/archive-incoming-mail-button";
 import { formatDateId } from "@/lib/format";
 
-import type { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
+import type { getIncomingMails } from "@/modules/secretariat";
 import { deleteIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
 
 type Incoming = Awaited<ReturnType<typeof getIncomingMails>>["items"][number];
@@ -125,7 +125,7 @@ export function IncomingMailsTable({
   page,
   pageCount,
 }: {
-  data: Awaited<ReturnType<typeof import("@/modules/secretariat/queries/secretariat.query").getIncomingMails>>["items"];
+  data: Awaited<ReturnType<typeof import("@/modules/secretariat").getIncomingMails>>["items"];
   page: number;
   pageCount: number;
 }) {

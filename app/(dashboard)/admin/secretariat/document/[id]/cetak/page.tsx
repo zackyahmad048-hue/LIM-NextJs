@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import {
   getAdministrativeDocumentById,
   getMediaByFileId,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
+  extractFileIdFromMediaUrl,
+} from "@/modules/secretariat";
 import { SITE } from "@/config/site";
 import { PrintButton } from "@/components/admin/shared/print-button";
 

@@ -15,10 +15,10 @@ import { ArchiveIncomingMailButton } from "@/components/admin/secretariat/archiv
 import {
   getIncomingMailById,
   getMediaByFileId,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
-import { updateIncomingMail } from "@/modules/secretariat/presentation/secretariat.action";
-import { uploadIncomingMailAttachment } from "@/modules/secretariat/presentation/secretariat.action";
+  extractFileIdFromMediaUrl,
+  updateIncomingMail,
+  uploadIncomingMailAttachment,
+} from "@/modules/secretariat";
 
 const statusLabels: Record<string, string> = {
   RECEIVED: "Diterima",

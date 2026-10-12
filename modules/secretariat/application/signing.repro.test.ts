@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import { createExamplePdf } from "./example-pdf.fixture";
-import { getLetterVerificationUrl, renderQrPng } from "./qr-code";
+import { getLetterVerificationUrl } from "../domain/letter-link";
+import { renderQrPng } from "./qr-code";
 import { composeSignedPdf } from "./pdf-sign.service";
 import { buildSignerQrText } from "./signing.service";
 

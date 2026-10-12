@@ -11,7 +11,7 @@ import { DataTable } from "@/components/admin/shared/data-table";
 import { documentTypeLabels } from "@/components/admin/secretariat/document-type-labels";
 import { formatDateId } from "@/lib/format";
 
-import type { getArchiveData } from "@/modules/secretariat/queries/secretariat.query";
+import type { getArchiveData } from "@/modules/secretariat";
 
 type Outgoing = Awaited<ReturnType<typeof getArchiveData>>["outgoing"][number];
 type Incoming = Awaited<ReturnType<typeof getArchiveData>>["incoming"][number];

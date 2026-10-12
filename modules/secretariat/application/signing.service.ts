@@ -5,10 +5,11 @@ import {
   MissingLetterNumberError,
   SecretariatError,
 } from "../domain/secretariat.errors";
-import { extractFileIdFromMediaUrl } from "./drive-archive.service";
+import { extractFileIdFromMediaUrl } from "../domain/media-url";
 import { findFiducialPositions } from "./fiducial.service";
 import { composeSignedPdf } from "./pdf-sign.service";
-import { getLetterVerificationUrl, renderQrPng } from "./qr-code";
+import { getLetterVerificationUrl } from "../domain/letter-link";
+import { renderQrPng } from "./qr-code";
 
 export interface SignedLetterArtifacts {
   verificationCode: string;

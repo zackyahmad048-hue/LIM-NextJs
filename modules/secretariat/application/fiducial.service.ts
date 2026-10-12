@@ -1,7 +1,7 @@
 import { createCanvas, loadImage } from "@napi-rs/canvas";
 
 import type { QrPagePositionMm, QrPositionMm } from "../domain/entities";
-import { QR_SIZE_MM } from "./pdf-sign.service";
+import { QR_SIZE_MM, type FiducialDetection } from "../domain/qr-layout";
 import { renderPdfPagesForEditor } from "./qr-editor.service";
 
 const MM_PER_PT = 25.4 / 72;
@@ -126,12 +126,6 @@ export function centerFiducialPageQr(
 ): QrPagePositionMm {
   const { x, y } = centerFiducialQr(pos);
   return { page: pos.page, x, y };
-}
-
-export interface FiducialDetection {
-  ketua: QrPagePositionMm | null;
-  sekretaris: QrPagePositionMm | null;
-  verifikasi: QrPositionMm | null;
 }
 
 /**

@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { AgendaForm } from "../agenda-form";
-import { createAgendaBook } from "@/modules/secretariat/presentation/secretariat.action";
+import { createAgendaBook } from "@/modules/secretariat";
 
 export default function NewAgendaPage() {
   return (

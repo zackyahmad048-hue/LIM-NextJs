@@ -10,7 +10,7 @@ import {
   detectFiducialCentroidPx,
   detectFiducialOnPage,
 } from "./fiducial.service";
-import { QR_SIZE_MM } from "./pdf-sign.service";
+import { QR_SIZE_MM } from "../domain/qr-layout";
 
 /** Membangun PNG berisi kotak solid berwarna target pada koordinat piksel. */
 function makePngWithSquare(

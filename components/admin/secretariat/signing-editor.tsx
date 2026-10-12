@@ -6,7 +6,7 @@ import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import type {
   QrPagePositionMm,
   QrPositionMm,
-} from "@/modules/secretariat/domain/entities";
+} from "@/modules/secretariat";
 import { QrPositionEditor } from "./qr-position-editor";
 
 interface SigningEditorProps {

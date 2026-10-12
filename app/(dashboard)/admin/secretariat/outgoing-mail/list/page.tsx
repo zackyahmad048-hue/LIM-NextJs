@@ -7,7 +7,7 @@ import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
 import { SearchForm } from "./search-form";
 
-import { getOutgoingMails } from "@/modules/secretariat/queries/secretariat.query";
+import { getOutgoingMails } from "@/modules/secretariat";
 import { OutgoingMailsTable } from "./outgoing-mails-table";
 
 export const dynamic = "force-dynamic";

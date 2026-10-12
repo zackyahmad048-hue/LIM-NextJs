@@ -1,13 +1,15 @@
 import { SecretariatError } from "../domain/secretariat.errors";
-import { validateNumberingTemplate } from "./letter-number.rules";
+import { validateNumberingTemplate } from "../domain/letter-number.rules";
 import {
   getLetterNumberingConfig,
   saveNumberingSettings,
-  type LetterNumberingConfig,
-  type LevelCodeOption,
-  type UpdateNumberingSettingsInput,
 } from "../infrastructure/letter-numbering.config";
-import type { NumberingPeriod } from "./letter-number.rules";
+import type {
+  LetterNumberingConfig,
+  LevelCodeOption,
+  UpdateNumberingSettingsInput,
+} from "../domain/letter-numbering";
+import type { NumberingPeriod } from "../domain/letter-number.rules";
 
 export interface NumberingSettingsInput {
   formatTemplate?: string;

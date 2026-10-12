@@ -7,7 +7,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/admin/shared/data-table";
 import { formatDateId } from "@/lib/format";
 
-import type { getAgendaBooks } from "@/modules/secretariat/queries/secretariat.query";
+import type { getAgendaBooks } from "@/modules/secretariat";
 
 type Agenda = Awaited<ReturnType<typeof getAgendaBooks>>["items"][number];
 

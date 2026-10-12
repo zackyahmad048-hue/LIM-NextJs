@@ -10,8 +10,10 @@ import { FormGroup } from "@/components/admin/shared/form-group";
 import { AttachmentUpload } from "@/components/admin/shared/attachment-upload";
 import { ActionForm } from "@/components/admin/shared/action-form";
 
-import { createAdministrativeDocument } from "@/modules/secretariat/presentation/secretariat.action";
-import { uploadAdministrativeDocumentAttachment } from "@/modules/secretariat/presentation/secretariat.action";
+import {
+  createAdministrativeDocument,
+  uploadAdministrativeDocumentAttachment,
+} from "@/modules/secretariat";
 
 const documentTypes = [
   { value: "SURAT_KETERANGAN", label: "Surat Keterangan" },

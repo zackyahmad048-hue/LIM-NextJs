@@ -22,8 +22,3 @@ export async function renderQrPng(text: string): Promise<Buffer> {
     color: { dark: QR_DARK_COLOR, light: QR_LIGHT_COLOR },
   });
 }
-
-export function getLetterVerificationUrl(code: string): string {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-  return `${baseUrl}/verifikasi/surat/${encodeURIComponent(code)}`;
-}

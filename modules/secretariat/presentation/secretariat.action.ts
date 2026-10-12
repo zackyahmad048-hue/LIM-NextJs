@@ -33,8 +33,8 @@ import {
   type AttachmentFolder,
 } from "../application/attachment.service";
 import { letterNumberingService } from "../application/letter-numbering.service";
-import type { NumberingPeriod } from "../application/letter-number.rules";
-import type { LevelCodeOption } from "../infrastructure/letter-numbering.config";
+import type { NumberingPeriod } from "../domain/letter-number.rules";
+import type { LevelCodeOption } from "../domain/letter-numbering";
 import type { ActionResult } from "@/modules/shared/presentation/action-result";
 
 const PERMISSION_INCOMING_CREATE = ["secretariat.incoming-mail.create"];

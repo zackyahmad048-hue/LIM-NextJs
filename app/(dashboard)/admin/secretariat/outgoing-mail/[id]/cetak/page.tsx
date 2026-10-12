@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 import {
   getOutgoingMailById,
   getMediaByFileId,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
+  extractFileIdFromMediaUrl,
+  getLetterVerificationUrl,
+} from "@/modules/secretariat";
 import { getLetterTypeLabel } from "@/config/letter-types";
-import { getLetterVerificationUrl } from "@/modules/secretariat/application/qr-code";
 import { SITE } from "@/config/site";
 import { PrintButton } from "@/components/admin/shared/print-button";
 

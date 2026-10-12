@@ -8,7 +8,7 @@ import {
   getDashboardTrend,
   getSecretariatDashboardData,
   getSecretariatStats,
-} from "@/modules/secretariat/queries/secretariat.query";
+} from "@/modules/secretariat";
 
 export const dynamic = "force-dynamic";
 

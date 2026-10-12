@@ -12,7 +12,7 @@ import { DataTable } from "@/components/admin/shared/data-table";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 import { formatDateId } from "@/lib/format";
 
-import type { getDispositions } from "@/modules/secretariat/queries/secretariat.query";
+import type { getDispositions } from "@/modules/secretariat";
 import { deleteDisposition } from "@/modules/secretariat/presentation/secretariat.action";
 
 type Disposition = Awaited<

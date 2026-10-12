@@ -3,7 +3,7 @@ import {
   getIncomingMails,
   getOutgoingMails,
   getSuratMenyuratStats,
-} from "@/modules/secretariat/queries/secretariat.query";
+} from "@/modules/secretariat";
 import { getDriveConnection } from "@/modules/shared/infrastructure/storage/google-drive.storage";
 
 export const dynamic = "force-dynamic";

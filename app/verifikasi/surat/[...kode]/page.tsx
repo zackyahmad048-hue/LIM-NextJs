@@ -14,8 +14,8 @@ import { LETTER_TYPES } from "@/config/letter-types";
 import {
   getOutgoingMailByVerificationCode,
   getMediaByFileId,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
+  extractFileIdFromMediaUrl,
+} from "@/modules/secretariat";
 import { LetterPlate } from "@/components/admin/shared/letter-plate";
 import { VerificationForm } from "../verification-form";
 import Reveal from "@/components/website/motion/reveal";

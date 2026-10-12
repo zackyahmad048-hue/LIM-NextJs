@@ -1,19 +1,9 @@
 import { prisma } from "@/modules/shared/infrastructure/prisma";
-import type { NumberingPeriod } from "../application/letter-number.rules";
-
-export interface LevelCodeOption {
-  code: string;
-  label: string;
-}
-
-export interface LetterNumberingConfig {
-  formatTemplate: string;
-  sequenceDigits: number;
-  periods: NumberingPeriod[];
-  levelCodes: LevelCodeOption[];
-  /** Override nomor urut berikutnya per periodYear. */
-  nextSequence: Record<string, number>;
-}
+import type {
+  LetterNumberingConfig,
+  LevelCodeOption,
+  UpdateNumberingSettingsInput,
+} from "../domain/letter-numbering";
 
  const NUMBERING_SETTING_KEYS = {
   formatTemplate: "secretariat.numbering.formatTemplate",
@@ -96,14 +86,6 @@ async function upsertSetting(
     create: { key, value, type, description },
     update: { value, type, description },
   });
-}
-
-export interface UpdateNumberingSettingsInput {
-  formatTemplate?: string;
-  sequenceDigits?: number;
-  periods?: NumberingPeriod[];
-  levelCodes?: LevelCodeOption[];
-  nextSequence?: Record<string, number>;
 }
 
 export async function saveNumberingSettings(

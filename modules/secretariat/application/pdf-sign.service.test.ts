@@ -6,8 +6,8 @@ import {
   DEFAULT_SEKRETARIS_POSITION,
   DEFAULT_VERIFIKASI_POSITION,
   QR_SIZE_MM,
-  composeSignedPdf,
-} from "./pdf-sign.service";
+} from "../domain/qr-layout";
+import { composeSignedPdf } from "./pdf-sign.service";
 import { renderQrPng } from "./qr-code";
 import { createExamplePdf } from "./example-pdf.fixture";
 

@@ -15,13 +15,11 @@ import { ActionForm } from "@/components/admin/shared/action-form";
 import {
   getAdministrativeDocumentById,
   getMediaByFileId,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
-import {
+  extractFileIdFromMediaUrl,
   updateAdministrativeDocument,
   transitionAdministrativeDocumentStatus,
   uploadAdministrativeDocumentAttachment,
-} from "@/modules/secretariat/presentation/secretariat.action";
+} from "@/modules/secretariat";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",

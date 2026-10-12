@@ -1,29 +1,16 @@
 import { PDFDocument } from "pdf-lib";
 
 import type { QrPagePositionMm, QrPositionMm } from "../domain/entities";
+import {
+  DEFAULT_KETUA_POSITION,
+  DEFAULT_SEKRETARIS_POSITION,
+  DEFAULT_VERIFIKASI_POSITION,
+  QR_SIZE_MM,
+} from "../domain/qr-layout";
 
 const PT_PER_MM = 72 / 25.4;
 
-/** Ukuran QR yang ditempel ke PDF (dalam mm). */
-export const QR_SIZE_MM = 25;
  const QR_SIZE_PT = QR_SIZE_MM * PT_PER_MM;
-
-/** Default posisi QR Ketua — diambil dari example-surat.pdf (page 1). */
-export const DEFAULT_KETUA_POSITION: QrPagePositionMm = {
-  page: 1,
-  x: 31,
-  y: 60,
-};
-
-/** Default posisi QR Sekretaris — diambil dari example-surat.pdf (page 1). */
-export const DEFAULT_SEKRETARIS_POSITION: QrPagePositionMm = {
-  page: 1,
-  x: 109,
-  y: 60,
-};
-
-/** Default posisi QR Verifikasi — pojok kanan-bawah semua halaman. */
-export const DEFAULT_VERIFIKASI_POSITION: QrPositionMm = { x: 175, y: 12 };
 
  interface QrImageInput {
   png: Buffer;

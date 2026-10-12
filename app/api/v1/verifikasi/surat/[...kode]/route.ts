@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   getMediaByFileId,
   getOutgoingMailByVerificationCode,
-} from "@/modules/secretariat/queries/secretariat.query";
-import { extractFileIdFromMediaUrl } from "@/modules/secretariat/application/drive-archive.service";
+  extractFileIdFromMediaUrl,
+} from "@/modules/secretariat";
 import {
   renderPdfPreview,
   renderImagePreview,

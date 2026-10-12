@@ -8,14 +8,14 @@ import { Label } from "@/components/ui/label";
 import type {
   QrPagePositionMm,
   QrPositionMm,
-} from "@/modules/secretariat/domain/entities";
-import type { FiducialDetection } from "@/modules/secretariat/application/fiducial.service";
+  FiducialDetection,
+} from "@/modules/secretariat";
 import {
   DEFAULT_KETUA_POSITION,
   DEFAULT_SEKRETARIS_POSITION,
   DEFAULT_VERIFIKASI_POSITION,
   QR_SIZE_MM,
-} from "@/modules/secretariat/application/pdf-sign.service";
+} from "@/modules/secretariat/domain/qr-layout";
 import { cn } from "@/lib/utils";
 
 const MM_PER_PT = 25.4 / 72;

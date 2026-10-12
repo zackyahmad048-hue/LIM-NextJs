@@ -6,7 +6,7 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
 
-import { getIncomingMails } from "@/modules/secretariat/queries/secretariat.query";
+import { getIncomingMails } from "@/modules/secretariat";
 import { IncomingMailsTable } from "./incoming-mails-table";
 
 export const dynamic = "force-dynamic";

@@ -5,18 +5,8 @@ import {
   GoogleDriveStorage,
 } from "@/modules/shared/infrastructure/storage/google-drive.storage";
 import type { OutgoingMailEntity } from "../domain/entities";
+import { extractFileIdFromMediaUrl } from "../domain/media-url";
 
-export function extractFileIdFromMediaUrl(url: string): string | null {
-  const match = url.match(/\/api\/media\/([^?]+)/);
-  if (!match) return null;
-  try {
-    return decodeURIComponent(match[1]);
-  } catch {
-    return null;
-  }
-}
-
- 
 /**
  * Memindahkan lampiran surat yang telah diarsipkan ke Google Drive
  * (jika sudah terhubung). File dihapus dari Vercel Blob agar kuota
