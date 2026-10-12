@@ -1,7 +1,10 @@
 import type { DispositionStatus } from "@/generated/client";
 
-import type { SecretariatRepository } from "../domain/repository";
-import { secretariatRepository as repo } from "../infrastructure/repository";
+import type {
+  DispositionRepository,
+  IncomingMailRepository,
+} from "../domain/repository";
+import { secretariatRepository } from "../infrastructure/repository";
 import {
   EntityNotFoundError,
   InvalidStatusTransitionError,
@@ -10,6 +13,15 @@ import {
   VALID_DISPOSITION_TRANSITIONS,
   canTransition,
 } from "./status-transition";
+
+/**
+ * Disposisi memakai penyimpanannya sendiri, ditambah satu pembacaan lintas
+ * agregat: memastikan Surat Masuk yang didisposisi memang ada.
+ */
+type DispositionStorage = DispositionRepository &
+  Pick<IncomingMailRepository, "findIncomingMailById">;
+
+const repo: DispositionStorage = secretariatRepository;
 
 /** Perilaku agregat Disposisi. Satu Surat Masuk dapat punya banyak Disposisi. */
 export const dispositionService = {
@@ -37,7 +49,7 @@ export const dispositionService = {
 
   async createDisposition(
     data: Omit<
-      Parameters<SecretariatRepository["createDisposition"]>[0],
+      Parameters<DispositionRepository["createDisposition"]>[0],
       "status"
     >,
   ) {
@@ -49,7 +61,7 @@ export const dispositionService = {
 
   async updateDisposition(
     id: string,
-    data: Parameters<SecretariatRepository["updateDisposition"]>[1],
+    data: Parameters<DispositionRepository["updateDisposition"]>[1],
   ) {
     const disposition = await repo.findDispositionById(id);
     if (!disposition) throw new EntityNotFoundError("Disposisi", id);

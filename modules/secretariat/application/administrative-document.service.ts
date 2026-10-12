@@ -3,8 +3,8 @@ import type {
   DocumentType,
 } from "@/generated/client";
 
-import type { SecretariatRepository } from "../domain/repository";
-import { secretariatRepository as repo } from "../infrastructure/repository";
+import type { AdministrativeDocumentRepository } from "../domain/repository";
+import { secretariatRepository } from "../infrastructure/repository";
 import {
   DuplicateNumberError,
   EntityNotFoundError,
@@ -14,6 +14,9 @@ import {
   VALID_ADMINISTRATIVE_DOCUMENT_TRANSITIONS,
   canTransition,
 } from "./status-transition";
+
+/** Penyimpanan agregat Dokumen Administrasi — hanya operasi agregat ini. */
+const repo: AdministrativeDocumentRepository = secretariatRepository;
 
 /** Perilaku agregat Dokumen Administrasi dan alur persetujuannya. */
 export const administrativeDocumentService = {
@@ -41,7 +44,7 @@ export const administrativeDocumentService = {
 
   async createAdministrativeDocument(
     data: Omit<
-      Parameters<SecretariatRepository["createAdministrativeDocument"]>[0],
+      Parameters<AdministrativeDocumentRepository["createAdministrativeDocument"]>[0],
       "status" | "submittedById" | "submittedAt" | "approvedById" | "approvedAt"
     >,
   ) {
@@ -61,7 +64,7 @@ export const administrativeDocumentService = {
 
   async updateAdministrativeDocument(
     id: string,
-    data: Parameters<SecretariatRepository["updateAdministrativeDocument"]>[1],
+    data: Parameters<AdministrativeDocumentRepository["updateAdministrativeDocument"]>[1],
   ) {
     const doc = await repo.findAdministrativeDocumentById(id);
     if (!doc) throw new EntityNotFoundError("Dokumen Administrasi", id);

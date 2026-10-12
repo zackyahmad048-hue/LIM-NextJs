@@ -1,6 +1,9 @@
-import type { SecretariatRepository } from "../domain/repository";
-import { secretariatRepository as repo } from "../infrastructure/repository";
+import type { AgendaBookRepository } from "../domain/repository";
+import { secretariatRepository } from "../infrastructure/repository";
 import { EntityNotFoundError } from "../domain/secretariat.errors";
+
+/** Penyimpanan agregat Buku Agenda — hanya operasi agregat ini. */
+const repo: AgendaBookRepository = secretariatRepository;
 
 /** Perilaku agregat Buku Agenda. */
 export const agendaService = {
@@ -23,14 +26,14 @@ export const agendaService = {
   },
 
   async createAgendaBook(
-    data: Parameters<SecretariatRepository["createAgendaBook"]>[0],
+    data: Parameters<AgendaBookRepository["createAgendaBook"]>[0],
   ) {
     return repo.createAgendaBook({ ...data, date: new Date(data.date) });
   },
 
   async updateAgendaBook(
     id: string,
-    data: Parameters<SecretariatRepository["updateAgendaBook"]>[1],
+    data: Parameters<AgendaBookRepository["updateAgendaBook"]>[1],
   ) {
     const agenda = await repo.findAgendaBookById(id);
     if (!agenda) throw new EntityNotFoundError("Buku Agenda", id);

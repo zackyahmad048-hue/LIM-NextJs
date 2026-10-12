@@ -1,7 +1,7 @@
 import type { OutgoingMailStatus } from "@/generated/client";
 
-import type { SecretariatRepository } from "../domain/repository";
-import { secretariatRepository as repo } from "../infrastructure/repository";
+import type { OutgoingMailRepository } from "../domain/repository";
+import { secretariatRepository } from "../infrastructure/repository";
 import { assignLetterNumber } from "./letter-number.service";
 import { signOutgoingMail } from "./signing.service";
 import {
@@ -14,6 +14,9 @@ import {
   VALID_OUTGOING_MAIL_TRANSITIONS,
   canTransition,
 } from "./status-transition";
+
+/** Penyimpanan agregat Surat Keluar — hanya operasi agregat ini. */
+const repo: OutgoingMailRepository = secretariatRepository;
 
 /** Perilaku agregat Surat Keluar, termasuk penomoran dan penandatanganan. */
 export const outgoingMailService = {
@@ -46,7 +49,7 @@ export const outgoingMailService = {
 
   async createOutgoingMail(
     data: Omit<
-      Parameters<SecretariatRepository["createOutgoingMail"]>[0],
+      Parameters<OutgoingMailRepository["createOutgoingMail"]>[0],
       | "status"
       | "registrationNumber"
       | "sentAt"
@@ -86,7 +89,7 @@ export const outgoingMailService = {
 
   async updateOutgoingMail(
     id: string,
-    data: Parameters<SecretariatRepository["updateOutgoingMail"]>[1],
+    data: Parameters<OutgoingMailRepository["updateOutgoingMail"]>[1],
   ) {
     const mail = await repo.findOutgoingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Keluar", id);
@@ -157,7 +160,7 @@ export const outgoingMailService = {
     }
 
     const updateData: Partial<
-      Parameters<SecretariatRepository["updateOutgoingMail"]>[1]
+      Parameters<OutgoingMailRepository["updateOutgoingMail"]>[1]
     > = { status: newStatus };
 
     if (newStatus === "SENT") {

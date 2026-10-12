@@ -14,8 +14,12 @@ import type {
   DocumentArchiveEntity,
 } from "./entities";
 
-export interface SecretariatRepository {
-  // Incoming Mail
+/**
+ * Antarmuka penyimpanan per agregat. Tiap agregat mendeklarasikan operasinya
+ * sendiri, sehingga mengimplementasikan satu agregat tidak berarti
+ * mengimplementasikan seluruh modul.
+ */
+export interface IncomingMailRepository {
   findManyIncomingMails(params: {
     search?: string;
     status?: IncomingMailStatus;
@@ -50,7 +54,24 @@ export interface SecretariatRepository {
     limit?: number;
   }): Promise<IncomingMailEntity[]>;
 
-  // Outgoing Mail
+  findRecentIncomingMails(limit: number): Promise<IncomingMailEntity[]>;
+
+  countIncomingMailsByStatus(): Promise<{
+    received: number;
+    archived: number;
+  }>;
+
+  countIncomingMailsByMonth(
+    year: number,
+  ): Promise<Array<{ month: number; count: number }>>;
+
+  countIncomingMailsByMonthRange(
+    from: Date,
+    to: Date,
+  ): Promise<Array<{ year: number; month: number; count: number }>>;
+}
+
+export interface OutgoingMailRepository {
   findManyOutgoingMails(params: {
     search?: string;
     status?: OutgoingMailStatus;
@@ -89,7 +110,25 @@ export interface SecretariatRepository {
     limit?: number;
   }): Promise<OutgoingMailEntity[]>;
 
-  // Disposition
+  findRecentOutgoingMails(limit: number): Promise<OutgoingMailEntity[]>;
+
+  countOutgoingMailsByStatus(): Promise<{
+    draft: number;
+    sent: number;
+    archived: number;
+  }>;
+
+  countOutgoingMailsByMonth(
+    year: number,
+  ): Promise<Array<{ month: number; count: number }>>;
+
+  countOutgoingMailsByMonthRange(
+    from: Date,
+    to: Date,
+  ): Promise<Array<{ year: number; month: number; count: number }>>;
+}
+
+export interface DispositionRepository {
   findManyDispositions(params: {
     incomingMailId?: string;
     assignedToId?: string;
@@ -117,8 +156,9 @@ export interface SecretariatRepository {
   ): Promise<DispositionEntity>;
 
   deleteDisposition(id: string): Promise<void>;
+}
 
-  // Administrative Document
+export interface AdministrativeDocumentRepository {
   findManyAdministrativeDocuments(params: {
     search?: string;
     status?: AdministrativeDocumentStatus;
@@ -153,8 +193,9 @@ export interface SecretariatRepository {
   ): Promise<AdministrativeDocumentEntity>;
 
   softDeleteAdministrativeDocument(id: string): Promise<void>;
+}
 
-  // Agenda Book
+export interface AgendaBookRepository {
   findManyAgendaBooks(params: {
     search?: string;
     page: number;
@@ -169,9 +210,7 @@ export interface SecretariatRepository {
 
   updateAgendaBook(
     id: string,
-    data: Partial<
-      Omit<AgendaBookEntity, "id" | "createdAt" | "deletedAt">
-    >,
+    data: Partial<Omit<AgendaBookEntity, "id" | "createdAt" | "deletedAt">>,
   ): Promise<AgendaBookEntity>;
 
   softDeleteAgendaBook(id: string): Promise<void>;
@@ -181,7 +220,13 @@ export interface SecretariatRepository {
     to: Date;
   }): Promise<AgendaBookEntity[]>;
 
-  // Document Archive (read-only)
+  findUpcomingAgendas(params: {
+    from: Date;
+    limit: number;
+  }): Promise<AgendaBookEntity[]>;
+}
+
+export interface DocumentArchiveRepository {
   findManyDocumentArchives(params: {
     search?: string;
     documentType?: DocumentType;
@@ -190,34 +235,19 @@ export interface SecretariatRepository {
   }): Promise<{ items: DocumentArchiveEntity[]; total: number }>;
 
   findDocumentArchiveById(id: string): Promise<DocumentArchiveEntity | null>;
+}
 
-  // Dashboard
+/**
+ * Operasi yang menyentuh lebih dari satu agregat: statistik, dasbor, dan
+ * tren. Tiket 07 memindahkannya ke lapisan baca.
+ */
+export interface SecretariatReportingRepository {
   getDashboardStats(): Promise<{
     totalIncomingMails: number;
     totalOutgoingMails: number;
     pendingDispositions: number;
     totalAdministrativeDocuments: number;
     totalAgenda: number;
-  }>;
-
-  findRecentOutgoingMails(limit: number): Promise<OutgoingMailEntity[]>;
-
-  findRecentIncomingMails(limit: number): Promise<IncomingMailEntity[]>;
-
-  findUpcomingAgendas(params: {
-    from: Date;
-    limit: number;
-  }): Promise<AgendaBookEntity[]>;
-
-  countIncomingMailsByStatus(): Promise<{
-    received: number;
-    archived: number;
-  }>;
-
-  countOutgoingMailsByStatus(): Promise<{
-    draft: number;
-    sent: number;
-    archived: number;
   }>;
 
   getSuratMenyuratStats(): Promise<{
@@ -228,11 +258,6 @@ export interface SecretariatRepository {
     latestIssued: OutgoingMailEntity | null;
   }>;
 
-  countIncomingMailsByMonth(year: number): Promise<Array<{ month: number; count: number }>>;
-
-  countOutgoingMailsByMonth(year: number): Promise<Array<{ month: number; count: number }>>;
-
-  // Dashboard (action queue)
   findDashboardDispositions(limit: number): Promise<
     Array<
       DispositionEntity & {
@@ -250,19 +275,18 @@ export interface SecretariatRepository {
     submittedDocuments: number;
   }>;
 
-  countIncomingMailsByMonthRange(
-    from: Date,
-    to: Date,
-  ): Promise<Array<{ year: number; month: number; count: number }>>;
-
-  countOutgoingMailsByMonthRange(
-    from: Date,
-    to: Date,
-  ): Promise<Array<{ year: number; month: number; count: number }>>;
-
   countMissingAttachments(): Promise<{
     outgoing: number;
     incoming: number;
     documents: number;
   }>;
 }
+
+/** Seluruh operasi penyimpanan modul secretariat (irisan antarmuka per agregat). */
+export type SecretariatRepository = IncomingMailRepository &
+  OutgoingMailRepository &
+  DispositionRepository &
+  AdministrativeDocumentRepository &
+  AgendaBookRepository &
+  DocumentArchiveRepository &
+  SecretariatReportingRepository;

@@ -1,7 +1,11 @@
 import type { DocumentType } from "@/generated/client";
 
-import { secretariatRepository as repo } from "../infrastructure/repository";
+import type { DocumentArchiveRepository } from "../domain/repository";
+import { secretariatRepository } from "../infrastructure/repository";
 import { EntityNotFoundError } from "../domain/secretariat.errors";
+
+/** Penyimpanan agregat Arsip Dokumen — hanya operasi agregat ini. */
+const repo: DocumentArchiveRepository = secretariatRepository;
 
 /**
  * Agregat Arsip Dokumen — baca saja. Entitas `DocumentArchive` tidak dipakai

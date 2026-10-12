@@ -1,7 +1,7 @@
 import type { IncomingMailStatus } from "@/generated/client";
 
-import type { SecretariatRepository } from "../domain/repository";
-import { secretariatRepository as repo } from "../infrastructure/repository";
+import type { IncomingMailRepository } from "../domain/repository";
+import { secretariatRepository } from "../infrastructure/repository";
 import {
   DuplicateNumberError,
   EntityNotFoundError,
@@ -11,6 +11,9 @@ import {
   VALID_INCOMING_MAIL_TRANSITIONS,
   canTransition,
 } from "./status-transition";
+
+/** Penyimpanan agregat Surat Masuk — hanya operasi agregat ini. */
+const repo: IncomingMailRepository = secretariatRepository;
 
 /** Perilaku agregat Surat Masuk. */
 export const incomingMailService = {
@@ -36,7 +39,7 @@ export const incomingMailService = {
 
   async createIncomingMail(
     data: Omit<
-      Parameters<SecretariatRepository["createIncomingMail"]>[0],
+      Parameters<IncomingMailRepository["createIncomingMail"]>[0],
       "status"
     >,
   ) {
@@ -52,7 +55,7 @@ export const incomingMailService = {
 
   async updateIncomingMail(
     id: string,
-    data: Parameters<SecretariatRepository["updateIncomingMail"]>[1],
+    data: Parameters<IncomingMailRepository["updateIncomingMail"]>[1],
   ) {
     const mail = await repo.findIncomingMailById(id);
     if (!mail) throw new EntityNotFoundError("Surat Masuk", id);
