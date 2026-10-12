@@ -16,7 +16,6 @@
  *
  * Perilaku lain yang dikunci apa adanya (dicatat, bukan diperbaiki di sini):
  *   - deleteDisposition menghapus permanen (hard delete).
- *   - updateAgendaBook mengirim payload lewat `as any` di service.
  *   - DocumentArchive adalah kode mati yang dipertahankan.
  */
 
@@ -1203,7 +1202,7 @@ describe("Buku Agenda", () => {
     ).rejects.toBeInstanceOf(EntityNotFoundError);
   });
 
-  it("meneruskan tanggal saat agenda diperbarui [payload dikonversi via as any, dicatat tiket 05]", async () => {
+  it("meneruskan tanggal saat agenda diperbarui", async () => {
     vi.mocked(repo.findAgendaBookById).mockResolvedValue(agendaBook());
     vi.mocked(repo.updateAgendaBook).mockResolvedValue(agendaBook());
 
