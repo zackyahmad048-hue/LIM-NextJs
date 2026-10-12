@@ -33,14 +33,14 @@ export const agendaBookRepository: AgendaBookRepository = {
   },
 
   async createAgendaBook(data) {
-    const item = await prisma.agendaBook.create({ data: data as any });
+    const item = await prisma.agendaBook.create({ data });
     return item as AgendaBookEntity;
   },
 
   async updateAgendaBook(id, data) {
     const item = await prisma.agendaBook.update({
       where: { id },
-      data: data as any,
+      data,
     });
     return item as AgendaBookEntity;
   },

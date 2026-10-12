@@ -1,7 +1,23 @@
 import { Prisma } from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
-import type { OutgoingMailEntity } from "../domain/entities";
+import type {
+  OutgoingMailEntity,
+  QrPagePositionMm,
+  QrPositionMm,
+} from "../domain/entities";
 import type { OutgoingMailRepository } from "../domain/repository";
+
+/**
+ * Kolom JSON Prisma tidak menerima `null` polos (harus sentinel) maupun interface
+ * biasa. Konversi dilakukan di batas infrastruktur.
+ */
+function jsonOrDbNull(
+  value: QrPagePositionMm | QrPositionMm | null | undefined,
+): Prisma.InputJsonValue | typeof Prisma.DbNull | undefined {
+  if (value === undefined) return undefined;
+  if (value === null) return Prisma.DbNull;
+  return value as unknown as Prisma.InputJsonValue;
+}
 
 export const outgoingMailRepository: OutgoingMailRepository = {
   async findManyOutgoingMails({ search, status, page, limit }) {
@@ -52,14 +68,26 @@ export const outgoingMailRepository: OutgoingMailRepository = {
   },
 
   async createOutgoingMail(data) {
-    const item = await prisma.outgoingMail.create({ data: data as any });
+    const item = await prisma.outgoingMail.create({
+      data: {
+        ...data,
+        qrKetuaPosition: jsonOrDbNull(data.qrKetuaPosition),
+        qrSekretarisPosition: jsonOrDbNull(data.qrSekretarisPosition),
+        qrVerifikasiPosition: jsonOrDbNull(data.qrVerifikasiPosition),
+      },
+    });
     return item as OutgoingMailEntity;
   },
 
   async updateOutgoingMail(id, data) {
     const item = await prisma.outgoingMail.update({
       where: { id },
-      data: data as any,
+      data: {
+        ...data,
+        qrKetuaPosition: jsonOrDbNull(data.qrKetuaPosition),
+        qrSekretarisPosition: jsonOrDbNull(data.qrSekretarisPosition),
+        qrVerifikasiPosition: jsonOrDbNull(data.qrVerifikasiPosition),
+      },
     });
     return item as OutgoingMailEntity;
   },

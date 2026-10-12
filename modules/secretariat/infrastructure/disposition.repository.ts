@@ -29,7 +29,7 @@ export const dispositionRepository: DispositionRepository = {
       prisma.disposition.count({ where }),
     ]);
 
-    return { items: items as any, total };
+    return { items, total };
   },
 
   async findDispositionById(id) {
@@ -40,14 +40,14 @@ export const dispositionRepository: DispositionRepository = {
   },
 
   async createDisposition(data) {
-    const item = await prisma.disposition.create({ data: data as any });
+    const item = await prisma.disposition.create({ data });
     return item as DispositionEntity;
   },
 
   async updateDisposition(id, data) {
     const item = await prisma.disposition.update({
       where: { id },
-      data: data as any,
+      data,
     });
     return item as DispositionEntity;
   },

@@ -46,7 +46,7 @@ export const incomingMailRepository: IncomingMailRepository = {
       data: {
         ...data,
         archivedAt: data.status === "ARCHIVED" ? new Date() : null,
-      } as any,
+      },
     });
     return item as IncomingMailEntity;
   },
@@ -54,7 +54,7 @@ export const incomingMailRepository: IncomingMailRepository = {
   async updateIncomingMail(id, data) {
     const item = await prisma.incomingMail.update({
       where: { id },
-      data: data as any,
+      data,
     });
     return item as IncomingMailEntity;
   },

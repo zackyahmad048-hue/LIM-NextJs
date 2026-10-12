@@ -28,6 +28,7 @@ import {
   SecretariatError,
   DuplicateNumberError,
 } from "../domain/secretariat.errors";
+import type { AgendaBookEntity } from "../domain/entities";
 import {
   uploadSecretariatAttachmentFile,
   type AttachmentFolder,
@@ -567,8 +568,10 @@ export async function updateAgendaBook(
 
   try {
     await requireSessionWithPermissions(PERMISSION_AGENDA_UPDATE);
-    const data: Record<string, unknown> = {};
-    if (parsed.data.date) data.date = parsed.data.date;
+    const data: Partial<
+      Omit<AgendaBookEntity, "id" | "createdAt" | "deletedAt">
+    > = {};
+    if (parsed.data.date) data.date = new Date(parsed.data.date);
     if (parsed.data.title) data.title = parsed.data.title;
     if (parsed.data.description !== undefined)
       data.description = parsed.data.description || null;
@@ -578,7 +581,7 @@ export async function updateAgendaBook(
       data.participants = parsed.data.participants || null;
     if (parsed.data.notes !== undefined) data.notes = parsed.data.notes || null;
 
-    await secretariatService.updateAgendaBook(id, data as any);
+    await secretariatService.updateAgendaBook(id, data);
     revalidatePath("/admin/secretariat/agenda");
     return { ok: true, message: "Perubahan agenda disimpan." };
   } catch {

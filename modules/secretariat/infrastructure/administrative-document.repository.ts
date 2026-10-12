@@ -58,7 +58,7 @@ export const administrativeDocumentRepository: AdministrativeDocumentRepository 
         data: {
           ...data,
           archivedAt: data.status === "ARCHIVED" ? new Date() : null,
-        } as any,
+        },
       });
       return item as AdministrativeDocumentEntity;
     },
@@ -66,7 +66,7 @@ export const administrativeDocumentRepository: AdministrativeDocumentRepository 
     async updateAdministrativeDocument(id, data) {
       const item = await prisma.administrativeDocument.update({
         where: { id },
-        data: data as any,
+        data,
       });
       return item as AdministrativeDocumentEntity;
     },
