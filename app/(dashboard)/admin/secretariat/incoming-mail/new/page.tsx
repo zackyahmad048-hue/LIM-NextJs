@@ -23,7 +23,7 @@ export default function NewIncomingMailPage() {
       />
 
       <ActionForm action={createIncomingMail} submitLabel="Simpan Surat Masuk" submitIcon={<Plus className="size-4" />}>
-        <Band variant="raised" title="Informasi Surat Masuk" description="Surat masuk otomatis diarsipkan saat disimpan.">
+        <Band variant="raised" title="Informasi Surat Masuk" description="Surat masuk tersimpan dengan status Diterima; pengarsipan dilakukan lewat aksi Arsipkan.">
           <div className="grid gap-3 md:grid-cols-2">
             <FormGroup legend="Nomor Surat Pengirim">
               <Input

@@ -12,7 +12,7 @@ import {
 import {
   VALID_DISPOSITION_TRANSITIONS,
   canTransition,
-} from "./status-transition";
+} from "../domain/status-transition";
 
 /**
  * Disposisi memakai penyimpanannya sendiri, ditambah satu pembacaan lintas

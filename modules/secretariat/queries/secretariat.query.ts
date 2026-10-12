@@ -6,7 +6,7 @@ import type {
   DocumentType,
 } from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
-import type { DispositionEntity, OutgoingMailEntity } from "../domain/entities";
+import type { OutgoingMailEntity } from "../domain/entities";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { getLetterNumberingConfig as getLetterNumberingConfigSetting } from "../infrastructure/letter-numbering.config";
 import { secretariatService } from "../application/service";

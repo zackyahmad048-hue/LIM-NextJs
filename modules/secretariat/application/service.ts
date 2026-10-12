@@ -11,7 +11,7 @@ export {
   VALID_INCOMING_MAIL_TRANSITIONS,
   VALID_OUTGOING_MAIL_TRANSITIONS,
   canTransition,
-} from "./status-transition";
+} from "../domain/status-transition";
 
 /**
  * Fasad service secretariat. Perilaku tiap agregat berada di file sendiri,

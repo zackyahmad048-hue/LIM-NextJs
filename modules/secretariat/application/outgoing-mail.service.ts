@@ -13,7 +13,7 @@ import {
 import {
   VALID_OUTGOING_MAIL_TRANSITIONS,
   canTransition,
-} from "./status-transition";
+} from "../domain/status-transition";
 
 /** Penyimpanan agregat Surat Keluar — hanya operasi agregat ini. */
 const repo: OutgoingMailRepository = secretariatRepository;

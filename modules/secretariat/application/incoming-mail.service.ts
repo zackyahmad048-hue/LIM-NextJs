@@ -10,7 +10,7 @@ import {
 import {
   VALID_INCOMING_MAIL_TRANSITIONS,
   canTransition,
-} from "./status-transition";
+} from "../domain/status-transition";
 
 /** Penyimpanan agregat Surat Masuk — hanya operasi agregat ini. */
 const repo: IncomingMailRepository = secretariatRepository;

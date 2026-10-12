@@ -6,8 +6,11 @@ import {
   DOMMatrix,
   Path2D,
   loadImage,
+  type Canvas,
+  type SKRSContext2D,
 } from "@napi-rs/canvas";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 
 globalThis.DOMMatrix = DOMMatrix as unknown as typeof globalThis.DOMMatrix;
 globalThis.Path2D = Path2D as unknown as typeof globalThis.Path2D;
@@ -26,8 +29,8 @@ const cMapUrl = resolveDataUrl("cmaps");
 const standardFontDataUrl = resolveDataUrl("standard_fonts");
 
 export interface CanvasAndContext {
-  canvas: any;
-  context: any;
+  canvas: Canvas;
+  context: SKRSContext2D;
 }
 
 /**
@@ -49,12 +52,16 @@ export class NodeCanvasFactory {
   destroy(canvasAndContext: CanvasAndContext) {
     canvasAndContext.canvas.width = 0;
     canvasAndContext.canvas.height = 0;
-    canvasAndContext.canvas = null;
-    canvasAndContext.context = null;
+    canvasAndContext.canvas = null as unknown as Canvas;
+    canvasAndContext.context = null as unknown as SKRSContext2D;
   }
 }
 
-function drawWatermark(context: any, width: number, height: number) {
+function drawWatermark(
+  context: SKRSContext2D,
+  width: number,
+  height: number,
+) {
   context.save();
   context.globalAlpha = 0.09;
   context.fillStyle = "#111827";
@@ -82,12 +89,13 @@ export async function renderPdfPreview(buffer: Buffer): Promise<Buffer> {
     standardFontDataUrl,
   });
 
-  let doc: any = null;
+  let doc: PDFDocumentProxy | null = null;
   const rendered: CanvasAndContext[] = [];
   try {
-    doc = await loadingTask.promise;
-    for (let pageNumber = 1; pageNumber <= doc.numPages; pageNumber++) {
-      const page = await doc.getPage(pageNumber);
+    const pdf = (await loadingTask.promise) as PDFDocumentProxy;
+    doc = pdf;
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+      const page = await pdf.getPage(pageNumber);
       const baseViewport = page.getViewport({ scale: 1 });
       const scale = Math.min(
         PDF_SCALE,
@@ -103,9 +111,10 @@ export async function renderPdfPreview(buffer: Buffer): Promise<Buffer> {
       context.fillRect(0, 0, viewport.width, viewport.height);
 
       await page.render({
-        canvasContext: context,
+        // pdfjs mengetik canvasContext sebagai DOM CanvasRenderingContext2D;
+        // SKRSContext2D dari @napi-rs/canvas kompatibel saat runtime.
+        canvasContext: context as unknown as CanvasRenderingContext2D,
         viewport,
-        canvasFactory,
       }).promise;
 
       drawWatermark(context, viewport.width, viewport.height);

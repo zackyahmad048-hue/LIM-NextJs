@@ -2,6 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 
 import { NodeCanvasFactory } from "./preview.service";
 
@@ -44,12 +45,13 @@ export async function renderPdfPagesForEditor(
     standardFontDataUrl,
   });
 
-  let doc: any = null;
+  let doc: PDFDocumentProxy | null = null;
   const pages: EditorPdfPage[] = [];
   try {
-    doc = await loadingTask.promise;
-    for (let pageNumber = 1; pageNumber <= doc.numPages; pageNumber++) {
-      const page = await doc.getPage(pageNumber);
+    const pdf = (await loadingTask.promise) as PDFDocumentProxy;
+    doc = pdf;
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+      const page = await pdf.getPage(pageNumber);
       const baseViewport = page.getViewport({ scale: 1 });
       const scale = Math.min(
         QR_EDITOR_SCALE,
@@ -64,7 +66,12 @@ export async function renderPdfPagesForEditor(
       context.fillStyle = "#ffffff";
       context.fillRect(0, 0, viewport.width, viewport.height);
 
-      await page.render({ canvasContext: context, viewport }).promise;
+      await page.render({
+        // pdfjs mengetik canvasContext sebagai DOM CanvasRenderingContext2D;
+        // SKRSContext2D dari @napi-rs/canvas kompatibel saat runtime.
+        canvasContext: context as unknown as CanvasRenderingContext2D,
+        viewport,
+      }).promise;
 
       pages.push({
         page: pageNumber,

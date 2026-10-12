@@ -13,7 +13,7 @@ import {
 import {
   VALID_ADMINISTRATIVE_DOCUMENT_TRANSITIONS,
   canTransition,
-} from "./status-transition";
+} from "../domain/status-transition";
 
 /** Penyimpanan agregat Dokumen Administrasi — hanya operasi agregat ini. */
 const repo: AdministrativeDocumentRepository = secretariatRepository;
