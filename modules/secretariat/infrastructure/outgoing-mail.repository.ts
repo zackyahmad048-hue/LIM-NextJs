@@ -99,45 +99,4 @@ export const outgoingMailRepository: OutgoingMailRepository = {
     });
     return items as unknown as OutgoingMailEntity[];
   },
-
-  async countOutgoingMailsByStatus() {
-    const [draft, sent, archived] = await Promise.all([
-      prisma.outgoingMail.count({
-        where: { status: "DRAFT", deletedAt: null },
-      }),
-      prisma.outgoingMail.count({ where: { status: "SENT", deletedAt: null } }),
-      prisma.outgoingMail.count({
-        where: { status: "ARCHIVED", deletedAt: null },
-      }),
-    ]);
-
-    return { draft, sent, archived };
-  },
-
-  async countOutgoingMailsByMonth(year) {
-    const rows = await prisma.$queryRaw<
-      Array<{ month: number; count: number }>
-    >`SELECT EXTRACT(MONTH FROM "createdAt")::int AS month, COUNT(*)::int AS count
-       FROM outgoing_mail
-       WHERE "createdAt" >= ${new Date(`${year}-01-01`)}::date
-         AND "createdAt" < ${new Date(`${year + 1}-01-01`)}::date
-         AND "deletedAt" IS NULL
-       GROUP BY 1
-       ORDER BY 1`;
-    return rows;
-  },
-
-  async countOutgoingMailsByMonthRange(from, to) {
-    const rows = await prisma.$queryRaw<
-      Array<{ year: number; month: number; count: number }>
-    >`SELECT EXTRACT(YEAR FROM "createdAt")::int AS year,
-              EXTRACT(MONTH FROM "createdAt")::int AS month,
-              COUNT(*)::int AS count
-       FROM outgoing_mail
-       WHERE "createdAt" >= ${from} AND "createdAt" < ${to}
-         AND "deletedAt" IS NULL
-       GROUP BY 1, 2
-       ORDER BY 1, 2`;
-    return rows;
-  },
 };

@@ -199,8 +199,4 @@ export const outgoingMailService = {
   async listRecentOutgoingMails(limit: number) {
     return repo.findRecentOutgoingMails(limit);
   },
-
-  async countOutgoingMailsByMonth(year: number) {
-    return repo.countOutgoingMailsByMonth(year);
-  },
 };

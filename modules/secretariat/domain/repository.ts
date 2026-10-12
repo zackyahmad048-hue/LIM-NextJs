@@ -55,20 +55,6 @@ export interface IncomingMailRepository {
   }): Promise<IncomingMailEntity[]>;
 
   findRecentIncomingMails(limit: number): Promise<IncomingMailEntity[]>;
-
-  countIncomingMailsByStatus(): Promise<{
-    received: number;
-    archived: number;
-  }>;
-
-  countIncomingMailsByMonth(
-    year: number,
-  ): Promise<Array<{ month: number; count: number }>>;
-
-  countIncomingMailsByMonthRange(
-    from: Date,
-    to: Date,
-  ): Promise<Array<{ year: number; month: number; count: number }>>;
 }
 
 export interface OutgoingMailRepository {
@@ -111,21 +97,6 @@ export interface OutgoingMailRepository {
   }): Promise<OutgoingMailEntity[]>;
 
   findRecentOutgoingMails(limit: number): Promise<OutgoingMailEntity[]>;
-
-  countOutgoingMailsByStatus(): Promise<{
-    draft: number;
-    sent: number;
-    archived: number;
-  }>;
-
-  countOutgoingMailsByMonth(
-    year: number,
-  ): Promise<Array<{ month: number; count: number }>>;
-
-  countOutgoingMailsByMonthRange(
-    from: Date,
-    to: Date,
-  ): Promise<Array<{ year: number; month: number; count: number }>>;
 }
 
 export interface DispositionRepository {
@@ -237,56 +208,10 @@ export interface DocumentArchiveRepository {
   findDocumentArchiveById(id: string): Promise<DocumentArchiveEntity | null>;
 }
 
-/**
- * Operasi yang menyentuh lebih dari satu agregat: statistik, dasbor, dan
- * tren. Tiket 07 memindahkannya ke lapisan baca.
- */
-export interface SecretariatReportingRepository {
-  getDashboardStats(): Promise<{
-    totalIncomingMails: number;
-    totalOutgoingMails: number;
-    pendingDispositions: number;
-    totalAdministrativeDocuments: number;
-    totalAgenda: number;
-  }>;
-
-  getSuratMenyuratStats(): Promise<{
-    outgoingTotal: number;
-    incomingTotal: number;
-    archivedTotal: number;
-    pendingCount: number;
-    latestIssued: OutgoingMailEntity | null;
-  }>;
-
-  findDashboardDispositions(limit: number): Promise<
-    Array<
-      DispositionEntity & {
-        incomingMail: { registrationNumber: string; subject: string };
-        assignedTo: { id: string; name: string } | null;
-        overdue: boolean;
-      }
-    >
-  >;
-
-  countDashboardActionItems(): Promise<{
-    pendingDispositions: number;
-    draftOutgoing: number;
-    receivedIncoming: number;
-    submittedDocuments: number;
-  }>;
-
-  countMissingAttachments(): Promise<{
-    outgoing: number;
-    incoming: number;
-    documents: number;
-  }>;
-}
-
 /** Seluruh operasi penyimpanan modul secretariat (irisan antarmuka per agregat). */
 export type SecretariatRepository = IncomingMailRepository &
   OutgoingMailRepository &
   DispositionRepository &
   AdministrativeDocumentRepository &
   AgendaBookRepository &
-  DocumentArchiveRepository &
-  SecretariatReportingRepository;
+  DocumentArchiveRepository;

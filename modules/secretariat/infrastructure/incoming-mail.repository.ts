@@ -94,44 +94,4 @@ export const incomingMailRepository: IncomingMailRepository = {
     });
     return items as unknown as IncomingMailEntity[];
   },
-
-  async countIncomingMailsByStatus() {
-    const [received, archived] = await Promise.all([
-      prisma.incomingMail.count({
-        where: { status: "RECEIVED", deletedAt: null },
-      }),
-      prisma.incomingMail.count({
-        where: { status: "ARCHIVED", deletedAt: null },
-      }),
-    ]);
-
-    return { received, archived };
-  },
-
-  async countIncomingMailsByMonth(year) {
-    const rows = await prisma.$queryRaw<
-      Array<{ month: number; count: number }>
-    >`SELECT EXTRACT(MONTH FROM "receivedDate")::int AS month, COUNT(*)::int AS count
-       FROM incoming_mail
-       WHERE "receivedDate" >= ${new Date(`${year}-01-01`)}::date
-         AND "receivedDate" < ${new Date(`${year + 1}-01-01`)}::date
-         AND "deletedAt" IS NULL
-       GROUP BY 1
-       ORDER BY 1`;
-    return rows;
-  },
-
-  async countIncomingMailsByMonthRange(from, to) {
-    const rows = await prisma.$queryRaw<
-      Array<{ year: number; month: number; count: number }>
-    >`SELECT EXTRACT(YEAR FROM "receivedDate")::int AS year,
-              EXTRACT(MONTH FROM "receivedDate")::int AS month,
-              COUNT(*)::int AS count
-       FROM incoming_mail
-       WHERE "receivedDate" >= ${from} AND "receivedDate" < ${to}
-         AND "deletedAt" IS NULL
-       GROUP BY 1, 2
-       ORDER BY 1, 2`;
-    return rows;
-  },
 };

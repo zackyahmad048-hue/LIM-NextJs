@@ -56,12 +56,9 @@ vi.mock("../infrastructure/repository", () => ({
     findAgendasInRange: vi.fn(),
     findManyDocumentArchives: vi.fn(),
     findDocumentArchiveById: vi.fn(),
-    getDashboardStats: vi.fn(),
     findRecentOutgoingMails: vi.fn(),
     findRecentIncomingMails: vi.fn(),
     findUpcomingAgendas: vi.fn(),
-    countIncomingMailsByMonth: vi.fn(),
-    countOutgoingMailsByMonth: vi.fn(),
   },
 }));
 
@@ -1328,38 +1325,6 @@ describe("Baca dasbor", () => {
     await secretariatService.listUpcomingAgendas({ from, limit: 5 });
 
     expect(repo.findUpcomingAgendas).toHaveBeenCalledWith({ from, limit: 5 });
-  });
-
-  it("meneruskan tahun saat tren bulanan diminta", async () => {
-    vi.mocked(repo.countIncomingMailsByMonth).mockResolvedValue([]);
-    vi.mocked(repo.countOutgoingMailsByMonth).mockResolvedValue([]);
-
-    await secretariatService.countIncomingMailsByMonth(2026);
-    await secretariatService.countOutgoingMailsByMonth(2026);
-
-    expect(repo.countIncomingMailsByMonth).toHaveBeenCalledWith(2026);
-    expect(repo.countOutgoingMailsByMonth).toHaveBeenCalledWith(2026);
-  });
-
-  it("meneruskan statistik dasbor", async () => {
-    vi.mocked(repo.getDashboardStats).mockResolvedValue({
-      totalIncomingMails: 2,
-      totalOutgoingMails: 3,
-      pendingDispositions: 1,
-      totalAdministrativeDocuments: 4,
-      totalAgenda: 5,
-    });
-
-    const stats = await secretariatService.getDashboardStats();
-
-    expect(repo.getDashboardStats).toHaveBeenCalledTimes(1);
-    expect(stats).toEqual({
-      totalIncomingMails: 2,
-      totalOutgoingMails: 3,
-      pendingDispositions: 1,
-      totalAdministrativeDocuments: 4,
-      totalAgenda: 5,
-    });
   });
 });
 

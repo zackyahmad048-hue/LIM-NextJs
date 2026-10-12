@@ -1,5 +1,3 @@
-import type { SecretariatReportingRepository } from "../domain/repository";
-import { secretariatRepository } from "../infrastructure/repository";
 import { administrativeDocumentService } from "./administrative-document.service";
 import { agendaService } from "./agenda.service";
 import { archiveService } from "./archive.service";
@@ -15,9 +13,6 @@ export {
   canTransition,
 } from "./status-transition";
 
-/** Penyimpanan operasi lintas agregat — sementara, sampai tiket 07. */
-const repo: SecretariatReportingRepository = secretariatRepository;
-
 /**
  * Fasad service secretariat. Perilaku tiap agregat berada di file sendiri,
  * sehingga satu perubahan hanya menyentuh satu agregat. Fasad ini menjaga
@@ -31,9 +26,4 @@ export const secretariatService = {
   ...administrativeDocumentService,
   ...agendaService,
   ...archiveService,
-
-  // Baca dasbor belum punya agregat. Dipindahkan ke lapisan baca di tiket 07.
-  async getDashboardStats() {
-    return repo.getDashboardStats();
-  },
 };

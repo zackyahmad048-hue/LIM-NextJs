@@ -105,8 +105,4 @@ export const incomingMailService = {
   async listRecentIncomingMails(limit: number) {
     return repo.findRecentIncomingMails(limit);
   },
-
-  async countIncomingMailsByMonth(year: number) {
-    return repo.countIncomingMailsByMonth(year);
-  },
 };

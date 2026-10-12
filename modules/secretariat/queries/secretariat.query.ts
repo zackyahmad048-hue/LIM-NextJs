@@ -6,6 +6,7 @@ import type {
   DocumentType,
 } from "@/generated/client";
 import { prisma } from "@/modules/shared/infrastructure/prisma";
+import type { DispositionEntity, OutgoingMailEntity } from "../domain/entities";
 import { secretariatRepository as repo } from "../infrastructure/repository";
 import { getLetterNumberingConfig as getLetterNumberingConfigSetting } from "../infrastructure/letter-numbering.config";
 import { secretariatService } from "../application/service";
@@ -147,11 +148,56 @@ export async function getAgendaBookById(id: string) {
 
 
 export async function getSecretariatStats() {
-  return repo.getDashboardStats();
+  const [
+    totalIncomingMails,
+    totalOutgoingMails,
+    pendingDispositions,
+    totalAdministrativeDocuments,
+    totalAgenda,
+  ] = await Promise.all([
+    prisma.incomingMail.count({ where: { deletedAt: null } }),
+    prisma.outgoingMail.count({ where: { deletedAt: null } }),
+    prisma.disposition.count({ where: { status: "PENDING", deletedAt: null } }),
+    prisma.administrativeDocument.count({ where: { deletedAt: null } }),
+    prisma.agendaBook.count({ where: { deletedAt: null } }),
+  ]);
+
+  return {
+    totalIncomingMails,
+    totalOutgoingMails,
+    pendingDispositions,
+    totalAdministrativeDocuments,
+    totalAgenda,
+  };
 }
 
 export async function getSuratMenyuratStats() {
-  return repo.getSuratMenyuratStats();
+  const [
+    outgoingTotal,
+    incomingTotal,
+    archivedTotal,
+    pendingCount,
+    latestIssued,
+  ] = await Promise.all([
+    prisma.outgoingMail.count({ where: { deletedAt: null } }),
+    prisma.incomingMail.count({ where: { deletedAt: null } }),
+    prisma.outgoingMail.count({
+      where: { status: "ARCHIVED", deletedAt: null },
+    }),
+    prisma.outgoingMail.count({ where: { status: "DRAFT", deletedAt: null } }),
+    prisma.outgoingMail.findFirst({
+      where: { fullNumber: { not: null }, deletedAt: null },
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
+
+  return {
+    outgoingTotal,
+    incomingTotal,
+    archivedTotal,
+    pendingCount,
+    latestIssued: latestIssued as OutgoingMailEntity | null,
+  };
 }
 
 
@@ -159,7 +205,7 @@ export async function getSecretariatDashboardData(limit = 5) {
   const now = new Date();
   const [stats, recentOutgoing, recentIncoming, upcomingAgendas] =
     await Promise.all([
-      repo.getDashboardStats(),
+      getSecretariatStats(),
       secretariatService.listRecentOutgoingMails(limit),
       secretariatService.listRecentIncomingMails(limit),
       secretariatService.listUpcomingAgendas({ from: now, limit }),
@@ -180,12 +226,75 @@ export async function getMediaByFileId(fileId: string) {
 }
 
 export async function getDashboardActionQueue(limit = 8) {
-  const [dispositions, counts] = await Promise.all([
-    repo.findDashboardDispositions(limit),
-    repo.countDashboardActionItems(),
+  const [items, counts] = await Promise.all([
+    prisma.disposition.findMany({
+      where: {
+        status: { in: ["PENDING", "IN_PROGRESS"] },
+        deletedAt: null,
+      },
+      include: {
+        incomingMail: { select: { registrationNumber: true, subject: true } },
+      },
+      orderBy: { dueDate: "asc" },
+      take: limit,
+    }),
+    Promise.all([
+      prisma.disposition.count({
+        where: { status: { in: ["PENDING", "IN_PROGRESS"] }, deletedAt: null },
+      }),
+      prisma.outgoingMail.count({
+        where: { status: "DRAFT", deletedAt: null },
+      }),
+      prisma.incomingMail.count({
+        where: { status: "RECEIVED", deletedAt: null },
+      }),
+      prisma.administrativeDocument.count({
+        where: { status: "SUBMITTED", deletedAt: null },
+      }),
+    ]),
   ]);
 
-  return { dispositions, counts };
+  const userIds = [
+    ...new Set(items.map((item) => item.assignedToId).filter(Boolean)),
+  ];
+  const users = await prisma.user.findMany({
+    where: { id: { in: userIds } },
+    select: { id: true, name: true },
+  });
+  const userNames = new Map(users.map((user) => [user.id, user.name]));
+
+  const now = new Date();
+  const dispositions = items
+    .map((item) => ({
+      ...item,
+      assignedTo: userNames.has(item.assignedToId)
+        ? { id: item.assignedToId, name: userNames.get(item.assignedToId)! }
+        : null,
+      overdue: item.dueDate !== null && item.dueDate < now,
+    }))
+    .sort(
+      (a, b) =>
+        Number(b.overdue) - Number(a.overdue) ||
+        (a.dueDate?.getTime() ?? Number.MAX_SAFE_INTEGER) -
+          (b.dueDate?.getTime() ?? Number.MAX_SAFE_INTEGER),
+    );
+
+  const [
+    pendingDispositions,
+    draftOutgoing,
+    receivedIncoming,
+    submittedDocuments,
+  ] = counts;
+
+  return {
+    dispositions,
+    counts: {
+      pendingDispositions,
+      draftOutgoing,
+      receivedIncoming,
+      submittedDocuments,
+    },
+  };
 }
 
 export async function getDashboardTrend(months = 12) {
@@ -194,8 +303,24 @@ export async function getDashboardTrend(months = 12) {
   const end = new Date(now.getFullYear(), now.getMonth() + 1, 1);
 
   const [incomingRows, outgoingRows] = await Promise.all([
-    repo.countIncomingMailsByMonthRange(start, end),
-    repo.countOutgoingMailsByMonthRange(start, end),
+    prisma.$queryRaw<Array<{ year: number; month: number; count: number }>>`
+      SELECT EXTRACT(YEAR FROM "receivedDate")::int AS year,
+             EXTRACT(MONTH FROM "receivedDate")::int AS month,
+             COUNT(*)::int AS count
+      FROM incoming_mail
+      WHERE "receivedDate" >= ${start} AND "receivedDate" < ${end}
+        AND "deletedAt" IS NULL
+      GROUP BY 1, 2
+      ORDER BY 1, 2`,
+    prisma.$queryRaw<Array<{ year: number; month: number; count: number }>>`
+      SELECT EXTRACT(YEAR FROM "createdAt")::int AS year,
+             EXTRACT(MONTH FROM "createdAt")::int AS month,
+             COUNT(*)::int AS count
+      FROM outgoing_mail
+      WHERE "createdAt" >= ${start} AND "createdAt" < ${end}
+        AND "deletedAt" IS NULL
+      GROUP BY 1, 2
+      ORDER BY 1, 2`,
   ]);
 
   const labelFormatter = new Intl.DateTimeFormat("id-ID", {
@@ -239,13 +364,21 @@ export async function getDashboardTrend(months = 12) {
 }
 
 export async function getDashboardHealth() {
-  const [drive, missingAttachments] = await Promise.all([
+  const [drive, outgoing, incoming, documents] = await Promise.all([
     getDriveConnection(),
-    repo.countMissingAttachments(),
+    prisma.outgoingMail.count({
+      where: { attachmentUrl: null, deletedAt: null },
+    }),
+    prisma.incomingMail.count({
+      where: { attachmentUrl: null, deletedAt: null },
+    }),
+    prisma.administrativeDocument.count({
+      where: { attachmentUrl: null, deletedAt: null },
+    }),
   ]);
 
   return {
     driveEmail: drive?.email ?? null,
-    missingAttachments,
+    missingAttachments: { outgoing, incoming, documents },
   };
 }
