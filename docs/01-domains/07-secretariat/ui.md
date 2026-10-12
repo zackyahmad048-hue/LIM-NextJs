@@ -215,6 +215,16 @@ Menampilkan:
 
 ---
 
+# Temuan (Dokumen vs Kode)
+
+Ketidaksesuaian berikut dicatat, bukan diperbaiki. Tiket ini tidak mengubah perilaku aplikasi.
+
+- **Rute pembuatan tanpa tautan.** Tiga halaman pembuatan — Disposisi baru, Dokumen baru, dan
+  Agenda baru — tidak ditautkan dari mana pun; hanya terjangkau lewat URL langsung
+  (spec secretariat §"Temuan yang sengaja tidak dijadikan pekerjaan").
+
+---
+
 # Acceptance Criteria
 
 - UI konsisten.
