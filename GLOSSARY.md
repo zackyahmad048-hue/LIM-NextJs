@@ -62,9 +62,9 @@ _Avoid_: cek surat, validasi surat
 ### Batasan yang harus diketahui
 
 **Hapus Disposisi**:
-Penghapusan permanen Disposisi. Berbeda dari Surat Masuk, Surat Keluar, dan
-Agenda yang dihapus secara lunak dan tetap dapat dipulihkan.
-_Avoid_: soft delete disposisi
+Penghapusan lunak (mengisi `deletedAt`), sama seperti Surat Masuk, Surat Keluar,
+dan Agenda. Tidak ada aksi pemulihan: disposisi terhapus tak tampil di mana pun.
+_Avoid_: hapus permanen
 
 **DocumentArchive**:
 Entitas arsip tersendiri yang saat ini tidak dipakai halaman mana pun. Halaman

@@ -15,8 +15,8 @@
  * Agenda, Arsip Dokumen, dan baca dasbor.
  *
  * Perilaku lain yang dikunci apa adanya (dicatat, bukan diperbaiki di sini):
- *   - deleteDisposition menghapus lunak di repository (set deletedAt), bertentangan
- *     dengan GLOSSARY yang menyebut "penghapusan permanen" (dicatat tiket 09).
+ *   - deleteDisposition menghapus lunak di repository (mengisi deletedAt); tidak ada
+ *     aksi pemulihan, sehingga efeknya permanen dari sisi aplikasi.
  *   - DocumentArchive adalah kode mati yang dipertahankan.
  */
 
@@ -873,7 +873,7 @@ describe("Disposisi", () => {
     expect(repo.updateDisposition).not.toHaveBeenCalled();
   });
 
-  it("menghapus disposisi lewat deleteDisposition [repository soft delete; bertentangan GLOSSARY, dicatat tiket 09]", async () => {
+  it("menghapus disposisi lewat deleteDisposition [soft delete, tanpa aksi pemulihan]", async () => {
     vi.mocked(repo.findDispositionById).mockResolvedValue(disposition());
     vi.mocked(repo.deleteDisposition).mockResolvedValue(undefined);
 
