@@ -215,6 +215,16 @@ secretariat.audit
 
 ---
 
+# Temuan (Dokumen vs Kode)
+
+Ketidaksesuaian berikut dicatat, bukan diperbaiki. Tiket ini tidak mengubah perilaku aplikasi.
+
+- **Role Matrix vs matriks izin.** Role Matrix memberi Operator akses View, Create, Update, dan Complete Disposition di Secretariat, tetapi `permission.matrix.ts` hanya memberi peran `operator` izin FALAK, PROGRAM, dan TWK — nol izin Secretariat. Kebalikannya, kode memberi `administrator` seluruh izin (termasuk Delete) dan `sekretaris` seluruh izin SECRETARIAT (termasuk Delete), sedangkan Role Matrix menandai Admin dan Secretary `❌` pada Delete. Peran `editor` dan `viewer` yang ada di kode tidak muncul di Role Matrix.
+- **Izin dideklarasikan tetapi tidak dipakai.** Tiga belas slug di `config/permission.ts` tidak diperiksa di mana pun: `secretariat.agenda.delete`, `secretariat.agenda.view`, `secretariat.archive.view`, `secretariat.disposition.complete`, `secretariat.disposition.view`, `secretariat.document.archive`, `secretariat.document.restore`, `secretariat.document.view`, `secretariat.incoming-mail.view`, `secretariat.letter.create`, `secretariat.letter.delete`, `secretariat.outgoing-mail.send`, dan `secretariat.outgoing-mail.view`. Sebabnya: transisi status memakai izin `*.update`, halaman baca hanya memakai `secretariat.view`, dan `agenda.delete` serta `letter.*` tidak memiliki aksi.
+- **Izin di dokumen tanpa pasangan di kode.** `secretariat.dashboard` dan `secretariat.archive.restore` tidak ada di `config/permission.ts`. Sebaliknya, tabel Disposition Permissions di dokumen ini menghilangkan `secretariat.disposition.delete` yang ada di kode.
+
+---
+
 # Related Documents
 
 - README.md

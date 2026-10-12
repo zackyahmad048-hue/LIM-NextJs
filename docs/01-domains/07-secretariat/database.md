@@ -279,9 +279,13 @@ Disposition dan Agenda Book tidak menggunakan Soft Delete.
 ```text id="secdb03"
 Received
 
-Processed
-
 Archived
+```
+
+Transisi sah:
+
+```text id="secdb03b"
+RECEIVED ──▶ ARCHIVED (terminal)
 ```
 
 ---
@@ -362,6 +366,15 @@ document_history
 
 document_comment
 ```
+
+---
+
+# Temuan (Dokumen vs Kode)
+
+Ketidaksesuaian berikut dicatat, bukan diperbaiki. Tiket ini tidak mengubah perilaku aplikasi.
+
+- **Kolom `incoming_mail`.** Bagian Main Tables → incoming_mail menyebut kolom yang tidak ada di skema: `agendaNumber`, `letterNumber`, `letterDate`, dan `attachmentId`. Hal yang sama muncul di indeks `incoming_mail.agendaNumber`/`incoming_mail.letterNumber` (bagian Indexes) dan constraint "agendaNumber wajib unik"/"letterNumber wajib diisi" (bagian Constraints). Skema `IncomingMail` (`prisma/schema.prisma:628`) memakai `registrationNumber` (unik), `senderAddress`, `classification`, `category`, `notes`, `attachmentUrl`, dan `archivedAt`; nomor agenda berada di tabel `agenda_book`.
+- **Soft Delete Disposition.** Bagian Soft Delete menyatakan "Disposition dan Agenda Book tidak menggunakan Soft Delete", tetapi model `Disposition` memiliki `deletedAt` dan `deleteDisposition` mengisinya (`modules/secretariat/infrastructure/disposition.repository.ts:55-60`); daftar disposisi menyaring `deletedAt: null`. Tidak ada aksi pemulihan. GLOSSARY menyebut "Hapus Disposisi" sebagai penghapusan permanen.
 
 ---
 

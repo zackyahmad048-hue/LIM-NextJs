@@ -40,6 +40,13 @@ Setiap Surat Masuk wajib memiliki:
 - Lampiran (Opsional)
 - Status
 
+Status Surat Masuk mengikuti siklus dua status:
+
+```text id="sec01"
+
+RECEIVED ──▶ ARCHIVED (terminal)
+```
+
 ---
 
 # Outgoing Mail Rules
@@ -198,6 +205,14 @@ Business Rules dianggap selesai apabila:
 - Arsip tidak dapat diubah.
 - Dokumen mengikuti alur status yang ditentukan.
 - Seluruh aktivitas tercatat pada Audit Log.
+
+---
+
+# Temuan (Dokumen vs Kode)
+
+Ketidaksesuaian berikut dicatat, bukan diperbaiki. Tiket ini tidak mengubah perilaku aplikasi.
+
+- **Audit Log.** Bagian General Rules, Audit Rules, Security Rules, dan Acceptance Criteria mewajibkan pencatatan Audit Log; Document Tracking Rules menambahkan "Riwayat perubahan status harus tersimpan". Tabel `AuditLog` dan enum `AuditAction` tersedia (`prisma/schema.prisma:75,302`), tetapi tidak ada kode di `modules/` maupun `app/` yang menulis ke sana, dan modul Secretariat tidak menyimpan riwayat perubahan status.
 
 ---
 
