@@ -1,8 +1,8 @@
 import { DEFAULT_HERO_CONFIG, HERO_CONFIG_SETTING_KEY } from "@/config/hero";
-import { PrismaSettingRepository } from "@/modules/settings/infrastructure/setting.repository";
+import { settingService } from "@/modules/settings/application/setting.service";
 import type { HeroConfig } from "@/types/hero";
 
-const settingRepository = new PrismaSettingRepository();
+const settingRepository = settingService;
 
 function isHeroConfig(value: unknown): value is HeroConfig {
   if (!value || typeof value !== "object") return false;

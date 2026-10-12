@@ -5,11 +5,11 @@ import { revalidatePath } from "next/cache";
 import { HERO_CONFIG_SETTING_KEY } from "@/config/hero";
 import { SettingType } from "@/generated/enums";
 import { requireSessionWithPermissions } from "@/modules/authorization/application/permission.guard";
-import { PrismaSettingRepository } from "@/modules/settings/infrastructure/setting.repository";
+import { settingService } from "@/modules/settings/application/setting.service";
 import type { ActionResult } from "@/modules/shared/presentation/action-result";
 import type { HeroConfig } from "@/types/hero";
 
-const settingRepository = new PrismaSettingRepository();
+const settingRepository = settingService;
 
 function readValue(formData: FormData, key: string) {
   return String(formData.get(key) ?? "").trim();
