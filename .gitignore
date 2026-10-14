@@ -52,6 +52,10 @@ next-env.d.ts
 opencode.json
 
 # agent / scratch
-.agents/
+/.agents/*
+!/.agents/skills/
+!/.agents/skills/**
+# binari vendor impeccable (~18 MB) tidak ikut di-commit; skill tetap versioned lewat SKILL.md + reference/
+/.agents/skills/impeccable/scripts/bin/
 .claude/
 .scratch/
