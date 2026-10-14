@@ -1,3 +1,8 @@
+---
+name: ux-glassmorphism
+description: "Aturan UI/UX Glassmorphism \"Kaca Kristal\" repo ini: kapan memakai `.glass`, token warna dan radius, layout, aksesibilitas, tipografi, gerak, dan daftar anti AI slop. Pakai saat membuat atau mengubah UI publik maupun admin."
+---
+
 # UI/UX Glassmorphism "Kaca Kristal" (Anti AI Slop)
 
 **Stack:** Next.js 16 · React 19 · TailwindCSS 4 · shadcn/ui. Semua token ada di `app/globals.css`; baca dan pakai yang sudah ada. Jangan menambah file, token, atau dependensi tanpa diminta (jika token yang dibutuhkan belum ada, tanyakan).

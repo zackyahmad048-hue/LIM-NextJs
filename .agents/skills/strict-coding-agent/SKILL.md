@@ -1,3 +1,8 @@
+---
+name: strict-coding-agent
+description: "Alur proposal-wajib sebelum mengubah kode, larangan teknis (tanpa `any`/`@ts-ignore`/`console.log`/secret hardcoded), aturan async Next.js 16, dan kapan harus eskalasi. Pakai saat menulis atau mengubah kode di repo ini."
+---
+
 # Strict Coding Agent
 
 **Stack:** Next.js 16 (App Router, TurboPack) · React 19 · TypeScript strict · TailwindCSS 4 · Prisma 7 + NeonDB · Better-Auth · npm
