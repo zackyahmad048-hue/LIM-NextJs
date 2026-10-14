@@ -8,6 +8,7 @@ Aturan wajib untuk AI coding agent. Urutan prioritas: **P0 > P1 > P2 > P3 > P4**
 - Kode: skill `strict-coding-agent` (alur proposal dan larangan teknis), `CONTEXT.md`, `docs/05-decisions/` (ADR).
 - UI: skill `ux-glassmorphism`, `PRODUCT.md`, `DESIGN.md`, `app/globals.css`, `docs/08-design-system/`.
 - Fitur & aturan AI: `docs/00-overview/` (`12-AI_RULES.md`, `14-GIT_WORKFLOW.md`), `docs/03-development/`, `docs/13-handbook/` (cari lewat context7).
+- Lingkungan agent (OpenCode/MCP: `{env:}` vs `{file:}`, kredensial, schema editor): `docs/13-handbook/troubleshooting.md` bagian "OpenCode / MCP Errors".
 
 ---
 

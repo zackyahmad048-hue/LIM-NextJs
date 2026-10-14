@@ -179,6 +179,45 @@ Dokumen ini berisi solusi untuk error dan masalah umum yang sering dihadapi deve
 
 ---
 
+# OpenCode / MCP Errors
+
+### Kredensial MCP Gagal (`Authorization header is badly formatted`)
+
+**Masalah:** `opencode mcp list` melaporkan server `github` gagal dengan HTTP 400, padahal token sudah ada di `.env`.
+
+**Solusi:**
+
+1. Substitusi `{env:NAMA}` dibaca dari environment proses service OpenCode, **bukan** dari `.env` proyek — service tidak memuat `.env`.
+2. Simpan nilainya di file terpisah (mis. `~/.config/opencode/.secrets/github-token`, mode `600`).
+3. Rujuk file itu lewat substitusi `{file:...}` di `opencode.json`, lalu jalankan `opencode reload`.
+
+Catatan: GitHub remote MCP menolak OAuth (tanpa dynamic client registration), jadi `oauth: false` + header `Authorization: Bearer ...` adalah jalur yang didukung. `opencode mcp debug` bisa melaporkan gagal meski tool-nya tetap jalan.
+
+---
+
+### Editor Menandai Error Schema di `opencode.json`
+
+**Masalah:** VS Code menandai field V2 (`mcp.servers`, `providers`) sebagai tidak valid, padahal mengikuti dokumentasi V2.
+
+**Solusi:**
+
+1. Schema terbitan `https://opencode.ai/config.json` masih menggambarkan V1 (isu upstream `anomalyco/opencode#53398`).
+2. Jangan pasang `"$schema"` di `opencode.json` sampai schema V2 terbit; tambahkan kembali setelahnya.
+3. Bila error lama masih tampil, jalankan **Developer: Reload Window**.
+
+---
+
+### Server MCP `shadcn` Timeout Saat Start
+
+**Masalah:** server `shadcn` berstatus `pending` atau timeout ketika `opencode mcp list` dijalankan.
+
+**Solusi:**
+
+1. Pakai instalasi lokal, bukan unduhan floating: `"command": ["npx", "--no-install", "shadcn", "mcp"]`.
+2. `shadcn@latest` mengunduh ulang setiap spawn sehingga melewati `timeout.startup` default 30 detik.
+
+---
+
 # Quick Reference
 
 | Error            | Command                   |
@@ -190,6 +229,8 @@ Dokumen ini berisi solusi untuk error dan masalah umum yang sering dihadapi deve
 | Build error      | `npm run build`           |
 | Format code      | `npm run format`          |
 | Full check       | `npm run check`           |
+| MCP bermasalah   | `opencode mcp list`       |
+| Muat ulang config OpenCode | `opencode reload` |
 
 ---
 
