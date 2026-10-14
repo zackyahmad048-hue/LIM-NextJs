@@ -2,12 +2,12 @@
 
 Aturan wajib untuk AI coding agent. Urutan prioritas: **P0 > P1 > P2 > P3 > P4**. Jika dua aturan bertabrakan, aturan dengan prioritas lebih tinggi menang. Instruksi eksplisit pengguna mengalahkan semuanya, kecuali P0.
 
-**Stack:** Next.js 16 (App Router, TurboPack) · React 19 · TypeScript strict · TailwindCSS 4 · shadcn/ui · Prisma 7 + NeonDB · Better-Auth · Vitest · npm
+**Stack:** Next.js 16 (App Router, TurboPack) · React 19 · TypeScript strict · TailwindCSS 4 · shadcn/ui (`radix-maia`) + `motion` · Prisma 7 + NeonDB · Better-Auth · Vitest + Playwright/axe · npm
 
 **Rujukan:**
-- Kode: skill `Strict Coding Agent` (alur proposal dan larangan teknis), `CONTEXT.md`, `docs/05-decisions/` (ADR).
-- UI: skill `UI/UX Glassmorphism`, `PRODUCT.md`, `DESIGN.md`, `app/globals.css`, `docs/08-design-system/`.
-- Fitur: `docs/` (cari lewat context7).
+- Kode: skill `strict-coding-agent` (alur proposal dan larangan teknis), `CONTEXT.md`, `docs/05-decisions/` (ADR).
+- UI: skill `ux-glassmorphism`, `PRODUCT.md`, `DESIGN.md`, `app/globals.css`, `docs/08-design-system/`.
+- Fitur & aturan AI: `docs/00-overview/` (`12-AI_RULES.md`, `14-GIT_WORKFLOW.md`), `docs/03-development/`, `docs/13-handbook/` (cari lewat context7).
 
 ---
 
@@ -35,7 +35,7 @@ Tanpa proposal: membaca file, menjawab pertanyaan, analisis, dan debugging tanpa
 - **Next.js 16:** `params`, `searchParams`, `cookies()`, `headers()` wajib di-`await`. Di Next.js 16 middleware bernama `proxy.ts`; cek file mana yang dipakai repo sebelum mengubah.
 - **Domain di `modules/<domain>/`** (`domain`, `application`, `infrastructure`, `presentation`, `queries`, `validations`), sesuai ADR-001 (DDD) dan ADR-002 (Clean Architecture). Kode fitur tetap di modul domainnya, bukan di folder global. Logika Falak berada di `modules/falak/`, terpisah dari UI: deterministik, unit eksplisit, asumsi eksplisit.
 - **Auth:** satu mekanisme saja (Better-Auth). Otorisasi wajib di server: autentikasi → otorisasi → validasi → eksekusi. UI bukan penjaga akses (ADR-004).
-- **Data:** Prisma client singleton, baca schema dulu, `select`/`include` tepat, transaction untuk operasi terkait.
+- **Data:** Prisma client singleton (`@/modules/shared/infrastructure/prisma`), baca schema dulu, `select`/`include` tepat, transaction untuk operasi terkait. Client di-generate ke `generated/` (gitignored, output `prisma-client`), selalu impor dari `@/generated/client`. Setelah ubah `schema.prisma`, `generated/` harus di-regenerate atau typecheck gagal. Migrasi dijalankan lewat `DIRECT_URL` (fallback `DATABASE_URL` tanpa `-pooler`), lihat `prisma.config.ts`.
 
 ## P3 — Kualitas
 - **Validasi input dengan Zod** di server (ADR-009); error ditangani dengan sengaja, bukan `catch` kosong.
@@ -43,20 +43,25 @@ Tanpa proposal: membaca file, menjawab pertanyaan, analisis, dan debugging tanpa
 - **UI:** ikuti design system dan skill Glassmorphism (token `globals.css`, `.glass`, tanpa AI slop). Untuk situs publik, `PRODUCT.md` → `DESIGN.md` → `app/globals.css` lebih tinggi daripada dokumen lain di `docs/08-design-system/`. Animasi bermakna, memakai token `lib/ease.ts`, dan menghormati `prefers-reduced-motion`.
 - **Gambar:** `next/image` dengan dimensi dan alt yang tepat.
 - **Dependensi:** cek yang sudah ada dan kemampuan native dulu.
-- **Test (Vitest):** hanya jika diminta; untuk logika Falak, usulkan di proposal.
+- **Test (Vitest):** hanya jika diminta; untuk logika Falak, usulkan di proposal. Unit test di `tests/*.test.{ts,tsx}`, `lib/*.test.ts`, dan `modules/**`. `npm run test` ikut mengoleksi `tests/accessibility/` (axe + Playwright, butuh app jalan di `A11Y_BASE_URL` dan `DATABASE_URL`) — suite itu self-skip bila server mati, jadi jangan kaget bila ikut termuat.
 - **Dokumentasi:** perbarui hanya jika perubahan mengubah arsitektur, skema, navigasi, atau perilaku domain.
 
 ## P4 — Validasi & Laporan
 Jalankan lewat script proyek, jangan memakai binary global (ESLint global di sistem usang dan tidak bisa membaca flat config):
 
 ```
-npm run typecheck   # tsc --noEmit
+npm run typecheck   # NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit
 npm run lint        # eslint . (flat config)
+npm run check       # lint + typecheck + node scripts/check-ui-regressions.mjs (guard statis R1–R10, tanpa server/DB)
+npm run format:check
 npm run test        # vitest run
-npm run build       # prisma generate && next build
+npm run build       # prisma generate && NODE_OPTIONS=--max-old-space-size=4096 next build
+npm run e2e         # vitest run tests/accessibility (butuh app jalan; lihat npm run a11y:scan)
+npm run db:deploy   # prisma migrate deploy && tsx prisma/seed.ts
+npm run admin:bootstrap  # tsx scripts/bootstrap-admin.ts
 ```
 
-Jalankan hanya yang relevan; untuk perubahan besar jalankan semuanya. Bedakan error lama dari error baru. Perbaiki akar masalah, bukan gejala.
+Jalankan hanya yang relevan; untuk perubahan besar jalankan `npm run check` + `npm run test`. `db:seed` hanya menautkan role/permission ke user yang sudah ada — tidak membuat user (bootstrap admin lewat `npm run admin:bootstrap` atau `actions/create-admin.ts`). Bedakan error lama dari error baru. Perbaiki akar masalah, bukan gejala.
 
 Format laporan (jangan klaim cek lulus jika tidak dijalankan):
 
