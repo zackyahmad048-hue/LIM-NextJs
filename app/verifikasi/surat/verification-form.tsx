@@ -19,22 +19,27 @@ export function VerificationForm() {
   };
 
   return (
-    <form
-      onSubmit={submit}
-      className="flex flex-col gap-2 sm:flex-row"
-      role="search"
-    >
-      <Input
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        placeholder="Ketik nomor surat, mis. 001/PP/A/VIII/2026"
-        className="rounded-lg"
-        aria-label="Nomor surat"
-      />
-      <Button type="submit" size="sm" className="shrink-0 gap-1.5">
-        <Search className="size-3.5" />
-        Periksa Surat
-      </Button>
+    <form onSubmit={submit} className="flex flex-col gap-2" role="search">
+      <label htmlFor="kode-verifikasi" className="text-xs font-medium">
+        Periksa nomor surat lain
+      </label>
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <Input
+          id="kode-verifikasi"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          placeholder="001/PP/A/VIII/2026"
+          aria-describedby="kode-verifikasi-hint"
+          className="rounded-lg font-data"
+        />
+        <Button type="submit" size="sm" className="shrink-0 gap-1.5">
+          <Search className="size-3.5" />
+          Periksa
+        </Button>
+      </div>
+      <p id="kode-verifikasi-hint" className="text-[11px] text-muted-foreground">
+        Ketik lengkap sesuai lembar surat, termasuk bulan angka Romawi.
+      </p>
     </form>
   );
 }

@@ -52,12 +52,24 @@ _Avoid_: dokumen, arsip, dokumen resmi
 **Nomor Surat**:
 Identifier resmi Surat Keluar yang terbit saat surat ditandai terkirim,
 dibentuk dari tingkat, kategori, bulan Romawi, dan nomor urut dalam periode.
-Draft tidak memiliki Nomor Surat.
+Draft tidak memiliki Nomor Surat. Nomor Surat tetap dipegang surat yang ditarik
+kembali ke Draft setelah pernah terbit.
 _Avoid_: nomor registrasi, nomor dokumen
 
+### Verifikasi
+
 **Verifikasi Surat**:
-Halaman publik untuk memverifikasi keaslian Surat Keluar melalui kode pada QR.
-_Avoid_: cek surat, validasi surat
+Pemeriksaan publik atas keaslian sebuah Surat Keluar, memakai Nomor Surat itu
+sendiri sebagai kode — tidak ada kode terpisah. Hasilnya salah satu dari tiga:
+Sah, Tidak Berlaku, atau Tidak Ditemukan. Buktinya metadata surat; dokumen asli
+tidak diterbitkan lewat halaman ini.
+_Avoid_: cek surat, validasi surat, kode verifikasi
+
+**Surat Tidak Berlaku**:
+Surat Keluar yang Nomor Suratnya pernah terbit tetapi kini berstatus Draft —
+ditarik kembali oleh sekretariat. Verifikasi Surat menyatakannya tidak berlaku,
+bukan tidak ditemukan.
+_Avoid_: surat palsu, surat batal, surat kedaluwarsa
 
 ### Batasan yang harus diketahui
 

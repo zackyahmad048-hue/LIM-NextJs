@@ -161,7 +161,9 @@ export function AdminDashboard({ user, structure, profil }: Props) {
               title={action.title}
               action={
                 <Button size="sm" variant="ghost" asChild>
-                  <Link href={action.href}>{action.icon}</Link>
+                  <Link href={action.href} aria-label={action.title}>
+                    {action.icon}
+                  </Link>
                 </Button>
               }
             />

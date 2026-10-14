@@ -24,7 +24,7 @@ import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 import { Band } from "@/components/admin/shared/band";
 import { ConfirmDialog } from "@/components/admin/shared/confirm-dialog";
-import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { LetterPlate } from "@/components/shared/letter-plate";
 import { cn } from "@/lib/utils";
 
 import { transitionOutgoingMailStatus } from "@/modules/secretariat/presentation/secretariat.action";
@@ -258,7 +258,6 @@ export function SuratMenyuratClient({
             </p>
             <dl className="mt-3 divide-y">
               {[
-
                 { label: "Surat keluar", value: stats.outgoingTotal },
                 { label: "Surat masuk", value: stats.incomingTotal },
                 { label: "Diarsipkan", value: stats.archivedTotal },
@@ -282,7 +281,7 @@ export function SuratMenyuratClient({
                     {row.value}
                   </dd>
                 </div>
-              ))}]
+              ))}
             </dl>
           </Band>
         </div>

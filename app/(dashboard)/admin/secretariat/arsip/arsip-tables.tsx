@@ -6,7 +6,7 @@ import { ExternalLink, FileText } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { LetterPlate } from "@/components/shared/letter-plate";
 import { DataTable } from "@/components/admin/shared/data-table";
 import { documentTypeLabels } from "@/components/admin/secretariat/document-type-labels";
 import { formatDateId } from "@/lib/format";

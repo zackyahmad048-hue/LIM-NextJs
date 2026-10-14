@@ -35,7 +35,7 @@ import {
 import { getLetterLevelOptions } from "@/modules/organization";
 import { getCentralBoardSigners } from "@/modules/cms/queries/structure.query";
 import { LETTER_TYPES } from "@/config/letter-types";
-import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { LetterPlate } from "@/components/shared/letter-plate";
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",

@@ -270,7 +270,7 @@ Hasil grilling backend/database/storage disepakati sebagai berikut:
 1. **Implementasi awal Object Storage = Google Drive** (bukan S3/MinIO). Provider diakses melalui **Storage Port** abstrak sehingga tetap bisa diganti tanpa mengubah Business Rules.
 2. **Metadata file disimpan di PostgreSQL** melalui tabel `media` (Media Domain): originalName, mimeType, size, checksum, storageKey, driveFileId, access, uploadedBy, deletedAt.
 3. **File privat default**: file privat (surat, sertifikat, lampiran) diserve lewat **proxy route aplikasi** dengan session + RBAC. File publik (media situs, logo, avatar) diserve lewat link share Drive "anyone with link".
-4. **Artefak verifikasi surat** diserve lewat **route code-gated** (`/api/v1/verifikasi/surat/[kode]/file`): kode verifikasi berperan sebagai bearer credential; file asli tetap privat di belakang RBAC.
+4. **Artefak verifikasi surat** melalui route code-gated (`/api/v1/verifikasi/surat/[kode]/file`) dengan kode verifikasi sebagai bearer credential; file asli tetap privat di belakang RBAC. **Dicabut oleh ADR-014** — nomor surat tercetak pada lembar surat yang beredar, sehingga tidak dapat menjadi tiket akses ke isi dokumen. Verifikasi Surat kini hanya menyajikan metadata; salinan resmi ditempuh lewat sekretariat.
 5. **Penamaan file = UUID** + folder per entitas; nama asli disimpan di metadata.
 6. **Cache**: implementasi awal memakai Next.js Data Cache (`unstable_cache` + `revalidateTag`). Redis ditunda ke roadmap (hanya diperlukan saat ada queue/background job/rate-limit skala besar).
 

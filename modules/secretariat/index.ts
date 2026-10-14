@@ -3,6 +3,7 @@ export * from "./domain/secretariat.errors";
 export * from "./domain/letter-number.rules";
 export * from "./domain/letter-numbering";
 export * from "./domain/qr-layout";
+export * from "./domain/verification.rules";
 export * from "./domain/letter-link";
 export * from "./domain/media-url";
 export * from "./validations/schema";

@@ -9,7 +9,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/admin/shared/data-table";
-import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { LetterPlate } from "@/components/shared/letter-plate";
 import { ConfirmDelete } from "@/components/admin/shared/confirm-delete";
 import { formatDateId } from "@/lib/format";
 

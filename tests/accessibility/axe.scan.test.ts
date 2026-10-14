@@ -2,7 +2,7 @@
  * E2E aksesibilitas — pemindaian WCAG 2.2 A/AA + best-practice (axe-core) lewat Playwright.
  *
  * Cakupan mengikuti kesepakatan "Audit Penutup" (liat .scratch/admin-redesign/issues/13):
- * - Publik (21 rute) + chrome: viewport desktop & mobile.
+ * - Publik (22–23 rute) + chrome: viewport desktop & mobile.
  * - Admin (13 rute representatif per pola permukaan) + chrome: desktop, tablet, mobile.
  * - Login admin opsional via env `PLAYWRIGHT_STORAGE_STATE`; bila tak disediakan, rute
  *   admin yang melompat ke /admin/login dicatat "auth-blocked" (bukan gagal).
@@ -96,10 +96,42 @@ interface RouteSpec {
 }
 
 /**
- * Inventaris rute audit (kesepakatan Round 7). Sampel detail dinamis memakai id/slug
- * nyata dari DB saat audit berjalan; bila data tak ada, rute tak disertakan agar tidak
- * memindai halaman 404/empty-state yang bukan permukaannya.
+ * Rute Verifikasi Surat. Rute "sah" dibangun dari surat yang memang berstatus
+ * SENT/ARCHIVED di DB saat audit berjalan; bila tidak ada, rute dilewati agar
+ * tidak memindai halaman yang bukan permukaannya. Rute "tidak ditemukan"
+ * memakai kode sintetis yang mustahil ada di sistem, sehingga hasilnya stabil
+ * apa pun isi DB.
  */
+async function resolveDynamicVerificationRoutes(): Promise<RouteSpec[]> {
+  const letter = await prisma.outgoingMail.findFirst({
+    where: {
+      deletedAt: null,
+      status: { in: ["SENT", "ARCHIVED"] },
+      OR: [
+        { verificationCode: { not: null } },
+        { fullNumber: { not: null } },
+      ],
+    },
+    select: { verificationCode: true, fullNumber: true },
+  });
+
+  const routes: RouteSpec[] = [];
+  const kode = letter?.verificationCode ?? letter?.fullNumber;
+  if (kode) {
+    routes.push({ path: `/verifikasi/surat/${encodeURIComponent(kode)}` });
+  }
+  routes.push({ path: "/verifikasi/surat/A11Y-TIDAK-ADA-000" });
+  return routes;
+}
+
+const DYNAMIC_VERIFICATION_ROUTES: RouteSpec[] =
+  await resolveDynamicVerificationRoutes().catch((error) => {
+    console.warn(
+      `[axe.scan] Resolusi rute verifikasi gagal (${String(error)}) — rute hasil verifikasi tidak disertakan.`,
+    );
+    return [{ path: "/verifikasi/surat/A11Y-TIDAK-ADA-000" }];
+  });
+
 const PUBLIC_ROUTES: RouteSpec[] = [
   { path: "/" },
   { path: "/profil" },
@@ -122,13 +154,14 @@ const PUBLIC_ROUTES: RouteSpec[] = [
   { path: "/falak/kalender-hijriah" },
   { path: "/wajib-khidmah/permohonan" },
   { path: "/admin/login" },
+  ...DYNAMIC_VERIFICATION_ROUTES,
 ];
 
 /**
  * Rute detail dinamis (id unit / id surat) di-resolusi dari database yang sedang
  * diuji saat modul di-load — bukan hardcode — agar valid pada DB apa pun (main
  * lokal, branch CI, string kosong). Bila data tidak ada, rute tidak disertakan
- * (komitmen "tidak memindai 404/empty-state", lihat komentar inventaris di atas).
+ * (komitmen "tidak memindai 404/empty-state").
  */
 async function resolveDynamicAdminRoutes(): Promise<RouteSpec[]> {
   const [unit, mail] = await Promise.all([

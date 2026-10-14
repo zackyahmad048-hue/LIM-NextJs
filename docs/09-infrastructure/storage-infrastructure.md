@@ -181,14 +181,16 @@ Diserve lewat route proxy aplikasi (media publik) dan/atau akses langsung dari s
 
 ## Code-Gated (Verifikasi)
 
-Digunakan untuk:
+**Dikosongkan oleh ADR-014.** Verifikasi Surat tidak lagi menyajikan berkas
+surat sebagai barang publik. Route code-gated
+`/api/v1/verifikasi/surat/[...kode]` dihapus karena kode verifikasi tercetak di
+setiap lembar surat yang beredar, sehingga ia tidak dapat menjadi tiket akses
+seumur hidup ke isi dokumen. Pemegang surat yang butuh salinan resmi memperolehnya
+melalui sekretariat, dengan identitas dan nomor surat diverifikasi lebih dulu.
 
-- Artefak verifikasi surat (PDF/gambar ber-QR)
-
-Kode verifikasi berperan sebagai bearer credential. Route publik
-`/api/v1/verifikasi/surat/[...kode]` memvalidasi kode (kode verifikasi atau nomor
-surat lengkap) ke database lalu streaming dari Vercel Blob. Berlaku akses
-terbatas (Expiration) sesuai kebijakan.
+Bucket ini tetap dicatat di sini karena prinsip "privat secara bawaan" pada
+[Private (Default)](#private-default) masih berlaku: tidak ada lagi kategori
+akses yang memakai kode sebagai credential.
 
 ---
 

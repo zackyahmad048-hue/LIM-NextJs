@@ -33,7 +33,7 @@ export default function BidangIndexPage() {
               <h2 className="text-sm font-semibold text-balance text-foreground">
                 {bidang.title}
               </h2>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 text-xs text-muted-foreground bg-card">
                 {bidang.tagline}
               </p>
               <p className="mt-3 text-xs leading-6 text-muted-foreground">

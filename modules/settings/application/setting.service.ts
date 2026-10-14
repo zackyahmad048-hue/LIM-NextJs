@@ -32,6 +32,7 @@ export const settingService = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function toEntity(s: any): SettingEntity {
   return {
     id: s.id,

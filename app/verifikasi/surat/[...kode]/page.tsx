@@ -1,246 +1,181 @@
 import { formatDateId } from "@/lib/format";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  BadgeCheck,
-  ShieldAlert,
-  CalendarDays,
-  Stamp,
-  FileSearch,
-  FileText,
-} from "lucide-react";
+import { CalendarDays, Stamp } from "lucide-react";
 
 import { LETTER_TYPES } from "@/config/letter-types";
 import {
+  classifyVerification,
   getOutgoingMailByVerificationCode,
-  getMediaByFileId,
-  extractFileIdFromMediaUrl,
+  type VerificationVerdict,
 } from "@/modules/secretariat";
-import { LetterPlate } from "@/components/admin/shared/letter-plate";
+import { LetterPlate } from "@/components/shared/letter-plate";
 import { VerificationForm } from "../verification-form";
 import Reveal from "@/components/website/motion/reveal";
 
-const INLINE_VIEWABLE_MIME = new Set([
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-]);
+/**
+ * Nada hasil. Warna hanya penguat — keadaan selalu dinyatakan dengan kata,
+ * sehingga pembaca yang tidak dapat membedakan warna tetap menerima jawabannya.
+ */
+const TONE: Record<VerificationVerdict["kind"], { rule: string; accent: string }> =
+  {
+    sah: { rule: "bg-success", accent: "text-success" },
+    "tidak-berlaku": { rule: "bg-warning", accent: "text-warning" },
+    "tidak-ditemukan": { rule: "bg-destructive", accent: "text-destructive" },
+  };
+
+const LEAD: Record<VerificationVerdict["kind"], string> = {
+  sah: "Diterbitkan oleh sekretariat Lembaga Ittihadul Muballighin melalui sistem penomoran surat resmi.",
+  "tidak-berlaku":
+    "Surat itu ditarik kembali oleh sekretariat. Yang tercatat di sistem hanya riwayat penerbitannya, bukan keberlakuannya.",
+  "tidak-ditemukan":
+    "Kemungkinan nomornya salah ketik, atau surat itu memang tidak diterbitkan melalui platform ini.",
+};
 
 interface VerifyLetterPageProps {
   params: Promise<{ kode: string[] }>;
 }
 
-const statusLabels: Record<string, string> = {
-  DRAFT: "Draft",
-  SENT: "Terkirim",
-  ARCHIVED: "Diarsipkan",
-};
+/** Baris identitas; baris tanpa data hilang, bukan menampilkan tanda kosong. */
+function row(label: string, value: string | null | undefined): Array<[string, string]> {
+  return value ? [[label, value]] : [];
+}
+
+function signer(name: string | null, position: string | null): string | null {
+  if (!name) return null;
+  return position ? `${name} (${position})` : name;
+}
 
 export default async function VerifyLetterPage({
   params,
 }: VerifyLetterPageProps) {
   const { kode: kodeSegments } = await params;
   const kode = decodeURIComponent(kodeSegments.join("/"));
-  const letter = await getOutgoingMailByVerificationCode(kode);
-
-  const category = LETTER_TYPES.find(
-    (type) => type.key === letter?.categoryCode,
+  const verdict = classifyVerification(
+    await getOutgoingMailByVerificationCode(kode),
   );
-  const attachmentFileId = letter?.attachmentUrl
-    ? extractFileIdFromMediaUrl(letter.attachmentUrl)
-    : null;
-  const fileSrc = attachmentFileId
-    ? `/api/v1/verifikasi/surat/${encodeURIComponent(kode)}?preview=1`
-    : null;
-  const attachmentMedia = attachmentFileId
-    ? await getMediaByFileId(attachmentFileId)
-    : null;
-  const hasPreview = letter !== null && fileSrc !== null;
-  const canPreviewInline =
-    hasPreview &&
-    (attachmentMedia?.mimeType
-      ? INLINE_VIEWABLE_MIME.has(attachmentMedia.mimeType)
-      : true);
+
+  const { kind } = verdict;
+  const tone = TONE[kind];
+  const letter = verdict.kind === "tidak-ditemukan" ? null : verdict.letter;
+
+  const fullNumber = letter?.fullNumber ?? kode;
+  const categoryLabel = LETTER_TYPES.find(
+    (type) => type.key === letter?.categoryCode,
+  )?.label;
+
+  const rows: Array<[string, string]> = letter
+    ? [
+        ...row("Jenis Surat", categoryLabel),
+        ["Perihal", letter.subject],
+        ...row("Ditujukan kepada", letter.recipient),
+        ["Tanggal surat", formatDateId(letter.mailDate, { long: true })],
+        ...row(
+          "Diterbitkan",
+          letter.sentAt ? formatDateId(letter.sentAt, { long: true }) : null,
+        ),
+        ...row("Ketua", signer(letter.ketuaName, letter.ketuaPosition)),
+        ...row(
+          "Sekretaris",
+          signer(letter.sekretarisName, letter.sekretarisPosition),
+        ),
+      ]
+    : [];
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-12 sm:py-16">
-      <div className="flex flex-col items-center text-center">
-        <Link href="/" aria-label="LIM Digital Platform - kembali ke beranda">
-          <Image
-            src="/images/orangelim.png"
-            alt="Logo Lembaga Ittihadul Muballighin"
-            width={44}
-            height={44}
-            priority
-          />
-        </Link>
+    <div className="site min-h-dvh bg-background text-foreground">
+      <main className="mx-auto w-full max-w-2xl px-5 py-10 sm:py-16">
+        <header className="flex items-center gap-3">
+          <Link href="/" aria-label="LIM Digital Platform - kembali ke beranda">
+            <Image
+              src="/images/orangelim.png"
+              alt="Logo Lembaga Ittihadul Muballighin"
+              width={38}
+              height={38}
+              priority
+            />
+          </Link>
+          <div>
+            <p className="text-sm font-semibold">Lembaga Ittihadul Muballighin</p>
+            <p className="font-data text-[11px] uppercase tracking-wide text-muted-foreground">
+              Verifikasi surat
+            </p>
+          </div>
+        </header>
 
-        <h1 className="mt-3 font-heading text-2xl font-medium text-balance text-foreground">
-          Verifikasi Keaslian Surat
-        </h1>
+        <div className={`mt-7 h-1 w-full rounded-full ${tone.rule}`} />
 
-        <p className="mt-1 font-data text-[11px] uppercase tracking-wide text-muted-foreground">
-          LIM Digital Platform
-        </p>
-      </div>
-
-      <Reveal className="mt-8 rounded-md border border-primary/25 bg-card p-3" delay={0.1}>
-        <VerificationForm />
-      </Reveal>
-
-      <Reveal delay={0.15} className="mt-8">
-        {letter ? (
-          <div className="overflow-hidden rounded-md border border-primary/25 bg-card shadow-sm">
-            <div className="flex items-center justify-between border-b border-emerald-500/20 bg-emerald-50 px-6 py-4 dark:bg-emerald-950/30">
-              <div className="flex items-center gap-2">
-                <BadgeCheck className="size-5 text-emerald-600 dark:text-emerald-400" />
-                <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
-                  Surat Sah
-                </span>
-              </div>
-              <span className="text-xs text-muted-foreground">
-                {letter.verificationCode}
-              </span>
-            </div>
-
-            {letter.fullNumber && (
-              <div className="border-b px-6 py-5">
-                <div className="flex flex-col items-center gap-3">
-                  <LetterPlate fullNumber={letter.fullNumber} />
-                  <p className="text-xs text-muted-foreground">
-                    Nomor terdaftar di sistem penomoran LIM
-                  </p>
-                </div>
-              </div>
+        <Reveal immediate className="mt-6">
+          <h1 className="font-heading text-2xl font-semibold text-balance sm:text-[28px] sm:leading-snug">
+            {kind === "tidak-ditemukan" ? (
+              "Nomor surat ini tidak kami temukan."
+            ) : (
+              <>
+                Surat{" "}
+                <LetterPlate fullNumber={fullNumber} size="sm" className="align-middle" />{" "}
+                {kind === "sah"
+                  ? "sah dan masih berlaku."
+                  : "pernah terbit, tetapi kini tidak berlaku."}
+              </>
             )}
+          </h1>
 
-            <dl className="divide-y">
-              {[
-                [
-                  "Jenis Surat",
-                  category
-                    ? `${category.key} — ${category.label}`
-                    : (letter.categoryCode ?? "—"),
-                ],
-                ["Perihal", letter.subject],
-                [
-                  "Tanggal Surat",
-                  formatDateId(letter.mailDate, { long: true }),
-                ],
-                ["Penerima", letter.recipient ?? "—"],
-                [
-                  "Ketua",
-                  letter.ketuaName
-                    ? `${letter.ketuaName}${letter.ketuaPosition ? ` (${letter.ketuaPosition})` : ""}`
-                    : "—",
-                ],
-                [
-                  "Sekretaris",
-                  letter.sekretarisName
-                    ? `${letter.sekretarisName}${letter.sekretarisPosition ? ` (${letter.sekretarisPosition})` : ""}`
-                    : "—",
-                ],
-                [
-                  "Status Terkini",
-                  statusLabels[letter.status] ?? letter.status,
-                ],
-                [
-                  "Diterbitkan",
-                  formatDateId(letter.sentAt ?? letter.mailDate, {
-                    long: true,
-                  }),
-                ],
-              ].map(([label, value]) => (
+          <p className="mt-4 max-w-prose text-sm leading-6 text-muted-foreground">
+            {LEAD[kind]}
+          </p>
+
+          {kind === "tidak-ditemukan" && (
+            <p className={`mt-3 font-data text-xs ${tone.accent}`}>{kode}</p>
+          )}
+        </Reveal>
+
+        {rows.length > 0 && (
+          <Reveal delay={0.1} className="mt-9">
+            <dl className="border-t border-border">
+              {rows.map(([label, value]) => (
                 <div
                   key={label}
-                  className="grid grid-cols-[150px_1fr] gap-4 px-6 py-3"
+                  className="grid grid-cols-1 gap-1 border-b border-border py-3 sm:grid-cols-[148px_1fr] sm:gap-4"
                 >
-                  <dt className="text-sm text-muted-foreground">{label}</dt>
-                  <dd className="min-w-0 wrap-break-words text-sm font-medium">
+                  <dt className="text-xs text-muted-foreground sm:text-sm">
+                    {label}
+                  </dt>
+                  <dd className="min-w-0 wrap-break-word text-sm font-medium">
                     {value}
                   </dd>
                 </div>
               ))}
             </dl>
-
-            <div className="flex items-center gap-3 border-t bg-muted/40 px-6 py-4">
-              <Stamp className="size-4 shrink-0 text-muted-foreground" />
-              <p className="text-xs leading-relaxed text-muted-foreground">
-                Lembar ini adalah pengesahan digital dari sekretariat LIM.
-                Bandingkan QR pada lembar cetak surat Anda dengan kode di atas.
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="overflow-hidden rounded-md border border-destructive/30 bg-card shadow-sm">
-            <div className="flex items-center justify-between border-b border-destructive/20 bg-destructive/5 px-6 py-4">
-              <div className="flex items-center gap-2">
-                <ShieldAlert className="size-5 text-destructive" />
-                <span className="text-sm font-semibold text-destructive">
-                  Surat Tidak Ditemukan
-                </span>
-              </div>
-              <span className="font-data text-xs text-muted-foreground">
-                {kode}
-              </span>
-            </div>
-            <div className="px-6 py-6">
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                Kode verifikasi <span className="font-data">{kode}</span> tidak
-                ditemukan pada sistem kami. Kemungkinan kode salah ketik, surat
-                belum ditandatangani, atau dokumen tersebut memang tidak
-                diterbitkan melalui platform ini. Hubungi sekretariat untuk
-                klarifikasi.
-              </p>
-            </div>
-          </div>
+            <p className="mt-4 max-w-prose text-xs leading-5 text-muted-foreground">
+              Cocokkan nomor ini dengan nomor pada lembar surat yang Anda terima.
+            </p>
+          </Reveal>
         )}
-      </Reveal>
 
-      {hasPreview && (
-        <Reveal delay={0.25} className="mt-8">
-          <div className="flex items-center gap-2">
-            <FileSearch className="size-4 text-muted-foreground" />
-            <h2 className="text-sm font-semibold">Dokumen Asli</h2>
-          </div>
-          {canPreviewInline ? (
-            <div className="relative mt-3 h-[80vh] select-none overflow-hidden rounded-lg border shadow-sm">
-              <iframe
-                src={fileSrc ?? undefined}
-                title={`Dokumen ${letter?.fullNumber ?? letter?.subject}`}
-                className="h-full w-full"
-              />
-              <div className="pointer-events-none absolute inset-0 z-10 flex select-none items-center justify-center">
-                <span className="-rotate-45 whitespace-nowrap rounded border border-foreground/20 px-8 py-1 text-lg font-semibold uppercase text-foreground/15 select-none">
-                  Salinan Digital
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className="mt-3 flex flex-col items-center justify-center gap-3 rounded-lg border bg-muted/40 px-6 py-10 text-center">
-              <FileText className="size-8 text-muted-foreground" />
-              <div>
-                <p className="text-sm font-medium">
-                  {attachmentMedia?.originalName ?? "Dokumen asli"}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Dokumen asli tidak dapat ditampilkan di halaman ini. Hubungi
-                  sekretariat untuk salinan resmi.
-                </p>
-              </div>
-            </div>
-          )}
-          <p className="mt-2 text-center text-[11px] text-muted-foreground">
-            Dokumen ini adalah salinan digital yang dibubuhi tanda air untuk
-            mencegah penyalahgunaan.
+        <Reveal
+          delay={0.2}
+          className="mt-10 border-t border-border pt-6"
+        >
+          <VerificationForm />
+          <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-muted-foreground">
+            <Stamp className="mt-0.5 size-3.5 shrink-0" />
+            <span>
+              Butuh salinan resmi atau penjelasan atas surat ini?{" "}
+              <Link
+                href="/kontak"
+                className="text-primary underline underline-offset-2"
+              >
+                Hubungi sekretariat
+              </Link>
+              .
+            </span>
+          </p>
+          <p className="mt-6 flex items-center gap-1.5 font-data text-[11px] uppercase tracking-wide text-muted-foreground">
+            <CalendarDays className="size-3.5" />
+            Sistem Verifikasi Surat LIM
           </p>
         </Reveal>
-      )}
-
-      <div className="mt-10 flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
-        <CalendarDays className="size-3.5" />
-        Sistem Verifikasi Surat LIM
-      </div>
+      </main>
     </div>
   );
 }
