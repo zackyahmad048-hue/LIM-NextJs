@@ -1,65 +1,43 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "lsp": {
-    "typescript": {
-      "command": [
-        "npx",
-        "-y",
-        "typescript-language-server",
-        "--stdio"
-      ]
-    }
-  },
   "mcp": {
-    "context7": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@upstash/context7-mcp"
-      ],
-      "enabled": true,
-      "environment": {
-        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+    "servers": {
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "oauth": false,
+        "headers": {
+          "CONTEXT7_API_KEY": "{file:~/.config/opencode/.secrets/context7-api-key}"
+        }
+      },
+      "github": {
+        "type": "remote",
+        "url": "https://api.githubcopilot.com/mcp/",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer {file:~/.config/opencode/.secrets/github-token}"
+        }
+      },
+      "filesystem": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "/media/linux/New Volume/Folder VS Code/LIM-NextJs"
+        ]
+      },
+      "shadcn": {
+        "type": "local",
+        "command": ["npx", "--no-install", "shadcn", "mcp"]
       }
-    },
-    "github": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "enabled": true,
-      "environment": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
-      }
-    },
-    "filesystem": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/media/linux/New Volume/Folder VS Code/LIM-NextJs"
-      ],
-      "enabled": true
-    },
-    "shadcn": {
-      "type": "local",
-      "command": [
-        "npx",
-        "shadcn@latest",
-        "mcp"
-      ],
-      "enabled": true
     }
   },
-  "provider": {
+  "providers": {
     "xkiro": {
-      "npm": "@ai-sdk/openai-compatible",
       "name": "xKiro",
-      "options": {
+      "env": ["XKIRO_API_KEY"],
+      "package": "aisdk:@ai-sdk/openai-compatible",
+      "settings": {
         "baseURL": "https://api.xkiro.com/v1",
         "apiKey": "{env:XKIRO_API_KEY}"
       },
