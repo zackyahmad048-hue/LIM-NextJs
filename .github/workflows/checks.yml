@@ -1,0 +1,46 @@
+# Static & Unit Checks — lint, typecheck, guard statis UI (R1–R10), dan suite Vitest.
+#
+# Tidak membutuhkan secret maupun database:
+#   - `npm ci` menjalankan `postinstall` → `prisma generate` (tanpa koneksi DB).
+#   - `npm run check` = lint + typecheck + `scripts/check-ui-regressions.mjs`.
+#   - `npm run test` = `vitest run`; suite `tests/accessibility/` self-skip tanpa
+#     server yang jalan, jadi aman di runner.
+#
+# Gate aksesibilitas yang memang butuh DB + app berjalan ada di `a11y.yml`.
+
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: lint + typecheck + unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Static checks
+        run: npm run check
+
+      - name: Unit tests
+        run: npm run test
