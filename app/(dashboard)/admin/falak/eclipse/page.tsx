@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { falakService } from "@/modules/falak/application/service";
 import { EclipseTable } from "./eclipse-table";
@@ -11,16 +12,13 @@ export default async function EclipsePage() {
   return (
     <PageContainer>
       <PageHeader
-        title="Data Eclipse"
+        title="Data Gerhana"
         description="Kelola data gerhana matahari dan bulan."
       />
 
-      {items.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada data eclipse.
-        </p>
-      )}
-      <EclipseTable data={items} />
+      <Band variant="raised">
+        <EclipseTable data={items} />
+      </Band>
     </PageContainer>
   );
 }

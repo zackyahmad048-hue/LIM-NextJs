@@ -28,16 +28,16 @@ function getPostStatus(post: {
   published: boolean;
   publishedAt: Date | null;
 }) {
-  if (post.published) return "Published";
-  if (post.publishedAt) return "Archived";
+  if (post.published) return "Dipublikasikan";
+  if (post.publishedAt) return "Diarsipkan";
   return "Draft";
 }
 
 function StatusBadge({ status }: { status: string }) {
   const variant =
-    status === "Published"
+    status === "Dipublikasikan"
       ? "default"
-      : status === "Archived"
+      : status === "Diarsipkan"
         ? "secondary"
         : "outline";
 
@@ -77,7 +77,7 @@ const columns: ColumnDef<Post>[] = [
   },
   {
     id: "author",
-    header: "Author",
+    header: "Penulis",
     cell: ({ row }) => (
       <span className="text-xs text-admin-content-fg/80">
         {row.original.authors[0]?.name}
@@ -100,21 +100,21 @@ const columns: ColumnDef<Post>[] = [
               <Pencil className="size-3.5" />
             </Link>
           </Button>
-          {status !== "Published" && (
+          {status !== "Dipublikasikan" && (
             <form action={publishPost.bind(null, row.original.id)}>
               <Button variant="ghost" size="sm" aria-label="Publikasikan berita">
                 <Send className="size-3.5" />
               </Button>
             </form>
           )}
-          {status === "Published" && (
+          {status === "Dipublikasikan" && (
             <form action={archivePost.bind(null, row.original.id)}>
               <Button variant="ghost" size="sm" aria-label="Arsipkan berita">
                 <Archive className="size-3.5" />
               </Button>
             </form>
           )}
-          {status === "Archived" && (
+          {status === "Diarsipkan" && (
             <form action={restorePostToDraft.bind(null, row.original.id)}>
               <Button variant="ghost" size="sm" aria-label="Pulihkan ke draft">
                 <RotateCcw className="size-3.5" />
@@ -136,7 +136,7 @@ const columns: ColumnDef<Post>[] = [
     accessorKey: "updatedAt",
     header: () => (
       <div className="text-right text-sm font-medium text-admin-content-fg/70">
-        Update
+        Diperbarui
       </div>
     ),
     cell: ({ row }) => (
@@ -163,6 +163,7 @@ export function PostsTable({
     <DataTable
       columns={columns}
       data={data}
+      showToolbar={false}
       manualPagination
       pageCount={pageCount}
       pageIndex={page - 1}

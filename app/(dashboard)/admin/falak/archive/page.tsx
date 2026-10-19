@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { getRukyatByStatus } from "@/modules/falak/queries/rukyat.query";
 import { falakHisabRepository } from "@/modules/falak/infrastructure/repository";
@@ -16,22 +17,16 @@ export default async function FalakArchivePage() {
     <PageContainer>
       <PageHeader
         title="Arsip Falak"
-        description="Data arsip observasi rukyat, hisab, dan eclipse."
+        description="Data arsip observasi rukyat dan hisab."
       />
 
-      {archivedRukyat.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada arsip observasi.
-        </p>
-      )}
-      <RukyatArchiveTable data={archivedRukyat} />
+      <Band variant="raised" title="Observasi Rukyat Terarsip">
+        <RukyatArchiveTable data={archivedRukyat} />
+      </Band>
 
-      {archivedHisab.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada data hisab.
-        </p>
-      )}
-      <HisabArchiveTable data={archivedHisab} />
+      <Band variant="raised" title="Data Hisab">
+        <HisabArchiveTable data={archivedHisab} />
+      </Band>
     </PageContainer>
   );
 }

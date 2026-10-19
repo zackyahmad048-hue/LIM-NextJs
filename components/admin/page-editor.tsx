@@ -110,14 +110,11 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
   return (
     <div className="flex flex-col gap-4">
       {textFields.length > 0 && (
-        <Band variant="raised">
-          <div className="mb-4 border-b border-admin-border pb-3">
-            <h2 className="text-base font-semibold text-admin-content-fg">Konten Teks</h2>
-            <p className="text-xs text-admin-content-fg/50">
-              Judul dan paragraf yang ditampilkan pada halaman.
-            </p>
-          </div>
-
+        <Band
+          variant="raised"
+          title="Konten Teks"
+          description="Judul dan paragraf yang ditampilkan pada halaman."
+        >
           <div className="grid gap-3 md:grid-cols-2">
             {textFields.map((field) =>
               field.type === "textarea" ? (
@@ -131,10 +128,10 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     value={String(values[field.key] ?? "")}
                     onChange={(e) => setField(field.key, e.target.value)}
                     placeholder={field.placeholder}
-                    className="min-h-0 rounded-md text-xs leading-5 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                    className="min-h-0 rounded-md text-xs leading-5 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
                   />
                   {field.hint && (
-                    <p className="text-[11px] text-admin-content-fg/40">
+                    <p className="text-[11px] text-admin-content-fg/60">
                       {field.hint}
                     </p>
                   )}
@@ -149,7 +146,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     value={String(values[field.key] ?? "")}
                     onChange={(e) => setField(field.key, e.target.value)}
                     placeholder={field.placeholder ?? "/images/nama-file.jpg"}
-                    className="rounded-md text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                    className="rounded-md text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
                   />
                   {String(values[field.key] ?? "").trim() ? (
                     <div className="relative mt-2 aspect-video w-full overflow-hidden rounded-md border bg-admin-input-bg">
@@ -164,12 +161,12 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                       />
                     </div>
                   ) : (
-                    <p className="text-[11px] text-admin-content-fg/40">
+                    <p className="text-[11px] text-admin-content-fg/60">
                       Kosong — section hanya akan menampilkan teks.
                     </p>
                   )}
                   {field.hint && (
-                    <p className="text-[11px] text-admin-content-fg/40">
+                    <p className="text-[11px] text-admin-content-fg/60">
                       {field.hint}
                     </p>
                   )}
@@ -184,7 +181,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     value={String(values[field.key] ?? "")}
                     onChange={(e) => setField(field.key, e.target.value)}
                     placeholder={field.placeholder}
-                    className="rounded-md text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                    className="rounded-md text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
                   />
                 </div>
               ),
@@ -194,15 +191,12 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
       )}
 
       {listFields.map((field) => (
-        <Band key={field.key} variant="raised">
-          <div className="mb-4 flex items-center justify-between gap-3 border-b border-admin-border pb-3">
-            <div>
-              <h2 className="text-base font-semibold text-admin-content-fg">{field.label}</h2>
-              <p className="text-xs text-admin-content-fg/50">
-                Urutannya sesuai dengan tampilan pada halaman.
-              </p>
-            </div>
-
+        <Band
+          key={field.key}
+          variant="raised"
+          title={field.label}
+          description="Urutannya sesuai dengan tampilan pada halaman."
+          actions={
             <Button
               type="button"
               size="sm"
@@ -217,8 +211,8 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
               <Plus className="size-4" />
               {field.addLabel ?? "Tambah"}
             </Button>
-          </div>
-
+          }
+        >
           <div className="space-y-2.5">
             {(
               (values[field.key] as
@@ -239,12 +233,12 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                         updateSimpleList(field, index, e.target.value)
                       }
                       placeholder={field.itemLabel}
-                      className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                      className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
                     />
                     <button
                       type="button"
                       onClick={() => removeSimpleItem(field, index)}
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-admin-content-fg/50 transition-colors hover:bg-destructive/10 hover:text-destructive"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-admin-content-fg/60 transition-colors hover:bg-destructive/10 hover:text-destructive focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
                       aria-label={`Hapus ${field.itemLabel} ${index + 1}`}
                     >
                       <Trash2 className="size-4" />
@@ -265,7 +259,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                               updatePair(field, index, "title", e.target.value)
                             }
                             placeholder={field.titleLabel}
-                            className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                            className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
                           />
                           <Input
                             value={pair.description}
@@ -278,7 +272,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                               )
                             }
                             placeholder={field.descLabel}
-                            className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+                            className="h-8 rounded-full text-xs bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
                           />
                         </>
                       );
@@ -286,7 +280,7 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
                     <button
                       type="button"
                       onClick={() => removePairItem(field, index)}
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-admin-content-fg/50 transition-colors hover:bg-destructive/10 hover:text-destructive sm:col-span-2 sm:justify-self-end"
+                      className="flex size-8 shrink-0 items-center justify-center rounded-full text-admin-content-fg/60 transition-colors hover:bg-destructive/10 hover:text-destructive focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none sm:col-span-2 sm:justify-self-end"
                       aria-label={`Hapus ${field.titleLabel} ${index + 1}`}
                     >
                       <Trash2 className="size-4" />
@@ -297,10 +291,12 @@ export function PageEditor({ def, initialValues }: PageEditorProps) {
             ))}
 
             {(values[field.key] as unknown[]).length === 0 && (
-              <p className={cn(
-                "rounded-md border p-4 text-center text-xs",
-                "border-admin-border/50 bg-admin-border/30 text-admin-content-fg/50",
-              )}>
+              <p
+                className={cn(
+                  "rounded-md border p-4 text-center text-xs",
+                  "border-admin-border/50 bg-admin-border/30 text-admin-content-fg/60",
+                )}
+              >
                 Belum ada item. Tekan {field.addLabel ?? "Tambah"} untuk
                 menambahkan.
               </p>

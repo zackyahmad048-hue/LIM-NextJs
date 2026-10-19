@@ -21,12 +21,24 @@ const STATUS_LABEL: Record<string, string> = {
   ARCHIVED: "Diarsipkan",
 };
 
+/*
+ * Nada status memakai token semantik, bukan palet Tailwind mentah.
+ * `--success`/`--warning` terlalu terang untuk teks di mode terang
+ * (1.91:1 dan 1.36:1), jadi warna dibawa teks di mode gelap; di mode terang
+ * label memakai warna konten (kontras tinggi) dan tidak kehilangan makna
+ * karena status selalu berpasangan dengan label teksnya.
+ * `ARCHIVED` memakai `text-muted-foreground` (6.93:1 terang / 7.33:1 gelap);
+ * `text-admin-content-fg/50` hanya 3.38:1 sehingga gagal AA untuk teks.
+ */
 const STATUS_TONE: Record<string, string> = {
-  CONFIRMED: "text-primary",
-  VERIFIED: "text-emerald-600",
-  DRAFT: "text-amber-600",
-  ARCHIVED: "text-admin-content-fg/50",
+  CONFIRMED: "",
+  VERIFIED: "",
+  DRAFT: "",
+  ARCHIVED: "text-muted-foreground",
 };
+
+const SECTION_LINK =
+  "rounded text-xs font-medium text-primary transition-colors hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
 
 export default async function FalakDashboardPage() {
   const [prayerTimes, hisabResult, recentRukyat, rukyatPending, eclipses] =
@@ -75,9 +87,9 @@ export default async function FalakDashboardPage() {
             },
             {
               key: "eclipse",
-              label: "Eclipse Mendatang",
+              label: "Gerhana Mendatang",
               value: eclipses.length.toString(),
-              description: "Event astronomi",
+              description: "Peristiwa astronomi",
             },
           ]}
         />
@@ -86,13 +98,10 @@ export default async function FalakDashboardPage() {
       <div className="grid gap-4 lg:grid-cols-2">
         <Band variant="plain">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-semibold text-admin-content-fg">
+            <h2 className="text-base font-semibold text-admin-content-fg">
               Observasi Rukyat Terbaru
             </h2>
-            <Link
-              href="/admin/falak/rukyat"
-              className="text-xs text-primary hover:underline"
-            >
+            <Link href="/admin/falak/rukyat" className={SECTION_LINK}>
               Lihat semua
             </Link>
           </div>
@@ -106,7 +115,7 @@ export default async function FalakDashboardPage() {
                   meta={
                     <span
                       className={`text-xs font-medium ${
-                        STATUS_TONE[r.status] ?? "text-admin-content-fg/50"
+                        STATUS_TONE[r.status] ?? "text-muted-foreground"
                       }`}
                     >
                       {STATUS_LABEL[r.status] ?? r.status}
@@ -124,13 +133,10 @@ export default async function FalakDashboardPage() {
 
         <Band variant="plain">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-semibold text-admin-content-fg">
-              Eclipse Mendatang
+            <h2 className="text-base font-semibold text-admin-content-fg">
+              Gerhana Mendatang
             </h2>
-            <Link
-              href="/admin/falak/eclipse"
-              className="text-xs text-primary hover:underline"
-            >
+            <Link href="/admin/falak/eclipse" className={SECTION_LINK}>
               Lihat semua
             </Link>
           </div>
@@ -150,7 +156,7 @@ export default async function FalakDashboardPage() {
             </ul>
           ) : (
             <p className="text-sm text-admin-content-fg/60">
-              Tidak ada eclipse mendatang.
+              Tidak ada gerhana mendatang.
             </p>
           )}
         </Band>

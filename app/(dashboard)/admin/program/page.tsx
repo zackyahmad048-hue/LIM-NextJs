@@ -22,7 +22,7 @@ const statusLabels: Record<
   }
 > = {
   DRAFT: { label: "Draft", variant: "outline" },
-  PUBLISHED: { label: "Published", variant: "default" },
+  PUBLISHED: { label: "Dipublikasikan", variant: "default" },
   REGISTRATION_OPEN: { label: "Registrasi Dibuka", variant: "default" },
   REGISTRATION_CLOSED: { label: "Registrasi Ditutup", variant: "secondary" },
   ON_GOING: { label: "Berlangsung", variant: "default" },
@@ -47,7 +47,7 @@ export default async function ProgramDashboardPage() {
       value: stats.draft,
     },
     {
-      label: "Published",
+      label: "Dipublikasikan",
       value: stats.published,
     },
     {
@@ -102,30 +102,35 @@ export default async function ProgramDashboardPage() {
         <Band variant="plain">
           <div className="flex items-center gap-2">
             <Calendar className="size-4 text-muted-foreground" />
-            <h2 className="text-base font-semibold">Program Mendatang</h2>
+            <h2 className="text-base font-semibold text-admin-content-fg">
+              Program Mendatang
+            </h2>
           </div>
           {upcoming.length > 0 ? (
-            <div className="mt-4 space-y-2">
+            <ul className="mt-4 divide-y divide-admin-border/50">
               {upcoming.map((program) => (
-                <Link
-                  key={program.id}
-                  href={`/admin/program/${program.id}/edit`}
-                  className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted/50 transition-colors"
-                >
-                  <div>
-                    <p className="font-medium">{program.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDateId(program.startDate)}
-                    </p>
-                  </div>
-                  <Badge variant="outline" className="text-[11px]">
-                    {statusLabels[program.status]?.label ?? program.status}
-                  </Badge>
-                </Link>
+                <li key={program.id}>
+                  <Link
+                    href={`/admin/program/${program.id}/edit`}
+                    className="group flex items-center justify-between gap-4 py-3 transition-colors hover:bg-admin-border/20 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-admin-content-fg group-hover:text-primary">
+                        {program.name}
+                      </p>
+                      <p className="mt-0.5 text-xs text-admin-content-fg/80">
+                        {formatDateId(program.startDate)}
+                      </p>
+                    </div>
+                    <Badge variant="outline" className="shrink-0 text-[11px]">
+                      {statusLabels[program.status]?.label ?? program.status}
+                    </Badge>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           ) : (
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-4 text-sm text-admin-content-fg/60">
               Tidak ada program mendatang.
             </p>
           )}
@@ -134,18 +139,20 @@ export default async function ProgramDashboardPage() {
         <Band variant="plain">
           <div className="flex items-center gap-2">
             <Users className="size-4 text-muted-foreground" />
-            <h2 className="text-base font-semibold">Akses Cepat</h2>
+            <h2 className="text-base font-semibold text-admin-content-fg">
+              Akses Cepat
+            </h2>
           </div>
           <div className="mt-4 space-y-2">
             <Button asChild variant="outline" className="w-full justify-start">
               <Link href="/admin/program/list">
-                <ClipboardList className="mr-2 size-4" />
+                <ClipboardList className="size-4" />
                 Daftar Program
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full justify-start">
               <Link href="/admin/program/new">
-                <Plus className="mr-2 size-4" />
+                <Plus className="size-4" />
                 Buat Program Baru
               </Link>
             </Button>

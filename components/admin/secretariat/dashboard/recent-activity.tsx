@@ -83,7 +83,7 @@ export function RecentActivity({
       <ActivityCard
         title="Surat Keluar"
         icon={Send}
-        tone="text-amber-600 bg-amber-100 dark:bg-amber-950/50"
+        tone="bg-warning/10 "
         viewAllHref="/admin/secretariat/outgoing-mail/list"
         empty="Belum ada surat keluar."
       >
@@ -96,13 +96,13 @@ export function RecentActivity({
             <li key={item.id}>
               <Link
                 href={`/admin/secretariat/outgoing-mail/${item.id}/edit`}
-                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-muted/40"
+                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-admin-border/40"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium group-hover:underline">
                     {item.subject}
                   </p>
-                  <p className="mt-0.5 text-[11px] text-muted-foreground">
+                  <p className="mt-0.5 text-[11px] text-admin-content-fg/70">
                     <span className="font-mono">{item.registrationNumber}</span>
                     {" · "}
                     {formatShortDate(item.mailDate)}
@@ -123,7 +123,7 @@ export function RecentActivity({
       <ActivityCard
         title="Surat Masuk"
         icon={Inbox}
-        tone="text-sky-600 bg-sky-100 dark:bg-sky-950/50"
+        tone="bg-primary/10 "
         viewAllHref="/admin/secretariat/incoming-mail/list"
         empty="Belum ada surat masuk."
       >
@@ -136,13 +136,13 @@ export function RecentActivity({
             <li key={item.id}>
               <Link
                 href={`/admin/secretariat/incoming-mail/${item.id}/edit`}
-                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-muted/40"
+                className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-admin-border/40"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium group-hover:underline">
                     {item.subject}
                   </p>
-                  <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
+                  <p className="mt-0.5 truncate text-[11px] text-admin-content-fg/70">
                     <span className="font-mono">{item.registrationNumber}</span>
                     {" · "}
                     {item.sender}
@@ -163,7 +163,7 @@ export function RecentActivity({
       <ActivityCard
         title="Agenda Mendatang"
         icon={CalendarDays}
-        tone="text-violet-600 bg-violet-100 dark:bg-violet-950/50"
+        tone="bg-admin-input-bg text-admin-content-fg"
         viewAllHref="/admin/secretariat/agenda"
         empty="Tidak ada agenda mendatang."
       >
@@ -171,15 +171,15 @@ export function RecentActivity({
           <li key={item.id}>
             <Link
               href={`/admin/secretariat/agenda/${item.id}/edit`}
-              className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-muted/40"
+              className="group flex items-start gap-3 px-3 py-2.5 transition-colors hover:bg-admin-border/40"
             >
-              <div className="flex size-9 shrink-0 flex-col items-center justify-center rounded-md bg-violet-100 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300">
+              <div className="flex size-9 shrink-0 flex-col items-center justify-center rounded-md bg-admin-input-bg text-admin-content-fg/70">
                 <span className="text-[10px] font-medium uppercase leading-none">
                   {new Intl.DateTimeFormat("id-ID", { month: "short" }).format(
                     item.date,
                   )}
                 </span>
-                <span className="mt-0.5 text-sm font-bold leading-none">
+                <span className="mt-0.5 text-sm font-semibold leading-none">
                   {item.date.getDate()}
                 </span>
               </div>
@@ -187,7 +187,7 @@ export function RecentActivity({
                 <p className="truncate text-sm font-medium group-hover:underline">
                   {item.title}
                 </p>
-                <p className="mt-0.5 text-[11px] text-muted-foreground">
+                <p className="mt-0.5 text-[11px] text-admin-content-fg/70">
                   {formatLongDate(item.date)}
                   {item.location ? ` · ${item.location}` : ""}
                 </p>
@@ -233,22 +233,24 @@ function ActivityCard({
           >
             <Icon className="size-3.5" />
           </span>
-          <h2 className="text-sm font-semibold">{title}</h2>
+          <h2 className="text-base font-semibold text-admin-content-fg">
+            {title}
+          </h2>
         </div>
         <Link
           href={viewAllHref}
-          className="flex items-center gap-1 text-[11px] text-muted-foreground transition-colors hover:text-foreground"
+          className="flex items-center gap-1 text-[11px] text-admin-content-fg/70 transition-colors hover:text-foreground"
         >
           Lihat semua
           <ArrowRight className="size-3" />
         </Link>
       </div>
 
-      <ul className="mt-3 -mx-3 divide-y rounded-md border bg-background">
+      <ul className="mt-3 -mx-3 divide-y rounded-md border border-admin-border bg-admin-card-bg">
         {hasItems ? (
           children
         ) : (
-          <li className="px-3 py-6 text-center text-xs text-muted-foreground">
+          <li className="px-3 py-6 text-center text-xs text-admin-content-fg/70">
             {empty}
           </li>
         )}

@@ -84,5 +84,11 @@ const columns: ColumnDef<Item>[] = [
 ];
 
 export function PrayerTimesTable({ data }: { data: Item[] }) {
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada jadwal shalat tersimpan."
+    />
+  );
 }

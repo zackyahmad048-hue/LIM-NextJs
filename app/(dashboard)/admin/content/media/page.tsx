@@ -22,7 +22,7 @@ export default async function MediaPage() {
         actions={
           <Button size="sm" disabled>
             <Upload className="size-4" />
-            Upload media
+            Unggah media
           </Button>
         }
       />

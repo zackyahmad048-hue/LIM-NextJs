@@ -22,6 +22,14 @@ type Item = Awaited<
   ReturnType<typeof falakService.getRukyatPaginated>
 >["items"][number];
 
+/** Label hasil observasi — nilai enum Prisma tidak ditampilkan mentah. */
+const RESULT_LABEL: Record<string, string> = {
+  VISIBLE: "Terlihat",
+  NOT_VISIBLE: "Tidak Terlihat",
+  CLOUDY: "Berawan",
+  UNKNOWN: "Tidak Diketahui",
+};
+
 function StatusBadge({ status }: { status: string }) {
   const variant =
     status === "CONFIRMED"
@@ -81,7 +89,7 @@ const columns: ColumnDef<Item>[] = [
     header: "Hasil",
     cell: ({ row }) => (
       <span className="text-xs text-admin-content-fg/80">
-        {row.original.result}
+        {RESULT_LABEL[row.original.result] ?? row.original.result}
       </span>
     ),
   },
@@ -158,6 +166,7 @@ export function RukyatTable({
     <DataTable
       columns={columns}
       data={data}
+      showToolbar={false}
       manualPagination
       pageCount={pageCount}
       pageIndex={page - 1}

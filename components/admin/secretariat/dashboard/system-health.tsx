@@ -25,17 +25,12 @@ export function SystemHealth({
     missingAttachments.documents;
 
   return (
-    <Band variant="plain">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-base font-semibold">Kesehatan Sistem</h2>
-          <p className="text-xs text-admin-content-fg/60">
-            Status koneksi Drive dan kelengkapan lampiran.
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-4 space-y-2">
+    <Band
+      variant="plain"
+      title="Kesehatan Sistem"
+      description="Status koneksi Drive dan kelengkapan lampiran."
+    >
+      <div className="space-y-2">
         <div className="flex items-center justify-between rounded-md border bg-background px-3 py-2.5">
           <div className="flex items-center gap-2.5">
             {driveEmail ? (

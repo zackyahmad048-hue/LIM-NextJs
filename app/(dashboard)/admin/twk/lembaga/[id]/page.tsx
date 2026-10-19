@@ -113,7 +113,7 @@ export default async function LembagaDetailPage({ params }: PageProps) {
 
       <div className="mt-6 space-y-4">
         <Band
-          variant="plain"
+          variant="raised"
           title="Identitas"
           description="Data lembaga, pengasuh, dan penanggung jawab."
         >
@@ -198,7 +198,7 @@ export default async function LembagaDetailPage({ params }: PageProps) {
         </Band>
 
         <Band
-          variant="plain"
+          variant="raised"
           title="Kondisi &amp; Pengajuan"
           description="Data kondisi lembaga dan permohonan guru bantu."
         >

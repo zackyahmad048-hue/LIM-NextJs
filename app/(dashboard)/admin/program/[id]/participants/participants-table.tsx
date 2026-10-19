@@ -27,7 +27,7 @@ const statusLabels: Record<
     variant: "default" | "secondary" | "outline" | "destructive";
   }
 > = {
-  PENDING: { label: "Pending", variant: "outline" },
+  PENDING: { label: "Menunggu", variant: "outline" },
   APPROVED: { label: "Diterima", variant: "default" },
   REJECTED: { label: "Ditolak", variant: "destructive" },
   CANCELLED: { label: "Batal", variant: "secondary" },
@@ -41,7 +41,7 @@ function buildColumns(programId: string): ColumnDef<Item>[] {
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
           <Avatar className="size-8">
-            <AvatarFallback className="text-xs bg-orange-100 text-orange-600">
+            <AvatarFallback className="bg-primary/15 text-xs text-primary">
               {row.original.user.name.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -100,7 +100,7 @@ function buildColumns(programId: string): ColumnDef<Item>[] {
                 )}
               >
                 <Button variant="ghost" size="sm" aria-label="Terima peserta" title="Terima">
-                  <CheckCircle className="size-3.5 text-amber-600" />
+                  <CheckCircle className="size-3.5 text-primary" />
                 </Button>
               </form>
               <form
@@ -138,5 +138,11 @@ export function ParticipantsTable({
   programId: string;
 }) {
   const columns = useMemo(() => buildColumns(programId), [programId]);
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada peserta."
+    />
+  );
 }

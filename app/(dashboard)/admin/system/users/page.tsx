@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { getUsers } from "@/modules/authorization/queries/user.query";
 import { UsersTable } from "./users-table";
@@ -16,7 +17,9 @@ export default async function UsersPage() {
         description="Daftar pengguna yang terdaftar di sistem."
       />
 
-      <UsersTable data={users} />
+      <Band variant="raised">
+        <UsersTable data={users} />
+      </Band>
     </PageContainer>
   );
 }

@@ -17,14 +17,19 @@ export interface TrendDatum {
   outgoing: number;
 }
 
+/*
+ * `--chart-*` didefinisikan sebagai `oklch(...)` di globals.css, jadi nilainya
+ * dipakai langsung. Membungkusnya dengan `hsl()` menghasilkan CSS tak valid
+ * dan seri tidak terwarnai (lihat legend di `secretariat-dashboard.tsx`).
+ */
 const chartConfig = {
   incoming: {
     label: "Surat Masuk",
-    color: "hsl(var(--chart-1))",
+    color: "var(--chart-1)",
   },
   outgoing: {
     label: "Surat Keluar",
-    color: "hsl(var(--chart-2))",
+    color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 

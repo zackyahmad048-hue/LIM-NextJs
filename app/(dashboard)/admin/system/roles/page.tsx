@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { getRoles } from "@/modules/authorization/presentation/role.query";
 import { RolesTable } from "./roles-table";
@@ -19,15 +20,13 @@ export default async function RolesPage() {
   return (
     <PageContainer>
       <PageHeader
-        title="Roles & Permissions"
+        title="Peran & Hak Akses"
         description="Kelola peran dan hak akses pengguna."
       />
 
-      {roles.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">Belum ada role.</p>
-      )}
-
-      <RolesTable data={roles} />
+      <Band variant="raised">
+        <RolesTable data={roles} />
+      </Band>
     </PageContainer>
   );
 }

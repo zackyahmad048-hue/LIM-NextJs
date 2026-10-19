@@ -19,15 +19,22 @@ export default async function HeroSettingsPage() {
   const config = { ...DEFAULT_HERO_CONFIG, ...saved };
 
   return (
-    <PageContainer className="gap-4 p-4 lg:p-5">
+    <PageContainer>
       <PageHeader
         title="Hero Section"
         description="Kelola teks, gambar, dan tombol pada hero landing page."
       />
 
-      <ActionForm action={updateHeroConfig} submitLabel="Simpan hero" submitIcon={<Save className="size-4" />}>
-        <Band variant="raised" title="Konten Teks" description="Judul, deskripsi, dan tombolCTA pada hero.">
-
+      <ActionForm
+        action={updateHeroConfig}
+        submitLabel="Simpan hero"
+        submitIcon={<Save className="size-4" />}
+      >
+        <Band
+          variant="raised"
+          title="Konten Teks"
+          description="Judul, deskripsi, dan tombol CTA pada hero."
+        >
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="eyebrow" className="text-xs">
@@ -95,8 +102,11 @@ export default async function HeroSettingsPage() {
           </div>
         </Band>
 
-        <Band variant="raised" title="Tombol (CTA)" description="Tombol utama dan tombol kedua pada hero.">
-
+        <Band
+          variant="raised"
+          title="Tombol (CTA)"
+          description="Tombol utama dan tombol kedua pada hero."
+        >
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="ctaLabel" className="text-xs">
@@ -148,8 +158,11 @@ export default async function HeroSettingsPage() {
           </div>
         </Band>
 
-        <Band variant="raised" title="Kartu Statistik" description="Angka penting yang ditampilkan di bawah hero.">
-
+        <Band
+          variant="raised"
+          title="Kartu Statistik"
+          description="Angka penting yang ditampilkan di bawah hero."
+        >
           <div className="grid gap-4 sm:grid-cols-3">
             {[1, 2, 3].map((i) => {
               const stat = config.statCards?.[i - 1];
@@ -158,12 +171,14 @@ export default async function HeroSettingsPage() {
                   <Label className="text-xs">Statistik {i}</Label>
                   <Input
                     name={`stat${i}Value`}
+                    aria-label={`Nilai statistik ${i}`}
                     defaultValue={stat?.value ?? ""}
                     placeholder="angka (mis. 100+)"
                     className="rounded-md text-xs"
                   />
                   <Input
                     name={`stat${i}Label`}
+                    aria-label={`Label statistik ${i}`}
                     defaultValue={stat?.label ?? ""}
                     placeholder="label (mis. Wilayah dan cabang)"
                     className="rounded-md text-xs"

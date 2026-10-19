@@ -92,7 +92,9 @@ export function TwkModule({ members, stats }: Props) {
               <UsersRound className="size-4" />
             </div>
             <div>
-              <h2 className="text-base font-semibold">Daftar anggota</h2>
+              <h2 className="text-base font-semibold text-admin-content-fg">
+                Daftar anggota
+              </h2>
               <p className="mt-1 text-xs text-admin-content-fg/60">
                 {visibleMembers.length} dari {members.length} anggota
                 ditampilkan.
@@ -141,10 +143,10 @@ export function TwkModule({ members, stats }: Props) {
             </Button>
           </div>
         </div>
-      </Band>
 
-      <Band variant="raised">
-        <MemberTable data={visibleMembers} onEdit={handleEdit} />
+        <div className="mt-4">
+          <MemberTable data={visibleMembers} onEdit={handleEdit} />
+        </div>
       </Band>
 
       <MemberDialog

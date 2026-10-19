@@ -33,13 +33,13 @@ export default async function EditSitePagePage({
         description={def.description}
         actions={
           <>
-            <Button variant="outline" size="sm" className="rounded-full" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link href="/admin/content/pages">
                 <ChevronLeft className="size-4" />
                 Peta situs
               </Link>
             </Button>
-            <Button variant="outline" size="sm" className="rounded-full" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link href={def.route} target="_blank" rel="noreferrer">
                 Lihat halaman
                 <ArrowUpRight className="size-4" />

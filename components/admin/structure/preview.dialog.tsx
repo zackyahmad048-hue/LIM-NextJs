@@ -144,9 +144,9 @@ export function PreviewDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>Preview Data Google Sheet</DialogTitle>
+          <DialogTitle>Pratinjau Data Google Sheet</DialogTitle>
           <DialogDescription>
-            Tempel URL Google Sheet untuk melihat preview data sebelum diimpor.
+            Tempel URL Google Sheet untuk melihat pratinjau data sebelum diimpor.
             Pastikan sheet memiliki kolom: nama, alamat, kelas, pos, tempat.
           </DialogDescription>
         </DialogHeader>

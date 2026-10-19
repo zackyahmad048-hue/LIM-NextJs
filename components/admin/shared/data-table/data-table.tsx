@@ -33,6 +33,16 @@ interface DataTableProps<TData, TValue> {
   pageCount?: number;
   pageIndex?: number;
   onPaginationChange?: (pageIndex: number, pageSize: number) => void;
+  /** Pesan kustom saat data kosong (override default "Belum ada data"). */
+  emptyMessage?: string;
+  /** Deskripsi kustom saat data kosong; isi `""` untuk menyembunyikan subjudul
+   *  default pada tabel read-only. */
+  emptyDescription?: string;
+  /** Aksi opsional saat data kosong (mis. Link ke halaman baru). */
+  emptyAction?: React.ReactNode;
+  /** Tampilkan toolbar pencarian klien. Matikan bila halaman sudah punya
+   *  pencarian server (mis. `TableSearchForm`) agar tidak ada dua kotak cari. */
+  showToolbar?: boolean;
 }
 
 const SKELETON_ROWS = 5;
@@ -47,6 +57,10 @@ export function DataTable<TData, TValue>({
   pageCount,
   pageIndex,
   onPaginationChange,
+  emptyMessage,
+  emptyDescription,
+  emptyAction,
+  showToolbar = true,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
@@ -100,9 +114,21 @@ export function DataTable<TData, TValue>({
     pageCount: manualPagination ? pageCount : undefined,
   });
 
+  const emptyState = (
+    <DataEmpty
+      message={emptyMessage}
+      description={emptyDescription}
+      action={emptyAction}
+    />
+  );
+
   return (
     <div className="space-y-4">
-      <DataToolbar value={globalFilter} onChange={setGlobalFilter} />
+      {/* Toolbar disembunyikan saat data kosong (spec §4) dan saat halaman
+       *  memakai pencarian server (`showToolbar={false}`). */}
+      {showToolbar && data.length > 0 && (
+        <DataToolbar value={globalFilter} onChange={setGlobalFilter} />
+      )}
 
       {error ? (
         <div className="rounded-xl border border-admin-border bg-admin-card-bg">
@@ -112,7 +138,7 @@ export function DataTable<TData, TValue>({
         <>
           <div className="overflow-x-auto rounded-xl border border-admin-border bg-admin-card-bg" role="region" tabIndex={0} aria-label="Tabel data">
             {/* Mobile (<sm): baris tertumpuk label:nilai, tanpa scroll horizontal. */}
-            <ul className="divide-y divide-admin-border/50 sm:hidden">
+            <ul className="divide-y divide-admin-border/50 sm:hidden" role="status" aria-busy={loading}>
               {loading
                 ? Array.from({ length: SKELETON_ROWS }).map((_, i) => (
                     <li key={i} className="space-y-2 p-4">
@@ -122,7 +148,7 @@ export function DataTable<TData, TValue>({
                     </li>
                   ))
                 : table.getRowModel().rows.length === 0
-                  ? <li><DataEmpty /></li>
+                  ? <li>{emptyState}</li>
                   : table.getRowModel().rows.map((row) => (
                       <li key={row.id} className="p-4">
                         <div className="space-y-2">
@@ -167,10 +193,10 @@ export function DataTable<TData, TValue>({
                 ))}
               </thead>
 
-              <tbody>
+              <tbody aria-busy={loading}>
                 {loading ? (
                   Array.from({ length: SKELETON_ROWS }).map((_, i) => (
-                    <tr key={i} className="border-t border-admin-border/50">
+                    <tr key={i} className="border-t border-admin-border/50" role="status">
                       {columns.map((_, j) => (
                         <td key={j} className="px-4 py-3">
                           <div className="h-4 w-3/4 rounded bg-admin-border/30 animate-pulse" />
@@ -180,13 +206,14 @@ export function DataTable<TData, TValue>({
                   ))
                 ) : table.getRowModel().rows.length === 0 ? (
                   <tr>
-                    <td colSpan={columns.length}>
-                      <DataEmpty />
-                    </td>
+                    <td colSpan={columns.length}>{emptyState}</td>
                   </tr>
                 ) : (
                   table.getRowModel().rows.map((row) => (
-                    <tr key={row.id} className="border-t border-admin-border/50">
+                    <tr
+                      key={row.id}
+                      className="border-t border-admin-border/50 cursor-pointer hover:bg-admin-border/40 transition-colors"
+                    >
                       {row.getVisibleCells().map((cell) => (
                         <td key={cell.id} className="px-4 py-3">
                           {flexRender(

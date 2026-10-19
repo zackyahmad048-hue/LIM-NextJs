@@ -1,5 +1,6 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { Button } from "@/components/ui/button";
 import { BIDANG } from "@/config/bidang";
@@ -11,7 +12,7 @@ export default async function BidangPage() {
         title="Bidang-Bidang"
         description="Kelola daftar bidang dan sub-bidang organisasi."
         actions={
-          <Button variant="outline" size="sm" className="rounded-full" asChild>
+          <Button variant="outline" size="sm" asChild>
             <a href="/profil/bidang" target="_blank" rel="noreferrer">
               Lihat halaman
             </a>
@@ -19,16 +20,16 @@ export default async function BidangPage() {
         }
       />
 
-      <div className="rounded-lg border bg-background">
-        <div className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
+      <Band variant="plain" className="border-t-0 pt-0">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {BIDANG.map((bidang) => (
             <div
               key={bidang.slug}
-              className="rounded-xl border p-5 transition-colors hover:border-primary/30"
+              className="rounded-xl border border-admin-border bg-admin-card-bg p-5 transition-colors hover:border-primary/30"
             >
-              <h3 className="text-sm font-semibold text-foreground">
+              <h2 className="text-base font-semibold text-admin-content-fg">
                 {bidang.title}
-              </h3>
+              </h2>
               <p className="mt-1 text-xs text-muted-foreground">
                 {bidang.tagline}
               </p>
@@ -51,7 +52,7 @@ export default async function BidangPage() {
             </div>
           ))}
         </div>
-      </div>
+      </Band>
     </PageContainer>
   );
 }

@@ -35,21 +35,19 @@ export default async function NewProgramPage() {
       <ActionForm action={createProgram} submitLabel="Simpan Program" submitIcon={<Plus className="size-4" />}>
         <Band variant="raised" title="Informasi Program" description="Data utama program.">
           <div className="grid gap-3 md:grid-cols-2">
-            <FormGroup legend="Kode Program" >
+            <FormGroup legend="Kode Program">
               <Input
                 id="code"
                 name="code"
-                
                 placeholder="SD-2027-001"
                 className="rounded-md text-xs"
               />
             </FormGroup>
 
-            <FormGroup legend="Jenis Program" >
+            <FormGroup legend="Jenis Program">
               <NativeSelect
                 id="type"
                 name="type"
-                
                 className="h-9 w-full text-xs"
               >
                 <NativeSelectOption value="">Pilih jenis</NativeSelectOption>
@@ -61,11 +59,10 @@ export default async function NewProgramPage() {
               </NativeSelect>
             </FormGroup>
 
-            <FormGroup legend="Nama Program" className="md:col-span-2" >
+            <FormGroup legend="Nama Program" className="md:col-span-2">
               <Input
                 id="name"
                 name="name"
-                
                 autoComplete="off"
                 placeholder="Nama lengkap program"
                 className="rounded-md text-xs"
@@ -81,11 +78,10 @@ export default async function NewProgramPage() {
               />
             </FormGroup>
 
-            <FormGroup legend="Penanggung Jawab" >
+            <FormGroup legend="Penanggung Jawab">
               <NativeSelect
                 id="personInChargeId"
                 name="personInChargeId"
-                
                 className="h-9 w-full text-xs"
               >
                 <NativeSelectOption value="">Pilih PIC</NativeSelectOption>
@@ -101,22 +97,22 @@ export default async function NewProgramPage() {
 
         <Band variant="raised" title="Tanggal & Pendaftaran" description="Atur jadwal dan pendaftaran program.">
           <div className="grid gap-3 md:grid-cols-2">
-            <FormGroup legend="Tanggal Mulai" >
+            <FormGroup legend="Tanggal Mulai">
               <Input
                 id="startDate"
                 name="startDate"
                 type="date"
-                
+                aria-label="Tanggal Mulai"
                 className="rounded-md text-xs"
               />
             </FormGroup>
 
-            <FormGroup legend="Tanggal Selesai" >
+            <FormGroup legend="Tanggal Selesai">
               <Input
                 id="endDate"
                 name="endDate"
                 type="date"
-                
+                aria-label="Tanggal Selesai"
                 className="rounded-md text-xs"
               />
             </FormGroup>
@@ -126,6 +122,7 @@ export default async function NewProgramPage() {
                 id="registrationOpen"
                 name="registrationOpen"
                 type="date"
+                aria-label="Buka Pendaftaran"
                 className="rounded-md text-xs"
               />
             </FormGroup>
@@ -135,6 +132,7 @@ export default async function NewProgramPage() {
                 id="registrationClose"
                 name="registrationClose"
                 type="date"
+                aria-label="Tutup Pendaftaran"
                 className="rounded-md text-xs"
               />
             </FormGroup>

@@ -141,7 +141,7 @@ export default async function EditOutgoingMailPage({
       </div>
 
       {isArchived && (
-        <div className="mt-4 flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-800/50 dark:bg-amber-950/30 dark:text-amber-200">
+        <div className="mt-4 flex items-center gap-2 rounded-lg border border-warning/30 bg-warning/10 px-4 py-3 text-sm ">
           <Lock className="size-4 shrink-0" />
           Surat telah diarsipkan dan tidak dapat diubah.
         </div>
@@ -153,7 +153,11 @@ export default async function EditOutgoingMailPage({
           submitLabel="Simpan Perubahan"
           submitIcon={<CheckCircle className="size-4" />}
         >
-          <Band variant="raised" title="Informasi Surat" description="Mengubah tingkat atau kategori akan memutakhirkan nomor surat otomatis.">
+          <Band
+            variant="raised"
+            title="Informasi Surat"
+            description="Mengubah tingkat atau kategori akan memutakhirkan nomor surat otomatis."
+          >
             <div className="grid gap-3 md:grid-cols-2">
               <FormGroup legend="Tingkat Kepengurusan">
                 <NativeSelect
@@ -223,11 +227,19 @@ export default async function EditOutgoingMailPage({
             </div>
           </Band>
 
-          <Band variant="raised" title="QR Penanda Tangan" description="Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus Pusat dan dijadikan konten QR yang ditempel pada dokumen saat surat ditandai terkirim.">
+          <Band
+            variant="raised"
+            title="QR Penanda Tangan"
+            description="Nama & jabatan Ketua dan Sekretaris diambil dari struktur Pengurus Pusat dan dijadikan konten QR yang ditempel pada dokumen saat surat ditandai terkirim."
+          >
             <SignerFields pengurus={pengurus} />
           </Band>
 
-          <Band variant="raised" title="Dokumen Surat" description="Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan Verifikasi pada halaman dokumen.">
+          <Band
+            variant="raised"
+            title="Dokumen Surat"
+            description="Unggah dokumen surat, lalu atur posisi QR Ketua, Sekretaris, dan Verifikasi pada halaman dokumen."
+          >
             <SigningEditor
               initialAttachmentUrl={mail.attachmentUrl ?? null}
               initialFileName={attachmentMedia?.originalName ?? null}
@@ -240,7 +252,11 @@ export default async function EditOutgoingMailPage({
       )}
 
       <div className="mt-4 max-w-2xl">
-        <Band variant="plain" title="QR Verifikasi" description="QR diterbitkan otomatis saat surat ditandai terkirim. Pihak luar bisa memverifikasi dengan scan QR atau memasukkan nomor surat.">
+        <Band
+          variant="plain"
+          title="QR Verifikasi"
+          description="QR diterbitkan otomatis saat surat ditandai terkirim. Pihak luar bisa memverifikasi dengan scan QR atau memasukkan nomor surat."
+        >
           {hasQr ? (
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <div className="flex size-32 items-center justify-center rounded-lg border bg-white p-2">

@@ -143,14 +143,11 @@ export function SecretariatDashboard({
         />
       </Band>
 
-      <Band variant="plain" title="Tren 12 Bulan" description="Perbandingan surat masuk dan keluar bulanan.">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-semibold">Tren 12 Bulan</h2>
-            <p className="text-xs text-admin-content-fg/60">
-              Perbandingan surat masuk dan keluar bulanan.
-            </p>
-          </div>
+      <Band
+        variant="plain"
+        title="Tren 12 Bulan"
+        description="Perbandingan surat masuk dan keluar bulanan."
+        actions={
           <div className="hidden gap-3 text-[11px] text-muted-foreground sm:flex">
             <span className="flex items-center gap-1.5">
               <span className="size-2 rounded-full bg-[var(--chart-1)]" />
@@ -161,10 +158,9 @@ export function SecretariatDashboard({
               Keluar
             </span>
           </div>
-        </div>
-        <div className="mt-4">
-          <MonthlyTrendChart series={trend.series} />
-        </div>
+        }
+      >
+        <MonthlyTrendChart series={trend.series} />
       </Band>
 
       <RecentActivity
@@ -178,14 +174,11 @@ export function SecretariatDashboard({
           driveEmail={health.driveEmail}
           missingAttachments={health.missingAttachments}
         />
-        <Band variant="plain" title="Modul Sekretariat" description="Pintasan cepat ke fitur utama.">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-base font-semibold">Modul Sekretariat</h2>
-              <p className="text-xs text-admin-content-fg/60">
-                Pintasan cepat ke fitur utama.
-              </p>
-            </div>
+        <Band
+          variant="plain"
+          title="Modul Sekretariat"
+          description="Pintasan cepat ke fitur utama."
+          actions={
             <Button
               variant="outline"
               size="sm"
@@ -197,30 +190,29 @@ export function SecretariatDashboard({
                 Pengaturan
               </Link>
             </Button>
-          </div>
-          <div className="mt-4">
-            <ul className="divide-y divide-admin-border/50">
-              {navLinks.map((link) => (
-                <ListRow
-                  key={link.href}
-                  title={link.title}
-                  description={link.description}
-                  action={
-                    <Button
-                      asChild
-                      variant="ghost"
-                      size="sm"
-                      aria-label={`Buka ${link.title}`}
-                    >
-                      <Link href={link.href}>
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </Button>
-                  }
-                />
-              ))}
-            </ul>
-          </div>
+          }
+        >
+          <ul className="divide-y divide-admin-border/50">
+            {navLinks.map((link) => (
+              <ListRow
+                key={link.href}
+                title={link.title}
+                description={link.description}
+                action={
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="sm"
+                    aria-label={`Buka ${link.title}`}
+                  >
+                    <Link href={link.href}>
+                      <ArrowRight className="size-3.5" />
+                    </Link>
+                  </Button>
+                }
+              />
+            ))}
+          </ul>
         </Band>
       </div>
     </div>

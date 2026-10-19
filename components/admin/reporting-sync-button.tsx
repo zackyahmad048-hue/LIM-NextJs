@@ -33,9 +33,9 @@ export function ReportingSyncButton() {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <p className="text-sm font-medium">
+        <h2 className="text-base font-semibold text-admin-content-fg">
           Sinkronisasi laporan ke Google Sheets
-        </p>
+        </h2>
         <p className="mt-1 text-xs text-muted-foreground">
           Tulis ulang ringkasan statistik (sekretariat & falak) ke spreadsheet
           proyeksi. Proyeksi satu arah dari PostgreSQL.
@@ -45,7 +45,7 @@ export function ReportingSyncButton() {
             className={
               status === "error"
                 ? "mt-2 text-xs text-destructive"
-                : "mt-2 text-xs text-emerald-600"
+                : "mt-2 text-xs "
             }
           >
             {message}

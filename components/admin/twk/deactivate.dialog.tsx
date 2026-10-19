@@ -9,7 +9,10 @@ import {
   deactivateWajibKhidmahMember,
   reactivateWajibKhidmahMember,
 } from "@/modules/twk/presentation/twk.action";
-import { DEACTIVATED_STATUSES } from "@/modules/twk/domain/entities";
+import {
+  DEACTIVATED_STATUSES,
+  WAJIB_KHIDMAH_STATUS_LABELS,
+} from "@/modules/twk/domain/entities";
 import type { WajibKhidmahStatus } from "@/modules/twk/domain/entities";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +23,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
@@ -75,19 +79,7 @@ export function DeactivateMemberDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {trigger ? (
-        <span
-          onClick={() => setOpen(true)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              setOpen(true);
-            }
-          }}
-        >
-          {trigger}
-        </span>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
       ) : (
         <DropdownMenuItem
           className="text-destructive focus:text-destructive"
@@ -121,7 +113,7 @@ export function DeactivateMemberDialog({
             >
               {DEACTIVATED_STATUSES.map((option) => (
                 <option key={option} value={option}>
-                  {option.replace("_", " ")}
+                  {WAJIB_KHIDMAH_STATUS_LABELS[option]}
                 </option>
               ))}
             </NativeSelect>
@@ -192,19 +184,7 @@ export function ReactivateMemberDialog({ id, nama, trigger }: ReactivateProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {trigger ? (
-        <span
-          onClick={() => setOpen(true)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              setOpen(true);
-            }
-          }}
-        >
-          {trigger}
-        </span>
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
       ) : (
         <DropdownMenuItem
           onSelect={(event) => {

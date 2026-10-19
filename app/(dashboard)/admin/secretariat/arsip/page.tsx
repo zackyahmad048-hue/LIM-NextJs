@@ -45,24 +45,15 @@ export default async function ArsipPage({
         }
       />
 
-      <Band variant="plain" title="Surat Keluar Terarsip">
-        {outgoing.length === 0 && (
-          <p className="text-sm text-admin-content-fg/60">Belum ada surat keluar yang diarsipkan.</p>
-        )}
+      <Band variant="raised" title="Surat Keluar Terarsip">
         <OutgoingArchiveTable data={outgoing} />
       </Band>
 
-      <Band variant="plain" title="Surat Masuk Terarsip">
-        {incoming.length === 0 && (
-          <p className="text-sm text-admin-content-fg/60">Belum ada surat masuk yang diarsipkan.</p>
-        )}
+      <Band variant="raised" title="Surat Masuk Terarsip">
         <IncomingArchiveTable data={incoming} />
       </Band>
 
-      <Band variant="plain" title="Dokumen Administrasi Terarsip">
-        {documents.length === 0 && (
-          <p className="text-sm text-admin-content-fg/60">Belum ada dokumen administrasi terarsip.</p>
-        )}
+      <Band variant="raised" title="Dokumen Administrasi Terarsip">
         <DocumentsArchiveTable data={documents} />
       </Band>
     </PageContainer>

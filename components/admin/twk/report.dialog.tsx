@@ -24,6 +24,8 @@ import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+import { StatStrip } from "@/components/admin/shared/stat-primitives";
+
 import type { MemberRow, TwkReportStats } from "./types";
 
 interface Props {
@@ -136,7 +138,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
         <div className="flex flex-wrap gap-2 print:hidden">
           <Button size="sm" onClick={handleExportCsv}>
             <Download className="size-4" />
-            Export CSV
+            Ekspor CSV
           </Button>
 
           <Button size="sm" variant="outline" onClick={() => window.print()}>
@@ -146,33 +148,26 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
         </div>
 
         <div className="space-y-6">
-          <div className="grid gap-4 sm:grid-cols-4">
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Total Anggota</p>
-              <p className="mt-1 text-3xl font-bold">{stats.total}</p>
-            </div>
-
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Status</p>
-              <p className="mt-1 text-3xl font-bold">
-                {Object.keys(stats.perStatus).length}
-              </p>
-            </div>
-
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Pos</p>
-              <p className="mt-1 text-3xl font-bold">
-                {Object.keys(stats.perPos).length}
-              </p>
-            </div>
-
-            <div className="rounded-lg border bg-muted/30 p-4">
-              <p className="text-sm text-muted-foreground">Tempat</p>
-              <p className="mt-1 text-3xl font-bold">
-                {Object.keys(stats.perTempat).length}
-              </p>
-            </div>
-          </div>
+          <StatStrip
+            items={[
+              { key: "total", label: "Total Anggota", value: stats.total },
+              {
+                key: "status",
+                label: "Status",
+                value: Object.keys(stats.perStatus).length,
+              },
+              {
+                key: "pos",
+                label: "Pos",
+                value: Object.keys(stats.perPos).length,
+              },
+              {
+                key: "tempat",
+                label: "Tempat",
+                value: Object.keys(stats.perTempat).length,
+              },
+            ]}
+          />
 
           <div className="space-y-3">
             <Label>Per Status</Label>
@@ -199,6 +194,7 @@ export function ReportDialog({ open, onOpenChange, members, stats }: Props) {
               <Label>Daftar Anggota</Label>
               <div className="flex flex-wrap items-center gap-2">
                 <NativeSelect
+                  aria-label="Filter status"
                   value={statusFilter}
                   onChange={(event) =>
                     setStatusFilter(

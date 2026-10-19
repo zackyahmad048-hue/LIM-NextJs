@@ -346,7 +346,7 @@ export function MemberForm({ member, onSuccess }: Props) {
           {form.formState.isSubmitting
             ? "Menyimpan..."
             : member
-              ? "Update"
+              ? "Perbarui"
               : "Simpan"}
         </Button>
       </div>

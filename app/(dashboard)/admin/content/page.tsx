@@ -26,7 +26,7 @@ export default async function ContentPage() {
               key: "post",
               label: "Berita",
               value: postCount,
-              description: `${publishedPostCount} published`,
+              description: `${publishedPostCount} dipublikasikan`,
             },
             { key: "page", label: "Halaman", value: 0, description: "Disiapkan" },
           ]}

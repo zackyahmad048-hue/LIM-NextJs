@@ -15,6 +15,14 @@ type HisabItem = Awaited<
   ReturnType<typeof falakHisabRepository.findPaginated>
 >["items"][number];
 
+/** Label hasil observasi — nilai enum Prisma tidak ditampilkan mentah. */
+const RESULT_LABEL: Record<string, string> = {
+  VISIBLE: "Terlihat",
+  NOT_VISIBLE: "Tidak Terlihat",
+  CLOUDY: "Berawan",
+  UNKNOWN: "Tidak Diketahui",
+};
+
 const rukyatColumns: ColumnDef<RukyatItem>[] = [
   {
     accessorKey: "locationName",
@@ -38,7 +46,9 @@ const rukyatColumns: ColumnDef<RukyatItem>[] = [
     accessorKey: "result",
     header: "Hasil",
     cell: ({ row }) => (
-      <Badge variant="outline">{row.original.result}</Badge>
+      <Badge variant="outline">
+        {RESULT_LABEL[row.original.result] ?? row.original.result}
+      </Badge>
     ),
   },
   {
@@ -84,9 +94,21 @@ const hisabColumns: ColumnDef<HisabItem>[] = [
 ];
 
 export function RukyatArchiveTable({ data }: { data: RukyatItem[] }) {
-  return <DataTable columns={rukyatColumns} data={data} />;
+  return (
+    <DataTable
+      columns={rukyatColumns}
+      data={data}
+      emptyMessage="Belum ada arsip observasi."
+    />
+  );
 }
 
 export function HisabArchiveTable({ data }: { data: HisabItem[] }) {
-  return <DataTable columns={hisabColumns} data={data} />;
+  return (
+    <DataTable
+      columns={hisabColumns}
+      data={data}
+      emptyMessage="Belum ada data hisab."
+    />
+  );
 }

@@ -58,7 +58,7 @@ const outgoingColumns: ColumnDef<Outgoing>[] = [
     cell: ({ row }) => {
       const item = row.original;
       return (
-        <div className="max-w-[240px]">
+        <div className="max-w-60">
           <p className="truncate text-sm font-medium">{item.subject}</p>
           <p className="truncate text-xs text-muted-foreground">
             {item.recipient ?? "-"}
@@ -115,7 +115,7 @@ const incomingColumns: ColumnDef<Incoming>[] = [
     cell: ({ row }) => {
       const item = row.original;
       return (
-        <div className="max-w-[200px]">
+        <div className="max-w-50">
           <p className="truncate text-sm font-medium">{item.sender}</p>
           <p className="truncate text-xs text-muted-foreground">
             {item.senderAddress ?? ""}
@@ -180,7 +180,7 @@ const documentColumns: ColumnDef<Document>[] = [
     cell: ({ row }) => {
       const item = row.original;
       return (
-        <div className="max-w-[240px]">
+        <div className="max-w-60">
           <p className="truncate text-sm font-medium">{item.title}</p>
           {item.description && (
             <p className="truncate text-xs text-muted-foreground">
@@ -218,13 +218,34 @@ const documentColumns: ColumnDef<Document>[] = [
 ];
 
 export function OutgoingArchiveTable({ data }: { data: Outgoing[] }) {
-  return <DataTable columns={outgoingColumns} data={data} />;
+  return (
+    <DataTable
+      columns={outgoingColumns}
+      data={data}
+      emptyMessage="Belum ada surat keluar yang diarsipkan."
+      emptyDescription=""
+    />
+  );
 }
 
 export function IncomingArchiveTable({ data }: { data: Incoming[] }) {
-  return <DataTable columns={incomingColumns} data={data} />;
+  return (
+    <DataTable
+      columns={incomingColumns}
+      data={data}
+      emptyMessage="Belum ada surat masuk yang diarsipkan."
+      emptyDescription=""
+    />
+  );
 }
 
 export function DocumentsArchiveTable({ data }: { data: Document[] }) {
-  return <DataTable columns={documentColumns} data={data} />;
+  return (
+    <DataTable
+      columns={documentColumns}
+      data={data}
+      emptyMessage="Belum ada dokumen administrasi terarsip."
+      emptyDescription=""
+    />
+  );
 }

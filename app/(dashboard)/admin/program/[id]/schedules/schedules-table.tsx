@@ -86,5 +86,7 @@ export function SchedulesTable({
   programId: string;
 }) {
   const columns = useMemo(() => buildColumns(programId), [programId]);
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable columns={columns} data={data} emptyMessage="Belum ada jadwal." />
+  );
 }

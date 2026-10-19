@@ -3,6 +3,7 @@ import { Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import { getStructure } from "@/modules/cms/queries/structure.query";
 import { StructureEditor } from "@/components/admin/structure/editor";
@@ -16,7 +17,7 @@ export default async function PengurusPusatPage() {
         title="Pengurus Pusat"
         description="Kelola struktur pengurus pusat LIM periode 2024–2029."
         actions={
-          <Button variant="outline" size="sm" className="rounded-full" asChild>
+          <Button variant="outline" size="sm" asChild>
             <a href="/profil/pengurus-pusat" target="_blank" rel="noreferrer">
               Lihat halaman
             </a>
@@ -30,10 +31,12 @@ export default async function PengurusPusatPage() {
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-xl border border-primary/25 bg-admin-card-bg p-4">
+          <Band variant="raised">
             <div className="flex items-center gap-2">
               <Building2 className="size-4 text-muted-foreground" />
-              <h3 className="text-sm font-semibold">Ringkasan</h3>
+              <h2 className="text-base font-semibold text-admin-content-fg">
+                Ringkasan
+              </h2>
             </div>
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
               <p>
@@ -54,17 +57,19 @@ export default async function PengurusPusatPage() {
                 Anggota: <strong>{structure.members.length}</strong>
               </p>
             </div>
-          </div>
+          </Band>
 
-          <div className="rounded-lg border bg-background p-4">
-            <h3 className="text-sm font-semibold">Informasi</h3>
+          <Band variant="raised">
+            <h2 className="text-base font-semibold text-admin-content-fg">
+              Informasi
+            </h2>
             <div className="mt-2 space-y-1 text-xs text-muted-foreground">
               <p>
                 Simpan perubahan untuk memperbarui tampilan struktur
                 di halaman publik.
               </p>
             </div>
-          </div>
+          </Band>
         </div>
       </div>
     </PageContainer>

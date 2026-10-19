@@ -41,14 +41,16 @@ export function CategoryModule({ data }: Props) {
 
   return (
     <>
-      <Band variant="plain">
+      <Band variant="plain" className="border-t-0 pt-0">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
             <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
               <FolderTree className="size-4" />
             </div>
             <div>
-              <h2 className="text-base font-semibold">Daftar kategori</h2>
+              <h2 className="text-base font-semibold text-admin-content-fg">
+                Daftar kategori
+              </h2>
               <p className="mt-1 text-xs text-admin-content-fg/60">
                 {data.length} kategori aktif tersedia untuk konten website.
               </p>

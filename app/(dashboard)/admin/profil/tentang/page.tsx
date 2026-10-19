@@ -22,13 +22,13 @@ export default async function TentangLimPage() {
         description={def?.description ?? "Kelola konten halaman Tentang LIM."}
         actions={
           <>
-            <Button variant="outline" size="sm" className="rounded-full" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link href="/admin/profil">
                 <ChevronLeft className="size-4" />
                 Profil
               </Link>
             </Button>
-            <Button variant="outline" size="sm" className="rounded-full" asChild>
+            <Button variant="outline" size="sm" asChild>
               <Link href="/profil/tentang" target="_blank" rel="noreferrer">
                 Lihat halaman
                 <ArrowUpRight className="size-4" />

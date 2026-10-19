@@ -93,31 +93,14 @@ export function AdminDashboard({ user, structure, profil }: Props) {
     },
   ];
 
-  // Mock recent activity from structure data (placeholder for real query in Phase 2)
-  const recentActivity = [
-    {
-      title: `${structure.members.length > 0 ? structure.members[0].name : "Anggota baru"} ditambahkan`,
-      description: "Pengurus Pusat • Baru saja",
-      meta: "Baru",
-    },
-    {
-      title: `Wilayah ${structure.regionalBoards.length > 0 ? structure.regionalBoards[0].name : "Wilayah"} diperbarui`,
-      description: "Struktur Wilayah • 2 jam lalu",
-      meta: "Diperbarui",
-    },
-    {
-      title: `Program ${structure.centralBoard.length > 0 ? structure.centralBoard[0].name : "Program"} dibuat`,
-      description: "Manajemen Program • 1 hari lalu",
-      meta: "Baru",
-    },
-  ];
+  
 
   return (
     <div className="flex flex-col gap-5">
       {/* Welcome / Brand block */}
-      <div className="bg-gradient-to-br from-orange-600/10 via-transparent to-transparent rounded-xl border border-orange-600/20 p-5 lg:p-8">
+      <Band variant="raised" tint="sistem">
         <h1 className="font-heading text-2xl lg:text-3xl font-semibold tracking-tight text-admin-content-fg">
-          Selamat datang, <span className="text-orange-600">{user.name}</span>
+          Selamat datang, <span className="text-primary">{user.name}</span>
         </h1>
         <p className="mt-2 text-admin-content-fg/70 max-w-2xl">
           Kelola struktur organisasi, surat-menyurat, program, dan konten LIM dari satu dasbor.
@@ -126,7 +109,7 @@ export function AdminDashboard({ user, structure, profil }: Props) {
           <Badge variant="secondary">{user.roleLabel}</Badge>
           <span className="text-xs text-admin-content-fg/60">LIM Digital Platform</span>
         </div>
-      </div>
+      </Band>
 
       {/* Stat Strip (inline, divider-row) */}
       <Band variant="plain" className="border-t-0 pt-0">
@@ -200,20 +183,6 @@ export function AdminDashboard({ user, structure, profil }: Props) {
               </p>
             </li>
           )}
-        </ul>
-      </Band>
-
-      {/* Recent Activity */}
-      <Band variant="plain" title="Aktivitas Terbaru" description="Perubahan terbaru di seluruh modul.">
-        <ul className="divide-y divide-admin-border/50">
-          {recentActivity.map((activity, idx) => (
-            <ListRow
-              key={idx}
-              title={activity.title}
-              description={activity.description}
-              meta={activity.meta}
-            />
-          ))}
         </ul>
       </Band>
     </div>

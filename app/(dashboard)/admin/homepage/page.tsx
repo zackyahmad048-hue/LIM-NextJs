@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 function formatUpdatedAt(date: Date | null): string | null {
@@ -113,18 +114,20 @@ export default async function HomepageGovernancePage() {
           </span>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg">
+        {/* Kartu daftar: tiap baris membawa padding sendiri, jadi padding `Band`
+         *  dinolkan agar tidak dobel; `overflow-hidden` menjaga sudut radius. */}
+        <Band variant="raised" className="overflow-hidden p-0 lg:p-0">
           {sections.map((section, index) => (
             <div
               key={section.id}
-              className={cn(index > 0 && "border-t border-border/60")}
+              className={cn(index > 0 && "border-t border-admin-border/60")}
             >
               <SectionRow section={section} />
             </div>
           ))}
-        </div>
+        </Band>
 
-        <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg">
+        <Band variant="raised" className="overflow-hidden p-0 lg:p-0">
           <div className="flex flex-col gap-2 px-4 py-3.5 sm:flex-row sm:items-center sm:gap-4">
             <div className="min-w-0 flex-1">
               <p className="text-sm font-semibold">Cara kerja</p>
@@ -146,7 +149,7 @@ export default async function HomepageGovernancePage() {
               </Link>
             </Button>
           </div>
-        </div>
+        </Band>
       </div>
     </PageContainer>
   );

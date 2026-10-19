@@ -9,6 +9,9 @@ interface Props<TData> {
 }
 
 export function DataPagination<TData>({ table }: Props<TData>) {
+  // Satu halaman = tidak ada yang bisa dinavigasi (spec §4).
+  if (table.getPageCount() <= 1) return null;
+
   return (
     <div className="flex items-center justify-end gap-2">
       <Button

@@ -27,7 +27,7 @@ export default async function FalakReportsPage() {
         description="Ringkasan dan statistik data falak."
       />
 
-      <Band variant="plain">
+      <Band variant="plain" className="border-t-0 pt-0">
         <StatStrip
           items={[
             {
@@ -44,26 +44,23 @@ export default async function FalakReportsPage() {
             },
             {
               key: "upcoming",
-              label: "Eclipse Mendatang",
+              label: "Gerhana Mendatang",
               value: upcomingEclipses.length.toString(),
-              description: "Event akan datang",
+              description: "Peristiwa akan datang",
             },
             {
               key: "past",
-              label: "Eclipse Tercatat",
+              label: "Gerhana Tercatat",
               value: pastEclipses.length.toString(),
-              description: "Riwayat eclipse",
+              description: "Riwayat gerhana",
             },
           ]}
         />
       </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Band variant="plain">
-          <h3 className="font-semibold text-admin-content-fg">
-            Statistik Hasil Rukyat
-          </h3>
-          <div className="mt-4 space-y-3">
+        <Band variant="plain" title="Statistik Hasil Rukyat">
+          <div className="space-y-3">
             {(["VISIBLE", "NOT_VISIBLE", "CLOUDY", "UNKNOWN"] as const).map(
               (result) => {
                 const count = rukyatData.filter(
@@ -102,12 +99,9 @@ export default async function FalakReportsPage() {
           </div>
         </Band>
 
-        <Band variant="plain">
-          <h3 className="font-semibold text-admin-content-fg">
-            Riwayat Eclipse
-          </h3>
+        <Band variant="plain" title="Riwayat Gerhana">
           {pastEclipses.length > 0 ? (
-            <div className="mt-4 space-y-2">
+            <div className="space-y-2">
               {pastEclipses.slice(0, 8).map((e) => (
                 <div
                   key={e.id}
@@ -125,8 +119,8 @@ export default async function FalakReportsPage() {
               ))}
             </div>
           ) : (
-            <p className="mt-4 text-sm text-admin-content-fg/60">
-              Belum ada riwayat eclipse.
+            <p className="text-sm text-admin-content-fg/60">
+              Belum ada riwayat gerhana.
             </p>
           )}
         </Band>

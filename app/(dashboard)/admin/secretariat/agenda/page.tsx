@@ -45,7 +45,7 @@ export default async function AgendaPage({
         }
       />
 
-      <Band variant="plain">
+      <Band variant="raised">
         <AgendaTable data={items} />
       </Band>
     </PageContainer>

@@ -129,7 +129,7 @@ export function CategoryForm({ category, onSuccess }: Props) {
           {form.formState.isSubmitting
             ? "Menyimpan..."
             : category
-              ? "Update"
+              ? "Perbarui"
               : "Simpan"}
         </Button>
       </div>

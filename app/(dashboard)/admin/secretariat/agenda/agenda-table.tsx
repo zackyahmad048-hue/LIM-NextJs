@@ -84,5 +84,12 @@ const columns: ColumnDef<Agenda>[] = [
 ];
 
 export function AgendaTable({ data }: { data: Agenda[] }) {
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada agenda."
+      emptyDescription=""
+    />
+  );
 }

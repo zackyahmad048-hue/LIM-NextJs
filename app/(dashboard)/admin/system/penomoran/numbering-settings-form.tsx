@@ -51,15 +51,23 @@ export function NumberingSettingsForm({
     }
   }
 
-  function updatePeriod(index: number, field: "startYear" | "endYear", value: number) {
+  function updatePeriod(
+    index: number,
+    field: "startYear" | "endYear",
+    value: number,
+  ) {
     setPeriods((prev) =>
-      prev.map((period, i) => (i === index ? { ...period, [field]: value } : period)),
+      prev.map((period, i) =>
+        i === index ? { ...period, [field]: value } : period,
+      ),
     );
   }
 
   function updateLevel(index: number, field: "code" | "label", value: string) {
     setLevelCodes((prev) =>
-      prev.map((level, i) => (i === index ? { ...level, [field]: value } : level)),
+      prev.map((level, i) =>
+        i === index ? { ...level, [field]: value } : level,
+      ),
     );
   }
 
@@ -79,166 +87,191 @@ export function NumberingSettingsForm({
   }
 
   return (
-    <form action={handleSave} className="max-w-3xl space-y-4">
-      <input type="hidden" name="periods" value={JSON.stringify(periods)} />
-      <input
-        type="hidden"
-        name="levelCodes"
-        value={JSON.stringify(levelCodes)}
-      />
+    <div className="max-w-3xl space-y-4">
+      <form action={handleSave} className="space-y-4">
+        <input type="hidden" name="periods" value={JSON.stringify(periods)} />
+        <input
+          type="hidden"
+          name="levelCodes"
+          value={JSON.stringify(levelCodes)}
+        />
+
+        <Band variant="raised">
+          <FormGroup
+            legend="Format & Digit"
+            description="Template memakai placeholder yang dibatasi tanda kurung kurawal."
+          >
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label htmlFor="formatTemplate" className="text-xs">
+                  Format Template
+                </Label>
+                <Input
+                  id="formatTemplate"
+                  name="formatTemplate"
+                  defaultValue={config.formatTemplate}
+                  placeholder="{seq}/{level}/{category}/{bulan}/{tahun}"
+                  className="rounded-md font-mono text-xs"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="sequenceDigits" className="text-xs">
+                  Digit Nomor Urut
+                </Label>
+                <Input
+                  id="sequenceDigits"
+                  name="sequenceDigits"
+                  type="number"
+                  min={2}
+                  max={6}
+                  defaultValue={config.sequenceDigits}
+                  className="rounded-md text-xs"
+                />
+              </div>
+            </div>
+          </FormGroup>
+
+          <FormGroup
+            legend="Periode Kepengurusan"
+            description="Rentang tahun menentukan periode aktif penomoran surat."
+          >
+            <div className="flex justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setPeriods((prev) => [
+                    ...prev,
+                    {
+                      startYear:
+                        Math.max(...prev.map((p) => p.endYear), 2024) + 1,
+                      endYear:
+                        Math.max(...prev.map((p) => p.endYear), 2024) + 5,
+                    },
+                  ])
+                }
+              >
+                <Plus className="size-3.5" />
+                Tambah
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {periods.map((period, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min={1900}
+                    value={period.startYear}
+                    onChange={(event) =>
+                      updatePeriod(
+                        index,
+                        "startYear",
+                        Number(event.target.value),
+                      )
+                    }
+                    className="rounded-md text-xs"
+                    aria-label={`Tahun mulai periode ${index + 1}`}
+                  />
+                  <span className="text-xs text-admin-content-fg/60">s/d</span>
+                  <Input
+                    type="number"
+                    min={1900}
+                    value={period.endYear}
+                    onChange={(event) =>
+                      updatePeriod(index, "endYear", Number(event.target.value))
+                    }
+                    className="rounded-md text-xs"
+                    aria-label={`Tahun akhir periode ${index + 1}`}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    className="text-destructive"
+                    aria-label={`Hapus periode ${index + 1}`}
+                    onClick={() =>
+                      setPeriods((prev) => prev.filter((_, i) => i !== index))
+                    }
+                  >
+                    <Trash2 className="size-3.5" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </FormGroup>
+
+          <FormGroup
+            legend="Kode Tingkat"
+            description="Opsi tingkat kepengurusan untuk form surat keluar."
+          >
+            <div className="flex justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setLevelCodes((prev) => [...prev, { code: "", label: "" }])
+                }
+              >
+                <Plus className="size-3.5" />
+                Tambah
+              </Button>
+            </div>
+            <div className="space-y-2">
+              {levelCodes.map((level, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Input
+                    value={level.code}
+                    onChange={(event) =>
+                      updateLevel(index, "code", event.target.value)
+                    }
+                    placeholder="Kode (mis. PP.III)"
+                    className="rounded-md font-mono text-xs"
+                    aria-label={`Kode tingkat ${index + 1}`}
+                  />
+                  <Input
+                    value={level.label}
+                    onChange={(event) =>
+                      updateLevel(index, "label", event.target.value)
+                    }
+                    placeholder="Label (mis. Bidang III)"
+                    className="rounded-md text-xs"
+                    aria-label={`Label tingkat ${index + 1}`}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    className="text-destructive"
+                    aria-label={`Hapus kode tingkat ${index + 1}`}
+                    onClick={() =>
+                      setLevelCodes((prev) =>
+                        prev.filter((_, i) => i !== index),
+                      )
+                    }
+                  >
+                    <Trash2 className="size-3.5" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </FormGroup>
+        </Band>
+
+        <div className="sticky bottom-4 flex justify-end">
+          <Button type="submit" size="sm" disabled={saving}>
+            {saving ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <Save className="size-4" />
+            )}
+            Simpan Pengaturan
+          </Button>
+        </div>
+      </form>
 
       <Band variant="raised">
-        <FormGroup
-          legend="Format & Digit"
-          description="Template memakai placeholder yang dibatasi tanda kurung kurawal."
-        >
-          <div className="grid gap-3 md:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="formatTemplate" className="text-xs">
-                Format Template
-              </Label>
-              <Input
-                id="formatTemplate"
-                name="formatTemplate"
-                defaultValue={config.formatTemplate}
-                placeholder="{seq}/{level}/{category}/{bulan}/{tahun}"
-                className="rounded-md font-mono text-xs"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="sequenceDigits" className="text-xs">
-                Digit Nomor Urut
-              </Label>
-              <Input
-                id="sequenceDigits"
-                name="sequenceDigits"
-                type="number"
-                min={2}
-                max={6}
-                defaultValue={config.sequenceDigits}
-                className="rounded-md text-xs"
-              />
-            </div>
-          </div>
-        </FormGroup>
-
-        <FormGroup
-          legend="Periode Kepengurusan"
-          description="Rentang tahun menentukan periode aktif penomoran surat."
-        >
-          <div className="flex justify-end">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                setPeriods((prev) => [
-                  ...prev,
-                  {
-                    startYear: Math.max(...prev.map((p) => p.endYear), 2024) + 1,
-                    endYear: Math.max(...prev.map((p) => p.endYear), 2024) + 5,
-                  },
-                ])
-              }
-            >
-              <Plus className="size-3.5" />
-              Tambah
-            </Button>
-          </div>
-          <div className="space-y-2">
-            {periods.map((period, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <Input
-                  type="number"
-                  min={1900}
-                  value={period.startYear}
-                  onChange={(event) =>
-                    updatePeriod(index, "startYear", Number(event.target.value))
-                  }
-                  className="rounded-md text-xs"
-                  aria-label={`Tahun mulai periode ${index + 1}`}
-                />
-                <span className="text-xs text-admin-content-fg/60">s/d</span>
-                <Input
-                  type="number"
-                  min={1900}
-                  value={period.endYear}
-                  onChange={(event) =>
-                    updatePeriod(index, "endYear", Number(event.target.value))
-                  }
-                  className="rounded-md text-xs"
-                  aria-label={`Tahun akhir periode ${index + 1}`}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  className="text-destructive"
-                  onClick={() =>
-                    setPeriods((prev) => prev.filter((_, i) => i !== index))
-                  }
-                >
-                  <Trash2 className="size-3.5" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        </FormGroup>
-
-        <FormGroup
-          legend="Kode Tingkat"
-          description="Opsi tingkat kepengurusan untuk form surat keluar."
-        >
-          <div className="flex justify-end">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                setLevelCodes((prev) => [...prev, { code: "", label: "" }])
-              }
-            >
-              <Plus className="size-3.5" />
-              Tambah
-            </Button>
-          </div>
-          <div className="space-y-2">
-            {levelCodes.map((level, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <Input
-                  value={level.code}
-                  onChange={(event) =>
-                    updateLevel(index, "code", event.target.value)
-                  }
-                  placeholder="Kode (mis. PP.III)"
-                  className="rounded-md font-mono text-xs"
-                  aria-label={`Kode tingkat ${index + 1}`}
-                />
-                <Input
-                  value={level.label}
-                  onChange={(event) =>
-                    updateLevel(index, "label", event.target.value)
-                  }
-                  placeholder="Label (mis. Bidang III)"
-                  className="rounded-md text-xs"
-                  aria-label={`Label tingkat ${index + 1}`}
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  className="text-destructive"
-                  onClick={() =>
-                    setLevelCodes((prev) => prev.filter((_, i) => i !== index))
-                  }
-                >
-                  <Trash2 className="size-3.5" />
-                </Button>
-              </div>
-            ))}
-          </div>
-        </FormGroup>
-
         <FormGroup
           legend="Nomor Urut Berikutnya"
           description="Koreksi manual nomor urut yang akan dipakai per periode."
@@ -253,7 +286,11 @@ export function NumberingSettingsForm({
                 <span className="w-28 text-sm font-medium tabular-nums">
                   {period.startYear}/{period.endYear}
                 </span>
-                <input type="hidden" name="periodYear" value={period.startYear} />
+                <input
+                  type="hidden"
+                  name="periodYear"
+                  value={period.startYear}
+                />
                 <Input
                   name="sequence"
                   type="number"
@@ -264,7 +301,12 @@ export function NumberingSettingsForm({
                   className="w-28 rounded-md text-xs"
                   aria-label={`Nomor urut berikutnya periode ${period.startYear}`}
                 />
-                <Button type="submit" variant="outline" size="sm" disabled={sequenceBusy}>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  disabled={sequenceBusy}
+                >
                   <RefreshCcw className="size-3.5" />
                   Atur
                 </Button>
@@ -273,17 +315,6 @@ export function NumberingSettingsForm({
           </div>
         </FormGroup>
       </Band>
-
-      <div className="sticky bottom-4 flex justify-end">
-        <Button type="submit" size="sm" disabled={saving}>
-          {saving ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            <Save className="size-4" />
-          )}
-          Simpan Pengaturan
-        </Button>
-      </div>
-    </form>
+    </div>
   );
 }

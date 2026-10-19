@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 import { cn } from "@/lib/utils";
 
 interface ModuleLink {
@@ -154,7 +155,7 @@ function ModuleRow({ row }: { row: ModuleLink }) {
       </div>
 
       <div className="shrink-0">
-        <Button size="sm" variant="outline" className="rounded-full" asChild>
+        <Button size="sm" variant="outline" asChild>
           <Link href={row.adminHref}>
             Kelola
             <ArrowUpRight className="size-4" />
@@ -196,13 +197,11 @@ export default async function SitePagesPage() {
                 </span>
               </div>
 
-              <div className="overflow-hidden rounded-xl border border-primary/25 bg-admin-card-bg">
+              <Band variant="raised" className="overflow-hidden p-0 lg:p-0">
                 {pages.map((page, index) => (
                   <div
                     key={page.key}
-                    className={cn(
-                      index > 0 && "border-t border-border/60",
-                    )}
+                    className={cn(index > 0 && "border-t border-admin-border/60")}
                   >
                     <PageRow
                       route={page.route}
@@ -215,16 +214,11 @@ export default async function SitePagesPage() {
                 ))}
 
                 {modules.map((row) => (
-                  <div
-                    key={row.route}
-                    className={cn(
-                      "border-t border-border/60",
-                    )}
-                  >
+                  <div key={row.route} className="border-t border-admin-border/60">
                     <ModuleRow row={row} />
                   </div>
                 ))}
-              </div>
+              </Band>
             </section>
           );
         })}

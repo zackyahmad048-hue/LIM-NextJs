@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import {
   getProgramById,
@@ -31,61 +35,52 @@ export default async function DocumentationPage({
         description="Kelola dokumentasi kegiatan."
       />
 
-      <form
-        action={addDocumentation.bind(null, program.id)}
-        className="max-w-sm space-y-3 rounded-lg border bg-background p-4"
-      >
-        <h3 className="text-sm font-semibold">Tambah Dokumentasi</h3>
-        <div className="space-y-1.5">
-          <label htmlFor="doc-title" className="text-xs font-medium">
-            Judul
-          </label>
-          <input
-            id="doc-title"
-            name="title"
-            required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs"
-          />
-        </div>
-        <div className="space-y-1.5">
-          <label htmlFor="doc-media" className="text-xs font-medium">
-            Media ID
-          </label>
-          <input
-            id="doc-media"
-            name="mediaId"
-            required
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs"
-          />
-        </div>
-        <div className="space-y-1.5">
-          <label htmlFor="doc-desc" className="text-xs font-medium">
-            Deskripsi (opsional)
-          </label>
-          <textarea
-            id="doc-desc"
-            name="description"
-            className="flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs"
-          />
-        </div>
-        <Button type="submit" size="sm">
-          Simpan
-        </Button>
-      </form>
+      <Band variant="raised" title="Tambah Dokumentasi" className="max-w-sm">
+        <form
+          action={addDocumentation.bind(null, program.id)}
+          className="space-y-3"
+        >
+          <div className="space-y-1.5">
+            <Label htmlFor="doc-title" className="text-xs">
+              Judul
+            </Label>
+            <Input
+              id="doc-title"
+              name="title"
+              required
+              className="rounded-md text-xs"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="doc-media" className="text-xs">
+              Media ID
+            </Label>
+            <Input
+              id="doc-media"
+              name="mediaId"
+              required
+              className="rounded-md text-xs"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="doc-desc" className="text-xs">
+              Deskripsi (opsional)
+            </Label>
+            <Textarea
+              id="doc-desc"
+              name="description"
+              className="min-h-20 rounded-md text-xs"
+            />
+          </div>
+          <Button type="submit" size="sm">
+            Simpan
+          </Button>
+        </form>
+      </Band>
 
-      {documentation.length > 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          {documentation.length} item.
-        </p>
-      )}
-
-      {documentation.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada dokumentasi.
-        </p>
-      )}
-
-      <DocumentationTable data={documentation} programId={program.id} />
+      <Band variant="raised">
+        <DocumentationTable data={documentation} programId={program.id} />
+      </Band>
     </PageContainer>
   );
 }

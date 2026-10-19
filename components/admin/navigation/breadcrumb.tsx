@@ -22,7 +22,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   disposition: "Disposisi",
   document: "Dokumen",
   documentation: "Dokumentasi",
-  eclipse: "Eclipse",
+  eclipse: "Gerhana",
   falak: "Falak",
   hero: "Hero",
   hisab: "Hisab",
@@ -72,7 +72,7 @@ export function Breadcrumb() {
   if (pathname === "/admin") {
     return (
       <nav aria-label="Breadcrumb">
-        <span className="text-sm font-medium text-foreground">Dashboard</span>
+        <span className="text-sm font-medium text-foreground">Dasbor</span>
       </nav>
     );
   }
@@ -101,7 +101,7 @@ export function Breadcrumb() {
               ) : (
                 <Link
                   href={crumb.href}
-                  className="truncate transition-colors hover:text-admin-content-fg"
+                  className="truncate transition-colors hover:text-admin-content-fg focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none rounded"
                 >
                   {crumb.label}
                 </Link>

@@ -23,7 +23,7 @@ export interface RoleRow {
 const columns: ColumnDef<RoleRow>[] = [
   {
     accessorKey: "name",
-    header: "Role",
+    header: "Peran",
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
         <Shield className="size-4 text-muted-foreground" />
@@ -61,5 +61,12 @@ const columns: ColumnDef<RoleRow>[] = [
 ];
 
 export function RolesTable({ data }: { data: RoleRow[] }) {
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada role."
+      emptyDescription=""
+    />
+  );
 }

@@ -25,7 +25,7 @@ const statusLabels: Record<
   }
 > = {
   DRAFT: { label: "Draft", variant: "outline" },
-  PUBLISHED: { label: "Published", variant: "default" },
+  PUBLISHED: { label: "Dipublikasikan", variant: "default" },
   REGISTRATION_OPEN: { label: "Registrasi Dibuka", variant: "default" },
   REGISTRATION_CLOSED: { label: "Registrasi Ditutup", variant: "secondary" },
   ON_GOING: { label: "Berlangsung", variant: "default" },
@@ -151,6 +151,8 @@ export function ProgramsTable({
       <DataTable
         columns={columns}
         data={data}
+        emptyMessage="Belum ada program."
+        showToolbar={false}
         manualPagination
         pageCount={pageCount}
         pageIndex={page - 1}

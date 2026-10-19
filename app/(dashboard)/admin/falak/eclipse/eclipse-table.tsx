@@ -48,16 +48,32 @@ const columns: ColumnDef<Item>[] = [
   {
     accessorKey: "details",
     header: "Keterangan",
-    cell: ({ row }) => (
-      <span className="text-xs text-admin-content-fg/60">
-        {row.original.details
-          ? JSON.stringify(row.original.details)
-          : "-"}
-      </span>
-    ),
+    cell: ({ row }) => {
+      const details = row.original.details;
+      const text = details == null ? "" : (JSON.stringify(details) ?? "");
+
+      if (text === "") {
+        return <span className="text-xs text-admin-content-fg/60">-</span>;
+      }
+
+      return (
+        <span
+          className="block max-w-60 truncate font-mono text-[11px] text-admin-content-fg/60"
+          title={text}
+        >
+          {text}
+        </span>
+      );
+    },
   },
 ];
 
 export function EclipseTable({ data }: { data: Item[] }) {
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada data gerhana."
+    />
+  );
 }

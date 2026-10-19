@@ -203,16 +203,15 @@ export function PostForm({
 
         {/* Sidebar */}
         <div className="flex flex-col gap-4">
-          <Band variant="raised">
-            <h3 className="text-sm font-semibold text-admin-content-fg">Publikasi</h3>
-            <div className="mt-3 space-y-3">
+          <Band variant="raised" title="Publikasi">
+            <div className="space-y-3">
               <div className="space-y-2">
-                <Label>Kategori</Label>
+                <Label htmlFor="post-category">Kategori</Label>
                 <Select
                   value={selectedCategoryId}
                   onValueChange={setSelectedCategoryId}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="post-category">
                     <SelectValue placeholder="Pilih kategori" />
                   </SelectTrigger>
                   <SelectContent>
@@ -241,38 +240,36 @@ export function PostForm({
             </div>
           </Band>
 
-          <Band variant="plain">
-            <h3 className="text-sm font-semibold text-admin-content-fg">Aksi</h3>
-            <div className="mt-3 flex flex-col gap-2">
-              <Button
-                type="submit"
-                disabled={form.formState.isSubmitting}
-                className="w-full"
-              >
-                {form.formState.isSubmitting ? (
-                  "Menyimpan..."
-                ) : mode === "create" ? (
-                  <>
-                    <Save className="size-4" />
-                    Simpan Draft
-                  </>
-                ) : (
-                  <>
-                    <Send className="size-4" />
-                    Perbarui
-                  </>
-                )}
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={() => router.push("/admin/content/posts")}
-              >
-                Batal
-              </Button>
-            </div>
-          </Band>
+          {/* Aksi: sticky di bawah viewport (spec FORM). */}
+          <div className="sticky bottom-4 flex justify-end gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => router.push("/admin/content/posts")}
+            >
+              Batal
+            </Button>
+            <Button
+              type="submit"
+              size="sm"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? (
+                "Menyimpan..."
+              ) : mode === "create" ? (
+                <>
+                  <Save className="size-4" />
+                  Simpan Draft
+                </>
+              ) : (
+                <>
+                  <Send className="size-4" />
+                  Perbarui
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </form>
     </PageContainer>

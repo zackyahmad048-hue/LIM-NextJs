@@ -40,7 +40,7 @@ function Field({ label, value }: FieldProps) {
         {value && value.trim() ? (
           value
         ) : (
-          <span className="text-admin-content-fg/40">-</span>
+          <span className="text-admin-content-fg/60">-</span>
         )}
       </p>
     </div>
@@ -54,12 +54,12 @@ function FieldList({ label, values }: { label: string; values: string[] }) {
     <div className="space-y-1">
       <p className="text-xs uppercase text-admin-content-fg/60">{label}</p>
       {trimmed.length === 0 ? (
-        <p className="text-sm text-admin-content-fg/40">-</p>
+        <p className="text-sm text-admin-content-fg/60">-</p>
       ) : (
         <ul className="space-y-0.5 text-sm text-admin-content-fg">
           {trimmed.map((value, index) => (
             <li key={index} className="flex items-start gap-1.5">
-              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-admin-content-fg/40" />
+              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-admin-content-fg/60" />
               <span>{value}</span>
             </li>
           ))}
@@ -139,7 +139,7 @@ export function TwkDetailView({ member }: Props) {
         }
       />
 
-      <Band variant="plain">
+      <Band variant="raised">
         <FormGroup legend="Status" description="Status keanggotaan saat ini.">
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge status={member.status} />

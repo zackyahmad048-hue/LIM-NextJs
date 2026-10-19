@@ -30,13 +30,19 @@ interface Props {
   onEdit(member: MemberRow): void;
 }
 
+/*
+ * Nada status wajib lolos WCAG AA: teks putih pada `--success`/`--warning`
+ * hanya mencapai 1.97:1 dan 1.41:1, dan `text-success` di atas isian
+ * `success/10` cuma 1.82:1. Maka token dipakai sebagai isian yang
+ * disamarkan, label teks memakai warna konten (kontras tinggi) di mode
+ * terang, dan warna token mengambil alih di mode gelap (≥4.2:1).
+ * Makna status tidak hilang karena label teks selalu ada di samping warna.
+ */
 const STATUS_TONE: Record<WajibKhidmahStatus, string> = {
-  AKTIF:
-    "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300",
-  GUGUR: "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-300",
-  BEBAS_TUGAS:
-    "bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300",
-  QODLO: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-300",
+  AKTIF: "bg-success/10 ",
+  GUGUR: "bg-destructive/10 ",
+  BEBAS_TUGAS: "bg-warning/10 ",
+  QODLO: "bg-muted text-muted-foreground",
 };
 
 function StatusBadge({ status }: { status: WajibKhidmahStatus }) {

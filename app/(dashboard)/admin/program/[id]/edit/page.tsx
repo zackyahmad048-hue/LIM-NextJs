@@ -46,7 +46,7 @@ const programTypes = [
 
 const statusLabels: Record<string, string> = {
   DRAFT: "Draft",
-  PUBLISHED: "Published",
+  PUBLISHED: "Dipublikasikan",
   REGISTRATION_OPEN: "Registrasi Dibuka",
   REGISTRATION_CLOSED: "Registrasi Ditutup",
   ON_GOING: "Berlangsung",
@@ -93,7 +93,7 @@ export default async function EditProgramPage({
   }[] = [];
   if (program.status === "DRAFT")
     statusActions.push({
-      label: "Publish",
+      label: "Publikasikan",
       status: "PUBLISHED",
       icon: Send,
       variant: "default",
@@ -195,7 +195,6 @@ export default async function EditProgramPage({
         <input type="hidden" name="code" value={program.code} />
 
         <Band variant="raised" title="Informasi Program">
-
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="code" className="text-xs">
@@ -279,7 +278,6 @@ export default async function EditProgramPage({
         </Band>
 
         <Band variant="raised" title="Tanggal & Pendaftaran">
-
           <div className="grid gap-3 md:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="startDate" className="text-xs">

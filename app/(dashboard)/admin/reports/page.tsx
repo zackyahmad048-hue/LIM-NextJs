@@ -1,5 +1,3 @@
-import { BarChart3 } from "lucide-react";
-
 import { Badge } from "@/components/ui/badge";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
@@ -58,13 +56,13 @@ export default async function ReportsPage() {
               key: "posts",
               label: "Total Berita",
               value: totalPosts,
-              description: `${publishedPosts} published`,
+              description: `${publishedPosts} dipublikasikan`,
             },
             { key: "categories", label: "Kategori", value: totalCategories, description: "Aktif" },
             { key: "users", label: "Pengguna", value: totalUsers, description: "Terdaftar" },
             {
               key: "rate",
-              label: "Published Rate",
+              label: "Tingkat Publikasi",
               value: publishedRate,
               description: `${publishedPosts} dari ${totalPosts}`,
             },
@@ -72,51 +70,34 @@ export default async function ReportsPage() {
         />
       </Band>
 
-      <Band variant="plain">
-        <div className="flex items-center gap-2">
-          <BarChart3 className="size-4 text-admin-content-fg/50" />
-          <h2 className="text-base font-semibold text-admin-content-fg">
-            Status berita
-          </h2>
-        </div>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {[
+      <Band variant="plain" title="Status berita">
+        <StatStrip
+          items={[
             {
-              label: "Published",
+              key: "published",
+              label: <Badge variant="default">Dipublikasikan</Badge>,
               value: publishedPosts,
-              variant: "default" as const,
             },
-            { label: "Draft", value: draftPosts, variant: "outline" as const },
             {
-              label: "Archived",
-              value: archivedPosts,
-              variant: "secondary" as const,
+              key: "draft",
+              label: <Badge variant="outline">Draft</Badge>,
+              value: draftPosts,
             },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="rounded-md border border-admin-border bg-admin-card-bg p-4 text-center"
-            >
-              <p className="text-3xl font-bold tabular-nums text-admin-content-fg">
-                {item.value}
-              </p>
-              <Badge variant={item.variant} className="mt-2">
-                {item.label}
-              </Badge>
-            </div>
-          ))}
-        </div>
+            {
+              key: "archived",
+              label: <Badge variant="secondary">Diarsipkan</Badge>,
+              value: archivedPosts,
+            },
+          ]}
+        />
       </Band>
 
-      <Band variant="plain">
-        <h2 className="text-base font-semibold text-admin-content-fg">
-          Berita per kategori
-        </h2>
-        <p className="mt-1 text-xs text-admin-content-fg/60">
-          Jumlah berita di setiap kategori.
-        </p>
-
-        <div className="mt-4 space-y-2">
+      <Band
+        variant="plain"
+        title="Berita per kategori"
+        description="Jumlah berita di setiap kategori."
+      >
+        <div className="space-y-2">
           {postsByCategory.length > 0 ? (
             postsByCategory.map((cat) => {
               const count = cat._count.posts;

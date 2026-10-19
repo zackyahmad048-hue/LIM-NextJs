@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { Cog } from "lucide-react";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
@@ -33,13 +32,7 @@ export default async function PenomoranSettingsPage() {
           <NumberingSettingsForm config={config} />
         </div>
 
-        <Band variant="raised" className="h-fit">
-          <div className="mb-3 flex items-center gap-2">
-            <Cog className="size-4 text-admin-content-fg/50" />
-            <h2 className="text-sm font-semibold text-admin-content-fg">
-              Petunjuk Format
-            </h2>
-          </div>
+        <Band variant="raised" title="Petunjuk Format" className="h-fit">
           <ul className="space-y-2 text-xs text-admin-content-fg/60">
             <li>
               <code className="rounded bg-admin-input-bg px-1.5 py-0.5 font-mono">

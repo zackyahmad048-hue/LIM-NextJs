@@ -33,6 +33,7 @@ function isActiveHref(href: string | undefined, pathname: string) {
 const activeClass =
   "bg-admin-sidebar-accent text-admin-sidebar-accent-fg font-medium";
 const hoverClass = "hover:bg-admin-sidebar-accent hover:text-admin-sidebar-accent-fg";
+const focusClass = "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
 const baseTextClass = "text-admin-sidebar-fg/90";
 
 export function SidebarItem({
@@ -61,9 +62,10 @@ export function SidebarItem({
           onClick={onNavigate}
           aria-current={childCurrent ? "page" : undefined}
           className={cn(
-            "flex h-8 items-center rounded-md px-3 text-xs transition-colors duration-200",
+            "flex h-11 items-center rounded-md px-3 text-xs transition-colors duration-200 motion-reduce:transition-none",
             baseTextClass,
             childCurrent ? activeClass : hoverClass,
+            focusClass,
           )}
         >
           {child.title}
@@ -79,10 +81,11 @@ export function SidebarItem({
         aria-label={item.title}
         aria-current={active ? "page" : undefined}
         className={cn(
-          "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200",
+          "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200 motion-reduce:transition-none",
           collapsed ? "justify-center" : "gap-2.5 px-3",
           baseTextClass,
           active ? activeClass : hoverClass,
+          focusClass,
         )}
       >
         {Icon && <Icon className="h-4 w-4 shrink-0" />}
@@ -116,11 +119,12 @@ export function SidebarItem({
       aria-expanded={collapsed ? undefined : open}
       aria-label={collapsed ? item.title : undefined}
       className={cn(
-        "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200",
+        "flex h-9 w-full items-center rounded-lg text-sm transition-colors duration-200 motion-reduce:transition-none",
         collapsed ? "justify-center" : "gap-2.5 px-3",
         baseTextClass,
         hoverClass,
         childActive && !collapsed && "font-medium",
+        focusClass,
       )}
     >
       {Icon && <Icon className="h-4 w-4 shrink-0" />}
@@ -135,7 +139,7 @@ export function SidebarItem({
       {!collapsed && (
         <ChevronDown
           className={cn(
-            "h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-in-out",
+            "h-3.5 w-3.5 shrink-0 transition-transform duration-300 ease-in-out motion-reduce:transition-none",
             "text-admin-sidebar-fg/60",
             open && "rotate-180",
           )}

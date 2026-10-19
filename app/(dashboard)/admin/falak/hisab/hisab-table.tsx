@@ -77,6 +77,7 @@ export function HisabTable({
     <DataTable
       columns={columns}
       data={data}
+      showToolbar={false}
       manualPagination
       pageCount={pageCount}
       pageIndex={page - 1}

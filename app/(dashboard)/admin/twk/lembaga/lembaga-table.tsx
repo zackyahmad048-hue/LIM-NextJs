@@ -41,7 +41,7 @@ const columns: ColumnDef<LembagaRow>[] = [
         .join(", ");
       return (
         <span className="text-sm text-admin-content-fg/80">
-          {daerah || <span className="text-admin-content-fg/40">-</span>}
+          {daerah || <span className="text-admin-content-fg/60">-</span>}
         </span>
       );
     },
@@ -52,7 +52,7 @@ const columns: ColumnDef<LembagaRow>[] = [
     cell: ({ row }) => (
       <span className="text-sm text-admin-content-fg/80">
         {row.original.pengasuhNama || (
-          <span className="text-admin-content-fg/40">-</span>
+          <span className="text-admin-content-fg/60">-</span>
         )}
       </span>
     ),
@@ -87,5 +87,12 @@ const columns: ColumnDef<LembagaRow>[] = [
 ];
 
 export function LembagaTable({ data }: { data: LembagaRow[] }) {
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada permohonan"
+      emptyDescription="Permohonan akan muncul di sini ketika lembaga eksternal mengisi formulir permohonan guru bantu."
+    />
+  );
 }

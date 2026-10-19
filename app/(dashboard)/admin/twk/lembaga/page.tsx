@@ -1,6 +1,5 @@
-import { Building2 } from "lucide-react";
-
 import { Input } from "@/components/ui/input";
+import { Band } from "@/components/admin/shared/band";
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
 
@@ -27,10 +26,15 @@ export default async function LembagaListPage({ searchParams }: PageProps) {
         title="Lembaga Pemohon Guru Bantu"
         description="Daftar lembaga eksternal yang mengajukan permohonan guru bantu."
         actions={
-          <form action="/admin/twk/lembaga" method="GET" className="w-full sm:w-auto">
+          <form
+            action="/admin/twk/lembaga"
+            method="GET"
+            className="w-full sm:w-auto"
+          >
             <Input
               name="q"
               defaultValue={q ?? ""}
+              aria-label="Cari lembaga"
               placeholder="Cari nama lembaga, daerah, pengasuh..."
               className="w-full sm:w-80"
             />
@@ -38,24 +42,13 @@ export default async function LembagaListPage({ searchParams }: PageProps) {
         }
       />
 
-      {items.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <Building2 className="mb-4 h-12 w-12 text-admin-content-fg/40" />
-          <h3 className="font-semibold text-admin-content-fg">Belum ada permohonan</h3>
-          <p className="mt-2 max-w-sm text-sm text-admin-content-fg/60">
-            Permohonan akan muncul di sini ketika lembaga eksternal mengisi
-            formulir permohonan guru bantu.
-          </p>
-        </div>
-      )}
+      <p className="text-sm text-admin-content-fg/60">
+        {total} lembaga tercatat.
+      </p>
 
-      {items.length > 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          {total} lembaga tercatat.
-        </p>
-      )}
-
-      <LembagaTable data={items} />
+      <Band variant="raised">
+        <LembagaTable data={items} />
+      </Band>
     </PageContainer>
   );
 }

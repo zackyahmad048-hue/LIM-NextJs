@@ -53,7 +53,7 @@ function buildColumns(programId: string): ColumnDef<Item>[] {
     },
     {
       accessorKey: "checkIn",
-      header: "Check In",
+      header: "Waktu Masuk",
       cell: ({ row }) => (
         <span className="text-xs text-admin-content-fg/80">
           {formatTime(row.original.checkIn)}
@@ -62,7 +62,7 @@ function buildColumns(programId: string): ColumnDef<Item>[] {
     },
     {
       accessorKey: "checkOut",
-      header: "Check Out",
+      header: "Waktu Keluar",
       cell: ({ row }) => (
         <span className="text-xs text-admin-content-fg/80">
           {formatTime(row.original.checkOut)}
@@ -129,5 +129,11 @@ export function AttendanceTable({
   programId: string;
 }) {
   const columns = useMemo(() => buildColumns(programId), [programId]);
-  return <DataTable columns={columns} data={data} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={data}
+      emptyMessage="Belum ada catatan kehadiran."
+    />
+  );
 }

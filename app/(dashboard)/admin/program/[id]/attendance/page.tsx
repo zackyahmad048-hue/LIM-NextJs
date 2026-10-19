@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { PageContainer } from "@/components/admin/shared/page-container";
 import { PageHeader } from "@/components/admin/shared/page-header";
+import { Band } from "@/components/admin/shared/band";
 
 import {
   getProgramById,
@@ -29,19 +30,9 @@ export default async function AttendancePage({
         description="Catat kehadiran peserta program."
       />
 
-      {attendance.length > 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          {attendance.length} catatan kehadiran.
-        </p>
-      )}
-
-      {attendance.length === 0 && (
-        <p className="text-sm text-admin-content-fg/60">
-          Belum ada catatan kehadiran.
-        </p>
-      )}
-
-      <AttendanceTable data={attendance} programId={program.id} />
+      <Band variant="raised">
+        <AttendanceTable data={attendance} programId={program.id} />
+      </Band>
     </PageContainer>
   );
 }

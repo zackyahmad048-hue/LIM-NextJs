@@ -223,10 +223,15 @@ export function QrPositionEditor({
       geometry.mm.y,
     );
 
+    /*
+     * Marker QR dipakai di atas latar putih/template — teks putih pada
+     * token terang (sky/emerald/violet-500) hanya 1.7-2.1:1, gagal AA.
+     * Gunakan token yang gelap (800/700) agar teks putih ≥4.5:1.
+     */
     const palette: Record<MarkerType, string> = {
-      ketua: "border-sky-300 bg-sky-500/80",
-      sekretaris: "border-emerald-300 bg-emerald-500/80",
-      verifikasi: "border-violet-300 bg-violet-500/80",
+      ketua: "border-sky-700 bg-sky-700",
+      sekretaris: "border-emerald-700 bg-emerald-700",
+      verifikasi: "border-violet-700 bg-violet-700",
     };
     const labels: Record<MarkerType, string> = {
       ketua: "KETUA",
@@ -319,7 +324,7 @@ export function QrPositionEditor({
       </div>
 
       {fiducial && (
-        <p className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800 dark:border-emerald-800/50 dark:bg-emerald-950/30 dark:text-emerald-200">
+        <p className="rounded-lg border border-success/30 bg-success/10 px-3 py-2 text-xs ">
           Simbol fiducial terdeteksi. Posisi QR Ketua, Sekretaris, dan
           Verifikasi diisi otomatis sesuai simbol pada template.
         </p>

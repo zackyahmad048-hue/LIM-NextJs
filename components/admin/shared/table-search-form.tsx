@@ -38,7 +38,7 @@ export function TableSearchForm({
           name="search"
           defaultValue={defaultValue}
           placeholder={placeholder}
-          className="h-8 w-48 pl-8 text-xs sm:w-56 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/40 focus:border-primary focus:ring-primary/20"
+          className="h-8 w-48 pl-8 text-xs sm:w-56 bg-admin-input-bg border-admin-input-border text-admin-content-fg placeholder:text-admin-content-fg/60 focus:border-primary focus:ring-primary/20"
         />
       </div>
       {defaultValue && (

@@ -10,8 +10,8 @@ import {
   Trash2,
   ChevronDown,
   ChevronRight,
+  Eye,
   Pencil,
-  Download,
   MapPin,
   Users,
   Flag,
@@ -47,26 +47,29 @@ function Section({
 }) {
   return (
     <Band variant="plain">
-      <button
-        type="button"
-        onClick={() => onToggle(id)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-muted/50"
-      >
-        <div className="flex items-center gap-2">
-          {expanded ? (
-            <ChevronDown className="size-4 text-muted-foreground" />
-          ) : (
-            <ChevronRight className="size-4 text-muted-foreground" />
+      <h2>
+        <button
+          type="button"
+          aria-expanded={expanded}
+          onClick={() => onToggle(id)}
+          className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-muted/50"
+        >
+          <div className="flex items-center gap-2">
+            {expanded ? (
+              <ChevronDown className="size-4 text-muted-foreground" />
+            ) : (
+              <ChevronRight className="size-4 text-muted-foreground" />
+            )}
+            <Icon className="size-4 text-muted-foreground" />
+            <span className="text-sm font-semibold">{title}</span>
+          </div>
+          {badge && (
+            <Badge variant="secondary" className="text-[11px]">
+              {badge}
+            </Badge>
           )}
-          <Icon className="size-4 text-muted-foreground" />
-          <span className="text-sm font-semibold">{title}</span>
-        </div>
-        {badge && (
-          <Badge variant="secondary" className="text-[11px]">
-            {badge}
-          </Badge>
-        )}
-      </button>
+        </button>
+      </h2>
       {expanded && <div className="border-t px-4 py-3">{children}</div>}
     </Band>
   );
@@ -354,44 +357,50 @@ export function StructureEditor({ initial }: Props) {
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label>Nama organisasi</Label>
+            <Label htmlFor="org-name">Nama organisasi</Label>
             <Input
+              id="org-name"
               value={data.organization.name}
               onChange={(e) => updateOrg("name", e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label>Singkatan</Label>
+            <Label htmlFor="org-short-name">Singkatan</Label>
             <Input
+              id="org-short-name"
               value={data.organization.shortName}
               onChange={(e) => updateOrg("shortName", e.target.value)}
             />
           </div>
           <div className="space-y-2 sm:col-span-2">
-            <Label>Alamat</Label>
+            <Label htmlFor="org-address">Alamat</Label>
             <Textarea
+              id="org-address"
               rows={2}
               value={data.organization.address}
               onChange={(e) => updateOrg("address", e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label>Telepon</Label>
+            <Label htmlFor="org-phone">Telepon</Label>
             <Input
+              id="org-phone"
               value={data.organization.phone}
               onChange={(e) => updateOrg("phone", e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label>Email</Label>
+            <Label htmlFor="org-email">Email</Label>
             <Input
+              id="org-email"
               value={data.organization.email}
               onChange={(e) => updateOrg("email", e.target.value)}
             />
           </div>
           <div className="space-y-2 sm:col-span-2">
-            <Label>Website</Label>
+            <Label htmlFor="org-website">Website</Label>
             <Input
+              id="org-website"
               value={data.organization.website}
               onChange={(e) => updateOrg("website", e.target.value)}
             />
@@ -420,8 +429,8 @@ export function StructureEditor({ initial }: Props) {
               onClick={() => setPreviewOpen(true)}
               disabled={!data.googleSheetUrl.trim()}
             >
-              <Download className="size-4" />
-              Preview
+              <Eye className="size-4" />
+              Pratinjau
             </Button>
           </div>
           <p className="text-[11px] text-muted-foreground">
@@ -496,8 +505,9 @@ export function StructureEditor({ initial }: Props) {
                 ) : (
                   <div className="flex items-center justify-between">
                     <div>
-                      <p
-                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                      <button
+                        type="button"
+                        className="text-left text-sm font-medium hover:text-primary"
                         onClick={() => setEditingMember(m.id)}
                       >
                         {m.name || (
@@ -505,7 +515,7 @@ export function StructureEditor({ initial }: Props) {
                             Nama pengurus
                           </span>
                         )}
-                      </p>
+                      </button>
                       <p className="text-xs text-muted-foreground">
                         {m.position || "Tanpa jabatan"}
                       </p>
@@ -551,8 +561,14 @@ export function StructureEditor({ initial }: Props) {
                   <div className="space-y-2">
                     <div className="grid gap-2 sm:grid-cols-2">
                       <div className="space-y-1">
-                        <Label className="text-xs">Provinsi</Label>
+                        <Label
+                          htmlFor={`regional-province-${r.id}`}
+                          className="text-xs"
+                        >
+                          Provinsi
+                        </Label>
                         <Input
+                          id={`regional-province-${r.id}`}
                           value={r.province}
                           onChange={(e) =>
                             updateRegionalBoard(
@@ -566,8 +582,14 @@ export function StructureEditor({ initial }: Props) {
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label className="text-xs">Nama Pengurus</Label>
+                        <Label
+                          htmlFor={`regional-name-${r.id}`}
+                          className="text-xs"
+                        >
+                          Nama Pengurus
+                        </Label>
                         <Input
+                          id={`regional-name-${r.id}`}
                           value={r.name}
                           onChange={(e) =>
                             updateRegionalBoard(r.id, "name", e.target.value)
@@ -600,8 +622,9 @@ export function StructureEditor({ initial }: Props) {
                 ) : (
                   <div className="flex items-center justify-between">
                     <div>
-                      <p
-                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                      <button
+                        type="button"
+                        className="text-left text-sm font-medium hover:text-primary"
                         onClick={() => setEditingRegional(r.id)}
                       >
                         {r.province || (
@@ -609,7 +632,7 @@ export function StructureEditor({ initial }: Props) {
                             Provinsi
                           </span>
                         )}
-                      </p>
+                      </button>
                       <p className="text-xs text-muted-foreground">
                         {r.name || "Tanpa nama"} · {r.members.length} anggota
                       </p>
@@ -696,8 +719,14 @@ export function StructureEditor({ initial }: Props) {
                   <div className="space-y-2">
                     <div className="grid gap-2 sm:grid-cols-2">
                       <div className="space-y-1">
-                        <Label className="text-xs">Provinsi</Label>
+                        <Label
+                          htmlFor={`branch-province-${b.id}`}
+                          className="text-xs"
+                        >
+                          Provinsi
+                        </Label>
                         <Input
+                          id={`branch-province-${b.id}`}
                           value={b.province}
                           onChange={(e) =>
                             updateBranchBoard(b.id, "province", e.target.value)
@@ -707,8 +736,14 @@ export function StructureEditor({ initial }: Props) {
                         />
                       </div>
                       <div className="space-y-1">
-                        <Label className="text-xs">Kabupaten/Kota</Label>
+                        <Label
+                          htmlFor={`branch-regency-${b.id}`}
+                          className="text-xs"
+                        >
+                          Kabupaten/Kota
+                        </Label>
                         <Input
+                          id={`branch-regency-${b.id}`}
                           value={b.regency}
                           onChange={(e) =>
                             updateBranchBoard(b.id, "regency", e.target.value)
@@ -718,8 +753,14 @@ export function StructureEditor({ initial }: Props) {
                         />
                       </div>
                       <div className="space-y-1 sm:col-span-2">
-                        <Label className="text-xs">Nama Pengurus</Label>
+                        <Label
+                          htmlFor={`branch-name-${b.id}`}
+                          className="text-xs"
+                        >
+                          Nama Pengurus
+                        </Label>
                         <Input
+                          id={`branch-name-${b.id}`}
                           value={b.name}
                           onChange={(e) =>
                             updateBranchBoard(b.id, "name", e.target.value)
@@ -752,8 +793,9 @@ export function StructureEditor({ initial }: Props) {
                 ) : (
                   <div className="flex items-center justify-between">
                     <div>
-                      <p
-                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                      <button
+                        type="button"
+                        className="text-left text-sm font-medium hover:text-primary"
                         onClick={() => setEditingBranch(b.id)}
                       >
                         {b.regency || (
@@ -761,7 +803,7 @@ export function StructureEditor({ initial }: Props) {
                             Kabupaten/Kota
                           </span>
                         )}
-                      </p>
+                      </button>
                       <p className="text-xs text-muted-foreground">
                         {b.province && `${b.province} · `}
                         {b.name || "Tanpa nama"} · {b.members.length} anggota
@@ -894,8 +936,9 @@ export function StructureEditor({ initial }: Props) {
                 ) : (
                   <div className="flex items-center justify-between">
                     <div>
-                      <p
-                        className="text-sm font-medium cursor-pointer hover:text-orange-600"
+                      <button
+                        type="button"
+                        className="text-left text-sm font-medium hover:text-primary"
                         onClick={() => setEditingMember(m.id)}
                       >
                         {m.name || (
@@ -903,7 +946,7 @@ export function StructureEditor({ initial }: Props) {
                             Nama anggota
                           </span>
                         )}
-                      </p>
+                      </button>
                       <p className="text-xs text-muted-foreground">
                         {m.position || "Tanpa posisi"}
                       </p>

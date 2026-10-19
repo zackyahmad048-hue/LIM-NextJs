@@ -49,28 +49,28 @@ const queueChips: Array<{
     label: "Disposisi diproses",
     href: "/admin/secretariat/disposition/list",
     icon: ClipboardList,
-    tone: "text-primary bg-primary/10",
+    tone: "bg-primary/10 ",
     getValue: (c) => c.pendingDispositions,
   },
   {
     label: "Surat keluar draf",
     href: "/admin/secretariat/outgoing-mail/list?status=DRAFT",
     icon: Send,
-    tone: "text-amber-600 bg-amber-100 dark:bg-amber-950/50",
+    tone: "bg-warning/10 ",
     getValue: (c) => c.draftOutgoing,
   },
   {
     label: "Surat masuk baru",
     href: "/admin/secretariat/incoming-mail/list?status=RECEIVED",
     icon: Inbox,
-    tone: "text-sky-600 bg-sky-100 dark:bg-sky-950/50",
+    tone: "bg-primary/10 ",
     getValue: (c) => c.receivedIncoming,
   },
   {
     label: "Dokumen menunggu",
     href: "/admin/secretariat/document/list?status=SUBMITTED",
     icon: FileText,
-    tone: "text-violet-600 bg-violet-100 dark:bg-violet-950/50",
+    tone: "bg-muted text-foreground",
     getValue: (c) => c.submittedDocuments,
   },
 ];
@@ -109,7 +109,7 @@ function formatDueDate(date: Date | null) {
 
 export function ActionQueue({ dispositions, counts }: ActionQueueProps) {
   return (
-    <Band variant="plain">
+    <Band variant="plain" className="border-t-0 pt-0">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">Perlu Tindakan</h2>
