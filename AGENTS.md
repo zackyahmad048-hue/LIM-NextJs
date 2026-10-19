@@ -78,9 +78,25 @@ Format laporan (jangan klaim cek lulus jika tidak dijalankan):
 ---
 
 ## Issue & Domain
-Issue berupa file markdown di `.scratch/` (`docs/agents/issue-tracker.md`). Label triage: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix` (`docs/agents/triage-labels.md`). Domain: `CONTEXT.md` dan `docs/05-decisions/` (`docs/agents/domain.md`).
+Issue berupa file markdown di `.scratch/` (`docs/agents/issue-tracker.md`). Label triage: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix` (`docs/agents/triage-labels.md`). Domain: `GLOSSARY.md` dan `docs/05-decisions/` (`docs/agents/domain.md`).
 
 **Cek diri:** "Apakah saya mengerjakan yang proyek butuhkan, atau yang saya kira dibutuhkan?" Jika ragu: berhenti, inspeksi, cari docs.
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+Local markdown (`.scratch/`). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five canonical labels. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context (`GLOSSARY.md` + `docs/05-decisions/`). See `docs/agents/domain.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
