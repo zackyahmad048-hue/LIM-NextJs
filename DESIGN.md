@@ -111,7 +111,7 @@ Perintah lewat script proyek (lihat `AGENTS.md`): `npm run typecheck`, `npm run 
 | Komponen & shell admin | `components.md` | Button, kartu, tabel, `Band`, `PageContainer`, dll. |
 | Form, ikon, tabel, aksesibilitas | `forms.md`, `icons.md`, `tables.md`, `accessibility.md` | Standar masing-masing |
 
-Area admin tidak dicakup dokumen ini; ia mengikuti `components.md` (Admin CMS Shell) dan `spec-admin-permukaan-tenang.md`.
+Area admin tidak dicakup dokumen ini; ia mengikuti `components.md` (Admin CMS Shell) dan `spec-admin-tenang-modern.md`.
 
 ### 10.2 Hierarki sumber kebenaran
 Untuk situs publik: `PRODUCT.md` (maksud produk) → `DESIGN.md` (keputusan visual) → `app/globals.css` (nilai token) → dokumen di `docs/08-design-system/`. Jika isi dokumen lain bertentangan, tiga yang pertama berlaku (sesuai catatan di `README.md` design system).

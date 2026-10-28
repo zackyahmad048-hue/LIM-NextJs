@@ -96,15 +96,15 @@ export default async function FalakDashboardPage() {
       </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Band variant="plain">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-admin-content-fg">
-              Observasi Rukyat Terbaru
-            </h2>
+        <Band
+          variant="plain"
+          title="Observasi Rukyat Terbaru"
+          actions={
             <Link href="/admin/falak/rukyat" className={SECTION_LINK}>
               Lihat semua
             </Link>
-          </div>
+          }
+        >
           {rukyatData.length > 0 ? (
             <ul className="divide-y divide-admin-border/50">
               {rukyatData.slice(0, 5).map((r) => (
@@ -131,15 +131,15 @@ export default async function FalakDashboardPage() {
           )}
         </Band>
 
-        <Band variant="plain">
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-admin-content-fg">
-              Gerhana Mendatang
-            </h2>
+        <Band
+          variant="plain"
+          title="Gerhana Mendatang"
+          actions={
             <Link href="/admin/falak/eclipse" className={SECTION_LINK}>
               Lihat semua
             </Link>
-          </div>
+          }
+        >
           {eclipses.length > 0 ? (
             <ul className="divide-y divide-admin-border/50">
               {eclipses.slice(0, 5).map((e) => (

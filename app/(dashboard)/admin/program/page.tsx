@@ -99,13 +99,15 @@ export default async function ProgramDashboardPage() {
       </Band>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Band variant="plain">
-          <div className="flex items-center gap-2">
-            <Calendar className="size-4 text-muted-foreground" />
-            <h2 className="text-base font-semibold text-admin-content-fg">
+        <Band
+          variant="plain"
+          title={
+            <span className="flex items-center gap-2">
+              <Calendar className="size-4 text-muted-foreground" />
               Program Mendatang
-            </h2>
-          </div>
+            </span>
+          }
+        >
           {upcoming.length > 0 ? (
             <ul className="mt-4 divide-y divide-admin-border/50">
               {upcoming.map((program) => (
@@ -136,13 +138,15 @@ export default async function ProgramDashboardPage() {
           )}
         </Band>
 
-        <Band variant="plain">
-          <div className="flex items-center gap-2">
-            <Users className="size-4 text-muted-foreground" />
-            <h2 className="text-base font-semibold text-admin-content-fg">
+        <Band
+          variant="plain"
+          title={
+            <span className="flex items-center gap-2">
+              <Users className="size-4 text-muted-foreground" />
               Akses Cepat
-            </h2>
-          </div>
+            </span>
+          }
+        >
           <div className="mt-4 space-y-2">
             <Button asChild variant="outline" className="w-full justify-start">
               <Link href="/admin/program/list">

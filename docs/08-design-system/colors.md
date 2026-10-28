@@ -26,6 +26,8 @@ Glassmorphism ("Kaca Kristal") dipakai terbatas pada **konten** (kartu/widget), 
 
 > **⚠️ Situs Publik (implemented):** sumber kebenaran single adalah token di `app/globals.css` — `--primary` oranye LIM `oklch(0.553 0.195 38.402)` sebagai accent taktis (CTA, underline aktif, status, focus ring; **bukan** background wash), `--background` putih `oklch(1 0 0)` / near-black `oklch(0.145 0 0)`, `--font-heading` dst. Skala token (Primary-50…900, Neutral, Semantic) di bawah tetap relevan sebagai *struktur* token; nilai hue/warna aktual di situs publik mengikuti `global.css`. **Admin CMS tidak termasuk rebuild dan tetap memakai identitas Oranye LIM.**
 
+> **Catatan Admin (2026-10-26 revisi):** admin **tidak punya palet terpisah**. Semua token `--admin-*` di `:root` / `.dark` kini didefinisikan sebagai **alias ke token global** (`--sidebar-*`, `--background`, `--card`, `--primary`, dll.). Rail sidebar memakai `--sidebar` / `--sidebar-foreground` / `--sidebar-border`; item aktif rail memakai `--primary` (Oranye LIM). Blok `html:has(.admin)` mapping token generik dihapus — tidak diperlukan lagi. Publik dan admin identik di kedua tema. Warna status semantik (`destructive`/`success`/`warning`) dan `--chart-*` tetap global. Rincian keputusan: `docs/07-specifications/spec-admin-tenang-modern.md` §2.1.
+
 Color System memastikan seluruh antarmuka menggunakan palet warna yang konsisten sehingga meningkatkan identitas visual, keterbacaan, dan pengalaman pengguna.
 
 ---

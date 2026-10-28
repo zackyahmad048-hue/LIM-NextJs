@@ -25,7 +25,7 @@ export function StatStrip({ items, className }: StatPrimitivesProps) {
   return (
     <dl
       className={cn(
-        "grid grid-cols-2 gap-x-6 gap-y-4 sm:flex sm:flex-wrap sm:items-start sm:gap-x-8",
+        "grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4 sm:gap-x-8",
         className,
       )}
     >

@@ -44,6 +44,9 @@ interface BandProps {
   /** "plain" = divider-row tanpa kotak (default, untuk section ringkasan);
    *  "raised" = permukaan kaca untuk form, tabel, dan kartu. */
   variant?: "plain" | "raised";
+  /** Tampilkan garis pemisah atas pada variant plain. Default true.
+   *  Set false untuk band pertama / tanpa pemisah (gantikan hack border-t-0 pt-0). */
+  divider?: boolean;
   className?: string;
 }
 
@@ -65,6 +68,7 @@ export function Band({
   actions,
   tint,
   variant = "plain",
+  divider = true,
   className,
 }: BandProps) {
   const hasHeader = title != null || description != null || actions != null;
@@ -72,7 +76,8 @@ export function Band({
   return (
     <section
       className={cn(
-        variant === "plain" && "border-t border-admin-border pt-4 lg:pt-5",
+        variant === "plain" && divider && "border-t border-admin-border pt-4 lg:pt-5",
+        variant === "plain" && !divider && "pt-0",
         variant === "raised" && "glass rounded-xl p-4 lg:p-5",
         variant === "raised" && tint && tintClass[tint],
         className,

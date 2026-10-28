@@ -85,23 +85,18 @@ export function TwkModule({ members, stats }: Props) {
         />
       </Band>
 
-      <Band variant="raised">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+      <Band
+        variant="raised"
+        title={
+          <span className="flex items-center gap-3">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
               <UsersRound className="size-4" />
-            </div>
-            <div>
-              <h2 className="text-base font-semibold text-admin-content-fg">
-                Daftar anggota
-              </h2>
-              <p className="mt-1 text-xs text-admin-content-fg/60">
-                {visibleMembers.length} dari {members.length} anggota
-                ditampilkan.
-              </p>
-            </div>
-          </div>
-
+            </span>
+            <span>Daftar anggota</span>
+          </span>
+        }
+        description={`${visibleMembers.length} dari ${members.length} anggota ditampilkan.`}
+        actions={
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex items-center gap-2 px-1">
               <Checkbox
@@ -142,7 +137,7 @@ export function TwkModule({ members, stats }: Props) {
               Tambah anggota
             </Button>
           </div>
-        </div>
+        }>
 
         <div className="mt-4">
           <MemberTable data={visibleMembers} onEdit={handleEdit} />

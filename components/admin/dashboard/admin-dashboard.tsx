@@ -4,7 +4,7 @@ import { Download, Inbox, Plus, FileText, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Band } from "@/components/admin/shared/band";
-import { StatStrip, StatRow } from "@/components/admin/shared/stat-primitives";
+import { StatStrip } from "@/components/admin/shared/stat-primitives";
 import { ListRow } from "@/components/admin/shared/list-row";
 import { PreviewDialog } from "@/components/admin/structure/preview.dialog";
 
@@ -96,7 +96,7 @@ export function AdminDashboard({ user, structure, profil }: Props) {
   
 
   return (
-    <div className="flex flex-col gap-5">
+    <>
       {/* Welcome / Brand block */}
       <Band variant="raised" tint="sistem">
         <h1 className="font-heading text-2xl lg:text-3xl font-semibold tracking-tight text-admin-content-fg">
@@ -112,7 +112,7 @@ export function AdminDashboard({ user, structure, profil }: Props) {
       </Band>
 
       {/* Stat Strip (inline, divider-row) */}
-      <Band variant="plain" className="border-t-0 pt-0">
+      <Band variant="plain" divider={false}>
         <StatStrip
           items={[
             { label: "Pengurus Pusat", value: totalCentralBoard },
@@ -156,10 +156,6 @@ export function AdminDashboard({ user, structure, profil }: Props) {
 
       {/* Profil / Visi Misi */}
       <Band variant="plain" title="Profil" description="Visi dan misi organisasi pada laman publik.">
-        <div className="max-w-2xl">
-          <StatRow items={[{ label: "Poin misi", value: profil.misi.length }]} />
-        </div>
-
         <ul className="max-w-2xl divide-y divide-admin-border/50">
           <ListRow
             title="Visi"
@@ -185,6 +181,6 @@ export function AdminDashboard({ user, structure, profil }: Props) {
           )}
         </ul>
       </Band>
-    </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/admin/shared/page-container";
+import { PageHeader } from "@/components/admin/shared/page-header";
 import { AdminDashboard } from "@/components/admin/dashboard/admin-dashboard";
 
 import { getSession } from "@/modules/authentication/infrastructure/session.helper";
@@ -28,6 +29,10 @@ export default async function AdminPage() {
 
   return (
     <PageContainer>
+      <PageHeader
+        title="Dashboard"
+        description="Pusat kendali platform LIM."
+      />
       <AdminDashboard
         user={user}
         structure={structure}

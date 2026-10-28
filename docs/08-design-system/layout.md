@@ -82,7 +82,7 @@ Section mandiri (di luar hero) memakai wrapper `SiteSection` (`components/websit
 
 ## Admin CMS
 
-`PageContainer` (`components/admin/shared/page-container.tsx`) **tanpa batas lebar**: konten memenuhi seluruh area di kanan sidebar; padding horizontal ditangani pad oleh `<main>` (`p-4 md:p-6 lg:p-8`), `PageContainer` hanya menambah padding vertikal (`py-5 lg:py-8`) + gap agar inset kiri/kanan tidak dobel. Form yang butuh ukuran baca nyaman membatasi dirinya sendiri (misal `max-w-2xl` pada elemen form), bukan pada container.
+`PageContainer` (`components/admin/shared/page-container.tsx`) **tanpa batas lebar**: konten memenuhi seluruh area di kanan sidebar; padding horizontal/vertikal ditangani oleh `<main>` (`p-4 md:p-6 lg:p-8`), `PageContainer` hanya mengatur ritme vertikal (gap `gap-4 lg:gap-5`) agar inset dan padding tidak dobel. Form yang butuh ukuran baca nyaman membatasi dirinya sendiri (misal `max-w-2xl` pada elemen form), bukan pada container.
 
 ---
 

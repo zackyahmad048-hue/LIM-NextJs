@@ -81,7 +81,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         />
         <AppThemeProvider attribute="class" defaultTheme="dark">
           <AntdRegistry>{children}</AntdRegistry>
-          <Toaster position="top-center" visibleToasts={1} offset={12} closeButton={false} toastOptions={{ duration: 4000 }} icons={{ success: <Check className="size-4 text-primary" />, error: <X className="size-4 text-destructive" />, loading: <Loader2 className="size-4 animate-spin text-primary" /> }} />
+          <Toaster position="top-center" visibleToasts={1} offset={12} closeButton={false} toastOptions={{ duration: 4000, style: { background: "var(--popover)", color: "var(--popover-foreground)", border: "1px solid var(--border)" } }} icons={{ success: <Check className="size-4 text-primary" />, error: <X className="size-4 text-destructive" />, loading: <Loader2 className="size-4 animate-spin text-primary" /> }} />
         </AppThemeProvider>
       </body>
     </html>

@@ -101,7 +101,7 @@ export function SecretariatDashboard({
   health,
 }: SecretariatDashboardProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <ActionQueue dispositions={queue.dispositions} counts={queue.counts} />
 
       <Band variant="plain">
@@ -169,7 +169,7 @@ export function SecretariatDashboard({
         agendas={recent.agendas}
       />
 
-      <div className="grid gap-3 lg:grid-cols-3">
+      <div className="grid gap-3 lg:grid-cols-2">
         <SystemHealth
           driveEmail={health.driveEmail}
           missingAttachments={health.missingAttachments}
@@ -215,6 +215,6 @@ export function SecretariatDashboard({
           </ul>
         </Band>
       </div>
-    </div>
+    </>
   );
 }

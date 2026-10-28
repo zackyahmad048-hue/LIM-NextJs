@@ -25,6 +25,26 @@ Anti-pattern yang dilarang (checklist kegagalan): card-in-card, grid modul berka
 - Dark default: `<AppThemeProvider attribute="class" defaultTheme="dark">`.
 - Section pertama tanpa border-top; selanjutnya `border-t border-admin-border/60`.
 
+### 2.1 Satu dunia warna: admin mengikuti platform (2026-10-26)
+
+Awalnya admin memakai palet hangat sendiri (`--admin-*`, hue 60–90) berbeda dari
+publik yang indigo malam (hue 260). Ini menyebabkan pulau indigo di dark mode
+pada primitif shadcn (dialog, popover, dropdown, skeleton, hover button) karena
+kelas generik (`bg-card`, `bg-popover`, `text-muted-foreground`, `border`, dst.)
+menggunakan token global.
+
+Keputusan revisi (2026-10-26): **admin tidak punya palet terpisah lagi**.
+Semua token `--admin-*` di `:root` (dan `.dark`) didefinisikan sebagai **alias**
+ke token global (`--sidebar-*`, `--background`, `--card`, `--primary`, dsb.):
+- Rail sidebar → `--sidebar` / `--sidebar-foreground` / `--sidebar-border`
+- Item aktif rail → `--primary` / `--primary-foreground` (aksen Oranye LIM)
+- Latar content & kartu → `--background` / `--card` / `--border` / `--input`
+
+Dampak: publik dan admin identik di kedua tema. Blok `html:has(.admin)` mapping
+token generik dihapus — tidak diperlukan lagi. Spesifikasi ini menetapkan:
+**Token admin adalah alias, bukan override.** Warna status semantik
+(`destructive`/`success`/`warning`) dan `--chart-*` tetap global.
+
 ## 3. Primisi
 
 | Primisi | Peran | Catatan |

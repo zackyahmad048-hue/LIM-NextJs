@@ -16,6 +16,7 @@ import {
   CloudOff,
   Loader2,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
@@ -88,16 +89,19 @@ function formatDateLong(date: Date | string) {
   }).format(new Date(date));
 }
 
+/** Varian Badge yang dipakai konfigurasi status (selaras union pada `statusConfig`). */
+type BadgeVariant = "default" | "secondary" | "outline" | "destructive";
+
 const statusConfig: Record<
   OutgoingStatus,
-  { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
+  { label: string; variant: BadgeVariant }
 > = {
   DRAFT: { label: "Draft", variant: "outline" },
   SENT: { label: "Terkirim", variant: "default" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
 
-const incomingStatusConfig: Record<string, { label: string; variant: any }> = {
+const incomingStatusConfig: Record<string, { label: string; variant: BadgeVariant }> = {
   RECEIVED: { label: "Diterima", variant: "secondary" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
@@ -172,7 +176,7 @@ export function SuratMenyuratClient({
     pendingAction === `${id}:${status}`;
 
   const nextActions = (item: OutgoingItem) => {
-    const actions: { status: OutgoingStatus; label: string; icon: any }[] = [];
+    const actions: { status: OutgoingStatus; label: string; icon: LucideIcon }[] = [];
     switch (item.status) {
       case "DRAFT":
         actions.push({ status: "SENT", label: "Tandai Terkirim", icon: Send });

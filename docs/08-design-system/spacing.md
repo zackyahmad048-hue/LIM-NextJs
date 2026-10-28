@@ -108,7 +108,7 @@ rounded-xl              /* Border radius — konsisten dengan theme.md v1.1 & DE
 space-y-3              /* Vertical spacing dalam card */
 `
 
-> **Admin (`spec-admin-permukaan-tenang.md`):** `SectionCard`/band memakai `p-5` + `rounded-xl` sebagai satu-satunya standar; override sebaran (`rounded-lg p-4`) dihapus.
+> **Admin (`spec-admin-tenang-modern.md`):** `SectionCard`/band memakai `p-5` + `rounded-xl` sebagai satu-satunya standar; override sebaran (`rounded-lg p-4`) dihapus.
 
 ---
 
@@ -121,7 +121,7 @@ grid gap-3 md:grid-cols-2 xl:grid-cols-4    /* Stats grid (contoh, bukan mandat)
 grid gap-3 xl:grid-cols-[1fr_320px]          /* Content + sidebar */
 `
 
-> **Admin (`spec-admin-permukaan-tenang.md`):** contoh grid `grid-cols-4` stat bukan mandat. Kapasitas angka menonjol per halaman admin: maks 4; ≤3 → `stat-strip`, 4 → band ringkas, lebih → `stat-row` dalam band. Stat **bukan** grid kartu paralel.
+> **Admin (`spec-admin-tenang-modern.md`):** contoh grid `grid-cols-4` stat bukan mandat. Kapasitas angka menonjol per halaman admin: maks 4; ≤3 → `stat-strip`, 4 → band ringkas, lebih → `stat-row` dalam band. Stat **bukan** grid kartu paralel.
 
 ### Public Page Grid
 
