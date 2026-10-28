@@ -34,7 +34,8 @@ const activeClass =
   "bg-admin-sidebar-accent text-admin-sidebar-accent-fg font-medium";
 // Hover tenang: cukup lif warna border sidebar; blok aksen penuh hanya milik item aktif.
 const hoverClass = "hover:bg-admin-sidebar-border hover:text-admin-sidebar-fg";
-const focusClass = "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
+const focusClass =
+  "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
 const baseTextClass = "text-admin-sidebar-fg/90";
 
 export function SidebarItem({
@@ -158,7 +159,11 @@ export function SidebarItem({
           </TooltipTrigger>
           <TooltipContent side="right">{item.title}</TooltipContent>
         </Tooltip>
-        <PopoverContent side="right" align="start" className="w-52 gap-1 p-1 bg-admin-sidebar-bg border-admin-sidebar-border">
+        <PopoverContent
+          side="right"
+          align="start"
+          className="w-52 gap-1 p-1 bg-admin-sidebar-bg border-admin-sidebar-border"
+        >
           <p className="px-3 py-1.5 text-xs font-medium text-admin-sidebar-fg/60">
             {item.title}
           </p>

@@ -101,7 +101,10 @@ const statusConfig: Record<
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
 
-const incomingStatusConfig: Record<string, { label: string; variant: BadgeVariant }> = {
+const incomingStatusConfig: Record<
+  string,
+  { label: string; variant: BadgeVariant }
+> = {
   RECEIVED: { label: "Diterima", variant: "secondary" },
   ARCHIVED: { label: "Diarsipkan", variant: "outline" },
 };
@@ -176,7 +179,11 @@ export function SuratMenyuratClient({
     pendingAction === `${id}:${status}`;
 
   const nextActions = (item: OutgoingItem) => {
-    const actions: { status: OutgoingStatus; label: string; icon: LucideIcon }[] = [];
+    const actions: {
+      status: OutgoingStatus;
+      label: string;
+      icon: LucideIcon;
+    }[] = [];
     switch (item.status) {
       case "DRAFT":
         actions.push({ status: "SENT", label: "Tandai Terkirim", icon: Send });
@@ -248,7 +255,8 @@ export function SuratMenyuratClient({
                   Belum ada nomor terbit
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Nomor diterbitkan otomatis saat surat keluar ditandai terkirim.
+                  Nomor diterbitkan otomatis saat surat keluar ditandai
+                  terkirim.
                 </p>
               </div>
             )}
@@ -445,7 +453,13 @@ export function SuratMenyuratClient({
                     {item.status !== "DRAFT" &&
                       item.verificationCode &&
                       item.qrFileId && (
-                        <Button asChild variant="ghost" size="icon-sm" aria-label="Lihat QR" title="Lihat QR">
+                        <Button
+                          asChild
+                          variant="ghost"
+                          size="icon-sm"
+                          aria-label="Lihat QR"
+                          title="Lihat QR"
+                        >
                           <Link
                             href={`/api/media/${item.qrFileId}?mime=image/png`}
                             target="_blank"
@@ -461,9 +475,7 @@ export function SuratMenyuratClient({
                         <Button
                           key={action.status}
                           variant={
-                            action.status === "SENT"
-                              ? "default"
-                              : "outline"
+                            action.status === "SENT" ? "default" : "outline"
                           }
                           size="sm"
                           disabled={isPending(item.id, action.status)}

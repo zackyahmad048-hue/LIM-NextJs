@@ -120,14 +120,16 @@
   --chart-3: oklch(0.646 0.222 41.116);
   --chart-4: oklch(0.553 0.195 38.402);
   --chart-5: oklch(0.47 0.157 37.304);
-/* Radius fluid: ±10px mobile, ±12px desktop, maks 16px di layar lebar.
+  /* Radius fluid: ±10px mobile, ±12px desktop, maks 16px di layar lebar.
    rounded-xl = 1.4× nilai ini. */
---radius: clamp(0.625rem, 0.25vw + 0.5rem, 1rem);
+  --radius: clamp(0.625rem, 0.25vw + 0.5rem, 1rem);
 
   /* Shadow tokens — kedalaman halus, kertas tertumpuk */
   --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 5%);
-  --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 8%), 0 1px 4px -1px oklch(0 0 0 / 4%);
-  --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 10%), 0 2px 6px -2px oklch(0 0 0 / 5%);
+  --lim-shadow-md:
+    0 2px 8px -2px oklch(0 0 0 / 8%), 0 1px 4px -1px oklch(0 0 0 / 4%);
+  --lim-shadow-lg:
+    0 4px 16px -4px oklch(0 0 0 / 10%), 0 2px 6px -2px oklch(0 0 0 / 5%);
 
   /* Tint modul — aksen warna untuk kartu glass (module-based tint).
    * Dipakai via kelas `.glass-tint-{modul}` di permukaan kartu saja;
@@ -147,7 +149,7 @@
   --sidebar-border: oklch(0.87 0.02 262);
   --sidebar-ring: oklch(0.708 0 0);
 
-/*
+  /*
    * Admin CMS — dunia token mengikuti platform ("Observatorium indigo",
    * keputusan 2026-10-26): alias token global, bukan palet kedua, sehingga
    * publik dan admin identik di kedua tema. Rail memakai keluarga
@@ -236,8 +238,10 @@
 
   /* Shadow tokens — lebih pekat di dark mode */
   --lim-shadow-sm: 0 1px 2px oklch(0 0 0 / 20%);
-  --lim-shadow-md: 0 2px 8px -2px oklch(0 0 0 / 30%), 0 1px 4px -1px oklch(0 0 0 / 15%);
-  --lim-shadow-lg: 0 4px 16px -4px oklch(0 0 0 / 35%), 0 2px 6px -2px oklch(0 0 0 / 20%);
+  --lim-shadow-md:
+    0 2px 8px -2px oklch(0 0 0 / 30%), 0 1px 4px -1px oklch(0 0 0 / 15%);
+  --lim-shadow-lg:
+    0 4px 16px -4px oklch(0 0 0 / 35%), 0 2px 6px -2px oklch(0 0 0 / 20%);
 
   /* Tint modul — lebih terang di malam agar kaca kebaca. */
   --tint-falak: oklch(0.68 0.14 262);
@@ -305,26 +309,51 @@
     background-color: var(--glass-card-bg);
     box-shadow: var(--glass-highlight), var(--lim-shadow-md);
     backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur))
+      saturate(var(--glass-saturate));
   }
 
   .glass-tint-falak {
-    background-color: color-mix(in oklab, var(--tint-falak) 14%, var(--glass-card-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--tint-falak) 14%,
+      var(--glass-card-bg)
+    );
   }
   .glass-tint-primary {
-    background-color: color-mix(in oklab, var(--primary) 12%, var(--glass-card-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--primary) 12%,
+      var(--glass-card-bg)
+    );
   }
   .glass-tint-program {
-    background-color: color-mix(in oklab, var(--tint-program) 14%, var(--glass-card-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--tint-program) 14%,
+      var(--glass-card-bg)
+    );
   }
   .glass-tint-sekretariat {
-    background-color: color-mix(in oklab, var(--tint-sekretariat) 14%, var(--glass-card-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--tint-sekretariat) 14%,
+      var(--glass-card-bg)
+    );
   }
   .glass-tint-konten {
-    background-color: color-mix(in oklab, var(--tint-konten) 14%, var(--glass-card-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--tint-konten) 14%,
+      var(--glass-card-bg)
+    );
   }
   .glass-tint-sistem {
-    background-color: color-mix(in oklab, var(--tint-sistem) 14%, var(--glass-card-bg));
+    background-color: color-mix(
+      in oklab,
+      var(--tint-sistem) 14%,
+      var(--glass-card-bg)
+    );
   }
 }
 
@@ -454,7 +483,9 @@
      uppercase (uppercase hanya dipakai eyebrow/label kecil). Berat font
      dibiarkan per-komponen (hero bold, judul section semibold). */
   font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
+  font-variation-settings:
+    "SOFT" 30,
+    "WONK" 0;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
@@ -468,7 +499,9 @@
 .admin h6 {
   font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
   font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
+  font-variation-settings:
+    "SOFT" 30,
+    "WONK" 0;
   letter-spacing: -0.01em;
   text-wrap: balance;
 }
@@ -479,7 +512,9 @@
   font-family: var(--font-heading), "Georgia", "Times New Roman", serif;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  font-variation-settings: "SOFT" 30, "WONK" 0;
+  font-variation-settings:
+    "SOFT" 30,
+    "WONK" 0;
   letter-spacing: -0.01em;
 }
 
@@ -545,18 +580,42 @@
   z-index: -10;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 8%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 45%, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 45%, black 30%, transparent 75%);
+  mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 45%,
+    black 30%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 70% at 50% 45%,
+    black 30%,
+    transparent 75%
+  );
   animation: auth-grid-drift 60s linear infinite;
 }
 
 .dark .auth-grid {
   background-image:
-    linear-gradient(to right, color-mix(in oklab, var(--foreground) 12%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 12%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--foreground) 12%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--foreground) 12%, transparent) 1px,
+      transparent 1px
+    );
 }
 
 @keyframes auth-grid-drift {
@@ -622,8 +681,9 @@ li[data-sonner-toast][data-mounted="true"][data-styled="true"] {
     animation-iteration-count: 1 !important;
     /* Preserve hover/focus transitions — hanya matikan entrance & decorative */
     transition-duration: 200ms !important;
-    transition-property: color, background-color, border-color, box-shadow,
-      opacity, outline-color, text-decoration-color !important;
+    transition-property:
+      color, background-color, border-color, box-shadow, opacity, outline-color,
+      text-decoration-color !important;
     scroll-behavior: auto !important;
   }
 }

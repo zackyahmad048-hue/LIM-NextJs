@@ -53,15 +53,15 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-        className={cn(
-          "h-full",
-          "antialiased",
-          fraunces.variable,
-          inter.variable,
-          jetbrainsMono.variable,
-          reemKufi.variable,
-          "font-body",
-        )}
+      className={cn(
+        "h-full",
+        "antialiased",
+        fraunces.variable,
+        inter.variable,
+        jetbrainsMono.variable,
+        reemKufi.variable,
+        "font-body",
+      )}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background/55 text-foreground">
@@ -81,7 +81,25 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         />
         <AppThemeProvider attribute="class" defaultTheme="dark">
           <AntdRegistry>{children}</AntdRegistry>
-          <Toaster position="top-center" visibleToasts={1} offset={12} closeButton={false} toastOptions={{ duration: 4000, style: { background: "var(--popover)", color: "var(--popover-foreground)", border: "1px solid var(--border)" } }} icons={{ success: <Check className="size-4 text-primary" />, error: <X className="size-4 text-destructive" />, loading: <Loader2 className="size-4 animate-spin text-primary" /> }} />
+          <Toaster
+            position="top-center"
+            visibleToasts={1}
+            offset={12}
+            closeButton={false}
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: "var(--popover)",
+                color: "var(--popover-foreground)",
+                border: "1px solid var(--border)",
+              },
+            }}
+            icons={{
+              success: <Check className="size-4 text-primary" />,
+              error: <X className="size-4 text-destructive" />,
+              loading: <Loader2 className="size-4 animate-spin text-primary" />,
+            }}
+          />
         </AppThemeProvider>
       </body>
     </html>
