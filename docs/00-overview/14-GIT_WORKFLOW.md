@@ -288,19 +288,19 @@ Workflow `.github/workflows/a11y.yml` berjalan pada setiap Pull Request dan push
 Yang diverifikasi:
 
 ```text id="gw14b"
-npm ci (termasuk prisma generate)
-prisma migrate deploy + db:seed
-next build
-next start (produksi)
-axe.scan.test.ts terhadap 34 rute (21 publik + 13 admin) — WCAG 2.2 AA, 0 pelanggaran
-  · DUA tema via matriks: light (default) + dark (A11Y_THEME=dark)
+npm ci → prisma migrate deploy + db:seed  [job migrate, sekali]
+  ↓ (needs)
+next build → next start (produksi) → axe.scan.test.ts [job a11y, matriks light+dark]
+  34 rute (21 publik + 13 admin) — WCAG 2.2 AA, 0 pelanggaran
 ```
 
 Catatan penting:
 
-- `db:seed` hanya **menautkan role super-admin ke user yang sudah ada** — ia tidak membuat user.
-- Karena itu database CI harus sudah berisi user `ADMIN_EMAIL` (bootstrap sekali via
-  `actions/create-admin.ts`).
+- Migrasi dijalankan **sekali** di job `migrate` (tidak diulang oleh matriks `light`/`dark`).
+  `cancel-in-progress` di-set `false` agar run yang dibatalkan tidak meninggalkan
+  migrasi setengah jadi (`P3009`).
+- Pada `pull_request`, direktori `prisma/migrations` dipin ke `origin/main` sebelum
+  `db:deploy` — migrasi eksperimental dari cabang PR tidak menyentuh database CI bersama.
 - Job **gagal** bila: server tidak siap, atau scan menemukan pelanggaran axe pada salah satu dari 34 rute
   (rute yang di-**skip** karena server mati tidak dianggap lulus). Gagal berlaku untuk **kedua tema**.
 - Tema gelap: teks bernuansa brand `--primary` (ekses yang disetujui pada keputusan token,
@@ -308,6 +308,9 @@ Catatan penting:
   token `--primary` dark harus disinkronkan dengan registry tersebut.
 - Status check wajib (`a11y`) ditandai **required** pada branch protection `main`/`develop`
   (check `axe WCAG 2.2 AA (34 routes) [light]` dan `[dark]`).
+- `db:seed` hanya **menautkan role super-admin ke user yang sudah ada** — ia tidak membuat user.
+  Karena itu database CI harus sudah berisi user `ADMIN_EMAIL` (bootstrap sekali via
+  `actions/create-admin.ts`).
 
 ### Secrets yang wajib disiapkan di GitHub
 
