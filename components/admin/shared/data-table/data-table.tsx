@@ -138,38 +138,40 @@ export function DataTable<TData, TValue>({
         <>
           <div className="overflow-x-auto rounded-xl border border-admin-border bg-admin-card-bg" role="region" tabIndex={0} aria-label="Tabel data">
             {/* Mobile (<sm): baris tertumpuk label:nilai, tanpa scroll horizontal. */}
-            <ul className="divide-y divide-admin-border/50 sm:hidden" role="status" aria-busy={loading}>
-              {loading
-                ? Array.from({ length: SKELETON_ROWS }).map((_, i) => (
-                    <li key={i} className="space-y-2 p-4">
-                      {columns.map((_, j) => (
-                        <div key={j} className="h-4 w-3/4 rounded bg-admin-border/30 animate-pulse" />
-                      ))}
-                    </li>
-                  ))
-                : table.getRowModel().rows.length === 0
-                  ? <li>{emptyState}</li>
-                  : table.getRowModel().rows.map((row) => (
-                      <li key={row.id} className="p-4">
-                        <div className="space-y-2">
-                          {row.getVisibleCells().map((cell) => {
-                            const label =
-                              typeof cell.column.columnDef.header === "string"
-                                ? cell.column.columnDef.header
-                                : null;
-                            return (
-                              <div key={cell.id} className="flex flex-col gap-0.5">
-                                {label != null && (
-                                  <span className="text-xs text-admin-content-fg/60">{label}</span>
-                                )}
-                                <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
-                              </div>
-                            );
-                          })}
-                        </div>
+            <div role="status" aria-busy={loading} className="sm:hidden">
+              <ul className="divide-y divide-admin-border/50">
+                {loading
+                  ? Array.from({ length: SKELETON_ROWS }).map((_, i) => (
+                      <li key={i} className="space-y-2 p-4">
+                        {columns.map((_, j) => (
+                          <div key={j} className="h-4 w-3/4 rounded bg-admin-border/30 animate-pulse" />
+                        ))}
                       </li>
-                    ))}
-            </ul>
+                    ))
+                  : table.getRowModel().rows.length === 0
+                    ? <li>{emptyState}</li>
+                    : table.getRowModel().rows.map((row) => (
+                        <li key={row.id} className="p-4">
+                          <div className="space-y-2">
+                            {row.getVisibleCells().map((cell) => {
+                              const label =
+                                typeof cell.column.columnDef.header === "string"
+                                  ? cell.column.columnDef.header
+                                  : null;
+                              return (
+                                <div key={cell.id} className="flex flex-col gap-0.5">
+                                  {label != null && (
+                                    <span className="text-xs text-admin-content-fg/60">{label}</span>
+                                  )}
+                                  <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </li>
+                      ))}
+              </ul>
+            </div>
 
             {/* Desktop (>=sm): tabel biasa. */}
             <table className="hidden w-full min-w-160 sm:table">
@@ -196,7 +198,7 @@ export function DataTable<TData, TValue>({
               <tbody aria-busy={loading}>
                 {loading ? (
                   Array.from({ length: SKELETON_ROWS }).map((_, i) => (
-                    <tr key={i} className="border-t border-admin-border/50" role="status">
+                    <tr key={i} className="border-t border-admin-border/50">
                       {columns.map((_, j) => (
                         <td key={j} className="px-4 py-3">
                           <div className="h-4 w-3/4 rounded bg-admin-border/30 animate-pulse" />
