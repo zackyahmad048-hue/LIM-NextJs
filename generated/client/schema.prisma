@@ -18,20 +18,24 @@ datasource db {
 // ============================================
 
 enum Role {
+  // === LEVEL PUSAT (PP) ===
   OWNER
   ADMIN_SEKRETARIAT
   TIM_WAJIB_KHIDMAH
   CONTENT_MANAGER
-  DOSEN
+  ADMIN_BIDANG_SAFARI
+  ADMIN_BIDANG_PESANTREN_RAMADAN
+  // === LEVEL WILAYAH & CABANG ===
+  PW
+  PC
+  // === ROLE OPERASIONAL (Temporer per Kegiatan) ===
+  PANITIA_SAFARI_DAERAH
+  DELEGASI_SAFARI_DAERAH
+  PENGAJAR_PESANTREN_RAMADAN
+  // === ROLE PENDIDIKAN & LEMBAGA ===
   GURU_BANTU
   LEMBAGA_EKSTERNAL
-  PONDOK_INDUK
-  PONDOK_UNIT
-  PONDOK_CABANG_NON_ZONASI
-  PONDOK_CABANG_ZONASI
-  MHM
-  MAHAD_ALY
-  LEMBAGA_EKSTERNAL_PEMOHON
+  PONDOK_INTERNAL
 }
 
 enum AccountType {
@@ -44,18 +48,21 @@ enum AccountType {
 // ============================================
 
 model User {
-  id            String      @id @default(cuid())
-  name          String?
-  email         String      @unique
-  emailVerified Boolean     @default(false)
-  image         String?
-  role          Role        @default(GURU_BANTU)
-  accountType   AccountType @default(PERSONAL)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id               String      @id @default(cuid())
+  name             String?
+  email            String      @unique
+  emailVerified    Boolean     @default(false)
+  image            String?
+  role             Role        @default(GURU_BANTU)
+  accountType      AccountType @default(PERSONAL)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  deletedAt        DateTime?
+  twoFactorEnabled Boolean     @default(false)
 
-  sessions Session[]
-  accounts Account[]
+  sessions   Session[]
+  accounts   Account[]
+  twoFactors TwoFactor[]
 
   guruBantuProfile            GuruBantuProfile?
   organizationalAccount       OrganizationalAccount?
@@ -85,6 +92,7 @@ model User {
   @@index([email])
   @@index([role])
   @@index([accountType])
+  @@map("User")
 }
 
 model Session {
@@ -101,6 +109,7 @@ model Session {
 
   @@index([userId])
   @@index([token])
+  @@map("session")
 }
 
 model Account {
@@ -122,6 +131,7 @@ model Account {
 
   @@unique([providerId, accountId])
   @@index([userId])
+  @@map("account")
 }
 
 // ============================================
@@ -331,14 +341,13 @@ model GuruBantuProfile {
 }
 
 model RiwayatAkademik {
-  id           String  @id @default(cuid())
+  id           String           @id @default(cuid())
   guruBantuId  String
   jenjang      String
   lembagaAsal  String
   tahunLulus   Int
   jurusanFokus String?
-
-  guruBantu GuruBantuProfile @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
+  guruBantu    GuruBantuProfile @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
 
   @@index([guruBantuId])
 }
@@ -354,6 +363,8 @@ model Lembaga {
   kategori      KategoriLembaga
   subKategori   SubKategoriInternal?
   status        StatusLembaga        @default(CALON)
+  provinsi      String?
+  kabupaten     String?
   catatanKhusus String?              @db.Text
 
   parentId String?
@@ -384,8 +395,10 @@ model Penugasan {
   status               StatusPenugasan @default(DIAJUKAN)
   targetJamaahMingguan Int?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  updatedById String?
+  deletedAt   DateTime?
 
   guruBantu       GuruBantuProfile  @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
   lembaga         Lembaga           @relation(fields: [lembagaId], references: [id], onDelete: Cascade)
@@ -406,10 +419,9 @@ model LaporanMingguan {
 
   namaPengisi    String
   jabatanPengisi String
-
-  periodeMinggu Int
-  periodeTahun  Int
-  tanggalLapor  DateTime @default(now())
+  periodeMinggu  Int
+  periodeTahun   Int
+  tanggalLapor   DateTime @default(now())
 
   jumlahHariHadir       Int
   keteranganAbsensi     String?     @db.Text
@@ -605,9 +617,11 @@ model Letter {
   createdById  String
   reviewedById String?
   approvedById String?
+  updatedById  String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
   createdBy  User          @relation("LetterCreator", fields: [createdById], references: [id])
   reviewedBy User?         @relation("LetterReviewer", fields: [reviewedById], references: [id])
@@ -710,6 +724,7 @@ model FalakConfig {
   elongasiMin    Float       @default(6.4)
   koreksiSubuh   Int         @default(0)
   koreksiMaghrib Int         @default(2)
+  modeWaktu      String      @default("standar")
   isActive       Boolean     @default(true)
   updatedAt      DateTime    @updatedAt
 
@@ -1213,4 +1228,36 @@ model LaporanBulananBinaan {
   @@index([daerahBinaanId])
   @@index([pelaporId])
   @@index([tahun, bulan])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ============================================
+// BETTER AUTH: TWO FACTOR (MFA)
+// ============================================
+model TwoFactor {
+  id                      String    @id @default(cuid())
+  secret                  String
+  backupCodes             String
+  userId                  String
+  verified                Boolean   @default(true)
+  failedVerificationCount Int       @default(0)
+  lockedUntil             DateTime?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([secret])
 }

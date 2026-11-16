@@ -130,7 +130,9 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   accountType: 'accountType',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  twoFactorEnabled: 'twoFactorEnabled'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -236,6 +238,8 @@ exports.Prisma.LembagaScalarFieldEnum = {
   kategori: 'kategori',
   subKategori: 'subKategori',
   status: 'status',
+  provinsi: 'provinsi',
+  kabupaten: 'kabupaten',
   catatanKhusus: 'catatanKhusus',
   parentId: 'parentId',
   createdAt: 'createdAt',
@@ -252,7 +256,9 @@ exports.Prisma.PenugasanScalarFieldEnum = {
   status: 'status',
   targetJamaahMingguan: 'targetJamaahMingguan',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  updatedById: 'updatedById',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.LaporanMingguanScalarFieldEnum = {
@@ -383,8 +389,10 @@ exports.Prisma.LetterScalarFieldEnum = {
   createdById: 'createdById',
   reviewedById: 'reviewedById',
   approvedById: 'approvedById',
+  updatedById: 'updatedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
   periodId: 'periodId'
 };
 
@@ -431,6 +439,7 @@ exports.Prisma.FalakConfigScalarFieldEnum = {
   elongasiMin: 'elongasiMin',
   koreksiSubuh: 'koreksiSubuh',
   koreksiMaghrib: 'koreksiMaghrib',
+  modeWaktu: 'modeWaktu',
   isActive: 'isActive',
   updatedAt: 'updatedAt'
 };
@@ -697,6 +706,27 @@ exports.Prisma.LaporanBulananBinaanScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.VerificationScalarFieldEnum = {
+  id: 'id',
+  identifier: 'identifier',
+  value: 'value',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TwoFactorScalarFieldEnum = {
+  id: 'id',
+  secret: 'secret',
+  backupCodes: 'backupCodes',
+  userId: 'userId',
+  verified: 'verified',
+  failedVerificationCount: 'failedVerificationCount',
+  lockedUntil: 'lockedUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -716,16 +746,16 @@ exports.Role = exports.$Enums.Role = {
   ADMIN_SEKRETARIAT: 'ADMIN_SEKRETARIAT',
   TIM_WAJIB_KHIDMAH: 'TIM_WAJIB_KHIDMAH',
   CONTENT_MANAGER: 'CONTENT_MANAGER',
-  DOSEN: 'DOSEN',
+  ADMIN_BIDANG_SAFARI: 'ADMIN_BIDANG_SAFARI',
+  ADMIN_BIDANG_PESANTREN_RAMADAN: 'ADMIN_BIDANG_PESANTREN_RAMADAN',
+  PW: 'PW',
+  PC: 'PC',
+  PANITIA_SAFARI_DAERAH: 'PANITIA_SAFARI_DAERAH',
+  DELEGASI_SAFARI_DAERAH: 'DELEGASI_SAFARI_DAERAH',
+  PENGAJAR_PESANTREN_RAMADAN: 'PENGAJAR_PESANTREN_RAMADAN',
   GURU_BANTU: 'GURU_BANTU',
   LEMBAGA_EKSTERNAL: 'LEMBAGA_EKSTERNAL',
-  PONDOK_INDUK: 'PONDOK_INDUK',
-  PONDOK_UNIT: 'PONDOK_UNIT',
-  PONDOK_CABANG_NON_ZONASI: 'PONDOK_CABANG_NON_ZONASI',
-  PONDOK_CABANG_ZONASI: 'PONDOK_CABANG_ZONASI',
-  MHM: 'MHM',
-  MAHAD_ALY: 'MAHAD_ALY',
-  LEMBAGA_EKSTERNAL_PEMOHON: 'LEMBAGA_EKSTERNAL_PEMOHON'
+  PONDOK_INTERNAL: 'PONDOK_INTERNAL'
 };
 
 exports.AccountType = exports.$Enums.AccountType = {
@@ -968,7 +998,9 @@ exports.Prisma.ModelName = {
   KontenDakwah: 'KontenDakwah',
   PendaftaranEvent: 'PendaftaranEvent',
   DaerahBinaan: 'DaerahBinaan',
-  LaporanBulananBinaan: 'LaporanBulananBinaan'
+  LaporanBulananBinaan: 'LaporanBulananBinaan',
+  Verification: 'Verification',
+  TwoFactor: 'TwoFactor'
 };
 
 /**

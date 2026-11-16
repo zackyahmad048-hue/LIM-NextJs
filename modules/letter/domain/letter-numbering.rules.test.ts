@@ -1,6 +1,7 @@
-// src/modules/letter/domain/letter-numbering.rules.test.ts
+// modules/letter/domain/letter-numbering.rules.test.ts
 import { describe, it, expect } from 'vitest'
 import { generateLetterNumber, formatBulanRomawi } from './letter-numbering.rules'
+import type { GenerateLetterNumberInput } from './letter-numbering.rules'
 
 describe('formatBulanRomawi', () => {
   it('converts month numbers to Roman numerals', () => {
@@ -64,5 +65,48 @@ describe('generateLetterNumber', () => {
       sequenceDigits: 3,
     })
     expect(result).toBe('1000/PP/H/I/2026')
+  })
+})
+
+describe('generateLetterNumber - validation', () => {
+  const validInput: GenerateLetterNumberInput = {
+    seq: 1,
+    level: 'PP',
+    category: 'H',
+    month: 11,
+    year: 2026,
+    sequenceDigits: 3,
+  }
+
+  it('throws for negative seq', () => {
+    expect(() => generateLetterNumber({ ...validInput, seq: -1 })).toThrow('Nomor urut (seq)')
+  })
+
+  it('throws for zero seq', () => {
+    expect(() => generateLetterNumber({ ...validInput, seq: 0 })).toThrow('Nomor urut (seq)')
+  })
+
+  it('throws for empty level', () => {
+    expect(() => generateLetterNumber({ ...validInput, level: '' })).toThrow('Level')
+  })
+
+  it('throws for level with slash', () => {
+    expect(() => generateLetterNumber({ ...validInput, level: 'PP/I' })).toThrow('/')
+  })
+
+  it('throws for empty category', () => {
+    expect(() => generateLetterNumber({ ...validInput, category: '' })).toThrow('Kategori')
+  })
+
+  it('throws for year < 1000', () => {
+    expect(() => generateLetterNumber({ ...validInput, year: 999 })).toThrow('Tahun')
+  })
+
+  it('throws for year > 9999', () => {
+    expect(() => generateLetterNumber({ ...validInput, year: 10000 })).toThrow('Tahun')
+  })
+
+  it('throws for negative sequenceDigits', () => {
+    expect(() => generateLetterNumber({ ...validInput, sequenceDigits: -1 })).toThrow('Jumlah digit')
   })
 })

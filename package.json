@@ -12,7 +12,8 @@
     "test:coverage": "vitest run --coverage",
     "postinstall": "prisma skills sync || exit 0",
     "prisma:generate": "prisma generate",
-    "prisma:push": "prisma db push"
+    "prisma:push": "prisma db push",
+    "db:seed": "bunx tsx prisma/seed.ts"
   },
   "dependencies": {
     "@neon/auth": "^0.8.2",
@@ -21,13 +22,17 @@
     "@neon/realtime": "^0.2.1",
     "@neondatabase/serverless": "^1.2.1",
     "@prisma/client": "6",
+    "bcryptjs": "^3.0.3",
+    "better-auth": "^1.7.25",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "ws": "^8.23.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/turbopack": "4.3.3",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

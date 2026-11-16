@@ -25,16 +25,13 @@ enum Role {
   CONTENT_MANAGER
   ADMIN_BIDANG_SAFARI
   ADMIN_BIDANG_PESANTREN_RAMADAN
-  
   // === LEVEL WILAYAH & CABANG ===
   PW
   PC
-  
   // === ROLE OPERASIONAL (Temporer per Kegiatan) ===
   PANITIA_SAFARI_DAERAH
   DELEGASI_SAFARI_DAERAH
   PENGAJAR_PESANTREN_RAMADAN
-  
   // === ROLE PENDIDIKAN & LEMBAGA ===
   GURU_BANTU
   LEMBAGA_EKSTERNAL
@@ -51,67 +48,72 @@ enum AccountType {
 // ============================================
 
 model User {
-  id                String    @id @default(cuid())
-  name              String?
-  email             String    @unique
-  emailVerified     Boolean   @default(false)
-  image             String?
-  role              Role      @default(GURU_BANTU)
-  accountType       AccountType @default(PERSONAL)
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  id            String      @id @default(cuid())
+  name          String?
+  email         String      @unique
+  emailVerified Boolean     @default(false)
+  image         String?
+  role          Role        @default(GURU_BANTU)
+  accountType   AccountType @default(PERSONAL)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  deletedAt          DateTime?
+  twoFactorEnabled   Boolean     @default(false)
 
-  sessions          Session[]
-  accounts          Account[]
+  sessions Session[]
+  accounts Account[]
+  twoFactors TwoFactor[]
 
-  guruBantuProfile      GuruBantuProfile?
-  organizationalAccount OrganizationalAccount?
-  penugasanStruktural   PenugasanStruktural[]
-  laporanDibuat         LaporanMingguan[]
-  kasusDitangani        EvaluasiKasus[] @relation("Mediator")
-  evaluasiDibuat        EvaluasiInduk[] @relation("Evaluator")
-  kasusDiinisiasi       EvaluasiInduk[] @relation("Initiator")
-  permohonanDibuat      PermohonanGuruBantu[]
-  lettersCreated        Letter[] @relation("LetterCreator")
-  lettersReviewed       Letter[] @relation("LetterReviewer")
-  lettersApproved       Letter[] @relation("LetterApprover")
-  letterLogs            LetterLog[]
-  articlesWritten       Article[]
-  delegasiSafari        DelegasiSafari[]
-  laporanSidak          LaporanSidak[]
-  penugasanSebagaiPengajar    PenugasanPesantren[] @relation("PengajarPesantren")
-  penugasanSebagaiKoordinator PenugasanPesantren[] @relation("KoordinatorPesantren")
+  guruBantuProfile            GuruBantuProfile?
+  organizationalAccount       OrganizationalAccount?
+  penugasanStruktural         PenugasanStruktural[]
+  laporanDibuat               LaporanMingguan[]
+  kasusDitangani              EvaluasiKasus[]        @relation("Mediator")
+  evaluasiDibuat              EvaluasiInduk[]        @relation("Evaluator")
+  kasusDiinisiasi             EvaluasiInduk[]        @relation("Initiator")
+  permohonanDibuat            PermohonanGuruBantu[]
+  lettersCreated              Letter[]               @relation("LetterCreator")
+  lettersReviewed             Letter[]               @relation("LetterReviewer")
+  lettersApproved             Letter[]               @relation("LetterApprover")
+  letterLogs                  LetterLog[]
+  articlesWritten             Article[]
+  delegasiSafari              DelegasiSafari[]
+  laporanSidak                LaporanSidak[]
+  penugasanSebagaiPengajar    PenugasanPesantren[]   @relation("PengajarPesantren")
+  penugasanSebagaiKoordinator PenugasanPesantren[]   @relation("KoordinatorPesantren")
   penilaianPusat              UmpanBalikPusat[]
-  kontenDiunggah        KontenDakwah[] @relation("PengunggahKonten")
-  kontenDisetujui       KontenDakwah[] @relation("PenyetujuKonten")
-  laporanBinaan         LaporanBulananBinaan[]
-  auditLogs             AuditLog[]
-  lembagaOwned          Lembaga?
-  daerahBinaanPic       DaerahBinaan[]
+  kontenDiunggah              KontenDakwah[]         @relation("PengunggahKonten")
+  kontenDisetujui             KontenDakwah[]         @relation("PenyetujuKonten")
+  laporanBinaan               LaporanBulananBinaan[]
+  auditLogs                   AuditLog[]
+  lembagaOwned                Lembaga?
+  daerahBinaanPic             DaerahBinaan[]
 
   @@index([email])
   @@index([role])
   @@index([accountType])
+  @@map("User")
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  userId       String
-  token        String   @unique
-  expiresAt    DateTime
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  ipAddress    String?
-  userAgent    String?
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
 
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([token])
+  @@map("session")
 }
 
 model Account {
-  id                    String   @id @default(cuid())
+  id                    String    @id @default(cuid())
   userId                String
   accountId             String
   providerId            String
@@ -122,13 +124,14 @@ model Account {
   refreshTokenExpiresAt DateTime?
   scope                 String?
   password              String?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@unique([providerId, accountId])
+  @@map("account")
 }
 
 // ============================================
@@ -136,11 +139,11 @@ model Account {
 // ============================================
 
 model PeriodeKhidmat {
-  id            String   @id @default(cuid())
-  namaPeriode   String
-  tahunMulai    Int
-  tahunSelesai  Int
-  isActive      Boolean  @default(false)
+  id           String  @id @default(cuid())
+  namaPeriode  String
+  tahunMulai   Int
+  tahunSelesai Int
+  isActive     Boolean @default(false)
 
   penugasanStruktural PenugasanStruktural[]
   letterPeriod        LetterPeriod[]
@@ -149,38 +152,38 @@ model PeriodeKhidmat {
 }
 
 model UnitOrganisasi {
-  id            String   @id @default(cuid())
-  namaUnit      String
-  levelCode     String   @unique
-  wilayah       String?  
-  deskripsi     String?  @db.Text
+  id        String  @id @default(cuid())
+  namaUnit  String
+  levelCode String  @unique
+  wilayah   String?
+  deskripsi String? @db.Text
 
-  jabatan       Jabatan[]
+  jabatan               Jabatan[]
   organizationalAccount OrganizationalAccount?
 
   @@index([levelCode])
 }
 
 model Bidang {
-  id            String   @id @default(cuid())
-  namaBidang    String
-  kodeBidang    String   @unique
-  urutan        Int
+  id         String @id @default(cuid())
+  namaBidang String
+  kodeBidang String @unique
+  urutan     Int
 
-  jabatan       Jabatan[]
+  jabatan Jabatan[]
 
   @@index([kodeBidang])
 }
 
 model Jabatan {
-  id              String   @id @default(cuid())
-  unitId          String
-  bidangId        String?  
-  namaJabatan     String
-  urutanTampilan  Int
+  id             String  @id @default(cuid())
+  unitId         String
+  bidangId       String?
+  namaJabatan    String
+  urutanTampilan Int
 
-  unit            UnitOrganisasi @relation(fields: [unitId], references: [id], onDelete: Cascade)
-  bidang          Bidang?        @relation(fields: [bidangId], references: [id])
+  unit                UnitOrganisasi        @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  bidang              Bidang?               @relation(fields: [bidangId], references: [id])
   penugasanStruktural PenugasanStruktural[]
 
   @@index([unitId])
@@ -188,18 +191,18 @@ model Jabatan {
 }
 
 model PenugasanStruktural {
-  id              String   @id @default(cuid())
-  userId          String
-  jabatanId       String
-  periodeId       String
+  id        String @id @default(cuid())
+  userId    String
+  jabatanId String
+  periodeId String
 
-  tanggalMulai    DateTime @default(now())
-  tanggalSelesai  DateTime?
-  isActive        Boolean  @default(true)
+  tanggalMulai   DateTime  @default(now())
+  tanggalSelesai DateTime?
+  isActive       Boolean   @default(true)
 
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  jabatan         Jabatan  @relation(fields: [jabatanId], references: [id], onDelete: Cascade)
-  periode         PeriodeKhidmat @relation(fields: [periodeId], references: [id], onDelete: Cascade)
+  user    User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jabatan Jabatan        @relation(fields: [jabatanId], references: [id], onDelete: Cascade)
+  periode PeriodeKhidmat @relation(fields: [periodeId], references: [id], onDelete: Cascade)
 
   @@unique([userId, jabatanId, periodeId])
   @@index([userId])
@@ -208,12 +211,12 @@ model PenugasanStruktural {
 }
 
 model OrganizationalAccount {
-  id        String @id @default(cuid())
-  userId    String @unique
-  unitId    String @unique
+  id     String @id @default(cuid())
+  userId String @unique
+  unitId String @unique
 
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  unit      UnitOrganisasi @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unit UnitOrganisasi @relation(fields: [unitId], references: [id], onDelete: Cascade)
 
   @@unique([userId, unitId])
 }
@@ -322,15 +325,15 @@ enum StatusLembaga {
 }
 
 model GuruBantuProfile {
-  id              String   @id @default(cuid())
-  userId          String   @unique
-  tempatLahir     String
-  tanggalLahir    DateTime
-  asalPondok      String
-  noRekening      String?
-  catatanDosen    String?  @db.Text
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  tempatLahir  String
+  tanggalLahir DateTime
+  asalPondok   String
+  noRekening   String?
+  catatanDosen String?  @db.Text
 
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   riwayatAkademik RiwayatAkademik[]
   penugasanKeluar Penugasan[]
 
@@ -338,41 +341,43 @@ model GuruBantuProfile {
 }
 
 model RiwayatAkademik {
-  id            String   @id @default(cuid())
-  guruBantuId   String
-  jenjang       String   
-  lembagaAsal   String   
-  tahunLulus    Int
-  jurusanFokus  String?  
+  id           String           @id @default(cuid())
+  guruBantuId  String
+  jenjang      String
+  lembagaAsal  String
+  tahunLulus   Int
+  jurusanFokus String?
+  guruBantu    GuruBantuProfile @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
 
-  guruBantu     GuruBantuProfile @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
   @@index([guruBantuId])
 }
 
 model Lembaga {
-  id                String            @id @default(cuid())
-  userId            String?           @unique
-  namaLembaga       String
-  namaPimpinan      String
-  alamatLengkap     String            @db.Text
-  koordinat         String?
+  id            String  @id @default(cuid())
+  userId        String? @unique
+  namaLembaga   String
+  namaPimpinan  String
+  alamatLengkap String  @db.Text
+  koordinat     String?
 
-  kategori          KategoriLembaga
-  subKategori       SubKategoriInternal?
-  status            StatusLembaga     @default(CALON)
-  catatanKhusus     String?           @db.Text
+  kategori      KategoriLembaga
+  subKategori   SubKategoriInternal?
+  status        StatusLembaga        @default(CALON)
+  provinsi      String?
+  kabupaten     String?
+  catatanKhusus String?              @db.Text
 
-  parentId          String?
-  parent            Lembaga?          @relation("LembagaHierarchy", fields: [parentId], references: [id])
-  children          Lembaga[]         @relation("LembagaHierarchy")
+  parentId String?
+  parent   Lembaga?  @relation("LembagaHierarchy", fields: [parentId], references: [id])
+  children Lembaga[] @relation("LembagaHierarchy")
 
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user              User?             @relation(fields: [userId], references: [id])
-  penugasanMasuk    Penugasan[]
-  evaluasiInduk     EvaluasiInduk[]
-  permohonan        PermohonanGuruBantu[]
+  user           User?                 @relation(fields: [userId], references: [id])
+  penugasanMasuk Penugasan[]
+  evaluasiInduk  EvaluasiInduk[]
+  permohonan     PermohonanGuruBantu[]
 
   @@index([userId])
   @@index([kategori])
@@ -380,24 +385,26 @@ model Lembaga {
 }
 
 model Penugasan {
-  id                String          @id @default(cuid())
+  id                String @id @default(cuid())
   guruBantuId       String
   lembagaId         String
   dosenPenanggungId String
 
-  tanggalMulai      DateTime
-  tanggalSelesai    DateTime?
-  status            StatusPenugasan @default(DIAJUKAN)
+  tanggalMulai         DateTime
+  tanggalSelesai       DateTime?
+  status               StatusPenugasan @default(DIAJUKAN)
   targetJamaahMingguan Int?
 
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  updatedById String?
+  deletedAt  DateTime?
 
-  guruBantu         GuruBantuProfile @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
-  lembaga           Lembaga          @relation(fields: [lembagaId], references: [id], onDelete: Cascade)
-  laporanMingguan   LaporanMingguan[]
-  evaluasiKasus     EvaluasiKasus[]
-  evaluasiInduk     EvaluasiInduk[]
+  guruBantu       GuruBantuProfile  @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
+  lembaga         Lembaga           @relation(fields: [lembagaId], references: [id], onDelete: Cascade)
+  laporanMingguan LaporanMingguan[]
+  evaluasiKasus   EvaluasiKasus[]
+  evaluasiInduk   EvaluasiInduk[]
 
   @@index([guruBantuId])
   @@index([lembagaId])
@@ -405,31 +412,30 @@ model Penugasan {
 }
 
 model LaporanMingguan {
-  id                String        @id @default(cuid())
-  penugasanId       String
-  pelaporId         String
-  rolePelapor       Role
+  id          String @id @default(cuid())
+  penugasanId String
+  pelaporId   String
+  rolePelapor Role
 
-  namaPengisi       String
-  jabatanPengisi    String        
-
-  periodeMinggu     Int
-  periodeTahun      Int
-  tanggalLapor      DateTime      @default(now())
+  namaPengisi    String
+  jabatanPengisi String
+  periodeMinggu  Int
+  periodeTahun   Int
+  tanggalLapor   DateTime @default(now())
 
   jumlahHariHadir       Int
-  keteranganAbsensi     String?   @db.Text
+  keteranganAbsensi     String?     @db.Text
   jumlahJamaahDilakukan Int
-  aktivitasMingguan     String    @db.Text
-  kendala               String?   @db.Text
+  aktivitasMingguan     String      @db.Text
+  kendala               String?     @db.Text
   statusHonor           StatusHonor
-  isForwardedToInduk    Boolean   @default(false)
+  isForwardedToInduk    Boolean     @default(false)
 
-  createdAt         DateTime    @default(now())
+  createdAt DateTime @default(now())
 
-  penugasan         Penugasan   @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
-  pelapor           User        @relation(fields: [pelaporId], references: [id], onDelete: Cascade)
-  detailKitab       DetailKitab[]
+  penugasan   Penugasan     @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  pelapor     User          @relation(fields: [pelaporId], references: [id], onDelete: Cascade)
+  detailKitab DetailKitab[]
 
   @@index([penugasanId])
   @@index([pelaporId])
@@ -437,72 +443,73 @@ model LaporanMingguan {
 }
 
 model DetailKitab {
-  id                  String   @id @default(cuid())
-  laporanMingguanId   String
-  fan                 FanIlmu
-  namaKitab           String
-  frekuensiPertemuan  Int
+  id                 String  @id @default(cuid())
+  laporanMingguanId  String
+  fan                FanIlmu
+  namaKitab          String
+  frekuensiPertemuan Int
 
-  laporan             LaporanMingguan @relation(fields: [laporanMingguanId], references: [id], onDelete: Cascade)
+  laporan LaporanMingguan @relation(fields: [laporanMingguanId], references: [id], onDelete: Cascade)
+
   @@index([laporanMingguanId])
 }
 
 model EvaluasiKasus {
-  id                String          @id @default(cuid())
-  penugasanId       String
-  judulMasalah      String
-  deskripsi         String          @db.Text
-  tingkatKeparahan  TingkatKeparahan
-  statusMediasi     StatusMediasi   @default(MENUNGGU_PUSAT)
+  id               String           @id @default(cuid())
+  penugasanId      String
+  judulMasalah     String
+  deskripsi        String           @db.Text
+  tingkatKeparahan TingkatKeparahan
+  statusMediasi    StatusMediasi    @default(MENUNGGU_PUSAT)
 
-  mediatorId        String?
-  catatanMediasi    String?         @db.Text
+  mediatorId     String?
+  catatanMediasi String? @db.Text
 
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  penugasan         Penugasan       @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
-  mediator          User?           @relation("Mediator", fields: [mediatorId], references: [id])
+  penugasan Penugasan @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  mediator  User?     @relation("Mediator", fields: [mediatorId], references: [id])
 
   @@index([penugasanId])
   @@index([statusMediasi])
 }
 
 model EvaluasiInduk {
-  id                String          @id @default(cuid())
-  penugasanId       String
-  lembagaId         String
+  id          String @id @default(cuid())
+  penugasanId String
+  lembagaId   String
 
-  evaluatorId       String
-  initiatedById     String
+  evaluatorId   String
+  initiatedById String
 
-  catatanEvaluasi   String          @db.Text
-  rekomendasi       String?         @db.Text
+  catatanEvaluasi String  @db.Text
+  rekomendasi     String? @db.Text
 
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  penugasan         Penugasan       @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
-  lembaga           Lembaga         @relation(fields: [lembagaId], references: [id], onDelete: Cascade)
-  evaluator         User            @relation("Evaluator", fields: [evaluatorId], references: [id])
-  initiator         User            @relation("Initiator", fields: [initiatedById], references: [id])
+  penugasan Penugasan @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  lembaga   Lembaga   @relation(fields: [lembagaId], references: [id], onDelete: Cascade)
+  evaluator User      @relation("Evaluator", fields: [evaluatorId], references: [id])
+  initiator User      @relation("Initiator", fields: [initiatedById], references: [id])
 
   @@index([penugasanId])
   @@index([lembagaId])
 }
 
 model PermohonanGuruBantu {
-  id                String    @id @default(cuid())
-  lembagaId         String?
+  id        String  @id @default(cuid())
+  lembagaId String?
 
   namaLembagaPendidikan String
-  rtRw              String
-  desaKelurahan     String
-  kecamatan         String
-  kabupatenKota     String
-  provinsi          String
-  noTeleponLembaga  String
-  mediaSosial       String?
+  rtRw                  String
+  desaKelurahan         String
+  kecamatan             String
+  kabupatenKota         String
+  provinsi              String
+  noTeleponLembaga      String
+  mediaSosial           String?
 
   namaPengasuh          String
   statusPengasuh        StatusPeran
@@ -511,35 +518,35 @@ model PermohonanGuruBantu {
   noHpPengasuh          String
   fotoPengasuhUrl       String
 
-  namaPJ                String
-  statusPJ              StatusPeran
-  alumniTahunPJ         String?
-  statusPJLainnya       String?
-  noHpPJ                String
-  fotoPJUrl             String
+  namaPJ          String
+  statusPJ        StatusPeran
+  alumniTahunPJ   String?
+  statusPJLainnya String?
+  noHpPJ          String
+  fotoPJUrl       String
 
-  lokasiMadrasah        LokasiMadrasah
-  jenisPendidikan       JenisPendidikan[]
-  bahasaKitab           BahasaKitab[]
-  bahasaPengantar       BahasaPengantar[]
-  jumlahPengurusPutra   Int
-  jumlahPengurusPutri   Int
-  jumlahSantriPutra     Int
-  jumlahSantriPutri     Int
+  lokasiMadrasah      LokasiMadrasah
+  jenisPendidikan     JenisPendidikan[]
+  bahasaKitab         BahasaKitab[]
+  bahasaPengantar     BahasaPengantar[]
+  jumlahPengurusPutra Int
+  jumlahPengurusPutri Int
+  jumlahSantriPutra   Int
+  jumlahSantriPutri   Int
 
-  jumlahGuruDiminta     Int           
-  tugasDiamanatkan      String        @db.Text
-  kitabAkanDiajarkan    String        @db.Text
-  catatanCalonGuru      String        @db.Text
-  filePdfUrl            String
+  jumlahGuruDiminta  Int
+  tugasDiamanatkan   String @db.Text
+  kitabAkanDiajarkan String @db.Text
+  catatanCalonGuru   String @db.Text
+  filePdfUrl         String
 
-  statusPermohonan      StatusPenugasan @default(DIAJUKAN)
-  diajukanOlehId        String?
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
+  statusPermohonan StatusPenugasan @default(DIAJUKAN)
+  diajukanOlehId   String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 
-  lembaga               Lembaga?      @relation(fields: [lembagaId], references: [id])
-  diajukanOleh          User?         @relation(fields: [diajukanOlehId], references: [id])
+  lembaga      Lembaga? @relation(fields: [lembagaId], references: [id])
+  diajukanOleh User?    @relation(fields: [diajukanOlehId], references: [id])
 
   @@index([lembagaId])
   @@index([statusPermohonan])
@@ -563,64 +570,66 @@ enum LetterStatus {
 }
 
 model LetterPeriod {
-  id          String   @id @default(cuid())
-  periodId    String?
-  period      PeriodeKhidmat? @relation(fields: [periodId], references: [id])
-  namaPeriode String   
-  tahunMulai  Int
+  id           String          @id @default(cuid())
+  periodId     String?
+  period       PeriodeKhidmat? @relation(fields: [periodId], references: [id])
+  namaPeriode  String
+  tahunMulai   Int
   tahunSelesai Int
-  isActive    Boolean  @default(false)
+  isActive     Boolean         @default(false)
 
-  letters     Letter[]
-  counters    LetterNumberCounter[]
+  letters  Letter[]
+  counters LetterNumberCounter[]
 
   @@index([isActive])
 }
 
 model LetterNumberCounter {
-  id          String   @id @default(cuid())
-  periodId    String
-  levelCode   String   
-  categoryCode String  
-  currentSeq  Int      @default(0)
+  id           String @id @default(cuid())
+  periodId     String
+  levelCode    String
+  categoryCode String
+  currentSeq   Int    @default(0)
 
-  period      LetterPeriod @relation(fields: [periodId], references: [id], onDelete: Cascade)
+  period LetterPeriod @relation(fields: [periodId], references: [id], onDelete: Cascade)
 
   @@unique([periodId, levelCode, categoryCode])
   @@index([periodId])
 }
 
 model Letter {
-  id                String        @id @default(cuid())
-  type              LetterType
+  id   String     @id @default(cuid())
+  type LetterType
 
-  nomorSurat        String?
-  tanggalSurat      DateTime      @default(now())
-  pengirim          String
-  penerima          String?
-  perihal           String
-  isiSurat          String        @db.Text
+  nomorSurat   String?
+  tanggalSurat DateTime @default(now())
+  pengirim     String
+  penerima     String?
+  perihal      String
+  isiSurat     String   @db.Text
 
-  fileUrl           String?
-  qrCodeUrl         String?
-  verificationSlug  String?       @unique
+  fileUrl          String?
+  qrCodeUrl        String?
+  verificationSlug String? @unique
 
-  status            LetterStatus  @default(DIKETIK)
+  status LetterStatus @default(DIKETIK)
 
-  createdById       String
-  reviewedById      String?
-  approvedById      String?
+  createdById  String
+  reviewedById String?
+  approvedById String?
+  updatedById  String?
 
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
-  createdBy         User          @relation("LetterCreator", fields: [createdById], references: [id])
-  reviewedBy        User?         @relation("LetterReviewer", fields: [reviewedById], references: [id])
-  approvedBy        User?         @relation("LetterApprover", fields: [approvedById], references: [id])
-  period            LetterPeriod? @relation(fields: [periodId], references: [id])
-  periodId          String?
+  createdBy  User          @relation("LetterCreator", fields: [createdById], references: [id])
+  reviewedBy User?         @relation("LetterReviewer", fields: [reviewedById], references: [id])
+  approvedBy User?         @relation("LetterApprover", fields: [approvedById], references: [id])
+  period     LetterPeriod? @relation(fields: [periodId], references: [id])
+  periodId   String?
 
-  logs              LetterLog[]
+  logs LetterLog[]
 
   @@index([type])
   @@index([status])
@@ -629,15 +638,15 @@ model Letter {
 }
 
 model LetterLog {
-  id          String      @id @default(cuid())
-  letterId    String
-  action      LetterStatus
-  userId      String
-  notes       String?     @db.Text
-  timestamp   DateTime    @default(now())
+  id        String       @id @default(cuid())
+  letterId  String
+  action    LetterStatus
+  userId    String
+  notes     String?      @db.Text
+  timestamp DateTime     @default(now())
 
-  letter      Letter      @relation(fields: [letterId], references: [id], onDelete: Cascade)
-  user        User        @relation(fields: [userId], references: [id])
+  letter Letter @relation(fields: [letterId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
 
   @@index([letterId])
   @@index([userId])
@@ -668,33 +677,34 @@ enum StatusAwalBulan {
 }
 
 model ArticleCategory {
-  id        String    @id @default(cuid())
-  nama      String
-  slug      String    @unique
-  urutan    Int       @default(0)
-  articles  Article[]
+  id       String    @id @default(cuid())
+  nama     String
+  slug     String    @unique
+  urutan   Int       @default(0)
+  articles Article[]
+
   @@index([slug])
 }
 
 model Article {
-  id            String        @id @default(cuid())
+  id            String  @id @default(cuid())
   title         String
-  slug          String        @unique
-  excerpt       String?       @db.Text
-  content       String        @db.Text
+  slug          String  @unique
+  excerpt       String? @db.Text
+  content       String  @db.Text
   coverImageUrl String?
 
-  status        ArticleStatus @default(DRAFT)
-  publishedAt   DateTime?
+  status      ArticleStatus @default(DRAFT)
+  publishedAt DateTime?
 
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  authorId      String
-  categoryId    String
+  authorId   String
+  categoryId String
 
-  author        User            @relation(fields: [authorId], references: [id])
-  category      ArticleCategory @relation(fields: [categoryId], references: [id])
+  author   User            @relation(fields: [authorId], references: [id])
+  category ArticleCategory @relation(fields: [categoryId], references: [id])
 
   @@index([status])
   @@index([slug])
@@ -703,54 +713,56 @@ model Article {
 }
 
 model FalakConfig {
-  id                String      @id @default(cuid())
-  namaLokasi        String      @default("Markaz Lirboyo Kota Kediri")
-  latitude          Float       @default(-7.818758)
-  longitude         Float       @default(111.993158)
-  ketinggian        Float       @default(76.0)
-  metodeHisab       MetodeHisab @default(TASHILUL_AMTSILAH)
-  kriteriaMABIMS    Boolean     @default(true)
-  tinggiHilalMin    Float       @default(3.0)
-  elongasiMin       Float       @default(6.4)
-  koreksiSubuh      Int         @default(0)
-  koreksiMaghrib    Int         @default(2)
-  isActive          Boolean     @default(true)
-  updatedAt         DateTime    @updatedAt
+  id             String      @id @default(cuid())
+  namaLokasi     String      @default("Markaz Lirboyo Kota Kediri")
+  latitude       Float       @default(-7.818758)
+  longitude      Float       @default(111.993158)
+  ketinggian     Float       @default(76.0)
+  metodeHisab    MetodeHisab @default(TASHILUL_AMTSILAH)
+  kriteriaMABIMS Boolean     @default(true)
+  tinggiHilalMin Float       @default(3.0)
+  elongasiMin    Float       @default(6.4)
+  koreksiSubuh   Int         @default(0)
+  koreksiMaghrib Int         @default(2)
+  modeWaktu      String      @default("standar")
+  isActive       Boolean     @default(true)
+  updatedAt      DateTime    @updatedAt
 
-  jadwalShalat      JadwalShalat[]
+  jadwalShalat JadwalShalat[]
+
   @@index([isActive])
 }
 
 model JadwalShalat {
-  id                String      @id @default(cuid())
-  tanggal           DateTime    @unique
-  subuh             String
-  terbit            String
-  dzuhur            String
-  ashar             String
-  maghrib           String
-  isya              String
+  id      String   @id @default(cuid())
+  tanggal DateTime @unique
+  subuh   String
+  terbit  String
+  dzuhur  String
+  ashar   String
+  maghrib String
+  isya    String
 
   deklinasiMatahari Float?
   equationOfTime    Float?
   sudutWaktuSubuh   Float?
   sudutWaktuIsya    Float?
 
-  isManualOverride  Boolean     @default(false)
-  catatanOverride   String?     @db.Text
+  isManualOverride Boolean @default(false)
+  catatanOverride  String? @db.Text
 
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  configId          String
-  config            FalakConfig @relation(fields: [configId], references: [id], onDelete: Cascade)
+  configId String
+  config   FalakConfig @relation(fields: [configId], references: [id], onDelete: Cascade)
 
   @@index([tanggal])
   @@index([configId])
 }
 
 model PenetapanAwalBulan {
-  id                String            @id @default(cuid())
+  id                String          @id @default(cuid())
   tahunHijriah      Int
   bulanHijriah      Int
   namaBulan         String
@@ -763,11 +775,11 @@ model PenetapanAwalBulan {
   tinggiHilalMari   String?
   elongasi          String?
   lamaHilal         String?
-  status            StatusAwalBulan   @default(HISAB_LIRBOYO)
-  catatan           String?           @db.Text
+  status            StatusAwalBulan @default(HISAB_LIRBOYO)
+  catatan           String?         @db.Text
 
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([tahunHijriah, bulanHijriah])
   @@index([tahunHijriah, bulanHijriah])
@@ -783,7 +795,8 @@ model AuditLog {
   ipAddress String?
   createdAt DateTime @default(now())
 
-  user      User?    @relation(fields: [userId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
+
   @@index([userId])
   @@index([action])
   @@index([createdAt])
@@ -831,43 +844,44 @@ enum StatusPenugasanPesantren {
 }
 
 model TitikSafari {
-  id          String   @id @default(cuid())
-  namaTitik   String   
-  alamat      String   @db.Text
-  provinsi    String
-  kabupaten   String
-  kecamatan   String
-  desa        String
-  picNama     String?
-  picNoHp     String?
+  id        String  @id @default(cuid())
+  namaTitik String
+  alamat    String  @db.Text
+  provinsi  String
+  kabupaten String
+  kecamatan String
+  desa      String
+  picNama   String?
+  picNoHp   String?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  delegasi    DelegasiSafari[]
+  delegasi DelegasiSafari[]
+
   @@index([provinsi, kabupaten])
 }
 
 model DelegasiSafari {
-  id                String                @id @default(cuid())
-  titikId           String
-  userId            String
+  id      String @id @default(cuid())
+  titikId String
+  userId  String
 
-  namaLengkap       String
-  noHp              String
-  asalPondok        String?
+  namaLengkap String
+  noHp        String
+  asalPondok  String?
 
-  status            StatusDelegasiSafari  @default(AKTIF)
-  alasanGugur       String?               @db.Text
+  status      StatusDelegasiSafari @default(AKTIF)
+  alasanGugur String?              @db.Text
 
-  createdAt         DateTime              @default(now())
-  updatedAt         DateTime              @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  titik             TitikSafari           @relation(fields: [titikId], references: [id], onDelete: Cascade)
-  user              User                  @relation(fields: [userId], references: [id])
-  jurnalHarian      JurnalHarianSafari[]
-  approvalJurnal    ApprovalJurnal[]
-  laporanSidak      LaporanSidak[]
+  titik          TitikSafari          @relation(fields: [titikId], references: [id], onDelete: Cascade)
+  user           User                 @relation(fields: [userId], references: [id])
+  jurnalHarian   JurnalHarianSafari[]
+  approvalJurnal ApprovalJurnal[]
+  laporanSidak   LaporanSidak[]
 
   @@index([titikId])
   @@index([userId])
@@ -875,81 +889,83 @@ model DelegasiSafari {
 }
 
 model JurnalHarianSafari {
-  id          String   @id @default(cuid())
-  delegasiId  String
-  tanggal     DateTime
-  kegiatan    String   @db.Text
+  id           String   @id @default(cuid())
+  delegasiId   String
+  tanggal      DateTime
+  kegiatan     String   @db.Text
   jumlahJamaah Int?
-  catatan     String?  @db.Text
-  createdAt   DateTime @default(now())
+  catatan      String?  @db.Text
+  createdAt    DateTime @default(now())
 
-  delegasi    DelegasiSafari @relation(fields: [delegasiId], references: [id], onDelete: Cascade)
+  delegasi DelegasiSafari @relation(fields: [delegasiId], references: [id], onDelete: Cascade)
+
   @@index([delegasiId])
   @@index([tanggal])
 }
 
 model ApprovalJurnal {
-  id                String                  @id @default(cuid())
-  delegasiId        String
-  approverRole      String                  
-  approverName      String
-  approverJabatan   String?
-  isApproved        Boolean                 @default(false)
-  tanggalApproval   DateTime?
-  createdAt         DateTime                @default(now())
+  id              String    @id @default(cuid())
+  delegasiId      String
+  approverRole    String
+  approverName    String
+  approverJabatan String?
+  isApproved      Boolean   @default(false)
+  tanggalApproval DateTime?
+  createdAt       DateTime  @default(now())
 
-  delegasi          DelegasiSafari          @relation(fields: [delegasiId], references: [id], onDelete: Cascade)
+  delegasi DelegasiSafari @relation(fields: [delegasiId], references: [id], onDelete: Cascade)
+
   @@index([delegasiId])
   @@index([approverRole])
 }
 
 model LaporanSidak {
-  id                String   @id @default(cuid())
-  delegasiId        String
-  penilaiId         String
+  id         String @id @default(cuid())
+  delegasiId String
+  penilaiId  String
 
-  tanggalSidak      DateTime
-  kondisiKegiatan   String   @db.Text
-  kondisiDelegasi   String   @db.Text
-  kendala           String?  @db.Text
-  rekomendasi       String?  @db.Text
+  tanggalSidak    DateTime
+  kondisiKegiatan String   @db.Text
+  kondisiDelegasi String   @db.Text
+  kendala         String?  @db.Text
+  rekomendasi     String?  @db.Text
 
-  createdAt         DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  delegasi          DelegasiSafari @relation(fields: [delegasiId], references: [id], onDelete: Cascade)
-  penilai           User         @relation(fields: [penilaiId], references: [id])
+  delegasi DelegasiSafari @relation(fields: [delegasiId], references: [id], onDelete: Cascade)
+  penilai  User           @relation(fields: [penilaiId], references: [id])
 
   @@index([delegasiId])
   @@index([penilaiId])
 }
 
 model SekolahMitra {
-  id            String         @id @default(cuid())
-  namaSekolah   String
-  jenjang       JenjangSekolah
-  alamat        String         @db.Text
-  picNama       String
-  picNoHp       String
-  picJabatan    String?
+  id          String         @id @default(cuid())
+  namaSekolah String
+  jenjang     JenjangSekolah
+  alamat      String         @db.Text
+  picNama     String
+  picNoHp     String
+  picJabatan  String?
 
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   materiDipilih PilihanMateriSekolah[]
   penugasan     PenugasanPesantren[]
-  
+
   @@index([jenjang])
 }
 
 model BankMateri {
-  id            String   @id @default(cuid())
+  id            String         @id @default(cuid())
   judulMateri   String
-  deskripsi     String   @db.Text
+  deskripsi     String         @db.Text
   targetJenjang JenjangSekolah
   durasiMenit   Int
 
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   pilihanSekolah PilihanMateriSekolah[]
   laporanHarian  LaporanHarianPengajar[]
@@ -958,12 +974,12 @@ model BankMateri {
 }
 
 model PilihanMateriSekolah {
-  id            String   @id @default(cuid())
-  sekolahId     String
-  materiId      String
+  id        String @id @default(cuid())
+  sekolahId String
+  materiId  String
 
-  sekolah       SekolahMitra @relation(fields: [sekolahId], references: [id], onDelete: Cascade)
-  materi        BankMateri   @relation(fields: [materiId], references: [id], onDelete: Cascade)
+  sekolah SekolahMitra @relation(fields: [sekolahId], references: [id], onDelete: Cascade)
+  materi  BankMateri   @relation(fields: [materiId], references: [id], onDelete: Cascade)
 
   @@unique([sekolahId, materiId])
   @@index([sekolahId])
@@ -971,26 +987,26 @@ model PilihanMateriSekolah {
 }
 
 model PenugasanPesantren {
-  id                String                @id @default(cuid())
-  sekolahId         String
-  pengajarId        String
-  koordinatorId     String
+  id            String @id @default(cuid())
+  sekolahId     String
+  pengajarId    String
+  koordinatorId String
 
-  tanggalMulai      DateTime
-  tanggalSelesai    DateTime
-  status            StatusPenugasanPesantren @default(DITETAPKAN)
+  tanggalMulai   DateTime
+  tanggalSelesai DateTime
+  status         StatusPenugasanPesantren @default(DITETAPKAN)
 
-  createdAt         DateTime              @default(now())
-  updatedAt         DateTime              @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  sekolah           SekolahMitra          @relation(fields: [sekolahId], references: [id], onDelete: Cascade)
-  pengajar          User                  @relation("PengajarPesantren", fields: [pengajarId], references: [id])
-  koordinator       User                  @relation("KoordinatorPesantren", fields: [koordinatorId], references: [id])
+  sekolah     SekolahMitra @relation(fields: [sekolahId], references: [id], onDelete: Cascade)
+  pengajar    User         @relation("PengajarPesantren", fields: [pengajarId], references: [id])
+  koordinator User         @relation("KoordinatorPesantren", fields: [koordinatorId], references: [id])
 
-  laporanPengajar   LaporanHarianPengajar[]
+  laporanPengajar    LaporanHarianPengajar[]
   laporanKoordinator LaporanHarianKoordinator[]
-  umpanBalikPeserta UmpanBalikPeserta[]
-  umpanBalikPusat UmpanBalikPusat[]
+  umpanBalikPeserta  UmpanBalikPeserta[]
+  umpanBalikPusat    UmpanBalikPusat[]
 
   @@index([sekolahId])
   @@index([pengajarId])
@@ -999,25 +1015,25 @@ model PenugasanPesantren {
 }
 
 model LaporanHarianPengajar {
-  id                String         @id @default(cuid())
-  penugasanId       String
-  tanggal           DateTime
+  id          String   @id @default(cuid())
+  penugasanId String
+  tanggal     DateTime
 
-  kelas             String
-  jumlahSiswaL      Int
-  jumlahSiswaP      Int
+  kelas        String
+  jumlahSiswaL Int
+  jumlahSiswaP Int
 
   materiId          String
-  pertanyaanPeserta String?        @db.Text
+  pertanyaanPeserta String? @db.Text
 
-  kondisiKelas      KondisiKelas
-  praktikDilakukan  Boolean        @default(false)
-  catatanTambahan   String?        @db.Text
+  kondisiKelas     KondisiKelas
+  praktikDilakukan Boolean      @default(false)
+  catatanTambahan  String?      @db.Text
 
-  createdAt         DateTime       @default(now())
+  createdAt DateTime @default(now())
 
-  penugasan         PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
-  materi            BankMateri         @relation(fields: [materiId], references: [id])
+  penugasan PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  materi    BankMateri         @relation(fields: [materiId], references: [id])
 
   @@index([penugasanId])
   @@index([tanggal])
@@ -1025,54 +1041,54 @@ model LaporanHarianPengajar {
 }
 
 model LaporanHarianKoordinator {
-  id                String         @id @default(cuid())
-  penugasanId       String
-  tanggal           DateTime
+  id          String   @id @default(cuid())
+  penugasanId String
+  tanggal     DateTime
 
-  pengajarHadir     Boolean
-  kesiapanSarana    String?        @db.Text
-  catatanUmum       String?        @db.Text
+  pengajarHadir  Boolean
+  kesiapanSarana String? @db.Text
+  catatanUmum    String? @db.Text
 
-  createdAt         DateTime       @default(now())
+  createdAt DateTime @default(now())
 
-  penugasan         PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  penugasan PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
 
   @@index([penugasanId])
   @@index([tanggal])
 }
 
 model UmpanBalikPusat {
-  id                String   @id @default(cuid())
-  penugasanId       String
-  penilaiId         String
+  id          String @id @default(cuid())
+  penugasanId String
+  penilaiId   String
 
-  tanggalKunjungan  DateTime
-  kondisiSarana     String   @db.Text
-  relevansiMateri   String   @db.Text
-  kesesuaianKesepakatan String @db.Text
-  rekomendasi       String?  @db.Text
+  tanggalKunjungan      DateTime
+  kondisiSarana         String   @db.Text
+  relevansiMateri       String   @db.Text
+  kesesuaianKesepakatan String   @db.Text
+  rekomendasi           String?  @db.Text
 
-  createdAt         DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  penugasan         PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
-  penilai           User               @relation(fields: [penilaiId], references: [id])
+  penugasan PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  penilai   User               @relation(fields: [penilaiId], references: [id])
 
   @@index([penugasanId])
   @@index([penilaiId])
 }
 
 model UmpanBalikPeserta {
-  id                String   @id @default(cuid())
-  penugasanId       String
+  id          String @id @default(cuid())
+  penugasanId String
 
   jumlahResponden   Int
   ratingKepuasan    Float
-  komentarPositif   String?  @db.Text
-  komentarPerbaikan String?  @db.Text
+  komentarPositif   String? @db.Text
+  komentarPerbaikan String? @db.Text
 
-  createdAt         DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  penugasan         PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
+  penugasan PenugasanPesantren @relation(fields: [penugasanId], references: [id], onDelete: Cascade)
 
   @@index([penugasanId])
 }
@@ -1111,35 +1127,35 @@ enum StatusDaerahBinaan {
 }
 
 model KontenDakwah {
-  id                String        @id @default(cuid())
-  judul             String
-  slug              String        @unique
-  deskripsi         String        @db.Text
-  jenisKonten       JenisKonten
-  status            StatusKonten  @default(DRAFT)
+  id          String       @id @default(cuid())
+  judul       String
+  slug        String       @unique
+  deskripsi   String       @db.Text
+  jenisKonten JenisKonten
+  status      StatusKonten @default(DRAFT)
 
-  thumbnailUrl      String?
-  linkVideo         String?
-  linkPendaftaran   String?
+  thumbnailUrl    String?
+  linkVideo       String?
+  linkPendaftaran String?
 
-  tanggalEvent      DateTime?
-  waktuMulai        DateTime?
-  waktuSelesai      DateTime?
-  linkMeeting       String?
-  kuotaPeserta      Int?
+  tanggalEvent DateTime?
+  waktuMulai   DateTime?
+  waktuSelesai DateTime?
+  linkMeeting  String?
+  kuotaPeserta Int?
 
   jumlahPeserta     Int?
   jumlahInteraksi   Int?
-  ringkasanFeedback String?       @db.Text
+  ringkasanFeedback String? @db.Text
 
-  pengunggahId      String
-  disetujuiOlehId   String?
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+  pengunggahId    String
+  disetujuiOlehId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  pengunggah        User          @relation("PengunggahKonten", fields: [pengunggahId], references: [id])
-  penyetuju         User?         @relation("PenyetujuKonten", fields: [disetujuiOlehId], references: [id])
-  pendaftarEvent    PendaftaranEvent[]
+  pengunggah     User               @relation("PengunggahKonten", fields: [pengunggahId], references: [id])
+  penyetuju      User?              @relation("PenyetujuKonten", fields: [disetujuiOlehId], references: [id])
+  pendaftarEvent PendaftaranEvent[]
 
   @@index([jenisKonten])
   @@index([status])
@@ -1148,41 +1164,41 @@ model KontenDakwah {
 }
 
 model PendaftaranEvent {
-  id                String   @id @default(cuid())
-  kontenId          String
-  namaPeserta       String
-  email             String
-  noHp              String
-  asalInstansi      String?
+  id           String  @id @default(cuid())
+  kontenId     String
+  namaPeserta  String
+  email        String
+  noHp         String
+  asalInstansi String?
 
   statusPendaftaran StatusPendaftaranEvent @default(TERDAFTAR)
 
-  createdAt         DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  konten            KontenDakwah @relation(fields: [kontenId], references: [id], onDelete: Cascade)
+  konten KontenDakwah @relation(fields: [kontenId], references: [id], onDelete: Cascade)
 
   @@index([kontenId])
   @@index([email])
 }
 
 model DaerahBinaan {
-  id                String             @id @default(cuid())
-  namaLokasi        String
-  provinsi          String
-  kabupaten         String
-  kecamatan         String
+  id         String @id @default(cuid())
+  namaLokasi String
+  provinsi   String
+  kabupaten  String
+  kecamatan  String
 
-  deskripsiKondisi  String             @db.Text
-  sumberLokasi      String?
+  deskripsiKondisi String  @db.Text
+  sumberLokasi     String?
 
-  status            StatusDaerahBinaan @default(DIAJUKAN)
-  picLokalId        String?
+  status     StatusDaerahBinaan @default(DIAJUKAN)
+  picLokalId String?
 
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  picLokal          User?              @relation(fields: [picLokalId], references: [id])
-  laporanBulanan    LaporanBulananBinaan[]
+  picLokal       User?                  @relation(fields: [picLokalId], references: [id])
+  laporanBulanan LaporanBulananBinaan[]
 
   @@index([provinsi, kabupaten])
   @@index([status])
@@ -1190,26 +1206,58 @@ model DaerahBinaan {
 }
 
 model LaporanBulananBinaan {
-  id                String   @id @default(cuid())
-  daerahBinaanId    String
-  pelaporId         String
+  id             String @id @default(cuid())
+  daerahBinaanId String
+  pelaporId      String
 
-  bulan             Int
-  tahun             Int
-  tanggalLapor      DateTime @default(now())
+  bulan        Int
+  tahun        Int
+  tanggalLapor DateTime @default(now())
 
-  kegiatanDilakukan       String @db.Text
-  jumlahPesertaEstimasi   Int?
-  dampakNaratif           String @db.Text
-  tantanganHambatan       String?  @db.Text
-  rencanaBulanDepan       String?  @db.Text
+  kegiatanDilakukan     String  @db.Text
+  jumlahPesertaEstimasi Int?
+  dampakNaratif         String  @db.Text
+  tantanganHambatan     String? @db.Text
+  rencanaBulanDepan     String? @db.Text
 
-  createdAt         DateTime @default(now())
+  createdAt DateTime @default(now())
 
-  daerahBinaan      DaerahBinaan @relation(fields: [daerahBinaanId], references: [id], onDelete: Cascade)
-  pelapor           User         @relation(fields: [pelaporId], references: [id])
+  daerahBinaan DaerahBinaan @relation(fields: [daerahBinaanId], references: [id], onDelete: Cascade)
+  pelapor      User         @relation(fields: [pelaporId], references: [id])
 
   @@index([daerahBinaanId])
   @@index([pelaporId])
   @@index([tahun, bulan])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ============================================
+// BETTER AUTH: TWO FACTOR (MFA)
+// ============================================
+model TwoFactor {
+  id                     String    @id @default(cuid())
+  secret                 String
+  backupCodes            String
+  userId                 String
+  verified               Boolean   @default(true)
+  failedVerificationCount Int      @default(0)
+  lockedUntil            DateTime?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([secret])
 }
