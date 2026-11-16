@@ -171,7 +171,7 @@ export default function Home() {
             <button disabled={pending !== null} onClick={service.run} className="w-fit rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900">
               {pending === service.key ? "Checking..." : `Test ${service.label}`}
             </button>
-            {results[service.key] && <p role="status" className={`break-words text-sm ${results[service.key].error ? "text-red-600" : "text-emerald-700 dark:text-emerald-400"}`}>{results[service.key].message}</p>}
+            {results[service.key] && <p role="status" className={`wrap-break-word text-sm ${results[service.key].error ? "text-red-600" : "text-emerald-700 dark:text-emerald-400"}`}>{results[service.key].message}</p>}
           </article>
         ))}
 
@@ -183,7 +183,7 @@ export default function Home() {
           <button disabled={pending !== null} onClick={subscribeRealtime} className="w-fit rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900">
             {pending === "realtime" ? "Connecting..." : "Test Realtime"}
           </button>
-          {results.realtime && <p role="status" className={`break-words text-sm ${results.realtime.error ? "text-red-600" : "text-emerald-700 dark:text-emerald-400"}`}>{results.realtime.message}</p>}
+          {results.realtime && <p role="status" className={`wrap-break-word text-sm ${results.realtime.error ? "text-red-600" : "text-emerald-700 dark:text-emerald-400"}`}>{results.realtime.message}</p>}
         </article>
       </section>
 

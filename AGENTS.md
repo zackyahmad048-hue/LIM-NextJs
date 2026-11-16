@@ -109,7 +109,7 @@ bun run typecheck            # tsc --noEmit
 bun run format               # Prettier
 
 # Database (ALWAYS pin Prisma 6)
-bunx prisma@6 generate       # Generate client → src/generated/client
+bunx prisma@6 generate       # Generate client → generated/client
 bunx prisma@6 validate       # Validate schema without touching DB
 bunx prisma@6 format         # Format schema.prisma
 bunx prisma@6 db push        # Sync schema (development only)
@@ -135,10 +135,10 @@ bun run start
 
 ## 5. Architecture Rules (DDD)
 
-Modular Monolith. Every business domain lives in `src/modules/<domain>/`:
+Modular Monolith. Every business domain lives in `modules/<domain>/`:
 
 ```text
-src/modules/<domain>/
+modules/<domain>/
 ├── domain/           # Pure entities, value objects, Zod schemas, repository interfaces
 ├── application/      # Use cases, orchestration, business services
 ├── infrastructure/   # Prisma repositories, storage, email, external APIs
@@ -155,20 +155,19 @@ src/modules/<domain>/
 ### Directory Map
 
 ```text
-src/
-├── app/
-│   ├── (public)/        # Portal, falak, QR verification
-│   ├── (auth)/          # login, register, reset
-│   ├── (dashboard)/     # admin | organisasi | personal
-│   └── api/             # public endpoints & webhooks ONLY
-├── modules/             # DDD domains
-├── components/          # ui/ (shadcn), forms/, layout/
-├── lib/                 # prisma.ts, auth.ts, auth-client.ts, utils.ts
-├── proxy.ts             # Next.js 16 proxy (replaces middleware.ts)
-└── generated/client/    # Prisma output — never edit manually
+app/                      # Next.js App Router
+├── (public)/             # Portal, falak, QR verification
+├── (auth)/               # login, register, reset
+├── (dashboard)/          # admin | organisasi | personal
+└── api/                  # public endpoints & webhooks ONLY
+modules/                  # DDD domains
+components/               # ui/ (shadcn), forms/, layout/
+lib/                      # prisma.ts, auth.ts, auth-client.ts, utils.ts
+proxy.ts                  # Next.js 16 proxy (replaces middleware.ts)
+generated/client/         # Prisma output — never edit manually
 ```
 
-Import alias: always `@/*` → `src/*`. No deep relative chains (`../../../`).
+Import alias: always `@/*` → `./*` (project root). No deep relative chains (`../../../`).
 
 ---
 
@@ -247,7 +246,7 @@ Never return raw Prisma objects containing sensitive fields (`password`, tokens)
 
 ## 7. Database Rules
 
-  - Prisma Client output: src/generated/client. Import only from @/generated/client.
+  - Prisma Client output: generated/client (root). Import only from @/generated/client.
   - Primary key: id String @id @default(cuid()).
   - Every model: createdAt, updatedAt. Business entities add createdById, updatedById, deletedAt.
   - Soft delete (deletedAt) for business entities: Letter, User, Penugasan, Article.
@@ -301,7 +300,7 @@ Never return raw Prisma objects containing sensitive fields (`password`, tokens)
 
   ## 10. UI & Styling Rules
 
-  - Tailwind &&v4 CSS-first**: tokens in `src/app/globals.css` via `@theme`. **No** `tailwind.config.ts`.
+  - Tailwind &&v4 CSS-first**: tokens in `app/globals.css` via `@theme`. **No** `tailwind.config.ts`.
   - Design language: **"Tenang Modern"** — earth-tone/terracotta, calm surfaces, low eye strain for long dashboard sessions.
   - Admin and public share the same token world; `--admin-*` are aliases of global tokens.
   - Use `shadcn/ui` primitives. Do not hand-edit `components/ui/*`; extend via wrappers.
@@ -342,8 +341,8 @@ These caused real failures in this repo. Do not repeat them.
 
 ### Additional guardrails:
 
-  - Never delete `src/generated/clien`t` manually — regenerate it.
-  - Never assume the `src/` directory exists; verify before setting Prisma `output`.
+  - Never delete `generated/client` manually — regenerate it.
+  - Never assume directories exist; verify before setting Prisma `output`.
   - `db push --force-reset` destroys all data. Only on explicit user instruction, development only.
 
   ---
