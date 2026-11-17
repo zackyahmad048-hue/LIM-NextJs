@@ -33,7 +33,7 @@ export async function createLetterAction(
   try {
     const repo = new PrismaLetterRepository()
     const result = await createLetterUseCase(repo, parsed.data, session.user.id)
-    revalidatePath('/dashboard/secretariat/letters', 'page')
+    revalidatePath('/dashboard/letters', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createLetterAction]', error)

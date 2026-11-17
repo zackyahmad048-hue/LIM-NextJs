@@ -36,7 +36,7 @@ export async function submitForReviewAction(formData: FormData): Promise<ActionR
       })
       return l
     })
-    revalidatePath('/dashboard/secretariat/letters', 'page')
+    revalidatePath('/dashboard/letters', 'page')
     return { success: true, data: updated }
   } catch (error) {
     console.error('[submitForReviewAction]', error)

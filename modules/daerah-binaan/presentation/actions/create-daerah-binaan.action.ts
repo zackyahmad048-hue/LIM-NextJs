@@ -38,7 +38,7 @@ export async function createDaerahBinaanAction(formData: FormData): Promise<Acti
   try {
     const repo = new PrismaDaerahBinaanRepository()
     const result = await createDaerahBinaan(repo, parsed.data, session.user.id)
-    revalidatePath('/dashboard/binaan/daerah', 'page')
+    revalidatePath('/dashboard/daerah-binaan', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createDaerahBinaanAction]', error)

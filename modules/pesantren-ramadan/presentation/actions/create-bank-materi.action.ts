@@ -28,7 +28,7 @@ export async function createBankMateriAction(formData: FormData): Promise<Action
   try {
     const repo = new PrismaSekolahMitraRepository()
     const result = await createBankMateri(repo, parsed.data)
-    revalidatePath('/dashboard/pesantren/materi', 'page')
+    revalidatePath('/dashboard/pesantren/bank-materi', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createBankMateriAction]', error)

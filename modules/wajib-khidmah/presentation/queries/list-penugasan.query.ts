@@ -4,5 +4,5 @@ export async function listPenugasan(filter?: { status?: string; guruBantuId?: st
   if (filter?.status) where.status = filter.status
   if (filter?.guruBantuId) where.guruBantuId = filter.guruBantuId
   if (filter?.lembagaId) where.lembagaId = filter.lembagaId
-  return prisma.penugasan.findMany({ where, orderBy: { createdAt: 'desc' }, include: { guruBantu: true, lembaga: true } })
+  return prisma.penugasan.findMany({ where, orderBy: { createdAt: 'desc' }, include: { guruBantu: { include: { user: true } }, lembaga: true } })
 }

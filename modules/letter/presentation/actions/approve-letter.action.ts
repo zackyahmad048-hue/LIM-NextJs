@@ -36,7 +36,7 @@ export async function approveLetterAction(formData: FormData): Promise<ActionRes
       })
       return l
     })
-    revalidatePath('/dashboard/secretariat/letters', 'page')
+    revalidatePath('/dashboard/letters', 'page')
     return { success: true, data: updated }
   } catch (error) {
     console.error('[approveLetterAction]', error)

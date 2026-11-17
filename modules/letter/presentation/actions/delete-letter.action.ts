@@ -34,7 +34,7 @@ export async function deleteLetterAction(formData: FormData): Promise<ActionResu
         data: { userId: session.user.id, action: 'LETTER_DELETED', entity: 'Letter', entityId: parsed.data.letterId, ipAddress },
       })
     })
-    revalidatePath('/dashboard/secretariat/letters', 'page')
+    revalidatePath('/dashboard/letters', 'page')
     return { success: true, data: { id: parsed.data.letterId } }
   } catch (error) {
     console.error('[deleteLetterAction]', error)

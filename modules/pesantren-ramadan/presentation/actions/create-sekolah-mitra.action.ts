@@ -24,7 +24,7 @@ export async function createSekolahMitraAction(formData: FormData): Promise<Acti
   try {
     const repo = new PrismaSekolahMitraRepository()
     const result = await createSekolahMitra(repo, parsed.data)
-    revalidatePath('/dashboard/pesantren/sekolah', 'page')
+    revalidatePath('/dashboard/pesantren/sekolah-mitra', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createSekolahMitraAction]', error)

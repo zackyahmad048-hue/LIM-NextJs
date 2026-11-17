@@ -159,8 +159,8 @@ export async function sendLetterAction(
       timeout: 10000,
     })
 
-    revalidatePath('/dashboard/secretariat/letters', 'page')
-    revalidatePath(`/dashboard/secretariat/letters/${letterId}`, 'page')
+    revalidatePath('/dashboard/letters', 'page')
+    revalidatePath(`/dashboard/letters/${letterId}`, 'page')
 
     return { success: true, data: result }
   } catch (error) {

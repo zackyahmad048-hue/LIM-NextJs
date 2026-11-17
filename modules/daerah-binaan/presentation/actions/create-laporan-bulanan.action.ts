@@ -46,7 +46,7 @@ export async function createLaporanBulananAction(formData: FormData): Promise<Ac
   try {
     const repo = new PrismaDaerahBinaanRepository()
     const result = await createLaporanBulanan(repo, parsed.data, session.user.id)
-    revalidatePath('/dashboard/binaan/laporan', 'page')
+    revalidatePath('/dashboard/daerah-binaan/laporan', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createLaporanBulananAction]', error)
