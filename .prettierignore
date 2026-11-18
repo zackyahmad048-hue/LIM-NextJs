@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+build
+coverage
+generated
+.vercel
+.neon
+.agents
+.claude
+.cursor
+.devin
+bun.lock
+next-env.d.ts
+*.tsbuildinfo

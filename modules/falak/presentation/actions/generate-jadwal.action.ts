@@ -24,7 +24,7 @@ export async function generateJadwalAction(formData: FormData): Promise<ActionRe
   try {
     const repo = new PrismaFalakRepository()
     const result = await generateJadwal(repo, parsed.data.tanggal, parsed.data.modeWaktu)
-    revalidatePath('/dashboard/falak/jadwal', 'page')
+    revalidatePath('/dashboard/falak/konfigurasi', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[generateJadwalAction]', error)

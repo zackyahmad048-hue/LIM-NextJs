@@ -39,7 +39,7 @@ export async function submitLaporanAction(
     const repo = new PrismaLaporanRepository()
     const result = await submitLaporan(repo, parsedForm.data, session, ipAddress)
     revalidatePath('/dashboard/wajib-khidmah/laporan', 'page')
-    revalidatePath(`/dashboard/wajib-khidmah/penugasan/${parsedForm.data.penugasanId}`, 'page')
+    revalidatePath('/dashboard/wajib-khidmah/penugasan', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[submitLaporanAction] Error:', error)

@@ -28,7 +28,7 @@ export async function createCategoryAction(formData: FormData): Promise<ActionRe
   try {
     const repo = new PrismaArticleRepository()
     const result = await createCategory(repo, parsed.data)
-    revalidatePath('/dashboard/cms/kategori', 'page')
+    revalidatePath('/dashboard/cms/artikel', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createCategoryAction]', error)
