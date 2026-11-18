@@ -1,3 +1,4 @@
+import { connection } from 'next/server'
 import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
@@ -10,6 +11,7 @@ const fieldOrder = [
 ] as const
 
 export default async function FalakJadwalPage() {
+  await connection()
   const today = new Date()
   const to = new Date(today)
   to.setDate(to.getDate() + 7)

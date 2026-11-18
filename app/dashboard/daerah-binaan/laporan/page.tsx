@@ -1,3 +1,4 @@
+import { connection } from 'next/server'
 import { PageHeader } from '@/components/layout/page-header'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
@@ -5,6 +6,7 @@ import { listDaerahBinaan } from '@/modules/daerah-binaan/presentation/queries/l
 import { createLaporanBulananAction } from '@/modules/daerah-binaan/presentation/actions/create-laporan-bulanan.action'
 
 export default async function DaerahBinaanLaporanPage() {
+  await connection()
   const daerah = await listDaerahBinaan()
   const now = new Date()
   return (

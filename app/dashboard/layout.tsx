@@ -5,6 +5,9 @@ import { Sidebar } from '@/components/layout/sidebar'
 import { Topbar } from '@/components/layout/topbar'
 import type { Role } from '@/generated/client'
 
+// Halaman dashboard menarik data server di render; izinkan blocking saat prerender.
+export const instant = false
+
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const session = await getSession()
   if (!session) redirect('/login?callbackUrl=/dashboard')

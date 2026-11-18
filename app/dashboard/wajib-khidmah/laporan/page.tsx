@@ -1,3 +1,4 @@
+import { connection } from 'next/server'
 import { PageHeader } from '@/components/layout/page-header'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
@@ -5,6 +6,7 @@ import { listPenugasan } from '@/modules/wajib-khidmah/presentation/queries/list
 import { submitLaporanAction } from '@/modules/wajib-khidmah/presentation/actions/submit-laporan.action'
 
 export default async function WkLaporanPage() {
+  await connection()
   const penugasan = await listPenugasan()
   const now = new Date()
   return (
