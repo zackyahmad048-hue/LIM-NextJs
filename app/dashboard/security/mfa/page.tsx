@@ -2,6 +2,9 @@ import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth'
 import MfaSetup from './mfa-setup'
 
+// Membaca sesi di request time; izinkan blocking saat prerender (pola yang sama dengan layout dashboard).
+export const instant = false
+
 export default async function MfaPage({ searchParams }: { searchParams: Promise<{ callbackUrl?: string; reason?: string }> }) {
   const session = await getSession()
   if (!session) redirect('/login')

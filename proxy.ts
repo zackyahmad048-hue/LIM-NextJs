@@ -2,6 +2,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getSession } from '@/lib/auth'
+import { isMfaSatisfied } from '@/modules/authentication/domain/permissions'
+import type { Role } from '@/generated/client'
 
 const protectedRoutes = ['/dashboard', '/admin', '/profile']
 
@@ -33,10 +35,15 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  const mfaRoles = ['OWNER', 'ADMIN_SEKRETARIAT', 'ADMIN_BIDANG_SAFARI', 'ADMIN_BIDANG_PESANTREN_RAMADAN']
+  // MFA tetap wajib di produksi (AGENTS §8). Di dev gate dilewati agar akun seed bisa
+  // dipakai; paksa aktif di dev dengan MFA_GATE_FORCE=true.
+  const mfaEnforced = process.env.NODE_ENV === 'production' || process.env.MFA_GATE_FORCE === 'true'
   if (
-    mfaRoles.includes(session.user.role) &&
-    !(session.user as { twoFactorEnabled?: boolean }).twoFactorEnabled &&
+    mfaEnforced &&
+    !isMfaSatisfied({
+      role: session.user.role as Role,
+      twoFactorEnabled: (session.user as { twoFactorEnabled?: boolean }).twoFactorEnabled,
+    }) &&
     !pathname.startsWith('/dashboard/security/mfa')
   ) {
     const mfaUrl = new URL('/dashboard/security/mfa', request.url)

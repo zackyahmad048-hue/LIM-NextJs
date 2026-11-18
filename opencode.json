@@ -1,0 +1,55 @@
+{
+  "mcp": {
+    "servers": {
+      "context7": {
+        "type": "streamable_http",
+        "url": "https://mcp.context7.com/mcp"
+      },
+      "github": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-github@latest"
+        ],
+        "env": {
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+        }
+      },
+      "shadcn": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "shadcn-mcp@latest"
+        ]
+      },
+      "filesystem": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-filesystem@latest",
+          "."
+        ]
+      },
+      "neon": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@neon/mcp-server@latest"
+        ],
+        "env": {
+          "NEON_API_KEY": "${NEON_API_KEY}"
+        }
+      }
+    },
+    "shadcn": {
+      "type": "local",
+      "command": [
+        "npx",
+        "shadcn@latest",
+        "mcp"
+      ],
+      "enabled": true
+    }
+  },
+  "$schema": "https://opencode.ai/config.json"
+}

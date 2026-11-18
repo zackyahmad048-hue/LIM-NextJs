@@ -47,6 +47,10 @@ export const auth = betterAuth({
     requireEmailVerification: false,
     minPasswordLength: 8,
     maxPasswordLength: 128,
+    // shortcut: belum ada SMTP — tautan reset dicetak ke log server; pasang provider email (mis. Resend) untuk produksi
+    sendResetPassword: async ({ user, url }) => {
+      console.info(`[auth] Tautan reset password untuk ${user.email}: ${url}`)
+    },
   },
 
   advanced: {

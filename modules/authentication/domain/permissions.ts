@@ -37,8 +37,19 @@ export function canAccessModule(role: Role, module: string): boolean {
     'daerah-binaan': ['OWNER', 'PW', 'PC'],
     'falak': ['OWNER', 'ADMIN_SEKRETARIAT', 'PW', 'PC', 'GURU_BANTU', 'LEMBAGA_EKSTERNAL', 'PONDOK_INTERNAL'],
     'kepengurusan': ['OWNER', 'ADMIN_SEKRETARIAT', 'PW', 'PC'],
+    'pengguna': ['OWNER'],
   }
   const allowed = matrix[module]
   if (!allowed) return false
   return allowed.includes(role)
+}
+
+export type DataScope = 'GLOBAL' | 'ORGANIZATIONAL' | 'PERSONAL'
+
+// Cakupan data yang tampil di UI (🌍 / 🏢 / 👤 pada docs/backend/06.RBAC.md).
+// Hanya penanda tampilan — penegakan scope tetap di query dan Server Action.
+export function getDataScope(role: Role, accountType?: AccountType): DataScope {
+  if (isPusatRole(role)) return 'GLOBAL'
+  if (isOrganizationalAccount(role, accountType)) return 'ORGANIZATIONAL'
+  return 'PERSONAL'
 }

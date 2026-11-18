@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { isPusatRole, isOrganizationalAccount, requiresMfa, isMfaSatisfied, canAccessModule } from './permissions'
+import { isPusatRole, isOrganizationalAccount, requiresMfa, isMfaSatisfied, canAccessModule, getDataScope } from './permissions'
 
 describe('isPusatRole', () => {
   it('true for pusat roles', () => {
@@ -55,5 +55,20 @@ describe('canAccessModule', () => {
   })
   it('unknown module denied', () => {
     expect(canAccessModule('OWNER', 'nonexistent')).toBe(false)
+  })
+})
+
+describe('getDataScope', () => {
+  it('GLOBAL for pusat roles', () => {
+    expect(getDataScope('OWNER')).toBe('GLOBAL')
+    expect(getDataScope('CONTENT_MANAGER')).toBe('GLOBAL')
+  })
+  it('ORGANIZATIONAL for organizational accounts', () => {
+    expect(getDataScope('PC')).toBe('ORGANIZATIONAL')
+    expect(getDataScope('GURU_BANTU', 'ORGANIZATIONAL')).toBe('ORGANIZATIONAL')
+  })
+  it('PERSONAL for other personal accounts', () => {
+    expect(getDataScope('GURU_BANTU')).toBe('PERSONAL')
+    expect(getDataScope('DELEGASI_SAFARI_DAERAH', 'PERSONAL')).toBe('PERSONAL')
   })
 })

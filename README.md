@@ -178,10 +178,10 @@ Buka browser di **http://localhost:3000**
 
 | Role              | Email                     | Password           |
 | ----------------- | ------------------------- | ------------------ |
-| Owner             | `owner@lim.or.id`       | `owner123`       |
-| Admin Sekretariat | `sekretariat@lim.or.id` | `sekretariat123` |
-| PW Jawa Timur     | `pw.jatim@lim.or.id`    | `pwjatim123`     |
-| PC Surabaya       | `pc.surabaya@lim.or.id` | `pcsurabaya123`  |
+| Owner             | ........................  | ..................|
+| Admin Sekretariat | ........................  | ..................|
+| PW Jawa Timur     | ......................... | ..................|
+| PC Surabaya       | ........................  | ..................|
 
 ⚠️ PENTING: Ganti semua password default sebelum deploy ke production!
 
