@@ -6,8 +6,9 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Menu } from 'lucide-react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
@@ -21,8 +22,15 @@ const navigationItems = [
   { label: 'Beranda', href: '/' },
   { label: 'Artikel', href: '/artikel' },
   { label: 'Jadwal Shalat', href: '/falak' },
+  { label: 'Verifikasi Surat', href: '/verifikasi' },
   { label: 'Tentang', href: '/tentang' },
 ] as const
+
+// '/' aktif hanya persis; rute lain aktif juga untuk turunannya (mis. /artikel/judul).
+function isActivePath(pathname: string, href: string): boolean {
+  if (href === '/') return pathname === '/'
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
 
 export function PublicNavbar() {
   const pathname = usePathname()
@@ -58,13 +66,13 @@ export function PublicNavbar() {
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
           {navigationItems.map((item) => {
-            const isActive = pathname === item.href
+            const isActive = isActivePath(pathname, item.href)
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'relative rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                  'relative rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/40 lg:px-4',
                   isActive
                     ? 'text-primary'
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
@@ -72,26 +80,24 @@ export function PublicNavbar() {
                 aria-current={isActive ? 'page' : undefined}
               >
                 {item.label}
-                {/* Active indicator */}
+                {/* Penanda halaman aktif berpindah mengikuti navigasi */}
                 {isActive && (
-                  <span className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-primary" />
+                  <motion.span
+                    layoutId="public-nav-active"
+                    aria-hidden
+                    className="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-primary lg:inset-x-4"
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                  />
                 )}
               </Link>
             )
           })}
         </nav>
 
-        {/* Desktop Auth Buttons */}
-        <div className="hidden items-center gap-2 md:flex">
-          <Link href="/login">
-            <Button variant="ghost" size="sm">
-              Masuk
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button variant="default" size="sm">
-              Dashboard
-            </Button>
+        {/* Desktop: satu tombol masuk */}
+        <div className="hidden items-center md:flex">
+          <Link href="/login" className={buttonVariants({ size: 'sm' })}>
+            Masuk
           </Link>
         </div>
 
@@ -125,9 +131,9 @@ export function PublicNavbar() {
             </SheetHeader>
 
             {/* Mobile Navigation */}
-            <nav className="mt-6 flex flex-col gap-1" aria-label="Navigasi mobile">
+            <nav className="mt-6 flex flex-col gap-1 px-3" aria-label="Navigasi mobile">
               {navigationItems.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = isActivePath(pathname, item.href)
                 return (
                   <Link
                     key={item.href}
@@ -147,17 +153,14 @@ export function PublicNavbar() {
               })}
             </nav>
 
-            {/* Mobile Auth Buttons */}
-            <div className="mt-auto flex flex-col gap-2 border-t border-border pt-6">
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="outline" className="w-full">
-                  Masuk
-                </Button>
-              </Link>
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="default" className="w-full">
-                  Buka Dashboard
-                </Button>
+            {/* Mobile: satu tombol masuk */}
+            <div className="mt-auto border-t border-border p-3 pt-6">
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={cn(buttonVariants(), 'w-full')}
+              >
+                Masuk
               </Link>
             </div>
           </SheetContent>

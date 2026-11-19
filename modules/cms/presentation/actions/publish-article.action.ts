@@ -1,7 +1,7 @@
 // modules/cms/presentation/actions/publish-article.action.ts
 'use server'
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import { z } from 'zod'
 import { Role } from '@/generated/client'
 import { getSession } from '@/lib/auth'
@@ -25,6 +25,7 @@ export async function publishArticleAction(formData: FormData): Promise<ActionRe
     const repo = new PrismaArticleRepository()
     const result = await publishArticle(repo, parsed.data.articleId)
     revalidatePath('/dashboard/cms/artikel', 'page')
+    updateTag('articles')
     return { success: true, data: result }
   } catch (error) {
     console.error('[publishArticleAction]', error)

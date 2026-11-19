@@ -1,14 +1,12 @@
 // src/lib/auth.ts
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
-import { twoFactor } from 'better-auth/plugins'
 import { prisma } from '@/lib/prisma'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
-  plugins: [twoFactor()],
 
   session: {
     expiresIn: 60 * 60 * 24 * 7,

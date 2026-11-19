@@ -1,10 +1,11 @@
-// components/widgets/prayer-time-widget.tsx
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { Clock, AlertCircle, RefreshCw, MapPin, Loader2, X } from 'lucide-react'
+import { AlertCircle, RefreshCw, MapPin, Loader2, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { DayArc } from '@/components/widgets/day-arc'
+import { ModeToggle, type ModeWaktu } from '@/components/widgets/mode-toggle'
 import { toast } from 'sonner'
 import {
   getJadwal,
@@ -19,12 +20,16 @@ import {
   type JadwalLengkap,
   type LokasiFalak,
 } from '@/lib/digital-falak'
+import { keMenit } from '@/modules/falak/domain/digital-falak'
+import { waktuShalatBerikutnya, type KunciShalat } from '@/modules/falak/domain/posisi-matahari'
 
-type Mode = 'standar' | 'istiwa'
+type Mode = ModeWaktu
 
 interface PrayerItem {
   name: string
   time: string
+  /** Hanya shalat wajib yang punya kunci; Imsak dan Terbit hanya penanda waktu. */
+  key?: KunciShalat
 }
 
 export function PrayerTimeWidget() {
@@ -33,54 +38,43 @@ export function PrayerTimeWidget() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [stale, setStale] = useState(false)
-  const [now, setNow] = useState<Date | null>(null)
   const [location, setLocation] = useState<LokasiFalak>(LOKASI_DEFAULT)
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
-  // Penanda request terbaru: respons fetch lokasi lama tidak boleh menimpa lokasi baru
   const fetchIdRef = useRef(0)
 
-  // ==========================================
-  // 1. DIGITAL CLOCK (Real-time)
-  // ==========================================
+  // Waktu sekarang yang diperbarui berkala. null di render pertama agar hidrasi server/klien sama.
+  const [now, setNow] = useState<Date | null>(null)
   useEffect(() => {
     function updateTime() {
       setNow(new Date())
     }
-
     updateTime()
     const interval = setInterval(updateTime, 1000)
     return () => clearInterval(interval)
   }, [])
 
-  // ==========================================
-  // 2. LOAD PREFERENSI LOKASI DARI LOCALSTORAGE
-  // ==========================================
   useEffect(() => {
-    // Tunda agar render pertama tetap pakai lokasi default (hydrasi aman).
     queueMicrotask(() => setLocation(bacaLokasi()))
   }, [])
 
-  // ==========================================
-  // 3. FETCH JADWAL DARI KLIEN DIGITAL FALAK
-  // ==========================================
   const fetchJadwal = useCallback(async (loc: LokasiFalak) => {
     const fetchId = ++fetchIdRef.current
     try {
       setLoading(true)
       setError(null)
 
-      const data = await getJadwal(loc)
+      const hasilJadwal = await getJadwal(loc)
+
       if (fetchId !== fetchIdRef.current) return
-      setJadwal(data)
+      setJadwal(hasilJadwal)
       setStale(false)
-      simpanJadwalCache(loc, data)
+      simpanJadwalCache(loc, hasilJadwal)
     } catch (err) {
       if (fetchId !== fetchIdRef.current) return
       const cached = bacaJadwalCache(loc)
       if (cached) {
         setJadwal(cached)
         setStale(true)
-        setError(null)
       } else {
         setError(err instanceof Error ? err.message : 'Terjadi kesalahan')
       }
@@ -89,14 +83,10 @@ export function PrayerTimeWidget() {
     }
   }, [])
 
-  // Fetch jadwal saat lokasi berubah
   useEffect(() => {
     queueMicrotask(() => void fetchJadwal(location))
   }, [location, fetchJadwal])
 
-  // ==========================================
-  // 4. DETEKSI LOKASI DEVICE
-  // ==========================================
   async function handleDetectLocation() {
     if (!navigator.geolocation) {
       toast.error('Browser Anda tidak mendukung deteksi lokasi')
@@ -104,7 +94,6 @@ export function PrayerTimeWidget() {
     }
 
     setIsDetectingLocation(true)
-
     try {
       const lokasiBaru = await deteksiLokasi()
       setLocation(lokasiBaru)
@@ -112,79 +101,60 @@ export function PrayerTimeWidget() {
       toast.success(`Lokasi diperbarui: ${lokasiBaru.name}`)
     } catch (err) {
       const geoError = err as GeolocationPositionError
-      let message = 'Gagal mendeteksi lokasi'
-
-      switch (geoError.code) {
-        case geoError.PERMISSION_DENIED:
-          message = 'Izin lokasi ditolak. Gunakan lokasi default (Lirboyo).'
-          break
-        case geoError.POSITION_UNAVAILABLE:
-          message = 'Informasi lokasi tidak tersedia'
-          break
-        case geoError.TIMEOUT:
-          message = 'Waktu deteksi lokasi habis'
-          break
+      const pesan: Record<number, string> = {
+        [geoError.PERMISSION_DENIED]: 'Izin lokasi ditolak. Gunakan lokasi default (Lirboyo).',
+        [geoError.POSITION_UNAVAILABLE]: 'Informasi lokasi tidak tersedia',
+        [geoError.TIMEOUT]: 'Waktu deteksi lokasi habis',
       }
-
-      toast.error(message)
+      toast.error(pesan[geoError.code] ?? 'Gagal mendeteksi lokasi')
     } finally {
       setIsDetectingLocation(false)
     }
   }
 
-  // ==========================================
-  // 5. RESET KE LOKASI DEFAULT
-  // ==========================================
   function handleResetLocation() {
     setLocation(LOKASI_DEFAULT)
     hapusLokasi()
     toast.success('Lokasi direset ke Markaz Lirboyo')
   }
 
-  // ==========================================
-  // 6. KONVERSI JADWAL KE ARRAY
-  // ==========================================
-  function getPrayerTimes(): PrayerItem[] {
-    if (!jadwal) return []
+  const waktu = jadwal ? (mode === 'istiwa' ? jadwal.wis : jadwal.ws) : null
+  const times: PrayerItem[] = waktu
+    ? [
+        { name: 'Imsak', time: waktu.imsak },
+        { name: 'Subuh', time: waktu.subuh, key: 'subuh' },
+        { name: 'Terbit', time: waktu.terbit },
+        { name: 'Dzuhur', time: waktu.dzuhur, key: 'dzuhur' },
+        { name: 'Ashar', time: waktu.ashar, key: 'ashar' },
+        { name: 'Maghrib', time: waktu.maghrib, key: 'maghrib' },
+        { name: 'Isya', time: waktu.isya, key: 'isya' },
+      ]
+    : []
 
-    const waktu = mode === 'istiwa' ? jadwal.wis : jadwal.ws
-
-    return [
-      { name: 'Imsak', time: waktu.imsak },
-      { name: 'Subuh', time: waktu.subuh },
-      { name: 'Terbit', time: waktu.terbit },
-      { name: 'Dzuhur', time: waktu.dzuhur },
-      { name: 'Ashar', time: waktu.ashar },
-      { name: 'Maghrib', time: waktu.maghrib },
-      { name: 'Isya', time: waktu.isya },
-    ]
-  }
-
-  const times = getPrayerTimes()
-  const isCustomLocation = location.name !== LOKASI_DEFAULT.name
-
-  // Mode Istiwa' menggeser jam berjalan dengan selisih WIB→WIS dari API;
-  // label selalu menyatakan zona jam yang benar-benar ditampilkan.
   const selisihJalan = mode === 'istiwa' ? jadwal?.selisih : undefined
   const jamTampil = now ? jamKini(now, selisihJalan) : ''
   const zona = selisihJalan ? 'WIS' : 'WIB'
 
+  // Busur matahari dan penanda "berikutnya" memakai jam yang sama dengan yang tampil di layar.
+  // Menit dibulatkan agar busur tidak bergerak tiap detik.
+  const waktuAktif = jadwal ? (mode === 'istiwa' ? jadwal.wis : jadwal.ws) : null
+  const menitSekarang = jamTampil ? keMenit(jamTampil) : null
+  const berikutnya =
+    waktuAktif && menitSekarang !== null ? waktuShalatBerikutnya(waktuAktif, menitSekarang) : null
+
   return (
-    <div className="w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-sm transition-shadow duration-200 hover:shadow-md">
-      {/* Header Widget — judul + jam besar di tengah */}
-      <div className="mb-5 text-center">
-        <div className="flex items-center justify-center gap-2 text-primary">
-          <Clock className="h-5 w-5" />
-          <span className="font-semibold">Jadwal Shalat</span>
-        </div>
-        <div className="mt-2 font-mono text-4xl font-bold tracking-tight text-primary tabular-nums">
-          {jamTampil}
-          <span className="ml-1.5 text-lg font-medium text-muted-foreground">{zona}</span>
-        </div>
+    <div className="w-full max-w-md rounded-3xl border border-border bg-card p-5 sm:p-6">
+      <h2 className="text-sm font-medium text-muted-foreground">Jadwal shalat hari ini</h2>
+
+      {/* Busur perjalanan matahari + jam berjalan */}
+      <DayArc waktu={loading ? null : waktuAktif} menitSekarang={menitSekarang} className="mt-3" />
+      <div className="mt-1 text-center font-mono text-4xl font-semibold tracking-tight text-foreground tabular-nums">
+        {jamTampil}
+        <span className="ml-1.5 text-base font-medium text-muted-foreground">{zona}</span>
       </div>
 
-      {/* Info Lokasi + Tombol Lokasi */}
-      <div className="mb-4 flex items-center justify-between rounded-md bg-muted/50 px-3 py-2">
+      {/* Lokasi */}
+      <div className="mt-4 flex items-center justify-between gap-2 border-y border-border py-1.5">
         <div className="flex min-w-0 items-center gap-2">
           <MapPin className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
           <span className="truncate text-xs font-medium text-muted-foreground" title={location.name}>
@@ -192,7 +162,7 @@ export function PrayerTimeWidget() {
           </span>
         </div>
         <div className="flex items-center gap-1">
-          {isCustomLocation && (
+          {location.name !== LOKASI_DEFAULT.name && (
             <Button
               type="button"
               variant="ghost"
@@ -224,44 +194,13 @@ export function PrayerTimeWidget() {
         </div>
       </div>
 
-      {/* Toggle Mode */}
-      <div className="mb-5 flex rounded-md bg-muted p-1">
-        <button
-          type="button"
-          onClick={() => setMode('standar')}
-          aria-pressed={mode === 'standar'}
-          className={cn(
-            'flex-1 rounded-sm px-3 py-2 text-sm font-medium transition-all duration-150 ease-out',
-            mode === 'standar'
-              ? 'bg-background text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          )}
-        >
-          Waktu Standar
-        </button>
-        <button
-          type="button"
-          onClick={() => setMode('istiwa')}
-          aria-pressed={mode === 'istiwa'}
-          className={cn(
-            'flex-1 rounded-sm px-3 py-2 text-sm font-medium transition-all duration-150 ease-out',
-            mode === 'istiwa'
-              ? 'bg-background text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
-          )}
-        >
-          Waktu Istiwa&apos;
-        </button>
-      </div>
+      <ModeToggle value={mode} onChange={setMode} className="mt-4" />
 
       {/* Loading State */}
       {loading && (
-        <div className="space-y-1.5">
+        <div className="mt-3 divide-y divide-border" aria-hidden>
           {Array.from({ length: 7 }).map((_, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between rounded-md bg-muted/50 px-4 py-2.5"
-            >
+            <div key={i} className="flex items-center justify-between py-3">
               <div className="h-4 w-16 animate-pulse rounded bg-muted" />
               <div className="h-4 w-12 animate-pulse rounded bg-muted" />
             </div>
@@ -271,7 +210,7 @@ export function PrayerTimeWidget() {
 
       {/* Error State */}
       {error && !loading && (
-        <div className="rounded-md border border-destructive/20 bg-destructive/5 p-4">
+        <div className="mt-4 rounded-2xl border border-destructive/20 bg-destructive/5 p-4">
           <div className="flex items-start gap-3">
             <AlertCircle className="h-5 w-5 shrink-0 text-destructive" />
             <div className="flex-1">
@@ -295,31 +234,41 @@ export function PrayerTimeWidget() {
       {!loading && !error && (
         <>
           {stale && (
-            <p className="mb-3 rounded-md bg-warning/10 px-3 py-2 text-xs text-warning">
+            <p className="mt-3 rounded-2xl bg-warning/15 px-3 py-2 text-xs text-warning-foreground">
               API sedang tidak tersedia — menampilkan data terakhir yang tersimpan.
             </p>
           )}
 
-          <div className="space-y-1.5">
-            {times.map((item) => (
-              <div
-                key={item.name}
-                className="flex items-center justify-between rounded-md bg-muted/50 px-4 py-2.5 transition-colors hover:bg-muted"
-              >
-                <span className="font-medium text-foreground">{item.name}</span>
-                <span className="font-bold text-primary tabular-nums">{item.time}</span>
-              </div>
-            ))}
-          </div>
+          <ul className="mt-2 divide-y divide-border">
+            {times.map((item) => {
+              const giliran = item.key !== undefined && item.key === berikutnya
+              return (
+                <li
+                  key={item.name}
+                  aria-current={giliran ? 'time' : undefined}
+                  className={cn(
+                    'relative flex items-center justify-between py-2.5 text-sm',
+                    giliran && 'font-semibold'
+                  )}
+                >
+                  {giliran && (
+                    <span aria-hidden className="absolute inset-y-1.5 -left-3 w-1 rounded-full bg-primary" />
+                  )}
+                  <span className="flex items-baseline gap-2">
+                    <span className="text-foreground">{item.name}</span>
+                    {giliran && <span className="text-xs font-normal text-muted-foreground">berikutnya</span>}
+                  </span>
+                  <span className="text-foreground tabular-nums">{item.time}</span>
+                </li>
+              )
+            })}
+          </ul>
 
-          {/* Keterangan Kaki */}
-          <div className="mt-5 border-t border-border pt-4 text-center">
-            <p className="text-xs text-muted-foreground">
-              {mode === 'istiwa'
-                ? "Waktu Istiwa' (WIs) sesuai hisab Digital Falak"
-                : 'Sumber: Digital Falak API • Hisab Digital Falak'}
-            </p>
-          </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            {mode === 'istiwa'
+              ? "Waktu Istiwa' (WIs) sesuai hisab Digital Falak"
+              : 'Sumber: Digital Falak API • Hisab Digital Falak'}
+          </p>
         </>
       )}
     </div>

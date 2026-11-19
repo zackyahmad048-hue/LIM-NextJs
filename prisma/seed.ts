@@ -87,23 +87,19 @@ async function main() {
     console.log(`⏭️  LetterPeriod already exists: ${letterPeriod.id}`)
   }
 
-  // 5. 🔑 BUAT LETTER NUMBER COUNTER
-  console.log('🔍 Membersihkan data LetterNumberCounter yang lama/korup...')
-  await prisma.letterNumberCounter.deleteMany()
-
+  // 5. 🔑 PASTIKAN LETTER NUMBER COUNTER ADA (idempoten — JANGAN hapus counter,
+  //    nomor surat yang sudah terbit bergantung pada currentSeq).
   try {
-    console.log(`🔍 Verifying if LetterPeriod ID "${letterPeriod.id}" exists...`)
-    const verifiedPeriod = await prisma.letterPeriod.findUnique({
-      where: { id: letterPeriod.id }
-    })
-
-    if (!verifiedPeriod) {
-      throw new Error(`CRITICAL: LetterPeriod with ID "${letterPeriod.id}" DOES NOT exist!`)
-    }
-    console.log(`✅ Verified: LetterPeriod ID "${letterPeriod.id}" is valid.`)
-
-    await prisma.letterNumberCounter.create({
-      data: {
+    const counter = await prisma.letterNumberCounter.upsert({
+      where: {
+        periodId_levelCode_categoryCode: {
+          periodId: letterPeriod.id,
+          levelCode: 'PP',
+          categoryCode: 'H',
+        },
+      },
+      update: {},
+      create: {
         period: {
           connect: { id: letterPeriod.id }
         },
@@ -112,9 +108,9 @@ async function main() {
         currentSeq: 0,
       },
     })
-    console.log(`✅ Created Letter Number Counter for LetterPeriod ID: ${letterPeriod.id}`)
+    console.log(`✅ Letter Number Counter siap: ${counter.id} (seq ${counter.currentSeq})`)
   } catch (error: unknown) {
-    console.error('\n❌ Gagal membuat Letter Number Counter.')
+    console.error('\n❌ Gagal menyiapkan Letter Number Counter.')
     
     // Ekstrak pesan error dengan aman tanpa menggunakan 'any'
     const errorMessage = error instanceof Error ? error.message : String(error)

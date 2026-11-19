@@ -58,11 +58,8 @@ model User {
   createdAt          DateTime    @default(now())
   updatedAt          DateTime    @updatedAt
   deletedAt          DateTime?
-  twoFactorEnabled   Boolean     @default(false)
-
   sessions Session[]
   accounts Account[]
-  twoFactors TwoFactor[]
 
   guruBantuProfile            GuruBantuProfile?
   organizationalAccount       OrganizationalAccount?
@@ -635,6 +632,8 @@ model Letter {
   @@index([status])
   @@index([nomorSurat])
   @@index([verificationSlug])
+  // Daftar surat selalu difilter deletedAt=null lalu diurutkan createdAt desc.
+  @@index([deletedAt, createdAt])
 }
 
 model LetterLog {
@@ -710,6 +709,8 @@ model Article {
   @@index([slug])
   @@index([categoryId])
   @@index([authorId])
+  // Daftar artikel publik: filter status lalu urut createdAt desc.
+  @@index([status, createdAt])
 }
 
 model FalakConfig {
@@ -1242,22 +1243,4 @@ model Verification {
   @@map("verification")
 }
 
-// ============================================
-// BETTER AUTH: TWO FACTOR (MFA)
-// ============================================
-model TwoFactor {
-  id                     String    @id @default(cuid())
-  secret                 String
-  backupCodes            String
-  userId                 String
-  verified               Boolean   @default(true)
-  failedVerificationCount Int      @default(0)
-  lockedUntil            DateTime?
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([secret])
-}

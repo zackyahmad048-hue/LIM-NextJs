@@ -131,8 +131,7 @@ exports.Prisma.UserScalarFieldEnum = {
   accountType: 'accountType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  twoFactorEnabled: 'twoFactorEnabled'
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -715,18 +714,6 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.TwoFactorScalarFieldEnum = {
-  id: 'id',
-  secret: 'secret',
-  backupCodes: 'backupCodes',
-  userId: 'userId',
-  verified: 'verified',
-  failedVerificationCount: 'failedVerificationCount',
-  lockedUntil: 'lockedUntil',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -999,8 +986,7 @@ exports.Prisma.ModelName = {
   PendaftaranEvent: 'PendaftaranEvent',
   DaerahBinaan: 'DaerahBinaan',
   LaporanBulananBinaan: 'LaporanBulananBinaan',
-  Verification: 'Verification',
-  TwoFactor: 'TwoFactor'
+  Verification: 'Verification'
 };
 
 /**

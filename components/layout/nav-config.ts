@@ -121,14 +121,8 @@ const navDefinition: NavGroupDefinition[] = [
 
 const securityDefinition: NavGroupDefinition = {
   label: 'Akun',
-  items: [
-    {
-      href: '/dashboard/security/mfa',
-      label: 'Keamanan (MFA)',
-      icon: 'security',
-      match: '/dashboard/security',
-    },
-  ],
+  // Halaman Keamanan (MFA) sudah dihapus; grup kosong tidak ditampilkan oleh resolveGroups.
+  items: [],
 }
 
 function resolveGroups(definition: NavGroupDefinition[], role: Role): NavGroup[] {

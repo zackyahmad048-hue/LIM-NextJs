@@ -17,15 +17,6 @@ export function isOrganizationalAccount(role: Role, accountType?: AccountType): 
   return ORGANIZATIONAL_ROLES.includes(role)
 }
 
-export function requiresMfa(role: Role): boolean {
-  return role === 'OWNER' || role === 'ADMIN_SEKRETARIAT' || role.startsWith('ADMIN_BIDANG_')
-}
-
-export function isMfaSatisfied(user: { role: Role; twoFactorEnabled?: boolean | null }): boolean {
-  if (!requiresMfa(user.role as Role)) return true
-  return user.twoFactorEnabled === true
-}
-
 export function canAccessModule(role: Role, module: string): boolean {
   const matrix: Record<string, Role[]> = {
     'wajib-khidmah': ['OWNER', 'TIM_WAJIB_KHIDMAH', 'PW', 'PC', 'GURU_BANTU', 'LEMBAGA_EKSTERNAL'],

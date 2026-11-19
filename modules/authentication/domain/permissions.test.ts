@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { isPusatRole, isOrganizationalAccount, requiresMfa, isMfaSatisfied, canAccessModule, getDataScope } from './permissions'
+import { isPusatRole, isOrganizationalAccount, canAccessModule, getDataScope } from './permissions'
 
 describe('isPusatRole', () => {
   it('true for pusat roles', () => {
@@ -20,28 +20,6 @@ describe('isOrganizationalAccount', () => {
   it('falls back to role list', () => {
     expect(isOrganizationalAccount('PW')).toBe(true)
     expect(isOrganizationalAccount('OWNER')).toBe(false)
-  })
-})
-
-describe('requiresMfa', () => {
-  it('true for OWNER/ADMIN_SEKRETARIAT/ADMIN_BIDANG_*', () => {
-    expect(requiresMfa('OWNER')).toBe(true)
-    expect(requiresMfa('ADMIN_SEKRETARIAT')).toBe(true)
-    expect(requiresMfa('ADMIN_BIDANG_SAFARI')).toBe(true)
-  })
-  it('false otherwise', () => {
-    expect(requiresMfa('PW')).toBe(false)
-    expect(requiresMfa('CONTENT_MANAGER')).toBe(false)
-  })
-})
-
-describe('isMfaSatisfied', () => {
-  it('requires 2FA enabled for MFA roles', () => {
-    expect(isMfaSatisfied({ role: 'OWNER', twoFactorEnabled: true })).toBe(true)
-    expect(isMfaSatisfied({ role: 'OWNER', twoFactorEnabled: false })).toBe(false)
-  })
-  it('passes for non-MFA roles', () => {
-    expect(isMfaSatisfied({ role: 'PW', twoFactorEnabled: false })).toBe(true)
   })
 })
 

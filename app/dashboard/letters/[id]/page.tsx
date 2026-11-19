@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { getSession } from '@/lib/auth'
 import { PageHeader } from '@/components/layout/page-header'
 import { StatusBadge } from '@/components/data/status-badge'
 import { getLetterById } from '@/modules/letter/presentation/queries/get-letter-by-id.query'
@@ -8,10 +9,17 @@ import { sendLetterAction } from '@/modules/letter/presentation/actions/send-let
 import { deleteLetterAction } from '@/modules/letter/presentation/actions/delete-letter.action'
 import { TransitionButton } from '@/modules/letter/presentation/components/transition-button'
 import { statusVariant } from '../page'
+import type { Role, AccountType } from '@/generated/client'
 
 export default async function LetterDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const letter = await getLetterById(id)
+  const session = await getSession()
+  if (!session) notFound()
+  const letter = await getLetterById(id, {
+    id: session.user.id,
+    role: session.user.role as Role,
+    accountType: session.user.accountType as AccountType | undefined,
+  })
   if (!letter) notFound()
 
   return (

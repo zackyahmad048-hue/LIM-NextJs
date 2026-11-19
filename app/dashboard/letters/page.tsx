@@ -1,8 +1,11 @@
 import Link from 'next/link'
+import { getSession } from '@/lib/auth'
 import { PageHeader } from '@/components/layout/page-header'
 import { StatusBadge } from '@/components/data/status-badge'
 import { EmptyState } from '@/components/data/states'
+import { canAccessModule } from '@/modules/authentication/domain/permissions'
 import { listLetters } from '@/modules/letter/presentation/queries/list-letters.query'
+import type { Role, AccountType } from '@/generated/client'
 
 export const statusVariant: Record<string, 'neutral' | 'info' | 'success' | 'warning' | 'muted'> = {
   DIKETIK: 'neutral',
@@ -13,7 +16,22 @@ export const statusVariant: Record<string, 'neutral' | 'info' | 'success' | 'war
 }
 
 export default async function LettersPage() {
-  const result = await listLetters({})
+  const session = await getSession()
+  const role = session?.user.role as Role | undefined
+  if (!session || !role || !canAccessModule(role, 'persuratan')) {
+    return (
+      <div className="space-y-4">
+        <PageHeader title="Persuratan" description="Daftar surat" />
+        <EmptyState title="Tidak ada akses" description="Role Anda tidak memiliki akses ke modul persuratan." />
+      </div>
+    )
+  }
+
+  const result = await listLetters({}, {
+    id: session.user.id,
+    role,
+    accountType: session.user.accountType as AccountType | undefined,
+  })
   const rows = result.items
   return (
     <div className="space-y-4">
@@ -42,4 +60,3 @@ export default async function LettersPage() {
     </div>
   )
 }
-

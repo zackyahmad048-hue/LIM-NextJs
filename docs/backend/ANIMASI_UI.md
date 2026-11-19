@@ -84,3 +84,19 @@ Perhatikan `prefers-reduced-motion` agar animasi tidak ganggu aksesibilitas (WCA
 - Registry pihak ketiga (motion-primitives.com) harus kompatibel Tailwind v4 + Next.js 16 + RSC. Verifikasi setelah unduh.
 - `bunx` vs `npx`: dokumen resmi pakai `npx`; coba `bunx` terlebih dahulu, fallback ke `npx` jika gagal.
 - Animasi berlebihan melanggar standar "Tenang Modern".
+
+## 9. Implementasi di proyek ini (tanpa komponen registry baru)
+Referensi: Context7 `/websites/motion_dev_react` (MotionConfig `reducedMotion="user"`) dan
+`/vercel/next.js/v16.2.9` (Cache Components, Suspense streaming, prefetching).
+
+| Area | File | Perilaku |
+| --- | --- | --- |
+| Publik | `app/(public)/template.tsx` | `PageFade` saat rute berubah |
+| Privat | `app/dashboard/template.tsx` | `PageFade` yang sama untuk seluruh rute dashboard |
+| Privat | `app/dashboard/loading.tsx` | Skeleton instan selama data di-stream (persepsi cepat) |
+| Privat | `app/dashboard/layout.tsx` | `MotionProvider` → `prefers-reduced-motion` dihormati |
+| Privat | `app/dashboard/page.tsx` | `Stagger`/`StaggerItem` untuk kartu modul |
+
+Komponen dipakai ulang dari `components/motion/*`; tidak ada dependency atau registry baru.
+`prefers-reduced-motion` ditangani `MotionConfig reducedMotion="user"` (transform dimatikan, opacity tetap).
+

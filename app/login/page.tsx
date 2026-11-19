@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, type Variants } from 'framer-motion'
-import { Mail, Lock, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react'
+import { Mail, Lock, ArrowLeft, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
@@ -41,9 +41,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  // Akun dengan MFA aktif: better-auth minta kode TOTP sebelum sesi dibuat.
-  const [perluOtp, setPerluOtp] = useState(false)
-  const [code, setCode] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -62,11 +59,6 @@ export default function LoginPage() {
         return
       }
 
-      if ((data as { twoFactorRedirect?: boolean } | null)?.twoFactorRedirect) {
-        setPerluOtp(true)
-        return
-      }
-
       if (data?.user) {
         toast.success('Berhasil masuk', {
           description: `Selamat datang kembali, ${data.user.name || 'Ustadz'}!`,
@@ -75,30 +67,6 @@ export default function LoginPage() {
         router.push('/dashboard')
         router.refresh()
       }
-    } catch {
-      toast.error('Terjadi kesalahan', {
-        description: 'Silakan coba lagi dalam beberapa saat.',
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  async function handleOtp(e: React.FormEvent) {
-    e.preventDefault()
-    setIsLoading(true)
-
-    try {
-      const { error } = await authClient.twoFactor.verifyTotp({ code })
-      if (error) {
-        toast.error('Kode tidak valid', {
-          description: error.message || 'Periksa kembali kode authenticator Anda.',
-        })
-        return
-      }
-      toast.success('Berhasil masuk')
-      router.push('/dashboard')
-      router.refresh()
     } catch {
       toast.error('Terjadi kesalahan', {
         description: 'Silakan coba lagi dalam beberapa saat.',
@@ -144,52 +112,15 @@ export default function LoginPage() {
             </motion.div>
             <motion.div variants={item}>
               <CardTitle className="text-2xl font-semibold tracking-tight text-foreground">
-                {perluOtp ? 'Verifikasi Dua Langkah' : 'Masuk ke Dashboard'}
+                Masuk ke Dashboard
               </CardTitle>
               <CardDescription className="mt-1 text-muted-foreground">
-                {perluOtp
-                  ? 'Masukkan kode 6 digit dari aplikasi authenticator Anda.'
-                  : 'Masukkan kredensial Anda untuk mengakses sistem LIM Digital.'}
+                Masukkan kredensial Anda untuk mengakses sistem LIM Digital.
               </CardDescription>
             </motion.div>
           </CardHeader>
 
           <CardContent>
-            {perluOtp ? (
-              <form onSubmit={handleOtp} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="code">Kode OTP</Label>
-                  <Input
-                    id="code"
-                    inputMode="numeric"
-                    autoComplete="one-time-code"
-                    pattern="[0-9]{6}"
-                    maxLength={6}
-                    placeholder="000000"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    required
-                    disabled={isLoading}
-                    className="font-mono tracking-[0.3em]"
-                    autoFocus
-                  />
-                </div>
-                <Button type="submit" size="lg" className="w-full" disabled={isLoading || code.length < 6}>
-                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                  {isLoading ? 'Memverifikasi...' : 'Verifikasi'}
-                </Button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setPerluOtp(false)
-                    setCode('')
-                  }}
-                  className="w-full text-center text-xs text-muted-foreground hover:text-foreground"
-                >
-                  Kembali ke form masuk
-                </button>
-              </form>
-            ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Email */}
               <motion.div variants={item} className="space-y-2">
@@ -248,7 +179,7 @@ export default function LoginPage() {
                   variant="default"
                   size="lg"
                   disabled={isLoading}
-                  className="w-full transition-all duration-150 hover:brightness-105 active:scale-[0.98]"
+                  className="w-full"
                 >
                   {isLoading ? (
                     <>
@@ -256,25 +187,20 @@ export default function LoginPage() {
                       Memproses...
                     </>
                   ) : (
-                    <>
-                      Masuk ke Dashboard
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </>
+                    'Masuk'
                   )}
                 </Button>
               </motion.div>
             </form>
-            )}
           </CardContent>
         </Card>
 
-        {/* Footer kecil di bawah card */}
-        <motion.p
-          variants={item}
-          className="mt-6 text-center text-xs text-muted-foreground"
-        >
-          Dilindungi oleh sistem keamanan LIM Digital Platform.
-        </motion.p>
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          Belum punya akun?{' '}
+          <Link href="/register" className="font-medium text-primary transition-opacity hover:opacity-80">
+            Daftar di sini
+          </Link>
+        </p>
       </motion.div>
     </div>
   )

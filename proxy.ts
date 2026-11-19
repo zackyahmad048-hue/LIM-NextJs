@@ -2,8 +2,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getSession } from '@/lib/auth'
-import { isMfaSatisfied } from '@/modules/authentication/domain/permissions'
-import type { Role } from '@/generated/client'
 
 const protectedRoutes = ['/dashboard', '/admin', '/profile']
 
@@ -33,23 +31,6 @@ export async function proxy(request: NextRequest) {
     if (pathname.startsWith(route) && !allowedRoles.includes(session.user.role)) {
       return NextResponse.redirect(new URL('/dashboard?error=unauthorized', request.url))
     }
-  }
-
-  // MFA tetap wajib di produksi (AGENTS §8). Di dev gate dilewati agar akun seed bisa
-  // dipakai; paksa aktif di dev dengan MFA_GATE_FORCE=true.
-  const mfaEnforced = process.env.NODE_ENV === 'production' || process.env.MFA_GATE_FORCE === 'true'
-  if (
-    mfaEnforced &&
-    !isMfaSatisfied({
-      role: session.user.role as Role,
-      twoFactorEnabled: (session.user as { twoFactorEnabled?: boolean }).twoFactorEnabled,
-    }) &&
-    !pathname.startsWith('/dashboard/security/mfa')
-  ) {
-    const mfaUrl = new URL('/dashboard/security/mfa', request.url)
-    mfaUrl.searchParams.set('callbackUrl', pathname)
-    mfaUrl.searchParams.set('reason', 'required')
-    return NextResponse.redirect(mfaUrl)
   }
 
   return NextResponse.next()
