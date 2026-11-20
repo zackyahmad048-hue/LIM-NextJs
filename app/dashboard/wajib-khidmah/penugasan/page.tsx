@@ -3,6 +3,9 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { listPenugasan } from '@/modules/wajib-khidmah/presentation/queries/list-penugasan.query'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default function WkPenugasanPage() {
   return (
     <div className="space-y-4">

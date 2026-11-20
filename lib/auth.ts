@@ -1,7 +1,9 @@
 // src/lib/auth.ts
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { apiKey } from '@better-auth/api-key'
 import { prisma } from '@/lib/prisma'
+import type { LIMSession } from '@/types/auth'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -23,13 +25,12 @@ export const auth = betterAuth({
       createdAt: 'createdAt',
       updatedAt: 'updatedAt',
     },
-    // ✅ TAMBAHKAN INI: Beritahu Better Auth tentang field custom
     additionalFields: {
       role: {
         type: 'string',
         required: true,
         defaultValue: 'GURU_BANTU',
-        input: false, // Tidak bisa di-set via register (hanya via admin)
+        input: false,
       },
       accountType: {
         type: 'string',
@@ -51,6 +52,23 @@ export const auth = betterAuth({
     },
   },
 
+  plugins: [
+    apiKey({
+      enableSessionForAPIKeys: false,
+      customAPIKeyGetter: (ctx) => {
+        const headers = ctx.headers
+        if (!headers) return null
+        const direct = headers.get('x-api-key')
+        if (direct) return direct
+        const authz = headers.get('authorization')
+        if (!authz) return null
+        const [scheme, value] = authz.split(/\s+/, 2)
+        if (scheme?.toLowerCase() === 'bearer' && value) return value
+        return null
+      },
+    }),
+  ],
+
   advanced: {
     defaultCookieAttributes: {
       secure: process.env.NODE_ENV === 'production',
@@ -61,20 +79,20 @@ export const auth = betterAuth({
 })
 
 // Helper function untuk mendapatkan session
-export async function getSession() {
+export async function getSession(): Promise<LIMSession | null> {
   const { headers } = await import('next/headers')
   const headersList = await headers()
-  
+
   const session = await auth.api.getSession({
     headers: headersList,
   })
-  
-  return session
+
+  return session as LIMSession | null
 }
 
 export async function getCurrentUser() {
   const session = await getSession()
-  return session?.user || null
+  return session?.user ?? null
 }
 
 // ✅ TAMBAHKAN INI: Type inference untuk session dengan field custom

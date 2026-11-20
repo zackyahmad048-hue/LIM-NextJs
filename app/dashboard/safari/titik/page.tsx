@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listTitikSafari } from '@/modules/safari/presentation/queries/list-titik-safari.query'
 import { createTitikSafariAction } from '@/modules/safari/presentation/actions/create-titik-safari.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function SafariTitikPage() {
   const rows = await listTitikSafari()
   return (

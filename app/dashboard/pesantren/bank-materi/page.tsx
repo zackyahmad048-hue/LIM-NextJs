@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listBankMateri } from '@/modules/pesantren-ramadan/presentation/queries/list-sekolah-mitra.query'
 import { createBankMateriAction } from '@/modules/pesantren-ramadan/presentation/actions/create-bank-materi.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function PesantrenBankMateriPage() {
   const rows = await listBankMateri()
   return (

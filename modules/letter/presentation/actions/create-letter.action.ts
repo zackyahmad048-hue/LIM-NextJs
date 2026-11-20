@@ -2,44 +2,36 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { z } from 'zod'
-import { Role } from '@/generated/client'
 import { getSession } from '@/lib/auth'
 import { createLetterSchema } from '@/modules/letter/domain/letter.schema'
-import { createLetter as createLetterUseCase } from '@/modules/letter/application/create-letter'
-import { PrismaLetterRepository } from '@/modules/letter/infrastructure/prisma-letter.repository'
+import { createLetterRecord } from '@/modules/letter/application/letter-operations'
 import type { ActionResult } from '@/types/api'
 import type { Letter } from '@/generated/client'
 import type { LIMSession } from '@/types/auth'
+import { ApiError } from '@/lib/api/errors'
 
-const ALLOWED_ROLES: Role[] = ['OWNER', 'ADMIN_SEKRETARIAT', 'ADMIN_BIDANG_SAFARI', 'ADMIN_BIDANG_PESANTREN_RAMADAN']
-
-export async function createLetterAction(
-  formData: FormData
-): Promise<ActionResult<Letter>> {
-  const rawData = Object.fromEntries(formData)
-  const parsed = createLetterSchema.safeParse(rawData)
+export async function createLetterAction(formData: FormData): Promise<ActionResult<Letter>> {
+  const parsed = createLetterSchema.safeParse(Object.fromEntries(formData))
   if (!parsed.success) {
     return { success: false, errors: parsed.error.flatten().fieldErrors }
   }
 
   const session = (await getSession()) as LIMSession | null
-  if (!session) return { success: false, error: 'Unauthorized' }
-
-  if (!ALLOWED_ROLES.includes(session.user.role)) {
-    return { success: false, error: 'Forbidden: Insufficient permissions' }
-  }
+  if (!session) return { success: false, error: 'Unauthorized', code: 'UNAUTHORIZED' }
 
   try {
-    const repo = new PrismaLetterRepository()
-    const result = await createLetterUseCase(repo, parsed.data, session.user.id)
+    const result = await createLetterRecord(parsed.data, {
+      userId: session.user.id,
+      role: session.user.role,
+      accountType: session.user.accountType,
+    })
     revalidatePath('/dashboard/letters', 'page')
     return { success: true, data: result }
   } catch (error) {
-    console.error('[createLetterAction]', error)
-    if (error instanceof z.ZodError) {
-      return { success: false, errors: error.flatten().fieldErrors }
+    if (error instanceof ApiError) {
+      return { success: false, error: error.message, code: error.code }
     }
-    return { success: false, error: 'Gagal membuat surat' }
+    console.error('[createLetterAction]', error)
+    return { success: false, error: 'Gagal membuat surat', code: 'INTERNAL_ERROR' }
   }
 }

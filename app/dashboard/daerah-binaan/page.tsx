@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listDaerahBinaan } from '@/modules/daerah-binaan/presentation/queries/list-daerah-binaan.query'
 import { createDaerahBinaanAction } from '@/modules/daerah-binaan/presentation/actions/create-daerah-binaan.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function DaerahBinaanPage() {
   const rows = await listDaerahBinaan()
   return (

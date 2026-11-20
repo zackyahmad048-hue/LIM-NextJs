@@ -2,16 +2,13 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { Role } from '@/generated/client'
 import { getSession } from '@/lib/auth'
 import { createPenugasanPesantrenSchema } from '@/modules/pesantren-ramadan/domain/penugasan-pesantren.schema'
-import { createPenugasanPesantren } from '@/modules/pesantren-ramadan/application/penugasan-pesantren'
-import { PrismaPenugasanPesantrenRepository } from '@/modules/pesantren-ramadan/infrastructure/prisma-penugasan-pesantren.repository'
+import { createPenugasanPesantrenRecord } from '@/modules/pesantren-ramadan/application/pesantren-operations'
+import { ApiError } from '@/lib/api/errors'
 import type { ActionResult } from '@/types/api'
 import type { PenugasanPesantren } from '@/generated/client'
 import type { LIMSession } from '@/types/auth'
-
-const ALLOWED: Role[] = ['OWNER', 'ADMIN_BIDANG_PESANTREN_RAMADAN', 'PW', 'PC']
 
 export async function createPenugasanPesantrenAction(formData: FormData): Promise<ActionResult<PenugasanPesantren>> {
   const parsed = createPenugasanPesantrenSchema.safeParse(Object.fromEntries(formData))
@@ -19,15 +16,20 @@ export async function createPenugasanPesantrenAction(formData: FormData): Promis
 
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
-  if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
 
   try {
-    const repo = new PrismaPenugasanPesantrenRepository()
-    const result = await createPenugasanPesantren(repo, parsed.data)
+    const result = await createPenugasanPesantrenRecord(parsed.data, {
+      userId: session.user.id,
+      role: session.user.role,
+      accountType: session.user.accountType,
+      organisasiId: null,
+      lembagaId: null,
+    })
     revalidatePath('/dashboard/pesantren/penugasan', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createPenugasanPesantrenAction]', error)
+    if (error instanceof ApiError) return { success: false, error: error.message }
     return { success: false, error: 'Gagal membuat penugasan pesantren' }
   }
 }

@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listAllLaporanSidak } from '@/modules/safari/presentation/queries/list-laporan-sidak.query'
 import { createLaporanSidakAction } from '@/modules/safari/presentation/actions/create-laporan-sidak.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function SafariSidakPage() {
   const rows = await listAllLaporanSidak()
   return (

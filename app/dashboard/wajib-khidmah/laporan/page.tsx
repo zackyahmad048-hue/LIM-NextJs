@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listPenugasan } from '@/modules/wajib-khidmah/presentation/queries/list-penugasan.query'
 import { submitLaporanAction } from '@/modules/wajib-khidmah/presentation/actions/submit-laporan.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function WkLaporanPage() {
   await connection()
   const penugasan = await listPenugasan()

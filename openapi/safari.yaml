@@ -1,0 +1,1291 @@
+openapi: 3.1.0
+info:
+  title: LIM API — Safari
+  version: 1.0.0
+  description: Kontrak API modul Safari Ramadan.
+servers:
+  - url: /api/v1
+    description: API v1
+tags:
+  - name: Safari
+    description: Titik, delegasi, jurnal harian, approval, laporan sidak
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: Kirim API key sebagai Bearer token, atau gunakan session cookie
+        untuk klien web first-party.
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token
+      description: Session cookie Better Auth (khusus origin first-party).
+  schemas:
+    SafariTitik:
+      type: object
+      properties:
+        id:
+          type: string
+        namaTitik:
+          type: string
+        alamat:
+          type: string
+        provinsi:
+          type: string
+        kabupaten:
+          type: string
+        kecamatan:
+          type: string
+        desa:
+          type: string
+        picNama:
+          type:
+            - string
+            - "null"
+        picNoHp:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - namaTitik
+        - alamat
+        - provinsi
+        - kabupaten
+        - kecamatan
+        - desa
+        - picNama
+        - picNoHp
+        - createdAt
+        - updatedAt
+    SafariDelegasi:
+      type: object
+      properties:
+        id:
+          type: string
+        titikId:
+          type: string
+        userId:
+          type: string
+        namaLengkap:
+          type: string
+        noHp:
+          type: string
+        asalPondok:
+          type:
+            - string
+            - "null"
+        status:
+          type: string
+          enum:
+            - AKTIF
+            - GUGUR
+            - SELESAI
+            - IZIN
+        alasanGugur:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - titikId
+        - userId
+        - namaLengkap
+        - noHp
+        - asalPondok
+        - status
+        - alasanGugur
+        - createdAt
+        - updatedAt
+    SafariJurnal:
+      type: object
+      properties:
+        id:
+          type: string
+        delegasiId:
+          type: string
+        tanggal:
+          type: string
+          format: date-time
+        kegiatan:
+          type: string
+        jumlahJamaah:
+          type:
+            - integer
+            - "null"
+        catatan:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - delegasiId
+        - tanggal
+        - kegiatan
+        - jumlahJamaah
+        - catatan
+        - createdAt
+    SafariLaporanSidak:
+      type: object
+      properties:
+        id:
+          type: string
+        delegasiId:
+          type: string
+        penilaiId:
+          type: string
+        tanggalSidak:
+          type: string
+          format: date-time
+        kondisiKegiatan:
+          type: string
+        kondisiDelegasi:
+          type: string
+        kendala:
+          type:
+            - string
+            - "null"
+        rekomendasi:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - delegasiId
+        - penilaiId
+        - tanggalSidak
+        - kondisiKegiatan
+        - kondisiDelegasi
+        - kendala
+        - rekomendasi
+        - createdAt
+    SafariCreateTitikRequest:
+      type: object
+      properties:
+        namaTitik:
+          type: string
+          minLength: 2
+          maxLength: 200
+        alamat:
+          type: string
+          minLength: 5
+        provinsi:
+          type: string
+          minLength: 2
+        kabupaten:
+          type: string
+          minLength: 2
+        kecamatan:
+          type: string
+          minLength: 2
+        desa:
+          type: string
+          minLength: 2
+        picNama:
+          type: string
+          maxLength: 200
+        picNoHp:
+          type: string
+          maxLength: 30
+      required:
+        - namaTitik
+        - alamat
+        - provinsi
+        - kabupaten
+        - kecamatan
+        - desa
+    SafariUpdateTitikRequest:
+      type: object
+      properties:
+        namaTitik:
+          type: string
+          minLength: 2
+          maxLength: 200
+        alamat:
+          type: string
+          minLength: 5
+        provinsi:
+          type: string
+          minLength: 2
+        kabupaten:
+          type: string
+          minLength: 2
+        kecamatan:
+          type: string
+          minLength: 2
+        desa:
+          type: string
+          minLength: 2
+        picNama:
+          type: string
+          maxLength: 200
+        picNoHp:
+          type: string
+          maxLength: 30
+    SafariCreateDelegasiRequest:
+      type: object
+      properties:
+        titikId:
+          type: string
+          minLength: 1
+        userId:
+          type: string
+          minLength: 1
+        namaLengkap:
+          type: string
+          minLength: 2
+          maxLength: 200
+        noHp:
+          type: string
+          minLength: 5
+          maxLength: 30
+        asalPondok:
+          type: string
+          maxLength: 200
+      required:
+        - titikId
+        - userId
+        - namaLengkap
+        - noHp
+    SafariCreateJurnalRequest:
+      type: object
+      properties:
+        delegasiId:
+          type: string
+          minLength: 1
+        tanggal:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        kegiatan:
+          type: string
+          minLength: 5
+        jumlahJamaah:
+          type: integer
+          minimum: 0
+        catatan:
+          type: string
+          maxLength: 2000
+      required:
+        - delegasiId
+        - tanggal
+        - kegiatan
+    SafariCreateLaporanSidakRequest:
+      type: object
+      properties:
+        delegasiId:
+          type: string
+          minLength: 1
+        tanggalSidak:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        kondisiKegiatan:
+          type: string
+          minLength: 5
+        kondisiDelegasi:
+          type: string
+          minLength: 5
+        kendala:
+          type: string
+          maxLength: 2000
+        rekomendasi:
+          type: string
+          maxLength: 2000
+      required:
+        - delegasiId
+        - tanggalSidak
+        - kondisiKegiatan
+        - kondisiDelegasi
+    SafariApprovalJurnal:
+      type: object
+      properties:
+        id:
+          type: string
+        delegasiId:
+          type: string
+        approverRole:
+          type: string
+        approverName:
+          type: string
+        approverJabatan:
+          type:
+            - string
+            - "null"
+        isApproved:
+          type: boolean
+        tanggalApproval:
+          type:
+            - string
+            - "null"
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - delegasiId
+        - approverRole
+        - approverName
+        - approverJabatan
+        - isApproved
+        - tanggalApproval
+        - createdAt
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+      required:
+        - page
+        - limit
+        - total
+        - totalPages
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+            - false
+        error:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        code:
+          type: string
+        requestId:
+          type: string
+      required:
+        - success
+  parameters: {}
+paths:
+  /safari/titik:
+    get:
+      tags:
+        - Safari
+      summary: Daftar titik safari
+      security: &a1
+        - BearerAuth: []
+        - CookieAuth: []
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: titikId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: delegasiId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: provinsi
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: kabupaten
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SafariTitik"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Safari
+      summary: Buat titik safari
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SafariCreateTitikRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariTitik"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /safari/titik/{id}:
+    get:
+      tags:
+        - Safari
+      summary: Detail titik safari
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:read
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariTitik"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - Safari
+      summary: Ubah titik safari
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:write
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SafariUpdateTitikRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariTitik"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /safari/delegasi:
+    get:
+      tags:
+        - Safari
+      summary: Daftar delegasi safari
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: titikId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: delegasiId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: provinsi
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: kabupaten
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SafariDelegasi"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Safari
+      summary: Buat delegasi safari
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SafariCreateDelegasiRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariDelegasi"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /safari/delegasi/{id}:
+    get:
+      tags:
+        - Safari
+      summary: Detail delegasi safari
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:read
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariDelegasi"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /safari/jurnal:
+    get:
+      tags:
+        - Safari
+      summary: Daftar jurnal harian
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: titikId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: delegasiId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: provinsi
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: kabupaten
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SafariJurnal"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Safari
+      summary: Buat jurnal harian (delegasi)
+      description: Hanya DELEGASI_SAFARI_DAERAH untuk delegasi miliknya.
+        Idempotency-Key didukung.
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SafariCreateJurnalRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariJurnal"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /safari/jurnal/approve:
+    post:
+      tags:
+        - Safari
+      summary: Approve/reject jurnal (by delegasi)
+      description: Idempotency-Key didukung.
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                delegasiId:
+                  type: string
+                isApproved:
+                  type: boolean
+                  default: true
+                approverJabatan:
+                  type: string
+              required:
+                - delegasiId
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariApprovalJurnal"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /safari/sidak:
+    get:
+      tags:
+        - Safari
+      summary: Daftar laporan sidak
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - PANITIA_SAFARI_DAERAH
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: titikId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: delegasiId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: provinsi
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: kabupaten
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SafariLaporanSidak"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Safari
+      summary: Buat laporan sidak
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_SAFARI
+          - PW
+          - PC
+          - DELEGASI_SAFARI_DAERAH
+        scope: global
+        permissions:
+          - safari:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SafariCreateLaporanSidakRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/SafariLaporanSidak"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+webhooks: {}

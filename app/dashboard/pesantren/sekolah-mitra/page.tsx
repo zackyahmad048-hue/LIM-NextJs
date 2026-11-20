@@ -6,6 +6,9 @@ import { listSekolahMitra, listBankMateri } from '@/modules/pesantren-ramadan/pr
 import { createSekolahMitraAction } from '@/modules/pesantren-ramadan/presentation/actions/create-sekolah-mitra.action'
 import { createBankMateriAction } from '@/modules/pesantren-ramadan/presentation/actions/create-bank-materi.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function PesantrenSekolahPage() {
   const [sekolah, materi] = await Promise.all([listSekolahMitra(), listBankMateri()])
   return (

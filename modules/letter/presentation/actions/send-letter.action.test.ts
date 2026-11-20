@@ -26,7 +26,7 @@ vi.mock('@/lib/prisma', () => {
   }
   return {
     prisma: {
-      letter: { findUnique: vi.fn() },
+      letter: { findFirst: vi.fn(), findUnique: vi.fn(), update: vi.fn() },
       letterPeriod: { findFirst: vi.fn() },
       $transaction: vi.fn(async (cb: (t: typeof tx) => Promise<unknown>) => cb(tx)),
     },
@@ -39,7 +39,7 @@ import { prisma } from '@/lib/prisma'
 describe('sendLetterAction', () => {
   beforeEach(() => {
     vi.mocked(getSession).mockReset()
-    vi.mocked(prisma.letter.findUnique).mockReset()
+    vi.mocked(prisma.letter.findFirst).mockReset()
     vi.mocked(prisma.letterPeriod.findFirst).mockReset()
     vi.mocked(prisma.$transaction).mockClear()
   })
@@ -50,7 +50,7 @@ describe('sendLetterAction', () => {
     fd.append('letterId', 'abc')
     const res = await sendLetterAction(fd)
     expect(res.success).toBe(false)
-    expect(res.error).toContain('Unauthorized')
+    expect(res.code).toBe('UNAUTHORIZED')
   })
 
   it('returns Forbidden for non-allowed role', async () => {
@@ -59,7 +59,7 @@ describe('sendLetterAction', () => {
     fd.append('letterId', 'abc')
     const res = await sendLetterAction(fd)
     expect(res.success).toBe(false)
-    expect(res.error).toContain('Forbidden')
+    expect(res.code).toBe('FORBIDDEN')
   })
 
   it('returns error for missing letterId', async () => {
@@ -72,27 +72,27 @@ describe('sendLetterAction', () => {
 
   it('returns not found when letter missing', async () => {
     vi.mocked(getSession).mockResolvedValue({ user: { id: 'u1', role: 'OWNER' } } as never)
-    vi.mocked(prisma.letter.findUnique).mockResolvedValue(null as never)
+    vi.mocked(prisma.letter.findFirst).mockResolvedValue(null as never)
     const fd = new FormData()
     fd.append('letterId', 'missing')
     const res = await sendLetterAction(fd)
     expect(res.success).toBe(false)
-    expect(res.error).toContain('tidak ditemukan')
+    expect(res.code).toBe('NOT_FOUND')
   })
 
   it('returns error when letter already SENT', async () => {
     vi.mocked(getSession).mockResolvedValue({ user: { id: 'u1', role: 'OWNER' } } as never)
-    vi.mocked(prisma.letter.findUnique).mockResolvedValue({ id: 'l1', status: 'SENT', periodId: 'p1' } as never)
+    vi.mocked(prisma.letter.findFirst).mockResolvedValue({ id: 'l1', status: 'SENT', periodId: 'p1' } as never)
     const fd = new FormData()
     fd.append('letterId', 'l1')
     const res = await sendLetterAction(fd)
     expect(res.success).toBe(false)
-    expect(res.error).toContain('sudah pernah dikirim')
+    expect(res.code).toBe('CONFLICT')
   })
 
   it('sends letter and generates number on success', async () => {
     vi.mocked(getSession).mockResolvedValue({ user: { id: 'u1', role: 'OWNER' } } as never)
-    vi.mocked(prisma.letter.findUnique).mockResolvedValue({ id: 'l1', status: 'DIKETIK', periodId: 'p1' } as never)
+    vi.mocked(prisma.letter.findFirst).mockResolvedValue({ id: 'l1', status: 'DIKETIK', periodId: 'p1' } as never)
 
     const mod = await import('@/lib/prisma')
     const tx = (mod as unknown as { __tx: Record<string, { upsert?: unknown; update?: unknown; create?: unknown }> }).__tx

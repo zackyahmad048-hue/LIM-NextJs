@@ -11,6 +11,9 @@ import { listUsers } from '@/modules/authentication/application/list-users'
 import { createUserAction } from '@/modules/authentication/presentation/actions/create-user.action'
 import type { LIMSession } from '@/types/auth'
 
+// Membaca sesi + DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 // Halaman daftar akun berisi email — khusus OWNER (Server Action juga memeriksa ulang).
 export default async function PenggunaPage() {
   const session = (await getSession()) as LIMSession | null

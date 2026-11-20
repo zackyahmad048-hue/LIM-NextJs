@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listArticleCategories } from '@/modules/cms/presentation/queries/list-articles.query'
 import { createCategoryAction } from '@/modules/cms/presentation/actions/create-category.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function CmsKategoriPage() {
   const categories = await listArticleCategories()
   return (

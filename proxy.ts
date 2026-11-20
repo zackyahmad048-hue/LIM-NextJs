@@ -27,8 +27,9 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
+  const role = (session.user as { role?: string }).role
   for (const [route, allowedRoles] of Object.entries(roleBasedRoutes)) {
-    if (pathname.startsWith(route) && !allowedRoles.includes(session.user.role)) {
+    if (pathname.startsWith(route) && role && !allowedRoles.includes(role)) {
       return NextResponse.redirect(new URL('/dashboard?error=unauthorized', request.url))
     }
   }

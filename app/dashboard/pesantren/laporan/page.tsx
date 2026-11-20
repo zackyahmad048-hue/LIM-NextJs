@@ -6,6 +6,9 @@ import { listLaporanHarianPengajar } from '@/modules/pesantren-ramadan/presentat
 import { listPenugasanPesantren } from '@/modules/pesantren-ramadan/presentation/queries/list-penugasan-pesantren.query'
 import { createLaporanHarianPengajarAction } from '@/modules/pesantren-ramadan/presentation/actions/create-laporan-harian-pengajar.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function PesantrenLaporanPage() {
   const [rows, penugasan] = await Promise.all([listLaporanHarianPengajar(), listPenugasanPesantren()])
   return (

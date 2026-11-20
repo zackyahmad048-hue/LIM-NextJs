@@ -4,6 +4,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listSekolahMitra } from '@/modules/pesantren-ramadan/presentation/queries/list-sekolah-mitra.query'
 import { createPenugasanPesantrenAction } from '@/modules/pesantren-ramadan/presentation/actions/create-penugasan-pesantren.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function PesantrenPenugasanPage() {
   const sekolah = await listSekolahMitra()
   return (

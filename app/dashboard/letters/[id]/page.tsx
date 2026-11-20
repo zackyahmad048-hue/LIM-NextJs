@@ -11,6 +11,9 @@ import { TransitionButton } from '@/modules/letter/presentation/components/trans
 import { letterStatusVariant } from '@/modules/letter/presentation/letter-status-variant'
 import type { Role, AccountType } from '@/generated/client'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function LetterDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const session = await getSession()

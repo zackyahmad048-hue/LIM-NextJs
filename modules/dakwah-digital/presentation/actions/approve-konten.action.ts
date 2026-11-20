@@ -3,15 +3,12 @@
 
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { Role } from '@/generated/client'
 import { getSession } from '@/lib/auth'
-import { approveKonten, publishKonten, KontenError } from '@/modules/dakwah-digital/application/konten-dakwah'
-import { PrismaKontenDakwahRepository } from '@/modules/dakwah-digital/infrastructure/prisma-konten-dakwah.repository'
+import { approveKontenRecord, publishKontenRecord } from '@/modules/dakwah-digital/application/dakwah-operations'
+import { ApiError } from '@/lib/api/errors'
 import type { ActionResult } from '@/types/api'
 import type { KontenDakwah } from '@/generated/client'
 import type { LIMSession } from '@/types/auth'
-
-const ALLOWED: Role[] = ['OWNER', 'CONTENT_MANAGER']
 
 export async function approveKontenAction(formData: FormData): Promise<ActionResult<KontenDakwah>> {
   const parsed = z.object({ kontenId: z.string().trim().min(1) }).safeParse(Object.fromEntries(formData))
@@ -19,16 +16,20 @@ export async function approveKontenAction(formData: FormData): Promise<ActionRes
 
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
-  if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
 
   try {
-    const repo = new PrismaKontenDakwahRepository()
-    const result = await approveKonten(repo, parsed.data.kontenId, session.user.id)
+    const result = await approveKontenRecord(parsed.data.kontenId, {
+      userId: session.user.id,
+      role: session.user.role,
+      accountType: session.user.accountType,
+      organisasiId: null,
+      lembagaId: null,
+    })
     revalidatePath('/dashboard/dakwah/konten', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[approveKontenAction]', error)
-    if (error instanceof KontenError) return { success: false, error: error.message }
+    if (error instanceof ApiError) return { success: false, error: error.message }
     return { success: false, error: 'Gagal menyetujui konten' }
   }
 }
@@ -39,16 +40,20 @@ export async function publishKontenAction(formData: FormData): Promise<ActionRes
 
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
-  if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
 
   try {
-    const repo = new PrismaKontenDakwahRepository()
-    const result = await publishKonten(repo, parsed.data.kontenId)
+    const result = await publishKontenRecord(parsed.data.kontenId, {
+      userId: session.user.id,
+      role: session.user.role,
+      accountType: session.user.accountType,
+      organisasiId: null,
+      lembagaId: null,
+    })
     revalidatePath('/dashboard/dakwah/konten', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[publishKontenAction]', error)
-    if (error instanceof KontenError) return { success: false, error: error.message }
+    if (error instanceof ApiError) return { success: false, error: error.message }
     return { success: false, error: 'Gagal mempublikasikan konten' }
   }
 }

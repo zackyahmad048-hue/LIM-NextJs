@@ -1,0 +1,318 @@
+openapi: 3.1.0
+info:
+  title: LIM API — Falak
+  version: 1.0.0
+  description: Kontrak API modul Digital Falak.
+servers:
+  - url: /api/v1
+    description: API v1
+tags:
+  - name: Falak
+    description: Jadwal shalat, konfigurasi, generate
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: Kirim API key sebagai Bearer token, atau gunakan session cookie
+        untuk klien web first-party.
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token
+      description: Session cookie Better Auth (khusus origin first-party).
+  schemas:
+    FalakJadwalShalat:
+      type: object
+      properties:
+        id:
+          type: string
+        tanggal:
+          type: string
+          format: date-time
+        subuh:
+          type: string
+        terbit:
+          type: string
+        dzuhur:
+          type: string
+        ashar:
+          type: string
+        maghrib:
+          type: string
+        isya:
+          type: string
+        configId:
+          type: string
+        isManualOverride:
+          type: boolean
+        catatanOverride:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - tanggal
+        - subuh
+        - terbit
+        - dzuhur
+        - ashar
+        - maghrib
+        - isya
+        - configId
+        - isManualOverride
+        - catatanOverride
+        - createdAt
+        - updatedAt
+    FalakConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        namaLokasi:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        ketinggian:
+          type: number
+        metodeHisab:
+          type: string
+        kriteriaMABIMS:
+          type: boolean
+        koreksiSubuh:
+          type: number
+        koreksiMaghrib:
+          type: number
+        modeWaktu:
+          type: string
+        isActive:
+          type: boolean
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - namaLokasi
+        - latitude
+        - longitude
+        - ketinggian
+        - metodeHisab
+        - kriteriaMABIMS
+        - koreksiSubuh
+        - koreksiMaghrib
+        - modeWaktu
+        - isActive
+        - updatedAt
+    FalakGenerateJadwalRequest:
+      type: object
+      properties:
+        tanggal:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        modeWaktu:
+          type: string
+          enum:
+            - standar
+            - istiwa
+      required:
+        - tanggal
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+      required:
+        - page
+        - limit
+        - total
+        - totalPages
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+            - false
+        error:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        code:
+          type: string
+        requestId:
+          type: string
+      required:
+        - success
+  parameters: {}
+paths:
+  /falak/jadwal:
+    get:
+      tags:
+        - Falak
+      summary: Jadwal shalat (publik)
+      description: Jika `tanggal` diberikan mengembalikan satu jadwal atau null, jika
+        tidak mengembalikan daftar (opsional filter from/to).
+      security: []
+      x-lim-auth:
+        public: true
+      parameters:
+        - schema:
+            type: string
+          required: false
+          name: tanggal
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: from
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: to
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    anyOf:
+                      - $ref: "#/components/schemas/FalakJadwalShalat"
+                      - type: array
+                        items:
+                          $ref: "#/components/schemas/FalakJadwalShalat"
+                      - type: "null"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /falak/jadwal/generate:
+    post:
+      tags:
+        - Falak
+      summary: Generate/upsert jadwal shalat
+      description: OWNER only. Idempotency-Key didukung.
+      security:
+        - BearerAuth: []
+        - CookieAuth: []
+      x-lim-auth:
+        roles:
+          - OWNER
+        scope: global
+        permissions:
+          - falak:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FalakGenerateJadwalRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/FalakJadwalShalat"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /falak/config:
+    get:
+      tags:
+        - Falak
+      summary: Konfigurasi falak aktif (publik)
+      security: []
+      x-lim-auth:
+        public: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    anyOf:
+                      - $ref: "#/components/schemas/FalakConfig"
+                      - type: "null"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+webhooks: {}

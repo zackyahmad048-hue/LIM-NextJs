@@ -10,6 +10,9 @@ const fieldOrder = [
   'subuh', 'terbit', 'dzuhur', 'ashar', 'maghrib', 'isya',
 ] as const
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function FalakJadwalPage() {
   await connection()
   const today = new Date()

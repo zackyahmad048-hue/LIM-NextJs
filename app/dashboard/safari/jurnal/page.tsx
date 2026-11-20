@@ -7,6 +7,9 @@ import { listAllJurnal } from '@/modules/safari/presentation/queries/list-jurnal
 import { createJurnalAction } from '@/modules/safari/presentation/actions/create-jurnal.action'
 import { approveJurnalAction } from '@/modules/safari/presentation/actions/approve-jurnal.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function SafariJurnalPage() {
   const rows = await listAllJurnal()
   return (

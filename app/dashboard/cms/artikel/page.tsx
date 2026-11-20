@@ -6,6 +6,9 @@ import { listArticles, listArticleCategories } from '@/modules/cms/presentation/
 import { createArticleAction } from '@/modules/cms/presentation/actions/create-article.action'
 import { createCategoryAction } from '@/modules/cms/presentation/actions/create-category.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function CmsArtikelPage() {
   const [articles, categories] = await Promise.all([listArticles(), listArticleCategories()])
   return (

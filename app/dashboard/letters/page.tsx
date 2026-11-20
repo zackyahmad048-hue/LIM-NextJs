@@ -8,6 +8,9 @@ import { listLetters } from '@/modules/letter/presentation/queries/list-letters.
 import type { Role, AccountType } from '@/generated/client'
 import { letterStatusVariant } from '@/modules/letter/presentation/letter-status-variant'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function LettersPage() {
   const session = await getSession()
   const role = session?.user.role as Role | undefined

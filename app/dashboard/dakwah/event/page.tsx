@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listPendaftaranEvent } from '@/modules/dakwah-digital/presentation/queries/list-konten.query'
 import { registerEventAction } from '@/modules/dakwah-digital/presentation/actions/register-event.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function DakwahEventPage() {
   const rows = await listPendaftaranEvent()
   return (

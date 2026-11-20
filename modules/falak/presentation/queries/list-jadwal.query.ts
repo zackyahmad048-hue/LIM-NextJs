@@ -1,10 +1,5 @@
-import { prisma } from '@/lib/prisma'
+import { listJadwal } from '@/modules/falak/application/falak-operations'
+
 export async function listJadwalShalat(from?: Date, to?: Date) {
-  const where: { tanggal?: { gte?: Date; lte?: Date } } = {}
-  if (from || to) {
-    where.tanggal = {}
-    if (from) where.tanggal.gte = from
-    if (to) where.tanggal.lte = to
-  }
-  return prisma.jadwalShalat.findMany({ where, orderBy: { tanggal: 'asc' } })
+  return listJadwal(from, to)
 }

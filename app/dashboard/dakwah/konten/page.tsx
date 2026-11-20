@@ -17,6 +17,9 @@ const kontenVariant: Record<string, 'neutral' | 'info' | 'success' | 'warning' |
   REJECTED: 'danger',
 }
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function DakwahKontenPage() {
   const rows = await listKonten()
   return (

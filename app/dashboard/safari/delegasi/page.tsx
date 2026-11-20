@@ -5,6 +5,9 @@ import { FormField } from '@/components/forms/form-field'
 import { listDelegasi } from '@/modules/safari/presentation/queries/list-delegasi.query'
 import { createDelegasiAction } from '@/modules/safari/presentation/actions/create-delegasi.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function SafariDelegasiPage() {
   const rows = await listDelegasi()
   return (

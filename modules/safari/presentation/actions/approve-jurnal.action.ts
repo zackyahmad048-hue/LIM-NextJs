@@ -2,16 +2,14 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { Role } from '@/generated/client'
+import { headers } from 'next/headers'
 import { getSession } from '@/lib/auth'
 import { approveJurnalSchema } from '@/modules/safari/domain/approval-jurnal.schema'
-import { approveJurnal, ApprovalError } from '@/modules/safari/application/approval-jurnal'
-import { PrismaApprovalJurnalRepository } from '@/modules/safari/infrastructure/prisma-approval-jurnal.repository'
+import { approveJurnalRecord } from '@/modules/safari/application/safari-operations'
 import type { ActionResult } from '@/types/api'
 import type { ApprovalJurnal } from '@/generated/client'
 import type { LIMSession } from '@/types/auth'
-
-const ALLOWED: Role[] = ['OWNER', 'ADMIN_BIDANG_SAFARI', 'PW', 'PC', 'PANITIA_SAFARI_DAERAH']
+import { ApiError } from '@/lib/api/errors'
 
 export async function approveJurnalAction(formData: FormData): Promise<ActionResult<ApprovalJurnal>> {
   const raw = Object.fromEntries(formData)
@@ -22,20 +20,26 @@ export async function approveJurnalAction(formData: FormData): Promise<ActionRes
   if (!parsed.success) return { success: false, errors: parsed.error.flatten().fieldErrors }
 
   const session = (await getSession()) as LIMSession | null
-  if (!session) return { success: false, error: 'Unauthorized' }
-  if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
+  if (!session) return { success: false, error: 'Unauthorized', code: 'UNAUTHORIZED' }
 
   try {
-    const repo = new PrismaApprovalJurnalRepository()
-    const result = await approveJurnal(repo, parsed.data, {
-      role: session.user.role,
-      name: session.user.name || 'Pengguna',
-    })
+    const h = await headers()
+    const ipAddress = h.get('x-forwarded-for')?.split(',')[0]?.trim() || undefined
+    const result = await approveJurnalRecord(
+      { delegasiId: parsed.data.delegasiId, isApproved: parsed.data.isApproved, approverJabatan: parsed.data.approverJabatan },
+      {
+        userId: session.user.id,
+        role: session.user.role,
+        accountType: session.user.accountType,
+        name: session.user.name || 'Pengguna',
+        ipAddress,
+      }
+    )
     revalidatePath('/dashboard/safari/jurnal', 'page')
     return { success: true, data: result }
   } catch (error) {
+    if (error instanceof ApiError) return { success: false, error: error.message, code: error.code }
     console.error('[approveJurnalAction]', error)
-    if (error instanceof ApprovalError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal memproses approval' }
+    return { success: false, error: 'Gagal memproses approval', code: 'INTERNAL_ERROR' }
   }
 }

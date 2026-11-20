@@ -1,0 +1,1 @@
+export { listCategories, createCategoryRecord, listArticles, getArticleById, getArticleBySlug, createArticleRecord, publishArticleRecord, type CmsActor } from '@/modules/cms/infrastructure/cms.service'

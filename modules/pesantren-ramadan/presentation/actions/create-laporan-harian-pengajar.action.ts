@@ -4,8 +4,8 @@
 import { revalidatePath } from 'next/cache'
 import { getSession } from '@/lib/auth'
 import { createLaporanHarianPengajarSchema } from '@/modules/pesantren-ramadan/domain/laporan-harian-pengajar.schema'
-import { createLaporanHarianPengajar, LaporanHarianError } from '@/modules/pesantren-ramadan/application/laporan-harian-pengajar'
-import { PrismaLaporanHarianPengajarRepository } from '@/modules/pesantren-ramadan/infrastructure/prisma-laporan-harian-pengajar.repository'
+import { createLaporanPengajarRecord } from '@/modules/pesantren-ramadan/application/pesantren-operations'
+import { ApiError } from '@/lib/api/errors'
 import type { ActionResult } from '@/types/api'
 import type { LaporanHarianPengajar } from '@/generated/client'
 import type { LIMSession } from '@/types/auth'
@@ -22,16 +22,20 @@ export async function createLaporanHarianPengajarAction(formData: FormData): Pro
 
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
-  if (session.user.role !== 'PENGAJAR_PESANTREN_RAMADAN') return { success: false, error: 'Forbidden' }
 
   try {
-    const repo = new PrismaLaporanHarianPengajarRepository()
-    const result = await createLaporanHarianPengajar(repo, parsed.data, session.user.id)
+    const result = await createLaporanPengajarRecord(parsed.data, {
+      userId: session.user.id,
+      role: session.user.role,
+      accountType: session.user.accountType,
+      organisasiId: null,
+      lembagaId: null,
+    })
     revalidatePath('/dashboard/pesantren/laporan', 'page')
     return { success: true, data: result }
   } catch (error) {
     console.error('[createLaporanHarianPengajarAction]', error)
-    if (error instanceof LaporanHarianError) return { success: false, error: error.message }
+    if (error instanceof ApiError) return { success: false, error: error.message }
     return { success: false, error: 'Gagal mengirim laporan harian' }
   }
 }

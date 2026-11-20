@@ -1,0 +1,1678 @@
+openapi: 3.1.0
+info:
+  title: LIM API — Pesantren Ramadan
+  version: 1.0.0
+  description: Kontrak API modul Pesantren Ramadan.
+servers:
+  - url: /api/v1
+    description: API v1
+tags:
+  - name: Pesantren Ramadan
+    description: Sekolah, materi, penugasan, laporan, umpan balik
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: Kirim API key sebagai Bearer token, atau gunakan session cookie
+        untuk klien web first-party.
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token
+      description: Session cookie Better Auth (khusus origin first-party).
+  schemas:
+    PesantrenSekolahMitra:
+      type: object
+      properties:
+        id:
+          type: string
+        namaSekolah:
+          type: string
+        jenjang:
+          type: string
+          enum:
+            - SD
+            - SMP
+            - SMA
+            - PERGURUAN_TINGGI
+        alamat:
+          type: string
+        picNama:
+          type: string
+        picNoHp:
+          type: string
+        picJabatan:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - namaSekolah
+        - jenjang
+        - alamat
+        - picNama
+        - picNoHp
+        - picJabatan
+        - createdAt
+        - updatedAt
+    PesantrenBankMateri:
+      type: object
+      properties:
+        id:
+          type: string
+        judulMateri:
+          type: string
+        deskripsi:
+          type: string
+        targetJenjang:
+          type: string
+          enum:
+            - SD
+            - SMP
+            - SMA
+            - PERGURUAN_TINGGI
+        durasiMenit:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - judulMateri
+        - deskripsi
+        - targetJenjang
+        - durasiMenit
+        - createdAt
+        - updatedAt
+    PesantrenPenugasan:
+      type: object
+      properties:
+        id:
+          type: string
+        sekolahId:
+          type: string
+        pengajarId:
+          type: string
+        koordinatorId:
+          type: string
+        tanggalMulai:
+          type: string
+          format: date-time
+        tanggalSelesai:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+            - DITETAPKAN
+            - BERJALAN
+            - SELESAI
+            - EVALUASI_BURUK
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - sekolahId
+        - pengajarId
+        - koordinatorId
+        - tanggalMulai
+        - tanggalSelesai
+        - status
+        - createdAt
+        - updatedAt
+    PesantrenLaporanPengajar:
+      type: object
+      properties:
+        id:
+          type: string
+        penugasanId:
+          type: string
+        tanggal:
+          type: string
+          format: date-time
+        kelas:
+          type: string
+        jumlahSiswaL:
+          type: integer
+        jumlahSiswaP:
+          type: integer
+        materiId:
+          type: string
+        pertanyaanPeserta:
+          type:
+            - string
+            - "null"
+        kondisiKelas:
+          type: string
+          enum:
+            - TENANG
+            - RAMAI_TAPI_KONDUSIF
+            - DISKUSI_BERJALAN_BAIK
+            - BANYAK_YANG_MENGANTUK
+            - TIDAK_KONDUSIF
+        praktikDilakukan:
+          type: boolean
+        catatanTambahan:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - penugasanId
+        - tanggal
+        - kelas
+        - jumlahSiswaL
+        - jumlahSiswaP
+        - materiId
+        - pertanyaanPeserta
+        - kondisiKelas
+        - praktikDilakukan
+        - catatanTambahan
+        - createdAt
+    PesantrenLaporanKoordinator:
+      type: object
+      properties:
+        id:
+          type: string
+        penugasanId:
+          type: string
+        tanggal:
+          type: string
+          format: date-time
+        pengajarHadir:
+          type: boolean
+        kesiapanSarana:
+          type:
+            - string
+            - "null"
+        catatanUmum:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - penugasanId
+        - tanggal
+        - pengajarHadir
+        - kesiapanSarana
+        - catatanUmum
+        - createdAt
+    PesantrenUmpanBalikPusat:
+      type: object
+      properties:
+        id:
+          type: string
+        penugasanId:
+          type: string
+        penilaiId:
+          type: string
+        tanggalKunjungan:
+          type: string
+          format: date-time
+        kondisiSarana:
+          type: string
+        relevansiMateri:
+          type: string
+        kesesuaianKesepakatan:
+          type: string
+        rekomendasi:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - penugasanId
+        - penilaiId
+        - tanggalKunjungan
+        - kondisiSarana
+        - relevansiMateri
+        - kesesuaianKesepakatan
+        - rekomendasi
+        - createdAt
+    PesantrenUmpanBalikPeserta:
+      type: object
+      properties:
+        id:
+          type: string
+        penugasanId:
+          type: string
+        jumlahResponden:
+          type: integer
+        ratingKepuasan:
+          type: number
+        komentarPositif:
+          type:
+            - string
+            - "null"
+        komentarPerbaikan:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - penugasanId
+        - jumlahResponden
+        - ratingKepuasan
+        - komentarPositif
+        - komentarPerbaikan
+        - createdAt
+    PesantrenCreateSekolahRequest:
+      type: object
+      properties:
+        namaSekolah:
+          type: string
+          minLength: 3
+          maxLength: 200
+        jenjang:
+          type: string
+          enum:
+            - SD
+            - SMP
+            - SMA
+            - PERGURUAN_TINGGI
+        alamat:
+          type: string
+          minLength: 5
+        picNama:
+          type: string
+          minLength: 2
+          maxLength: 100
+        picNoHp:
+          type: string
+          minLength: 5
+          maxLength: 30
+        picJabatan:
+          type: string
+          maxLength: 100
+      required:
+        - namaSekolah
+        - jenjang
+        - alamat
+        - picNama
+        - picNoHp
+    PesantrenCreateBankMateriRequest:
+      type: object
+      properties:
+        judulMateri:
+          type: string
+          minLength: 3
+          maxLength: 200
+        deskripsi:
+          type: string
+          minLength: 5
+        targetJenjang:
+          type: string
+          enum:
+            - SD
+            - SMP
+            - SMA
+            - PERGURUAN_TINGGI
+        durasiMenit:
+          type: integer
+          exclusiveMinimum: 0
+          maximum: 600
+      required:
+        - judulMateri
+        - deskripsi
+        - targetJenjang
+        - durasiMenit
+    PesantrenCreatePenugasanRequest:
+      type: object
+      properties:
+        sekolahId:
+          type: string
+          minLength: 1
+        pengajarId:
+          type: string
+          minLength: 1
+        koordinatorId:
+          type: string
+          minLength: 1
+        tanggalMulai:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        tanggalSelesai:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+      required:
+        - sekolahId
+        - pengajarId
+        - koordinatorId
+        - tanggalMulai
+        - tanggalSelesai
+    PesantrenCreateLaporanPengajarRequest:
+      type: object
+      properties:
+        penugasanId:
+          type: string
+          minLength: 1
+        tanggal:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        kelas:
+          type: string
+          minLength: 1
+          maxLength: 100
+        jumlahSiswaL:
+          type: integer
+          minimum: 0
+        jumlahSiswaP:
+          type: integer
+          minimum: 0
+        materiId:
+          type: string
+          minLength: 1
+        pertanyaanPeserta:
+          type: string
+          maxLength: 2000
+        kondisiKelas:
+          type: string
+          enum:
+            - TENANG
+            - RAMAI_TAPI_KONDUSIF
+            - DISKUSI_BERJALAN_BAIK
+            - BANYAK_YANG_MENGANTUK
+            - TIDAK_KONDUSIF
+        praktikDilakukan:
+          type: boolean
+          default: false
+        catatanTambahan:
+          type: string
+          maxLength: 2000
+      required:
+        - penugasanId
+        - tanggal
+        - kelas
+        - jumlahSiswaL
+        - jumlahSiswaP
+        - materiId
+        - kondisiKelas
+    PesantrenCreateLaporanKoordinatorRequest:
+      type: object
+      properties:
+        penugasanId:
+          type: string
+          minLength: 1
+        tanggal:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        pengajarHadir:
+          type: boolean
+        kesiapanSarana:
+          type: string
+          maxLength: 2000
+        catatanUmum:
+          type: string
+          maxLength: 2000
+      required:
+        - penugasanId
+        - tanggal
+        - pengajarHadir
+    PesantrenCreateUmpanBalikPusatRequest:
+      type: object
+      properties:
+        penugasanId:
+          type: string
+          minLength: 1
+        tanggalKunjungan:
+          anyOf:
+            - type: string
+              format: date-time
+            - type: string
+              minLength: 1
+        kondisiSarana:
+          type: string
+          minLength: 5
+        relevansiMateri:
+          type: string
+          minLength: 5
+        kesesuaianKesepakatan:
+          type: string
+          minLength: 5
+        rekomendasi:
+          type: string
+          maxLength: 2000
+      required:
+        - penugasanId
+        - tanggalKunjungan
+        - kondisiSarana
+        - relevansiMateri
+        - kesesuaianKesepakatan
+    PesantrenCreateUmpanBalikPesertaRequest:
+      type: object
+      properties:
+        penugasanId:
+          type: string
+          minLength: 1
+        jumlahResponden:
+          type: integer
+          exclusiveMinimum: 0
+        ratingKepuasan:
+          type: number
+          minimum: 0
+          maximum: 5
+        komentarPositif:
+          type: string
+          maxLength: 2000
+        komentarPerbaikan:
+          type: string
+          maxLength: 2000
+      required:
+        - penugasanId
+        - jumlahResponden
+        - ratingKepuasan
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+      required:
+        - page
+        - limit
+        - total
+        - totalPages
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+            - false
+        error:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        code:
+          type: string
+        requestId:
+          type: string
+      required:
+        - success
+  parameters: {}
+paths:
+  /pesantren/sekolah:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar sekolah mitra
+      security: &a1
+        - BearerAuth: []
+        - CookieAuth: []
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenSekolahMitra"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat sekolah mitra
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreateSekolahRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenSekolahMitra"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pesantren/materi:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar bank materi
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenBankMateri"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat bank materi
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreateBankMateriRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenBankMateri"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pesantren/penugasan:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar penugasan pesantren
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenPenugasan"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat penugasan pesantren
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreatePenugasanRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenPenugasan"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pesantren/laporan-pengajar:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar laporan harian pengajar
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenLaporanPengajar"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat laporan harian pengajar
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreateLaporanPengajarRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenLaporanPengajar"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pesantren/laporan-koordinator:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar laporan harian koordinator
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenLaporanKoordinator"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat laporan harian koordinator
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreateLaporanKoordinatorRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenLaporanKoordinator"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pesantren/umpan-balik-pusat:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar umpan balik pusat
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenUmpanBalikPusat"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat umpan balik pusat
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreateUmpanBalikPusatRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenUmpanBalikPusat"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pesantren/umpan-balik-peserta:
+    get:
+      tags:
+        - Pesantren Ramadan
+      summary: Daftar umpan balik peserta
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: penugasanId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: sekolahId
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: targetJenjang
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PesantrenUmpanBalikPeserta"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Pesantren Ramadan
+      summary: Buat umpan balik peserta
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - ADMIN_BIDANG_PESANTREN_RAMADAN
+          - PW
+          - PC
+          - PENGAJAR_PESANTREN_RAMADAN
+        scope: global
+        permissions:
+          - pesantren:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PesantrenCreateUmpanBalikPesertaRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/PesantrenUmpanBalikPeserta"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+webhooks: {}

@@ -1,0 +1,533 @@
+openapi: 3.1.0
+info:
+  title: LIM API — Dakwah Digital
+  version: 1.0.0
+  description: Kontrak API modul Dakwah Digital.
+servers:
+  - url: /api/v1
+    description: API v1
+tags:
+  - name: Dakwah Digital
+    description: Konten dan pendaftaran event
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: Kirim API key sebagai Bearer token, atau gunakan session cookie
+        untuk klien web first-party.
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token
+      description: Session cookie Better Auth (khusus origin first-party).
+  schemas:
+    DakwahKonten:
+      type: object
+      properties:
+        id:
+          type: string
+        judul:
+          type: string
+        slug:
+          type: string
+        deskripsi:
+          type: string
+        jenisKonten:
+          type: string
+          enum:
+            - WEBINAR
+            - PODCAST
+            - KONTEN_MEDIASOS
+            - KULTUM_DIGITAL
+            - TANYA_JAWAB_ONLINE
+        status:
+          type: string
+          enum:
+            - DRAFT
+            - PENDING_REVIEW
+            - APPROVED
+            - PUBLISHED
+            - REJECTED
+        thumbnailUrl:
+          type:
+            - string
+            - "null"
+        linkVideo:
+          type:
+            - string
+            - "null"
+        pengunggahId:
+          type: string
+        disetujuiOlehId:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - judul
+        - slug
+        - deskripsi
+        - jenisKonten
+        - status
+        - thumbnailUrl
+        - linkVideo
+        - pengunggahId
+        - disetujuiOlehId
+        - createdAt
+        - updatedAt
+    DakwahPendaftaranEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        kontenId:
+          type: string
+        namaPeserta:
+          type: string
+        email:
+          type: string
+        noHp:
+          type: string
+        asalInstansi:
+          type:
+            - string
+            - "null"
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - kontenId
+        - namaPeserta
+        - email
+        - noHp
+        - asalInstansi
+        - createdAt
+    DakwahCreateKontenRequest:
+      type: object
+      properties:
+        judul:
+          type: string
+          minLength: 3
+          maxLength: 200
+        slug:
+          type: string
+          minLength: 3
+          maxLength: 200
+          pattern: ^[a-z0-9-]+$
+        deskripsi:
+          type: string
+          minLength: 10
+        jenisKonten:
+          type: string
+          enum:
+            - WEBINAR
+            - PODCAST
+            - KONTEN_MEDIASOS
+            - KULTUM_DIGITAL
+            - TANYA_JAWAB_ONLINE
+        thumbnailUrl:
+          type: string
+          format: uri
+        linkVideo:
+          type: string
+          format: uri
+      required:
+        - judul
+        - slug
+        - deskripsi
+        - jenisKonten
+    DakwahRegisterEventRequest:
+      type: object
+      properties:
+        kontenId:
+          type: string
+          minLength: 1
+        namaPeserta:
+          type: string
+          minLength: 2
+          maxLength: 200
+        email:
+          type: string
+          format: email
+        noHp:
+          type: string
+          minLength: 5
+          maxLength: 30
+        asalInstansi:
+          type: string
+          maxLength: 200
+      required:
+        - kontenId
+        - namaPeserta
+        - email
+        - noHp
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+      required:
+        - page
+        - limit
+        - total
+        - totalPages
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          enum:
+            - false
+        error:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        code:
+          type: string
+        requestId:
+          type: string
+      required:
+        - success
+  parameters: {}
+paths:
+  /dakwah/konten:
+    get:
+      tags:
+        - Dakwah Digital
+      summary: Daftar konten dakwah
+      security: &a1
+        - BearerAuth: []
+        - CookieAuth: []
+      x-lim-auth:
+        roles:
+          - OWNER
+          - CONTENT_MANAGER
+          - PW
+          - PC
+        scope: global
+        permissions:
+          - dakwah:read
+      parameters:
+        - schema:
+            type: integer
+            exclusiveMinimum: 0
+            default: 1
+          required: false
+          name: page
+          in: query
+        - schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          required: false
+          name: limit
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: status
+          in: query
+        - schema:
+            type: string
+          required: false
+          name: jenisKonten
+          in: query
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/DakwahKonten"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                  meta:
+                    $ref: "#/components/schemas/PaginationMeta"
+                required:
+                  - success
+                  - data
+                  - meta
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - Dakwah Digital
+      summary: Upload/buat konten
+      description: PW/PC → PENDING_REVIEW, OWNER/CONTENT_MANAGER → DRAFT.
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - CONTENT_MANAGER
+          - PW
+          - PC
+        scope: global
+        permissions:
+          - dakwah:write
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DakwahCreateKontenRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/DakwahKonten"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /dakwah/konten/{id}/approve:
+    post:
+      tags:
+        - Dakwah Digital
+      summary: Approve konten
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - CONTENT_MANAGER
+        scope: global
+        permissions:
+          - dakwah:write
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/DakwahKonten"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /dakwah/konten/{id}/publish:
+    post:
+      tags:
+        - Dakwah Digital
+      summary: Publish konten
+      security: *a1
+      x-lim-auth:
+        roles:
+          - OWNER
+          - CONTENT_MANAGER
+        scope: global
+        permissions:
+          - dakwah:write
+      parameters:
+        - schema:
+            type: string
+          required: true
+          name: id
+          in: path
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/DakwahKonten"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "401":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /dakwah/events/register:
+    post:
+      tags:
+        - Dakwah Digital
+      summary: Daftar event (publik)
+      description: Event harus PUBLISHED. Idempotency-Key didukung.
+      security: []
+      x-lim-auth:
+        public: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DakwahRegisterEventRequest"
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    $ref: "#/components/schemas/DakwahPendaftaranEvent"
+                  requestId:
+                    type: string
+                  code:
+                    type: string
+                required:
+                  - success
+                  - data
+        "404":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+webhooks: {}

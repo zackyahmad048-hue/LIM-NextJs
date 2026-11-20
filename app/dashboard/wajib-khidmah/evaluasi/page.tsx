@@ -5,6 +5,9 @@ import { listPenugasan } from '@/modules/wajib-khidmah/presentation/queries/list
 import { createEvaluasiKasusAction } from '@/modules/wajib-khidmah/presentation/actions/create-evaluasi-kasus.action'
 import { updateMediasiAction } from '@/modules/wajib-khidmah/presentation/actions/update-mediasi.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function WkEvaluasiPage() {
   const penugasan = await listPenugasan()
   return (

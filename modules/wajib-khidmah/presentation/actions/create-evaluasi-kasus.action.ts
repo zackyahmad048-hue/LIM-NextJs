@@ -1,33 +1,36 @@
-// modules/wajib-khidmah/presentation/actions/create-evaluasi-kasus.action.ts
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { Role } from '@/generated/client'
+import { headers } from 'next/headers'
 import { getSession } from '@/lib/auth'
 import { createEvaluasiKasusSchema } from '@/modules/wajib-khidmah/domain/evaluasi.schema'
-import { createEvaluasiKasus } from '@/modules/wajib-khidmah/application/evaluasi-kasus'
-import { PrismaEvaluasiRepository } from '@/modules/wajib-khidmah/infrastructure/prisma-evaluasi.repository'
+import { createEvaluasiKasusRecord } from '@/modules/wajib-khidmah/application/wajib-khidmah-operations'
 import type { ActionResult } from '@/types/api'
 import type { EvaluasiKasus } from '@/generated/client'
 import type { LIMSession } from '@/types/auth'
-
-const ALLOWED: Role[] = ['OWNER', 'TIM_WAJIB_KHIDMAH']
+import { ApiError } from '@/lib/api/errors'
 
 export async function createEvaluasiKasusAction(formData: FormData): Promise<ActionResult<EvaluasiKasus>> {
   const parsed = createEvaluasiKasusSchema.safeParse(Object.fromEntries(formData))
   if (!parsed.success) return { success: false, errors: parsed.error.flatten().fieldErrors }
 
   const session = (await getSession()) as LIMSession | null
-  if (!session) return { success: false, error: 'Unauthorized' }
-  if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
+  if (!session) return { success: false, error: 'Unauthorized', code: 'UNAUTHORIZED' }
 
   try {
-    const repo = new PrismaEvaluasiRepository()
-    const result = await createEvaluasiKasus(repo, parsed.data)
+    const h = await headers()
+    const ipAddress = h.get('x-forwarded-for')?.split(',')[0]?.trim() || undefined
+    const evaluasi = await createEvaluasiKasusRecord(parsed.data, {
+      userId: session.user.id,
+      role: session.user.role,
+      accountType: session.user.accountType,
+      ipAddress,
+    })
     revalidatePath('/dashboard/wajib-khidmah/evaluasi', 'page')
-    return { success: true, data: result }
+    return { success: true, data: evaluasi }
   } catch (error) {
+    if (error instanceof ApiError) return { success: false, error: error.message, code: error.code }
     console.error('[createEvaluasiKasusAction]', error)
-    return { success: false, error: 'Gagal membuat evaluasi kasus' }
+    return { success: false, error: 'Gagal membuat evaluasi kasus', code: 'INTERNAL_ERROR' }
   }
 }

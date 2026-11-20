@@ -3,6 +3,9 @@ import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
 import { createLetterAction } from '@/modules/letter/presentation/actions/create-letter.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default function NewLetterPage() {
   return (
     <div className="space-y-4 max-w-2xl">

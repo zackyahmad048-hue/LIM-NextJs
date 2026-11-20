@@ -6,6 +6,9 @@ import { listUmpanBalikPusat, listUmpanBalikPeserta } from '@/modules/pesantren-
 import { createUmpanBalikPusatAction } from '@/modules/pesantren-ramadan/presentation/actions/create-umpan-balik-pusat.action'
 import { createUmpanBalikPesertaAction } from '@/modules/pesantren-ramadan/presentation/actions/create-umpan-balik-peserta.action'
 
+// Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
+export const instant = false
+
 export default async function PesantrenUmpanBalikPage() {
   const [pusat, peserta] = await Promise.all([listUmpanBalikPusat(), listUmpanBalikPeserta()])
   return (
