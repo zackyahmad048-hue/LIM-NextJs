@@ -23,16 +23,21 @@ function getR2Config() {
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY
   const bucket = process.env.R2_BUCKET_NAME
   const endpoint = process.env.R2_ENDPOINT || (accountId ? `https://${accountId}.r2.cloudflarestorage.com` : undefined)
+  const region = process.env.R2_REGION || (endpoint?.includes('r2.cloudflarestorage.com') ? 'auto' : '')
+  const forcePathStyle =
+    process.env.R2_FORCE_PATH_STYLE === 'true' ||
+    (!!endpoint && !endpoint.includes('r2.cloudflarestorage.com'))
   if (!accessKeyId || !secretAccessKey || !bucket || !endpoint) return null
-  return { accessKeyId, secretAccessKey, bucket, endpoint }
+  return { accessKeyId, secretAccessKey, bucket, endpoint, region: region || 'auto', forcePathStyle }
 }
 
 let s3: S3Client | null = null
 function getS3(cfg: NonNullable<ReturnType<typeof getR2Config>>): S3Client {
   if (s3) return s3
   s3 = new S3Client({
-    region: 'auto',
+    region: cfg.region,
     endpoint: cfg.endpoint,
+    forcePathStyle: cfg.forcePathStyle,
     credentials: { accessKeyId: cfg.accessKeyId, secretAccessKey: cfg.secretAccessKey },
   })
   return s3
@@ -92,4 +97,3 @@ export const POST = createApiHandler(
 )
 
 export const OPTIONS = createApiHandler({ auth: 'public' }, async () => new Response(null, { status: 204 }))
-export const runtime = 'nodejs'

@@ -30,7 +30,7 @@ Kontrak REST untuk pengelolaan surat (draft → review → approved → sent), l
 | POST | `/letters/{id}/approve` | `REVIEW` → `APPROVED` | `Idempotency-Key` | wajib |
 | POST | `/letters/{id}/send` | → `SENT` + nomor surat (transaksi serializable, counter per periode/level/kategori) | `Idempotency-Key` | wajib |
 | GET | `/letters/{id}/logs` | Riwayat log status | - | wajib |
-| POST | `/uploads/presign` | Presigned PUT URL R2/S3 (1 jam) | `Idempotency-Key` | wajib |
+| POST | `/uploads/presign` | Presigned PUT URL S3-compatible (R2/Supabase Storage, 1 jam) | `Idempotency-Key` | wajib |
 
 ## Aturan bisnis penting
 
@@ -47,7 +47,7 @@ Kontrak REST untuk pengelolaan surat (draft → review → approved → sent), l
 - **Detail response:** `data: Letter` (termasuk `isiSurat`)
 - **Logs:** `data: LetterLog[]`
 - **Envelope:** `{ success, data?, meta?, error?, errors?, code?, requestId }`
-- **Presign:** `{ filename?, contentType, size, purpose }` → `{ key, uploadUrl, expiresIn, method, headers, maxBytes }` (PDF ≤5MB, JPEG/PNG ≤2MB). Butuh env `R2_*`; jika belum dikonfigurasi mengembalikan `503`.
+- **Presign:** `{ filename?, contentType, size, purpose }` → `{ key, uploadUrl, expiresIn, method, headers, maxBytes }` (PDF ≤5MB, JPEG/PNG ≤2MB). Butuh env `R2_*` (S3-compatible: R2 atau Supabase Storage — endpoint, region, access key/secret, bucket); jika belum dikonfigurasi mengembalikan `503`. `forcePathStyle` otomatis untuk endpoint non-R2.
 
 ## Kode error stabil
 

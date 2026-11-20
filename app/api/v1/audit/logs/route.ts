@@ -16,4 +16,3 @@ export const GET = createApiHandler(
 )
 
 export const OPTIONS = createApiHandler({ auth: 'public' }, async () => new Response(null, { status: 204 }))
-export const runtime = 'nodejs'
