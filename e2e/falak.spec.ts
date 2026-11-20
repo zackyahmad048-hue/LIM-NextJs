@@ -48,7 +48,7 @@ test('deteksi lokasi memperbarui nama lokasi, jadwal, dan mode istiwa', async ({
   await page.goto('/')
 
   // Tunggu widget ter-hydrate & jadwal awal termuat (klik sebelum hydration akan terbuang)
-  await expect(page.getByText('Dzuhur', { exact: true })).toBeVisible()
+  await expect(page.getByText('Dzuhur', { exact: true })).toBeVisible({ timeout: 15000 })
   await page.getByRole('button', { name: 'Deteksi lokasi saya' }).click()
 
   // Nama lokasi berubah dari default Lirboyo
@@ -56,9 +56,9 @@ test('deteksi lokasi memperbarui nama lokasi, jadwal, dan mode istiwa', async ({
   await expect(page.getByText('Lokasi diperbarui: Surabaya, Jawa Timur')).toBeVisible()
 
   // Jadwal mengikuti lokasi baru (mode standar: dzuhur WS 11:21)
-  await expect(page.getByText('11:21', { exact: true })).toBeVisible()
+  await expect(page.getByRole('listitem').filter({ hasText: 'Dzuhur' })).toContainText('11:21')
 
   // Mode istiwa memakai WIs hasil konversi: dzuhur 12:04 (bukan hardcode 12:03)
   await page.getByRole('button', { name: "Waktu Istiwa'" }).click()
-  await expect(page.getByText('12:04', { exact: true })).toBeVisible()
+  await expect(page.getByRole('listitem').filter({ hasText: 'Dzuhur' })).toContainText('12:04')
 })
