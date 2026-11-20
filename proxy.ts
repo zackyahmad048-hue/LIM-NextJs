@@ -1,7 +1,7 @@
 // proxy.ts — Next.js 16 route protection (replaces middleware.ts)
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getSession } from '@/lib/auth'
+import { auth } from '@/lib/auth'
 
 const protectedRoutes = ['/dashboard', '/admin', '/profile']
 
@@ -19,7 +19,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const session = await getSession()
+  const session = await auth.api.getSession({ headers: request.headers })
 
   if (!session) {
     const loginUrl = new URL('/login', request.url)

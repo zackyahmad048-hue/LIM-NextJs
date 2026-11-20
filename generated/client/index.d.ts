@@ -5407,6 +5407,9 @@ export namespace Prisma {
     laporanBinaan: number
     auditLogs: number
     daerahBinaanPic: number
+    penugasanDitanggung: number
+    penugasanDiperbarui: number
+    lettersUpdated: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5433,6 +5436,9 @@ export namespace Prisma {
     laporanBinaan?: boolean | UserCountOutputTypeCountLaporanBinaanArgs
     auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
     daerahBinaanPic?: boolean | UserCountOutputTypeCountDaerahBinaanPicArgs
+    penugasanDitanggung?: boolean | UserCountOutputTypeCountPenugasanDitanggungArgs
+    penugasanDiperbarui?: boolean | UserCountOutputTypeCountPenugasanDiperbaruiArgs
+    lettersUpdated?: boolean | UserCountOutputTypeCountLettersUpdatedArgs
   }
 
   // Custom InputTypes
@@ -5605,6 +5611,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDaerahBinaanPicArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DaerahBinaanWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPenugasanDitanggungArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PenugasanWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPenugasanDiperbaruiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PenugasanWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLettersUpdatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LetterWhereInput
   }
 
 
@@ -6566,6 +6593,9 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     lembagaOwned?: boolean | User$lembagaOwnedArgs<ExtArgs>
     daerahBinaanPic?: boolean | User$daerahBinaanPicArgs<ExtArgs>
+    penugasanDitanggung?: boolean | User$penugasanDitanggungArgs<ExtArgs>
+    penugasanDiperbarui?: boolean | User$penugasanDiperbaruiArgs<ExtArgs>
+    lettersUpdated?: boolean | User$lettersUpdatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6636,6 +6666,9 @@ export namespace Prisma {
     auditLogs?: boolean | User$auditLogsArgs<ExtArgs>
     lembagaOwned?: boolean | User$lembagaOwnedArgs<ExtArgs>
     daerahBinaanPic?: boolean | User$daerahBinaanPicArgs<ExtArgs>
+    penugasanDitanggung?: boolean | User$penugasanDitanggungArgs<ExtArgs>
+    penugasanDiperbarui?: boolean | User$penugasanDiperbaruiArgs<ExtArgs>
+    lettersUpdated?: boolean | User$lettersUpdatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6670,6 +6703,9 @@ export namespace Prisma {
       auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
       lembagaOwned: Prisma.$LembagaPayload<ExtArgs> | null
       daerahBinaanPic: Prisma.$DaerahBinaanPayload<ExtArgs>[]
+      penugasanDitanggung: Prisma.$PenugasanPayload<ExtArgs>[]
+      penugasanDiperbarui: Prisma.$PenugasanPayload<ExtArgs>[]
+      lettersUpdated: Prisma.$LetterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7102,6 +7138,9 @@ export namespace Prisma {
     auditLogs<T extends User$auditLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lembagaOwned<T extends User$lembagaOwnedArgs<ExtArgs> = {}>(args?: Subset<T, User$lembagaOwnedArgs<ExtArgs>>): Prisma__LembagaClient<$Result.GetResult<Prisma.$LembagaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     daerahBinaanPic<T extends User$daerahBinaanPicArgs<ExtArgs> = {}>(args?: Subset<T, User$daerahBinaanPicArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DaerahBinaanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    penugasanDitanggung<T extends User$penugasanDitanggungArgs<ExtArgs> = {}>(args?: Subset<T, User$penugasanDitanggungArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PenugasanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    penugasanDiperbarui<T extends User$penugasanDiperbaruiArgs<ExtArgs> = {}>(args?: Subset<T, User$penugasanDiperbaruiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PenugasanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lettersUpdated<T extends User$lettersUpdatedArgs<ExtArgs> = {}>(args?: Subset<T, User$lettersUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LetterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8135,6 +8174,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DaerahBinaanScalarFieldEnum | DaerahBinaanScalarFieldEnum[]
+  }
+
+  /**
+   * User.penugasanDitanggung
+   */
+  export type User$penugasanDitanggungArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Penugasan
+     */
+    select?: PenugasanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Penugasan
+     */
+    omit?: PenugasanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PenugasanInclude<ExtArgs> | null
+    where?: PenugasanWhereInput
+    orderBy?: PenugasanOrderByWithRelationInput | PenugasanOrderByWithRelationInput[]
+    cursor?: PenugasanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PenugasanScalarFieldEnum | PenugasanScalarFieldEnum[]
+  }
+
+  /**
+   * User.penugasanDiperbarui
+   */
+  export type User$penugasanDiperbaruiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Penugasan
+     */
+    select?: PenugasanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Penugasan
+     */
+    omit?: PenugasanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PenugasanInclude<ExtArgs> | null
+    where?: PenugasanWhereInput
+    orderBy?: PenugasanOrderByWithRelationInput | PenugasanOrderByWithRelationInput[]
+    cursor?: PenugasanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PenugasanScalarFieldEnum | PenugasanScalarFieldEnum[]
+  }
+
+  /**
+   * User.lettersUpdated
+   */
+  export type User$lettersUpdatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Letter
+     */
+    select?: LetterSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Letter
+     */
+    omit?: LetterOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LetterInclude<ExtArgs> | null
+    where?: LetterWhereInput
+    orderBy?: LetterOrderByWithRelationInput | LetterOrderByWithRelationInput[]
+    cursor?: LetterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LetterScalarFieldEnum | LetterScalarFieldEnum[]
   }
 
   /**
@@ -20875,6 +20986,8 @@ export namespace Prisma {
     deletedAt?: boolean
     guruBantu?: boolean | GuruBantuProfileDefaultArgs<ExtArgs>
     lembaga?: boolean | LembagaDefaultArgs<ExtArgs>
+    dosenPenanggung?: boolean | UserDefaultArgs<ExtArgs>
+    updatedBy?: boolean | Penugasan$updatedByArgs<ExtArgs>
     laporanMingguan?: boolean | Penugasan$laporanMingguanArgs<ExtArgs>
     evaluasiKasus?: boolean | Penugasan$evaluasiKasusArgs<ExtArgs>
     evaluasiInduk?: boolean | Penugasan$evaluasiIndukArgs<ExtArgs>
@@ -20896,6 +21009,8 @@ export namespace Prisma {
     deletedAt?: boolean
     guruBantu?: boolean | GuruBantuProfileDefaultArgs<ExtArgs>
     lembaga?: boolean | LembagaDefaultArgs<ExtArgs>
+    dosenPenanggung?: boolean | UserDefaultArgs<ExtArgs>
+    updatedBy?: boolean | Penugasan$updatedByArgs<ExtArgs>
   }, ExtArgs["result"]["penugasan"]>
 
   export type PenugasanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -20913,6 +21028,8 @@ export namespace Prisma {
     deletedAt?: boolean
     guruBantu?: boolean | GuruBantuProfileDefaultArgs<ExtArgs>
     lembaga?: boolean | LembagaDefaultArgs<ExtArgs>
+    dosenPenanggung?: boolean | UserDefaultArgs<ExtArgs>
+    updatedBy?: boolean | Penugasan$updatedByArgs<ExtArgs>
   }, ExtArgs["result"]["penugasan"]>
 
   export type PenugasanSelectScalar = {
@@ -20934,6 +21051,8 @@ export namespace Prisma {
   export type PenugasanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     guruBantu?: boolean | GuruBantuProfileDefaultArgs<ExtArgs>
     lembaga?: boolean | LembagaDefaultArgs<ExtArgs>
+    dosenPenanggung?: boolean | UserDefaultArgs<ExtArgs>
+    updatedBy?: boolean | Penugasan$updatedByArgs<ExtArgs>
     laporanMingguan?: boolean | Penugasan$laporanMingguanArgs<ExtArgs>
     evaluasiKasus?: boolean | Penugasan$evaluasiKasusArgs<ExtArgs>
     evaluasiInduk?: boolean | Penugasan$evaluasiIndukArgs<ExtArgs>
@@ -20942,10 +21061,14 @@ export namespace Prisma {
   export type PenugasanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     guruBantu?: boolean | GuruBantuProfileDefaultArgs<ExtArgs>
     lembaga?: boolean | LembagaDefaultArgs<ExtArgs>
+    dosenPenanggung?: boolean | UserDefaultArgs<ExtArgs>
+    updatedBy?: boolean | Penugasan$updatedByArgs<ExtArgs>
   }
   export type PenugasanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     guruBantu?: boolean | GuruBantuProfileDefaultArgs<ExtArgs>
     lembaga?: boolean | LembagaDefaultArgs<ExtArgs>
+    dosenPenanggung?: boolean | UserDefaultArgs<ExtArgs>
+    updatedBy?: boolean | Penugasan$updatedByArgs<ExtArgs>
   }
 
   export type $PenugasanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20953,6 +21076,8 @@ export namespace Prisma {
     objects: {
       guruBantu: Prisma.$GuruBantuProfilePayload<ExtArgs>
       lembaga: Prisma.$LembagaPayload<ExtArgs>
+      dosenPenanggung: Prisma.$UserPayload<ExtArgs>
+      updatedBy: Prisma.$UserPayload<ExtArgs> | null
       laporanMingguan: Prisma.$LaporanMingguanPayload<ExtArgs>[]
       evaluasiKasus: Prisma.$EvaluasiKasusPayload<ExtArgs>[]
       evaluasiInduk: Prisma.$EvaluasiIndukPayload<ExtArgs>[]
@@ -21366,6 +21491,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     guruBantu<T extends GuruBantuProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GuruBantuProfileDefaultArgs<ExtArgs>>): Prisma__GuruBantuProfileClient<$Result.GetResult<Prisma.$GuruBantuProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     lembaga<T extends LembagaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LembagaDefaultArgs<ExtArgs>>): Prisma__LembagaClient<$Result.GetResult<Prisma.$LembagaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    dosenPenanggung<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    updatedBy<T extends Penugasan$updatedByArgs<ExtArgs> = {}>(args?: Subset<T, Penugasan$updatedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     laporanMingguan<T extends Penugasan$laporanMingguanArgs<ExtArgs> = {}>(args?: Subset<T, Penugasan$laporanMingguanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LaporanMingguanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     evaluasiKasus<T extends Penugasan$evaluasiKasusArgs<ExtArgs> = {}>(args?: Subset<T, Penugasan$evaluasiKasusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvaluasiKasusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     evaluasiInduk<T extends Penugasan$evaluasiIndukArgs<ExtArgs> = {}>(args?: Subset<T, Penugasan$evaluasiIndukArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvaluasiIndukPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -21803,6 +21930,25 @@ export namespace Prisma {
      * Limit how many Penugasans to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Penugasan.updatedBy
+   */
+  export type Penugasan$updatedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -30719,6 +30865,7 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | Letter$reviewedByArgs<ExtArgs>
     approvedBy?: boolean | Letter$approvedByArgs<ExtArgs>
+    updatedBy?: boolean | Letter$updatedByArgs<ExtArgs>
     period?: boolean | Letter$periodArgs<ExtArgs>
     logs?: boolean | Letter$logsArgs<ExtArgs>
     _count?: boolean | LetterCountOutputTypeDefaultArgs<ExtArgs>
@@ -30748,6 +30895,7 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | Letter$reviewedByArgs<ExtArgs>
     approvedBy?: boolean | Letter$approvedByArgs<ExtArgs>
+    updatedBy?: boolean | Letter$updatedByArgs<ExtArgs>
     period?: boolean | Letter$periodArgs<ExtArgs>
   }, ExtArgs["result"]["letter"]>
 
@@ -30775,6 +30923,7 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | Letter$reviewedByArgs<ExtArgs>
     approvedBy?: boolean | Letter$approvedByArgs<ExtArgs>
+    updatedBy?: boolean | Letter$updatedByArgs<ExtArgs>
     period?: boolean | Letter$periodArgs<ExtArgs>
   }, ExtArgs["result"]["letter"]>
 
@@ -30806,6 +30955,7 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | Letter$reviewedByArgs<ExtArgs>
     approvedBy?: boolean | Letter$approvedByArgs<ExtArgs>
+    updatedBy?: boolean | Letter$updatedByArgs<ExtArgs>
     period?: boolean | Letter$periodArgs<ExtArgs>
     logs?: boolean | Letter$logsArgs<ExtArgs>
     _count?: boolean | LetterCountOutputTypeDefaultArgs<ExtArgs>
@@ -30814,12 +30964,14 @@ export namespace Prisma {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | Letter$reviewedByArgs<ExtArgs>
     approvedBy?: boolean | Letter$approvedByArgs<ExtArgs>
+    updatedBy?: boolean | Letter$updatedByArgs<ExtArgs>
     period?: boolean | Letter$periodArgs<ExtArgs>
   }
   export type LetterIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     reviewedBy?: boolean | Letter$reviewedByArgs<ExtArgs>
     approvedBy?: boolean | Letter$approvedByArgs<ExtArgs>
+    updatedBy?: boolean | Letter$updatedByArgs<ExtArgs>
     period?: boolean | Letter$periodArgs<ExtArgs>
   }
 
@@ -30829,6 +30981,7 @@ export namespace Prisma {
       createdBy: Prisma.$UserPayload<ExtArgs>
       reviewedBy: Prisma.$UserPayload<ExtArgs> | null
       approvedBy: Prisma.$UserPayload<ExtArgs> | null
+      updatedBy: Prisma.$UserPayload<ExtArgs> | null
       period: Prisma.$LetterPeriodPayload<ExtArgs> | null
       logs: Prisma.$LetterLogPayload<ExtArgs>[]
     }
@@ -31250,6 +31403,7 @@ export namespace Prisma {
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     reviewedBy<T extends Letter$reviewedByArgs<ExtArgs> = {}>(args?: Subset<T, Letter$reviewedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     approvedBy<T extends Letter$approvedByArgs<ExtArgs> = {}>(args?: Subset<T, Letter$approvedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    updatedBy<T extends Letter$updatedByArgs<ExtArgs> = {}>(args?: Subset<T, Letter$updatedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     period<T extends Letter$periodArgs<ExtArgs> = {}>(args?: Subset<T, Letter$periodArgs<ExtArgs>>): Prisma__LetterPeriodClient<$Result.GetResult<Prisma.$LetterPeriodPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     logs<T extends Letter$logsArgs<ExtArgs> = {}>(args?: Subset<T, Letter$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LetterLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -31719,6 +31873,25 @@ export namespace Prisma {
    * Letter.approvedBy
    */
   export type Letter$approvedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Letter.updatedBy
+   */
+  export type Letter$updatedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -61864,6 +62037,9 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     lembagaOwned?: XOR<LembagaNullableScalarRelationFilter, LembagaWhereInput> | null
     daerahBinaanPic?: DaerahBinaanListRelationFilter
+    penugasanDitanggung?: PenugasanListRelationFilter
+    penugasanDiperbarui?: PenugasanListRelationFilter
+    lettersUpdated?: LetterListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -61903,6 +62079,9 @@ export namespace Prisma {
     auditLogs?: AuditLogOrderByRelationAggregateInput
     lembagaOwned?: LembagaOrderByWithRelationInput
     daerahBinaanPic?: DaerahBinaanOrderByRelationAggregateInput
+    penugasanDitanggung?: PenugasanOrderByRelationAggregateInput
+    penugasanDiperbarui?: PenugasanOrderByRelationAggregateInput
+    lettersUpdated?: LetterOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -61945,6 +62124,9 @@ export namespace Prisma {
     auditLogs?: AuditLogListRelationFilter
     lembagaOwned?: XOR<LembagaNullableScalarRelationFilter, LembagaWhereInput> | null
     daerahBinaanPic?: DaerahBinaanListRelationFilter
+    penugasanDitanggung?: PenugasanListRelationFilter
+    penugasanDiperbarui?: PenugasanListRelationFilter
+    lettersUpdated?: LetterListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -62473,13 +62655,12 @@ export namespace Prisma {
     id?: string
     userId?: string
     unitId?: string
-    userId_unitId?: OrganizationalAccountUserIdUnitIdCompoundUniqueInput
     AND?: OrganizationalAccountWhereInput | OrganizationalAccountWhereInput[]
     OR?: OrganizationalAccountWhereInput[]
     NOT?: OrganizationalAccountWhereInput | OrganizationalAccountWhereInput[]
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     unit?: XOR<UnitOrganisasiScalarRelationFilter, UnitOrganisasiWhereInput>
-  }, "id" | "userId" | "unitId" | "userId_unitId">
+  }, "id" | "userId" | "unitId">
 
   export type OrganizationalAccountOrderByWithAggregationInput = {
     id?: SortOrder
@@ -62770,6 +62951,8 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Penugasan"> | Date | string | null
     guruBantu?: XOR<GuruBantuProfileScalarRelationFilter, GuruBantuProfileWhereInput>
     lembaga?: XOR<LembagaScalarRelationFilter, LembagaWhereInput>
+    dosenPenanggung?: XOR<UserScalarRelationFilter, UserWhereInput>
+    updatedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     laporanMingguan?: LaporanMingguanListRelationFilter
     evaluasiKasus?: EvaluasiKasusListRelationFilter
     evaluasiInduk?: EvaluasiIndukListRelationFilter
@@ -62790,6 +62973,8 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     guruBantu?: GuruBantuProfileOrderByWithRelationInput
     lembaga?: LembagaOrderByWithRelationInput
+    dosenPenanggung?: UserOrderByWithRelationInput
+    updatedBy?: UserOrderByWithRelationInput
     laporanMingguan?: LaporanMingguanOrderByRelationAggregateInput
     evaluasiKasus?: EvaluasiKasusOrderByRelationAggregateInput
     evaluasiInduk?: EvaluasiIndukOrderByRelationAggregateInput
@@ -62813,6 +62998,8 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Penugasan"> | Date | string | null
     guruBantu?: XOR<GuruBantuProfileScalarRelationFilter, GuruBantuProfileWhereInput>
     lembaga?: XOR<LembagaScalarRelationFilter, LembagaWhereInput>
+    dosenPenanggung?: XOR<UserScalarRelationFilter, UserWhereInput>
+    updatedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     laporanMingguan?: LaporanMingguanListRelationFilter
     evaluasiKasus?: EvaluasiKasusListRelationFilter
     evaluasiInduk?: EvaluasiIndukListRelationFilter
@@ -63586,6 +63773,7 @@ export namespace Prisma {
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     reviewedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     approvedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    updatedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     period?: XOR<LetterPeriodNullableScalarRelationFilter, LetterPeriodWhereInput> | null
     logs?: LetterLogListRelationFilter
   }
@@ -63614,6 +63802,7 @@ export namespace Prisma {
     createdBy?: UserOrderByWithRelationInput
     reviewedBy?: UserOrderByWithRelationInput
     approvedBy?: UserOrderByWithRelationInput
+    updatedBy?: UserOrderByWithRelationInput
     period?: LetterPeriodOrderByWithRelationInput
     logs?: LetterLogOrderByRelationAggregateInput
   }
@@ -63645,6 +63834,7 @@ export namespace Prisma {
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     reviewedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     approvedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    updatedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     period?: XOR<LetterPeriodNullableScalarRelationFilter, LetterPeriodWhereInput> | null
     logs?: LetterLogListRelationFilter
   }, "id" | "verificationSlug">
@@ -65790,6 +65980,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -65829,6 +66022,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUpdateInput = {
@@ -65868,6 +66064,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -65907,6 +66106,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -66762,17 +66964,17 @@ export namespace Prisma {
 
   export type PenugasanCreateInput = {
     id?: string
-    dosenPenanggungId: string
     tanggalMulai: Date | string
     tanggalSelesai?: Date | string | null
     status?: $Enums.StatusPenugasan
     targetJamaahMingguan?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    updatedById?: string | null
     deletedAt?: Date | string | null
     guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
     lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
     laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
     evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
     evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
@@ -66798,17 +67000,17 @@ export namespace Prisma {
 
   export type PenugasanUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
     lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
     laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
     evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
     evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
@@ -66849,14 +67051,12 @@ export namespace Prisma {
 
   export type PenugasanUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -67671,13 +67871,13 @@ export namespace Prisma {
     qrCodeUrl?: string | null
     verificationSlug?: string | null
     status?: $Enums.LetterStatus
-    updatedById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     createdBy: UserCreateNestedOneWithoutLettersCreatedInput
     reviewedBy?: UserCreateNestedOneWithoutLettersReviewedInput
     approvedBy?: UserCreateNestedOneWithoutLettersApprovedInput
+    updatedBy?: UserCreateNestedOneWithoutLettersUpdatedInput
     period?: LetterPeriodCreateNestedOneWithoutLettersInput
     logs?: LetterLogCreateNestedManyWithoutLetterInput
   }
@@ -67719,13 +67919,13 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdBy?: UserUpdateOneRequiredWithoutLettersCreatedNestedInput
     reviewedBy?: UserUpdateOneWithoutLettersReviewedNestedInput
     approvedBy?: UserUpdateOneWithoutLettersApprovedNestedInput
+    updatedBy?: UserUpdateOneWithoutLettersUpdatedNestedInput
     period?: LetterPeriodUpdateOneWithoutLettersNestedInput
     logs?: LetterLogUpdateManyWithoutLetterNestedInput
   }
@@ -67790,7 +67990,6 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -70281,6 +70480,12 @@ export namespace Prisma {
     none?: DaerahBinaanWhereInput
   }
 
+  export type PenugasanListRelationFilter = {
+    every?: PenugasanWhereInput
+    some?: PenugasanWhereInput
+    none?: PenugasanWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -70355,6 +70560,10 @@ export namespace Prisma {
   }
 
   export type DaerahBinaanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PenugasanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -70802,11 +71011,6 @@ export namespace Prisma {
     isActive?: SortOrder
   }
 
-  export type OrganizationalAccountUserIdUnitIdCompoundUniqueInput = {
-    userId: string
-    unitId: string
-  }
-
   export type OrganizationalAccountCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -70831,17 +71035,7 @@ export namespace Prisma {
     none?: RiwayatAkademikWhereInput
   }
 
-  export type PenugasanListRelationFilter = {
-    every?: PenugasanWhereInput
-    some?: PenugasanWhereInput
-    none?: PenugasanWhereInput
-  }
-
   export type RiwayatAkademikOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type PenugasanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -73432,6 +73626,27 @@ export namespace Prisma {
     connect?: DaerahBinaanWhereUniqueInput | DaerahBinaanWhereUniqueInput[]
   }
 
+  export type PenugasanCreateNestedManyWithoutDosenPenanggungInput = {
+    create?: XOR<PenugasanCreateWithoutDosenPenanggungInput, PenugasanUncheckedCreateWithoutDosenPenanggungInput> | PenugasanCreateWithoutDosenPenanggungInput[] | PenugasanUncheckedCreateWithoutDosenPenanggungInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutDosenPenanggungInput | PenugasanCreateOrConnectWithoutDosenPenanggungInput[]
+    createMany?: PenugasanCreateManyDosenPenanggungInputEnvelope
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+  }
+
+  export type PenugasanCreateNestedManyWithoutUpdatedByInput = {
+    create?: XOR<PenugasanCreateWithoutUpdatedByInput, PenugasanUncheckedCreateWithoutUpdatedByInput> | PenugasanCreateWithoutUpdatedByInput[] | PenugasanUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutUpdatedByInput | PenugasanCreateOrConnectWithoutUpdatedByInput[]
+    createMany?: PenugasanCreateManyUpdatedByInputEnvelope
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+  }
+
+  export type LetterCreateNestedManyWithoutUpdatedByInput = {
+    create?: XOR<LetterCreateWithoutUpdatedByInput, LetterUncheckedCreateWithoutUpdatedByInput> | LetterCreateWithoutUpdatedByInput[] | LetterUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: LetterCreateOrConnectWithoutUpdatedByInput | LetterCreateOrConnectWithoutUpdatedByInput[]
+    createMany?: LetterCreateManyUpdatedByInputEnvelope
+    connect?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -73609,6 +73824,27 @@ export namespace Prisma {
     connectOrCreate?: DaerahBinaanCreateOrConnectWithoutPicLokalInput | DaerahBinaanCreateOrConnectWithoutPicLokalInput[]
     createMany?: DaerahBinaanCreateManyPicLokalInputEnvelope
     connect?: DaerahBinaanWhereUniqueInput | DaerahBinaanWhereUniqueInput[]
+  }
+
+  export type PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput = {
+    create?: XOR<PenugasanCreateWithoutDosenPenanggungInput, PenugasanUncheckedCreateWithoutDosenPenanggungInput> | PenugasanCreateWithoutDosenPenanggungInput[] | PenugasanUncheckedCreateWithoutDosenPenanggungInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutDosenPenanggungInput | PenugasanCreateOrConnectWithoutDosenPenanggungInput[]
+    createMany?: PenugasanCreateManyDosenPenanggungInputEnvelope
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+  }
+
+  export type PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput = {
+    create?: XOR<PenugasanCreateWithoutUpdatedByInput, PenugasanUncheckedCreateWithoutUpdatedByInput> | PenugasanCreateWithoutUpdatedByInput[] | PenugasanUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutUpdatedByInput | PenugasanCreateOrConnectWithoutUpdatedByInput[]
+    createMany?: PenugasanCreateManyUpdatedByInputEnvelope
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+  }
+
+  export type LetterUncheckedCreateNestedManyWithoutUpdatedByInput = {
+    create?: XOR<LetterCreateWithoutUpdatedByInput, LetterUncheckedCreateWithoutUpdatedByInput> | LetterCreateWithoutUpdatedByInput[] | LetterUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: LetterCreateOrConnectWithoutUpdatedByInput | LetterCreateOrConnectWithoutUpdatedByInput[]
+    createMany?: LetterCreateManyUpdatedByInputEnvelope
+    connect?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -73991,6 +74227,48 @@ export namespace Prisma {
     deleteMany?: DaerahBinaanScalarWhereInput | DaerahBinaanScalarWhereInput[]
   }
 
+  export type PenugasanUpdateManyWithoutDosenPenanggungNestedInput = {
+    create?: XOR<PenugasanCreateWithoutDosenPenanggungInput, PenugasanUncheckedCreateWithoutDosenPenanggungInput> | PenugasanCreateWithoutDosenPenanggungInput[] | PenugasanUncheckedCreateWithoutDosenPenanggungInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutDosenPenanggungInput | PenugasanCreateOrConnectWithoutDosenPenanggungInput[]
+    upsert?: PenugasanUpsertWithWhereUniqueWithoutDosenPenanggungInput | PenugasanUpsertWithWhereUniqueWithoutDosenPenanggungInput[]
+    createMany?: PenugasanCreateManyDosenPenanggungInputEnvelope
+    set?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    disconnect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    delete?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    update?: PenugasanUpdateWithWhereUniqueWithoutDosenPenanggungInput | PenugasanUpdateWithWhereUniqueWithoutDosenPenanggungInput[]
+    updateMany?: PenugasanUpdateManyWithWhereWithoutDosenPenanggungInput | PenugasanUpdateManyWithWhereWithoutDosenPenanggungInput[]
+    deleteMany?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
+  }
+
+  export type PenugasanUpdateManyWithoutUpdatedByNestedInput = {
+    create?: XOR<PenugasanCreateWithoutUpdatedByInput, PenugasanUncheckedCreateWithoutUpdatedByInput> | PenugasanCreateWithoutUpdatedByInput[] | PenugasanUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutUpdatedByInput | PenugasanCreateOrConnectWithoutUpdatedByInput[]
+    upsert?: PenugasanUpsertWithWhereUniqueWithoutUpdatedByInput | PenugasanUpsertWithWhereUniqueWithoutUpdatedByInput[]
+    createMany?: PenugasanCreateManyUpdatedByInputEnvelope
+    set?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    disconnect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    delete?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    update?: PenugasanUpdateWithWhereUniqueWithoutUpdatedByInput | PenugasanUpdateWithWhereUniqueWithoutUpdatedByInput[]
+    updateMany?: PenugasanUpdateManyWithWhereWithoutUpdatedByInput | PenugasanUpdateManyWithWhereWithoutUpdatedByInput[]
+    deleteMany?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
+  }
+
+  export type LetterUpdateManyWithoutUpdatedByNestedInput = {
+    create?: XOR<LetterCreateWithoutUpdatedByInput, LetterUncheckedCreateWithoutUpdatedByInput> | LetterCreateWithoutUpdatedByInput[] | LetterUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: LetterCreateOrConnectWithoutUpdatedByInput | LetterCreateOrConnectWithoutUpdatedByInput[]
+    upsert?: LetterUpsertWithWhereUniqueWithoutUpdatedByInput | LetterUpsertWithWhereUniqueWithoutUpdatedByInput[]
+    createMany?: LetterCreateManyUpdatedByInputEnvelope
+    set?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    disconnect?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    delete?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    connect?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    update?: LetterUpdateWithWhereUniqueWithoutUpdatedByInput | LetterUpdateWithWhereUniqueWithoutUpdatedByInput[]
+    updateMany?: LetterUpdateManyWithWhereWithoutUpdatedByInput | LetterUpdateManyWithWhereWithoutUpdatedByInput[]
+    deleteMany?: LetterScalarWhereInput | LetterScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -74341,6 +74619,48 @@ export namespace Prisma {
     update?: DaerahBinaanUpdateWithWhereUniqueWithoutPicLokalInput | DaerahBinaanUpdateWithWhereUniqueWithoutPicLokalInput[]
     updateMany?: DaerahBinaanUpdateManyWithWhereWithoutPicLokalInput | DaerahBinaanUpdateManyWithWhereWithoutPicLokalInput[]
     deleteMany?: DaerahBinaanScalarWhereInput | DaerahBinaanScalarWhereInput[]
+  }
+
+  export type PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput = {
+    create?: XOR<PenugasanCreateWithoutDosenPenanggungInput, PenugasanUncheckedCreateWithoutDosenPenanggungInput> | PenugasanCreateWithoutDosenPenanggungInput[] | PenugasanUncheckedCreateWithoutDosenPenanggungInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutDosenPenanggungInput | PenugasanCreateOrConnectWithoutDosenPenanggungInput[]
+    upsert?: PenugasanUpsertWithWhereUniqueWithoutDosenPenanggungInput | PenugasanUpsertWithWhereUniqueWithoutDosenPenanggungInput[]
+    createMany?: PenugasanCreateManyDosenPenanggungInputEnvelope
+    set?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    disconnect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    delete?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    update?: PenugasanUpdateWithWhereUniqueWithoutDosenPenanggungInput | PenugasanUpdateWithWhereUniqueWithoutDosenPenanggungInput[]
+    updateMany?: PenugasanUpdateManyWithWhereWithoutDosenPenanggungInput | PenugasanUpdateManyWithWhereWithoutDosenPenanggungInput[]
+    deleteMany?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
+  }
+
+  export type PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput = {
+    create?: XOR<PenugasanCreateWithoutUpdatedByInput, PenugasanUncheckedCreateWithoutUpdatedByInput> | PenugasanCreateWithoutUpdatedByInput[] | PenugasanUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: PenugasanCreateOrConnectWithoutUpdatedByInput | PenugasanCreateOrConnectWithoutUpdatedByInput[]
+    upsert?: PenugasanUpsertWithWhereUniqueWithoutUpdatedByInput | PenugasanUpsertWithWhereUniqueWithoutUpdatedByInput[]
+    createMany?: PenugasanCreateManyUpdatedByInputEnvelope
+    set?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    disconnect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    delete?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    connect?: PenugasanWhereUniqueInput | PenugasanWhereUniqueInput[]
+    update?: PenugasanUpdateWithWhereUniqueWithoutUpdatedByInput | PenugasanUpdateWithWhereUniqueWithoutUpdatedByInput[]
+    updateMany?: PenugasanUpdateManyWithWhereWithoutUpdatedByInput | PenugasanUpdateManyWithWhereWithoutUpdatedByInput[]
+    deleteMany?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
+  }
+
+  export type LetterUncheckedUpdateManyWithoutUpdatedByNestedInput = {
+    create?: XOR<LetterCreateWithoutUpdatedByInput, LetterUncheckedCreateWithoutUpdatedByInput> | LetterCreateWithoutUpdatedByInput[] | LetterUncheckedCreateWithoutUpdatedByInput[]
+    connectOrCreate?: LetterCreateOrConnectWithoutUpdatedByInput | LetterCreateOrConnectWithoutUpdatedByInput[]
+    upsert?: LetterUpsertWithWhereUniqueWithoutUpdatedByInput | LetterUpsertWithWhereUniqueWithoutUpdatedByInput[]
+    createMany?: LetterCreateManyUpdatedByInputEnvelope
+    set?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    disconnect?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    delete?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    connect?: LetterWhereUniqueInput | LetterWhereUniqueInput[]
+    update?: LetterUpdateWithWhereUniqueWithoutUpdatedByInput | LetterUpdateWithWhereUniqueWithoutUpdatedByInput[]
+    updateMany?: LetterUpdateManyWithWhereWithoutUpdatedByInput | LetterUpdateManyWithWhereWithoutUpdatedByInput[]
+    deleteMany?: LetterScalarWhereInput | LetterScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -75057,6 +75377,18 @@ export namespace Prisma {
     connect?: LembagaWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutPenugasanDitanggungInput = {
+    create?: XOR<UserCreateWithoutPenugasanDitanggungInput, UserUncheckedCreateWithoutPenugasanDitanggungInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPenugasanDitanggungInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPenugasanDiperbaruiInput = {
+    create?: XOR<UserCreateWithoutPenugasanDiperbaruiInput, UserUncheckedCreateWithoutPenugasanDiperbaruiInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPenugasanDiperbaruiInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type LaporanMingguanCreateNestedManyWithoutPenugasanInput = {
     create?: XOR<LaporanMingguanCreateWithoutPenugasanInput, LaporanMingguanUncheckedCreateWithoutPenugasanInput> | LaporanMingguanCreateWithoutPenugasanInput[] | LaporanMingguanUncheckedCreateWithoutPenugasanInput[]
     connectOrCreate?: LaporanMingguanCreateOrConnectWithoutPenugasanInput | LaporanMingguanCreateOrConnectWithoutPenugasanInput[]
@@ -75125,6 +75457,24 @@ export namespace Prisma {
     upsert?: LembagaUpsertWithoutPenugasanMasukInput
     connect?: LembagaWhereUniqueInput
     update?: XOR<XOR<LembagaUpdateToOneWithWhereWithoutPenugasanMasukInput, LembagaUpdateWithoutPenugasanMasukInput>, LembagaUncheckedUpdateWithoutPenugasanMasukInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput = {
+    create?: XOR<UserCreateWithoutPenugasanDitanggungInput, UserUncheckedCreateWithoutPenugasanDitanggungInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPenugasanDitanggungInput
+    upsert?: UserUpsertWithoutPenugasanDitanggungInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPenugasanDitanggungInput, UserUpdateWithoutPenugasanDitanggungInput>, UserUncheckedUpdateWithoutPenugasanDitanggungInput>
+  }
+
+  export type UserUpdateOneWithoutPenugasanDiperbaruiNestedInput = {
+    create?: XOR<UserCreateWithoutPenugasanDiperbaruiInput, UserUncheckedCreateWithoutPenugasanDiperbaruiInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPenugasanDiperbaruiInput
+    upsert?: UserUpsertWithoutPenugasanDiperbaruiInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPenugasanDiperbaruiInput, UserUpdateWithoutPenugasanDiperbaruiInput>, UserUncheckedUpdateWithoutPenugasanDiperbaruiInput>
   }
 
   export type LaporanMingguanUpdateManyWithoutPenugasanNestedInput = {
@@ -75596,6 +75946,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutLettersUpdatedInput = {
+    create?: XOR<UserCreateWithoutLettersUpdatedInput, UserUncheckedCreateWithoutLettersUpdatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLettersUpdatedInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type LetterPeriodCreateNestedOneWithoutLettersInput = {
     create?: XOR<LetterPeriodCreateWithoutLettersInput, LetterPeriodUncheckedCreateWithoutLettersInput>
     connectOrCreate?: LetterPeriodCreateOrConnectWithoutLettersInput
@@ -75650,6 +76006,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLettersApprovedInput, UserUpdateWithoutLettersApprovedInput>, UserUncheckedUpdateWithoutLettersApprovedInput>
+  }
+
+  export type UserUpdateOneWithoutLettersUpdatedNestedInput = {
+    create?: XOR<UserCreateWithoutLettersUpdatedInput, UserUncheckedCreateWithoutLettersUpdatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLettersUpdatedInput
+    upsert?: UserUpsertWithoutLettersUpdatedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLettersUpdatedInput, UserUpdateWithoutLettersUpdatedInput>, UserUncheckedUpdateWithoutLettersUpdatedInput>
   }
 
   export type LetterPeriodUpdateOneWithoutLettersNestedInput = {
@@ -77885,12 +78251,12 @@ export namespace Prisma {
     qrCodeUrl?: string | null
     verificationSlug?: string | null
     status?: $Enums.LetterStatus
-    updatedById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     reviewedBy?: UserCreateNestedOneWithoutLettersReviewedInput
     approvedBy?: UserCreateNestedOneWithoutLettersApprovedInput
+    updatedBy?: UserCreateNestedOneWithoutLettersUpdatedInput
     period?: LetterPeriodCreateNestedOneWithoutLettersInput
     logs?: LetterLogCreateNestedManyWithoutLetterInput
   }
@@ -77941,12 +78307,12 @@ export namespace Prisma {
     qrCodeUrl?: string | null
     verificationSlug?: string | null
     status?: $Enums.LetterStatus
-    updatedById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     createdBy: UserCreateNestedOneWithoutLettersCreatedInput
     approvedBy?: UserCreateNestedOneWithoutLettersApprovedInput
+    updatedBy?: UserCreateNestedOneWithoutLettersUpdatedInput
     period?: LetterPeriodCreateNestedOneWithoutLettersInput
     logs?: LetterLogCreateNestedManyWithoutLetterInput
   }
@@ -77997,12 +78363,12 @@ export namespace Prisma {
     qrCodeUrl?: string | null
     verificationSlug?: string | null
     status?: $Enums.LetterStatus
-    updatedById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     createdBy: UserCreateNestedOneWithoutLettersCreatedInput
     reviewedBy?: UserCreateNestedOneWithoutLettersReviewedInput
+    updatedBy?: UserCreateNestedOneWithoutLettersUpdatedInput
     period?: LetterPeriodCreateNestedOneWithoutLettersInput
     logs?: LetterLogCreateNestedManyWithoutLetterInput
   }
@@ -78554,6 +78920,150 @@ export namespace Prisma {
 
   export type DaerahBinaanCreateManyPicLokalInputEnvelope = {
     data: DaerahBinaanCreateManyPicLokalInput | DaerahBinaanCreateManyPicLokalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PenugasanCreateWithoutDosenPenanggungInput = {
+    id?: string
+    tanggalMulai: Date | string
+    tanggalSelesai?: Date | string | null
+    status?: $Enums.StatusPenugasan
+    targetJamaahMingguan?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
+    lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
+    laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
+    evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
+    evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
+  }
+
+  export type PenugasanUncheckedCreateWithoutDosenPenanggungInput = {
+    id?: string
+    guruBantuId: string
+    lembagaId: string
+    tanggalMulai: Date | string
+    tanggalSelesai?: Date | string | null
+    status?: $Enums.StatusPenugasan
+    targetJamaahMingguan?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    updatedById?: string | null
+    deletedAt?: Date | string | null
+    laporanMingguan?: LaporanMingguanUncheckedCreateNestedManyWithoutPenugasanInput
+    evaluasiKasus?: EvaluasiKasusUncheckedCreateNestedManyWithoutPenugasanInput
+    evaluasiInduk?: EvaluasiIndukUncheckedCreateNestedManyWithoutPenugasanInput
+  }
+
+  export type PenugasanCreateOrConnectWithoutDosenPenanggungInput = {
+    where: PenugasanWhereUniqueInput
+    create: XOR<PenugasanCreateWithoutDosenPenanggungInput, PenugasanUncheckedCreateWithoutDosenPenanggungInput>
+  }
+
+  export type PenugasanCreateManyDosenPenanggungInputEnvelope = {
+    data: PenugasanCreateManyDosenPenanggungInput | PenugasanCreateManyDosenPenanggungInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PenugasanCreateWithoutUpdatedByInput = {
+    id?: string
+    tanggalMulai: Date | string
+    tanggalSelesai?: Date | string | null
+    status?: $Enums.StatusPenugasan
+    targetJamaahMingguan?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
+    lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
+    evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
+    evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
+  }
+
+  export type PenugasanUncheckedCreateWithoutUpdatedByInput = {
+    id?: string
+    guruBantuId: string
+    lembagaId: string
+    dosenPenanggungId: string
+    tanggalMulai: Date | string
+    tanggalSelesai?: Date | string | null
+    status?: $Enums.StatusPenugasan
+    targetJamaahMingguan?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    laporanMingguan?: LaporanMingguanUncheckedCreateNestedManyWithoutPenugasanInput
+    evaluasiKasus?: EvaluasiKasusUncheckedCreateNestedManyWithoutPenugasanInput
+    evaluasiInduk?: EvaluasiIndukUncheckedCreateNestedManyWithoutPenugasanInput
+  }
+
+  export type PenugasanCreateOrConnectWithoutUpdatedByInput = {
+    where: PenugasanWhereUniqueInput
+    create: XOR<PenugasanCreateWithoutUpdatedByInput, PenugasanUncheckedCreateWithoutUpdatedByInput>
+  }
+
+  export type PenugasanCreateManyUpdatedByInputEnvelope = {
+    data: PenugasanCreateManyUpdatedByInput | PenugasanCreateManyUpdatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LetterCreateWithoutUpdatedByInput = {
+    id?: string
+    type: $Enums.LetterType
+    nomorSurat?: string | null
+    tanggalSurat?: Date | string
+    pengirim: string
+    penerima?: string | null
+    perihal: string
+    isiSurat: string
+    fileUrl?: string | null
+    qrCodeUrl?: string | null
+    verificationSlug?: string | null
+    status?: $Enums.LetterStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    createdBy: UserCreateNestedOneWithoutLettersCreatedInput
+    reviewedBy?: UserCreateNestedOneWithoutLettersReviewedInput
+    approvedBy?: UserCreateNestedOneWithoutLettersApprovedInput
+    period?: LetterPeriodCreateNestedOneWithoutLettersInput
+    logs?: LetterLogCreateNestedManyWithoutLetterInput
+  }
+
+  export type LetterUncheckedCreateWithoutUpdatedByInput = {
+    id?: string
+    type: $Enums.LetterType
+    nomorSurat?: string | null
+    tanggalSurat?: Date | string
+    pengirim: string
+    penerima?: string | null
+    perihal: string
+    isiSurat: string
+    fileUrl?: string | null
+    qrCodeUrl?: string | null
+    verificationSlug?: string | null
+    status?: $Enums.LetterStatus
+    createdById: string
+    reviewedById?: string | null
+    approvedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    periodId?: string | null
+    logs?: LetterLogUncheckedCreateNestedManyWithoutLetterInput
+  }
+
+  export type LetterCreateOrConnectWithoutUpdatedByInput = {
+    where: LetterWhereUniqueInput
+    create: XOR<LetterCreateWithoutUpdatedByInput, LetterUncheckedCreateWithoutUpdatedByInput>
+  }
+
+  export type LetterCreateManyUpdatedByInputEnvelope = {
+    data: LetterCreateManyUpdatedByInput | LetterCreateManyUpdatedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -79370,6 +79880,72 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"DaerahBinaan"> | Date | string
   }
 
+  export type PenugasanUpsertWithWhereUniqueWithoutDosenPenanggungInput = {
+    where: PenugasanWhereUniqueInput
+    update: XOR<PenugasanUpdateWithoutDosenPenanggungInput, PenugasanUncheckedUpdateWithoutDosenPenanggungInput>
+    create: XOR<PenugasanCreateWithoutDosenPenanggungInput, PenugasanUncheckedCreateWithoutDosenPenanggungInput>
+  }
+
+  export type PenugasanUpdateWithWhereUniqueWithoutDosenPenanggungInput = {
+    where: PenugasanWhereUniqueInput
+    data: XOR<PenugasanUpdateWithoutDosenPenanggungInput, PenugasanUncheckedUpdateWithoutDosenPenanggungInput>
+  }
+
+  export type PenugasanUpdateManyWithWhereWithoutDosenPenanggungInput = {
+    where: PenugasanScalarWhereInput
+    data: XOR<PenugasanUpdateManyMutationInput, PenugasanUncheckedUpdateManyWithoutDosenPenanggungInput>
+  }
+
+  export type PenugasanScalarWhereInput = {
+    AND?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
+    OR?: PenugasanScalarWhereInput[]
+    NOT?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
+    id?: StringFilter<"Penugasan"> | string
+    guruBantuId?: StringFilter<"Penugasan"> | string
+    lembagaId?: StringFilter<"Penugasan"> | string
+    dosenPenanggungId?: StringFilter<"Penugasan"> | string
+    tanggalMulai?: DateTimeFilter<"Penugasan"> | Date | string
+    tanggalSelesai?: DateTimeNullableFilter<"Penugasan"> | Date | string | null
+    status?: EnumStatusPenugasanFilter<"Penugasan"> | $Enums.StatusPenugasan
+    targetJamaahMingguan?: IntNullableFilter<"Penugasan"> | number | null
+    createdAt?: DateTimeFilter<"Penugasan"> | Date | string
+    updatedAt?: DateTimeFilter<"Penugasan"> | Date | string
+    updatedById?: StringNullableFilter<"Penugasan"> | string | null
+    deletedAt?: DateTimeNullableFilter<"Penugasan"> | Date | string | null
+  }
+
+  export type PenugasanUpsertWithWhereUniqueWithoutUpdatedByInput = {
+    where: PenugasanWhereUniqueInput
+    update: XOR<PenugasanUpdateWithoutUpdatedByInput, PenugasanUncheckedUpdateWithoutUpdatedByInput>
+    create: XOR<PenugasanCreateWithoutUpdatedByInput, PenugasanUncheckedCreateWithoutUpdatedByInput>
+  }
+
+  export type PenugasanUpdateWithWhereUniqueWithoutUpdatedByInput = {
+    where: PenugasanWhereUniqueInput
+    data: XOR<PenugasanUpdateWithoutUpdatedByInput, PenugasanUncheckedUpdateWithoutUpdatedByInput>
+  }
+
+  export type PenugasanUpdateManyWithWhereWithoutUpdatedByInput = {
+    where: PenugasanScalarWhereInput
+    data: XOR<PenugasanUpdateManyMutationInput, PenugasanUncheckedUpdateManyWithoutUpdatedByInput>
+  }
+
+  export type LetterUpsertWithWhereUniqueWithoutUpdatedByInput = {
+    where: LetterWhereUniqueInput
+    update: XOR<LetterUpdateWithoutUpdatedByInput, LetterUncheckedUpdateWithoutUpdatedByInput>
+    create: XOR<LetterCreateWithoutUpdatedByInput, LetterUncheckedCreateWithoutUpdatedByInput>
+  }
+
+  export type LetterUpdateWithWhereUniqueWithoutUpdatedByInput = {
+    where: LetterWhereUniqueInput
+    data: XOR<LetterUpdateWithoutUpdatedByInput, LetterUncheckedUpdateWithoutUpdatedByInput>
+  }
+
+  export type LetterUpdateManyWithWhereWithoutUpdatedByInput = {
+    where: LetterScalarWhereInput
+    data: XOR<LetterUpdateManyMutationInput, LetterUncheckedUpdateManyWithoutUpdatedByInput>
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id?: string
     name?: string | null
@@ -79406,6 +79982,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -79444,6 +80023,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -79498,6 +80080,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -79536,6 +80121,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -79574,6 +80162,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -79612,6 +80203,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -79666,6 +80260,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -79704,6 +80301,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PenugasanStrukturalCreateWithoutPeriodeInput = {
@@ -80115,6 +80715,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPenugasanStrukturalInput = {
@@ -80153,6 +80756,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPenugasanStrukturalInput = {
@@ -80251,6 +80857,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPenugasanStrukturalInput = {
@@ -80289,6 +80898,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type JabatanUpsertWithoutPenugasanStrukturalInput = {
@@ -80383,6 +80995,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutOrganizationalAccountInput = {
@@ -80421,6 +81036,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutOrganizationalAccountInput = {
@@ -80498,6 +81116,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrganizationalAccountInput = {
@@ -80536,6 +81157,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UnitOrganisasiUpsertWithoutOrganizationalAccountInput = {
@@ -80603,6 +81227,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutGuruBantuProfileInput = {
@@ -80641,6 +81268,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutGuruBantuProfileInput = {
@@ -80676,16 +81306,16 @@ export namespace Prisma {
 
   export type PenugasanCreateWithoutGuruBantuInput = {
     id?: string
-    dosenPenanggungId: string
     tanggalMulai: Date | string
     tanggalSelesai?: Date | string | null
     status?: $Enums.StatusPenugasan
     targetJamaahMingguan?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    updatedById?: string | null
     deletedAt?: Date | string | null
     lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
     laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
     evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
     evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
@@ -80765,6 +81395,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGuruBantuProfileInput = {
@@ -80803,6 +81436,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type RiwayatAkademikUpsertWithWhereUniqueWithoutGuruBantuInput = {
@@ -80847,24 +81483,6 @@ export namespace Prisma {
   export type PenugasanUpdateManyWithWhereWithoutGuruBantuInput = {
     where: PenugasanScalarWhereInput
     data: XOR<PenugasanUpdateManyMutationInput, PenugasanUncheckedUpdateManyWithoutGuruBantuInput>
-  }
-
-  export type PenugasanScalarWhereInput = {
-    AND?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
-    OR?: PenugasanScalarWhereInput[]
-    NOT?: PenugasanScalarWhereInput | PenugasanScalarWhereInput[]
-    id?: StringFilter<"Penugasan"> | string
-    guruBantuId?: StringFilter<"Penugasan"> | string
-    lembagaId?: StringFilter<"Penugasan"> | string
-    dosenPenanggungId?: StringFilter<"Penugasan"> | string
-    tanggalMulai?: DateTimeFilter<"Penugasan"> | Date | string
-    tanggalSelesai?: DateTimeNullableFilter<"Penugasan"> | Date | string | null
-    status?: EnumStatusPenugasanFilter<"Penugasan"> | $Enums.StatusPenugasan
-    targetJamaahMingguan?: IntNullableFilter<"Penugasan"> | number | null
-    createdAt?: DateTimeFilter<"Penugasan"> | Date | string
-    updatedAt?: DateTimeFilter<"Penugasan"> | Date | string
-    updatedById?: StringNullableFilter<"Penugasan"> | string | null
-    deletedAt?: DateTimeNullableFilter<"Penugasan"> | Date | string | null
   }
 
   export type GuruBantuProfileCreateWithoutRiwayatAkademikInput = {
@@ -81062,6 +81680,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanCreateNestedManyWithoutPelaporInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLembagaOwnedInput = {
@@ -81100,6 +81721,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUncheckedCreateNestedManyWithoutPelaporInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLembagaOwnedInput = {
@@ -81109,16 +81733,16 @@ export namespace Prisma {
 
   export type PenugasanCreateWithoutLembagaInput = {
     id?: string
-    dosenPenanggungId: string
     tanggalMulai: Date | string
     tanggalSelesai?: Date | string | null
     status?: $Enums.StatusPenugasan
     targetJamaahMingguan?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    updatedById?: string | null
     deletedAt?: Date | string | null
     guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
     laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
     evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
     evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
@@ -81412,6 +82036,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUpdateManyWithoutPelaporNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLembagaOwnedInput = {
@@ -81450,6 +82077,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUncheckedUpdateManyWithoutPelaporNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PenugasanUpsertWithWhereUniqueWithoutLembagaInput = {
@@ -81572,6 +82202,180 @@ export namespace Prisma {
   export type LembagaCreateOrConnectWithoutPenugasanMasukInput = {
     where: LembagaWhereUniqueInput
     create: XOR<LembagaCreateWithoutPenugasanMasukInput, LembagaUncheckedCreateWithoutPenugasanMasukInput>
+  }
+
+  export type UserCreateWithoutPenugasanDitanggungInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    accountType?: $Enums.AccountType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    guruBantuProfile?: GuruBantuProfileCreateNestedOneWithoutUserInput
+    organizationalAccount?: OrganizationalAccountCreateNestedOneWithoutUserInput
+    penugasanStruktural?: PenugasanStrukturalCreateNestedManyWithoutUserInput
+    laporanDibuat?: LaporanMingguanCreateNestedManyWithoutPelaporInput
+    kasusDitangani?: EvaluasiKasusCreateNestedManyWithoutMediatorInput
+    evaluasiDibuat?: EvaluasiIndukCreateNestedManyWithoutEvaluatorInput
+    kasusDiinisiasi?: EvaluasiIndukCreateNestedManyWithoutInitiatorInput
+    permohonanDibuat?: PermohonanGuruBantuCreateNestedManyWithoutDiajukanOlehInput
+    lettersCreated?: LetterCreateNestedManyWithoutCreatedByInput
+    lettersReviewed?: LetterCreateNestedManyWithoutReviewedByInput
+    lettersApproved?: LetterCreateNestedManyWithoutApprovedByInput
+    letterLogs?: LetterLogCreateNestedManyWithoutUserInput
+    articlesWritten?: ArticleCreateNestedManyWithoutAuthorInput
+    delegasiSafari?: DelegasiSafariCreateNestedManyWithoutUserInput
+    laporanSidak?: LaporanSidakCreateNestedManyWithoutPenilaiInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenCreateNestedManyWithoutPengajarInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenCreateNestedManyWithoutKoordinatorInput
+    penilaianPusat?: UmpanBalikPusatCreateNestedManyWithoutPenilaiInput
+    kontenDiunggah?: KontenDakwahCreateNestedManyWithoutPengunggahInput
+    kontenDisetujui?: KontenDakwahCreateNestedManyWithoutPenyetujuInput
+    laporanBinaan?: LaporanBulananBinaanCreateNestedManyWithoutPelaporInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
+    daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutPenugasanDitanggungInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    accountType?: $Enums.AccountType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    guruBantuProfile?: GuruBantuProfileUncheckedCreateNestedOneWithoutUserInput
+    organizationalAccount?: OrganizationalAccountUncheckedCreateNestedOneWithoutUserInput
+    penugasanStruktural?: PenugasanStrukturalUncheckedCreateNestedManyWithoutUserInput
+    laporanDibuat?: LaporanMingguanUncheckedCreateNestedManyWithoutPelaporInput
+    kasusDitangani?: EvaluasiKasusUncheckedCreateNestedManyWithoutMediatorInput
+    evaluasiDibuat?: EvaluasiIndukUncheckedCreateNestedManyWithoutEvaluatorInput
+    kasusDiinisiasi?: EvaluasiIndukUncheckedCreateNestedManyWithoutInitiatorInput
+    permohonanDibuat?: PermohonanGuruBantuUncheckedCreateNestedManyWithoutDiajukanOlehInput
+    lettersCreated?: LetterUncheckedCreateNestedManyWithoutCreatedByInput
+    lettersReviewed?: LetterUncheckedCreateNestedManyWithoutReviewedByInput
+    lettersApproved?: LetterUncheckedCreateNestedManyWithoutApprovedByInput
+    letterLogs?: LetterLogUncheckedCreateNestedManyWithoutUserInput
+    articlesWritten?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    delegasiSafari?: DelegasiSafariUncheckedCreateNestedManyWithoutUserInput
+    laporanSidak?: LaporanSidakUncheckedCreateNestedManyWithoutPenilaiInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUncheckedCreateNestedManyWithoutPengajarInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUncheckedCreateNestedManyWithoutKoordinatorInput
+    penilaianPusat?: UmpanBalikPusatUncheckedCreateNestedManyWithoutPenilaiInput
+    kontenDiunggah?: KontenDakwahUncheckedCreateNestedManyWithoutPengunggahInput
+    kontenDisetujui?: KontenDakwahUncheckedCreateNestedManyWithoutPenyetujuInput
+    laporanBinaan?: LaporanBulananBinaanUncheckedCreateNestedManyWithoutPelaporInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
+    daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutPenugasanDitanggungInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPenugasanDitanggungInput, UserUncheckedCreateWithoutPenugasanDitanggungInput>
+  }
+
+  export type UserCreateWithoutPenugasanDiperbaruiInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    accountType?: $Enums.AccountType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    guruBantuProfile?: GuruBantuProfileCreateNestedOneWithoutUserInput
+    organizationalAccount?: OrganizationalAccountCreateNestedOneWithoutUserInput
+    penugasanStruktural?: PenugasanStrukturalCreateNestedManyWithoutUserInput
+    laporanDibuat?: LaporanMingguanCreateNestedManyWithoutPelaporInput
+    kasusDitangani?: EvaluasiKasusCreateNestedManyWithoutMediatorInput
+    evaluasiDibuat?: EvaluasiIndukCreateNestedManyWithoutEvaluatorInput
+    kasusDiinisiasi?: EvaluasiIndukCreateNestedManyWithoutInitiatorInput
+    permohonanDibuat?: PermohonanGuruBantuCreateNestedManyWithoutDiajukanOlehInput
+    lettersCreated?: LetterCreateNestedManyWithoutCreatedByInput
+    lettersReviewed?: LetterCreateNestedManyWithoutReviewedByInput
+    lettersApproved?: LetterCreateNestedManyWithoutApprovedByInput
+    letterLogs?: LetterLogCreateNestedManyWithoutUserInput
+    articlesWritten?: ArticleCreateNestedManyWithoutAuthorInput
+    delegasiSafari?: DelegasiSafariCreateNestedManyWithoutUserInput
+    laporanSidak?: LaporanSidakCreateNestedManyWithoutPenilaiInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenCreateNestedManyWithoutPengajarInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenCreateNestedManyWithoutKoordinatorInput
+    penilaianPusat?: UmpanBalikPusatCreateNestedManyWithoutPenilaiInput
+    kontenDiunggah?: KontenDakwahCreateNestedManyWithoutPengunggahInput
+    kontenDisetujui?: KontenDakwahCreateNestedManyWithoutPenyetujuInput
+    laporanBinaan?: LaporanBulananBinaanCreateNestedManyWithoutPelaporInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
+    daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutPenugasanDiperbaruiInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    accountType?: $Enums.AccountType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    guruBantuProfile?: GuruBantuProfileUncheckedCreateNestedOneWithoutUserInput
+    organizationalAccount?: OrganizationalAccountUncheckedCreateNestedOneWithoutUserInput
+    penugasanStruktural?: PenugasanStrukturalUncheckedCreateNestedManyWithoutUserInput
+    laporanDibuat?: LaporanMingguanUncheckedCreateNestedManyWithoutPelaporInput
+    kasusDitangani?: EvaluasiKasusUncheckedCreateNestedManyWithoutMediatorInput
+    evaluasiDibuat?: EvaluasiIndukUncheckedCreateNestedManyWithoutEvaluatorInput
+    kasusDiinisiasi?: EvaluasiIndukUncheckedCreateNestedManyWithoutInitiatorInput
+    permohonanDibuat?: PermohonanGuruBantuUncheckedCreateNestedManyWithoutDiajukanOlehInput
+    lettersCreated?: LetterUncheckedCreateNestedManyWithoutCreatedByInput
+    lettersReviewed?: LetterUncheckedCreateNestedManyWithoutReviewedByInput
+    lettersApproved?: LetterUncheckedCreateNestedManyWithoutApprovedByInput
+    letterLogs?: LetterLogUncheckedCreateNestedManyWithoutUserInput
+    articlesWritten?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    delegasiSafari?: DelegasiSafariUncheckedCreateNestedManyWithoutUserInput
+    laporanSidak?: LaporanSidakUncheckedCreateNestedManyWithoutPenilaiInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUncheckedCreateNestedManyWithoutPengajarInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUncheckedCreateNestedManyWithoutKoordinatorInput
+    penilaianPusat?: UmpanBalikPusatUncheckedCreateNestedManyWithoutPenilaiInput
+    kontenDiunggah?: KontenDakwahUncheckedCreateNestedManyWithoutPengunggahInput
+    kontenDisetujui?: KontenDakwahUncheckedCreateNestedManyWithoutPenyetujuInput
+    laporanBinaan?: LaporanBulananBinaanUncheckedCreateNestedManyWithoutPelaporInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
+    daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutPenugasanDiperbaruiInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPenugasanDiperbaruiInput, UserUncheckedCreateWithoutPenugasanDiperbaruiInput>
   }
 
   export type LaporanMingguanCreateWithoutPenugasanInput = {
@@ -81776,6 +82580,192 @@ export namespace Prisma {
     permohonan?: PermohonanGuruBantuUncheckedUpdateManyWithoutLembagaNestedInput
   }
 
+  export type UserUpsertWithoutPenugasanDitanggungInput = {
+    update: XOR<UserUpdateWithoutPenugasanDitanggungInput, UserUncheckedUpdateWithoutPenugasanDitanggungInput>
+    create: XOR<UserCreateWithoutPenugasanDitanggungInput, UserUncheckedCreateWithoutPenugasanDitanggungInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPenugasanDitanggungInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPenugasanDitanggungInput, UserUncheckedUpdateWithoutPenugasanDitanggungInput>
+  }
+
+  export type UserUpdateWithoutPenugasanDitanggungInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    accountType?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    guruBantuProfile?: GuruBantuProfileUpdateOneWithoutUserNestedInput
+    organizationalAccount?: OrganizationalAccountUpdateOneWithoutUserNestedInput
+    penugasanStruktural?: PenugasanStrukturalUpdateManyWithoutUserNestedInput
+    laporanDibuat?: LaporanMingguanUpdateManyWithoutPelaporNestedInput
+    kasusDitangani?: EvaluasiKasusUpdateManyWithoutMediatorNestedInput
+    evaluasiDibuat?: EvaluasiIndukUpdateManyWithoutEvaluatorNestedInput
+    kasusDiinisiasi?: EvaluasiIndukUpdateManyWithoutInitiatorNestedInput
+    permohonanDibuat?: PermohonanGuruBantuUpdateManyWithoutDiajukanOlehNestedInput
+    lettersCreated?: LetterUpdateManyWithoutCreatedByNestedInput
+    lettersReviewed?: LetterUpdateManyWithoutReviewedByNestedInput
+    lettersApproved?: LetterUpdateManyWithoutApprovedByNestedInput
+    letterLogs?: LetterLogUpdateManyWithoutUserNestedInput
+    articlesWritten?: ArticleUpdateManyWithoutAuthorNestedInput
+    delegasiSafari?: DelegasiSafariUpdateManyWithoutUserNestedInput
+    laporanSidak?: LaporanSidakUpdateManyWithoutPenilaiNestedInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUpdateManyWithoutPengajarNestedInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUpdateManyWithoutKoordinatorNestedInput
+    penilaianPusat?: UmpanBalikPusatUpdateManyWithoutPenilaiNestedInput
+    kontenDiunggah?: KontenDakwahUpdateManyWithoutPengunggahNestedInput
+    kontenDisetujui?: KontenDakwahUpdateManyWithoutPenyetujuNestedInput
+    laporanBinaan?: LaporanBulananBinaanUpdateManyWithoutPelaporNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
+    daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPenugasanDitanggungInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    accountType?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    guruBantuProfile?: GuruBantuProfileUncheckedUpdateOneWithoutUserNestedInput
+    organizationalAccount?: OrganizationalAccountUncheckedUpdateOneWithoutUserNestedInput
+    penugasanStruktural?: PenugasanStrukturalUncheckedUpdateManyWithoutUserNestedInput
+    laporanDibuat?: LaporanMingguanUncheckedUpdateManyWithoutPelaporNestedInput
+    kasusDitangani?: EvaluasiKasusUncheckedUpdateManyWithoutMediatorNestedInput
+    evaluasiDibuat?: EvaluasiIndukUncheckedUpdateManyWithoutEvaluatorNestedInput
+    kasusDiinisiasi?: EvaluasiIndukUncheckedUpdateManyWithoutInitiatorNestedInput
+    permohonanDibuat?: PermohonanGuruBantuUncheckedUpdateManyWithoutDiajukanOlehNestedInput
+    lettersCreated?: LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+    lettersReviewed?: LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+    lettersApproved?: LetterUncheckedUpdateManyWithoutApprovedByNestedInput
+    letterLogs?: LetterLogUncheckedUpdateManyWithoutUserNestedInput
+    articlesWritten?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    delegasiSafari?: DelegasiSafariUncheckedUpdateManyWithoutUserNestedInput
+    laporanSidak?: LaporanSidakUncheckedUpdateManyWithoutPenilaiNestedInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUncheckedUpdateManyWithoutPengajarNestedInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUncheckedUpdateManyWithoutKoordinatorNestedInput
+    penilaianPusat?: UmpanBalikPusatUncheckedUpdateManyWithoutPenilaiNestedInput
+    kontenDiunggah?: KontenDakwahUncheckedUpdateManyWithoutPengunggahNestedInput
+    kontenDisetujui?: KontenDakwahUncheckedUpdateManyWithoutPenyetujuNestedInput
+    laporanBinaan?: LaporanBulananBinaanUncheckedUpdateManyWithoutPelaporNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
+    daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
+  }
+
+  export type UserUpsertWithoutPenugasanDiperbaruiInput = {
+    update: XOR<UserUpdateWithoutPenugasanDiperbaruiInput, UserUncheckedUpdateWithoutPenugasanDiperbaruiInput>
+    create: XOR<UserCreateWithoutPenugasanDiperbaruiInput, UserUncheckedCreateWithoutPenugasanDiperbaruiInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPenugasanDiperbaruiInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPenugasanDiperbaruiInput, UserUncheckedUpdateWithoutPenugasanDiperbaruiInput>
+  }
+
+  export type UserUpdateWithoutPenugasanDiperbaruiInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    accountType?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    guruBantuProfile?: GuruBantuProfileUpdateOneWithoutUserNestedInput
+    organizationalAccount?: OrganizationalAccountUpdateOneWithoutUserNestedInput
+    penugasanStruktural?: PenugasanStrukturalUpdateManyWithoutUserNestedInput
+    laporanDibuat?: LaporanMingguanUpdateManyWithoutPelaporNestedInput
+    kasusDitangani?: EvaluasiKasusUpdateManyWithoutMediatorNestedInput
+    evaluasiDibuat?: EvaluasiIndukUpdateManyWithoutEvaluatorNestedInput
+    kasusDiinisiasi?: EvaluasiIndukUpdateManyWithoutInitiatorNestedInput
+    permohonanDibuat?: PermohonanGuruBantuUpdateManyWithoutDiajukanOlehNestedInput
+    lettersCreated?: LetterUpdateManyWithoutCreatedByNestedInput
+    lettersReviewed?: LetterUpdateManyWithoutReviewedByNestedInput
+    lettersApproved?: LetterUpdateManyWithoutApprovedByNestedInput
+    letterLogs?: LetterLogUpdateManyWithoutUserNestedInput
+    articlesWritten?: ArticleUpdateManyWithoutAuthorNestedInput
+    delegasiSafari?: DelegasiSafariUpdateManyWithoutUserNestedInput
+    laporanSidak?: LaporanSidakUpdateManyWithoutPenilaiNestedInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUpdateManyWithoutPengajarNestedInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUpdateManyWithoutKoordinatorNestedInput
+    penilaianPusat?: UmpanBalikPusatUpdateManyWithoutPenilaiNestedInput
+    kontenDiunggah?: KontenDakwahUpdateManyWithoutPengunggahNestedInput
+    kontenDisetujui?: KontenDakwahUpdateManyWithoutPenyetujuNestedInput
+    laporanBinaan?: LaporanBulananBinaanUpdateManyWithoutPelaporNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
+    daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPenugasanDiperbaruiInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    accountType?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    guruBantuProfile?: GuruBantuProfileUncheckedUpdateOneWithoutUserNestedInput
+    organizationalAccount?: OrganizationalAccountUncheckedUpdateOneWithoutUserNestedInput
+    penugasanStruktural?: PenugasanStrukturalUncheckedUpdateManyWithoutUserNestedInput
+    laporanDibuat?: LaporanMingguanUncheckedUpdateManyWithoutPelaporNestedInput
+    kasusDitangani?: EvaluasiKasusUncheckedUpdateManyWithoutMediatorNestedInput
+    evaluasiDibuat?: EvaluasiIndukUncheckedUpdateManyWithoutEvaluatorNestedInput
+    kasusDiinisiasi?: EvaluasiIndukUncheckedUpdateManyWithoutInitiatorNestedInput
+    permohonanDibuat?: PermohonanGuruBantuUncheckedUpdateManyWithoutDiajukanOlehNestedInput
+    lettersCreated?: LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+    lettersReviewed?: LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+    lettersApproved?: LetterUncheckedUpdateManyWithoutApprovedByNestedInput
+    letterLogs?: LetterLogUncheckedUpdateManyWithoutUserNestedInput
+    articlesWritten?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    delegasiSafari?: DelegasiSafariUncheckedUpdateManyWithoutUserNestedInput
+    laporanSidak?: LaporanSidakUncheckedUpdateManyWithoutPenilaiNestedInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUncheckedUpdateManyWithoutPengajarNestedInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUncheckedUpdateManyWithoutKoordinatorNestedInput
+    penilaianPusat?: UmpanBalikPusatUncheckedUpdateManyWithoutPenilaiNestedInput
+    kontenDiunggah?: KontenDakwahUncheckedUpdateManyWithoutPengunggahNestedInput
+    kontenDisetujui?: KontenDakwahUncheckedUpdateManyWithoutPenyetujuNestedInput
+    laporanBinaan?: LaporanBulananBinaanUncheckedUpdateManyWithoutPelaporNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
+    daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
+  }
+
   export type LaporanMingguanUpsertWithWhereUniqueWithoutPenugasanInput = {
     where: LaporanMingguanWhereUniqueInput
     update: XOR<LaporanMingguanUpdateWithoutPenugasanInput, LaporanMingguanUncheckedUpdateWithoutPenugasanInput>
@@ -81826,17 +82816,17 @@ export namespace Prisma {
 
   export type PenugasanCreateWithoutLaporanMingguanInput = {
     id?: string
-    dosenPenanggungId: string
     tanggalMulai: Date | string
     tanggalSelesai?: Date | string | null
     status?: $Enums.StatusPenugasan
     targetJamaahMingguan?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    updatedById?: string | null
     deletedAt?: Date | string | null
     guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
     lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
     evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
     evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
   }
@@ -81899,6 +82889,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLaporanDibuatInput = {
@@ -81937,6 +82930,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLaporanDibuatInput = {
@@ -81981,17 +82977,17 @@ export namespace Prisma {
 
   export type PenugasanUpdateWithoutLaporanMingguanInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
     lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
     evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
     evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
   }
@@ -82060,6 +83056,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLaporanDibuatInput = {
@@ -82098,6 +83097,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type DetailKitabUpsertWithWhereUniqueWithoutLaporanInput = {
@@ -82225,17 +83227,17 @@ export namespace Prisma {
 
   export type PenugasanCreateWithoutEvaluasiKasusInput = {
     id?: string
-    dosenPenanggungId: string
     tanggalMulai: Date | string
     tanggalSelesai?: Date | string | null
     status?: $Enums.StatusPenugasan
     targetJamaahMingguan?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    updatedById?: string | null
     deletedAt?: Date | string | null
     guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
     lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
     laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
     evaluasiInduk?: EvaluasiIndukCreateNestedManyWithoutPenugasanInput
   }
@@ -82298,6 +83300,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutKasusDitanganiInput = {
@@ -82336,6 +83341,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutKasusDitanganiInput = {
@@ -82356,17 +83364,17 @@ export namespace Prisma {
 
   export type PenugasanUpdateWithoutEvaluasiKasusInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
     lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
     laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
     evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
   }
@@ -82435,6 +83443,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKasusDitanganiInput = {
@@ -82473,21 +83484,24 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PenugasanCreateWithoutEvaluasiIndukInput = {
     id?: string
-    dosenPenanggungId: string
     tanggalMulai: Date | string
     tanggalSelesai?: Date | string | null
     status?: $Enums.StatusPenugasan
     targetJamaahMingguan?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    updatedById?: string | null
     deletedAt?: Date | string | null
     guruBantu: GuruBantuProfileCreateNestedOneWithoutPenugasanKeluarInput
     lembaga: LembagaCreateNestedOneWithoutPenugasanMasukInput
+    dosenPenanggung: UserCreateNestedOneWithoutPenugasanDitanggungInput
+    updatedBy?: UserCreateNestedOneWithoutPenugasanDiperbaruiInput
     laporanMingguan?: LaporanMingguanCreateNestedManyWithoutPenugasanInput
     evaluasiKasus?: EvaluasiKasusCreateNestedManyWithoutPenugasanInput
   }
@@ -82597,6 +83611,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutEvaluasiDibuatInput = {
@@ -82635,6 +83652,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutEvaluasiDibuatInput = {
@@ -82678,6 +83698,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutKasusDiinisiasiInput = {
@@ -82716,6 +83739,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutKasusDiinisiasiInput = {
@@ -82736,17 +83762,17 @@ export namespace Prisma {
 
   export type PenugasanUpdateWithoutEvaluasiIndukInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
     lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
     laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
     evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
   }
@@ -82868,6 +83894,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEvaluasiDibuatInput = {
@@ -82906,6 +83935,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUpsertWithoutKasusDiinisiasiInput = {
@@ -82955,6 +83987,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKasusDiinisiasiInput = {
@@ -82993,6 +84028,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LembagaCreateWithoutPermohonanInput = {
@@ -83078,6 +84116,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPermohonanDibuatInput = {
@@ -83116,6 +84157,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPermohonanDibuatInput = {
@@ -83223,6 +84267,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPermohonanDibuatInput = {
@@ -83261,6 +84308,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PeriodeKhidmatCreateWithoutLetterPeriodInput = {
@@ -83299,13 +84349,13 @@ export namespace Prisma {
     qrCodeUrl?: string | null
     verificationSlug?: string | null
     status?: $Enums.LetterStatus
-    updatedById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     createdBy: UserCreateNestedOneWithoutLettersCreatedInput
     reviewedBy?: UserCreateNestedOneWithoutLettersReviewedInput
     approvedBy?: UserCreateNestedOneWithoutLettersApprovedInput
+    updatedBy?: UserCreateNestedOneWithoutLettersUpdatedInput
     logs?: LetterLogCreateNestedManyWithoutLetterInput
   }
 
@@ -83530,6 +84580,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLettersCreatedInput = {
@@ -83568,6 +84621,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLettersCreatedInput = {
@@ -83611,6 +84667,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLettersReviewedInput = {
@@ -83649,6 +84708,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLettersReviewedInput = {
@@ -83692,6 +84754,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLettersApprovedInput = {
@@ -83730,11 +84795,101 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLettersApprovedInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutLettersApprovedInput, UserUncheckedCreateWithoutLettersApprovedInput>
+  }
+
+  export type UserCreateWithoutLettersUpdatedInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    accountType?: $Enums.AccountType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    guruBantuProfile?: GuruBantuProfileCreateNestedOneWithoutUserInput
+    organizationalAccount?: OrganizationalAccountCreateNestedOneWithoutUserInput
+    penugasanStruktural?: PenugasanStrukturalCreateNestedManyWithoutUserInput
+    laporanDibuat?: LaporanMingguanCreateNestedManyWithoutPelaporInput
+    kasusDitangani?: EvaluasiKasusCreateNestedManyWithoutMediatorInput
+    evaluasiDibuat?: EvaluasiIndukCreateNestedManyWithoutEvaluatorInput
+    kasusDiinisiasi?: EvaluasiIndukCreateNestedManyWithoutInitiatorInput
+    permohonanDibuat?: PermohonanGuruBantuCreateNestedManyWithoutDiajukanOlehInput
+    lettersCreated?: LetterCreateNestedManyWithoutCreatedByInput
+    lettersReviewed?: LetterCreateNestedManyWithoutReviewedByInput
+    lettersApproved?: LetterCreateNestedManyWithoutApprovedByInput
+    letterLogs?: LetterLogCreateNestedManyWithoutUserInput
+    articlesWritten?: ArticleCreateNestedManyWithoutAuthorInput
+    delegasiSafari?: DelegasiSafariCreateNestedManyWithoutUserInput
+    laporanSidak?: LaporanSidakCreateNestedManyWithoutPenilaiInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenCreateNestedManyWithoutPengajarInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenCreateNestedManyWithoutKoordinatorInput
+    penilaianPusat?: UmpanBalikPusatCreateNestedManyWithoutPenilaiInput
+    kontenDiunggah?: KontenDakwahCreateNestedManyWithoutPengunggahInput
+    kontenDisetujui?: KontenDakwahCreateNestedManyWithoutPenyetujuInput
+    laporanBinaan?: LaporanBulananBinaanCreateNestedManyWithoutPelaporInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
+    daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutLettersUpdatedInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    role?: $Enums.Role
+    accountType?: $Enums.AccountType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    guruBantuProfile?: GuruBantuProfileUncheckedCreateNestedOneWithoutUserInput
+    organizationalAccount?: OrganizationalAccountUncheckedCreateNestedOneWithoutUserInput
+    penugasanStruktural?: PenugasanStrukturalUncheckedCreateNestedManyWithoutUserInput
+    laporanDibuat?: LaporanMingguanUncheckedCreateNestedManyWithoutPelaporInput
+    kasusDitangani?: EvaluasiKasusUncheckedCreateNestedManyWithoutMediatorInput
+    evaluasiDibuat?: EvaluasiIndukUncheckedCreateNestedManyWithoutEvaluatorInput
+    kasusDiinisiasi?: EvaluasiIndukUncheckedCreateNestedManyWithoutInitiatorInput
+    permohonanDibuat?: PermohonanGuruBantuUncheckedCreateNestedManyWithoutDiajukanOlehInput
+    lettersCreated?: LetterUncheckedCreateNestedManyWithoutCreatedByInput
+    lettersReviewed?: LetterUncheckedCreateNestedManyWithoutReviewedByInput
+    lettersApproved?: LetterUncheckedCreateNestedManyWithoutApprovedByInput
+    letterLogs?: LetterLogUncheckedCreateNestedManyWithoutUserInput
+    articlesWritten?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    delegasiSafari?: DelegasiSafariUncheckedCreateNestedManyWithoutUserInput
+    laporanSidak?: LaporanSidakUncheckedCreateNestedManyWithoutPenilaiInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUncheckedCreateNestedManyWithoutPengajarInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUncheckedCreateNestedManyWithoutKoordinatorInput
+    penilaianPusat?: UmpanBalikPusatUncheckedCreateNestedManyWithoutPenilaiInput
+    kontenDiunggah?: KontenDakwahUncheckedCreateNestedManyWithoutPengunggahInput
+    kontenDisetujui?: KontenDakwahUncheckedCreateNestedManyWithoutPenyetujuInput
+    laporanBinaan?: LaporanBulananBinaanUncheckedCreateNestedManyWithoutPelaporInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
+    daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutLettersUpdatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLettersUpdatedInput, UserUncheckedCreateWithoutLettersUpdatedInput>
   }
 
   export type LetterPeriodCreateWithoutLettersInput = {
@@ -83835,6 +84990,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLettersCreatedInput = {
@@ -83873,6 +85031,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUpsertWithoutLettersReviewedInput = {
@@ -83922,6 +85083,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLettersReviewedInput = {
@@ -83960,6 +85124,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUpsertWithoutLettersApprovedInput = {
@@ -84009,6 +85176,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLettersApprovedInput = {
@@ -84047,6 +85217,102 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
+  }
+
+  export type UserUpsertWithoutLettersUpdatedInput = {
+    update: XOR<UserUpdateWithoutLettersUpdatedInput, UserUncheckedUpdateWithoutLettersUpdatedInput>
+    create: XOR<UserCreateWithoutLettersUpdatedInput, UserUncheckedCreateWithoutLettersUpdatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLettersUpdatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLettersUpdatedInput, UserUncheckedUpdateWithoutLettersUpdatedInput>
+  }
+
+  export type UserUpdateWithoutLettersUpdatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    accountType?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    guruBantuProfile?: GuruBantuProfileUpdateOneWithoutUserNestedInput
+    organizationalAccount?: OrganizationalAccountUpdateOneWithoutUserNestedInput
+    penugasanStruktural?: PenugasanStrukturalUpdateManyWithoutUserNestedInput
+    laporanDibuat?: LaporanMingguanUpdateManyWithoutPelaporNestedInput
+    kasusDitangani?: EvaluasiKasusUpdateManyWithoutMediatorNestedInput
+    evaluasiDibuat?: EvaluasiIndukUpdateManyWithoutEvaluatorNestedInput
+    kasusDiinisiasi?: EvaluasiIndukUpdateManyWithoutInitiatorNestedInput
+    permohonanDibuat?: PermohonanGuruBantuUpdateManyWithoutDiajukanOlehNestedInput
+    lettersCreated?: LetterUpdateManyWithoutCreatedByNestedInput
+    lettersReviewed?: LetterUpdateManyWithoutReviewedByNestedInput
+    lettersApproved?: LetterUpdateManyWithoutApprovedByNestedInput
+    letterLogs?: LetterLogUpdateManyWithoutUserNestedInput
+    articlesWritten?: ArticleUpdateManyWithoutAuthorNestedInput
+    delegasiSafari?: DelegasiSafariUpdateManyWithoutUserNestedInput
+    laporanSidak?: LaporanSidakUpdateManyWithoutPenilaiNestedInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUpdateManyWithoutPengajarNestedInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUpdateManyWithoutKoordinatorNestedInput
+    penilaianPusat?: UmpanBalikPusatUpdateManyWithoutPenilaiNestedInput
+    kontenDiunggah?: KontenDakwahUpdateManyWithoutPengunggahNestedInput
+    kontenDisetujui?: KontenDakwahUpdateManyWithoutPenyetujuNestedInput
+    laporanBinaan?: LaporanBulananBinaanUpdateManyWithoutPelaporNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
+    daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLettersUpdatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    accountType?: EnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    guruBantuProfile?: GuruBantuProfileUncheckedUpdateOneWithoutUserNestedInput
+    organizationalAccount?: OrganizationalAccountUncheckedUpdateOneWithoutUserNestedInput
+    penugasanStruktural?: PenugasanStrukturalUncheckedUpdateManyWithoutUserNestedInput
+    laporanDibuat?: LaporanMingguanUncheckedUpdateManyWithoutPelaporNestedInput
+    kasusDitangani?: EvaluasiKasusUncheckedUpdateManyWithoutMediatorNestedInput
+    evaluasiDibuat?: EvaluasiIndukUncheckedUpdateManyWithoutEvaluatorNestedInput
+    kasusDiinisiasi?: EvaluasiIndukUncheckedUpdateManyWithoutInitiatorNestedInput
+    permohonanDibuat?: PermohonanGuruBantuUncheckedUpdateManyWithoutDiajukanOlehNestedInput
+    lettersCreated?: LetterUncheckedUpdateManyWithoutCreatedByNestedInput
+    lettersReviewed?: LetterUncheckedUpdateManyWithoutReviewedByNestedInput
+    lettersApproved?: LetterUncheckedUpdateManyWithoutApprovedByNestedInput
+    letterLogs?: LetterLogUncheckedUpdateManyWithoutUserNestedInput
+    articlesWritten?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    delegasiSafari?: DelegasiSafariUncheckedUpdateManyWithoutUserNestedInput
+    laporanSidak?: LaporanSidakUncheckedUpdateManyWithoutPenilaiNestedInput
+    penugasanSebagaiPengajar?: PenugasanPesantrenUncheckedUpdateManyWithoutPengajarNestedInput
+    penugasanSebagaiKoordinator?: PenugasanPesantrenUncheckedUpdateManyWithoutKoordinatorNestedInput
+    penilaianPusat?: UmpanBalikPusatUncheckedUpdateManyWithoutPenilaiNestedInput
+    kontenDiunggah?: KontenDakwahUncheckedUpdateManyWithoutPengunggahNestedInput
+    kontenDisetujui?: KontenDakwahUncheckedUpdateManyWithoutPenyetujuNestedInput
+    laporanBinaan?: LaporanBulananBinaanUncheckedUpdateManyWithoutPelaporNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
+    daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LetterPeriodUpsertWithoutLettersInput = {
@@ -84109,13 +85375,13 @@ export namespace Prisma {
     qrCodeUrl?: string | null
     verificationSlug?: string | null
     status?: $Enums.LetterStatus
-    updatedById?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     createdBy: UserCreateNestedOneWithoutLettersCreatedInput
     reviewedBy?: UserCreateNestedOneWithoutLettersReviewedInput
     approvedBy?: UserCreateNestedOneWithoutLettersApprovedInput
+    updatedBy?: UserCreateNestedOneWithoutLettersUpdatedInput
     period?: LetterPeriodCreateNestedOneWithoutLettersInput
   }
 
@@ -84183,6 +85449,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLetterLogsInput = {
@@ -84221,6 +85490,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLetterLogsInput = {
@@ -84252,13 +85524,13 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdBy?: UserUpdateOneRequiredWithoutLettersCreatedNestedInput
     reviewedBy?: UserUpdateOneWithoutLettersReviewedNestedInput
     approvedBy?: UserUpdateOneWithoutLettersApprovedNestedInput
+    updatedBy?: UserUpdateOneWithoutLettersUpdatedNestedInput
     period?: LetterPeriodUpdateOneWithoutLettersNestedInput
   }
 
@@ -84332,6 +85604,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLetterLogsInput = {
@@ -84370,6 +85645,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type ArticleCreateWithoutCategoryInput = {
@@ -84462,6 +85740,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutArticlesWrittenInput = {
@@ -84500,6 +85781,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutArticlesWrittenInput = {
@@ -84573,6 +85857,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutArticlesWrittenInput = {
@@ -84611,6 +85898,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type ArticleCategoryUpsertWithoutArticlesInput = {
@@ -84845,6 +86135,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanCreateNestedManyWithoutPelaporInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -84883,6 +86176,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUncheckedCreateNestedManyWithoutPelaporInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -84937,6 +86233,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUpdateManyWithoutPelaporNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -84975,6 +86274,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUncheckedUpdateManyWithoutPelaporNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type DelegasiSafariCreateWithoutTitikInput = {
@@ -85102,6 +86404,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutDelegasiSafariInput = {
@@ -85140,6 +86445,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutDelegasiSafariInput = {
@@ -85323,6 +86631,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDelegasiSafariInput = {
@@ -85361,6 +86672,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type JurnalHarianSafariUpsertWithWhereUniqueWithoutDelegasiInput = {
@@ -85661,6 +86975,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLaporanSidakInput = {
@@ -85699,6 +87016,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLaporanSidakInput = {
@@ -85794,6 +87114,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLaporanSidakInput = {
@@ -85832,6 +87155,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PilihanMateriSekolahCreateWithoutSekolahInput = {
@@ -86238,6 +87564,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPenugasanSebagaiPengajarInput = {
@@ -86276,6 +87605,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPenugasanSebagaiPengajarInput = {
@@ -86319,6 +87651,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPenugasanSebagaiKoordinatorInput = {
@@ -86357,6 +87692,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPenugasanSebagaiKoordinatorInput = {
@@ -86574,6 +87912,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPenugasanSebagaiPengajarInput = {
@@ -86612,6 +87953,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUpsertWithoutPenugasanSebagaiKoordinatorInput = {
@@ -86661,6 +88005,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPenugasanSebagaiKoordinatorInput = {
@@ -86699,6 +88046,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LaporanHarianPengajarUpsertWithWhereUniqueWithoutPenugasanInput = {
@@ -87074,6 +88424,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutPenilaianPusatInput = {
@@ -87112,6 +88465,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutPenilaianPusatInput = {
@@ -87207,6 +88563,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPenilaianPusatInput = {
@@ -87245,6 +88604,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PenugasanPesantrenCreateWithoutUmpanBalikPesertaInput = {
@@ -87359,6 +88721,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutKontenDiunggahInput = {
@@ -87397,6 +88762,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutKontenDiunggahInput = {
@@ -87440,6 +88808,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutKontenDisetujuiInput = {
@@ -87478,6 +88849,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutKontenDisetujuiInput = {
@@ -87562,6 +88936,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKontenDiunggahInput = {
@@ -87600,6 +88977,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUpsertWithoutKontenDisetujuiInput = {
@@ -87649,6 +89029,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKontenDisetujuiInput = {
@@ -87687,6 +89070,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type PendaftaranEventUpsertWithWhereUniqueWithoutKontenInput = {
@@ -87867,6 +89253,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanCreateNestedManyWithoutPelaporInput
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutDaerahBinaanPicInput = {
@@ -87905,6 +89294,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUncheckedCreateNestedManyWithoutPelaporInput
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutDaerahBinaanPicInput = {
@@ -87997,6 +89389,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUpdateManyWithoutPelaporNestedInput
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDaerahBinaanPicInput = {
@@ -88035,6 +89430,9 @@ export namespace Prisma {
     laporanBinaan?: LaporanBulananBinaanUncheckedUpdateManyWithoutPelaporNestedInput
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type LaporanBulananBinaanUpsertWithWhereUniqueWithoutDaerahBinaanInput = {
@@ -88122,6 +89520,9 @@ export namespace Prisma {
     auditLogs?: AuditLogCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserUncheckedCreateWithoutLaporanBinaanInput = {
@@ -88160,6 +89561,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     lembagaOwned?: LembagaUncheckedCreateNestedOneWithoutUserInput
     daerahBinaanPic?: DaerahBinaanUncheckedCreateNestedManyWithoutPicLokalInput
+    penugasanDitanggung?: PenugasanUncheckedCreateNestedManyWithoutDosenPenanggungInput
+    penugasanDiperbarui?: PenugasanUncheckedCreateNestedManyWithoutUpdatedByInput
+    lettersUpdated?: LetterUncheckedCreateNestedManyWithoutUpdatedByInput
   }
 
   export type UserCreateOrConnectWithoutLaporanBinaanInput = {
@@ -88253,6 +89657,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLaporanBinaanInput = {
@@ -88291,6 +89698,9 @@ export namespace Prisma {
     auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     lembagaOwned?: LembagaUncheckedUpdateOneWithoutUserNestedInput
     daerahBinaanPic?: DaerahBinaanUncheckedUpdateManyWithoutPicLokalNestedInput
+    penugasanDitanggung?: PenugasanUncheckedUpdateManyWithoutDosenPenanggungNestedInput
+    penugasanDiperbarui?: PenugasanUncheckedUpdateManyWithoutUpdatedByNestedInput
+    lettersUpdated?: LetterUncheckedUpdateManyWithoutUpdatedByNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -88646,6 +90056,56 @@ export namespace Prisma {
     status?: $Enums.StatusDaerahBinaan
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type PenugasanCreateManyDosenPenanggungInput = {
+    id?: string
+    guruBantuId: string
+    lembagaId: string
+    tanggalMulai: Date | string
+    tanggalSelesai?: Date | string | null
+    status?: $Enums.StatusPenugasan
+    targetJamaahMingguan?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    updatedById?: string | null
+    deletedAt?: Date | string | null
+  }
+
+  export type PenugasanCreateManyUpdatedByInput = {
+    id?: string
+    guruBantuId: string
+    lembagaId: string
+    dosenPenanggungId: string
+    tanggalMulai: Date | string
+    tanggalSelesai?: Date | string | null
+    status?: $Enums.StatusPenugasan
+    targetJamaahMingguan?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type LetterCreateManyUpdatedByInput = {
+    id?: string
+    type: $Enums.LetterType
+    nomorSurat?: string | null
+    tanggalSurat?: Date | string
+    pengirim: string
+    penerima?: string | null
+    perihal: string
+    isiSurat: string
+    fileUrl?: string | null
+    qrCodeUrl?: string | null
+    verificationSlug?: string | null
+    status?: $Enums.LetterStatus
+    createdById: string
+    reviewedById?: string | null
+    approvedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    periodId?: string | null
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -89047,12 +90507,12 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewedBy?: UserUpdateOneWithoutLettersReviewedNestedInput
     approvedBy?: UserUpdateOneWithoutLettersApprovedNestedInput
+    updatedBy?: UserUpdateOneWithoutLettersUpdatedNestedInput
     period?: LetterPeriodUpdateOneWithoutLettersNestedInput
     logs?: LetterLogUpdateManyWithoutLetterNestedInput
   }
@@ -89115,12 +90575,12 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdBy?: UserUpdateOneRequiredWithoutLettersCreatedNestedInput
     approvedBy?: UserUpdateOneWithoutLettersApprovedNestedInput
+    updatedBy?: UserUpdateOneWithoutLettersUpdatedNestedInput
     period?: LetterPeriodUpdateOneWithoutLettersNestedInput
     logs?: LetterLogUpdateManyWithoutLetterNestedInput
   }
@@ -89183,12 +90643,12 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdBy?: UserUpdateOneRequiredWithoutLettersCreatedNestedInput
     reviewedBy?: UserUpdateOneWithoutLettersReviewedNestedInput
+    updatedBy?: UserUpdateOneWithoutLettersUpdatedNestedInput
     period?: LetterPeriodUpdateOneWithoutLettersNestedInput
     logs?: LetterLogUpdateManyWithoutLetterNestedInput
   }
@@ -89749,6 +91209,170 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PenugasanUpdateWithoutDosenPenanggungInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
+    targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
+    lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
+    laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
+    evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
+    evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
+  }
+
+  export type PenugasanUncheckedUpdateWithoutDosenPenanggungInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guruBantuId?: StringFieldUpdateOperationsInput | string
+    lembagaId?: StringFieldUpdateOperationsInput | string
+    tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
+    targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    laporanMingguan?: LaporanMingguanUncheckedUpdateManyWithoutPenugasanNestedInput
+    evaluasiKasus?: EvaluasiKasusUncheckedUpdateManyWithoutPenugasanNestedInput
+    evaluasiInduk?: EvaluasiIndukUncheckedUpdateManyWithoutPenugasanNestedInput
+  }
+
+  export type PenugasanUncheckedUpdateManyWithoutDosenPenanggungInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guruBantuId?: StringFieldUpdateOperationsInput | string
+    lembagaId?: StringFieldUpdateOperationsInput | string
+    tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
+    targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PenugasanUpdateWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
+    targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
+    lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
+    evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
+    evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
+  }
+
+  export type PenugasanUncheckedUpdateWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guruBantuId?: StringFieldUpdateOperationsInput | string
+    lembagaId?: StringFieldUpdateOperationsInput | string
+    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
+    tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
+    targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    laporanMingguan?: LaporanMingguanUncheckedUpdateManyWithoutPenugasanNestedInput
+    evaluasiKasus?: EvaluasiKasusUncheckedUpdateManyWithoutPenugasanNestedInput
+    evaluasiInduk?: EvaluasiIndukUncheckedUpdateManyWithoutPenugasanNestedInput
+  }
+
+  export type PenugasanUncheckedUpdateManyWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    guruBantuId?: StringFieldUpdateOperationsInput | string
+    lembagaId?: StringFieldUpdateOperationsInput | string
+    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
+    tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
+    tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
+    targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type LetterUpdateWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumLetterTypeFieldUpdateOperationsInput | $Enums.LetterType
+    nomorSurat?: NullableStringFieldUpdateOperationsInput | string | null
+    tanggalSurat?: DateTimeFieldUpdateOperationsInput | Date | string
+    pengirim?: StringFieldUpdateOperationsInput | string
+    penerima?: NullableStringFieldUpdateOperationsInput | string | null
+    perihal?: StringFieldUpdateOperationsInput | string
+    isiSurat?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: UserUpdateOneRequiredWithoutLettersCreatedNestedInput
+    reviewedBy?: UserUpdateOneWithoutLettersReviewedNestedInput
+    approvedBy?: UserUpdateOneWithoutLettersApprovedNestedInput
+    period?: LetterPeriodUpdateOneWithoutLettersNestedInput
+    logs?: LetterLogUpdateManyWithoutLetterNestedInput
+  }
+
+  export type LetterUncheckedUpdateWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumLetterTypeFieldUpdateOperationsInput | $Enums.LetterType
+    nomorSurat?: NullableStringFieldUpdateOperationsInput | string | null
+    tanggalSurat?: DateTimeFieldUpdateOperationsInput | Date | string
+    pengirim?: StringFieldUpdateOperationsInput | string
+    penerima?: NullableStringFieldUpdateOperationsInput | string | null
+    perihal?: StringFieldUpdateOperationsInput | string
+    isiSurat?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
+    createdById?: StringFieldUpdateOperationsInput | string
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    periodId?: NullableStringFieldUpdateOperationsInput | string | null
+    logs?: LetterLogUncheckedUpdateManyWithoutLetterNestedInput
+  }
+
+  export type LetterUncheckedUpdateManyWithoutUpdatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumLetterTypeFieldUpdateOperationsInput | $Enums.LetterType
+    nomorSurat?: NullableStringFieldUpdateOperationsInput | string | null
+    tanggalSurat?: DateTimeFieldUpdateOperationsInput | Date | string
+    pengirim?: StringFieldUpdateOperationsInput | string
+    penerima?: NullableStringFieldUpdateOperationsInput | string | null
+    perihal?: StringFieldUpdateOperationsInput | string
+    isiSurat?: StringFieldUpdateOperationsInput | string
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
+    createdById?: StringFieldUpdateOperationsInput | string
+    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
+    approvedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    periodId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type PenugasanStrukturalCreateManyPeriodeInput = {
     id?: string
     userId: string
@@ -89965,16 +91589,16 @@ export namespace Prisma {
 
   export type PenugasanUpdateWithoutGuruBantuInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lembaga?: LembagaUpdateOneRequiredWithoutPenugasanMasukNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
     laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
     evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
     evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
@@ -90155,16 +91779,16 @@ export namespace Prisma {
 
   export type PenugasanUpdateWithoutLembagaInput = {
     id?: StringFieldUpdateOperationsInput | string
-    dosenPenanggungId?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumStatusPenugasanFieldUpdateOperationsInput | $Enums.StatusPenugasan
     targetJamaahMingguan?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     guruBantu?: GuruBantuProfileUpdateOneRequiredWithoutPenugasanKeluarNestedInput
+    dosenPenanggung?: UserUpdateOneRequiredWithoutPenugasanDitanggungNestedInput
+    updatedBy?: UserUpdateOneWithoutPenugasanDiperbaruiNestedInput
     laporanMingguan?: LaporanMingguanUpdateManyWithoutPenugasanNestedInput
     evaluasiKasus?: EvaluasiKasusUpdateManyWithoutPenugasanNestedInput
     evaluasiInduk?: EvaluasiIndukUpdateManyWithoutPenugasanNestedInput
@@ -90597,13 +92221,13 @@ export namespace Prisma {
     qrCodeUrl?: NullableStringFieldUpdateOperationsInput | string | null
     verificationSlug?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumLetterStatusFieldUpdateOperationsInput | $Enums.LetterStatus
-    updatedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdBy?: UserUpdateOneRequiredWithoutLettersCreatedNestedInput
     reviewedBy?: UserUpdateOneWithoutLettersReviewedNestedInput
     approvedBy?: UserUpdateOneWithoutLettersApprovedNestedInput
+    updatedBy?: UserUpdateOneWithoutLettersUpdatedNestedInput
     logs?: LetterLogUpdateManyWithoutLetterNestedInput
   }
 

@@ -6,23 +6,16 @@ import { EmptyState } from '@/components/data/states'
 import { buttonVariants } from '@/components/ui/button'
 import { VerifiedMark } from '@/components/motion/verified-mark'
 import { getLetterForVerification } from '@/modules/letter/presentation/queries/get-letter-for-verification.query'
+import { letterStatusVariant } from '@/modules/letter/presentation/letter-status-variant'
 
 export const metadata: Metadata = { title: 'Hasil Verifikasi' }
 
 // Nomor surat baru ada setelah SENT; hanya status ini yang diberi tanda centang.
 const statusTerbit = new Set(['SENT', 'ARCHIVED'])
 
-const variant: Record<string, 'neutral' | 'info' | 'success' | 'warning' | 'muted'> = {
-  DIKETIK: 'neutral',
-  REVIEW: 'info',
-  APPROVED: 'success',
-  SENT: 'success',
-  ARCHIVED: 'muted',
-}
-
 async function Hasil({ params }: { params: Promise<{ kode: string }> }) {
   const { kode } = await params
-  const letter = await getLetterForVerification(decodeURIComponent(kode))
+  const letter = await getLetterForVerification(kode)
   if (!letter) {
     return (
       <EmptyState
@@ -43,7 +36,7 @@ async function Hasil({ params }: { params: Promise<{ kode: string }> }) {
           {statusTerbit.has(letter.status) && <VerifiedMark />}
           <p className="font-mono text-sm">{letter.nomorSurat ?? '—'}</p>
         </div>
-        <StatusBadge label={letter.status} variant={variant[letter.status] ?? 'neutral'} />
+        <StatusBadge label={letter.status} variant={letterStatusVariant[letter.status] ?? 'neutral'} />
       </div>
       <h2 className="mt-5 text-xl leading-snug font-semibold text-balance">{letter.perihal}</h2>
       <dl className="mt-5 grid gap-4 border-t border-border pt-5 text-sm sm:grid-cols-2">

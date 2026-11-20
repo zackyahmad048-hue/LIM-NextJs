@@ -6,14 +6,7 @@ import { EmptyState } from '@/components/data/states'
 import { canAccessModule } from '@/modules/authentication/domain/permissions'
 import { listLetters } from '@/modules/letter/presentation/queries/list-letters.query'
 import type { Role, AccountType } from '@/generated/client'
-
-export const statusVariant: Record<string, 'neutral' | 'info' | 'success' | 'warning' | 'muted'> = {
-  DIKETIK: 'neutral',
-  REVIEW: 'info',
-  APPROVED: 'success',
-  SENT: 'success',
-  ARCHIVED: 'muted',
-}
+import { letterStatusVariant } from '@/modules/letter/presentation/letter-status-variant'
 
 export default async function LettersPage() {
   const session = await getSession()
@@ -49,7 +42,7 @@ export default async function LettersPage() {
                 <tr key={l.id} className="border-t">
                   <td className="p-3 font-mono text-xs">{l.nomorSurat ?? '—'}</td>
                   <td className="p-3"><Link className="underline" href={`/dashboard/letters/${l.id}`}>{l.perihal}</Link></td>
-                  <td className="p-3"><StatusBadge label={l.status} variant={statusVariant[l.status] ?? 'neutral'} /></td>
+                  <td className="p-3"><StatusBadge label={l.status} variant={letterStatusVariant[l.status] ?? 'neutral'} /></td>
                   <td className="p-3 text-xs text-muted-foreground">{new Date(l.createdAt).toLocaleDateString('id-ID')}</td>
                 </tr>
               ))}

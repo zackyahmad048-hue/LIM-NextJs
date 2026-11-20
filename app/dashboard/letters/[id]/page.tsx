@@ -8,7 +8,7 @@ import { approveLetterAction } from '@/modules/letter/presentation/actions/appro
 import { sendLetterAction } from '@/modules/letter/presentation/actions/send-letter.action'
 import { deleteLetterAction } from '@/modules/letter/presentation/actions/delete-letter.action'
 import { TransitionButton } from '@/modules/letter/presentation/components/transition-button'
-import { statusVariant } from '../page'
+import { letterStatusVariant } from '@/modules/letter/presentation/letter-status-variant'
 import type { Role, AccountType } from '@/generated/client'
 
 export default async function LetterDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -29,7 +29,7 @@ export default async function LetterDetailPage({ params }: { params: Promise<{ i
         description={`Nomor: ${letter.nomorSurat ?? '— (dibuat saat SENT)'}`}
         actions={
           <>
-            <StatusBadge label={letter.status} variant={statusVariant[letter.status] ?? 'neutral'} />
+            <StatusBadge label={letter.status} variant={letterStatusVariant[letter.status] ?? 'neutral'} />
             {letter.status === 'DIKETIK' && <TransitionButton action={submitForReviewAction} letterId={letter.id} label="Kirim ke Review" />}
             {letter.status === 'REVIEW' && <TransitionButton action={approveLetterAction} letterId={letter.id} label="Approve" />}
             {(letter.status === 'APPROVED' || letter.status === 'REVIEW') && <TransitionButton action={sendLetterAction} letterId={letter.id} label="Kirim (generate nomor)" className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground disabled:opacity-50" />}

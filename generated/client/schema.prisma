@@ -85,6 +85,9 @@ model User {
   auditLogs                   AuditLog[]
   lembagaOwned                Lembaga?
   daerahBinaanPic             DaerahBinaan[]
+  penugasanDitanggung         Penugasan[]            @relation("DosenPenanggung")
+  penugasanDiperbarui         Penugasan[]            @relation("PenugasanUpdater")
+  lettersUpdated              Letter[]               @relation("LetterUpdater")
 
   @@index([email])
   @@index([role])
@@ -214,8 +217,6 @@ model OrganizationalAccount {
 
   user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   unit UnitOrganisasi @relation(fields: [unitId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, unitId])
 }
 
 // ============================================
@@ -379,6 +380,7 @@ model Lembaga {
   @@index([userId])
   @@index([kategori])
   @@index([status])
+  @@index([parentId])
 }
 
 model Penugasan {
@@ -399,6 +401,8 @@ model Penugasan {
 
   guruBantu       GuruBantuProfile  @relation(fields: [guruBantuId], references: [id], onDelete: Cascade)
   lembaga         Lembaga           @relation(fields: [lembagaId], references: [id], onDelete: Cascade)
+  dosenPenanggung User              @relation("DosenPenanggung", fields: [dosenPenanggungId], references: [id])
+  updatedBy       User?             @relation("PenugasanUpdater", fields: [updatedById], references: [id])
   laporanMingguan LaporanMingguan[]
   evaluasiKasus   EvaluasiKasus[]
   evaluasiInduk   EvaluasiInduk[]
@@ -406,6 +410,8 @@ model Penugasan {
   @@index([guruBantuId])
   @@index([lembagaId])
   @@index([status])
+  @@index([dosenPenanggungId])
+  @@index([updatedById])
 }
 
 model LaporanMingguan {
@@ -470,6 +476,7 @@ model EvaluasiKasus {
 
   @@index([penugasanId])
   @@index([statusMediasi])
+  @@index([mediatorId])
 }
 
 model EvaluasiInduk {
@@ -493,6 +500,8 @@ model EvaluasiInduk {
 
   @@index([penugasanId])
   @@index([lembagaId])
+  @@index([evaluatorId])
+  @@index([initiatedById])
 }
 
 model PermohonanGuruBantu {
@@ -547,6 +556,7 @@ model PermohonanGuruBantu {
 
   @@index([lembagaId])
   @@index([statusPermohonan])
+  @@index([diajukanOlehId])
 }
 
 // ============================================
@@ -579,6 +589,7 @@ model LetterPeriod {
   counters LetterNumberCounter[]
 
   @@index([isActive])
+  @@index([periodId])
 }
 
 model LetterNumberCounter {
@@ -623,6 +634,7 @@ model Letter {
   createdBy  User          @relation("LetterCreator", fields: [createdById], references: [id])
   reviewedBy User?         @relation("LetterReviewer", fields: [reviewedById], references: [id])
   approvedBy User?         @relation("LetterApprover", fields: [approvedById], references: [id])
+  updatedBy  User?         @relation("LetterUpdater", fields: [updatedById], references: [id])
   period     LetterPeriod? @relation(fields: [periodId], references: [id])
   periodId   String?
 
@@ -632,6 +644,10 @@ model Letter {
   @@index([status])
   @@index([nomorSurat])
   @@index([verificationSlug])
+  @@index([createdById])
+  @@index([reviewedById])
+  @@index([approvedById])
+  @@index([periodId])
   // Daftar surat selalu difilter deletedAt=null lalu diurutkan createdAt desc.
   @@index([deletedAt, createdAt])
 }
@@ -1162,6 +1178,7 @@ model KontenDakwah {
   @@index([status])
   @@index([slug])
   @@index([pengunggahId])
+  @@index([disetujuiOlehId])
 }
 
 model PendaftaranEvent {

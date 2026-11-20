@@ -5,7 +5,8 @@ export default defineConfig({
   preview: {
     realtime: true,
   },
-  auth: true,
+  // Auth ditangani Better Auth self-hosted (lib/auth.ts + /api/auth); jangan provisioning Neon Auth kedua.
+  auth: false,
   aiGateway: false,
   functions: {
     hello: { name: "Hello World", source: "./hello.ts" },

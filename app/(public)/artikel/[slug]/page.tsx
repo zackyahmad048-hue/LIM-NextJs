@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { getPublishedArticleBySlug } from '@/modules/cms/presentation/queries/get-article-by-slug.query'
 
 async function Article({ params }: { params: Promise<{ slug: string }> }) {
-  const article = await getPublishedArticleBySlug(decodeURIComponent((await params).slug))
+  const article = await getPublishedArticleBySlug((await params).slug)
   if (!article) notFound()
   return (
     <article>
