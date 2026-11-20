@@ -40,7 +40,7 @@ test('deteksi lokasi memperbarui nama lokasi, jadwal, dan mode istiwa', async ({
   await page.route('**/nominatim.openstreetmap.org/**', (route) =>
     route.fulfill({ json: { address: { city: 'Surabaya', state: 'Jawa Timur' } } }),
   )
-  await page.route('**/api.php*', (route) => {
+  await page.route(/digitalfalak\.com\/api\.php/, (route) => {
     const url = route.request().url()
     return route.fulfill({ json: url.includes('standar=WIS') ? WIS_FIXTURE : WS_FIXTURE })
   })

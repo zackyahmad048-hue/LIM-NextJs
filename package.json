@@ -17,7 +17,7 @@
     "test:e2e:ui": "playwright test --ui",
     "api:spec": "bun scripts/api-spec.ts",
     "api:spec:check": "bun scripts/api-spec.ts && git diff --exit-code -- openapi docs/api",
-    "prisma:generate": "prisma generate",
+    "prisma:generate": "bunx prisma@6 generate",
     "db:push": "bunx prisma@6 db push",
     "db:studio": "bunx prisma@6 studio",
     "db:seed": "bunx tsx prisma/seed.ts"
