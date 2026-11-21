@@ -8,9 +8,6 @@ export default defineConfig({
   // Auth ditangani Better Auth self-hosted (lib/auth.ts + /api/auth); jangan provisioning Neon Auth kedua.
   auth: false,
   aiGateway: false,
-  functions: {
-    hello: { name: "Hello World", source: "./hello.ts" },
-  },
   // Branch policy: per-branch tuning
   branch: (branch) => {
     if (branch.isDefault) {

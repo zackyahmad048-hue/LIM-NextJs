@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
     qualities: [75],
   },
   turbopack: {
+    // Prisma's generated client resolves paths at runtime; the tracing warning is expected and harmless here.
+    ignoreIssue: [{ path: /generated[\\/]client[\\/]/, title: /Dynamic filesystem access/ }],
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],
