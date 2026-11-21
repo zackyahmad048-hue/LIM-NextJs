@@ -1006,7 +1006,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/media/linux/New Volume/Folder VS Code/LIM-NextJs/generated/client",
+      "value": "/home/linux/LIM-NextJs/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -1020,7 +1020,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/media/linux/New Volume/Folder VS Code/LIM-NextJs/prisma/schema.prisma",
+    "sourceFilePath": "/home/linux/LIM-NextJs/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -1034,6 +1034,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
