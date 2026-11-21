@@ -47,4 +47,3 @@ export async function GET(request: NextRequest) {
   })
   return handler()
 }
-export const runtime = 'nodejs'
