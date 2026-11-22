@@ -37,7 +37,7 @@ export function SidebarShell({ groups, accountGroups, defaultCollapsed }: Sideba
   return (
     <aside
       className={cn(
-        'hidden border-r border-sidebar-border bg-sidebar text-sidebar-foreground md:sticky md:top-0 md:flex md:h-screen md:w-16 md:shrink-0 md:flex-col',
+        'hidden border-r border-white/10 bg-sidebar/70 text-sidebar-foreground backdrop-blur-md md:sticky md:top-0 md:flex md:h-screen md:w-16 md:shrink-0 md:flex-col dark:bg-sidebar/60',
         'transition-[width] duration-200 motion-reduce:transition-none',
         !collapsed && 'lg:w-64',
       )}
@@ -46,7 +46,7 @@ export function SidebarShell({ groups, accountGroups, defaultCollapsed }: Sideba
         href="/dashboard"
         aria-label="LIM Platform — Ringkasan"
         className={cn(
-          'flex h-16 shrink-0 items-center justify-center gap-3 border-b border-sidebar-border px-4 outline-none focus-visible:ring-3 focus-visible:ring-sidebar-ring/50',
+          'flex h-16 shrink-0 items-center justify-center gap-3 border-b border-white/10 px-4 outline-none focus-visible:ring-3 focus-visible:ring-sidebar-ring/50',
           !collapsed && 'lg:justify-start',
         )}
       >
@@ -62,7 +62,7 @@ export function SidebarShell({ groups, accountGroups, defaultCollapsed }: Sideba
         <SidebarNav groups={groups} variant="rail" label="Menu dashboard" collapsed={collapsed} />
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-sidebar-border p-2 lg:p-3">
+      <div className="flex flex-col gap-2 border-t border-white/10 p-2 lg:p-3">
         {accountGroups.length > 0 && (
           <SidebarNav groups={accountGroups} variant="rail" label="Menu akun" collapsed={collapsed} />
         )}

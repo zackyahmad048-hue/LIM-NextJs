@@ -1,5 +1,6 @@
 // app/dashboard/layout.tsx
 import type { ReactNode } from 'react'
+import Image from 'next/image'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth'
@@ -20,6 +21,38 @@ export const instant = false
 // Tanpa JavaScript, elemen beranimasi tidak boleh tersembunyi.
 const motionFallback = <style>{'[data-motion]{opacity:1!important;transform:none!important}'}</style>
 
+function DashboardBackground() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[oklch(0.18_0.02_275)]"
+    >
+      <Image
+        src="/login-bg.webp"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[50%_40%]"
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(to bottom, oklch(0.147 0.004 49.3 / 0.5), oklch(0.147 0.004 49.3 / 0.38))',
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 50% at 50% 100%, oklch(0.553 0.195 38.402 / 0.1), transparent 70%)',
+        }}
+      />
+    </div>
+  )
+}
+
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const session = await getSession()
   if (!session) redirect('/login?callbackUrl=/dashboard')
@@ -29,7 +62,8 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   if (role === 'OWNER') {
     return (
       <MotionProvider>
-        <div className="flex min-h-screen flex-col bg-background text-foreground">
+        <div className="relative flex min-h-screen flex-col text-foreground">
+          <DashboardBackground />
           <noscript>{motionFallback}</noscript>
           <a
             href="#konten-utama"
@@ -44,7 +78,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
             userImage={session.user.image}
           />
           <ModuleNav groups={getNavGroups(role)} />
-          <main id="konten-utama" className="flex-1 p-4 md:p-6 lg:p-8">
+          <main id="konten-utama" className="dashboard-photo flex-1 p-4 text-white md:p-6 lg:p-8">
             <div className="mx-auto w-full max-w-7xl">
               <Breadcrumbs />
               {children}
@@ -68,7 +102,8 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 
   return (
     <MotionProvider>
-      <div className="flex min-h-screen bg-background text-foreground">
+      <div className="relative flex min-h-screen text-foreground">
+        <DashboardBackground />
         <noscript>{motionFallback}</noscript>
         <a
           href="#konten-utama"
@@ -79,7 +114,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
         <Sidebar role={role} defaultCollapsed={sidebarCollapsed} />
         <div className="flex min-w-0 flex-1 flex-col">
           <Topbar email={session.user.email} role={role} scope={scope} />
-          <main id="konten-utama" className="flex-1 p-4 md:p-6 lg:p-8">
+          <main id="konten-utama" className="dashboard-photo flex-1 p-4 text-white md:p-6 lg:p-8">
             <div className="mx-auto w-full max-w-7xl">
               <Breadcrumbs />
               {children}

@@ -7,6 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* Noto Sans: netral, terbaca untuk teks panjang Indonesia; dipilih agar portal LIM tenang dan tidak generik AI-default. */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
@@ -144,5 +145,24 @@
   }
   html {
     @apply font-sans;
+    scroll-padding-top: 6rem;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+/* Teks di atas background foto dashboard: terang di luar card, normal di dalam card */
+.dashboard-photo {
+  --foreground: oklch(0.986 0.002 67.8);
+  --muted-foreground: oklch(1 0 0 / 0.72);
+}
+.dashboard-photo [data-slot="card"] {
+  --foreground: oklch(0.147 0.004 49.3);
+  --muted-foreground: oklch(0.547 0.021 43.1);
+}
+.dark .dashboard-photo [data-slot="card"] {
+  --foreground: oklch(0.986 0.002 67.8);
+  --muted-foreground: oklch(0.714 0.014 41.2);
 }

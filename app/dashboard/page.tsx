@@ -1,5 +1,5 @@
 // app/dashboard/page.tsx
-import { ModuleCard } from '@/components/dashboard/module-card'
+import { DashboardContent } from '@/components/dashboard/dashboard-content'
 import { getSession } from '@/lib/auth'
 import { canAccessModule } from '@/modules/authentication/domain/permissions'
 import type { Role } from '@/generated/client'
@@ -39,31 +39,17 @@ export default async function DashboardPage() {
   const session = await getSession()
   const role = session?.user.role as Role | undefined
   const isOwner = role === 'OWNER'
-  const visibleModules = role ? moduleCards.filter((item) => canAccessModule(role, item.module)) : []
+  const visibleModules = role
+    ? moduleCards
+        .filter((item) => canAccessModule(role, item.module))
+        .map(({ title, description, href }) => ({ title, description, href }))
+    : []
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-          {isOwner ? 'Konsol Pusat' : 'Ringkasan'}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Masuk sebagai {session?.user.email ?? '-'}
-        </p>
-      </div>
-
-      <section>
-        <h2 className="mb-4 text-lg font-semibold text-foreground">Modul</h2>
-        {visibleModules.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Belum ada modul yang tersedia untuk role Anda.</p>
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {visibleModules.map((card) => (
-              <ModuleCard key={card.href} title={card.title} description={card.description} href={card.href} />
-            ))}
-          </div>
-        )}
-      </section>
-    </div>
+    <DashboardContent
+      email={session?.user.email ?? '-'}
+      isOwner={isOwner}
+      modules={visibleModules}
+    />
   )
 }
