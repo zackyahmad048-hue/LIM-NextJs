@@ -5,7 +5,21 @@ import { apiKey } from '@better-auth/api-key'
 import { prisma } from '@/lib/prisma'
 import type { LIMSession } from '@/types/auth'
 
+// Deployment bisa diakses dari beberapa host (domain produksi, branch/preview Vercel, localhost).
+const appUrl = process.env.BETTER_AUTH_URL ?? process.env.NEXT_PUBLIC_APP_URL
+const allowedHosts = [
+  'localhost:*',
+  process.env.VERCEL_URL,
+  process.env.VERCEL_BRANCH_URL,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  ...(process.env.BETTER_AUTH_ALLOWED_HOSTS ?? '').split(',').map((host) => host.trim()),
+].filter((host): host is string => Boolean(host))
+
 export const auth = betterAuth({
+  baseURL: {
+    allowedHosts,
+    ...(appUrl ? { fallback: appUrl } : {}),
+  },
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
   }),
