@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listUmpanBalikPusat, listUmpanBalikPeserta } from '@/modules/pesantren-ramadan/presentation/queries/list-laporan-harian.query'
 import { createUmpanBalikPusatAction } from '@/modules/pesantren-ramadan/presentation/actions/create-umpan-balik-pusat.action'
 import { createUmpanBalikPesertaAction } from '@/modules/pesantren-ramadan/presentation/actions/create-umpan-balik-peserta.action'
@@ -10,7 +11,9 @@ import { createUmpanBalikPesertaAction } from '@/modules/pesantren-ramadan/prese
 export const instant = false
 
 export default async function PesantrenUmpanBalikPage() {
-  const [pusat, peserta] = await Promise.all([listUmpanBalikPusat(), listUmpanBalikPeserta()])
+  const [pusat, peserta] = await withRequiredSessionTenant(() =>
+    Promise.all([listUmpanBalikPusat(), listUmpanBalikPeserta()]),
+  )
   return (
     <div className="space-y-8">
       <PageHeader title="Pesantren Ramadan — Umpan Balik" />

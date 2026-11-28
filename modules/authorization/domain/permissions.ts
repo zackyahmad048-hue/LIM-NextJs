@@ -27,13 +27,17 @@ export type ResourcePermission = {
 
 export type ModuleMatrix = Record<string, ResourcePermission>
 
+export type TenantScope = 'PUSAT' | 'UNIT' | 'LEMBAGA' | 'SELF' | 'PUBLIC'
+
 export type AuthzSubject = {
   userId: string
   role: Role
   accountType?: string | null
   organisasiId?: string | null
+  unitId?: string | null
   lembagaId?: string | null
   penugasanStrukturalId?: string | null
+  scope?: TenantScope
 }
 
 export type AuthzContext = {

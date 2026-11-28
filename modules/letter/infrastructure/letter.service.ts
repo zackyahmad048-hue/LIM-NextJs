@@ -1,5 +1,6 @@
 import { Prisma, type Letter, type LetterLog, type LetterStatus, type Role } from '@/generated/client'
 import { prisma } from '@/lib/prisma'
+import { withRetrySerializable } from '@/lib/prisma-transaction'
 import { letterNumberingSchema } from '@/modules/letter/domain/letter-numbering.schema'
 import { generateLetterNumber } from '@/modules/letter/domain/letter-numbering.rules'
 import { getLetterActionsForRole } from '@/modules/authorization/domain/matrix'
@@ -12,8 +13,10 @@ function scopeWhere(subject: AuthzSubject): Prisma.LetterWhereInput {
   if (subject.role === 'OWNER' || subject.role === 'ADMIN_SEKRETARIAT' || subject.role === 'ADMIN_BIDANG_SAFARI' || subject.role === 'ADMIN_BIDANG_PESANTREN_RAMADAN') {
     return {}
   }
-  // shortcut: Letter has no organizationId; PW/PC scoped to own created letters until schema supports org scope.
   if (subject.role === 'PW' || subject.role === 'PC') {
+    if (subject.organisasiId) {
+      return { OR: [{ unitId: subject.organisasiId }, { unitId: null, createdById: subject.userId }] }
+    }
     return { createdById: subject.userId }
   }
   return { createdById: subject.userId }
@@ -79,6 +82,7 @@ export async function createLetterRecord(input: {
       isiSurat: input.isiSurat,
       status: 'DIKETIK',
       createdById: actor.userId,
+      unitId: actor.organisasiId ?? undefined,
     },
   })
 }
@@ -116,7 +120,7 @@ export async function submitLetterForReview(id: string, actor: LetterActor): Pro
       where: { id },
       data: { status: 'REVIEW', reviewedById: actor.userId, updatedById: actor.userId },
     })
-    await tx.letterLog.create({ data: { letterId: id, action: 'REVIEW', userId: actor.userId } })
+    await tx.letterLog.create({ data: { letterId: id, action: 'DIAJUKAN_REVIEW', userId: actor.userId } })
     await tx.auditLog.create({
       data: {
         userId: actor.userId,
@@ -141,7 +145,7 @@ export async function approveLetterRecord(id: string, actor: LetterActor): Promi
       where: { id },
       data: { status: 'APPROVED', approvedById: actor.userId, updatedById: actor.userId },
     })
-    await tx.letterLog.create({ data: { letterId: id, action: 'APPROVED', userId: actor.userId } })
+    await tx.letterLog.create({ data: { letterId: id, action: 'DISETUJUI', userId: actor.userId } })
     await tx.auditLog.create({
       data: {
         userId: actor.userId,
@@ -180,7 +184,7 @@ export async function sendLetterRecord(id: string, actor: LetterActor): Promise<
   const month = new Date().getMonth() + 1
   const year = new Date().getFullYear()
 
-  return prisma.$transaction(async (tx) => {
+  return withRetrySerializable(async (tx) => {
     const counter = await tx.letterNumberCounter.upsert({
       where: { periodId_levelCode_categoryCode: { periodId, levelCode, categoryCode } },
       create: { periodId, levelCode, categoryCode, currentSeq: 1 },
@@ -202,7 +206,7 @@ export async function sendLetterRecord(id: string, actor: LetterActor): Promise<
       data: { status: 'SENT', nomorSurat, periodId, updatedById: actor.userId },
     })
     await tx.letterLog.create({
-      data: { letterId: id, action: 'SENT', userId: actor.userId, notes: `Nomor surat: ${nomorSurat}` },
+      data: { letterId: id, action: 'DIKIRIM', userId: actor.userId, notes: `Nomor surat: ${nomorSurat}` },
     })
     await tx.auditLog.create({
       data: {
@@ -210,12 +214,12 @@ export async function sendLetterRecord(id: string, actor: LetterActor): Promise<
         action: 'LETTER_SENT',
         entity: 'Letter',
         entityId: id,
-        metadata: JSON.stringify({ nomorSurat, levelCode, categoryCode, periodId }),
+        metadata: { nomorSurat, levelCode, categoryCode, periodId },
         ipAddress: actor.ipAddress,
       },
     })
     return updated
-  }, { isolationLevel: 'Serializable', maxWait: 5000, timeout: 10000 })
+  })
 }
 
 export async function deleteLetterRecord(id: string, actor: LetterActor): Promise<{ id: string }> {

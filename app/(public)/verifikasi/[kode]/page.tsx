@@ -7,6 +7,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { VerifiedMark } from '@/components/motion/verified-mark'
 import { getLetterForVerification } from '@/modules/letter/presentation/queries/get-letter-for-verification.query'
 import { letterStatusVariant } from '@/modules/letter/presentation/letter-status-variant'
+import { runWithTenantContext } from '@/lib/tenant-context'
 
 export const metadata: Metadata = { title: 'Hasil Verifikasi' }
 
@@ -15,7 +16,7 @@ const statusTerbit = new Set(['SENT', 'ARCHIVED'])
 
 async function Hasil({ params }: { params: Promise<{ kode: string }> }) {
   const { kode } = await params
-  const letter = await getLetterForVerification(kode)
+  const letter = await runWithTenantContext({ scope: 'PUBLIC', unitId: null, userId: null }, () => getLetterForVerification(kode))
   if (!letter) {
     return (
       <EmptyState

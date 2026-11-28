@@ -28,7 +28,7 @@ export async function createKontenRecord(input: { judul: string; slug: string; d
   assertCan(actor, 'create')
   const isPusat = actor.role === 'OWNER' || actor.role === 'CONTENT_MANAGER'
   return prisma.kontenDakwah.create({
-    data: { ...input, jenisKonten: input.jenisKonten as never, pengunggahId: actor.userId, status: isPusat ? 'DRAFT' : 'PENDING_REVIEW' },
+    data: { ...input, jenisKonten: input.jenisKonten as never, pengunggahId: actor.userId, status: isPusat ? 'DRAFT' : 'PENDING_REVIEW', unitId: actor.organisasiId ?? undefined },
   })
 }
 

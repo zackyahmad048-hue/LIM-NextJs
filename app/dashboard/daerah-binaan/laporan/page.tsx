@@ -1,7 +1,7 @@
-import { connection } from 'next/server'
 import { PageHeader } from '@/components/layout/page-header'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listDaerahBinaan } from '@/modules/daerah-binaan/presentation/queries/list-daerah-binaan.query'
 import { createLaporanBulananAction } from '@/modules/daerah-binaan/presentation/actions/create-laporan-bulanan.action'
 
@@ -9,8 +9,7 @@ import { createLaporanBulananAction } from '@/modules/daerah-binaan/presentation
 export const instant = false
 
 export default async function DaerahBinaanLaporanPage() {
-  await connection()
-  const daerah = await listDaerahBinaan()
+  const daerah = await withRequiredSessionTenant(() => listDaerahBinaan())
   const now = new Date()
   return (
     <div className="max-w-2xl space-y-4">

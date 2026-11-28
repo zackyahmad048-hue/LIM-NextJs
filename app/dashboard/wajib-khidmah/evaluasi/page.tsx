@@ -1,6 +1,7 @@
 import { PageHeader } from '@/components/layout/page-header'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listPenugasan } from '@/modules/wajib-khidmah/presentation/queries/list-penugasan.query'
 import { createEvaluasiKasusAction } from '@/modules/wajib-khidmah/presentation/actions/create-evaluasi-kasus.action'
 import { updateMediasiAction } from '@/modules/wajib-khidmah/presentation/actions/update-mediasi.action'
@@ -9,7 +10,7 @@ import { updateMediasiAction } from '@/modules/wajib-khidmah/presentation/action
 export const instant = false
 
 export default async function WkEvaluasiPage() {
-  const penugasan = await listPenugasan()
+  const penugasan = await withRequiredSessionTenant(() => listPenugasan())
   return (
     <div className="max-w-2xl space-y-6">
       <PageHeader title="Wajib Khidmah — Evaluasi Kasus" />

@@ -17,7 +17,10 @@ export async function listJadwal(from?: Date, to?: Date) {
 }
 
 export async function getJadwalByTanggal(tanggal: Date) {
-  return prisma.jadwalShalat.findUnique({ where: { tanggal } })
+  return prisma.jadwalShalat.findFirst({
+    where: { tanggal },
+    orderBy: { config: { isActive: 'desc' } },
+  })
 }
 
 export async function getActiveConfig() {
@@ -36,7 +39,7 @@ export async function generateJadwalRecord(tanggal: Date, modeWaktu: 'standar' |
       action: 'FALAK_JADWAL_GENERATED',
       entity: 'JadwalShalat',
       entityId: result.id,
-      metadata: JSON.stringify({ tanggal: result.tanggal.toISOString() }),
+      metadata: { tanggal: result.tanggal.toISOString() },
       ipAddress: actor.ipAddress,
     },
   })

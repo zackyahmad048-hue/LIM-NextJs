@@ -40,7 +40,7 @@ describe('GET /api/v1/daerah-binaan/daerah (contract)', () => {
   beforeEach(() => vi.clearAllMocks())
   it('returns paginated daerah binaan', async () => {
     vi.mocked(requireAuth).mockResolvedValue(asPrincipal)
-    vi.mocked(listDaerah).mockResolvedValue({ items: [{ id: 'd1', namaLokasi: 'Desa A', provinsi: 'Jatim', kabupaten: 'Kediri', kecamatan: 'Mojo', deskripsiKondisi: 'Kondisi desa binaan', sumberLokasi: null, status: 'AKTIF', picLokalId: 'u1', createdAt: new Date('2026-01-01'), updatedAt: new Date('2026-01-01') } as never], total: 1 })
+    vi.mocked(listDaerah).mockResolvedValue({ items: [{ id: 'd1', namaLokasi: 'Desa A', provinsi: 'Jatim', kabupaten: 'Kediri', kecamatan: 'Mojo', deskripsiKondisi: 'Kondisi desa binaan', sumberLokasi: null, status: 'AKTIF', picLokalId: 'u1', createdAt: new Date('2026-01-01'), updatedAt: new Date('2026-01-01') } as never], total: 1, hasMore: false, nextCursor: null })
     const res = await listGET(new Request('http://localhost/api/v1/daerah-binaan/daerah'))
     expect(res.status).toBe(200)
     const body = await res.json()

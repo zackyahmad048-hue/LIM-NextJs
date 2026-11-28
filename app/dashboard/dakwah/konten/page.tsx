@@ -4,6 +4,7 @@ import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
 import { StatusBadge } from '@/components/data/status-badge'
 import { TransitionButton } from '@/components/forms/transition-button'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listKonten } from '@/modules/dakwah-digital/presentation/queries/list-konten.query'
 import { uploadKontenAction } from '@/modules/dakwah-digital/presentation/actions/upload-konten.action'
 import { approveKontenAction, publishKontenAction } from '@/modules/dakwah-digital/presentation/actions/approve-konten.action'
@@ -21,7 +22,7 @@ const kontenVariant: Record<string, 'neutral' | 'info' | 'success' | 'warning' |
 export const instant = false
 
 export default async function DakwahKontenPage() {
-  const rows = await listKonten()
+  const rows = await withRequiredSessionTenant(() => listKonten())
   return (
     <div className="space-y-8">
       <PageHeader title="Dakwah Digital — Konten" />

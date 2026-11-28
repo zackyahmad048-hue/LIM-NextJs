@@ -1,7 +1,7 @@
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import type { Role } from '@/generated/client'
 import type { AuthzSubject } from '@/modules/authorization/domain/permissions'
+import { loadAuthzSubject } from '@/lib/auth-subject'
 import { ApiError } from './errors'
 
 export type AuthMethod = 'session' | 'api-key'
@@ -37,37 +37,7 @@ function parsePermissions(raw: unknown): Record<string, string[]> | null {
   return null
 }
 
-async function loadSubject(user: { id: string; role?: string | null; accountType?: string | null }): Promise<AuthzSubject> {
-  const role = (user.role as Role | undefined) ?? 'GURU_BANTU'
-  const accountType = user.accountType ?? null
-
-  let organisasiId: string | null = null
-  let lembagaId: string | null = null
-
-  if (accountType === 'ORGANIZATIONAL') {
-    const org = await prisma.organizationalAccount.findUnique({
-      where: { userId: user.id },
-      select: { unitId: true },
-    })
-    organisasiId = org?.unitId ?? null
-  }
-
-  if (role === 'LEMBAGA_EKSTERNAL') {
-    const lembaga = await prisma.lembaga.findUnique({
-      where: { userId: user.id },
-      select: { id: true },
-    })
-    lembagaId = lembaga?.id ?? null
-  }
-
-  return {
-    userId: user.id,
-    role,
-    accountType,
-    organisasiId,
-    lembagaId,
-  }
-}
+const loadSubject = loadAuthzSubject
 
 export async function authenticateRequest(request: Request): Promise<ApiPrincipal | null> {
   // 1) Try cookie/session auth

@@ -1,8 +1,8 @@
-import { connection } from 'next/server'
 import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listJadwalShalat } from '@/modules/falak/presentation/queries/list-jadwal.query'
 import { generateJadwalAction } from '@/modules/falak/presentation/actions/generate-jadwal.action'
 
@@ -14,11 +14,10 @@ const fieldOrder = [
 export const instant = false
 
 export default async function FalakJadwalPage() {
-  await connection()
   const today = new Date()
   const to = new Date(today)
   to.setDate(to.getDate() + 7)
-  const rows = await listJadwalShalat(today, to)
+  const rows = await withRequiredSessionTenant(() => listJadwalShalat(today, to))
   return (
     <div className="space-y-8">
       <PageHeader title="Falak — Jadwal Shalat" description="7 hari ke depan" />

@@ -3,6 +3,7 @@ import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
 import { TransitionButton } from '@/components/forms/transition-button'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listAllJurnal } from '@/modules/safari/presentation/queries/list-jurnal.query'
 import { createJurnalAction } from '@/modules/safari/presentation/actions/create-jurnal.action'
 import { approveJurnalAction } from '@/modules/safari/presentation/actions/approve-jurnal.action'
@@ -11,7 +12,7 @@ import { approveJurnalAction } from '@/modules/safari/presentation/actions/appro
 export const instant = false
 
 export default async function SafariJurnalPage() {
-  const rows = await listAllJurnal()
+  const rows = await withRequiredSessionTenant(() => listAllJurnal())
   return (
     <div className="space-y-8">
       <PageHeader title="Safari Ramadan — Jurnal Harian" />

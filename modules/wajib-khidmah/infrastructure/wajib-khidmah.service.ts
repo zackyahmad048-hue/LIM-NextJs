@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { ApiError } from '@/lib/api/errors'
 import type { AuthzSubject } from '@/modules/authorization/domain/permissions'
 import { getWkActionsForRole } from '@/modules/authorization/domain/matrix'
+import { buildRiwayatReview } from '@/modules/wajib-khidmah/domain/permohonan-review.rules'
+import type { ReviewPermohonanInput } from '@/modules/wajib-khidmah/domain/permohonan-review.schema'
 
 export type WkActor = AuthzSubject & { ipAddress?: string; name?: string }
 
@@ -172,6 +174,7 @@ export async function submitLaporanRecord(input: {
       aktivitasMingguan: input.aktivitasMingguan,
       kendala: input.kendala,
       statusHonor: input.statusHonor,
+      unitId: actor.organisasiId ?? undefined,
       detailKitab: input.detailKitab?.length
         ? { create: input.detailKitab.map((d) => ({ fan: d.fan as never, namaKitab: d.namaKitab, frekuensiPertemuan: d.frekuensiPertemuan })) }
         : undefined,
@@ -185,7 +188,7 @@ export async function submitLaporanRecord(input: {
       action: 'LAPORAN_MINGGUAN_SUBMITTED',
       entity: 'LaporanMingguan',
       entityId: laporan.id,
-      metadata: JSON.stringify({ penugasanId: input.penugasanId, periode: `${input.periodeMinggu}/${input.periodeTahun}`, rolePelapor: actor.role }),
+      metadata: { penugasanId: input.penugasanId, periode: `${input.periodeMinggu}/${input.periodeTahun}`, rolePelapor: actor.role },
       ipAddress: actor.ipAddress,
     },
   })
@@ -215,6 +218,7 @@ export async function createEvaluasiKasusRecord(input: {
         deskripsi: input.deskripsi,
         tingkatKeparahan: input.tingkatKeparahan as never,
         statusMediasi: 'MENUNGGU_PUSAT',
+        unitId: penugasan.unitId ?? actor.organisasiId ?? undefined,
       },
     })
     await tx.auditLog.create({
@@ -272,6 +276,7 @@ export async function createEvaluasiIndukRecord(input: {
         initiatedById: actor.userId,
         catatanEvaluasi: input.catatanEvaluasi,
         rekomendasi: input.rekomendasi,
+        unitId: penugasan.unitId ?? actor.organisasiId ?? undefined,
       },
     })
     await tx.auditLog.create({
@@ -299,4 +304,104 @@ export async function listEvaluasiInduk(input: { page: number; limit: number; pe
     prisma.evaluasiInduk.count({ where }),
   ])
   return { items, total }
+}
+
+// --- Permohonan Guru Bantu (review) ---
+export async function reviewPermohonanRecord(input: ReviewPermohonanInput, actor: WkActor) {
+  // Approve dan reject sama-sama keputusan final → butuh izin 'approve', bukan 'review'.
+  assertCan(actor, 'approve')
+
+  const permohonan = await prisma.permohonanGuruBantu.findUnique({
+    where: { id: input.permohonanId },
+    include: { lembaga: true },
+  })
+  if (!permohonan) throw new ApiError('NOT_FOUND', 'Permohonan tidak ditemukan', 404)
+  if (permohonan.statusPermohonan !== 'DIAJUKAN') {
+    throw new ApiError('CONFLICT', 'Permohonan sudah direview', 409)
+  }
+
+  const tahunAjaran =
+    (await prisma.tahunAjaran.findFirst({ where: { isActive: true } })) ??
+    (await prisma.tahunAjaran.findFirst({ orderBy: { tahunMulai: 'desc' } }))
+  if (!tahunAjaran) throw new ApiError('CONFLICT', 'Tahun ajaran belum tersedia', 409)
+
+  const approved = input.action === 'approve'
+
+  return prisma.$transaction(async (tx) => {
+    let lembagaId = permohonan.lembagaId
+
+    if (!lembagaId) {
+      const lembaga = await tx.lembaga.create({
+        data: {
+          namaLembaga: permohonan.namaLembagaPendidikan,
+          namaPimpinan: permohonan.namaPengasuh,
+          alamatLengkap: [
+            permohonan.rtRw,
+            permohonan.desaKelurahan,
+            permohonan.kecamatan,
+            permohonan.kabupatenKota,
+            permohonan.provinsi,
+          ].join(', '),
+          provinsi: permohonan.provinsi,
+          kabupaten: permohonan.kabupatenKota,
+          kategori: 'EKSTERNAL',
+          status: approved ? 'MITRA_AKTIF' : 'CALON',
+          catatanKhusus: input.catatan ?? null,
+        },
+      })
+      lembagaId = lembaga.id
+    } else if (approved) {
+      await tx.lembaga.update({ where: { id: lembagaId }, data: { status: 'MITRA_AKTIF' } })
+    }
+
+    // Guard status di dalam transaksi: dua reviewer bersamaan tidak boleh memproses ulang.
+    const guarded = await tx.permohonanGuruBantu.updateMany({
+      where: { id: permohonan.id, statusPermohonan: 'DIAJUKAN' },
+      data: {
+        lembagaId,
+        statusPermohonan: approved ? 'DIAKTIFKAN' : 'DITOLAK',
+      },
+    })
+    if (guarded.count === 0) throw new ApiError('CONFLICT', 'Permohonan sudah direview', 409)
+    const updated = await tx.permohonanGuruBantu.findUniqueOrThrow({ where: { id: permohonan.id } })
+
+    const riwayatData = buildRiwayatReview({
+      action: input.action,
+      permohonanId: permohonan.id,
+      jumlahGuruDiminta: permohonan.jumlahGuruDiminta,
+      actorId: actor.userId,
+      catatan: input.catatan,
+    })
+
+    const existing = await tx.riwayatPermohonan.findUnique({
+      where: { lembagaId_tahunAjaranId: { lembagaId, tahunAjaranId: tahunAjaran.id } },
+    })
+
+    if (!existing) {
+      await tx.riwayatPermohonan.create({
+        data: { lembagaId, tahunAjaranId: tahunAjaran.id, ...riwayatData },
+      })
+    } else if (existing.sumber === 'EXCEL_LEGACY') {
+      // Keep legacy counts; only link the reviewed permohonan.
+      await tx.riwayatPermohonan.update({
+        where: { id: existing.id },
+        data: { permohonanId: permohonan.id },
+      })
+    } else {
+      await tx.riwayatPermohonan.update({ where: { id: existing.id }, data: riwayatData })
+    }
+
+    await tx.auditLog.create({
+      data: {
+        userId: actor.userId,
+        action: approved ? 'PERMOHONAN_APPROVED' : 'PERMOHONAN_REJECTED',
+        entity: 'PermohonanGuruBantu',
+        entityId: permohonan.id,
+        metadata: { lembagaId, catatan: input.catatan ?? null },
+        ipAddress: actor.ipAddress,
+      },
+    })
+
+    return updated
+  })
 }

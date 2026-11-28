@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { PageHeader } from '@/components/layout/page-header'
 import { StatusBadge } from '@/components/data/status-badge'
 import { getLetterById } from '@/modules/letter/presentation/queries/get-letter-by-id.query'
@@ -18,11 +18,11 @@ export default async function LetterDetailPage({ params }: { params: Promise<{ i
   const { id } = await params
   const session = await getSession()
   if (!session) notFound()
-  const letter = await getLetterById(id, {
+  const letter = await runWithSessionTenant(session, () => getLetterById(id, {
     id: session.user.id,
     role: session.user.role as Role,
     accountType: session.user.accountType as AccountType | undefined,
-  })
+  }))
   if (!letter) notFound()
 
   return (

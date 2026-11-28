@@ -129,6 +129,7 @@ exports.Prisma.UserScalarFieldEnum = {
   image: 'image',
   role: 'role',
   accountType: 'accountType',
+  twoFactorEnabled: 'twoFactorEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -166,7 +167,9 @@ exports.Prisma.PeriodeKhidmatScalarFieldEnum = {
   namaPeriode: 'namaPeriode',
   tahunMulai: 'tahunMulai',
   tahunSelesai: 'tahunSelesai',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UnitOrganisasiScalarFieldEnum = {
@@ -174,14 +177,19 @@ exports.Prisma.UnitOrganisasiScalarFieldEnum = {
   namaUnit: 'namaUnit',
   levelCode: 'levelCode',
   wilayah: 'wilayah',
-  deskripsi: 'deskripsi'
+  deskripsi: 'deskripsi',
+  parentId: 'parentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BidangScalarFieldEnum = {
   id: 'id',
   namaBidang: 'namaBidang',
   kodeBidang: 'kodeBidang',
-  urutan: 'urutan'
+  urutan: 'urutan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.JabatanScalarFieldEnum = {
@@ -189,7 +197,9 @@ exports.Prisma.JabatanScalarFieldEnum = {
   unitId: 'unitId',
   bidangId: 'bidangId',
   namaJabatan: 'namaJabatan',
-  urutanTampilan: 'urutanTampilan'
+  urutanTampilan: 'urutanTampilan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PenugasanStrukturalScalarFieldEnum = {
@@ -199,13 +209,17 @@ exports.Prisma.PenugasanStrukturalScalarFieldEnum = {
   periodeId: 'periodeId',
   tanggalMulai: 'tanggalMulai',
   tanggalSelesai: 'tanggalSelesai',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.OrganizationalAccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  unitId: 'unitId'
+  unitId: 'unitId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.GuruBantuProfileScalarFieldEnum = {
@@ -215,7 +229,9 @@ exports.Prisma.GuruBantuProfileScalarFieldEnum = {
   tanggalLahir: 'tanggalLahir',
   asalPondok: 'asalPondok',
   noRekening: 'noRekening',
-  catatanDosen: 'catatanDosen'
+  catatanDosen: 'catatanDosen',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.RiwayatAkademikScalarFieldEnum = {
@@ -224,12 +240,15 @@ exports.Prisma.RiwayatAkademikScalarFieldEnum = {
   jenjang: 'jenjang',
   lembagaAsal: 'lembagaAsal',
   tahunLulus: 'tahunLulus',
-  jurusanFokus: 'jurusanFokus'
+  jurusanFokus: 'jurusanFokus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LembagaScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  unitId: 'unitId',
   namaLembaga: 'namaLembaga',
   namaPimpinan: 'namaPimpinan',
   alamatLengkap: 'alamatLengkap',
@@ -240,7 +259,13 @@ exports.Prisma.LembagaScalarFieldEnum = {
   provinsi: 'provinsi',
   kabupaten: 'kabupaten',
   catatanKhusus: 'catatanKhusus',
+  isDzuriyyah: 'isDzuriyyah',
+  isBlacklist: 'isBlacklist',
+  jenisLembaga: 'jenisLembaga',
+  pimpinanAlumniTahun: 'pimpinanAlumniTahun',
   parentId: 'parentId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -250,12 +275,14 @@ exports.Prisma.PenugasanScalarFieldEnum = {
   guruBantuId: 'guruBantuId',
   lembagaId: 'lembagaId',
   dosenPenanggungId: 'dosenPenanggungId',
+  unitId: 'unitId',
   tanggalMulai: 'tanggalMulai',
   tanggalSelesai: 'tanggalSelesai',
   status: 'status',
   targetJamaahMingguan: 'targetJamaahMingguan',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt'
 };
@@ -265,6 +292,7 @@ exports.Prisma.LaporanMingguanScalarFieldEnum = {
   penugasanId: 'penugasanId',
   pelaporId: 'pelaporId',
   rolePelapor: 'rolePelapor',
+  unitId: 'unitId',
   namaPengisi: 'namaPengisi',
   jabatanPengisi: 'jabatanPengisi',
   periodeMinggu: 'periodeMinggu',
@@ -277,7 +305,10 @@ exports.Prisma.LaporanMingguanScalarFieldEnum = {
   kendala: 'kendala',
   statusHonor: 'statusHonor',
   isForwardedToInduk: 'isForwardedToInduk',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById',
+  updatedById: 'updatedById'
 };
 
 exports.Prisma.DetailKitabScalarFieldEnum = {
@@ -291,6 +322,7 @@ exports.Prisma.DetailKitabScalarFieldEnum = {
 exports.Prisma.EvaluasiKasusScalarFieldEnum = {
   id: 'id',
   penugasanId: 'penugasanId',
+  unitId: 'unitId',
   judulMasalah: 'judulMasalah',
   deskripsi: 'deskripsi',
   tingkatKeparahan: 'tingkatKeparahan',
@@ -305,6 +337,7 @@ exports.Prisma.EvaluasiIndukScalarFieldEnum = {
   id: 'id',
   penugasanId: 'penugasanId',
   lembagaId: 'lembagaId',
+  unitId: 'unitId',
   evaluatorId: 'evaluatorId',
   initiatedById: 'initiatedById',
   catatanEvaluasi: 'catatanEvaluasi',
@@ -316,6 +349,7 @@ exports.Prisma.EvaluasiIndukScalarFieldEnum = {
 exports.Prisma.PermohonanGuruBantuScalarFieldEnum = {
   id: 'id',
   lembagaId: 'lembagaId',
+  unitId: 'unitId',
   namaLembagaPendidikan: 'namaLembagaPendidikan',
   rtRw: 'rtRw',
   desaKelurahan: 'desaKelurahan',
@@ -361,7 +395,9 @@ exports.Prisma.LetterPeriodScalarFieldEnum = {
   namaPeriode: 'namaPeriode',
   tahunMulai: 'tahunMulai',
   tahunSelesai: 'tahunSelesai',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LetterNumberCounterScalarFieldEnum = {
@@ -369,7 +405,9 @@ exports.Prisma.LetterNumberCounterScalarFieldEnum = {
   periodId: 'periodId',
   levelCode: 'levelCode',
   categoryCode: 'categoryCode',
-  currentSeq: 'currentSeq'
+  currentSeq: 'currentSeq',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LetterScalarFieldEnum = {
@@ -389,6 +427,7 @@ exports.Prisma.LetterScalarFieldEnum = {
   reviewedById: 'reviewedById',
   approvedById: 'approvedById',
   updatedById: 'updatedById',
+  unitId: 'unitId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',
@@ -401,6 +440,7 @@ exports.Prisma.LetterLogScalarFieldEnum = {
   action: 'action',
   userId: 'userId',
   notes: 'notes',
+  requestId: 'requestId',
   timestamp: 'timestamp'
 };
 
@@ -408,7 +448,9 @@ exports.Prisma.ArticleCategoryScalarFieldEnum = {
   id: 'id',
   nama: 'nama',
   slug: 'slug',
-  urutan: 'urutan'
+  urutan: 'urutan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ArticleScalarFieldEnum = {
@@ -440,6 +482,7 @@ exports.Prisma.FalakConfigScalarFieldEnum = {
   koreksiMaghrib: 'koreksiMaghrib',
   modeWaktu: 'modeWaktu',
   isActive: 'isActive',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -491,11 +534,13 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   entityId: 'entityId',
   metadata: 'metadata',
   ipAddress: 'ipAddress',
+  requestId: 'requestId',
   createdAt: 'createdAt'
 };
 
 exports.Prisma.TitikSafariScalarFieldEnum = {
   id: 'id',
+  unitId: 'unitId',
   namaTitik: 'namaTitik',
   alamat: 'alamat',
   provinsi: 'provinsi',
@@ -512,6 +557,7 @@ exports.Prisma.DelegasiSafariScalarFieldEnum = {
   id: 'id',
   titikId: 'titikId',
   userId: 'userId',
+  unitId: 'unitId',
   namaLengkap: 'namaLengkap',
   noHp: 'noHp',
   asalPondok: 'asalPondok',
@@ -528,7 +574,8 @@ exports.Prisma.JurnalHarianSafariScalarFieldEnum = {
   kegiatan: 'kegiatan',
   jumlahJamaah: 'jumlahJamaah',
   catatan: 'catatan',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ApprovalJurnalScalarFieldEnum = {
@@ -539,7 +586,8 @@ exports.Prisma.ApprovalJurnalScalarFieldEnum = {
   approverJabatan: 'approverJabatan',
   isApproved: 'isApproved',
   tanggalApproval: 'tanggalApproval',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LaporanSidakScalarFieldEnum = {
@@ -551,11 +599,13 @@ exports.Prisma.LaporanSidakScalarFieldEnum = {
   kondisiDelegasi: 'kondisiDelegasi',
   kendala: 'kendala',
   rekomendasi: 'rekomendasi',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SekolahMitraScalarFieldEnum = {
   id: 'id',
+  unitId: 'unitId',
   namaSekolah: 'namaSekolah',
   jenjang: 'jenjang',
   alamat: 'alamat',
@@ -579,7 +629,9 @@ exports.Prisma.BankMateriScalarFieldEnum = {
 exports.Prisma.PilihanMateriSekolahScalarFieldEnum = {
   id: 'id',
   sekolahId: 'sekolahId',
-  materiId: 'materiId'
+  materiId: 'materiId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PenugasanPesantrenScalarFieldEnum = {
@@ -587,6 +639,7 @@ exports.Prisma.PenugasanPesantrenScalarFieldEnum = {
   sekolahId: 'sekolahId',
   pengajarId: 'pengajarId',
   koordinatorId: 'koordinatorId',
+  unitId: 'unitId',
   tanggalMulai: 'tanggalMulai',
   tanggalSelesai: 'tanggalSelesai',
   status: 'status',
@@ -606,7 +659,8 @@ exports.Prisma.LaporanHarianPengajarScalarFieldEnum = {
   kondisiKelas: 'kondisiKelas',
   praktikDilakukan: 'praktikDilakukan',
   catatanTambahan: 'catatanTambahan',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.LaporanHarianKoordinatorScalarFieldEnum = {
@@ -616,7 +670,8 @@ exports.Prisma.LaporanHarianKoordinatorScalarFieldEnum = {
   pengajarHadir: 'pengajarHadir',
   kesiapanSarana: 'kesiapanSarana',
   catatanUmum: 'catatanUmum',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UmpanBalikPusatScalarFieldEnum = {
@@ -628,7 +683,8 @@ exports.Prisma.UmpanBalikPusatScalarFieldEnum = {
   relevansiMateri: 'relevansiMateri',
   kesesuaianKesepakatan: 'kesesuaianKesepakatan',
   rekomendasi: 'rekomendasi',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UmpanBalikPesertaScalarFieldEnum = {
@@ -638,11 +694,13 @@ exports.Prisma.UmpanBalikPesertaScalarFieldEnum = {
   ratingKepuasan: 'ratingKepuasan',
   komentarPositif: 'komentarPositif',
   komentarPerbaikan: 'komentarPerbaikan',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.KontenDakwahScalarFieldEnum = {
   id: 'id',
+  unitId: 'unitId',
   judul: 'judul',
   slug: 'slug',
   deskripsi: 'deskripsi',
@@ -673,11 +731,13 @@ exports.Prisma.PendaftaranEventScalarFieldEnum = {
   noHp: 'noHp',
   asalInstansi: 'asalInstansi',
   statusPendaftaran: 'statusPendaftaran',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.DaerahBinaanScalarFieldEnum = {
   id: 'id',
+  unitId: 'unitId',
   namaLokasi: 'namaLokasi',
   provinsi: 'provinsi',
   kabupaten: 'kabupaten',
@@ -702,7 +762,45 @@ exports.Prisma.LaporanBulananBinaanScalarFieldEnum = {
   dampakNaratif: 'dampakNaratif',
   tantanganHambatan: 'tantanganHambatan',
   rencanaBulanDepan: 'rencanaBulanDepan',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TahunAjaranScalarFieldEnum = {
+  id: 'id',
+  tahun: 'tahun',
+  tahunMulai: 'tahunMulai',
+  tahunSelesai: 'tahunSelesai',
+  namaAngkatan: 'namaAngkatan',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RiwayatPermohonanScalarFieldEnum = {
+  id: 'id',
+  lembagaId: 'lembagaId',
+  tahunAjaranId: 'tahunAjaranId',
+  jumlahDiminta: 'jumlahDiminta',
+  jumlahDisetujui: 'jumlahDisetujui',
+  status: 'status',
+  catatanLembaga: 'catatanLembaga',
+  catatanGb: 'catatanGb',
+  sumber: 'sumber',
+  permohonanId: 'permohonanId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RiwayatGuruBantuScalarFieldEnum = {
+  id: 'id',
+  riwayatId: 'riwayatId',
+  namaGuruBantu: 'namaGuruBantu',
+  guruBantuId: 'guruBantuId',
+  penugasanId: 'penugasanId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.VerificationScalarFieldEnum = {
@@ -739,9 +837,26 @@ exports.Prisma.ApikeyScalarFieldEnum = {
   metadata: 'metadata'
 };
 
+exports.Prisma.TwoFactorScalarFieldEnum = {
+  id: 'id',
+  secret: 'secret',
+  backupCodes: 'backupCodes',
+  userId: 'userId',
+  verified: 'verified',
+  failedVerificationCount: 'failedVerificationCount',
+  lockedUntil: 'lockedUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -752,6 +867,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   OWNER: 'OWNER',
@@ -800,7 +921,8 @@ exports.StatusPenugasan = exports.$Enums.StatusPenugasan = {
   DIAKTIFKAN: 'DIAKTIFKAN',
   SELESAI: 'SELESAI',
   DICABUT: 'DICABUT',
-  DIPERPANJANG: 'DIPERPANJANG'
+  DIPERPANJANG: 'DIPERPANJANG',
+  DITOLAK: 'DITOLAK'
 };
 
 exports.StatusHonor = exports.$Enums.StatusHonor = {
@@ -887,6 +1009,17 @@ exports.LetterStatus = exports.$Enums.LetterStatus = {
   ARCHIVED: 'ARCHIVED'
 };
 
+exports.LetterAction = exports.$Enums.LetterAction = {
+  DIBUAT: 'DIBUAT',
+  DIEDIT: 'DIEDIT',
+  DIAJUKAN_REVIEW: 'DIAJUKAN_REVIEW',
+  DISETUJUI: 'DISETUJUI',
+  DITOLAK: 'DITOLAK',
+  DIKIRIM: 'DIKIRIM',
+  DIARSIPKAN: 'DIARSIPKAN',
+  DIHAPUS: 'DIHAPUS'
+};
+
 exports.ArticleStatus = exports.$Enums.ArticleStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
@@ -965,6 +1098,18 @@ exports.StatusDaerahBinaan = exports.$Enums.StatusDaerahBinaan = {
   NON_AKTIF: 'NON_AKTIF'
 };
 
+exports.StatusRiwayatPermohonan = exports.$Enums.StatusRiwayatPermohonan = {
+  DIAJUKAN: 'DIAJUKAN',
+  DIPENUHI: 'DIPENUHI',
+  TIDAK_DIPENUHI: 'TIDAK_DIPENUHI',
+  REKOMENDASI: 'REKOMENDASI'
+};
+
+exports.SumberRiwayat = exports.$Enums.SumberRiwayat = {
+  EXCEL_LEGACY: 'EXCEL_LEGACY',
+  SISTEM: 'SISTEM'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
@@ -1011,8 +1156,12 @@ exports.Prisma.ModelName = {
   PendaftaranEvent: 'PendaftaranEvent',
   DaerahBinaan: 'DaerahBinaan',
   LaporanBulananBinaan: 'LaporanBulananBinaan',
+  TahunAjaran: 'TahunAjaran',
+  RiwayatPermohonan: 'RiwayatPermohonan',
+  RiwayatGuruBantu: 'RiwayatGuruBantu',
   Verification: 'Verification',
-  Apikey: 'Apikey'
+  Apikey: 'Apikey',
+  TwoFactor: 'TwoFactor'
 };
 
 /**

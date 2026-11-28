@@ -21,7 +21,7 @@ export async function listSekolah(input: { page: number; limit: number }) {
 export async function createSekolahRecord(input: { namaSekolah: string; jenjang: string; alamat: string; picNama: string; picNoHp: string; picJabatan?: string }, actor: PesantrenActor) {
   assertCan(actor, 'create')
   if (!['OWNER', 'ADMIN_BIDANG_PESANTREN_RAMADAN', 'PW', 'PC'].includes(actor.role)) throw new ApiError('FORBIDDEN', 'Tidak diizinkan', 403)
-  return prisma.sekolahMitra.create({ data: { ...input, jenjang: input.jenjang as never } })
+  return prisma.sekolahMitra.create({ data: { ...input, jenjang: input.jenjang as never, unitId: actor.organisasiId ?? undefined } })
 }
 
 export async function listMateri(input: { page: number; limit: number; targetJenjang?: string }) {
@@ -52,7 +52,7 @@ export async function listPenugasanPesantren(input: { page: number; limit: numbe
 export async function createPenugasanPesantrenRecord(input: { sekolahId: string; pengajarId: string; koordinatorId: string; tanggalMulai: string | Date; tanggalSelesai: string | Date }, actor: PesantrenActor) {
   assertCan(actor, 'create')
   if (!['OWNER', 'ADMIN_BIDANG_PESANTREN_RAMADAN', 'PW', 'PC'].includes(actor.role)) throw new ApiError('FORBIDDEN', 'Tidak diizinkan', 403)
-  return prisma.penugasanPesantren.create({ data: { sekolahId: input.sekolahId, pengajarId: input.pengajarId, koordinatorId: input.koordinatorId, tanggalMulai: new Date(input.tanggalMulai), tanggalSelesai: new Date(input.tanggalSelesai) } })
+  return prisma.penugasanPesantren.create({ data: { sekolahId: input.sekolahId, pengajarId: input.pengajarId, koordinatorId: input.koordinatorId, tanggalMulai: new Date(input.tanggalMulai), tanggalSelesai: new Date(input.tanggalSelesai), unitId: actor.organisasiId ?? undefined } })
 }
 
 export async function listLaporanPengajar(input: { page: number; limit: number; penugasanId?: string }, actor: PesantrenActor) {

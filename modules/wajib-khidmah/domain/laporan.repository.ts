@@ -15,6 +15,7 @@ export interface CreateLaporanData {
   aktivitasMingguan: string
   kendala?: string
   statusHonor: 'SUDAH_SESUAI' | 'BELUM' | 'SEBAGIAN' | 'TIDAK_BERLAKU'
+  unitId?: string | null
 }
 
 export interface LaporanRepository {

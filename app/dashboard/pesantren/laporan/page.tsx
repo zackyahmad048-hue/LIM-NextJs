@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listLaporanHarianPengajar } from '@/modules/pesantren-ramadan/presentation/queries/list-laporan-harian.query'
 import { listPenugasanPesantren } from '@/modules/pesantren-ramadan/presentation/queries/list-penugasan-pesantren.query'
 import { createLaporanHarianPengajarAction } from '@/modules/pesantren-ramadan/presentation/actions/create-laporan-harian-pengajar.action'
@@ -10,7 +11,9 @@ import { createLaporanHarianPengajarAction } from '@/modules/pesantren-ramadan/p
 export const instant = false
 
 export default async function PesantrenLaporanPage() {
-  const [rows, penugasan] = await Promise.all([listLaporanHarianPengajar(), listPenugasanPesantren()])
+  const [rows, penugasan] = await withRequiredSessionTenant(() =>
+    Promise.all([listLaporanHarianPengajar(), listPenugasanPesantren()]),
+  )
   return (
     <div className="space-y-8">
       <PageHeader title="Pesantren Ramadan — Laporan Harian Pengajar" />

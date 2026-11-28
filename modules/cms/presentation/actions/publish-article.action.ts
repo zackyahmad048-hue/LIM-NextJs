@@ -3,7 +3,7 @@
 
 import { revalidatePath, updateTag } from 'next/cache'
 import { z } from 'zod'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { publishArticleRecord } from '@/modules/cms/application/cms-operations'
 import { ApiError } from '@/lib/api/errors'
 import type { ActionResult } from '@/types/api'
@@ -17,20 +17,23 @@ export async function publishArticleAction(formData: FormData): Promise<ActionRe
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
 
-  try {
-    const result = await publishArticleRecord(parsed.data.articleId, {
-      userId: session.user.id,
-      role: session.user.role,
-      accountType: session.user.accountType,
-      organisasiId: null,
-      lembagaId: null,
-    })
-    revalidatePath('/dashboard/cms/artikel', 'page')
-    updateTag('articles')
-    return { success: true, data: result }
-  } catch (error) {
-    console.error('[publishArticleAction]', error)
-    if (error instanceof ApiError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal mempublikasikan artikel' }
-  }
+  return runWithSessionTenant(session, async () => {
+    try {
+      const result = await publishArticleRecord(parsed.data.articleId, {
+        userId: session.user.id,
+        role: session.user.role,
+        accountType: session.user.accountType,
+        organisasiId: null,
+        lembagaId: null,
+      })
+      revalidatePath('/dashboard/cms/artikel', 'page')
+      updateTag('articles')
+      return { success: true, data: result }
+    } catch (error) {
+      console.error('[publishArticleAction]', error)
+      if (error instanceof ApiError) return { success: false, error: error.message }
+      return { success: false, error: 'Gagal mempublikasikan artikel' }
+    }
+
+  })
 }

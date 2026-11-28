@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import Image from 'next/image'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { Sidebar } from '@/components/layout/sidebar'
 import { Topbar } from '@/components/layout/topbar'
 import { AdminHeader } from '@/components/layout/admin-header'
@@ -92,11 +92,13 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   // PW, PC, guru bantu, lembaga, dll: sidebar + topbar yang sudah ada.
   const [cookieStore, scope] = await Promise.all([
     cookies(),
-    getUserScopeQuery({
-      id: session.user.id,
-      role,
-      accountType: session.user.accountType as AccountType | undefined,
-    }),
+    runWithSessionTenant(session, () =>
+      getUserScopeQuery({
+        id: session.user.id,
+        role,
+        accountType: session.user.accountType as AccountType | undefined,
+      }),
+    ),
   ])
   const sidebarCollapsed = cookieStore.get(SIDEBAR_COOKIE)?.value === SIDEBAR_COLLAPSED
 

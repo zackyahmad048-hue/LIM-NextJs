@@ -4,6 +4,7 @@ import { getSession } from '@/lib/auth'
 
 vi.mock('@/lib/auth', () => ({
   getSession: vi.fn(),
+  runWithSessionTenant: vi.fn(async (_s: unknown, fn: () => Promise<unknown>) => fn()),
 }))
 
 vi.mock('next/cache', () => ({

@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listTitikSafari } from '@/modules/safari/presentation/queries/list-titik-safari.query'
 import { createTitikSafariAction } from '@/modules/safari/presentation/actions/create-titik-safari.action'
 
@@ -9,7 +10,7 @@ import { createTitikSafariAction } from '@/modules/safari/presentation/actions/c
 export const instant = false
 
 export default async function SafariTitikPage() {
-  const rows = await listTitikSafari()
+  const rows = await withRequiredSessionTenant(() => listTitikSafari())
   return (
     <div className="space-y-6">
       <PageHeader title="Safari Ramadan — Titik Safari" />

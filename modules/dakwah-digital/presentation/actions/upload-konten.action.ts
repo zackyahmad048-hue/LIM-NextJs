@@ -2,7 +2,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { createKontenSchema } from '@/modules/dakwah-digital/domain/konten-dakwah.schema'
 import { createKontenRecord } from '@/modules/dakwah-digital/application/dakwah-operations'
 import { ApiError } from '@/lib/api/errors'
@@ -17,19 +17,22 @@ export async function uploadKontenAction(formData: FormData): Promise<ActionResu
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
 
-  try {
-    const result = await createKontenRecord(parsed.data, {
-      userId: session.user.id,
-      role: session.user.role,
-      accountType: session.user.accountType,
-      organisasiId: null,
-      lembagaId: null,
-    })
-    revalidatePath('/dashboard/dakwah/konten', 'page')
-    return { success: true, data: result }
-  } catch (error) {
-    console.error('[uploadKontenAction]', error)
-    if (error instanceof ApiError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal mengupload konten' }
-  }
+  return runWithSessionTenant(session, async () => {
+    try {
+      const result = await createKontenRecord(parsed.data, {
+        userId: session.user.id,
+        role: session.user.role,
+        accountType: session.user.accountType,
+        organisasiId: null,
+        lembagaId: null,
+      })
+      revalidatePath('/dashboard/dakwah/konten', 'page')
+      return { success: true, data: result }
+    } catch (error) {
+      console.error('[uploadKontenAction]', error)
+      if (error instanceof ApiError) return { success: false, error: error.message }
+      return { success: false, error: 'Gagal mengupload konten' }
+    }
+
+  })
 }

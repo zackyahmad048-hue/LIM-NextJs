@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listSekolahMitra, listBankMateri } from '@/modules/pesantren-ramadan/presentation/queries/list-sekolah-mitra.query'
 import { createSekolahMitraAction } from '@/modules/pesantren-ramadan/presentation/actions/create-sekolah-mitra.action'
 import { createBankMateriAction } from '@/modules/pesantren-ramadan/presentation/actions/create-bank-materi.action'
@@ -10,7 +11,9 @@ import { createBankMateriAction } from '@/modules/pesantren-ramadan/presentation
 export const instant = false
 
 export default async function PesantrenSekolahPage() {
-  const [sekolah, materi] = await Promise.all([listSekolahMitra(), listBankMateri()])
+  const [sekolah, materi] = await withRequiredSessionTenant(() =>
+    Promise.all([listSekolahMitra(), listBankMateri()]),
+  )
   return (
     <div className="space-y-8">
       <PageHeader title="Pesantren Ramadan — Sekolah Mitra & Bank Materi" />

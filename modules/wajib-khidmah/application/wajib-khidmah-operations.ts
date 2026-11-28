@@ -8,5 +8,6 @@ export {
   listEvaluasiKasus,
   createEvaluasiIndukRecord,
   listEvaluasiInduk,
+  reviewPermohonanRecord,
   type WkActor,
 } from '@/modules/wajib-khidmah/infrastructure/wajib-khidmah.service'

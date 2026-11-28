@@ -2,7 +2,7 @@
 'use server'
 
 import { revalidatePath, updateTag } from 'next/cache'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { createArticleSchema } from '@/modules/cms/domain/article.schema'
 import { createArticleRecord } from '@/modules/cms/application/cms-operations'
 import { ApiError } from '@/lib/api/errors'
@@ -17,20 +17,23 @@ export async function createArticleAction(formData: FormData): Promise<ActionRes
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
 
-  try {
-    const result = await createArticleRecord(parsed.data, {
-      userId: session.user.id,
-      role: session.user.role,
-      accountType: session.user.accountType,
-      organisasiId: null,
-      lembagaId: null,
-    })
-    revalidatePath('/dashboard/cms/artikel', 'page')
-    updateTag('articles')
-    return { success: true, data: result }
-  } catch (error) {
-    console.error('[createArticleAction]', error)
-    if (error instanceof ApiError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal membuat artikel' }
-  }
+  return runWithSessionTenant(session, async () => {
+    try {
+      const result = await createArticleRecord(parsed.data, {
+        userId: session.user.id,
+        role: session.user.role,
+        accountType: session.user.accountType,
+        organisasiId: null,
+        lembagaId: null,
+      })
+      revalidatePath('/dashboard/cms/artikel', 'page')
+      updateTag('articles')
+      return { success: true, data: result }
+    } catch (error) {
+      console.error('[createArticleAction]', error)
+      if (error instanceof ApiError) return { success: false, error: error.message }
+      return { success: false, error: 'Gagal membuat artikel' }
+    }
+
+  })
 }

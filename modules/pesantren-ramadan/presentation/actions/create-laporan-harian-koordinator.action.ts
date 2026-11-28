@@ -2,7 +2,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { createLaporanHarianKoordinatorSchema } from '@/modules/pesantren-ramadan/domain/laporan-harian-koordinator.schema'
 import { createLaporanKoordinatorRecord } from '@/modules/pesantren-ramadan/application/pesantren-operations'
 import { ApiError } from '@/lib/api/errors'
@@ -21,19 +21,22 @@ export async function createLaporanHarianKoordinatorAction(formData: FormData): 
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
 
-  try {
-    const result = await createLaporanKoordinatorRecord(parsed.data, {
-      userId: session.user.id,
-      role: session.user.role,
-      accountType: session.user.accountType,
-      organisasiId: null,
-      lembagaId: null,
-    })
-    revalidatePath('/dashboard/pesantren/laporan', 'page')
-    return { success: true, data: result }
-  } catch (error) {
-    console.error('[createLaporanHarianKoordinatorAction]', error)
-    if (error instanceof ApiError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal mengirim laporan koordinator' }
-  }
+  return runWithSessionTenant(session, async () => {
+    try {
+      const result = await createLaporanKoordinatorRecord(parsed.data, {
+        userId: session.user.id,
+        role: session.user.role,
+        accountType: session.user.accountType,
+        organisasiId: null,
+        lembagaId: null,
+      })
+      revalidatePath('/dashboard/pesantren/laporan', 'page')
+      return { success: true, data: result }
+    } catch (error) {
+      console.error('[createLaporanHarianKoordinatorAction]', error)
+      if (error instanceof ApiError) return { success: false, error: error.message }
+      return { success: false, error: 'Gagal mengirim laporan koordinator' }
+    }
+
+  })
 }

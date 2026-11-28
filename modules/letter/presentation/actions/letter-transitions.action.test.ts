@@ -3,7 +3,10 @@ import { submitForReviewAction } from './submit-for-review.action'
 import { approveLetterAction } from './approve-letter.action'
 import { getSession } from '@/lib/auth'
 
-vi.mock('@/lib/auth', () => ({ getSession: vi.fn() }))
+vi.mock('@/lib/auth', () => ({
+  getSession: vi.fn(),
+  runWithSessionTenant: vi.fn(async (_s: unknown, fn: () => Promise<unknown>) => fn()),
+}))
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }))
 vi.mock('next/headers', () => ({
   headers: vi.fn().mockResolvedValue({ get: vi.fn().mockReturnValue(null) }),

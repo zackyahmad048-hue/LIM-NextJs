@@ -1,10 +1,11 @@
 // prisma/seed.ts
-import { PrismaClient, Role, AccountType } from '@/generated/client'
+import { Role, AccountType } from '@/generated/client'
 import { auth } from '@/lib/auth'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
+import { runWithTenantContext } from '@/lib/tenant-context'
 
 async function main() {
+  return runWithTenantContext({ scope: 'PUSAT', unitId: null, userId: null }, async () => {
   console.log('🌱 Starting seed...')
 
   // Helper function untuk membuat user dengan Better Auth
@@ -123,6 +124,7 @@ async function main() {
   console.log('\n📋 Test Credentials:')
   console.log('   Owner: owner@lim.or.id / owner123')
   console.log('   Admin: admin@lim.or.id / admin123')
+  })
 }
 
 main()

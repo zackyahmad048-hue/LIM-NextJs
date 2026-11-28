@@ -12,8 +12,12 @@ export const auditLogDtoSchema = z.object({
 })
 export type AuditLogDto = z.infer<typeof auditLogDtoSchema>
 
-export function toAuditLogDto(a: { id: string; userId: string | null; action: string; entity: string; entityId: string | null; metadata: string | null; ipAddress: string | null; createdAt: Date }): AuditLogDto {
-  return { id: a.id, userId: a.userId, action: a.action, entity: a.entity, entityId: a.entityId, metadata: a.metadata, ipAddress: a.ipAddress, createdAt: a.createdAt.toISOString() }
+export function toAuditLogDto(a: { id: string; userId: string | null; action: string; entity: string; entityId: string | null; metadata: unknown; ipAddress: string | null; createdAt: Date }): AuditLogDto {
+  let metadata: string | null = null
+  if (a.metadata == null) metadata = null
+  else if (typeof a.metadata === 'string') metadata = a.metadata
+  else metadata = JSON.stringify(a.metadata)
+  return { id: a.id, userId: a.userId, action: a.action, entity: a.entity, entityId: a.entityId, metadata, ipAddress: a.ipAddress, createdAt: a.createdAt.toISOString() }
 }
 
 export const listAuditQuerySchema = z.object({

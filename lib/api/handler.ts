@@ -5,6 +5,7 @@ import { jsonError, jsonOk, jsonValidationError } from './response'
 import { withCors, preflight } from './cors'
 import { enforceRateLimit, getClientIp } from './rate-limit'
 import { authenticateRequest, requireAuth, type ApiPrincipal } from './auth'
+import { runWithTenantContext, tenantContextFromSubject } from '@/lib/tenant'
 import {
   abortIdempotent,
   beginIdempotent,
@@ -96,7 +97,10 @@ export function createApiHandler<TParams = Record<string, string>>(
         }
       }
 
-      const response = await handler({ request, requestId, params, principal })
+      const tenantCtx = tenantContextFromSubject(principal?.subject ?? null)
+      const response = await runWithTenantContext(tenantCtx, () =>
+        handler({ request, requestId, params, principal })
+      )
 
       // Ensure request id header present
       if (!response.headers.get('x-request-id')) {

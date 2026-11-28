@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listDelegasi } from '@/modules/safari/presentation/queries/list-delegasi.query'
 import { createDelegasiAction } from '@/modules/safari/presentation/actions/create-delegasi.action'
 
@@ -9,7 +10,7 @@ import { createDelegasiAction } from '@/modules/safari/presentation/actions/crea
 export const instant = false
 
 export default async function SafariDelegasiPage() {
-  const rows = await listDelegasi()
+  const rows = await withRequiredSessionTenant(() => listDelegasi())
   return (
     <div className="space-y-8">
       <PageHeader title="Safari Ramadan — Delegasi" />

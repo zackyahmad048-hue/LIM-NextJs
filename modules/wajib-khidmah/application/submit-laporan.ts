@@ -57,6 +57,7 @@ export async function submitLaporan(
     aktivitasMingguan: input.aktivitasMingguan,
     kendala: input.kendala,
     statusHonor: input.statusHonor,
+    unitId: (session.user as { organisasiId?: string | null }).organisasiId ?? undefined,
   }
 
   const laporan = await repo.create(data)
@@ -69,12 +70,12 @@ export async function submitLaporan(
       action: 'LAPORAN_MINGGUAN_SUBMITTED',
       entity: 'LaporanMingguan',
       entityId: laporan.id,
-      metadata: JSON.stringify({
+      metadata: {
         penugasanId: input.penugasanId,
         periode: `${input.periodeMinggu}/${input.periodeTahun}`,
         rolePelapor: session.user.role,
         jumlahJamaah: input.jumlahJamaahDilakukan,
-      }),
+      },
       ipAddress,
     },
   })

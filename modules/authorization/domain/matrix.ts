@@ -57,6 +57,11 @@ export const wajibKhidmahMatrix: ModuleMatrix = {
     scope: 'global',
     actions: ['read', 'create', 'update', 'delete', 'review', 'approve'],
   },
+  'wk:review': {
+    roles: ['OWNER', 'ADMIN_SEKRETARIAT', 'TIM_WAJIB_KHIDMAH'],
+    scope: 'global',
+    actions: ['read', 'review', 'approve'],
+  },
   'wk:wilayah': {
     roles: ['PW', 'PC'],
     scope: 'pw',
@@ -71,6 +76,7 @@ export const wajibKhidmahMatrix: ModuleMatrix = {
 
 export function getWkActionsForRole(role: Role): PermissionAction[] {
   if (role === 'OWNER' || role === 'TIM_WAJIB_KHIDMAH') return ['read', 'create', 'update', 'delete', 'review', 'approve']
+  if (role === 'ADMIN_SEKRETARIAT') return ['read', 'review', 'approve']
   if (role === 'PW' || role === 'PC') return ['read', 'update', 'review']
   if (role === 'GURU_BANTU' || role === 'LEMBAGA_EKSTERNAL') return ['read', 'create', 'update']
   return []
@@ -86,7 +92,10 @@ export function xLimAuthForWk(action: PermissionAction): XLimAuth {
   if (action === 'create' || action === 'update') {
     return { roles: [...manageRoles, ...wilayahRoles, ...personalRoles], scope: 'global', permissions: ['wk:write'] }
   }
-  if (action === 'review' || action === 'approve' || action === 'delete') {
+  if (action === 'review' || action === 'approve') {
+    return { roles: [...manageRoles, 'ADMIN_SEKRETARIAT'], scope: 'global', permissions: ['wk:write'] }
+  }
+  if (action === 'delete') {
     return { roles: [...manageRoles], scope: 'global', permissions: ['wk:write'] }
   }
   return { roles: [], scope: 'global' }

@@ -109,5 +109,29 @@ export async function getCurrentUser() {
   return session?.user ?? null
 }
 
+export async function runWithSessionTenant<T>(session: LIMSession, fn: () => Promise<T>): Promise<T> {
+  const [{ runWithTenantContext, tenantContextFromSubject }, { loadAuthzSubject }] = await Promise.all([
+    import('@/lib/tenant-context'),
+    import('@/lib/auth-subject'),
+  ])
+  const subject = await loadAuthzSubject(session.user)
+  return runWithTenantContext(tenantContextFromSubject(subject), fn)
+}
+
+export async function withSessionTenant<T>(fn: (session: LIMSession) => Promise<T>): Promise<T | null> {
+  const session = await getSession()
+  if (!session) return null
+  return runWithSessionTenant(session, () => fn(session))
+}
+
+export async function withRequiredSessionTenant<T>(fn: (session: LIMSession) => Promise<T>): Promise<T> {
+  const session = await getSession()
+  if (!session) {
+    const { redirect } = await import('next/navigation')
+    redirect('/login')
+  }
+  return runWithSessionTenant(session!, () => fn(session!))
+}
+
 // ✅ TAMBAHKAN INI: Type inference untuk session dengan field custom
 export type AuthSession = typeof auth.$Infer.Session

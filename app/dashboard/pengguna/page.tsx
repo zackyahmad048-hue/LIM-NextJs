@@ -4,7 +4,7 @@ import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
 import { Badge } from '@/components/ui/badge'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { formatRoleLabel } from '@/components/layout/nav-config'
 import { CREATABLE_ROLES } from '@/modules/authentication/domain/user.schema'
 import { listUsers } from '@/modules/authentication/application/list-users'
@@ -19,7 +19,7 @@ export default async function PenggunaPage() {
   const session = (await getSession()) as LIMSession | null
   if (!session || session.user.role !== 'OWNER') redirect('/dashboard')
 
-  const users = await listUsers()
+  const users = await runWithSessionTenant(session, () => listUsers())
 
   return (
     <div className="space-y-8">

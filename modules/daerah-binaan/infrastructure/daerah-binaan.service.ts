@@ -20,22 +20,33 @@ async function checkWilayahAccess(actor: BinaanActor, provinsi: string, kabupate
   if (!inWilayah) throw new ApiError('FORBIDDEN', 'Di luar wilayah Anda', 403)
 }
 
-export async function listDaerah(input: { page: number; limit: number; status?: string }, actor: BinaanActor) {
+export async function listDaerah(input: { page: number; limit: number; cursor?: string; status?: string }, actor: BinaanActor) {
   assertCan(actor, 'read')
   const where: Prisma.DaerahBinaanWhereInput = {}
   if (input.status) where.status = input.status as never
   // shortcut: PW/PC wilayah filtering not applied at query level (requires unit wilayah join); enforced on create/report
+  if (input.cursor) {
+    const rows = await prisma.daerahBinaan.findMany({
+      where,
+      take: input.limit + 1,
+      ...(input.cursor ? { cursor: { id: input.cursor }, skip: 1 } : {}),
+      orderBy: { id: 'desc' },
+    })
+    const hasMore = rows.length > input.limit
+    const items = hasMore ? rows.slice(0, input.limit) : rows
+    return { items, total: items.length, hasMore, nextCursor: hasMore ? items[items.length - 1]?.id ?? null : null }
+  }
   const [items, total] = await Promise.all([
     prisma.daerahBinaan.findMany({ where, skip: (input.page - 1) * input.limit, take: input.limit, orderBy: { createdAt: 'desc' } }),
     prisma.daerahBinaan.count({ where }),
   ])
-  return { items, total }
+  return { items, total, hasMore: input.page * input.limit < total, nextCursor: null as string | null }
 }
 
 export async function createDaerahRecord(input: { namaLokasi: string; provinsi: string; kabupaten: string; kecamatan: string; deskripsiKondisi: string; sumberLokasi?: string }, actor: BinaanActor) {
   assertCan(actor, 'create')
   await checkWilayahAccess(actor, input.provinsi, input.kabupaten)
-  return prisma.daerahBinaan.create({ data: { ...input, picLokalId: actor.userId } })
+  return prisma.daerahBinaan.create({ data: { ...input, picLokalId: actor.userId, unitId: actor.organisasiId ?? undefined } })
 }
 
 export async function listLaporanBulanan(input: { page: number; limit: number; daerahBinaanId?: string }, actor: BinaanActor) {

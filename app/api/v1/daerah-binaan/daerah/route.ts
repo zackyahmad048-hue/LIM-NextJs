@@ -10,8 +10,11 @@ export const GET = createApiHandler(
     const url = new URL(request.url)
     const parsed = listQuerySchema.safeParse(Object.fromEntries(url.searchParams))
     if (!parsed.success) return jsonValidationError(parsed.error.flatten().fieldErrors, requestId)
-    const { items, total } = await listDaerah(parsed.data, principal.subject)
-    return jsonOk(items.map(toDaerahDto), requestId, { meta: buildMeta(parsed.data.page, parsed.data.limit, total) })
+    const result = await listDaerah(parsed.data, principal.subject)
+    const meta = parsed.data.cursor
+      ? { limit: parsed.data.limit, hasMore: result.hasMore, nextCursor: result.nextCursor }
+      : buildMeta(parsed.data.page, parsed.data.limit, result.total)
+    return jsonOk(result.items.map(toDaerahDto), requestId, { meta })
   }
 )
 

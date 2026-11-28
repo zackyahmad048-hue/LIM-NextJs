@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listAllLaporanSidak } from '@/modules/safari/presentation/queries/list-laporan-sidak.query'
 import { createLaporanSidakAction } from '@/modules/safari/presentation/actions/create-laporan-sidak.action'
 
@@ -9,7 +10,7 @@ import { createLaporanSidakAction } from '@/modules/safari/presentation/actions/
 export const instant = false
 
 export default async function SafariSidakPage() {
-  const rows = await listAllLaporanSidak()
+  const rows = await withRequiredSessionTenant(() => listAllLaporanSidak())
   return (
     <div className="space-y-8">
       <PageHeader title="Safari Ramadan — Laporan Sidak" />

@@ -1,7 +1,7 @@
-import { connection } from 'next/server'
 import { PageHeader } from '@/components/layout/page-header'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listPenugasan } from '@/modules/wajib-khidmah/presentation/queries/list-penugasan.query'
 import { submitLaporanAction } from '@/modules/wajib-khidmah/presentation/actions/submit-laporan.action'
 
@@ -9,8 +9,7 @@ import { submitLaporanAction } from '@/modules/wajib-khidmah/presentation/action
 export const instant = false
 
 export default async function WkLaporanPage() {
-  await connection()
-  const penugasan = await listPenugasan()
+  const penugasan = await withRequiredSessionTenant(() => listPenugasan())
   const now = new Date()
   return (
     <div className="max-w-2xl space-y-4">

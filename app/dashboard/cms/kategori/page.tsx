@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listArticleCategories } from '@/modules/cms/presentation/queries/list-articles.query'
 import { createCategoryAction } from '@/modules/cms/presentation/actions/create-category.action'
 
@@ -9,7 +10,7 @@ import { createCategoryAction } from '@/modules/cms/presentation/actions/create-
 export const instant = false
 
 export default async function CmsKategoriPage() {
-  const categories = await listArticleCategories()
+  const categories = await withRequiredSessionTenant(() => listArticleCategories())
   return (
     <div className="space-y-8">
       <PageHeader title="CMS — Kategori Artikel" />

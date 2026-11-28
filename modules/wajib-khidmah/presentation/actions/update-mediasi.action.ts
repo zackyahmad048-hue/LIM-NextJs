@@ -3,7 +3,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { Role } from '@/generated/client'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { updateMediasiSchema } from '@/modules/wajib-khidmah/domain/evaluasi.schema'
 import { updateMediasi, EvaluasiError } from '@/modules/wajib-khidmah/application/evaluasi-kasus'
 import { PrismaEvaluasiRepository } from '@/modules/wajib-khidmah/infrastructure/prisma-evaluasi.repository'
@@ -19,16 +19,19 @@ export async function updateMediasiAction(formData: FormData): Promise<ActionRes
 
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
-  if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
 
-  try {
-    const repo = new PrismaEvaluasiRepository()
-    const result = await updateMediasi(repo, parsed.data, session.user.id)
-    revalidatePath('/dashboard/wajib-khidmah/evaluasi', 'page')
-    return { success: true, data: result }
-  } catch (error) {
-    console.error('[updateMediasiAction]', error)
-    if (error instanceof EvaluasiError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal memperbarui mediasi' }
-  }
+  return runWithSessionTenant(session, async () => {    if (!ALLOWED.includes(session.user.role)) return { success: false, error: 'Forbidden' }
+
+    try {
+      const repo = new PrismaEvaluasiRepository()
+      const result = await updateMediasi(repo, parsed.data, session.user.id)
+      revalidatePath('/dashboard/wajib-khidmah/evaluasi', 'page')
+      return { success: true, data: result }
+    } catch (error) {
+      console.error('[updateMediasiAction]', error)
+      if (error instanceof EvaluasiError) return { success: false, error: error.message }
+      return { success: false, error: 'Gagal memperbarui mediasi' }
+    }
+
+  })
 }

@@ -2,7 +2,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { createUmpanBalikPusatSchema } from '@/modules/pesantren-ramadan/domain/umpan-balik.schema'
 import { createUmpanBalikPusatRecord } from '@/modules/pesantren-ramadan/application/pesantren-operations'
 import { ApiError } from '@/lib/api/errors'
@@ -17,19 +17,22 @@ export async function createUmpanBalikPusatAction(formData: FormData): Promise<A
   const session = (await getSession()) as LIMSession | null
   if (!session) return { success: false, error: 'Unauthorized' }
 
-  try {
-    const result = await createUmpanBalikPusatRecord(parsed.data, {
-      userId: session.user.id,
-      role: session.user.role,
-      accountType: session.user.accountType,
-      organisasiId: null,
-      lembagaId: null,
-    })
-    revalidatePath('/dashboard/pesantren/umpan-balik', 'page')
-    return { success: true, data: result }
-  } catch (error) {
-    console.error('[createUmpanBalikPusatAction]', error)
-    if (error instanceof ApiError) return { success: false, error: error.message }
-    return { success: false, error: 'Gagal menyimpan umpan balik pusat' }
-  }
+  return runWithSessionTenant(session, async () => {
+    try {
+      const result = await createUmpanBalikPusatRecord(parsed.data, {
+        userId: session.user.id,
+        role: session.user.role,
+        accountType: session.user.accountType,
+        organisasiId: null,
+        lembagaId: null,
+      })
+      revalidatePath('/dashboard/pesantren/umpan-balik', 'page')
+      return { success: true, data: result }
+    } catch (error) {
+      console.error('[createUmpanBalikPusatAction]', error)
+      if (error instanceof ApiError) return { success: false, error: error.message }
+      return { success: false, error: 'Gagal menyimpan umpan balik pusat' }
+    }
+
+  })
 }

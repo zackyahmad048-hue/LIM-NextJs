@@ -40,7 +40,7 @@ export async function createTitikSafariRecord(input: {
   if (!['OWNER', 'ADMIN_BIDANG_SAFARI', 'PW', 'PC'].includes(actor.role)) {
     throw new ApiError('FORBIDDEN', 'Anda tidak memiliki izin membuat titik safari', 403)
   }
-  return prisma.titikSafari.create({ data: { ...input } })
+  return prisma.titikSafari.create({ data: { ...input, unitId: actor.organisasiId ?? undefined } })
 }
 
 export async function updateTitikSafariRecord(id: string, input: Partial<{
@@ -89,7 +89,7 @@ export async function createDelegasiRecord(input: {
   }
   const titik = await prisma.titikSafari.findUnique({ where: { id: input.titikId } })
   if (!titik) throw new ApiError('NOT_FOUND', 'Titik safari tidak ditemukan', 404)
-  return prisma.delegasiSafari.create({ data: { ...input, status: 'AKTIF' } })
+  return prisma.delegasiSafari.create({ data: { ...input, status: 'AKTIF', unitId: actor.organisasiId ?? undefined } })
 }
 
 // --- Jurnal ---
@@ -157,7 +157,7 @@ export async function approveJurnalRecord(input: {
         action: input.isApproved ? 'SAFARI_JURNAL_APPROVED' : 'SAFARI_JURNAL_REJECTED',
         entity: 'ApprovalJurnal',
         entityId: created.id,
-        metadata: JSON.stringify({ delegasiId: input.delegasiId }),
+        metadata: { delegasiId: input.delegasiId },
         ipAddress: actor.ipAddress,
       },
     })
@@ -218,7 +218,7 @@ export async function createLaporanSidakRecord(input: {
         action: 'SAFARI_SIDAK_CREATED',
         entity: 'LaporanSidak',
         entityId: created.id,
-        metadata: JSON.stringify({ delegasiId: input.delegasiId }),
+        metadata: { delegasiId: input.delegasiId },
         ipAddress: actor.ipAddress,
       },
     })

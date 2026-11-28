@@ -1,0 +1,36 @@
+2026-11-23 09:46:44,960 - lightrag - INFO - UI customization: no bundle configured (UI_TEMPLATES_DIR unset)
+2026-11-23 09:46:44,976 - lightrag - INFO - OpenAI LLM Options: {}
+2026-11-23 09:46:48,543 - lightrag - INFO - Embedding config: binding=openai model=text-embedding-3-large embedding_dim=3072 max_token_size=8192
+2026-11-23 09:46:48,544 - lightrag - INFO - Send embedding dimension: False by env var (dimensions=3072, has_param=True, binding=openai)
+2026-11-23 09:46:48,544 - lightrag - INFO - Embedding max_token_size: 8192 (from env variable)
+2026-11-23 09:46:48,545 - lightrag - INFO - Reranking is disabled
+2026-11-23 09:46:54,230 - lightrag - INFO - [] Created new empty graph file: /home/linux/LIM-NextJs/rag_storage/graph_chunk_entity_relation.graphml
+2026-11-23 09:46:54,235 - lightrag - INFO - Role LLM Configuration (initialized):
+2026-11-23 09:46:54,236 - lightrag - INFO -  - extract: openai/gpt-6-luna, host=https://api.openai.com/v1, max_async=4, timeout=240
+2026-11-23 09:46:54,236 - lightrag - INFO -  - keyword: openai/gpt-6-luna, host=https://api.openai.com/v1, max_async=4, timeout=240
+2026-11-23 09:46:54,237 - lightrag - INFO -  - query: openai/gpt-6-luna, host=https://api.openai.com/v1, max_async=4, timeout=240
+2026-11-23 09:46:54,237 - lightrag - INFO -  - vlm: openai/gpt-6-luna, host=https://api.openai.com/v1, max_async=4, timeout=240
+2026-11-23 09:46:54,237 - lightrag - INFO - Role LLM Option:
+2026-11-23 09:46:54,238 - lightrag - INFO -  - extract: OpenAI {}
+2026-11-23 09:46:54,238 - lightrag - INFO -  - keyword: OpenAI {}
+2026-11-23 09:46:54,238 - lightrag - INFO -  - query: OpenAI {}
+2026-11-23 09:46:54,238 - lightrag - INFO -  - vlm: OpenAI {}
+2026-11-23 09:46:54,377 - lightrag - INFO - Admin WebUI mounted at /webui/
+2026-11-23 09:46:54,377 - lightrag - INFO - Workspace query UI mounted at /workspace/
+2026-11-23 09:46:54,598 - uvicorn.error - INFO - Started server process [6238]
+2026-11-23 09:46:54,598 - uvicorn.error - INFO - Waiting for application startup.
+2026-11-23 09:46:54,636 - lightrag - INFO - [] Process 6238 KV load full_docs with 0 records
+2026-11-23 09:46:54,650 - lightrag - INFO - [] Process 6238 KV load text_chunks with 0 records
+2026-11-23 09:46:54,651 - lightrag - INFO - [] Process 6238 KV load full_entities with 0 records
+2026-11-23 09:46:54,651 - lightrag - INFO - [] Process 6238 KV load full_relations with 0 records
+2026-11-23 09:46:54,658 - lightrag - INFO - [] Process 6238 KV load entity_chunks with 0 records
+2026-11-23 09:46:54,659 - lightrag - INFO - [] Process 6238 KV load relation_chunks with 0 records
+2026-11-23 09:46:54,661 - lightrag - INFO - [] Process 6238 KV load llm_response_cache with 0 records
+2026-11-23 09:46:54,665 - lightrag - INFO - [] Process 6238 doc status load doc_status with 0 records
+2026-11-23 09:46:54,666 - uvicorn.error - INFO - Application startup complete.
+2026-11-23 09:46:54,672 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:9621 (Press CTRL+C to quit)
+2026-11-23 09:47:08,037 - uvicorn.error - INFO - Shutting down
+2026-11-23 09:47:08,139 - uvicorn.error - INFO - Waiting for application shutdown.
+2026-11-23 09:47:08,140 - lightrag - INFO - Successfully finalized 12 storages
+2026-11-23 09:47:08,141 - uvicorn.error - INFO - Application shutdown complete.
+2026-11-23 09:47:08,141 - uvicorn.error - INFO - Finished server process [6238]

@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listArticles, listArticleCategories } from '@/modules/cms/presentation/queries/list-articles.query'
 import { createArticleAction } from '@/modules/cms/presentation/actions/create-article.action'
 import { createCategoryAction } from '@/modules/cms/presentation/actions/create-category.action'
@@ -10,7 +11,9 @@ import { createCategoryAction } from '@/modules/cms/presentation/actions/create-
 export const instant = false
 
 export default async function CmsArtikelPage() {
-  const [articles, categories] = await Promise.all([listArticles(), listArticleCategories()])
+  const [articles, categories] = await withRequiredSessionTenant(() =>
+    Promise.all([listArticles(), listArticleCategories()]),
+  )
   return (
     <div className="space-y-8">
       <PageHeader title="CMS — Artikel" />

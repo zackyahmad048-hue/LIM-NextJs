@@ -1,6 +1,7 @@
 import { PageHeader } from '@/components/layout/page-header'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listSekolahMitra } from '@/modules/pesantren-ramadan/presentation/queries/list-sekolah-mitra.query'
 import { createPenugasanPesantrenAction } from '@/modules/pesantren-ramadan/presentation/actions/create-penugasan-pesantren.action'
 
@@ -8,7 +9,7 @@ import { createPenugasanPesantrenAction } from '@/modules/pesantren-ramadan/pres
 export const instant = false
 
 export default async function PesantrenPenugasanPage() {
-  const sekolah = await listSekolahMitra()
+  const sekolah = await withRequiredSessionTenant(() => listSekolahMitra())
   return (
     <div className="max-w-2xl space-y-4">
       <PageHeader title="Pesantren Ramadan — Penugasan Pengajar" />

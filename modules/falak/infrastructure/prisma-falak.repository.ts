@@ -8,12 +8,15 @@ export class PrismaFalakRepository implements FalakRepository {
   }
   async upsertJadwal(data: Parameters<FalakRepository['upsertJadwal']>[0]) {
     return prisma.jadwalShalat.upsert({
-      where: { tanggal: data.tanggal },
+      where: { configId_tanggal: { configId: data.configId, tanggal: data.tanggal } },
       create: data,
       update: data,
     })
   }
   async getJadwal(tanggal: Date) {
-    return prisma.jadwalShalat.findUnique({ where: { tanggal } })
+    return prisma.jadwalShalat.findFirst({
+      where: { tanggal },
+      orderBy: { config: { isActive: 'desc' } },
+    })
   }
 }

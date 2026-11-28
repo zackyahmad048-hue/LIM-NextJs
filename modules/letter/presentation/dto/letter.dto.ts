@@ -1,8 +1,9 @@
 import { z } from 'zod'
-import { LetterStatus, LetterType } from '@/generated/client'
+import { LetterAction, LetterStatus, LetterType } from '@/generated/client'
 
 export const letterTypeSchema = z.nativeEnum(LetterType)
 export const letterStatusSchema = z.nativeEnum(LetterStatus)
+export const letterActionSchema = z.nativeEnum(LetterAction)
 
 export const letterDtoSchema = z.object({
   id: z.string(),
@@ -31,7 +32,7 @@ export type LetterSummaryDto = z.infer<typeof letterSummaryDtoSchema>
 export const letterLogDtoSchema = z.object({
   id: z.string(),
   letterId: z.string(),
-  action: letterStatusSchema,
+  action: letterActionSchema,
   userId: z.string(),
   notes: z.string().nullable(),
   timestamp: z.string().datetime(),
@@ -101,7 +102,7 @@ export function toLetterSummaryDto(letter: Parameters<typeof toLetterDto>[0]) {
 export function toLetterLogDto(log: {
   id: string
   letterId: string
-  action: LetterStatus
+  action: LetterAction
   userId: string
   notes: string | null
   timestamp: Date

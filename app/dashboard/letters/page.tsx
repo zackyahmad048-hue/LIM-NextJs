@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getSession } from '@/lib/auth'
+import { getSession, runWithSessionTenant } from '@/lib/auth'
 import { PageHeader } from '@/components/layout/page-header'
 import { StatusBadge } from '@/components/data/status-badge'
 import { EmptyState } from '@/components/data/states'
@@ -23,11 +23,11 @@ export default async function LettersPage() {
     )
   }
 
-  const result = await listLetters({}, {
+  const result = await runWithSessionTenant(session, () => listLetters({}, {
     id: session.user.id,
     role,
     accountType: session.user.accountType as AccountType | undefined,
-  })
+  }))
   const rows = result.items
   return (
     <div className="space-y-4">

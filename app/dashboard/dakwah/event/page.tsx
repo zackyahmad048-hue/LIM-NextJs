@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { EmptyState } from '@/components/data/states'
 import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
+import { withRequiredSessionTenant } from '@/lib/auth'
 import { listPendaftaranEvent } from '@/modules/dakwah-digital/presentation/queries/list-konten.query'
 import { registerEventAction } from '@/modules/dakwah-digital/presentation/actions/register-event.action'
 
@@ -9,7 +10,7 @@ import { registerEventAction } from '@/modules/dakwah-digital/presentation/actio
 export const instant = false
 
 export default async function DakwahEventPage() {
-  const rows = await listPendaftaranEvent()
+  const rows = await withRequiredSessionTenant(() => listPendaftaranEvent())
   return (
     <div className="space-y-8">
       <PageHeader title="Dakwah Digital — Event" />

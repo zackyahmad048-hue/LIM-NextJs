@@ -4,12 +4,13 @@ import { ActionForm } from '@/components/forms/action-form'
 import { FormField } from '@/components/forms/form-field'
 import { listDaerahBinaan } from '@/modules/daerah-binaan/presentation/queries/list-daerah-binaan.query'
 import { createDaerahBinaanAction } from '@/modules/daerah-binaan/presentation/actions/create-daerah-binaan.action'
+import { withRequiredSessionTenant } from '@/lib/auth'
 
 // Membaca sesi/DB tiap request; navigasi boleh menunggu (Cache Components tidak bisa mem-prerender).
 export const instant = false
 
 export default async function DaerahBinaanPage() {
-  const rows = await listDaerahBinaan()
+  const rows = await withRequiredSessionTenant(() => listDaerahBinaan())
   return (
     <div className="space-y-8">
       <PageHeader title="Daerah Binaan" actions={<a href="/dashboard/daerah-binaan/laporan" className="rounded-md border px-3 py-2 text-sm hover:bg-accent">Laporan Bulanan</a>} />
